@@ -3,7 +3,7 @@ package ref_humbold.algolib.maths;
 
 import java.lang.Math;
 
-class Maths
+public class Maths
 {
     /*
     Największy wspólny dzielnik dwóch liczb.

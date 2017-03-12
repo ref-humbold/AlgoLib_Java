@@ -40,8 +40,8 @@ public class BipartiteWeightedGraph
                 throwPartitionError();
     }
 
-    /** @see BipartiteGraph#firstPart */
-    public List<Integer> firstPart()
+    /** @see BipartiteGraph#getFirstPart */
+    public List<Integer> getFirstPart()
     {
         List<Integer> fstPart = new ArrayList<>();
 
@@ -52,8 +52,8 @@ public class BipartiteWeightedGraph
         return fstPart;
     }
 
-    /** @see BipartiteGraph#secondPart */
-    public List<Integer> secondPart()
+    /** @see BipartiteGraph#getSecondPart */
+    public List<Integer> getSecondPart()
     {
         List<Integer> sndPart = new ArrayList<>();
 

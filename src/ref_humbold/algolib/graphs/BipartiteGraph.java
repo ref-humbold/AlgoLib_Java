@@ -41,7 +41,7 @@ public interface BipartiteGraph
     public boolean isPartDifferent(int vertex1, int vertex2);
 
     /** Rzucanie wyjątku przy naruszeniu dwudzielności. */
-    default protected void throwPartitionError()
+    default void throwPartitionError()
         throws IllegalStateException
     {
         throw new IllegalStateException("Graph is not bipartite");

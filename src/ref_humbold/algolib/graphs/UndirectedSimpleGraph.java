@@ -25,7 +25,7 @@ public class UndirectedSimpleGraph
         }
     }
 
-    /** @see Graph#edges */
+    /** @see Graph#getEdges */
     public List< Pair<Integer, Integer> > getEdges()
     {
         List< Pair<Integer, Integer> > edges = new ArrayList< Pair<Integer, Integer> >();
@@ -36,6 +36,19 @@ public class UndirectedSimpleGraph
                     edges.add( new Pair<Integer, Integer>(v, u) );
 
         return edges;
+    }
+
+    /** @see Graph#getEdgesNumber */
+    public int getEdgesNumber()
+    {
+        int edgesNumber = 0;
+
+        for(Integer v : getVertices())
+            for( Integer u : getNeighbours(v) )
+                if(u > v)
+                    ++edgesNumber;
+
+        return edgesNumber;
     }
 }
 

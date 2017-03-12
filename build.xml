@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="build" name="Java">
-    <property environment="env"/>
+<project basedir="." default="build" name="AlgoLib_Java">
+    <property name="src.dir" value="src"/>
+    <property name="test.dir" value="test"/>
+    <property name="built.dir" value="bin"/>
+    <property name="junit.output.dir" value="junit_results"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
-    <path id="AlgoLib.classpath">
-        <pathelement location="bin"/>
+    <path id="junit4.libraryclasspath">
+        <pathelement location="/usr/share/java/junit4.jar"/>
+        <pathelement location="/usr/share/java/hamcrest-core.jar"/>
     </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src" excludes="**/*.java"/>
-        </copy>
-    </target>
+    <path id="AlgoLib_Java.classpath">
+        <pathelement location="${built.dir}"/>
+        <path refid="junit4.libraryclasspath"/>
+    </path>
     <target name="clean">
-        <delete dir="bin"/>
+        <delete dir="${built.dir}"/>
     </target>
-    <target depends="init" name="build">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="AlgoLib.classpath"/>
+    <target name="init" depends="clean">
+        <mkdir dir="${built.dir}"/>
+        <copy includeemptydirs="false" todir="${built.dir}">
+            <fileset dir="${src.dir}" excludes="**/*.java"/>
+        </copy>
+        <!-- copy includeemptydirs="false" todir="${built.dir}">
+            <fileset dir="${test.dir}" excludes="**/*.java"/>
+        </copy -->
+    </target>
+    <target name="build" depends="init">
+        <echo message="${ant.project.name} : ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${built.dir}" source="${source}" target="${target}" includeantruntime="false">
+            <src path="${src.dir}"/>
+            <!-- src path="${test.dir}"/ -->
+            <classpath refid="AlgoLib_Java.classpath"/>
         </javac>
     </target>
+    <target name="all" depends="build"/>
 </project>

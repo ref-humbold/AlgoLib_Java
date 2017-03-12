@@ -22,7 +22,7 @@ public class DirectedWeightedGraph
             graphrepr.get(e.first).add(e.second);
     }
 
-    /** @see Graph#edges */
+    /** @see Graph#getEdges */
     public List< Pair<Integer, Integer> > getEdges()
     {
         List< Pair<Integer, Integer> > edges = new ArrayList< Pair<Integer, Integer> >();
@@ -34,7 +34,19 @@ public class DirectedWeightedGraph
         return edges;
     }
 
-    /** @see WeightedGraph#weightedEdges */
+    /** @see Graph#getEdgesNumber */
+    public int getEdgesNumber()
+    {
+        int edgesNumber = 0;
+
+        for(Integer v : getVertices())
+            for( Integer u : getNeighbours(v) )
+                ++edgesNumber;
+
+        return edgesNumber;
+    }
+
+    /** @see WeightedGraph#getWeightedEdges */
     public List< Pair<Pair<Integer, Integer>, Double> > getWeightedEdges()
     {
         List< Pair<Pair<Integer, Integer>, Double> > edges =

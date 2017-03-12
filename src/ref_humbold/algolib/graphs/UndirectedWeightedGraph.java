@@ -25,7 +25,7 @@ public class UndirectedWeightedGraph
         }
     }
 
-    /** @see Graph#edges */
+    /** @see Graph#getEdges */
     public List< Pair<Integer, Integer> > getEdges()
     {
         List< Pair<Integer, Integer> > edges = new ArrayList< Pair<Integer, Integer> >();
@@ -38,7 +38,20 @@ public class UndirectedWeightedGraph
         return edges;
     }
 
-    /** @see WeightedGraph#weightedEdges */
+    /** @see Graph#getEdgesNumber */
+    public int getEdgesNumber()
+    {
+        int edgesNumber = 0;
+
+        for(Integer v : getVertices())
+            for( Integer u : getNeighbours(v) )
+                if(u > v)
+                    ++edgesNumber;
+
+        return edgesNumber;
+    }
+
+    /** @see WeightedGraph#getWeightedEdges */
     public List< Pair<Pair<Integer, Integer>, Double> > getWeightedEdges()
     {
         List< Pair<Pair<Integer, Integer>, Double> > edges =

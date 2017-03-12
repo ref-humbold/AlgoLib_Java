@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import ref_humbold.algolib.structures.Pair;
 
-class Matching
+public class Matching
 {
     /** Oznaczenie braku skojarzenia. */
     private static final Integer NO_MATCH = null;
@@ -18,7 +18,7 @@ class Matching
     /** Oznaczenie nieskończoności. */
     private static final Integer INF = 1<<30;
 
-    private class MatchAugmenter
+    private static class MatchAugmenter
     {
         /** Graf dwudzielny. */
         BipartiteGraph bigraph;
@@ -31,6 +31,13 @@ class Matching
 
         /** Lista odwiedzonych wierzchołków. */
         List<Boolean> isVisited;
+
+        public MatchAugmenter(BipartiteGraph bigraph)
+        {
+            this.bigraph = bigraph;
+            this.matching = new ArrayList<>(
+                Collections.nCopies(bigraph.getVerticesNumber(), NO_MATCH) );
+        }
 
         public MatchAugmenter(BipartiteGraph bigraph, List<Integer> matching)
         {
@@ -57,6 +64,8 @@ class Matching
 
             distances = new ArrayList<>( Collections.nCopies(bigraph.getVerticesNumber(), INF) );
             isVisited = new ArrayList<>( Collections.nCopies(bigraph.getVerticesNumber(), false) );
+
+            bfs();
 
             for(Integer v : bigraph.getFirstPart())
                 matchAdded = dfs(v) || matchAdded;
@@ -87,8 +96,6 @@ class Matching
                         vertexDeque.addLast( matching.get(nb) );
                     }
             }
-
-            return distances;
         }
 
         /**
@@ -130,15 +137,11 @@ class Matching
 
     public static List< Pair<Integer, Integer> > match(BipartiteGraph bigraph)
     {
-        MatchAugmenter augmenter = new MatchAugmenter( bigraph,
-            new ArrayList<Integer>( Collections.nCopies(bigraph.getVerticesNumber(), NO_MATCH) ) );
-        boolean matchAdded;
+        MatchAugmenter augmenter = new MatchAugmenter(bigraph);
 
-        do
+        while(augmenter.augmentMatch())
         {
-            matchAdded = augmenter.augmentMatch();
         }
-        while(matchAdded);
 
         List<Integer> matching = augmenter.getMatching();
         List< Pair<Integer, Integer> > matchPairs = new ArrayList<>();
