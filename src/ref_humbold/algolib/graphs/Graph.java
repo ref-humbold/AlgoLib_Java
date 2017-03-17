@@ -23,7 +23,7 @@ public interface Graph
     Wszystkie wierzchołki.
     @return lista wierzchołków
     */
-    public List<Integer> getVertices();
+	public List<Integer> getVertices();
 
     /**
     Wszystkie krawędzie.
@@ -37,5 +37,19 @@ public interface Graph
     @return lista sąsiadów wierzchołka
     */
     public List<Integer> getNeighbours(Integer v);
+    
+    /**
+    Stopień wyjściowy wierzchołka.
+    @param v numer wierzchołka
+    @return wartość stopnia wyjściowego wierzchołka
+    */
+    public int getOutdegree(Integer v);
+    
+    /**
+    Stopień wejściowy wierzchołka.
+    @param v numer wierzchołka
+    @return wartość stopnia wejściowego wierzchołka
+    */
+    public int getIndegree(Integer v);
 }
 

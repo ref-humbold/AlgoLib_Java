@@ -22,6 +22,7 @@ public class KMRFactorsDict
     {
         this.text = text;
         this.factors = new HashMap<String, Integer>();
+        kmr();
     }
 
     /**
@@ -47,8 +48,8 @@ public class KMRFactorsDict
     {
         signLetters();
 
-        for(int ln = 2; ln <= text.length(); ln <<= 1)
-            doubleLength(ln);
+        for(int lngt = 2; lngt <= text.length(); lngt <<= 1)
+            doubleLength(lngt);
     }
 
     /** Budowa podsłów złożonych z pojedynczych znaków. */

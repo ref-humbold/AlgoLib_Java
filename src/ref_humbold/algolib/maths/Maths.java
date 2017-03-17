@@ -47,16 +47,16 @@ public class Maths
     @param exponent wykładnik
     @return wynik potęgowania
     */
-    public static long powerI(long base, long exponent)
+    public static double powerI(double base, long exponent)
     {
-        long result = 1;
+        double result = 1.0;
 
         while(exponent > 0)
         {
             if( (exponent&1) == 1 )
-                result = multI(result, base);
+                result *= base;
 
-            base = multI(base, base);
+            base *= base;
             exponent >>= 1;
         }
 
@@ -92,14 +92,14 @@ public class Maths
     @param exponent wykładnik
     @return wynik potęgowania
     */
-    public static long powerR(long base, long exponent)
+    public static double powerR(double base, long exponent)
     {
-        long result = 1;
+    	double result = 1.0;
 
         if(exponent > 0)
-            result = powerR(multI(base, base), exponent>>1);
+            result = powerR(base*base, exponent>>1);
 
-        return (exponent&1) == 1 ? multI(base, result) : result;
+        return (exponent&1) == 1 ? base*result : result;
     }
 
     /*
@@ -114,7 +114,7 @@ public class Maths
         long result = 1;
 
         if(exponent > 0)
-            result = powerR(multI(base, base, modulo), exponent>>1);
+            result = powerR(multI(base, base, modulo), exponent>>1, modulo);
 
         return (exponent&1) == 1 ? multI(base, result, modulo) : result%modulo;
     }
@@ -125,13 +125,13 @@ public class Maths
     @param factor2 drugi czynnik
     @return wynik mnożenia
     */
-    public static long multI(long factor1, long factor2)
+    public static double multI(double factor1, long factor2)
     {
-        long result = 0;
+    	double result = 0.0;
 
         while(factor2 > 0)
         {
-            if( (factor2&1) == 1)
+            if( (factor2&1) == 1 )
                 result += factor1;
 
             factor2 >>= 1;
@@ -154,7 +154,7 @@ public class Maths
 
         while(factor2 > 0)
         {
-            if( (factor2&1) == 1)
+            if( (factor2&1) == 1 )
                 result = (result+factor1)%modulo;
 
             factor2 >>= 1;
@@ -170,9 +170,9 @@ public class Maths
     @param factor2 drugi czynnik
     @return wynik mnożenia
     */
-    public static long multR(long factor1, long factor2)
+    public static double multR(double factor1, long factor2)
     {
-        long result = 0;
+    	double result = 0.0;
 
         if(factor2 > 0)
             result = multR(factor1+factor1, factor2>>1);

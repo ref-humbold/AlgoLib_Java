@@ -40,10 +40,22 @@ public class DirectedSimpleGraph
         int edgesNumber = 0;
 
         for(Integer v : getVertices())
-            for( Integer u : getNeighbours(v) )
-                ++edgesNumber;
+            edgesNumber += getOutdegree(v);
 
         return edgesNumber;
+    }
+    
+    /** @see Graph#getIndegree */
+    public int getIndegree(Integer v)
+    {
+        int indeg = 0;
+
+        for(Integer w : getVertices())
+            for( Integer u : getNeighbours(w) )
+                if(u == v)
+                    ++indeg;
+
+        return indeg;
     }
 }
 

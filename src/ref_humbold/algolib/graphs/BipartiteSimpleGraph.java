@@ -36,7 +36,7 @@ public class BipartiteSimpleGraph
                 graphrepr.get(e.second).add(e.first);
             }
             else
-                throwPartitionError();
+                throw new IllegalStateException("Graph is not bipartite");
     }
 
     /** @see BipartiteGraph#getFirstPart */

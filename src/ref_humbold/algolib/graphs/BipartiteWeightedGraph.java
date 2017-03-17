@@ -37,7 +37,7 @@ public class BipartiteWeightedGraph
                 graphrepr.get(e.second.first).add( new Pair(e.first, e.second.second) );
             }
             else
-                throwPartitionError();
+                throw new IllegalStateException("Graph is not bipartite");
     }
 
     /** @see BipartiteGraph#getFirstPart */

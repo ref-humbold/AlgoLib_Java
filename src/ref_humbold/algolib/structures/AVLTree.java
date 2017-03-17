@@ -15,8 +15,8 @@ public class AVLTree< E extends Comparable<E> >
         /** Wartość w węźle. */
         public E element;
 
-        /** Ojciec węzła. */
-        public AVLNode parent;
+        /** Wysokość węzła. */
+        private int height;
 
         /** Lewy syn węzła. */
         private AVLNode left;
@@ -24,28 +24,23 @@ public class AVLTree< E extends Comparable<E> >
         /** Prawy syn węzła. */
         private AVLNode right;
 
-        /** Wysokość węzła. */
-        private int height;
+        /** Ojciec węzła. */
+        private AVLNode parent;
 
         public AVLNode(E element)
         {
             this.element = element;
-            parent = null;
+            height = 0;
             left = null;
             right = null;
-            height = 0;
+            parent = null;
         }
 
-        /** Getter dla lewego syna węzła. */
         public AVLNode getLeft()
         {
             return left;
         }
 
-        /**
-        Setter dla lewego syna węzła.
-        @param node nowy syn węzła
-        */
         public void setLeft(AVLNode node)
         {
             left = node;
@@ -56,16 +51,11 @@ public class AVLTree< E extends Comparable<E> >
             countHeight();
         }
 
-        /** Getter dla prawego syna węzła. */
         public AVLNode getRight()
         {
             return right;
         }
 
-        /**
-        Setter dla prawego syna węzła.
-        @param node nowy syn węzła
-        */
         public void setRight(AVLNode node)
         {
             right = node;
@@ -76,10 +66,14 @@ public class AVLTree< E extends Comparable<E> >
             countHeight();
         }
 
-        /** Getter dla wysokości węzła. */
-        public int getHeight()
+        public AVLNode getParent()
         {
-            return height;
+            return parent;
+        }
+
+        public void setParent(AVLNode node)
+        {
+            parent = node;
         }
 
         /**
@@ -185,7 +179,7 @@ public class AVLTree< E extends Comparable<E> >
                 return right.minimum();
 
             while(succ != null && succ.element.compareTo(this.element) <= 0)
-                succ = succ.parent;
+                succ = succ.getParent();
 
             return succ;
         }
@@ -202,7 +196,7 @@ public class AVLTree< E extends Comparable<E> >
                 return left.maximum();
 
             while(pred != null && pred.element.compareTo(pred.element) >= 0)
-                pred = pred.parent;
+                pred = pred.getParent();
 
             return pred;
         }
@@ -402,7 +396,7 @@ public class AVLTree< E extends Comparable<E> >
 
             root.getLeft().element = root.element;
             root.element = temp;
-            root.getLeft().parent = null;
+            root.getLeft().setParent(null);
             root.setLeft(null);
             --elems;
         }
@@ -412,7 +406,7 @@ public class AVLTree< E extends Comparable<E> >
 
             root.getRight().element = root.element;
             root.element = temp;
-            root.getRight().parent = null;
+            root.getRight().setParent(null);
             root.setRight(null);
             --elems;
         }
@@ -438,7 +432,7 @@ public class AVLTree< E extends Comparable<E> >
         else
         {
             AVLNode son = node.getLeft() != null ? node.getLeft() : node.getRight();
-            AVLNode nodeParent = node.parent;
+            AVLNode nodeParent = node.getParent();
 
             replaceSubtree(node, son);
             rebalance(nodeParent);
@@ -453,15 +447,17 @@ public class AVLTree< E extends Comparable<E> >
     */
     private void replaceSubtree(AVLNode node, AVLNode root)
     {
-        if(node.parent != null)
+        if(node.isRoot())
         {
-            if(node.isLeftSon())
-                node.parent.setLeft(root);
-            else
-                node.parent.setRight(root);
-
-            node.parent = null;
+            tree = root;
+            root.setParent(null);
         }
+        else if(node.isLeftSon())
+            node.getParent().setLeft(root);
+        else
+            node.getParent().setRight(root);
+
+        node.setParent(null);
     }
 
     /**
@@ -470,19 +466,22 @@ public class AVLTree< E extends Comparable<E> >
     */
     private void rotate(AVLNode node)
     {
-        AVLNode nodeParent = node.parent;
+        if(node.isRoot())
+            return;
 
-        replaceSubtree(nodeParent, node);
+        AVLNode upperNode = node.getParent();
 
         if(node.isLeftSon())
         {
-            nodeParent.setRight(node.getLeft());
-            node.setLeft(nodeParent);
+            upperNode.setRight(node.getLeft());
+            replaceSubtree(upperNode, node);
+            node.setLeft(upperNode);
         }
         else if(node.isRightSon())
         {
-            nodeParent.setLeft(node.getRight());
-            node.setRight(nodeParent);
+            upperNode.setLeft(node.getRight());
+            replaceSubtree(upperNode, node);
+            node.setRight(upperNode);
         }
     }
 
@@ -492,12 +491,12 @@ public class AVLTree< E extends Comparable<E> >
     */
     private void rebalance(AVLNode node)
     {
-        node.countHeight();
-
-        int newBalance = node.getBalance();
-
-        while(node != null && node.parent != null)
+        while(node != null)
         {
+            node.countHeight();
+
+            int newBalance = node.getBalance();
+
             if(newBalance >= 2)
             {
                 if(node.getLeft().getBalance() > 0)
@@ -519,7 +518,7 @@ public class AVLTree< E extends Comparable<E> >
                 }
             }
 
-            node = node.parent;
+            node = node.getParent();
         }
     }
 }

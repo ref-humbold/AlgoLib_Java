@@ -39,11 +39,4 @@ public interface BipartiteGraph
     @return czy wierzchołki są w różnych grupach
     */
     public boolean isPartDifferent(int vertex1, int vertex2);
-
-    /** Rzucanie wyjątku przy naruszeniu dwudzielności. */
-    default void throwPartitionError()
-        throws IllegalStateException
-    {
-        throw new IllegalStateException("Graph is not bipartite");
-    }
 }

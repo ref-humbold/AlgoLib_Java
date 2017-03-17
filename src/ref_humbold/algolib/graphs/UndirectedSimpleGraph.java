@@ -44,11 +44,15 @@ public class UndirectedSimpleGraph
         int edgesNumber = 0;
 
         for(Integer v : getVertices())
-            for( Integer u : getNeighbours(v) )
-                if(u > v)
-                    ++edgesNumber;
+            edgesNumber += getOutdegree(v);
 
-        return edgesNumber;
+        return edgesNumber>>1;
+    }
+    
+    /** @see Graph#getIndegree */
+    public int getIndegree(Integer v)
+    {
+        return getOutdegree(v);
     }
 }
 

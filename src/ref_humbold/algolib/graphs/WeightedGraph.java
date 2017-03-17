@@ -28,17 +28,17 @@ public abstract class WeightedGraph
     {
         return graphrepr.size();
     }
-
-    /** @see Graph#vertices */
+    
+    /** @see Graph#getVertices */
     public List<Integer> getVertices()
-    {
-        List<Integer> vertices = new ArrayList<Integer>();
-
-        for(int i = 0; i < getVerticesNumber(); ++i)
-            vertices.add(i);
-
-        return vertices;
-    }
+	{
+		List<Integer> vertices = new ArrayList<>();
+		
+		for(int i = 0; i < getVerticesNumber(); ++i)
+			vertices.add(i);
+	
+		return vertices;
+	}
 
     /**
     Wszystkie krawędzie wraz z wagami.
@@ -46,7 +46,7 @@ public abstract class WeightedGraph
     */
     public abstract List< Pair<Pair<Integer, Integer>, Double> > getWeightedEdges();
 
-    /** @see Graph#neighbours */
+    /** @see Graph#getNeighbours */
     public List<Integer> getNeighbours(Integer v)
     {
         List<Integer> neighbours = new ArrayList<Integer>();
@@ -58,7 +58,7 @@ public abstract class WeightedGraph
     }
 
     /**
-    Sąsiedzi wierzchołka wraz z wagami.a
+    Sąsiedzi wierzchołka wraz z wagami.
     @param v numer wierzchołka
     @return lista sąsiadów wierzchołka wraz z wagami krawędzi
     */
@@ -74,6 +74,12 @@ public abstract class WeightedGraph
     public List< List< Pair<Integer, Double> > > getAdjacencyList()
     {
         return graphrepr;
+    }
+    
+    /** @see Graph#getOutdegree */
+    public int getOutdegree(Integer v)
+    {
+        return graphrepr.get(v).size();
     }
 
     /**
@@ -93,7 +99,7 @@ public abstract class WeightedGraph
             matrix[i][i] = 0.0;
         }
 
-        for(int v : getVertices())
+        for(Integer v : getVertices())
             for( Pair<Integer, Double> e : getWeightedNeighbours(v) )
                 matrix[v][e.first] = e.second;
 
