@@ -8,6 +8,7 @@ import ref_humbold.algolib.structures.Pair;
 
 public class DirectedWeightedGraph
     extends WeightedGraph
+    implements DirectedGraph
 {
     public DirectedWeightedGraph(int n)
     {
@@ -28,8 +29,8 @@ public class DirectedWeightedGraph
         List< Pair<Integer, Integer> > edges = new ArrayList< Pair<Integer, Integer> >();
 
         for(Integer v : getVertices())
-            for( Integer u : getNeighbours(v) )
-                edges.add( new Pair<Integer, Integer>(v, u) );
+            for(Integer u : getNeighbours(v))
+                edges.add(new Pair<Integer, Integer>(v, u));
 
         return edges;
     }
@@ -52,23 +53,23 @@ public class DirectedWeightedGraph
             new ArrayList< Pair<Pair<Integer, Integer>, Double> >();
 
         for(Integer v : getVertices())
-            for( Pair<Integer, Double> e : getWeightedNeighbours(v) )
+            for(Pair<Integer, Double> e : getWeightedNeighbours(v))
             {
                 Pair<Integer, Integer> edge = new Pair<>(v, e.first);
 
-                edges.add( new Pair<Pair<Integer, Integer>, Double>(edge, e.second) );
+                edges.add(new Pair<Pair<Integer, Integer>, Double>(edge, e.second));
             }
 
         return edges;
     }
-    
+
     /** @see Graph#getIndegree */
     public int getIndegree(Integer v)
     {
         int indeg = 0;
 
         for(Integer w : getVertices())
-            for( Integer u : getNeighbours(w) )
+            for(Integer u : getNeighbours(w))
                 if(u == v)
                     ++indeg;
 

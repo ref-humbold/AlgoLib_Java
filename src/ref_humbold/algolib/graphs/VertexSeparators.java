@@ -51,7 +51,7 @@ public class VertexSeparators
                 dfs(v, 0);
 
         for(int v = 0; v < graph.getVerticesNumber(); ++v)
-            if( isSeparator(v) )
+            if(isSeparator(v))
                 separators.add(v);
 
         return separators;
@@ -65,17 +65,17 @@ public class VertexSeparators
     private void dfs(int vertex, int parent)
     {
         depthsDFS.set(vertex, depthsDFS.get(parent)+1);
-        valuesLOW.set( vertex, depthsDFS.get(vertex) );
+        valuesLOW.set(vertex, depthsDFS.get(vertex));
 
-        for( Integer neighbour : graph.getNeighbours(vertex) )
+        for(Integer neighbour : graph.getNeighbours(vertex))
             if(depthsDFS.get(neighbour) == NO_VALUE)
             {
                 childsDFS.get(vertex).add(neighbour);
                 dfs(neighbour, vertex);
-                valuesLOW.set( vertex, Math.min( valuesLOW.get(vertex), valuesLOW.get(neighbour) ) );
+                valuesLOW.set(vertex, Math.min(valuesLOW.get(vertex), valuesLOW.get(neighbour)));
             }
-            else if( !neighbour.equals(parent) )
-                valuesLOW.set( vertex, Math.min( valuesLOW.get(vertex), depthsDFS.get(neighbour) ) );
+            else if(!neighbour.equals(parent))
+                valuesLOW.set(vertex, Math.min(valuesLOW.get(vertex), depthsDFS.get(neighbour)));
     }
 
     /**
@@ -85,11 +85,11 @@ public class VertexSeparators
     */
     private boolean isSeparator(int vertex)
     {
-        if( depthsDFS.get(vertex).equals(1) )
+        if(depthsDFS.get(vertex).equals(1))
             return childsDFS.get(vertex).size() > 1;
 
-        for( Integer ch : childsDFS.get(vertex) )
-            if( valuesLOW.get(ch) >= depthsDFS.get(vertex) )
+        for(Integer ch : childsDFS.get(vertex))
+            if(valuesLOW.get(ch) >= depthsDFS.get(vertex))
                 return true;
 
         return false;

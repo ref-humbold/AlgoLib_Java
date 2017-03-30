@@ -56,13 +56,13 @@ public class KMRFactorsDict
     private void signLetters()
     {
         Integer codeValue = 0;
-        List<String> letters = Arrays.asList( text.split("") );
+        List<String> letters = Arrays.asList(text.split(""));
 
         Collections.sort(letters);
         factors.put(letters.get(0), codeValue);
 
         for(int i = 1; i < letters.size(); ++i)
-            if( letters.get(i).equals( letters.get(i-1) ) )
+            if(letters.get(i).equals(letters.get(i-1)))
             {
                 ++codeValue;
                 factors.put(letters.get(i), codeValue);
@@ -83,14 +83,14 @@ public class KMRFactorsDict
             String s1 = text.substring(i, i+newLength/2);
             String s2 = text.substring(i+newLength/2, i+newLength);
 
-            codes.add( new Pair(new Pair( factors.get(s1), factors.get(s2) ), i) );
+            codes.add(new Pair(new Pair(factors.get(s1), factors.get(s2)), i));
         }
 
         Collections.sort(codes);
-        factors.put( text.substring(codes.get(0).second, newLength), codeValue);
+        factors.put(text.substring(codes.get(0).second, newLength), codeValue);
 
         for(int i = 1; i < codes.size(); ++i)
-            if( codes.get(i).first.equals(codes.get(i-1).first) )
+            if(codes.get(i).first.equals(codes.get(i-1).first))
             {
                 int index = codes.get(i).second;
 

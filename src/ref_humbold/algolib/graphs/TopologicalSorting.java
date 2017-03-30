@@ -17,7 +17,7 @@ class TopologicalSorting
     public static List<Integer> sortTopological1(Graph digraph)
         throws Exception
     {
-        List<Integer> indegs = new ArrayList<Integer>( Collections.nCopies(digraph.getVerticesNumber(), 0) );
+        List<Integer> indegs = new ArrayList<Integer>(Collections.nCopies(digraph.getVerticesNumber(), 0));
         List<Integer> order = new ArrayList<Integer>();
         Deque<Integer> deque = new ArrayDeque<Integer>();
 
@@ -26,7 +26,7 @@ class TopologicalSorting
                 indegs.set(nb, indegs.get(nb)+1);
 
         for(Integer v : digraph.getVertices())
-            if( indegs.get(v).equals(0) )
+            if(indegs.get(v).equals(0))
                 deque.addLast(v);
 
         while(!deque.isEmpty())
@@ -40,7 +40,7 @@ class TopologicalSorting
             {
                 indegs.set(nb, indegs.get(nb)-1);
 
-                if( indegs.get(nb).equals(0) )
+                if(indegs.get(nb).equals(0))
                     deque.addLast(nb);
             }
         }
@@ -60,10 +60,10 @@ class TopologicalSorting
         throws Exception
     {
         List<Integer> order = new ArrayList<Integer>();
-        List<Boolean> isVisited = new ArrayList<Boolean>( Collections.nCopies(digraph.getVerticesNumber(), false) );
+        List<Boolean> isVisited = new ArrayList<Boolean>(Collections.nCopies(digraph.getVerticesNumber(), false));
 
         for(Integer v : digraph.getVertices())
-            if( !isVisited.get(v) )
+            if(!isVisited.get(v))
                 dfs(v, digraph, order, isVisited);
 
         Collections.reverse(order);
@@ -86,8 +86,8 @@ class TopologicalSorting
     {
         isVisited.set(vertex, true);
 
-        for( Integer neighbour : digraph.getNeighbours(vertex) )
-            if( !isVisited.get(neighbour) )
+        for(Integer neighbour : digraph.getNeighbours(vertex))
+            if(!isVisited.get(neighbour))
                 dfs(neighbour, digraph, order, isVisited);
 
         order.add(vertex);

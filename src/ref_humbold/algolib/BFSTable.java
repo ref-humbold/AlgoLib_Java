@@ -71,7 +71,7 @@ class Table
         Deque<Cell> cellQueue = new ArrayDeque<Cell>();
 
         table[sourceX][sourceY] = 0;
-        cellQueue.addLast( new Cell(sourceX, sourceY) );
+        cellQueue.addLast(new Cell(sourceX, sourceY));
 
         while(!cellQueue.isEmpty())
         {
@@ -80,25 +80,25 @@ class Table
             if(cell.x > 0 && table[cell.x-1][cell.y] == EMPTY_CELL)
             {
                 table[cell.x-1][cell.y] = table[cell.x][cell.y]+1;
-                cellQueue.addLast( new Cell(cell.x-1, cell.y) );
+                cellQueue.addLast(new Cell(cell.x-1, cell.y));
             }
 
             if(cell.x < numRows-1 && table[cell.x+1][cell.y] == EMPTY_CELL)
             {
                 table[cell.x+1][cell.y] = table[cell.x][cell.y]+1;
-                cellQueue.addLast( new Cell(cell.x+1, cell.y) );
+                cellQueue.addLast(new Cell(cell.x+1, cell.y));
             }
 
             if(cell.y > 0 && table[cell.x][cell.y-1] == EMPTY_CELL)
             {
                 table[cell.x][cell.y-1] = table[cell.x][cell.y]+1;
-                cellQueue.addLast( new Cell(cell.x, cell.y-1) );
+                cellQueue.addLast(new Cell(cell.x, cell.y-1));
             }
 
             if(cell.y < numColumns-1 && table[cell.x][cell.y+1] == EMPTY_CELL)
             {
                 table[cell.x][cell.y+1] = table[cell.x][cell.y]+1;
-                cellQueue.addLast( new Cell(cell.x, cell.y+1) );
+                cellQueue.addLast(new Cell(cell.x, cell.y+1));
             }
         }
     }

@@ -59,7 +59,7 @@ class TreeGraph
     public int findLca(int vertex1, int vertex2, int root)
     {
         paths = new ArrayList< List<Integer> >();
-        prePostTimes = new ArrayList< Pair<Integer, Integer> >( Collections.nCopies(verticesNumber+1, (Pair<Integer, Integer>)null) );
+        prePostTimes = new ArrayList< Pair<Integer, Integer> >(Collections.nCopies(verticesNumber+1, (Pair<Integer, Integer>)null));
 
         for(int i = 0; i <= verticesNumber; ++i)
             paths.add(new ArrayList<Integer>());
@@ -68,7 +68,7 @@ class TreeGraph
 
         for(int i = 1; i <= Math.log(verticesNumber)/Math.log(2)+2; ++i)
             for(int w = 1; w <= verticesNumber; ++w)
-                paths.get(w).add( paths.get( paths.get(w).get(i-1) ).get(i-1) );
+                paths.get(w).add(paths.get(paths.get(w).get(i-1)).get(i-1));
 
         return searchLca(vertex1, vertex2);
     }
@@ -89,11 +89,11 @@ class TreeGraph
         paths.get(vertex).add(parent);
         ++timer;
 
-        for( Integer neighbour : graphrepr.get(vertex) )
-            if( !isVisited.get(neighbour) )
+        for(Integer neighbour : graphrepr.get(vertex))
+            if(!isVisited.get(neighbour))
                 timer = dfs(neighbour, vertex, timer);
 
-        prePostTimes.set( vertex, new Pair<Integer, Integer>(preTime, timer) );
+        prePostTimes.set(vertex, new Pair<Integer, Integer>(preTime, timer));
 
         return timer+1;
     }
@@ -106,17 +106,17 @@ class TreeGraph
     */
     private int searchLca(int vertex1, int vertex2)
     {
-        if( isOffspring(vertex1, vertex2) )
+        if(isOffspring(vertex1, vertex2))
             return vertex2;
 
-        if( isOffspring(vertex2, vertex1) )
+        if(isOffspring(vertex2, vertex1))
             return vertex1;
 
         for(int i = paths.get(vertex1).size()-1; i > 0; --i)
         {
             int candidate = paths.get(vertex1).get(i);
 
-            if( !isOffspring(vertex2, candidate) )
+            if(!isOffspring(vertex2, candidate))
                 return searchLca(candidate, vertex2);
         }
 

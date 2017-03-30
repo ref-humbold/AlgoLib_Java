@@ -17,7 +17,7 @@ public class BipartiteWeightedGraph
     public BipartiteWeightedGraph(int n, List<Integer> prt)
     {
         super(n);
-        parts = new ArrayList<Boolean>( Collections.nCopies(n, false) );
+        parts = new ArrayList<Boolean>(Collections.nCopies(n, false));
 
         for(Integer i : prt)
             if(i < n)
@@ -31,10 +31,10 @@ public class BipartiteWeightedGraph
         this(n, prt);
 
         for(Pair< Integer, Pair<Integer, Double> > e : edges)
-            if( isPartDifferent(e.first, e.second.first) )
+            if(isPartDifferent(e.first, e.second.first))
             {
                 graphrepr.get(e.first).add(e.second);
-                graphrepr.get(e.second.first).add( new Pair(e.first, e.second.second) );
+                graphrepr.get(e.second.first).add(new Pair(e.first, e.second.second));
             }
             else
                 throw new IllegalStateException("Graph is not bipartite");
@@ -46,7 +46,7 @@ public class BipartiteWeightedGraph
         List<Integer> fstPart = new ArrayList<>();
 
         for(Integer v : getVertices())
-            if( parts.get(v) )
+            if(parts.get(v))
                 fstPart.add(v);
 
         return fstPart;
@@ -58,7 +58,7 @@ public class BipartiteWeightedGraph
         List<Integer> sndPart = new ArrayList<>();
 
         for(Integer v : getVertices())
-            if( !parts.get(v) )
+            if(!parts.get(v))
                 sndPart.add(v);
 
         return sndPart;

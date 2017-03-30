@@ -18,7 +18,7 @@ public class Searching
     public static List<Boolean> bfs(Graph graph, int root)
     {
         List<Boolean> isVisited =
-            new ArrayList<Boolean>( Collections.nCopies(graph.getVerticesNumber(), false) );
+            new ArrayList<Boolean>(Collections.nCopies(graph.getVerticesNumber(), false));
         Deque<Integer> vertexDeque = new ArrayDeque<Integer>();
 
         vertexDeque.addLast(root);
@@ -28,8 +28,8 @@ public class Searching
         {
             Integer v = vertexDeque.removeFirst();
 
-             for( Integer nb : graph.getNeighbours(v) )
-                if( !isVisited.get(nb) )
+             for(Integer nb : graph.getNeighbours(v))
+                if(!isVisited.get(nb))
                 {
                     isVisited.set(nb, true);
                     vertexDeque.addLast(nb);
@@ -48,7 +48,7 @@ public class Searching
     public static List<Boolean> dfsi(Graph graph, int root)
     {
         List<Boolean> isVisited =
-            new ArrayList<Boolean>( Collections.nCopies(graph.getVerticesNumber(), false) );
+            new ArrayList<Boolean>(Collections.nCopies(graph.getVerticesNumber(), false));
         Deque<Integer> vertexDeque = new ArrayDeque<Integer>();
 
         vertexDeque.addFirst(root);
@@ -58,12 +58,12 @@ public class Searching
         {
             Integer v = vertexDeque.removeFirst();
 
-            if( !isVisited.get(v) )
+            if(!isVisited.get(v))
             {
                 isVisited.set(v, true);
 
-                 for( Integer nb : graph.getNeighbours(v) )
-                    if( !isVisited.get(nb) )
+                 for(Integer nb : graph.getNeighbours(v))
+                    if(!isVisited.get(nb))
                         vertexDeque.addFirst(nb);
             }
         }
@@ -80,7 +80,7 @@ public class Searching
     public static List<Boolean> dfsr(Graph graph, int root)
     {
         List<Boolean> isVisited =
-            new ArrayList<Boolean>( Collections.nCopies(graph.getVerticesNumber(), false) );
+            new ArrayList<Boolean>(Collections.nCopies(graph.getVerticesNumber(), false));
 
         dfsrStep(graph, root, isVisited);
 
@@ -97,8 +97,8 @@ public class Searching
     {
         isVisited.set(vertex, true);
 
-         for( Integer neighbour : graph.getNeighbours(vertex) )
-            if( !isVisited.get(neighbour) )
+         for(Integer neighbour : graph.getNeighbours(vertex))
+            if(!isVisited.get(neighbour))
                 dfsrStep(graph, neighbour, isVisited);
     }
 }

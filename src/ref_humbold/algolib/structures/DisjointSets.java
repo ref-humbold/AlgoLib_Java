@@ -25,8 +25,8 @@ public class DisjointSets <E>
     */
     public E findSet(E element)
     {
-        if( !represents.get(element).equals(element) )
-            represents.put( element, findSet( represents.get(element) ) );
+        if(!represents.get(element).equals(element))
+            represents.put(element, findSet(represents.get(element)));
 
         return represents.get(element);
     }
@@ -38,7 +38,7 @@ public class DisjointSets <E>
     */
     public void unionSet(E element1, E element2)
     {
-        represents.put( findSet(element1), findSet(element2) );
+        represents.put(findSet(element1), findSet(element2));
     }
 
     /**
@@ -49,7 +49,7 @@ public class DisjointSets <E>
     */
     public boolean isSetDifferent(E element1, E element2)
     {
-        return !findSet(element1).equals( findSet(element2) );
+        return !findSet(element1).equals(findSet(element2));
     }
 }
 

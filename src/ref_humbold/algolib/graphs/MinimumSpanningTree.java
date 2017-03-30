@@ -30,10 +30,10 @@ public class MinimumSpanningTree
         DisjointSets <Integer> vertexSets = new DisjointSets <>(universe);
 
         for(int v = 1; v <= wgraph.getVerticesNumber(); ++v)
-            for( Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v) )
+            for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
             {
                 Pair< Double, Pair<Integer, Integer> > weightedEdge =
-                    new Pair<>(-e.second, new Pair<Integer, Integer>(e.first, v) );
+                    new Pair<>(-e.second, new Pair<Integer, Integer>(e.first, v));
 
                 edgeQueue.add(weightedEdge);
             }
@@ -45,7 +45,7 @@ public class MinimumSpanningTree
 
             edgeQueue.poll();
 
-            if( vertexSets.isSetDifferent(edge.first, edge.second) )
+            if(vertexSets.isSetDifferent(edge.first, edge.second))
             {
                 sizeMST += edgeWeight;
                 --numComponents;
@@ -67,9 +67,9 @@ public class MinimumSpanningTree
         double sizeMST = 0.0;
         PriorityQueue< Pair<Double, Integer> > vertexQueue = new PriorityQueue<>();
         List<Boolean> isVisited =
-            new ArrayList<>( Collections.nCopies(wgraph.getVerticesNumber(), false) );
+            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), false));
 
-        vertexQueue.add( new Pair(0.0, source) );
+        vertexQueue.add(new Pair(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
@@ -78,14 +78,14 @@ public class MinimumSpanningTree
 
             vertexQueue.poll();
 
-            if( !isVisited.get(w) )
+            if(!isVisited.get(w))
             {
                 isVisited.set(w, true);
                 sizeMST += edgeWeight;
 
-                for( Pair<Integer, Double> e : wgraph.getWeightedNeighbours(w) )
-                    if( !isVisited.get(e.first) )
-                        vertexQueue.add( new Pair<Double, Integer>(-e.second, e.first) );
+                for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(w))
+                    if(!isVisited.get(e.first))
+                        vertexQueue.add(new Pair<Double, Integer>(-e.second, e.first));
             }
         }
 

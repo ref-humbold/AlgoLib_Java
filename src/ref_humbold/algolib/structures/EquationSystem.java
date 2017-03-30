@@ -66,7 +66,7 @@ public class EquationSystem
                 double min_coef = coeffs[index_min][equ];
                 double act_coef = coeffs[i][equ];
 
-                if( act_coef != 0 && ( min_coef == 0 || Math.abs(act_coef) < Math.abs(min_coef) ) )
+                if(act_coef != 0 && (min_coef == 0 || Math.abs(act_coef) < Math.abs(min_coef)))
                     index_min = i;
             }
 

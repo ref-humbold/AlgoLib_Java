@@ -8,6 +8,7 @@ import ref_humbold.algolib.structures.Pair;
 
 public class DirectedSimpleGraph
     extends SimpleGraph
+    implements DirectedGraph
 {
     public DirectedSimpleGraph(int n)
     {
@@ -28,8 +29,8 @@ public class DirectedSimpleGraph
         List< Pair<Integer, Integer> > edges = new ArrayList< Pair<Integer, Integer> >();
 
         for(Integer v : getVertices())
-            for( Integer u : getNeighbours(v) )
-                edges.add( new Pair<Integer, Integer>(v, u) );
+            for(Integer u : getNeighbours(v))
+                edges.add(new Pair<Integer, Integer>(v, u));
 
         return edges;
     }
@@ -44,14 +45,14 @@ public class DirectedSimpleGraph
 
         return edgesNumber;
     }
-    
+
     /** @see Graph#getIndegree */
     public int getIndegree(Integer v)
     {
         int indeg = 0;
 
         for(Integer w : getVertices())
-            for( Integer u : getNeighbours(w) )
+            for(Integer u : getNeighbours(w))
                 if(u == v)
                     ++indeg;
 

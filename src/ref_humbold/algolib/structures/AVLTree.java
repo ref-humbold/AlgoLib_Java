@@ -131,7 +131,7 @@ public class AVLTree< E extends Comparable<E> >
         */
         public AVLNode getSubtree(E element)
         {
-            if( element.equals(this.element) )
+            if(element.equals(this.element))
                 return this;
             else if(element.compareTo(this.element) < 0)
                 return left;

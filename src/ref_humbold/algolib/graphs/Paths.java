@@ -26,16 +26,16 @@ public class Paths
         throws IllegalStateException
     {
         List<Double> distances =
-            new ArrayList<>( Collections.nCopies(wgraph.getVerticesNumber(), INF) );
+            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), INF));
 
         for(int u = 0; u < wgraph.getVerticesNumber()-1; ++u)
             for(Integer v : wgraph.getVertices())
-                for( Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v) )
-                    distances.set( e.first, Math.min(distances.get(e.first), distances.get(v)+e.second) );
+                for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
+                    distances.set(e.first, Math.min(distances.get(e.first), distances.get(v)+e.second));
 
         for(Integer v : wgraph.getVertices())
-            for( Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v) )
-                if( distances.get(v) < INF && distances.get(v)+e.second < distances.get(e.first) )
+            for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
+                if(distances.get(v) < INF && distances.get(v)+e.second < distances.get(e.first))
                     throw new IllegalStateException("Graph contains a negative cycle.");
 
         return distances;
@@ -51,23 +51,23 @@ public class Paths
         throws IllegalStateException
     {
         List<Double> distances =
-            new ArrayList<>( Collections.nCopies(wgraph.getVerticesNumber(), INF) );
+            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), INF));
         List<Boolean> isVisited =
-            new ArrayList<>( Collections.nCopies(wgraph.getVerticesNumber(), false) );
+            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), false));
         PriorityQueue< Pair<Double, Integer> > vertexQueue = new PriorityQueue<>();
 
         distances.set(source, 0.0);
-        vertexQueue.add( new Pair<Double, Integer>(0.0, source) );
+        vertexQueue.add(new Pair<Double, Integer>(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
             Integer v = vertexQueue.poll().second;
 
-            if( !isVisited.get(v) )
+            if(!isVisited.get(v))
             {
                 isVisited.set(v, true);
 
-                for( Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v) )
+                for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
                 {
                     Integer nb = e.first;
                     Double wg = e.second;
@@ -75,10 +75,10 @@ public class Paths
                     if(wg < 0)
                         throw new IllegalStateException("Graph contains a negative weighted edge.");
 
-                    if( distances.get(v)+wg < distances.get(nb) )
+                    if(distances.get(v)+wg < distances.get(nb))
                     {
                         distances.set(nb, distances.get(v)+wg);
-                        vertexQueue.add( new Pair<Double, Integer>(-distances.get(nb), nb) );
+                        vertexQueue.add(new Pair<Double, Integer>(-distances.get(nb), nb));
                     }
                 }
             }

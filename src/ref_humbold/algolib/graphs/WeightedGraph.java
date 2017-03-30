@@ -10,17 +10,17 @@ public abstract class WeightedGraph
     implements Graph
 {
     /** oznaczenie nieskończoności */
-    protected static double INF = Double.POSITIVE_INFINITY;
+    public static double INF = Double.POSITIVE_INFINITY;
 
     /** Lista sąsiedztwa grafu ważonego. */
-    protected List< List< Pair<Integer, Double> > > graphrepr;
+    protected List<List<Pair<Integer, Double>>> graphrepr;
 
     public WeightedGraph(int n)
     {
-        graphrepr = new ArrayList< List< Pair<Integer, Double> > >();
+        graphrepr = new ArrayList<List<Pair<Integer, Double>>>();
 
         for(int i = 0; i < n; ++i)
-            graphrepr.add(new ArrayList< Pair<Integer, Double> >());
+            graphrepr.add(new ArrayList<Pair<Integer, Double>>());
     }
 
     /** @see Graph#getVerticesNumber */
@@ -28,15 +28,15 @@ public abstract class WeightedGraph
     {
         return graphrepr.size();
     }
-    
+
     /** @see Graph#getVertices */
     public List<Integer> getVertices()
 	{
 		List<Integer> vertices = new ArrayList<>();
-		
+
 		for(int i = 0; i < getVerticesNumber(); ++i)
 			vertices.add(i);
-	
+
 		return vertices;
 	}
 
@@ -51,7 +51,7 @@ public abstract class WeightedGraph
     {
         List<Integer> neighbours = new ArrayList<Integer>();
 
-        for( Pair<Integer, Double> e : graphrepr.get(v) )
+        for(Pair<Integer, Double> e : graphrepr.get(v))
             neighbours.add(e.first);
 
         return neighbours;
@@ -75,7 +75,7 @@ public abstract class WeightedGraph
     {
         return graphrepr;
     }
-    
+
     /** @see Graph#getOutdegree */
     public int getOutdegree(Integer v)
     {
@@ -100,7 +100,7 @@ public abstract class WeightedGraph
         }
 
         for(Integer v : getVertices())
-            for( Pair<Integer, Double> e : getWeightedNeighbours(v) )
+            for(Pair<Integer, Double> e : getWeightedNeighbours(v))
                 matrix[v][e.first] = e.second;
 
         return matrix;

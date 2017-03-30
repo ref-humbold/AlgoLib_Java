@@ -53,7 +53,7 @@ public class Maths
 
         while(exponent > 0)
         {
-            if( (exponent&1) == 1 )
+            if((exponent&1) == 1)
                 result *= base;
 
             base *= base;
@@ -76,7 +76,7 @@ public class Maths
 
         while(exponent > 0)
         {
-            if( (exponent&1) == 1 )
+            if((exponent&1) == 1)
                 result = multI(result, base, modulo);
 
             base = multI(base, base, modulo);
@@ -131,7 +131,7 @@ public class Maths
 
         while(factor2 > 0)
         {
-            if( (factor2&1) == 1 )
+            if((factor2&1) == 1)
                 result += factor1;
 
             factor2 >>= 1;
@@ -154,7 +154,7 @@ public class Maths
 
         while(factor2 > 0)
         {
-            if( (factor2&1) == 1 )
+            if((factor2&1) == 1)
                 result = (result+factor1)%modulo;
 
             factor2 >>= 1;

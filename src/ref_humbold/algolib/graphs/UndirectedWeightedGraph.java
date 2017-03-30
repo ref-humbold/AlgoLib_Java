@@ -8,6 +8,7 @@ import ref_humbold.algolib.structures.Pair;
 
 public class UndirectedWeightedGraph
     extends WeightedGraph
+    implements UndirectedGraph
 {
     public UndirectedWeightedGraph(int n)
     {
@@ -21,7 +22,7 @@ public class UndirectedWeightedGraph
         for(Pair< Integer, Pair<Integer, Double> > e : edges)
         {
             graphrepr.get(e.first).add(e.second);
-            graphrepr.get(e.second.first).add( new Pair(e.first, e.second.second) );
+            graphrepr.get(e.second.first).add(new Pair(e.first, e.second.second));
         }
     }
 
@@ -31,9 +32,9 @@ public class UndirectedWeightedGraph
         List< Pair<Integer, Integer> > edges = new ArrayList< Pair<Integer, Integer> >();
 
         for(Integer v : getVertices())
-            for( Integer u : getNeighbours(v) )
+            for(Integer u : getNeighbours(v))
                 if(u > v)
-                    edges.add( new Pair<Integer, Integer>(v, u) );
+                    edges.add(new Pair<Integer, Integer>(v, u));
 
         return edges;
     }
@@ -56,17 +57,17 @@ public class UndirectedWeightedGraph
             new ArrayList< Pair<Pair<Integer, Integer>, Double> >();
 
         for(Integer v : getVertices())
-            for( Pair<Integer, Double> e : getWeightedNeighbours(v) )
+            for(Pair<Integer, Double> e : getWeightedNeighbours(v))
                 if(e.first > v)
                 {
                     Pair<Integer, Integer> edge = new Pair<Integer, Integer>(v, e.first);
 
-                    edges.add( new Pair<Pair<Integer, Integer>, Double>(edge, e.second) );
+                    edges.add(new Pair<Pair<Integer, Integer>, Double>(edge, e.second));
                 }
 
         return edges;
     }
-    
+
     /** @see Graph#getIndegree */
     public int getIndegree(Integer v)
     {

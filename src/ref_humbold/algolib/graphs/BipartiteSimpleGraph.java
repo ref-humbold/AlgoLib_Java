@@ -17,7 +17,7 @@ public class BipartiteSimpleGraph
     public BipartiteSimpleGraph(int n, List<Integer> prt)
     {
         super(n);
-        parts = new ArrayList<Boolean>( Collections.nCopies(n, false) );
+        parts = new ArrayList<Boolean>(Collections.nCopies(n, false));
 
         for(Integer i : prt)
             if(i < n)
@@ -30,7 +30,7 @@ public class BipartiteSimpleGraph
         this(n, prt);
 
         for(Pair<Integer, Integer> e : edges)
-            if( isPartDifferent(e.first, e.second) )
+            if(isPartDifferent(e.first, e.second))
             {
                 graphrepr.get(e.first).add(e.second);
                 graphrepr.get(e.second).add(e.first);
@@ -45,7 +45,7 @@ public class BipartiteSimpleGraph
         List<Integer> fstPart = new ArrayList<Integer>();
 
         for(Integer v : getVertices())
-            if( parts.get(v) )
+            if(parts.get(v))
                 fstPart.add(v);
 
         return fstPart;
@@ -57,7 +57,7 @@ public class BipartiteSimpleGraph
         List<Integer> sndPart = new ArrayList<Integer>();
 
         for(Integer v : getVertices())
-            if( !parts.get(v) )
+            if(!parts.get(v))
                 sndPart.add(v);
 
         return sndPart;

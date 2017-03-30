@@ -57,8 +57,8 @@ public class Bridges
             }
 
         for(int v = 1; v < graph.getVerticesNumber(); ++v)
-            if(valuesLOW.get(v).equals( depthsDFS.get(v) ) && parentDFS.get(v) > 0)
-                bridges.add( new Pair<Integer, Integer>( v, parentDFS.get(v) ) );
+            if(valuesLOW.get(v).equals(depthsDFS.get(v)) && parentDFS.get(v) > 0)
+                bridges.add(new Pair<Integer, Integer>(v, parentDFS.get(v)));
 
         return bridges;
     }
@@ -69,18 +69,18 @@ public class Bridges
     */
     private void dfs(int vertex)
     {
-        depthsDFS.set(vertex, depthsDFS.get( parentDFS.get(vertex) )+1);
-        valuesLOW.set(vertex, depthsDFS.get(vertex) );
+        depthsDFS.set(vertex, depthsDFS.get(parentDFS.get(vertex))+1);
+        valuesLOW.set(vertex, depthsDFS.get(vertex));
 
-        for( Integer neghbour : graph.getNeighbours(vertex) )
+        for(Integer neghbour : graph.getNeighbours(vertex))
             if(depthsDFS.get(neghbour) == NO_VALUE)
             {
                 parentDFS.set(neghbour, vertex);
                 dfs(neghbour);
-                valuesLOW.set(vertex, Math.min( valuesLOW.get(vertex), valuesLOW.get(neghbour) ) );
+                valuesLOW.set(vertex, Math.min(valuesLOW.get(vertex), valuesLOW.get(neghbour)));
             }
-            else if( !neghbour.equals( parentDFS.get(vertex) ) )
-                valuesLOW.set(vertex, Math.min( valuesLOW.get(vertex), depthsDFS.get(neghbour) ) );
+            else if(!neghbour.equals(parentDFS.get(vertex)))
+                valuesLOW.set(vertex, Math.min(valuesLOW.get(vertex), depthsDFS.get(neghbour)));
     }
 }
 

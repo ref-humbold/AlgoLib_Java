@@ -8,6 +8,7 @@ import ref_humbold.algolib.structures.Pair;
 
 public class UndirectedSimpleGraph
     extends SimpleGraph
+    implements UndirectedGraph
 {
     public UndirectedSimpleGraph(int n)
     {
@@ -31,9 +32,9 @@ public class UndirectedSimpleGraph
         List< Pair<Integer, Integer> > edges = new ArrayList< Pair<Integer, Integer> >();
 
         for(Integer v : getVertices())
-            for( Integer u : getNeighbours(v) )
+            for(Integer u : getNeighbours(v))
                 if(u > v)
-                    edges.add( new Pair<Integer, Integer>(v, u) );
+                    edges.add(new Pair<Integer, Integer>(v, u));
 
         return edges;
     }
@@ -48,7 +49,7 @@ public class UndirectedSimpleGraph
 
         return edgesNumber>>1;
     }
-    
+
     /** @see Graph#getIndegree */
     public int getIndegree(Integer v)
     {

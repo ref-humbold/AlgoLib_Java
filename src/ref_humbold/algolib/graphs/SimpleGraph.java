@@ -23,15 +23,15 @@ public abstract class SimpleGraph
     {
         return graphrepr.size();
     }
-    
+
     /** @see Graph#getVertices */
     public List<Integer> getVertices()
 	{
 		List<Integer> vertices = new ArrayList<>();
-		
+
 		for(int i = 0; i < getVerticesNumber(); ++i)
 			vertices.add(i);
-	
+
 		return vertices;
 	}
 
@@ -40,7 +40,7 @@ public abstract class SimpleGraph
     {
         return graphrepr.get(v);
     }
-    
+
     /** @see Graph#getOutdegree */
     public int getOutdegree(Integer v)
     {
@@ -70,7 +70,7 @@ public abstract class SimpleGraph
                 matrix[i][j] = false;
 
         for(Integer v : getVertices())
-            for( int u : getNeighbours(v) )
+            for(int u : getNeighbours(v))
                 matrix[v][u] = true;
 
         return matrix;

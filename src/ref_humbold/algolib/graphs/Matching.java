@@ -36,7 +36,7 @@ public class Matching
         {
             this.bigraph = bigraph;
             this.matching = new ArrayList<>(
-                Collections.nCopies(bigraph.getVerticesNumber(), NO_MATCH) );
+                Collections.nCopies(bigraph.getVerticesNumber(), NO_MATCH));
         }
 
         public MatchAugmenter(BipartiteGraph bigraph, List<Integer> matching)
@@ -62,8 +62,8 @@ public class Matching
         {
             boolean matchAdded = false;
 
-            distances = new ArrayList<>( Collections.nCopies(bigraph.getVerticesNumber(), INF) );
-            isVisited = new ArrayList<>( Collections.nCopies(bigraph.getVerticesNumber(), false) );
+            distances = new ArrayList<>(Collections.nCopies(bigraph.getVerticesNumber(), INF));
+            isVisited = new ArrayList<>(Collections.nCopies(bigraph.getVerticesNumber(), false));
 
             bfs();
 
@@ -88,12 +88,12 @@ public class Matching
             {
                 Integer v = vertexDeque.removeFirst();
 
-                for( Integer nb : bigraph.getNeighbours(v) )
-                    if( matching.get(nb) != NO_MATCH
-                        && distances.get( matching.get(nb) ).equals(INF) )
+                for(Integer nb : bigraph.getNeighbours(v))
+                    if(matching.get(nb) != NO_MATCH
+                        && distances.get(matching.get(nb)).equals(INF))
                     {
                         distances.set(matching.get(nb), distances.get(v)+1);
-                        vertexDeque.addLast( matching.get(nb) );
+                        vertexDeque.addLast(matching.get(nb));
                     }
             }
         }
@@ -107,7 +107,7 @@ public class Matching
         {
             isVisited.set(vertex, true);
 
-            for( Integer neighbour : bigraph.getNeighbours(vertex) )
+            for(Integer neighbour : bigraph.getNeighbours(vertex))
             {
                 if(matching.get(neighbour) == NO_MATCH)
                 {
@@ -120,8 +120,8 @@ public class Matching
                 {
                     Integer mtc = matching.get(neighbour);
 
-                    if( distances.get(mtc).equals( distances.get(vertex)+1 )
-                        && !isVisited.get(mtc) && dfs(mtc) )
+                    if(distances.get(mtc).equals(distances.get(vertex)+1)
+                        && !isVisited.get(mtc) && dfs(mtc))
                     {
                         matching.set(vertex, neighbour);
                         matching.set(neighbour, vertex);
@@ -147,7 +147,7 @@ public class Matching
         List< Pair<Integer, Integer> > matchPairs = new ArrayList<>();
 
         for(Integer v : bigraph.getFirstPart())
-            matchPairs.add( new Pair( v, matching.get(v) ) );
+            matchPairs.add(new Pair(v, matching.get(v)));
 
         return matchPairs;
     }
