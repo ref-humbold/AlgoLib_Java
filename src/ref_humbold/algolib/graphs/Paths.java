@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.graphs.DirectedWeightedGraph;
 import ref_humbold.algolib.graphs.WeightedGraph;
 
 public class Paths
@@ -17,51 +18,54 @@ public class Paths
     private static double INF = Double.POSITIVE_INFINITY;
 
     /**
-    Algorytm Bellmana-Forda.
-    @param wgraph graf ważony
-    @param source wierzchołek początkowy
-    @return lista odległości wierzchołków
-    */
-    public static List<Double> bellmanFord(WeightedGraph wgraph, int source)
+     * Algorytm Bellmana-Forda.
+     * @param dwgraph graf ważony
+     * @param source wierzchołek początkowy
+     * @return lista odległości wierzchołków
+     */
+    public static List<Double> bellmanFord(DirectedWeightedGraph dwgraph, int source)
         throws IllegalStateException
     {
-        List<Double> distances =
-            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), INF));
+        List<Double> distances = new ArrayList<>(Collections.nCopies(dwgraph.getVerticesNumber(),
+                                                                     INF));
 
-        for(int u = 0; u < wgraph.getVerticesNumber()-1; ++u)
-            for(Integer v : wgraph.getVertices())
-                for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
-                    distances.set(e.first, Math.min(distances.get(e.first), distances.get(v)+e.second));
+        for(int u = 0; u < dwgraph.getVerticesNumber() - 1; ++u)
+            for(Integer v : dwgraph.getVertices())
+                for(Pair<Integer, Double> e : dwgraph.getWeightedNeighbours(v))
+                    distances.set(e.getFirst(),
+                                  Math.min(distances.get(e.getFirst()),
+                                           distances.get(v) + e.getSecond()));
 
-        for(Integer v : wgraph.getVertices())
-            for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
-                if(distances.get(v) < INF && distances.get(v)+e.second < distances.get(e.first))
+        for(Integer v : dwgraph.getVertices())
+            for(Pair<Integer, Double> e : dwgraph.getWeightedNeighbours(v))
+                if(distances.get(v) < INF
+                    && distances.get(v) + e.getSecond() < distances.get(e.getFirst()))
                     throw new IllegalStateException("Graph contains a negative cycle.");
 
         return distances;
     }
 
     /**
-    Algorytm Dijkstry.
-    @param wgraph graf ważony z wagami nieujemnymi
-    @param source wierzchołek początkowy
-    @return lista odległości wierzchołków
-    */
+     * Algorytm Dijkstry.
+     * @param wgraph graf ważony z wagami nieujemnymi
+     * @param source wierzchołek początkowy
+     * @return lista odległości wierzchołków
+     */
     public static List<Double> dijkstra(WeightedGraph wgraph, int source)
         throws IllegalStateException
     {
-        List<Double> distances =
-            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), INF));
-        List<Boolean> isVisited =
-            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), false));
-        PriorityQueue< Pair<Double, Integer> > vertexQueue = new PriorityQueue<>();
+        List<Double> distances = new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(),
+                                                                     INF));
+        List<Boolean> isVisited = new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(),
+                                                                      false));
+        PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
 
         distances.set(source, 0.0);
         vertexQueue.add(new Pair<Double, Integer>(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
-            Integer v = vertexQueue.poll().second;
+            Integer v = vertexQueue.poll().getSecond();
 
             if(!isVisited.get(v))
             {
@@ -69,15 +73,15 @@ public class Paths
 
                 for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
                 {
-                    Integer nb = e.first;
-                    Double wg = e.second;
+                    Integer nb = e.getFirst();
+                    Double wg = e.getSecond();
 
                     if(wg < 0)
                         throw new IllegalStateException("Graph contains a negative weighted edge.");
 
-                    if(distances.get(v)+wg < distances.get(nb))
+                    if(distances.get(v) + wg < distances.get(nb))
                     {
-                        distances.set(nb, distances.get(v)+wg);
+                        distances.set(nb, distances.get(v) + wg);
                         vertexQueue.add(new Pair<Double, Integer>(-distances.get(nb), nb));
                     }
                 }
@@ -88,18 +92,25 @@ public class Paths
     }
 
     /**
-    Algorytm Floyda-Warshalla.
-    @param wgraph graf ważony
-    @return macierz odległości
-    */
-    public static double[][] floydWarshall(WeightedGraph wgraph)
+     * Algorytm Floyda-Warshalla.
+     * @param wgraph graf ważony
+     * @return macierz odległości
+     */
+    public static double[][] floydWarshall(DirectedWeightedGraph dwgraph)
     {
-        double[][] distances = wgraph.getAdjacencyMatrix();
+        int vertnum = dwgraph.getVerticesNumber();
 
-        for(int x = 1; x <= wgraph.getVerticesNumber(); ++x)
-            for(int w = 1; w <= wgraph.getVerticesNumber(); ++w)
-                for(int u = 1; u <= wgraph.getVerticesNumber(); ++u)
-                    distances[w][u] = Math.min(distances[w][u], distances[w][x]+distances[x][u]);
+        double[][] distances = new double[vertnum][vertnum];
+
+        for(Pair<Pair<Integer, Integer>, Double> e : dwgraph.getWeightedEdges())
+        {
+            distances[e.getFirst().getFirst()][e.getFirst().getSecond()] = e.getSecond();
+        }
+
+        for(int x : dwgraph.getVertices())
+            for(int v : dwgraph.getVertices())
+                for(int u : dwgraph.getVertices())
+                    distances[v][u] = Math.min(distances[v][u], distances[v][x] + distances[x][u]);
 
         return distances;
     }

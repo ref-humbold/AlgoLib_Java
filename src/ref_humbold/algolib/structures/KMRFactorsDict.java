@@ -26,18 +26,18 @@ public class KMRFactorsDict
     }
 
     /**
-    Getter dla słownika.
-    @return słownik podsłów bazowych
-    */
+     * Getter dla słownika.
+     * @return słownik podsłów bazowych
+     */
     public Map<String, Integer> getFactors()
     {
         return factors;
     }
 
     /**
-    Getter dla słowa.
-    @return słowo
-    */
+     * Getter dla słowa.
+     * @return słowo
+     */
     public String getText()
     {
         return text;
@@ -62,7 +62,7 @@ public class KMRFactorsDict
         factors.put(letters.get(0), codeValue);
 
         for(int i = 1; i < letters.size(); ++i)
-            if(letters.get(i).equals(letters.get(i-1)))
+            if(letters.get(i).equals(letters.get(i - 1)))
             {
                 ++codeValue;
                 factors.put(letters.get(i), codeValue);
@@ -70,33 +70,32 @@ public class KMRFactorsDict
     }
 
     /**
-    Budowa nowych podsłów o podwojonej długości.
-    @param newLength nowa długość podsłów
-    */
+     * Budowa nowych podsłów o podwojonej długości.
+     * @param newLength nowa długość podsłów
+     */
     private void doubleLength(int newLength)
     {
         int codeValue = 0;
-        List< Pair< Pair<String, String>, Integer> > codes = new ArrayList<>();
+        List<Pair<Pair<Integer, Integer>, Integer>> codes = new ArrayList<>();
 
-        for(int i = 0; i <= text.length()-newLength; ++i)
+        for(int i = 0; i <= text.length() - newLength; ++i)
         {
-            String s1 = text.substring(i, i+newLength/2);
-            String s2 = text.substring(i+newLength/2, i+newLength);
+            String s1 = text.substring(i, i + newLength / 2);
+            String s2 = text.substring(i + newLength / 2, i + newLength);
 
-            codes.add(new Pair(new Pair(factors.get(s1), factors.get(s2)), i));
+            codes.add(new Pair<>(new Pair<>(factors.get(s1), factors.get(s2)), i));
         }
 
         Collections.sort(codes);
-        factors.put(text.substring(codes.get(0).second, newLength), codeValue);
+        factors.put(text.substring(codes.get(0).getSecond(), newLength), codeValue);
 
         for(int i = 1; i < codes.size(); ++i)
-            if(codes.get(i).first.equals(codes.get(i-1).first))
+            if(codes.get(i).getFirst().equals(codes.get(i - 1).getFirst()))
             {
-                int index = codes.get(i).second;
+                int index = codes.get(i).getSecond();
 
                 ++codeValue;
-                factors.put(text.substring(index, index+newLength), codeValue);
+                factors.put(text.substring(index, index + newLength), codeValue);
             }
     }
 }
-

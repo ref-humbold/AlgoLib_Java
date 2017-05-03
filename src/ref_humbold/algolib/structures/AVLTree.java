@@ -7,7 +7,7 @@ import java.lang.Math;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class AVLTree< E extends Comparable<E> >
+public class AVLTree<E extends Comparable<E>>
     implements Iterable<E>
 {
     protected class AVLNode
@@ -77,39 +77,39 @@ public class AVLTree< E extends Comparable<E> >
         }
 
         /**
-        Wyliczanie balansu wierzchołka.
-        @return wartość balansu
-        */
+         * Wyliczanie balansu wierzchołka.
+         * @return wartość balansu
+         */
         public int getBalance()
         {
             int leftHeight = left == null ? 0 : left.height;
             int rightHeight = right == null ? 0 : right.height;
 
-            return leftHeight-rightHeight;
+            return leftHeight - rightHeight;
         }
 
         /**
-        Sprawdzanie, czy węzeł jest korzeniem
-        @return czy węzeł to korzeń
-        */
+         * Sprawdzanie, czy węzeł jest korzeniem
+         * @return czy węzeł to korzeń
+         */
         public boolean isRoot()
         {
             return parent == null;
         }
 
         /**
-        Sprawdzanie, czy węzeł jest lewym synem
-        @return czy węzeł to lewy syn
-        */
+         * Sprawdzanie, czy węzeł jest lewym synem
+         * @return czy węzeł to lewy syn
+         */
         public boolean isLeftSon()
         {
             return isRoot() ? false : parent.left == this;
         }
 
         /**
-        Sprawdzanie, czy węzeł jest prawym synem
-        @return czy węzeł to prawy syn
-        */
+         * Sprawdzanie, czy węzeł jest prawym synem
+         * @return czy węzeł to prawy syn
+         */
         public boolean isRightSon()
         {
             return isRoot() ? false : parent.right == this;
@@ -121,14 +121,14 @@ public class AVLTree< E extends Comparable<E> >
             int leftHeight = left == null ? -1 : left.height;
             int rightHeight = right == null ? -1 : right.height;
 
-            height = Math.max(leftHeight, rightHeight)+1;
+            height = Math.max(leftHeight, rightHeight) + 1;
         }
 
         /**
-        Wyznaczanie korzenia drzewa, w którym mógłby znależć się element.
-        @param element element do testowania
-        @return korzeń poddrzewa, w którym znalazłby się element
-        */
+         * Wyznaczanie korzenia drzewa, w którym mógłby znależć się element.
+         * @param element element do testowania
+         * @return korzeń poddrzewa, w którym znalazłby się element
+         */
         public AVLNode getSubtree(E element)
         {
             if(element.equals(this.element))
@@ -140,9 +140,9 @@ public class AVLTree< E extends Comparable<E> >
         }
 
         /**
-        Wyszukiwanie minimum w poddrzewie.
-        @return węzeł z minimalną wartością w poddrzewie
-        */
+         * Wyszukiwanie minimum w poddrzewie.
+         * @return węzeł z minimalną wartością w poddrzewie
+         */
         public AVLNode minimum()
         {
             AVLNode tree_iter = this;
@@ -154,9 +154,9 @@ public class AVLTree< E extends Comparable<E> >
         }
 
         /**
-        Wyszukiwanie maksimum w ukorzenionym poddrzewie.
-        @return węzeł z maksymalną wartością w poddrzewie
-        */
+         * Wyszukiwanie maksimum w ukorzenionym poddrzewie.
+         * @return węzeł z maksymalną wartością w poddrzewie
+         */
         public AVLNode maximum()
         {
             AVLNode tree_iter = this;
@@ -168,9 +168,9 @@ public class AVLTree< E extends Comparable<E> >
         }
 
         /**
-        Wyznaczanie następnika węzła w drzewie.
-        @return węzeł z następną wartością
-        */
+         * Wyznaczanie następnika węzła w drzewie.
+         * @return węzeł z następną wartością
+         */
         public AVLNode successor()
         {
             AVLNode succ = this;
@@ -185,9 +185,9 @@ public class AVLTree< E extends Comparable<E> >
         }
 
         /**
-        Wyznaczanie poprzednika węzła w drzewie.
-        @return węzeł z poprzednią wartością
-        */
+         * Wyznaczanie poprzednika węzła w drzewie.
+         * @return węzeł z poprzednią wartością
+         */
         public AVLNode predecessor()
         {
             AVLNode pred = this;
@@ -203,7 +203,7 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     protected class TreeIterator
-        implements Iterator <E>
+        implements Iterator<E>
     {
         /** Aktualny węzeł. */
         private AVLNode currentNode;
@@ -251,36 +251,36 @@ public class AVLTree< E extends Comparable<E> >
         String returnValue = "{[";
 
         for(E elem : this)
-            returnValue += elem.toString()+", ";
+            returnValue += elem.toString() + ", ";
 
         int ln = returnValue.length();
 
-        return returnValue.substring(0, ln-2)+"]}";
+        return returnValue.substring(0, ln - 2) + "]}";
     }
 
     /**
-    Określanie pustości drzewa.
-    @return czy drzewo jest puste
-    */
+     * Określanie pustości drzewa.
+     * @return czy drzewo jest puste
+     */
     public boolean isEmpty()
     {
         return tree == null;
     }
 
     /**
-    Określanie liczby elementów drzewa.
-    @return liczba elemenów drzewa
-    */
+     * Określanie liczby elementów drzewa.
+     * @return liczba elemenów drzewa
+     */
     public int size()
     {
         return elems;
     }
 
     /**
-    Sprawdzanie występowania elementu w drzewie.
-    @param element wartość do znalezienia
-    @return czy wartość w drzewie
-    */
+     * Sprawdzanie występowania elementu w drzewie.
+     * @param element wartość do znalezienia
+     * @return czy wartość w drzewie
+     */
     public boolean contains(E element)
     {
         if(tree == null)
@@ -292,19 +292,19 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     /**
-    Tworzenie iteratora dla drzewa.
-    @return obiekt iteratora
-    */
+     * Tworzenie iteratora dla drzewa.
+     * @return obiekt iteratora
+     */
     public TreeIterator iterator()
     {
         return new TreeIterator(tree.minimum());
     }
 
     /**
-    Dodawanie elementu do drzewa.
-    @param element wartość do dodania
-    @return czy dodano nowy element
-    */
+     * Dodawanie elementu do drzewa.
+     * @param element wartość do dodania
+     * @return czy dodano nowy element
+     */
     public boolean add(E element)
     {
         AVLNode nodeParent = findNodeParent(element);
@@ -333,10 +333,10 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     /**
-    Usuwanie elementu z drzewa.
-    @param element wartość do usunięcia
-    @return czy element został usunięty
-    */
+     * Usuwanie elementu z drzewa.
+     * @param element wartość do usunięcia
+     * @return czy element został usunięty
+     */
     public boolean remove(E element)
     {
         AVLNode nodeParent = findNodeParent(element);
@@ -361,10 +361,10 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     /*
-    Wyszukiwanie ojca węzła z daną wartością.
-    @param element wartość do znalezienia
-    @return ojciec węzła z wartością
-    */
+     * Wyszukiwanie ojca węzła z daną wartością.
+     * @param element wartość do znalezienia
+     * @return ojciec węzła z wartością
+     */
     private AVLNode findNodeParent(E element)
     {
         AVLNode treeIter = tree;
@@ -383,9 +383,9 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     /**
-    Usuwanie elementu z korzenia drzewa.
-    @param root korzeń drzewa
-    */
+     * Usuwanie elementu z korzenia drzewa.
+     * @param root korzeń drzewa
+     */
     private void deleteRoot(AVLNode root)
     {
         if(root.getLeft() != null && root.getRight() != null)
@@ -415,9 +415,9 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     /**
-    Usuwanie elementu z węzła wewnętrznego drzewa.
-    @param node węzeł do usunięcia
-    */
+     * Usuwanie elementu z węzła wewnętrznego drzewa.
+     * @param node węzeł do usunięcia
+     */
     private void deleteNode(AVLNode node)
     {
         if(node.getLeft() != null && node.getRight() != null)
@@ -441,10 +441,10 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     /**
-    Zamiana poddrzewa ukorzenionego w danym węźle.
-    @param node węzeł do zamiany
-    @param root korzeń nowego poddrzewa
-    */
+     * Zamiana poddrzewa ukorzenionego w danym węźle.
+     * @param node węzeł do zamiany
+     * @param root korzeń nowego poddrzewa
+     */
     private void replaceSubtree(AVLNode node, AVLNode root)
     {
         if(node.isRoot())
@@ -461,9 +461,9 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     /**
-    Rotowanie węzła wzdłuż krawędzi z jego ojcem.
-    @param node węzeł do rotacji
-    */
+     * Rotowanie węzła wzdłuż krawędzi z jego ojcem.
+     * @param node węzeł do rotacji
+     */
     private void rotate(AVLNode node)
     {
         if(node.isRoot())
@@ -486,9 +486,9 @@ public class AVLTree< E extends Comparable<E> >
     }
 
     /**
-    Przywracanie balansowania na ścieżce od wierzchołka do korzenia.
-    @param node wierzchołek początkowy
-    */
+     * Przywracanie balansowania na ścieżce od wierzchołka do korzenia.
+     * @param node wierzchołek początkowy
+     */
     private void rebalance(AVLNode node)
     {
         while(node != null)

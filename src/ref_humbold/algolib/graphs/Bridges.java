@@ -1,4 +1,4 @@
-// ALGORYTM: WYSZUKIWANIE MOST�W W GRAFIE
+// ALGORYTM: WYSZUKIWANIE MOSTÓW W GRAFIE
 package ref_humbold.algolib.graphs;
 
 import java.lang.Math;
@@ -16,20 +16,17 @@ public class Bridges
     private Graph graph;
 
     /** Ojciec wierzchołka w drzewie DFS. */
-    private List<Integer> parentDFS;
+    private List<Integer> parentDFS = new ArrayList<>();
 
     /** Głębokość wierzchołka w drzewie DFS. */
-    private List<Integer> depthsDFS;
+    private List<Integer> depthsDFS = new ArrayList<>();
 
     /** Wartości funkcji LOW dla wierzchołków. */
-    private List<Integer> valuesLOW;
+    private List<Integer> valuesLOW = new ArrayList<>();
 
     public Bridges(Graph graph)
     {
         this.graph = graph;
-        parentDFS = new ArrayList<Integer>();
-        depthsDFS = new ArrayList<Integer>();
-        valuesLOW = new ArrayList<Integer>();
 
         for(int i = 0; i < graph.getVerticesNumber(); ++i)
         {
@@ -40,12 +37,12 @@ public class Bridges
     }
 
     /**
-    Wyznacza mosty w grafie.
-    @return lista kraw�dzi b�d�cych mostami
-    */
-    public List< Pair<Integer, Integer> > algorithm()
+     * Wyznacza mosty w grafie.
+     * @return lista krawędzi będących mostami
+     */
+    public List<Pair<Integer, Integer>> algorithm()
     {
-        List< Pair<Integer, Integer> > bridges = new ArrayList< Pair<Integer, Integer> >();
+        List<Pair<Integer, Integer>> bridges = new ArrayList<Pair<Integer, Integer>>();
 
         depthsDFS.set(0, 0);
 
@@ -64,12 +61,12 @@ public class Bridges
     }
 
     /**
-    Algorytm DFS wyliczaj�cy funkcj� LOW.
-    @param vertex aktualny wierzchołek
-    */
+     * Algorytm DFS wyliczający funkcję LOW.
+     * @param vertex aktualny wierzchołek
+     */
     private void dfs(int vertex)
     {
-        depthsDFS.set(vertex, depthsDFS.get(parentDFS.get(vertex))+1);
+        depthsDFS.set(vertex, depthsDFS.get(parentDFS.get(vertex)) + 1);
         valuesLOW.set(vertex, depthsDFS.get(vertex));
 
         for(Integer neghbour : graph.getNeighbours(vertex))
@@ -83,4 +80,3 @@ public class Bridges
                 valuesLOW.set(vertex, Math.min(valuesLOW.get(vertex), depthsDFS.get(neghbour)));
     }
 }
-

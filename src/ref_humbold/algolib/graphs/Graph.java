@@ -1,55 +1,65 @@
 // STRUKTURA GRAFU
 package ref_humbold.algolib.graphs;
 
-import java.util.List;
-
 import ref_humbold.algolib.structures.Pair;
 
 public interface Graph
 {
     /**
-    Getter dla liczby wierzchołków.
-    @return liczba wierzchołków
-    */
-    public int getVerticesNumber();
+     * Getter dla liczby wierzchołków.
+     * @return liczba wierzchołków
+     */
+    int getVerticesNumber();
 
     /**
-    Getter dla liczby krawędzi.
-    @return liczba krawędzi
-    */
-    public int getEdgesNumber();
+     * Getter dla liczby krawędzi.
+     * @return liczba krawędzi
+     */
+    int getEdgesNumber();
 
     /**
-    Wszystkie wierzchołki.
-    @return lista wierzchołków
-    */
-    public List<Integer> getVertices();
+     * Wszystkie wierzchołki.
+     * @return lista wierzchołków
+     */
+    Iterable<Integer> getVertices();
 
     /**
-    Wszystkie krawędzie.
-    @return lista krawędzi
-    */
-    public List< Pair<Integer, Integer> > getEdges();
+     * Wszystkie krawędzie.
+     * @return lista krawędzi
+     */
+    Iterable<Pair<Integer, Integer>> getEdges();
 
     /**
-    Sąsiedzi wierzchołka.
-    @param v numer wierzchołka
-    @return lista sąsiadów wierzchołka
-    */
-    public List<Integer> getNeighbours(Integer v);
+     * Dodawanie nowego wierzchołka.
+     * @return oznaczenie wierzchołka
+     */
+    Integer addVertex();
 
     /**
-    Stopień wyjściowy wierzchołka.
-    @param v numer wierzchołka
-    @return wartość stopnia wyjściowego wierzchołka
-    */
-    public int getOutdegree(Integer v);
+     * Dodawanie nowej krawędzi.
+     * @param vertex1 początkowy wierzchołek
+     * @param vertex2 końcowy wierzchołek
+     */
+    void addEdge(Integer vertex1, Integer vertex2);
 
     /**
-    Stopień wejściowy wierzchołka.
-    @param v numer wierzchołka
-    @return wartość stopnia wejściowego wierzchołka
-    */
-    public int getIndegree(Integer v);
+     * Sąsiedzi wierzchołka.
+     * @param vertex numer wierzchołka
+     * @return lista sąsiadów wierzchołka
+     */
+    Iterable<Integer> getNeighbours(Integer vertex);
+
+    /**
+     * Stopień wyjściowy wierzchołka.
+     * @param vertex numer wierzchołka
+     * @return wartość stopnia wyjściowego wierzchołka
+     */
+    int getOutdegree(Integer vertex);
+
+    /**
+     * Stopień wejściowy wierzchołka.
+     * @param vertex numer wierzchołka
+     * @return wartość stopnia wejściowego wierzchołka
+     */
+    int getIndegree(Integer vertex);
 }
-

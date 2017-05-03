@@ -14,20 +14,17 @@ public class VertexSeparators
     private Graph graph;
 
     /** Lista synów w drzewie DFS. */
-    private List< List<Integer> > childsDFS;
+    private List<List<Integer>> childsDFS = new ArrayList<List<Integer>>();
 
     /** Głębokość wierzchołka w drzewie DFS. */
-    private List<Integer> depthsDFS;
+    private List<Integer> depthsDFS = new ArrayList<Integer>();
 
     /** Wartości funkcji LOW dla wierzchołków. */
-    private List<Integer> valuesLOW;
+    private List<Integer> valuesLOW = new ArrayList<Integer>();
 
     public VertexSeparators(Graph graph)
     {
         this.graph = graph;
-        childsDFS = new ArrayList< List<Integer> >();
-        depthsDFS = new ArrayList<Integer>();
-        valuesLOW = new ArrayList<Integer>();
 
         for(int i = 0; i < graph.getVerticesNumber(); ++i)
         {
@@ -38,9 +35,9 @@ public class VertexSeparators
     }
 
     /**
-    Wyznaczanie punktów artykulacji.
-    @return lista punktów artykulacji
-    */
+     * Wyznaczanie punktów artykulacji.
+     * @return lista punktów artykulacji
+     */
     public List<Integer> algorithm()
     {
         List<Integer> separators = new ArrayList<>();
@@ -58,13 +55,13 @@ public class VertexSeparators
     }
 
     /**
-    Algorytm DFS wyliczający funkcję low.
-    @param vertex aktualny wierzchołek
-    @param parent ojciec wierzchołka
-    */
+     * Algorytm DFS wyliczający funkcję low.
+     * @param vertex aktualny wierzchołek
+     * @param parent ojciec wierzchołka
+     */
     private void dfs(int vertex, int parent)
     {
-        depthsDFS.set(vertex, depthsDFS.get(parent)+1);
+        depthsDFS.set(vertex, depthsDFS.get(parent) + 1);
         valuesLOW.set(vertex, depthsDFS.get(vertex));
 
         for(Integer neighbour : graph.getNeighbours(vertex))
@@ -79,10 +76,10 @@ public class VertexSeparators
     }
 
     /**
-    Sprawdzanie wierzchołka jako punktu artykulacji.
-    @param vertex wierzchołek
-    @return czy wierzchołek to punkt artykulacji
-    */
+     * Sprawdzanie wierzchołka jako punktu artykulacji.
+     * @param vertex wierzchołek
+     * @return czy wierzchołek to punkt artykulacji
+     */
     private boolean isSeparator(int vertex)
     {
         if(depthsDFS.get(vertex).equals(1))
@@ -95,4 +92,3 @@ public class VertexSeparators
         return false;
     }
 }
-

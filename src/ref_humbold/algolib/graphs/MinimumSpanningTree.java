@@ -12,44 +12,44 @@ import ref_humbold.algolib.structures.DisjointSets;
 public class MinimumSpanningTree
 {
     /**
-    Algorytm Kruskala wyliczający długość MST.
-    @param wgraph graf ważony
-    @return długość minimalnego drzewa spinającego
-    */
+     * Algorytm Kruskala wyliczający długość MST.
+     * @param wgraph graf ważony
+     * @return długość minimalnego drzewa spinającego
+     */
     public static double kruskal(WeightedGraph wgraph)
     {
         double sizeMST = 0.0;
         int numComponents = wgraph.getVerticesNumber();
-        PriorityQueue< Pair< Double, Pair<Integer, Integer> > > edgeQueue =
-            new PriorityQueue<>();
+        PriorityQueue<Pair<Double, Pair<Integer, Integer>>> edgeQueue = new PriorityQueue<>();
         List<Integer> universe = new ArrayList<>();
 
         for(int i = 0; i <= wgraph.getVerticesNumber(); ++i)
             universe.add(i);
 
-        DisjointSets <Integer> vertexSets = new DisjointSets <>(universe);
+        DisjointSets<Integer> vertexSets = new DisjointSets<>(universe);
 
-        for(int v = 1; v <= wgraph.getVerticesNumber(); ++v)
+        for(int v : wgraph.getVertices())
             for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
             {
-                Pair< Double, Pair<Integer, Integer> > weightedEdge =
-                    new Pair<>(-e.second, new Pair<Integer, Integer>(e.first, v));
+                Pair<Double, Pair<Integer, Integer>> weightedEdge = new Pair<>(-e.getSecond(),
+                                                                               new Pair<>(e
+                                                                                   .getFirst(), v));
 
                 edgeQueue.add(weightedEdge);
             }
 
         while(numComponents > 1 && !edgeQueue.isEmpty())
         {
-            Double edgeWeight = -edgeQueue.peek().first;
-            Pair<Integer, Integer> edge = edgeQueue.peek().second;
+            Double edgeWeight = -edgeQueue.peek().getFirst();
+            Pair<Integer, Integer> edge = edgeQueue.peek().getSecond();
 
             edgeQueue.poll();
 
-            if(vertexSets.isSetDifferent(edge.first, edge.second))
+            if(vertexSets.isSetDifferent(edge.getFirst(), edge.getSecond()))
             {
                 sizeMST += edgeWeight;
                 --numComponents;
-                vertexSets.unionSet(edge.first, edge.second);
+                vertexSets.unionSet(edge.getFirst(), edge.getSecond());
             }
         }
 
@@ -57,39 +57,38 @@ public class MinimumSpanningTree
     }
 
     /**
-    Algorytm Prima wyliczający długość MST.
-    @param wgraph graf ważony
-    @param source początkowy wierzchołek
-    @return długość minimalnego drzewa spinającego
-    */
+     * Algorytm Prima wyliczający długość MST.
+     * @param wgraph graf ważony
+     * @param source początkowy wierzchołek
+     * @return długość minimalnego drzewa spinającego
+     */
     public static double prim(WeightedGraph wgraph, int source)
     {
         double sizeMST = 0.0;
-        PriorityQueue< Pair<Double, Integer> > vertexQueue = new PriorityQueue<>();
-        List<Boolean> isVisited =
-            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), false));
+        PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
+        List<Boolean> isVisited = new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(),
+                                                                      false));
 
-        vertexQueue.add(new Pair(0.0, source));
+        vertexQueue.add(new Pair<>(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
-            Double edgeWeight = -vertexQueue.peek().first;
-            Integer w = vertexQueue.peek().second;
+            Double edgeWeight = -vertexQueue.peek().getFirst();
+            Integer v = vertexQueue.peek().getSecond();
 
             vertexQueue.poll();
 
-            if(!isVisited.get(w))
+            if(!isVisited.get(v))
             {
-                isVisited.set(w, true);
+                isVisited.set(v, true);
                 sizeMST += edgeWeight;
 
-                for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(w))
-                    if(!isVisited.get(e.first))
-                        vertexQueue.add(new Pair<Double, Integer>(-e.second, e.first));
+                for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
+                    if(!isVisited.get(e.getFirst()))
+                        vertexQueue.add(new Pair<Double, Integer>(-e.getSecond(), e.getFirst()));
             }
         }
 
         return sizeMST;
     }
 }
-
