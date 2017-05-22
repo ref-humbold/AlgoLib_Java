@@ -2,6 +2,7 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import ref_humbold.algolib.structures.Pair;
@@ -30,7 +31,7 @@ public class UndirectedWeightedGraph
 
     /** @see WeightedGraph#getWeightedEdges */
     @Override
-    public Iterable<Pair<Pair<Integer, Integer>, Double>> getWeightedEdges()
+    public Collection<Pair<Pair<Integer, Integer>, Double>> getWeightedEdges()
     {
         List<Pair<Pair<Integer, Integer>, Double>> edges = new ArrayList<Pair<Pair<Integer, Integer>, Double>>();
 
@@ -59,7 +60,7 @@ public class UndirectedWeightedGraph
 
     /** @see WeightedGraph#getWeightedNeighbours */
     @Override
-    public Iterable<Pair<Integer, Double>> getWeightedNeighbours(Integer vertex)
+    public Collection<Pair<Integer, Double>> getWeightedNeighbours(Integer vertex)
     {
         return graphrepr.get(vertex);
     }

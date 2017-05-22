@@ -2,6 +2,7 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import ref_humbold.algolib.structures.Pair;
@@ -36,7 +37,7 @@ public class DirectedGraph
 
     /** @see Graph#getEdges */
     @Override
-    public Iterable<Pair<Integer, Integer>> getEdges()
+    public Collection<Pair<Integer, Integer>> getEdges()
     {
         List<Pair<Integer, Integer>> edges = new ArrayList<Pair<Integer, Integer>>();
 
@@ -51,7 +52,8 @@ public class DirectedGraph
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
     {
-        if(vertex1 < 0 || vertex1 > getVerticesNumber() || vertex2 < 0 || vertex2 > getVerticesNumber())
+        if(vertex1 < 0 || vertex1 > getVerticesNumber() || vertex2 < 0
+           || vertex2 > getVerticesNumber())
             throw new IllegalArgumentException("No such vertex.");
 
         graphrepr.get(vertex1).add(new Pair<>(vertex2, DEFAULT_WEIGHT));

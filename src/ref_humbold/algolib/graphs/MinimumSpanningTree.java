@@ -1,13 +1,13 @@
 // ALGORYTMY WYZNACZAJĄCE MINIMALNE DRZEWO SPINAJĄCE
 package ref_humbold.algolib.graphs;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-import ref_humbold.algolib.structures.Pair;
 import ref_humbold.algolib.structures.DisjointSets;
+import ref_humbold.algolib.structures.Pair;
 
 public class MinimumSpanningTree
 {
@@ -31,9 +31,11 @@ public class MinimumSpanningTree
         for(int v : wgraph.getVertices())
             for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
             {
-                Pair<Double, Pair<Integer, Integer>> weightedEdge = new Pair<>(-e.getSecond(),
-                                                                               new Pair<>(e
-                                                                                   .getFirst(), v));
+                Pair<Double, Pair<Integer, Integer>> weightedEdge = new Pair<>(
+                                                                               -e.getSecond(),
+                                                                               new Pair<>(
+                                                                                          e.getFirst(),
+                                                                                          v));
 
                 edgeQueue.add(weightedEdge);
             }
@@ -45,7 +47,7 @@ public class MinimumSpanningTree
 
             edgeQueue.poll();
 
-            if(vertexSets.isSetDifferent(edge.getFirst(), edge.getSecond()))
+            if(!vertexSets.isSameSet(edge.getFirst(), edge.getSecond()))
             {
                 sizeMST += edgeWeight;
                 --numComponents;

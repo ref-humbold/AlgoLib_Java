@@ -1,6 +1,8 @@
 // STRUKTURA GRAFU
 package ref_humbold.algolib.graphs;
 
+import java.util.Collection;
+
 import ref_humbold.algolib.structures.Pair;
 
 public interface Graph
@@ -21,13 +23,13 @@ public interface Graph
      * Wszystkie wierzchołki.
      * @return lista wierzchołków
      */
-    Iterable<Integer> getVertices();
+    Collection<Integer> getVertices();
 
     /**
      * Wszystkie krawędzie.
      * @return lista krawędzi
      */
-    Iterable<Pair<Integer, Integer>> getEdges();
+    Collection<Pair<Integer, Integer>> getEdges();
 
     /**
      * Dodawanie nowego wierzchołka.
@@ -47,7 +49,7 @@ public interface Graph
      * @param vertex numer wierzchołka
      * @return lista sąsiadów wierzchołka
      */
-    Iterable<Integer> getNeighbours(Integer vertex);
+    Collection<Integer> getNeighbours(Integer vertex);
 
     /**
      * Stopień wyjściowy wierzchołka.

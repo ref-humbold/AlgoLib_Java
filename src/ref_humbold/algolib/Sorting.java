@@ -9,16 +9,14 @@ import java.lang.Math;
 
 import ref_humbold.algolib.structures.Pair;
 
-class AngleComparator
-    implements Comparator<Pair<Double, Double>>
+class AngleComparator implements Comparator<Pair<Double, Double>>
 {
-    @Override
-    public int compare(Pair<Double, Double> pt1, Pair<Double, Double> pt2)
+    @Override public int compare(Pair<Double, Double> pt1, Pair<Double, Double> pt2)
     {
         Double angle1 = countAngle(pt1), angle2 = countAngle(pt2);
 
         return angle1 != angle2 ? angle1.compareTo(angle2)
-                               : countRadius(pt1).compareTo(countRadius(pt2));
+                                : countRadius(pt1).compareTo(countRadius(pt2));
     }
 
     private Double countAngle(Pair<Double, Double> pt)
@@ -155,13 +153,13 @@ public class Sorting
                                                            int index_begin, int index_end)
     {
         int next_vertex = -1;
-        int left_vertex = (vertex << 1) - index_begin + 1;
-        int right_vertex = (vertex << 1) - index_begin + 2;
+        int left_vertex = (vertex * 2) - index_begin + 1;
+        int right_vertex = (vertex * 2) - index_begin + 2;
 
         if(right_vertex <= index_end)
-            next_vertex =
-                heap.get(right_vertex).compareTo(heap.get(left_vertex)) < 0 ? left_vertex
-                                                                           : right_vertex;
+            next_vertex = heap.get(right_vertex).compareTo(heap.get(left_vertex)) < 0
+                              ? left_vertex
+                              : right_vertex;
 
         if(left_vertex == index_end)
             next_vertex = left_vertex;

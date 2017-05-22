@@ -2,6 +2,7 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,14 +48,14 @@ public class MultipartiteGraph
 
     @Override
     /** @see Graph#getVertices */
-    public Iterable<Integer> getVertices()
+    public Collection<Integer> getVertices()
     {
         return graph.getVertices();
     }
 
     @Override
     /** @see Graph#getEdges */
-    public Iterable<Pair<Integer, Integer>> getEdges()
+    public Collection<Pair<Integer, Integer>> getEdges()
     {
         return graph.getEdges();
     }
@@ -94,7 +95,7 @@ public class MultipartiteGraph
 
     @Override
     /** @see Graph#getNeighbours */
-    public Iterable<Integer> getNeighbours(Integer vertex)
+    public Collection<Integer> getNeighbours(Integer vertex)
     {
         return graph.getNeighbours(vertex);
     }

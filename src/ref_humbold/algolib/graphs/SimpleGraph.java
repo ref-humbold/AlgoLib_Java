@@ -2,6 +2,7 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public abstract class SimpleGraph
 
     /** @see Graph#getVertices */
     @Override
-    public Iterable<Integer> getVertices()
+    public Collection<Integer> getVertices()
     {
         List<Integer> vertices = new ArrayList<>();
 
@@ -58,7 +59,7 @@ public abstract class SimpleGraph
 
     /** @see Graph#getNeighbours */
     @Override
-    public Iterable<Integer> getNeighbours(Integer vertex)
+    public Collection<Integer> getNeighbours(Integer vertex)
     {
         List<Integer> neighbours = new ArrayList<Integer>();
 

@@ -1,8 +1,6 @@
 // ALGORYTMY MATEMATYCZNE
 package ref_humbold.algolib.maths;
 
-import java.lang.Math;
-
 public class Maths
 {
     /**
@@ -42,29 +40,7 @@ public class Maths
     }
 
     /**
-     * Iteracyjne szybkie potęgowanie binarne.
-     * @param base podstawa
-     * @param exponent wykładnik
-     * @return wynik potęgowania
-     */
-    public static double powerI(double base, long exponent)
-    {
-        double result = 1.0;
-
-        while(exponent > 0)
-        {
-            if((exponent & 1) == 1)
-                result *= base;
-
-            base *= base;
-            exponent >>= 1;
-        }
-
-        return result;
-    }
-
-    /**
-     * Iteracyjne szybkie potęgowanie binarne modulowane.
+     * Szybkie potęgowanie binarne modulowane.
      * @param base podstawa
      * @param exponent wykładnik
      * @param modulo modulo
@@ -74,83 +50,37 @@ public class Maths
     {
         long result = 1;
 
+        if(exponent < 0)
+            throw new ArithmeticException("Negative exponent.");
+
+        if(base == 0 && exponent == 0)
+            throw new ArithmeticException("Zero to the power of zero is NaN.");
+
         while(exponent > 0)
         {
             if((exponent & 1) == 1)
-                result = multI(result, base, modulo);
+                result = multMod(result, base, modulo);
 
-            base = multI(base, base, modulo);
+            base = multMod(base, base, modulo);
             exponent >>= 1;
-        }
-
-        return result % modulo;
-    }
-
-    /**
-     * Rekurencyjne szybkie potęgowanie binarne.
-     * @param base podstawa
-     * @param exponent wykładnik
-     * @return wynik potęgowania
-     */
-    public static double powerR(double base, long exponent)
-    {
-        double result = 1.0;
-
-        if(exponent > 0)
-            result = powerR(base * base, exponent >> 1);
-
-        return (exponent & 1) == 1 ? base * result : result;
-    }
-
-    /**
-     * Rekurencyjne szybkie potęgowanie binarne modulowane.
-     * @param base podstawa
-     * @param exponent wykładnik
-     * @param modulo modulo
-     * @return wynik potęgowania wzięty modulo
-     */
-    public static long powerR(long base, long exponent, long modulo)
-    {
-        long result = 1;
-
-        if(exponent > 0)
-            result = powerR(multI(base, base, modulo), exponent >> 1, modulo);
-
-        return (exponent & 1) == 1 ? multI(base, result, modulo) : result % modulo;
-    }
-
-    /**
-     * Iteracyjne mnożenie binarne.
-     * @param factor1 pierwszy czynnik
-     * @param factor2 drugi czynnik
-     * @return wynik mnożenia
-     */
-    public static double multI(double factor1, long factor2)
-    {
-        double result = 0.0;
-
-        while(factor2 > 0)
-        {
-            if((factor2 & 1) == 1)
-                result += factor1;
-
-            factor2 >>= 1;
-            factor1 += factor1;
         }
 
         return result;
     }
 
     /**
-     * Iteracyjne mnożenie binarne modulowane.
+     * Mnożenie binarne modulowane.
      * @param factor1 pierwszy czynnik
      * @param factor2 drugi czynnik
      * @param modulo modulo
      * @return wynik mnożenia wzięty modulo
      */
-    public static long multI(long factor1, long factor2, long modulo)
+    public static long multMod(long factor1, long factor2, long modulo)
     {
         long result = 0;
+
+        if(factor2 < 0)
+            return modulo - multMod(factor1, -factor2, modulo);
 
         while(factor2 > 0)
         {
@@ -161,39 +91,6 @@ public class Maths
             factor1 = (factor1 + factor1) % modulo;
         }
 
-        return result % modulo;
-    }
-
-    /**
-     * Rekurencyjne mnożenie binarne.
-     * @param factor1 pierwszy czynnik
-     * @param factor2 drugi czynnik
-     * @return wynik mnożenia
-     */
-    public static double multR(double factor1, long factor2)
-    {
-        double result = 0.0;
-
-        if(factor2 > 0)
-            result = multR(factor1 + factor1, factor2 >> 1);
-
-        return (factor2 & 1) == 1 ? factor1 + result : result;
-    }
-
-    /**
-     * Rekurencyjne mnożenie binarne modulowane.
-     * @param factor1 pierwszy czynnik
-     * @param factor2 drugi czynnik
-     * @param modulo modulo
-     * @return wynik mnożenia wzięty modulo
-     */
-    public static long multR(long factor1, long factor2, long modulo)
-    {
-        long result = 0;
-
-        if(factor2 > 0)
-            result = multR(factor1 + factor1, factor2 >> 1, modulo);
-
-        return (factor2 & 1) == 1 ? (factor1 + result) % modulo : result % modulo;
+        return result;
     }
 }

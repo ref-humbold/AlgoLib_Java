@@ -1,62 +1,42 @@
 // SŁOWNIK PODSŁÓW BAZOWYCH Z ALGORYTMEM KARPA-MILLERA-ROSENBERGA
-package ref_humbold.algolib.structures;
+package ref_humbold.algolib;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import ref_humbold.algolib.structures.Pair;
 
-public class KMRFactorsDict
+public class KMR
 {
-    /** Słowo. */
-    private String text;
-
-    /** Słownik podsłów bazowych. */
-    private Map<String, Integer> factors;
-
-    public KMRFactorsDict(String text)
-    {
-        this.text = text;
-        this.factors = new HashMap<String, Integer>();
-        kmr();
-    }
-
     /**
-     * Getter dla słownika.
+     * Budowa słownika podsłów bazowych.
+     * @param text słowo
      * @return słownik podsłów bazowych
      */
-    public Map<String, Integer> getFactors()
+    public static Map<String, Integer> kmr(String text)
     {
+        Map<String, Integer> factors = signLetters(text);
+
+        for(int length = 2; length <= text.length(); length <<= 1)
+            doubleLength(length, text, factors);
+
         return factors;
     }
 
     /**
-     * Getter dla słowa.
-     * @return słowo
+     * Budowa podsłów złożonych z pojedynczych znaków.
+     * @param text słowo
+     * @return słownik dla pojedynczych znaków
      */
-    public String getText()
+    private static Map<String, Integer> signLetters(String text)
     {
-        return text;
-    }
-
-    /** Budowa słownika podsłów bazowych. */
-    public void kmr()
-    {
-        signLetters();
-
-        for(int lngt = 2; lngt <= text.length(); lngt <<= 1)
-            doubleLength(lngt);
-    }
-
-    /** Budowa podsłów złożonych z pojedynczych znaków. */
-    private void signLetters()
-    {
-        Integer codeValue = 0;
+        Map<String, Integer> factors = new HashMap<String, Integer>();
         List<String> letters = Arrays.asList(text.split(""));
+        Integer codeValue = 0;
 
         Collections.sort(letters);
         factors.put(letters.get(0), codeValue);
@@ -67,16 +47,20 @@ public class KMRFactorsDict
                 ++codeValue;
                 factors.put(letters.get(i), codeValue);
             }
+
+        return factors;
     }
 
     /**
      * Budowa nowych podsłów o podwojonej długości.
      * @param newLength nowa długość podsłów
+     * @param text słowo
+     * @param factors słownik podsłów bazowych
      */
-    private void doubleLength(int newLength)
+    private static void doubleLength(int newLength, String text, Map<String, Integer> factors)
     {
-        int codeValue = 0;
         List<Pair<Pair<Integer, Integer>, Integer>> codes = new ArrayList<>();
+        int codeValue = 0;
 
         for(int i = 0; i <= text.length() - newLength; ++i)
         {

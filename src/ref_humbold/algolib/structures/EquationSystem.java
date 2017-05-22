@@ -1,8 +1,6 @@
 // STRUKTURA UKŁADÓW RÓWNAŃ LINIOWYCH Z ALGORYTMEM ELIMINACJI GAUSSA
 package ref_humbold.algolib.structures;
 
-import java.lang.Math;
-
 public class EquationSystem
 {
     /** Liczba równań układu. */
@@ -21,6 +19,11 @@ public class EquationSystem
         freeTerms = new double[numEq];
     }
 
+    public int getEquationsNumber()
+    {
+        return equations;
+    }
+
     /**
      * Wyliczanie rozwiązań układu równań liniowych.
      * @return wektor wyniku równania
@@ -31,10 +34,10 @@ public class EquationSystem
         gaussianReduce();
 
         if(coeffs[equations - 1][equations - 1] == 0 && freeTerms[equations - 1] == 0)
-            throw new Exception("System of equations has got infinitely many solutions.\n");
+            throw new InfiniteSolutionsException();
 
         if(coeffs[equations - 1][equations - 1] == 0 && freeTerms[equations - 1] != 0)
-            throw new Exception("System of equations has got no solution.\n");
+            throw new NoSolutionException();
 
         double[] solution = new double[equations];
 
@@ -88,7 +91,7 @@ public class EquationSystem
      * @param eq1 numer pierwszego równania
      * @param eq2 numer drugiego równania
      */
-    private void change(int equ1, int equ2)
+    public void change(int equ1, int equ2)
     {
         double temp;
 
@@ -110,7 +113,7 @@ public class EquationSystem
      * @param eq2 numer drugiego równania
      * @param cst stała kombinacji liniowej
      */
-    private void linearComb(int equ1, int equ2, double cst)
+    public void linearComb(int equ1, int equ2, double cst)
     {
         for(int i = 0; i < equations; ++i)
             coeffs[equ1][i] += cst * coeffs[equ2][i];

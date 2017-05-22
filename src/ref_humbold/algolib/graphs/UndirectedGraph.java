@@ -2,6 +2,7 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import ref_humbold.algolib.structures.Pair;
@@ -20,8 +21,10 @@ public class UndirectedGraph
 
         for(Pair<Integer, Integer> e : edges)
         {
-            graphrepr.get(e.getFirst()).add(new Pair<>(e.getSecond(), DEFAULT_WEIGHT));
-            graphrepr.get(e.getSecond()).add(new Pair<>(e.getFirst(), DEFAULT_WEIGHT));
+            graphrepr.get(e.getFirst())
+                     .add(new Pair<Integer, Double>(e.getSecond(), DEFAULT_WEIGHT));
+            graphrepr.get(e.getSecond())
+                     .add(new Pair<Integer, Double>(e.getFirst(), DEFAULT_WEIGHT));
         }
     }
 
@@ -32,20 +35,25 @@ public class UndirectedGraph
         int edgesNumber = 0;
 
         for(Integer v : getVertices())
+        {
             edgesNumber += getOutdegree(v);
 
-        return edgesNumber >> 1;
+            if(getNeighbours(v).contains(v))
+                ++edgesNumber;
+        }
+
+        return edgesNumber / 2;
     }
 
     /** @see Graph#getEdges */
     @Override
-    public Iterable<Pair<Integer, Integer>> getEdges()
+    public Collection<Pair<Integer, Integer>> getEdges()
     {
         List<Pair<Integer, Integer>> edges = new ArrayList<>();
 
         for(Integer v : getVertices())
             for(Integer u : getNeighbours(v))
-                if(u > v)
+                if(u >= v)
                     edges.add(new Pair<Integer, Integer>(v, u));
 
         return edges;
@@ -55,11 +63,12 @@ public class UndirectedGraph
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
     {
-        if(vertex1 < 0 || vertex1 > getVerticesNumber() || vertex2 < 0 || vertex2 > getVerticesNumber())
+        if(vertex1 < 0 || vertex1 >= getVerticesNumber() || vertex2 < 0
+           || vertex2 >= getVerticesNumber())
             throw new IllegalArgumentException("No such vertex.");
 
-        graphrepr.get(vertex1).add(new Pair<>(vertex2, DEFAULT_WEIGHT));
-        graphrepr.get(vertex2).add(new Pair<>(vertex1, DEFAULT_WEIGHT));
+        graphrepr.get(vertex1).add(new Pair<Integer, Double>(vertex2, DEFAULT_WEIGHT));
+        graphrepr.get(vertex2).add(new Pair<Integer, Double>(vertex1, DEFAULT_WEIGHT));
     }
 
     /** @see Graph#getIndegree */

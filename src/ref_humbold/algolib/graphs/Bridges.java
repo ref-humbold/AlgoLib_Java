@@ -1,9 +1,8 @@
-// ALGORYTM: WYSZUKIWANIE MOSTÓW W GRAFIE
+// ALGORYTM: WYSZUKIWANIE MOSTÓW i PUNKTÓW ARTYKULACJI W GRAFIE
 package ref_humbold.algolib.graphs;
 
-import java.lang.Math;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import ref_humbold.algolib.structures.Pair;
 

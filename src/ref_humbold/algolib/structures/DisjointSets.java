@@ -1,9 +1,10 @@
 // STRUKTURA ZBIORÓW ROZŁĄCZNYCH UNION-FIND
 package ref_humbold.algolib.structures;
 
-import java.lang.Iterable;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class DisjointSets<E>
 {
@@ -19,8 +20,42 @@ public class DisjointSets<E>
     }
 
     /**
-     * Ustala reprezentanta składowej.
-     * @param element element ze składowej
+     * Liczenie zbiorów.
+     * @return liczba zbiorów
+     */
+    public int size()
+    {
+        Set<E> reprs = new HashSet<>();
+
+        for(E e : represents.keySet())
+            reprs.add(findSet(e));
+
+        return reprs.size();
+    }
+
+    /**
+     * Należenie do dowolnego zbioru.
+     * @param element element
+     * @return czy element w jednym ze zbiorów
+     */
+    public boolean contains(E element)
+    {
+        return represents.containsKey(element);
+    }
+
+    /**
+     * Tworzenie nowego zbioru jednoelementowego.
+     * @param element nowy element
+     */
+    public void make_set(E element)
+    {
+        if(!contains(element))
+            represents.put(element, element);
+    }
+
+    /**
+     * Ustalanie reprezentanta zbioru.
+     * @param element element ze zbioru
      * @return reprezentant elementu
      */
     public E findSet(E element)
@@ -32,24 +67,24 @@ public class DisjointSets<E>
     }
 
     /**
-     * Scala dwie składowe.
-     * @param element1 element pierwszej składowej
-     * @param element2 element drugiej składowej
+     * Scalanie dwóch zbiorów.
+     * @param element1 element pierwszego zbioru
+     * @param element2 element drugiego zbioru
      */
     public void unionSet(E element1, E element2)
     {
-        if(isSetDifferent(element1, element2))
+        if(!isSameSet(element1, element2))
             represents.put(findSet(element1), findSet(element2));
     }
 
     /**
-     * Sprawdza, czy dwa elementy są w róznych składowych.
-     * @param element1 element pierwszej składowej
-     * @param element2 element drugiej składowej
-     * @return czy elementy znajdują się w różnych składowych
+     * Sprawdzanie, czy elementy należą do tego samego zbioru.
+     * @param element1 element pierwszego zbioru
+     * @param element2 element drugiego zbioru
+     * @return czy elementy znajdują się w jednym zbiorze
      */
-    public boolean isSetDifferent(E element1, E element2)
+    public boolean isSameSet(E element1, E element2)
     {
-        return !findSet(element1).equals(findSet(element2));
+        return findSet(element1).equals(findSet(element2));
     }
 }
