@@ -38,6 +38,7 @@
                includeantruntime="false">
             <src path="${src.dir}" />
             <src path="${test.dir}" />
+            <compilerarg line="-Xlint" />
             <classpath refid="AlgoLib_Java.classpath" />
         </javac>
     </target>
