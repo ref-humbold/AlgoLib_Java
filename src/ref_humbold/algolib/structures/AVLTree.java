@@ -248,7 +248,7 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public String toString()
         {
-            return "[NULL]";
+            return "[Null]";
         }
 
         /** @see AVLNode#countBalance */

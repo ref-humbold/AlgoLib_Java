@@ -47,10 +47,12 @@ public class DisjointSets<E>
      * Tworzenie nowego zbioru jednoelementowego.
      * @param element nowy element
      */
-    public void make_set(E element)
+    public void makeSet(E element)
     {
-        if(!contains(element))
-            represents.put(element, element);
+        if(contains(element))
+            throw new IllegalArgumentException("Value " + element.toString() + "already present.");
+
+        represents.put(element, element);
     }
 
     /**

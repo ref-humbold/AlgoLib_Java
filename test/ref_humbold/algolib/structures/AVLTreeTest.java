@@ -1,6 +1,8 @@
 package ref_humbold.algolib.structures;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -10,11 +12,12 @@ import org.junit.Test;
 public class AVLTreeTest
 {
     private AVLTree<Integer> testObject;
+    private Integer[] numbers = new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26};
 
     @Before
     public void setUp()
     {
-        testObject = new AVLTree<>();
+        testObject = new AVLTree<>(Arrays.asList(numbers));
     }
 
     @After
@@ -26,83 +29,87 @@ public class AVLTreeTest
     @Test
     public void testToString()
     {
-        testObject = new AVLTree<>(Arrays.asList(10, 6, 14, 37, 2, 30, 45, 18, 68));
-
         String result = testObject.toString();
 
-        Assert.assertEquals("{|2, 6, 10, 14, 18, 30, 37, 45, 68|}", result);
+        Assert.assertEquals("{|2, 6, 10, 14, 18, 24, 26, 30, 37, 45, 51, 68, 71, 97|}", result);
     }
 
     @Test
     public void testIsEmptyWhenEmpty()
     {
-        Assert.assertTrue(testObject.isEmpty());
+        testObject = new AVLTree<>();
+
+        boolean result = testObject.isEmpty();
+
+        Assert.assertTrue(result);
     }
 
     @Test
-    public void testIsEmptyWhenNonEmpty()
+    public void testIsEmptyWhenNotEmpty()
     {
-        testObject.add(15);
-        testObject.add(76);
+        boolean result = testObject.isEmpty();
 
-        Assert.assertFalse(testObject.isEmpty());
+        Assert.assertFalse(result);
     }
 
     @Test
     public void testSizeWhenEmpty()
     {
-        Assert.assertEquals(0, testObject.size());
+        testObject = new AVLTree<>();
+
+        int result = testObject.size();
+
+        Assert.assertEquals(0, result);
     }
 
     @Test
-    public void testSizeWhenAdding()
+    public void testSizeWhenNotEmpty()
     {
-        testObject = new AVLTree<>(Arrays.asList(10, 6, 14, 37, 2, 30, 45, 18, 68));
+        int result = testObject.size();
 
-        Assert.assertEquals(9, testObject.size());
+        Assert.assertEquals(14, result);
     }
 
     @Test
-    public void testSizeWhenRemoving()
+    public void testContainsWhenPresentElement()
     {
-        testObject = new AVLTree<>(Arrays.asList(10, 6, 14, 37, 2, 30, 45, 18, 68));
-
-        testObject.remove(30);
-        testObject.remove(2);
-
-        Assert.assertEquals(7, testObject.size());
-    }
-
-    @Test
-    public void testContainsWhenInside()
-    {
-        Integer[] numbers = new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 71, 68, 26};
-
-        testObject = new AVLTree<>(Arrays.asList(numbers));
-
         for(Integer i : numbers)
-            Assert.assertTrue(testObject.contains(i));
+        {
+            boolean result = testObject.contains(i);
+
+            Assert.assertTrue(result);
+        }
     }
 
     @Test
-    public void testContainsWhenNotInside()
+    public void testContainsWhenOuterElement()
     {
-        testObject = new AVLTree<>(Arrays.asList(10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 71, 68, 26));
+        for(Integer i : new Integer[]{111, 140, 187})
+        {
+            boolean result = testObject.contains(i);
 
-        Assert.assertFalse(testObject.contains(40));
+            Assert.assertFalse(result);
+        }
     }
 
+    @Test
     public void testIterator()
     {
-        Assert.fail("Not yet implemented");
+        ArrayList<Integer> result = new ArrayList<Integer>();
+
+        Iterator<Integer> iterator = testObject.iterator();
+
+        while(iterator.hasNext())
+            result.add(iterator.next());
+
+        Arrays.sort(numbers);
+        Assert.assertArrayEquals(numbers, result.toArray());
     }
 
     @Test
-    public void testAdd()
+    public void testAddWhenNewElement()
     {
-        Integer[] numbers = new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 71, 68, 26};
-
-        for(Integer i : numbers)
+        for(Integer i : new Integer[]{111, 140, 187})
         {
             boolean added = testObject.add(i);
 
@@ -112,10 +119,8 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testAddWhenRepeated()
+    public void testAddWhenPresentElement()
     {
-        testObject = new AVLTree<>(Arrays.asList(10, 6, 14, 37, 2, 30, 45, 18, 68));
-
         for(Integer i : new Integer[]{14, 30, 45})
         {
             boolean added = testObject.add(i);
@@ -126,30 +131,31 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testRemove()
+    public void testRemoveWhenPresentElement()
     {
-        testObject = new AVLTree<>(Arrays.asList(10, 6, 14, 37, 2, 30, 45, 18, 68));
+        for(Integer i : new Integer[]{14, 30, 45})
+        {
+            boolean result = testObject.remove(i);
 
-        boolean result = testObject.remove(30);
-
-        Assert.assertTrue(result);
-        Assert.assertFalse(testObject.contains(30));
+            Assert.assertTrue(result);
+            Assert.assertFalse(testObject.contains(i));
+        }
     }
 
     @Test
-    public void testRemoveWhenNotInside()
+    public void testRemoveWhenOuterElement()
     {
-        testObject = new AVLTree<>(Arrays.asList(10, 6, 14, 37, 2, 30, 45, 18, 68));
+        for(Integer i : new Integer[]{111, 140, 187})
+        {
+            boolean result = testObject.remove(i);
 
-        boolean result = testObject.remove(40);
-
-        Assert.assertFalse(result);
+            Assert.assertFalse(result);
+        }
     }
 
     @Test
     public void testClear()
     {
-        testObject = new AVLTree<>(Arrays.asList(10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 71, 68, 26));
         testObject.clear();
 
         Assert.assertTrue(testObject.isEmpty());
