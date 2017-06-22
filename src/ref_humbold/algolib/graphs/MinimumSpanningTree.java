@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 
 import ref_humbold.algolib.structures.DisjointSets;
 import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.structures.Triple;
 
 public class MinimumSpanningTree
 {
@@ -20,7 +21,7 @@ public class MinimumSpanningTree
     {
         double sizeMST = 0.0;
         int numComponents = wgraph.getVerticesNumber();
-        PriorityQueue<Pair<Double, Pair<Integer, Integer>>> edgeQueue = new PriorityQueue<>();
+        PriorityQueue<Triple<Double, Integer, Integer>> edgeQueue = new PriorityQueue<>();
         List<Integer> universe = new ArrayList<>();
 
         for(int i = 0; i <= wgraph.getVerticesNumber(); ++i)
@@ -30,28 +31,21 @@ public class MinimumSpanningTree
 
         for(int v : wgraph.getVertices())
             for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
-            {
-                Pair<Double, Pair<Integer, Integer>> weightedEdge = new Pair<>(
-                                                                               -e.getSecond(),
-                                                                               new Pair<>(
-                                                                                          e.getFirst(),
-                                                                                          v));
-
-                edgeQueue.add(weightedEdge);
-            }
+                edgeQueue.add(Triple.create(-e.getSecond(), e.getFirst(), v));
 
         while(numComponents > 1 && !edgeQueue.isEmpty())
         {
             Double edgeWeight = -edgeQueue.peek().getFirst();
-            Pair<Integer, Integer> edge = edgeQueue.peek().getSecond();
+            Integer vertex1 = edgeQueue.peek().getSecond();
+            Integer vertex2 = edgeQueue.peek().getThird();
 
             edgeQueue.poll();
 
-            if(!vertexSets.isSameSet(edge.getFirst(), edge.getSecond()))
+            if(!vertexSets.isSameSet(vertex1, vertex2))
             {
                 sizeMST += edgeWeight;
                 --numComponents;
-                vertexSets.unionSet(edge.getFirst(), edge.getSecond());
+                vertexSets.unionSet(vertex1, vertex2);
             }
         }
 
@@ -68,10 +62,10 @@ public class MinimumSpanningTree
     {
         double sizeMST = 0.0;
         PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
-        List<Boolean> isVisited = new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(),
-                                                                      false));
+        List<Boolean> isVisited = new ArrayList<>(
+            Collections.nCopies(wgraph.getVerticesNumber(), false));
 
-        vertexQueue.add(new Pair<>(0.0, source));
+        vertexQueue.add(Pair.create(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
@@ -87,7 +81,7 @@ public class MinimumSpanningTree
 
                 for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
                     if(!isVisited.get(e.getFirst()))
-                        vertexQueue.add(new Pair<Double, Integer>(-e.getSecond(), e.getFirst()));
+                        vertexQueue.add(new Pair<>(-e.getSecond(), e.getFirst()));
             }
         }
 

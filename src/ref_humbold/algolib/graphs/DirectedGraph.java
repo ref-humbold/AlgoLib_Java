@@ -20,10 +20,12 @@ public class DirectedGraph
         super(n);
 
         for(Pair<Integer, Integer> e : edges)
-            graphrepr.get(e.getFirst()).add(new Pair<>(e.getSecond(), DEFAULT_WEIGHT));
+            this.addEdge(e.getFirst(), e.getSecond());
     }
 
-    /** @see Graph#getEdgesNumber */
+    /**
+     * @see Graph#getEdgesNumber
+     */
     @Override
     public int getEdgesNumber()
     {
@@ -35,31 +37,39 @@ public class DirectedGraph
         return edgesNumber;
     }
 
-    /** @see Graph#getEdges */
+    /**
+     * @see Graph#getEdges
+     */
     @Override
     public Collection<Pair<Integer, Integer>> getEdges()
     {
-        List<Pair<Integer, Integer>> edges = new ArrayList<Pair<Integer, Integer>>();
+        List<Pair<Integer, Integer>> edges = new ArrayList<>();
 
         for(Integer v : getVertices())
             for(Integer u : getNeighbours(v))
-                edges.add(new Pair<Integer, Integer>(v, u));
+                edges.add(new Pair<>(v, u));
 
         return edges;
     }
 
-    /** @see Graph#addEdge */
+    /**
+     * @see Graph#addEdge
+     */
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
     {
-        if(vertex1 < 0 || vertex1 > getVerticesNumber() || vertex2 < 0
-           || vertex2 > getVerticesNumber())
-            throw new IllegalArgumentException("No such vertex.");
+        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
+            throw new IllegalArgumentException("No such vertex: " + vertex1.toString() + ".");
 
-        graphrepr.get(vertex1).add(new Pair<>(vertex2, DEFAULT_WEIGHT));
+        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
+            throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
+
+        graphrepr.get(vertex1).add(Pair.create(vertex2, DEFAULT_WEIGHT));
     }
 
-    /** @see Graph#getIndegree */
+    /**
+     * @see Graph#getIndegree
+     */
     @Override
     public int getIndegree(Integer vertex)
     {
@@ -67,7 +77,7 @@ public class DirectedGraph
 
         for(Integer w : getVertices())
             for(Integer u : getNeighbours(w))
-                if(u == vertex)
+                if(u.equals(vertex))
                     ++indeg;
 
         return indeg;

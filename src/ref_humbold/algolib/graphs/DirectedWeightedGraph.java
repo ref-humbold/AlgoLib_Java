@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.structures.Triple;
 
 public class DirectedWeightedGraph
     extends DirectedGraph
@@ -16,43 +17,47 @@ public class DirectedWeightedGraph
         super(n);
     }
 
-    public DirectedWeightedGraph(int n, List<Pair<Pair<Integer, Integer>, Double>> edges)
+    public DirectedWeightedGraph(int n, List<Triple<Integer, Integer, Double>> edges)
     {
         super(n);
 
-        for(Pair<Pair<Integer, Integer>, Double> e : edges)
-            graphrepr.get(e.getFirst().getFirst()).add(new Pair<>(e.getFirst().getSecond(),
-                                                                  e.getSecond()));
+        for(Triple<Integer, Integer, Double> e : edges)
+            this.addWeightedEdge(e.getFirst(), e.getSecond(), e.getThird());
     }
 
-    /** @see WeightedGraph#getWeightedEdges */
+    /**
+     * @see WeightedGraph#getWeightedEdges
+     */
     @Override
-    public Collection<Pair<Pair<Integer, Integer>, Double>> getWeightedEdges()
+    public Collection<Triple<Integer, Integer, Double>> getWeightedEdges()
     {
-        List<Pair<Pair<Integer, Integer>, Double>> edges = new ArrayList<>();
+        List<Triple<Integer, Integer, Double>> edges = new ArrayList<>();
 
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
-            {
-                Pair<Integer, Integer> edge = new Pair<>(v, e.getFirst());
-
-                edges.add(new Pair<Pair<Integer, Integer>, Double>(edge, e.getSecond()));
-            }
+                edges.add(Triple.create(v, e.getFirst(), e.getSecond()));
 
         return edges;
     }
 
-    /** @see WeightedGraph#addWeightedEdge */
+    /**
+     * @see WeightedGraph#addWeightedEdge
+     */
     @Override
-    public void addEdge(Integer vertex1, Integer vertex2, Double weight)
+    public void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
     {
-        if(vertex1 < 0 || vertex1 > getVerticesNumber() || vertex2 < 0 || vertex2 > getVerticesNumber())
-            throw new IllegalArgumentException("No such vertex.");
+        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
+            throw new IllegalArgumentException("No such vertex: " + vertex1.toString() + ".");
 
-        graphrepr.get(vertex1).add(new Pair<>(vertex2, weight));
+        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
+            throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
+
+        graphrepr.get(vertex1).add(Pair.create(vertex2, weight));
     }
 
-    /** @see WeightedGraph#getWeightedNeighbours */
+    /**
+     * @see WeightedGraph#getWeightedNeighbours
+     */
     @Override
     public Collection<Pair<Integer, Double>> getWeightedNeighbours(Integer vertex)
     {

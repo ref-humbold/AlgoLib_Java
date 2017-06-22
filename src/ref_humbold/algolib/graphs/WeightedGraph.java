@@ -3,6 +3,7 @@ package ref_humbold.algolib.graphs;
 import java.util.Collection;
 
 import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.structures.Triple;
 
 public interface WeightedGraph
     extends Graph
@@ -11,7 +12,7 @@ public interface WeightedGraph
      * Wszystkie krawędzie z ich wagami.
      * @return lista krawędzi z wagami
      */
-    Collection<Pair<Pair<Integer, Integer>, Double>> getWeightedEdges();
+    Collection<Triple<Integer, Integer, Double>> getWeightedEdges();
 
     /**
      * Dodawanie nowej krawędzi z jej wagą.
@@ -19,7 +20,7 @@ public interface WeightedGraph
      * @param vertex2 końcowy wierzchołek
      * @param weight waga krawędzi
      */
-    void addEdge(Integer vertex1, Integer vertex2, Double weight);
+    void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight);
 
     /**
      * Sąsiedzi wierzchołka z wagami krawędzi do nich.

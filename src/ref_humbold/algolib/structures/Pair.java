@@ -7,11 +7,16 @@ public class Pair<F extends Comparable<F>, S extends Comparable<S>>
     private final F first;
     private final S second;
 
-    public Pair(F f, S s)
-        throws IllegalArgumentException
+    public Pair(F first, S second)
     {
-        first = f;
-        second = s;
+        this.first = first;
+        this.second = second;
+    }
+
+    public static <F extends Comparable<F>, S extends Comparable<S>> Pair<F, S> create(F first,
+                                                                                       S second)
+    {
+        return new Pair<>(first, second);
     }
 
     public F getFirst()
@@ -27,7 +32,7 @@ public class Pair<F extends Comparable<F>, S extends Comparable<S>>
     @Override
     public int compareTo(Pair<F, S> p)
     {
-        if(first == null)
+        if(this.first == null)
             return p.getFirst() == null ? 0 : -1;
 
         int comparedFirst = this.first.compareTo(p.getFirst());
@@ -35,7 +40,7 @@ public class Pair<F extends Comparable<F>, S extends Comparable<S>>
         if(comparedFirst != 0)
             return comparedFirst;
 
-        if(second == null)
+        if(this.second == null)
             return p.getSecond() == null ? 0 : -1;
 
         return this.second.compareTo(p.getSecond());
@@ -55,13 +60,11 @@ public class Pair<F extends Comparable<F>, S extends Comparable<S>>
 
         Pair<?, ?> other = (Pair<?, ?>)obj;
 
-        if(first == null && other.first != null || !first.equals(other.first))
-            return false;
+        if(this.first == null && other.first == null || this.second == null && other.second == null)
+            return true;
 
-        if(second == null && other.second != null || !second.equals(other.second))
-            return false;
-
-        return true;
+        return this.first != null && this.first.equals(other.first) && this.second != null
+               && this.second.equals(other.second);
     }
 
     @Override
@@ -79,6 +82,9 @@ public class Pair<F extends Comparable<F>, S extends Comparable<S>>
     @Override
     public String toString()
     {
-        return "(" + getFirst().toString() + ", " + getFirst().toString() + ")";
+        String firstString = first == null ? "null" : first.toString();
+        String secondString = second == null ? "null" : second.toString();
+
+        return "(" + firstString + ", " + secondString + ")";
     }
 }

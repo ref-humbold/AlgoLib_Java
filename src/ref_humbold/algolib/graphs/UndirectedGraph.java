@@ -20,15 +20,12 @@ public class UndirectedGraph
         super(n);
 
         for(Pair<Integer, Integer> e : edges)
-        {
-            graphrepr.get(e.getFirst())
-                     .add(new Pair<Integer, Double>(e.getSecond(), DEFAULT_WEIGHT));
-            graphrepr.get(e.getSecond())
-                     .add(new Pair<Integer, Double>(e.getFirst(), DEFAULT_WEIGHT));
-        }
+            this.addEdge(e.getFirst(), e.getSecond());
     }
 
-    /** @see Graph#getEdgesNumber */
+    /**
+     * @see Graph#getEdgesNumber
+     */
     @Override
     public int getEdgesNumber()
     {
@@ -45,7 +42,9 @@ public class UndirectedGraph
         return edgesNumber / 2;
     }
 
-    /** @see Graph#getEdges */
+    /**
+     * @see Graph#getEdges
+     */
     @Override
     public Collection<Pair<Integer, Integer>> getEdges()
     {
@@ -54,24 +53,30 @@ public class UndirectedGraph
         for(Integer v : getVertices())
             for(Integer u : getNeighbours(v))
                 if(u >= v)
-                    edges.add(new Pair<Integer, Integer>(v, u));
+                    edges.add(new Pair<>(v, u));
 
         return edges;
     }
 
-    /** @see Graph#addEdge */
+    /**
+     * @see Graph#addEdge
+     */
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
     {
-        if(vertex1 < 0 || vertex1 >= getVerticesNumber() || vertex2 < 0
-           || vertex2 >= getVerticesNumber())
-            throw new IllegalArgumentException("No such vertex.");
+        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
+            throw new IllegalArgumentException("No such vertex: " + vertex1.toString() + ".");
 
-        graphrepr.get(vertex1).add(new Pair<Integer, Double>(vertex2, DEFAULT_WEIGHT));
-        graphrepr.get(vertex2).add(new Pair<Integer, Double>(vertex1, DEFAULT_WEIGHT));
+        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
+            throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
+
+        graphrepr.get(vertex1).add(Pair.create(vertex2, DEFAULT_WEIGHT));
+        graphrepr.get(vertex2).add(Pair.create(vertex1, DEFAULT_WEIGHT));
     }
 
-    /** @see Graph#getIndegree */
+    /**
+     * @see Graph#getIndegree
+     */
     @Override
     public int getIndegree(Integer vertex)
     {

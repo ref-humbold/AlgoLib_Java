@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 public class AVLTree<E extends Comparable<E>>
     implements Iterable<E>
 {
-    private static interface AVLNode<T extends Comparable<T>>
+    private interface AVLNode<T extends Comparable<T>>
     {
         T getElement();
 
@@ -36,7 +36,9 @@ public class AVLTree<E extends Comparable<E>>
          */
         int countBalance();
 
-        /** Wylicza wysokość wierzchołka. */
+        /**
+         * Wylicza wysokość wierzchołka.
+         */
         void recountHeight();
 
         /**
@@ -55,19 +57,29 @@ public class AVLTree<E extends Comparable<E>>
     private static class AVLNodeElement<T extends Comparable<T>>
         implements AVLNode<T>
     {
-        /** Wartość w węźle. */
+        /**
+         * Wartość w węźle.
+         */
         private T element;
 
-        /** Wysokość węzła. */
+        /**
+         * Wysokość węzła.
+         */
         private int height = 1;
 
-        /** Lewy syn węzła. */
+        /**
+         * Lewy syn węzła.
+         */
         private AVLNode<T> left = null;
 
-        /** Prawy syn węzła. */
+        /**
+         * Prawy syn węzła.
+         */
         private AVLNode<T> right = null;
 
-        /** Ojciec węzła. */
+        /**
+         * Ojciec węzła.
+         */
         private AVLNode<T> parent = null;
 
         public AVLNodeElement(T element)
@@ -148,7 +160,9 @@ public class AVLTree<E extends Comparable<E>>
             return "[" + leftString + " " + element.toString() + " " + rightString + "]";
         }
 
-        /** @see AVLNode#countBalance */
+        /**
+         * @see AVLNode#countBalance
+         */
         @Override
         public int countBalance()
         {
@@ -158,7 +172,9 @@ public class AVLTree<E extends Comparable<E>>
             return leftHeight - rightHeight;
         }
 
-        /** @see AVLNode#countHeight */
+        /**
+         * @see AVLNode#recountHeight
+         */
         @Override
         public void recountHeight()
         {
@@ -168,14 +184,18 @@ public class AVLTree<E extends Comparable<E>>
             height = Math.max(leftHeight, rightHeight) + 1;
         }
 
-        /** @see AVLNode#minimum */
+        /**
+         * @see AVLNode#minimum
+         */
         @Override
         public AVLNode<T> minimum()
         {
             return left == null ? this : left.minimum();
         }
 
-        /** @see AVLNode#maximum */
+        /**
+         * @see AVLNode#maximum
+         */
         @Override
         public AVLNode<T> maximum()
         {
@@ -186,7 +206,9 @@ public class AVLTree<E extends Comparable<E>>
     private static class AVLNodeNull<T extends Comparable<T>>
         implements AVLNode<T>
     {
-        /** Ojciec węzła. */
+        /**
+         * Ojciec węzła.
+         */
         private AVLNode<T> parent = null;
 
         public AVLNodeNull()
@@ -251,27 +273,35 @@ public class AVLTree<E extends Comparable<E>>
             return "[Null]";
         }
 
-        /** @see AVLNode#countBalance */
+        /**
+         * @see AVLNode#countBalance
+         */
         @Override
         public int countBalance()
         {
             return 0;
         }
 
-        /** @see AVLNode#countHeight */
+        /**
+         * @see AVLNode#recountHeight
+         */
         @Override
         public void recountHeight()
         {
         }
 
-        /** @see AVLNode#minimum */
+        /**
+         * @see AVLNode#minimum
+         */
         @Override
         public AVLNode<T> minimum()
         {
             throw new UnsupportedOperationException();
         }
 
-        /** @see AVLNode#maximum */
+        /**
+         * @see AVLNode#maximum
+         */
         @Override
         public AVLNode<T> maximum()
         {
@@ -282,7 +312,9 @@ public class AVLTree<E extends Comparable<E>>
     private class AVLIterator
         implements Iterator<E>
     {
-        /** Aktualny węzeł. */
+        /**
+         * Aktualny węzeł.
+         */
         private AVLNode<E> currentNode;
 
         public AVLIterator(AVLNode<E> node)
@@ -363,10 +395,14 @@ public class AVLTree<E extends Comparable<E>>
         }
     }
 
-    /** Korzeń drzewa. */
+    /**
+     * Korzeń drzewa.
+     */
     private AVLNode<E> tree = new AVLNodeNull<>();
 
-    /** Liczba elementów drzewa. */
+    /**
+     * Liczba elementów drzewa.
+     */
     private int elems = 0;
 
     public AVLTree()
@@ -384,14 +420,17 @@ public class AVLTree<E extends Comparable<E>>
     @Override
     public String toString()
     {
-        String returnValue = "{|";
+        StringBuilder returnBuilder = new StringBuilder("{|");
 
         for(E elem : this)
-            returnValue += elem.toString() + ", ";
+        {
+            returnBuilder.append(elem);
+            returnBuilder.append(", ");
+        }
 
-        int ln = returnValue.length();
+        String returnString = returnBuilder.toString();
 
-        return returnValue.substring(0, ln - 2) + "|}";
+        return returnString.substring(0, returnString.length() - 2) + "|}";
     }
 
     /**
@@ -434,7 +473,7 @@ public class AVLTree<E extends Comparable<E>>
 
         AVLNode<E> nodeParent = findNodeParent(element);
 
-        return nodeParent == null ? true : getSubtree(nodeParent, element) != null;
+        return nodeParent == null || getSubtree(nodeParent, element) != null;
     }
 
     /**
@@ -450,7 +489,7 @@ public class AVLTree<E extends Comparable<E>>
         if(theNode != null)
             return false;
 
-        AVLNode<E> newNode = new AVLNodeElement<E>(element);
+        AVLNode<E> newNode = new AVLNodeElement<>(element);
 
         if(nodeParent != null)
         {
@@ -490,7 +529,9 @@ public class AVLTree<E extends Comparable<E>>
         return true;
     }
 
-    /** Usuwanie wszystkich elementów z drzewa. */
+    /**
+     * Usuwanie wszystkich elementów z drzewa.
+     */
     public void clear()
     {
         setRoot(null);

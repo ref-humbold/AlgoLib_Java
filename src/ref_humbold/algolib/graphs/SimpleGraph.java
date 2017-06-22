@@ -1,24 +1,26 @@
 // STRUKTURA GRAFU PROSTEGO
 package ref_humbold.algolib.graphs;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import ref_humbold.algolib.structures.Pair;
 
 public abstract class SimpleGraph
     implements Graph
 {
-    /** Oznaczenie nieskończoności. */
+    /**
+     * Oznaczenie nieskończoności.
+     */
     protected static Double INF = Double.POSITIVE_INFINITY;
 
-    /** Domyślna waga krawędzi. */
+    /**
+     * Domyślna waga krawędzi.
+     */
     protected static Double DEFAULT_WEIGHT = 1.0;
 
-    /** Lista sąsiedztwa grafu. */
+    /**
+     * Lista sąsiedztwa grafu.
+     */
     protected List<Set<Pair<Integer, Double>>> graphrepr;
 
     public SimpleGraph(int n)
@@ -26,26 +28,32 @@ public abstract class SimpleGraph
         graphrepr = new ArrayList<>();
 
         for(int i = 0; i < n; ++i)
-            graphrepr.add(new HashSet<Pair<Integer, Double>>());
+            graphrepr.add(new HashSet<>());
     }
 
-    /** @see Graph#getVerticesNumber */
+    /**
+     * @see Graph#getVerticesNumber
+     */
     @Override
     public int getVerticesNumber()
     {
         return graphrepr.size();
     }
 
-    /** @see Graph#addVertex */
+    /**
+     * @see Graph#addVertex
+     */
     @Override
     public Integer addVertex()
     {
-        graphrepr.add(new HashSet<Pair<Integer, Double>>());
+        graphrepr.add(new HashSet<>());
 
         return graphrepr.size() - 1;
     }
 
-    /** @see Graph#getVertices */
+    /**
+     * @see Graph#getVertices
+     */
     @Override
     public Collection<Integer> getVertices()
     {
@@ -57,11 +65,13 @@ public abstract class SimpleGraph
         return vertices;
     }
 
-    /** @see Graph#getNeighbours */
+    /**
+     * @see Graph#getNeighbours
+     */
     @Override
     public Collection<Integer> getNeighbours(Integer vertex)
     {
-        List<Integer> neighbours = new ArrayList<Integer>();
+        List<Integer> neighbours = new ArrayList<>();
 
         for(Pair<Integer, Double> e : graphrepr.get(vertex))
             neighbours.add(e.getFirst());
@@ -69,7 +79,9 @@ public abstract class SimpleGraph
         return neighbours;
     }
 
-    /** @see Graph#getOutdegree */
+    /**
+     * @see Graph#getOutdegree
+     */
     @Override
     public int getOutdegree(Integer vertex)
     {
