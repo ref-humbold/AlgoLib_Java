@@ -15,7 +15,7 @@ public class UndirectedGraph
         super(n);
     }
 
-    public UndirectedGraph(int n, List<Pair<Integer, Integer>> edges)
+    public UndirectedGraph(int n, Iterable<Pair<Integer, Integer>> edges)
     {
         super(n);
 
@@ -70,8 +70,8 @@ public class UndirectedGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
 
-        graphrepr.get(vertex1).add(Pair.create(vertex2, DEFAULT_WEIGHT));
-        graphrepr.get(vertex2).add(Pair.create(vertex1, DEFAULT_WEIGHT));
+        graphrepr.get(vertex1).add(Pair.make(vertex2, DEFAULT_WEIGHT));
+        graphrepr.get(vertex2).add(Pair.make(vertex1, DEFAULT_WEIGHT));
     }
 
     /**

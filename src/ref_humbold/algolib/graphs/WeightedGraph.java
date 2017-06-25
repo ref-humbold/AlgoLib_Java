@@ -9,7 +9,6 @@ public interface WeightedGraph
     extends Graph
 {
     /**
-     * Wszystkie krawędzie z ich wagami.
      * @return lista krawędzi z wagami
      */
     Collection<Triple<Integer, Integer, Double>> getWeightedEdges();
@@ -23,9 +22,8 @@ public interface WeightedGraph
     void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight);
 
     /**
-     * Sąsiedzi wierzchołka z wagami krawędzi do nich.
      * @param vertex numer wierzchołka
-     * @return lista sąsiadów wierzchołka z wagami
+     * @return lista sąsiadów wierzchołka wraz z wagami krawędzi
      */
     Collection<Pair<Integer, Double>> getWeightedNeighbours(Integer vertex);
 }

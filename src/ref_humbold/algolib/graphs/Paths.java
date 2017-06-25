@@ -75,7 +75,7 @@ public class Paths
                     if(distances.get(v) + wg < distances.get(nb))
                     {
                         distances.set(nb, distances.get(v) + wg);
-                        vertexQueue.add(Pair.create(-distances.get(nb), nb));
+                        vertexQueue.add(Pair.make(-distances.get(nb), nb));
                     }
                 }
             }

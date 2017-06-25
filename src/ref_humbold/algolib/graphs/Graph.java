@@ -46,23 +46,20 @@ public interface Graph
     void addEdge(Integer vertex1, Integer vertex2);
 
     /**
-     * Sąsiedzi wierzchołka.
      * @param vertex numer wierzchołka
      * @return lista sąsiadów wierzchołka
      */
     Collection<Integer> getNeighbours(Integer vertex);
 
     /**
-     * Stopień wyjściowy wierzchołka.
      * @param vertex numer wierzchołka
-     * @return wartość stopnia wyjściowego wierzchołka
+     * @return stopień wyjściowy wierzchołka
      */
     int getOutdegree(Integer vertex);
 
     /**
-     * Stopień wejściowy wierzchołka.
      * @param vertex numer wierzchołka
-     * @return wartość stopnia wejściowego wierzchołka
+     * @return stopień wejściowy wierzchołka
      */
     int getIndegree(Integer vertex);
 }

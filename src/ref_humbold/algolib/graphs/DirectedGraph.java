@@ -15,7 +15,7 @@ public class DirectedGraph
         super(n);
     }
 
-    public DirectedGraph(int n, List<Pair<Integer, Integer>> edges)
+    public DirectedGraph(int n, Iterable<Pair<Integer, Integer>> edges)
     {
         super(n);
 
@@ -64,7 +64,7 @@ public class DirectedGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
 
-        graphrepr.get(vertex1).add(Pair.create(vertex2, DEFAULT_WEIGHT));
+        graphrepr.get(vertex1).add(Pair.make(vertex2, DEFAULT_WEIGHT));
     }
 
     /**

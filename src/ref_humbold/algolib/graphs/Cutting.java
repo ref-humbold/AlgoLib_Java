@@ -2,6 +2,7 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,17 +41,19 @@ public class Cutting
         {
             this.graph = graph;
             this.dfsParents = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
-            this.dfsChildren = new ArrayList<>(
-                Collections.nCopies(graph.getVerticesNumber(), new ArrayList<>()));
             this.dfsDepths = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
             this.lowValues = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
+            this.dfsChildren = new ArrayList<>();
+
+            for(Integer v : graph.getVertices())
+                this.dfsChildren.add(new ArrayList<>());
         }
 
         /**
          * Znajdowanie mostów w grafie.
          * @return lista krawędzi będących mostami
          */
-        public List<Pair<Integer, Integer>> bridges()
+        public Collection<Pair<Integer, Integer>> bridges()
         {
             List<Pair<Integer, Integer>> bridges = new ArrayList<>();
 
@@ -60,7 +63,8 @@ public class Cutting
 
             for(Integer v : graph.getVertices())
                 if(hasBridge(v))
-                    bridges.add(Pair.create(v, dfsParents.get(v)));
+                    bridges.add(
+                        Pair.make(Math.min(v, dfsParents.get(v)), Math.max(v, dfsParents.get(v))));
 
             return bridges;
         }
@@ -69,16 +73,15 @@ public class Cutting
          * Znajdowanie punktów artykulacji.
          * @return lista punktów artykulacji
          */
-        public List<Integer> separators()
+        public Collection<Integer> separators()
         {
             List<Integer> separators = new ArrayList<>();
-            dfsDepths.set(0, 0);
 
-            for(int v = 0; v < graph.getVerticesNumber(); ++v)
+            for(Integer v : graph.getVertices())
                 if(dfsDepths.get(v) == null)
                     dfs(v, null, 0);
 
-            for(int v = 0; v < graph.getVerticesNumber(); ++v)
+            for(Integer v : graph.getVertices())
                 if(isSeparator(v))
                     separators.add(v);
 
@@ -151,7 +154,7 @@ public class Cutting
      * Wyznacza mosty w grafie.
      * @return lista krawędzi będących mostami
      */
-    public List<Pair<Integer, Integer>> findBridges(UndirectedGraph ugraph)
+    public static Collection<Pair<Integer, Integer>> findBridges(UndirectedGraph ugraph)
     {
         return new GraphCutting(ugraph).bridges();
     }
@@ -160,7 +163,7 @@ public class Cutting
      * Wyznaczanie punktów artykulacji.
      * @return lista punktów artykulacji
      */
-    public static List<Integer> findVertexSeparators(UndirectedGraph ugraph)
+    public static Collection<Integer> findVertexSeparators(UndirectedGraph ugraph)
     {
         return new GraphCutting(ugraph).separators();
     }

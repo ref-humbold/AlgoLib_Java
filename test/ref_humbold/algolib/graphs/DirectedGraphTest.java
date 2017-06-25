@@ -1,6 +1,7 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.Arrays;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -58,8 +59,8 @@ public class DirectedGraphTest
         Arrays.sort(result);
 
         Assert.assertArrayEquals(
-            new Object[]{Pair.create(1, 5), Pair.create(2, 4), Pair.create(3, 6), Pair.create(6, 3),
-                         Pair.create(7, 7), Pair.create(8, 0), Pair.create(9, 3)}, result);
+            new Object[]{Pair.make(1, 5), Pair.make(2, 4), Pair.make(3, 6), Pair.make(6, 3),
+                         Pair.make(7, 7), Pair.make(8, 0), Pair.make(9, 3)}, result);
     }
 
     @Test

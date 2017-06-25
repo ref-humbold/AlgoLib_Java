@@ -89,7 +89,7 @@ public class TopologicalSorting
                             List<Pair<Integer, Boolean>> indices)
         throws DirectedCyclicGraphException
     {
-        indices.set(vertex, Pair.create(index, true));
+        indices.set(vertex, Pair.make(index, true));
 
         for(Integer neighbour : digraph.getNeighbours(vertex))
             if(indices.get(neighbour) == null)
@@ -99,6 +99,6 @@ public class TopologicalSorting
                 throw new DirectedCyclicGraphException();
 
         order.add(vertex);
-        indices.set(vertex, Pair.create(index, false));
+        indices.set(vertex, Pair.make(index, false));
     }
 }

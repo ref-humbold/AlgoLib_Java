@@ -17,7 +17,7 @@ public class UndirectedWeightedGraph
         super(n);
     }
 
-    public UndirectedWeightedGraph(int n, List<Triple<Integer, Integer, Double>> edges)
+    public UndirectedWeightedGraph(int n, Iterable<Triple<Integer, Integer, Double>> edges)
     {
         super(n);
 
@@ -36,7 +36,7 @@ public class UndirectedWeightedGraph
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
                 if(e.getFirst() >= v)
-                    edges.add(Triple.create(v, e.getFirst(), e.getSecond()));
+                    edges.add(Triple.make(v, e.getFirst(), e.getSecond()));
 
         return edges;
     }
@@ -53,8 +53,8 @@ public class UndirectedWeightedGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
 
-        graphrepr.get(vertex1).add(Pair.create(vertex2, weight));
-        graphrepr.get(vertex2).add(Pair.create(vertex1, weight));
+        graphrepr.get(vertex1).add(Pair.make(vertex2, weight));
+        graphrepr.get(vertex2).add(Pair.make(vertex1, weight));
     }
 
     /**

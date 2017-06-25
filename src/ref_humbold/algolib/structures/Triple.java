@@ -15,7 +15,7 @@ public class Triple<F extends Comparable<F>, S extends Comparable<S>, T extends 
         this.third = third;
     }
 
-    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> Triple<F, S, T> create(
+    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> Triple<F, S, T> make(
         F first, S second, T third)
     {
         return new Triple<>(first, second, third);
@@ -80,8 +80,8 @@ public class Triple<F extends Comparable<F>, S extends Comparable<S>, T extends 
             return true;
 
         return this.first != null && this.first.equals(other.first) && this.second != null
-               && this.second.equals(other.second) && this.third != null && this.third
-                   .equals(other.third);
+               && this.second.equals(other.second) && this.third != null && this.third.equals(
+            other.third);
     }
 
     @Override

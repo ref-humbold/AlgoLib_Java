@@ -17,7 +17,7 @@ public class DirectedWeightedGraph
         super(n);
     }
 
-    public DirectedWeightedGraph(int n, List<Triple<Integer, Integer, Double>> edges)
+    public DirectedWeightedGraph(int n, Iterable<Triple<Integer, Integer, Double>> edges)
     {
         super(n);
 
@@ -35,7 +35,7 @@ public class DirectedWeightedGraph
 
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
-                edges.add(Triple.create(v, e.getFirst(), e.getSecond()));
+                edges.add(Triple.make(v, e.getFirst(), e.getSecond()));
 
         return edges;
     }
@@ -52,7 +52,7 @@ public class DirectedWeightedGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
 
-        graphrepr.get(vertex1).add(Pair.create(vertex2, weight));
+        graphrepr.get(vertex1).add(Pair.make(vertex2, weight));
     }
 
     /**
