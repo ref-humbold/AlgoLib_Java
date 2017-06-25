@@ -1,18 +1,17 @@
 // STRUKTURA GRAFU PROSTEGO
 package ref_humbold.algolib.graphs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import ref_humbold.algolib.structures.Pair;
 
 public abstract class SimpleGraph
     implements Graph
 {
-    /**
-     * Oznaczenie nieskończoności.
-     */
-    protected static Double INF = Double.POSITIVE_INFINITY;
-
     /**
      * Domyślna waga krawędzi.
      */

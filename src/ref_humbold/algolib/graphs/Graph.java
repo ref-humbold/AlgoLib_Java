@@ -8,25 +8,26 @@ import ref_humbold.algolib.structures.Pair;
 public interface Graph
 {
     /**
-     * Getter dla liczby wierzchołków.
+     * Oznaczenie nieskończoności.
+     */
+    double INF = Double.POSITIVE_INFINITY;
+
+    /**
      * @return liczba wierzchołków
      */
     int getVerticesNumber();
 
     /**
-     * Getter dla liczby krawędzi.
      * @return liczba krawędzi
      */
     int getEdgesNumber();
 
     /**
-     * Wszystkie wierzchołki.
      * @return lista wierzchołków
      */
     Collection<Integer> getVertices();
 
     /**
-     * Wszystkie krawędzie.
      * @return lista krawędzi
      */
     Collection<Pair<Integer, Integer>> getEdges();

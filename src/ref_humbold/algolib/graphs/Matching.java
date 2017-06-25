@@ -11,24 +11,26 @@ import ref_humbold.algolib.structures.Pair;
 
 public class Matching
 {
-    /** Oznaczenie braku skojarzenia. */
-    private static final Integer NO_MATCH = null;
-
-    /** Oznaczenie nieskończoności. */
-    private static final Integer INF = 1 << 30;
-
     private static class MatchAugmenter
     {
-        /** Graf dwudzielny. */
-        MultipartiteGraph partgraph;
+        /**
+         * Graf dwudzielny.
+         */
+        MultipartiteGraph graph;
 
-        /** Skojarzenia wierzchołków. */
+        /**
+         * Skojarzenia wierzchołków.
+         */
         List<Integer> matching;
 
-        /** Odległości wierzchołków. */
-        List<Integer> distances;
+        /**
+         * Odległości wierzchołków.
+         */
+        List<Double> distances;
 
-        /** Lista odwiedzonych wierzchołków. */
+        /**
+         * Lista odwiedzonych wierzchołków.
+         */
         List<Boolean> isVisited;
 
         public MatchAugmenter(MultipartiteGraph partgraph)
@@ -36,18 +38,16 @@ public class Matching
             if(partgraph.getGroupsNumber() != 2)
                 throw new IllegalArgumentException("Graph is not bipartite");
 
-            this.partgraph = partgraph;
-            this.matching = new ArrayList<>(Collections.nCopies(partgraph.getVerticesNumber(),
-                                                                NO_MATCH));
+            this.graph = partgraph;
+            this.matching = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
         }
 
         /**
-         * Getter dla aktualnego skojarzenia.
          * @return skojarzenia wierzchołków
          */
         public List<Integer> getMatching()
         {
-            return matching;
+            return new ArrayList<>(matching);
         }
 
         /**
@@ -58,25 +58,28 @@ public class Matching
         {
             boolean matchAdded = false;
 
-            distances = new ArrayList<>(Collections.nCopies(partgraph.getVerticesNumber(), INF));
-            isVisited = new ArrayList<>(Collections.nCopies(partgraph.getVerticesNumber(), false));
+            distances = new ArrayList<>(
+                Collections.nCopies(graph.getVerticesNumber(), MultipartiteGraph.INF));
+            isVisited = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), false));
 
             bfs();
 
-            for(Integer v : partgraph.getGroup(1))
+            for(Integer v : graph.getGroup(1))
                 matchAdded = dfs(v) || matchAdded;
 
             return matchAdded;
         }
 
-        /** Algorytm BFS wyliczający odległości wierzchołków. */
+        /**
+         * Algorytm BFS wyliczający odległości wierzchołków.
+         */
         private void bfs()
         {
             Deque<Integer> vertexDeque = new ArrayDeque<>();
 
-            for(Integer v : partgraph.getGroup(1))
+            for(Integer v : graph.getGroup(1))
             {
-                distances.set(v, 0);
+                distances.set(v, 0.0);
                 vertexDeque.addLast(v);
             }
 
@@ -84,8 +87,9 @@ public class Matching
             {
                 Integer v = vertexDeque.removeFirst();
 
-                for(Integer nb : partgraph.getNeighbours(v))
-                    if(matching.get(nb) != NO_MATCH && distances.get(matching.get(nb)).equals(INF))
+                for(Integer nb : graph.getNeighbours(v))
+                    if(matching.get(nb) != null && distances.get(matching.get(nb))
+                                                            .equals(MultipartiteGraph.INF))
                     {
                         distances.set(matching.get(nb), distances.get(v) + 1);
                         vertexDeque.addLast(matching.get(nb));
@@ -102,8 +106,8 @@ public class Matching
         {
             isVisited.set(vertex, true);
 
-            for(Integer neighbour : partgraph.getNeighbours(vertex))
-                if(matching.get(neighbour) == NO_MATCH)
+            for(Integer neighbour : graph.getNeighbours(vertex))
+                if(matching.get(neighbour) == null)
                 {
                     matching.set(vertex, neighbour);
                     matching.set(neighbour, vertex);
@@ -128,9 +132,9 @@ public class Matching
         }
     }
 
-    public static List<Pair<Integer, Integer>> match(MultipartiteGraph partgraph)
+    public static List<Pair<Integer, Integer>> match(MultipartiteGraph graph)
     {
-        MatchAugmenter augmenter = new MatchAugmenter(partgraph);
+        MatchAugmenter augmenter = new MatchAugmenter(graph);
 
         while(augmenter.augmentMatch())
         {
@@ -139,7 +143,7 @@ public class Matching
         List<Integer> matching = augmenter.getMatching();
         List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
 
-        for(Integer v : partgraph.getGroup(1))
+        for(Integer v : graph.getGroup(1))
             matchPairs.add(new Pair<>(v, matching.get(v)));
 
         return matchPairs;

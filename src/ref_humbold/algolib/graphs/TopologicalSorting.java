@@ -1,11 +1,12 @@
 // ALGORYTM: SORTOWANIE TOPOLOGICZNE GRAFU SKIEROWANEGO
 package ref_humbold.algolib.graphs;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.List;
+import java.util.PriorityQueue;
+
+import ref_humbold.algolib.structures.Pair;
 
 public class TopologicalSorting
 {
@@ -17,20 +18,21 @@ public class TopologicalSorting
     public static List<Integer> sortTopological1(DirectedGraph digraph)
         throws DirectedCyclicGraphException
     {
-        List<Integer> indegs = new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), 0));
         List<Integer> order = new ArrayList<>();
-        Deque<Integer> deque = new ArrayDeque<>();
+        List<Integer> indegs = new ArrayList<>(
+            Collections.nCopies(digraph.getVerticesNumber(), null));
+        PriorityQueue<Integer> vertexQueue = new PriorityQueue<>();
 
         for(Integer v : digraph.getVertices())
             indegs.set(v, digraph.getIndegree(v));
 
         for(Integer v : digraph.getVertices())
             if(indegs.get(v).equals(0))
-                deque.addLast(v);
+                vertexQueue.add(v);
 
-        while(!deque.isEmpty())
+        while(!vertexQueue.isEmpty())
         {
-            Integer v = deque.removeFirst();
+            Integer v = vertexQueue.poll();
 
             order.add(v);
             indegs.set(v, null);
@@ -40,7 +42,7 @@ public class TopologicalSorting
                 indegs.set(nb, indegs.get(nb) - 1);
 
                 if(indegs.get(nb).equals(0))
-                    deque.addLast(nb);
+                    vertexQueue.add(nb);
             }
         }
 
@@ -59,37 +61,44 @@ public class TopologicalSorting
         throws DirectedCyclicGraphException
     {
         List<Integer> order = new ArrayList<>();
-        List<Boolean> isVisited = new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(),
-                                                                      false));
+        List<Pair<Integer, Boolean>> indices = new ArrayList<>(
+            Collections.nCopies(digraph.getVerticesNumber(), null));
+        List<Integer> vertices = new ArrayList<>(digraph.getVertices());
 
-        for(Integer v : digraph.getVertices())
-            if(!isVisited.get(v))
-                dfs(digraph, v, order, isVisited);
+        Collections.sort(vertices);
+        Collections.reverse(vertices);
+
+        for(Integer v : vertices)
+            if(indices.get(v) == null)
+                dfs(v, v, digraph, order, indices);
 
         Collections.reverse(order);
-
-        if(order.size() != digraph.getVerticesNumber())
-            throw new DirectedCyclicGraphException();
 
         return order;
     }
 
     /**
-     * Algorytm dfs wyznaczający kolejność wierzchołków.
+     * Algorytm DFS wyznaczający kolejność wierzchołków.
      * @param vertex aktualny wierzchołek
+     * @param index numer iteracji
      * @param digraph graf skierowany
      * @param order aktualny porządek topologiczny
-     * @param isVisited lista odwiedzonych wierzchołków
+     * @param indices: indeksy iteracji i przetwarzania wierzchołków
      */
-    private static void dfs(DirectedGraph digraph, int vertex, List<Integer> order,
-                            List<Boolean> isVisited)
+    private static void dfs(int vertex, int index, DirectedGraph digraph, List<Integer> order,
+                            List<Pair<Integer, Boolean>> indices)
+        throws DirectedCyclicGraphException
     {
-        isVisited.set(vertex, true);
+        indices.set(vertex, Pair.create(index, true));
 
         for(Integer neighbour : digraph.getNeighbours(vertex))
-            if(!isVisited.get(neighbour))
-                dfs(digraph, neighbour, order, isVisited);
+            if(indices.get(neighbour) == null)
+                dfs(neighbour, index, digraph, order, indices);
+            else if(indices.get(neighbour).getFirst().equals(index) && indices.get(neighbour)
+                                                                              .getSecond())
+                throw new DirectedCyclicGraphException();
 
         order.add(vertex);
+        indices.set(vertex, Pair.create(index, false));
     }
 }

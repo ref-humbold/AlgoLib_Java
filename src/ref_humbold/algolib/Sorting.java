@@ -1,39 +1,36 @@
 package ref_humbold.algolib;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-import java.lang.Math;
+import java.util.*;
 
 import ref_humbold.algolib.structures.Pair;
 
-class AngleComparator implements Comparator<Pair<Double, Double>>
-{
-    @Override public int compare(Pair<Double, Double> pt1, Pair<Double, Double> pt2)
-    {
-        Double angle1 = countAngle(pt1), angle2 = countAngle(pt2);
-
-        return angle1 != angle2 ? angle1.compareTo(angle2)
-                                : countRadius(pt1).compareTo(countRadius(pt2));
-    }
-
-    private Double countAngle(Pair<Double, Double> pt)
-    {
-        double ang = Math.atan2(pt.getSecond(), pt.getFirst()) * 90.0 / Math.acos(0);
-
-        return pt.getSecond() >= 0.0 ? ang : ang + 360.0;
-    }
-
-    private Double countRadius(Pair<Double, Double> pt)
-    {
-        return pt.getFirst() * pt.getFirst() + pt.getSecond() * pt.getSecond();
-    }
-}
-
 public class Sorting
 {
+    private static class AngleComparator
+        implements Comparator<Pair<Double, Double>>
+    {
+        @Override
+        public int compare(Pair<Double, Double> pt1, Pair<Double, Double> pt2)
+        {
+            Double angle1 = countAngle(pt1), angle2 = countAngle(pt2);
+
+            return angle1.equals(angle2) ? countRadius(pt1).compareTo(countRadius(pt2)) :
+                   angle1.compareTo(angle2);
+        }
+
+        private Double countAngle(Pair<Double, Double> pt)
+        {
+            double ang = Math.atan2(pt.getSecond(), pt.getFirst()) * 90.0 / Math.acos(0);
+
+            return pt.getSecond() >= 0.0 ? ang : ang + 360.0;
+        }
+
+        private Double countRadius(Pair<Double, Double> pt)
+        {
+            return pt.getFirst() * pt.getFirst() + pt.getSecond() * pt.getSecond();
+        }
+    }
+
     public static void angleSort(List<Pair<Double, Double>> points)
     {
         Collections.sort(points, new AngleComparator());
@@ -157,9 +154,9 @@ public class Sorting
         int right_vertex = (vertex * 2) - index_begin + 2;
 
         if(right_vertex <= index_end)
-            next_vertex = heap.get(right_vertex).compareTo(heap.get(left_vertex)) < 0
-                              ? left_vertex
-                              : right_vertex;
+            next_vertex =
+                heap.get(right_vertex).compareTo(heap.get(left_vertex)) < 0 ? left_vertex :
+                right_vertex;
 
         if(left_vertex == index_end)
             next_vertex = left_vertex;
@@ -215,11 +212,11 @@ public class Sorting
         int candidate2 = random.nextInt(size);
         int candidate3 = random.nextInt(size);
 
-        if(Math.min(candidate2, candidate3) <= candidate1
-           && candidate1 <= Math.max(candidate2, candidate3))
+        if(Math.min(candidate2, candidate3) <= candidate1 && candidate1 <= Math
+            .max(candidate2, candidate3))
             return candidate2;
-        else if(Math.min(candidate1, candidate3) <= candidate2
-                && candidate2 <= Math.max(candidate1, candidate3))
+        else if(Math.min(candidate1, candidate3) <= candidate2 && candidate2 <= Math
+            .max(candidate1, candidate3))
             return candidate2;
         else
             return candidate3;

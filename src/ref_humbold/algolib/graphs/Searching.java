@@ -1,4 +1,4 @@
-// ALGORYTM: BFS, DFS - PRZESZKIWANIE GRAFU
+// ALGORYTMY PRZESZUKIWANIA GRAFU
 package ref_humbold.algolib.graphs;
 
 import java.util.ArrayDeque;
@@ -7,8 +7,38 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-public class DepthFirstSearch
+public class Searching
 {
+    /**
+     * Algorytm BFS.
+     * @param graph graf
+     * @param root wierzchołek początkowy
+     * @return lista odwiedzonych wierzchołków
+     */
+    public static List<Boolean> bfs(Graph graph, int root)
+    {
+        List<Boolean> isVisited = new ArrayList<>(
+            Collections.nCopies(graph.getVerticesNumber(), false));
+        Deque<Integer> vertexDeque = new ArrayDeque<>();
+
+        vertexDeque.addLast(root);
+        isVisited.set(root, true);
+
+        while(!vertexDeque.isEmpty())
+        {
+            Integer v = vertexDeque.removeFirst();
+
+            for(Integer nb : graph.getNeighbours(v))
+                if(!isVisited.get(nb))
+                {
+                    isVisited.set(nb, true);
+                    vertexDeque.addLast(nb);
+                }
+        }
+
+        return isVisited;
+    }
+
     /**
      * Iteracyjny algorytm DFS.
      * @param graph graf
@@ -17,8 +47,8 @@ public class DepthFirstSearch
      */
     public static List<Boolean> dfsi(Graph graph, int root)
     {
-        List<Boolean> isVisited = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(),
-                                                                      false));
+        List<Boolean> isVisited = new ArrayList<>(
+            Collections.nCopies(graph.getVerticesNumber(), false));
         Deque<Integer> vertexDeque = new ArrayDeque<>();
 
         vertexDeque.addFirst(root);
@@ -49,8 +79,8 @@ public class DepthFirstSearch
      */
     public static List<Boolean> dfsr(Graph graph, int root)
     {
-        List<Boolean> isVisited = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(),
-                                                                      false));
+        List<Boolean> isVisited = new ArrayList<>(
+            Collections.nCopies(graph.getVerticesNumber(), false));
 
         dfsrStep(graph, root, isVisited);
 
