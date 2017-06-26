@@ -9,14 +9,14 @@ import org.junit.Test;
 
 import ref_humbold.algolib.structures.Pair;
 
-public class DirectedGraphTest
+public class DirectedSimpleGraphTest
 {
-    private DirectedGraph testObject;
+    private DirectedSimpleGraph testObject;
 
     @Before
     public void setUp()
     {
-        testObject = new DirectedGraph(10);
+        testObject = new DirectedSimpleGraph(10);
     }
 
     @After

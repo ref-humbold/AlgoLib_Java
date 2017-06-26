@@ -1,23 +1,25 @@
-// STRUKTURA NIESKIEROWANEGO GRAFU WAŻONEGO
+// STRUKTURA SKIEROWANEGO GRAFU WAŻONEGO
 package ref_humbold.algolib.graphs;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ref_humbold.algolib.structures.Pair;
 import ref_humbold.algolib.structures.Triple;
 
-public class UndirectedWeightedGraph
-    extends UndirectedGraph
+public class DirectedWeightedSimpleGraph
+    extends DirectedSimpleGraph
     implements WeightedGraph
 {
-    public UndirectedWeightedGraph(int n)
+    public DirectedWeightedSimpleGraph(int n)
     {
         super(n);
     }
 
-    public UndirectedWeightedGraph(int n, Iterable<Triple<Integer, Integer, Double>> edges)
+    public DirectedWeightedSimpleGraph(int n, Iterable<Triple<Integer, Integer, Double>> edges)
     {
         super(n);
 
@@ -25,9 +27,6 @@ public class UndirectedWeightedGraph
             this.addWeightedEdge(e.getFirst(), e.getSecond(), e.getThird());
     }
 
-    /**
-     * @see WeightedGraph#getWeightedEdges
-     */
     @Override
     public Collection<Triple<Integer, Integer, Double>> getWeightedEdges()
     {
@@ -35,15 +34,11 @@ public class UndirectedWeightedGraph
 
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
-                if(e.getFirst() >= v)
-                    edges.add(Triple.make(v, e.getFirst(), e.getSecond()));
+                edges.add(Triple.make(v, e.getFirst(), e.getSecond()));
 
         return edges;
     }
 
-    /**
-     * @see WeightedGraph#addWeightedEdge
-     */
     @Override
     public void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
     {
@@ -54,15 +49,25 @@ public class UndirectedWeightedGraph
             throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
 
         graphrepr.get(vertex1).add(Pair.make(vertex2, weight));
-        graphrepr.get(vertex2).add(Pair.make(vertex1, weight));
     }
 
-    /**
-     * @see WeightedGraph#getWeightedNeighbours
-     */
     @Override
     public Collection<Pair<Integer, Double>> getWeightedNeighbours(Integer vertex)
     {
-        return graphrepr.get(vertex);
+        return new ArrayList<>(graphrepr.get(vertex));
+    }
+
+    @Override
+    public void reverse()
+    {
+        List<Set<Pair<Integer, Double>>> revgraphrepr = new ArrayList<>();
+
+        for(Integer v : getVertices())
+            revgraphrepr.add(new HashSet<>());
+
+        for(Triple<Integer, Integer, Double> e : getWeightedEdges())
+            revgraphrepr.get(e.getSecond()).add(Pair.make(e.getFirst(), e.getThird()));
+
+        graphrepr = revgraphrepr;
     }
 }

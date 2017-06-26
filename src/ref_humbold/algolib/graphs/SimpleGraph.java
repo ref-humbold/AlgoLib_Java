@@ -30,18 +30,12 @@ public abstract class SimpleGraph
             graphrepr.add(new HashSet<>());
     }
 
-    /**
-     * @see Graph#getVerticesNumber
-     */
     @Override
     public int getVerticesNumber()
     {
         return graphrepr.size();
     }
 
-    /**
-     * @see Graph#addVertex
-     */
     @Override
     public Integer addVertex()
     {
@@ -50,9 +44,6 @@ public abstract class SimpleGraph
         return graphrepr.size() - 1;
     }
 
-    /**
-     * @see Graph#getVertices
-     */
     @Override
     public Collection<Integer> getVertices()
     {
@@ -64,9 +55,6 @@ public abstract class SimpleGraph
         return vertices;
     }
 
-    /**
-     * @see Graph#getNeighbours
-     */
     @Override
     public Collection<Integer> getNeighbours(Integer vertex)
     {
@@ -78,9 +66,6 @@ public abstract class SimpleGraph
         return neighbours;
     }
 
-    /**
-     * @see Graph#getOutdegree
-     */
     @Override
     public int getOutdegree(Integer vertex)
     {

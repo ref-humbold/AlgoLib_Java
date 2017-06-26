@@ -11,18 +11,18 @@ import ref_humbold.algolib.structures.Triple;
 
 public class MSTTest
 {
-    private UndirectedWeightedGraph graph;
+    private UndirectedWeightedSimpleGraph graph;
 
     @Before
     public void setUp()
     {
-        graph = new UndirectedWeightedGraph(5, Arrays.asList(Triple.make(0, 1, -1.0),
-                                                             Triple.make(0, 2, 4.0),
-                                                             Triple.make(1, 2, 9.0),
-                                                             Triple.make(1, 3, 7.0),
-                                                             Triple.make(1, 4, 12.0),
-                                                             Triple.make(2, 4, 6.0),
-                                                             Triple.make(3, 4, 3.0)));
+        graph = new UndirectedWeightedSimpleGraph(5, Arrays.asList(Triple.make(0, 1, -1.0),
+                                                                   Triple.make(0, 2, 4.0),
+                                                                   Triple.make(1, 2, 9.0),
+                                                                   Triple.make(1, 3, 7.0),
+                                                                   Triple.make(1, 4, 12.0),
+                                                                   Triple.make(2, 4, 6.0),
+                                                                   Triple.make(3, 4, 3.0)));
     }
 
     @After

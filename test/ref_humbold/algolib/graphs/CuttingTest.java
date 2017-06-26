@@ -25,16 +25,22 @@ public class CuttingTest
     @Test
     public void testFindBridgesWhenPresentBridges()
     {
-        UndirectedGraph graph = new UndirectedGraph(12,
-                                                    Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                                  Pair.make(0, 7), Pair.make(1, 2),
-                                                                  Pair.make(1, 3), Pair.make(1, 4),
-                                                                  Pair.make(3, 5), Pair.make(4, 5),
-                                                                  Pair.make(5, 6), Pair.make(7, 8),
-                                                                  Pair.make(7, 9), Pair.make(7, 11),
-                                                                  Pair.make(8, 9), Pair.make(9, 10),
-                                                                  Pair.make(9, 11),
-                                                                  Pair.make(10, 11)));
+        UndirectedGraph graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1),
+                                                                            Pair.make(0, 2),
+                                                                            Pair.make(0, 7),
+                                                                            Pair.make(1, 2),
+                                                                            Pair.make(1, 3),
+                                                                            Pair.make(1, 4),
+                                                                            Pair.make(3, 5),
+                                                                            Pair.make(4, 5),
+                                                                            Pair.make(5, 6),
+                                                                            Pair.make(7, 8),
+                                                                            Pair.make(7, 9),
+                                                                            Pair.make(7, 11),
+                                                                            Pair.make(8, 9),
+                                                                            Pair.make(9, 10),
+                                                                            Pair.make(9, 11),
+                                                                            Pair.make(10, 11)));
 
         Object[] result = Cutting.findBridges(graph).toArray();
 
@@ -46,11 +52,13 @@ public class CuttingTest
     @Test
     public void testFindBridgesWhenNoBridges()
     {
-        UndirectedGraph graph = new UndirectedGraph(6,
-                                                    Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                                  Pair.make(1, 2), Pair.make(1, 3),
-                                                                  Pair.make(1, 4), Pair.make(3, 5),
-                                                                  Pair.make(4, 5)));
+        UndirectedGraph graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1),
+                                                                           Pair.make(0, 2),
+                                                                           Pair.make(1, 2),
+                                                                           Pair.make(1, 3),
+                                                                           Pair.make(1, 4),
+                                                                           Pair.make(3, 5),
+                                                                           Pair.make(4, 5)));
 
         Collection<Pair<Integer, Integer>> result = Cutting.findBridges(graph);
 
@@ -60,16 +68,22 @@ public class CuttingTest
     @Test
     public void testFindVertexSeparatorsWhenPresentSeparators()
     {
-        UndirectedGraph graph = new UndirectedGraph(12,
-                                                    Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                                  Pair.make(0, 7), Pair.make(1, 2),
-                                                                  Pair.make(1, 3), Pair.make(1, 4),
-                                                                  Pair.make(3, 5), Pair.make(4, 5),
-                                                                  Pair.make(5, 6), Pair.make(7, 8),
-                                                                  Pair.make(7, 9), Pair.make(7, 11),
-                                                                  Pair.make(8, 9), Pair.make(9, 10),
-                                                                  Pair.make(9, 11),
-                                                                  Pair.make(10, 11)));
+        UndirectedGraph graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1),
+                                                                            Pair.make(0, 2),
+                                                                            Pair.make(0, 7),
+                                                                            Pair.make(1, 2),
+                                                                            Pair.make(1, 3),
+                                                                            Pair.make(1, 4),
+                                                                            Pair.make(3, 5),
+                                                                            Pair.make(4, 5),
+                                                                            Pair.make(5, 6),
+                                                                            Pair.make(7, 8),
+                                                                            Pair.make(7, 9),
+                                                                            Pair.make(7, 11),
+                                                                            Pair.make(8, 9),
+                                                                            Pair.make(9, 10),
+                                                                            Pair.make(9, 11),
+                                                                            Pair.make(10, 11)));
 
         Object[] result = Cutting.findVertexSeparators(graph).toArray();
 
@@ -81,12 +95,14 @@ public class CuttingTest
     @Test
     public void testFindVertexSeparatorsWhenNoSeparators()
     {
-        UndirectedGraph graph = new UndirectedGraph(6,
-                                                    Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                                  Pair.make(1, 2), Pair.make(1, 3),
-                                                                  Pair.make(1, 4), Pair.make(2, 3),
-                                                                  Pair.make(3, 5),
-                                                                  Pair.make(4, 5)));
+        UndirectedGraph graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1),
+                                                                           Pair.make(0, 2),
+                                                                           Pair.make(1, 2),
+                                                                           Pair.make(1, 3),
+                                                                           Pair.make(1, 4),
+                                                                           Pair.make(2, 3),
+                                                                           Pair.make(3, 5),
+                                                                           Pair.make(4, 5)));
 
         Collection<Integer> result = Cutting.findVertexSeparators(graph);
 

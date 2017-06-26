@@ -132,9 +132,14 @@ public class Matching
         }
     }
 
-    public static List<Pair<Integer, Integer>> match(MultipartiteGraph graph)
+    /**
+     * Wyznaczanie maksymalnego skojarzenia.
+     * @param partgraph: graf wielodzielny
+     * @return pary skojarzonych wierzchołków
+     */
+    public static List<Pair<Integer, Integer>> match(MultipartiteGraph partgraph)
     {
-        MatchAugmenter augmenter = new MatchAugmenter(graph);
+        MatchAugmenter augmenter = new MatchAugmenter(partgraph);
 
         while(augmenter.augmentMatch())
         {
@@ -143,8 +148,8 @@ public class Matching
         List<Integer> matching = augmenter.getMatching();
         List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
 
-        for(Integer v : graph.getGroup(1))
-            matchPairs.add(new Pair<>(v, matching.get(v)));
+        for(Integer v : partgraph.getGroup(1))
+            matchPairs.add(Pair.make(v, matching.get(v)));
 
         return matchPairs;
     }

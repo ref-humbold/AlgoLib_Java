@@ -31,7 +31,8 @@
     </copy>
   </target>
   <target name="build" depends="init">
-    <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" source="${source}" target="${target}" includeantruntime="false">
+    <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" source="${source}"
+           target="${target}" includeantruntime="false">
       <src path="${src.dir}" />
       <src path="${test.dir}" />
       <compilerarg line="-Xlint" />
@@ -43,8 +44,12 @@
     <mkdir dir="${junit.output.dir}" />
     <junit fork="yes" printsummary="withOutAndErr">
       <formatter type="xml" />
-      <test name="ref_humbold.algolib.graphs.DirectedGraphTest" todir="${junit.output.dir}" />
-      <test name="ref_humbold.algolib.graphs.UndirectedGraphTest" todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.KMPTest" todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.graphs.CuttingTest" todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.graphs.DirectedSimpleGraphTest" todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.graphs.MSTTest" todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.graphs.UndirectedSimpleGraphTest"
+            todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.structures.AVLTreeTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.structures.DisjointSetsTest" todir="${junit.output.dir}" />
       <classpath refid="AlgoLib_Java.classpath" />

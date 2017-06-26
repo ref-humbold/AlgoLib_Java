@@ -9,21 +9,27 @@ import java.util.List;
 import ref_humbold.algolib.structures.Pair;
 
 public class MultipartiteGraph
-    implements Graph
+    implements UndirectedGraph
 {
-    /** Struktura grafu wielodzielnego. */
+    /**
+     * Struktura grafu wielodzielnego.
+     */
     private UndirectedGraph graph;
 
-    /** Maksymalna liczba grup wierzchołków. */
+    /**
+     * Maksymalna liczba grup wierzchołków.
+     */
     private Integer groupsNumber;
 
-    /** Numery grup wierzchołków. */
+    /**
+     * Numery grup wierzchołków.
+     */
     private List<Integer> groups;
 
     public MultipartiteGraph(Integer group, Integer n)
     {
         this.groupsNumber = group;
-        this.graph = new UndirectedGraph(n);
+        this.graph = new UndirectedSimpleGraph(n);
         this.groups = new ArrayList<>(Collections.nCopies(getVerticesNumber(), 1));
     }
 
@@ -33,35 +39,30 @@ public class MultipartiteGraph
     }
 
     @Override
-    /** @see Graph#getVerticesNumber */
     public int getVerticesNumber()
     {
         return graph.getVerticesNumber();
     }
 
     @Override
-    /** @see Graph#getEdgesNumber */
     public int getEdgesNumber()
     {
         return graph.getEdgesNumber();
     }
 
     @Override
-    /** @see Graph#getVertices */
     public Collection<Integer> getVertices()
     {
         return graph.getVertices();
     }
 
     @Override
-    /** @see Graph#getEdges */
     public Collection<Pair<Integer, Integer>> getEdges()
     {
         return graph.getEdges();
     }
 
     @Override
-    /** @see Graph#addVertex */
     public Integer addVertex()
     {
         return addVertex(1);
@@ -79,7 +80,6 @@ public class MultipartiteGraph
         return graph.addVertex();
     }
 
-    /** @see Graph#addEdge */
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
     {
@@ -88,30 +88,33 @@ public class MultipartiteGraph
             throw new IllegalArgumentException("No such vertex.");
 
         if(isSameGroup(vertex1, vertex2))
-            throw new IllegalArgumentException("Vertices in the same part.");
+            throw new GraphPartitionException("Vertices in the same part.");
 
         graph.addEdge(vertex1, vertex2);
     }
 
     @Override
-    /** @see Graph#getNeighbours */
     public Collection<Integer> getNeighbours(Integer vertex)
     {
         return graph.getNeighbours(vertex);
     }
 
     @Override
-    /** @see Graph#getOutdegree */
     public int getOutdegree(Integer vertex)
     {
         return graph.getOutdegree(vertex);
     }
 
     @Override
-    /** @see Graph#getIndegree */
     public int getIndegree(Integer vertex)
     {
         return graph.getIndegree(vertex);
+    }
+
+    @Override
+    public DirectedGraph asDirected()
+    {
+        return graph.asDirected();
     }
 
     /**

@@ -1,7 +1,7 @@
 package ref_humbold.algolib.graphs;
 
 public class GraphPartitionException
-    extends Exception
+    extends RuntimeException
 {
     private static final long serialVersionUID = -2107505164132960758L;
 
@@ -29,5 +29,4 @@ public class GraphPartitionException
     {
         super(s, t, b1, b2);
     }
-
 }

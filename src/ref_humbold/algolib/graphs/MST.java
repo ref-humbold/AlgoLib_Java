@@ -17,7 +17,7 @@ public class MST
      * @param uwgraph graf ważony
      * @return długość minimalnego drzewa spinającego
      */
-    public static double kruskal(UndirectedWeightedGraph uwgraph)
+    public static double kruskal(UndirectedWeightedSimpleGraph uwgraph)
     {
         double sizeMST = 0.0;
         int components = uwgraph.getVerticesNumber();
@@ -53,7 +53,7 @@ public class MST
      * @param source początkowy wierzchołek
      * @return długość minimalnego drzewa spinającego
      */
-    public static double prim(UndirectedWeightedGraph uwgraph, int source)
+    public static double prim(UndirectedWeightedSimpleGraph uwgraph, int source)
     {
         double sizeMST = 0.0;
         PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
