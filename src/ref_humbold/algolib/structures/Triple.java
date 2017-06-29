@@ -15,6 +15,11 @@ public class Triple<F extends Comparable<F>, S extends Comparable<S>, T extends 
         this.third = third;
     }
 
+    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> Triple<F, S, T> make()
+    {
+        return make(null, null, null);
+    }
+
     public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> Triple<F, S, T> make(
         F first, S second, T third)
     {

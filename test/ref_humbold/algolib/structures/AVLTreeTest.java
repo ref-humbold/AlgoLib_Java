@@ -110,9 +110,9 @@ public class AVLTreeTest
     {
         for(Integer i : new Integer[]{111, 140, 187})
         {
-            boolean added = testObject.add(i);
+            boolean result = testObject.add(i);
 
-            Assert.assertTrue(added);
+            Assert.assertTrue(result);
             Assert.assertTrue(testObject.contains(i));
         }
     }
@@ -122,9 +122,9 @@ public class AVLTreeTest
     {
         for(Integer i : new Integer[]{14, 30, 45})
         {
-            boolean added = testObject.add(i);
+            boolean result = testObject.add(i);
 
-            Assert.assertFalse(added);
+            Assert.assertFalse(result);
             Assert.assertTrue(testObject.contains(i));
         }
     }
@@ -149,6 +149,7 @@ public class AVLTreeTest
             boolean result = testObject.remove(i);
 
             Assert.assertFalse(result);
+            Assert.assertFalse(testObject.contains(i));
         }
     }
 

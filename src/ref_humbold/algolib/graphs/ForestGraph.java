@@ -17,6 +17,22 @@ public class ForestGraph
         this.components = new DisjointSets<>(this.graph.getVertices());
     }
 
+    public ForestGraph(UndirectedGraph graph, Iterable<Pair<Integer, Integer>> edges)
+    {
+        this(graph);
+
+        for(Pair<Integer, Integer> e : edges)
+            addEdge(e.getFirst(), e.getSecond());
+    }
+
+    /**
+     * @return liczba drzew w grafie
+     */
+    public int getTreesNumber()
+    {
+        return components.size();
+    }
+
     @Override
     public int getVerticesNumber()
     {

@@ -1,140 +1,152 @@
 // ALGORYTM: ZNAJDOWANIE NAJNIŻSZEGO WSPÓLNEGO PRZODKA DWÓCH WIERZCHOŁKÓW W DRZEWIE
 package ref_humbold.algolib.graphs;
 
-import java.lang.Math;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 
 import ref_humbold.algolib.structures.Pair;
 
-class TreeGraph
+public class LCA
 {
-    /** Skompresowane ścieżki do korzenia drzewa. */
-    private List<List<Integer>> paths;
-
-    /** Tablica czasów wejścia i wyjścia dla wierzchołka. */
-    private List<Pair<Integer, Integer>> prePostTimes;
-
-    /** Liczba wierzchołków grafu. */
-    private int verticesNumber;
-
-    /** Czy wierzchołek odwiedzony. */
-    private List<Boolean> isVisited;
-
-    /** Lista sąsiedztwa grafu. */
-    private List<List<Integer>> graphrepr;
-
-    public TreeGraph(int n)
+    private static class LCAFinder
     {
-        verticesNumber = n;
-        isVisited = new ArrayList<Boolean>();
-        graphrepr = new ArrayList<List<Integer>>();
+        /**
+         * Reprezentacja drzewa.
+         */
+        private ForestGraph graph;
 
-        for(int i = 0; i <= n; ++i)
+        /**
+         * Skompresowane ścieżki do korzenia drzewa.
+         */
+        private List<List<Integer>> paths;
+
+        /**
+         * Czas wejścia i wyjścia dla wierzchołka.
+         */
+        private List<Pair<Integer, Integer>> prePostTimes;
+
+        public LCAFinder(ForestGraph treegraph)
         {
-            isVisited.add(false);
-            graphrepr.add(new ArrayList<Integer>());
+            this.graph = treegraph;
+            this.paths = new ArrayList<>();
+            this.prePostTimes = new ArrayList<>(
+                Collections.nCopies(graph.getVerticesNumber(), (Pair<Integer, Integer>)null));
+
+            for(int i = 0; i < graph.getVerticesNumber(); ++i)
+                paths.add(new ArrayList<>());
+        }
+
+        /**
+         * Wyszukiwanie najniższego wspólnego przodka.
+         * @param vertex1 wierzchołek 1
+         * @param vertex2 wierzchołek 2
+         * @param root korzeń drzewa
+         * @return najniższy wspólny przodek
+         */
+        public int searchLCA(int vertex1, int vertex2, int root)
+        {
+            dfs(root, root, 0);
+
+            for(int i = 0; i < Math.log(graph.getVerticesNumber()) / Math.log(2) + 3; ++i)
+                for(Integer v : graph.getVertices())
+                    if(!paths.get(v).isEmpty())
+                        paths.get(v).add(paths.get(paths.get(v).get(i)).get(i));
+
+            return search(vertex1, vertex2);
+        }
+
+        /**
+         * Wyszukiwanie najniższego wspólnego przodka.
+         * @param vertex1 wierzchołek 1
+         * @param vertex2 wierzchołek 2
+         * @return najniższy wspólny przodek
+         */
+        private int search(int vertex1, int vertex2)
+        {
+            if(isOffspring(vertex1, vertex2))
+                return vertex2;
+
+            if(isOffspring(vertex2, vertex1))
+                return vertex1;
+
+            List<Integer> candidates = new ArrayList<>(paths.get(vertex1));
+
+            Collections.reverse(candidates);
+
+            for(Integer candidate : candidates)
+                if(!isOffspring(vertex2, candidate))
+                    return search(candidate, vertex2);
+
+            return search(paths.get(vertex1).get(0), vertex2);
+        }
+
+        /**
+         * Algorytm dfs z licznikiem czasu wyznaczający kolejne wierzchołki na ścieżce do korzenia.
+         * @param vertex aktualny wierzchołek
+         * @param parent ojciec wierzchołka
+         * @param timer aktualny czasu
+         * @return nowy czas po przetworzeniu wierzchołka
+         */
+        private int dfs(int vertex, int parent, int timer)
+        {
+            int preTime = timer;
+
+            prePostTimes.set(vertex, Pair.make());
+            paths.get(vertex).add(parent);
+            ++timer;
+
+            for(Integer neighbour : graph.getNeighbours(vertex))
+                if(prePostTimes.get(neighbour) == null)
+                    timer = dfs(neighbour, vertex, timer);
+
+            prePostTimes.set(vertex, Pair.make(preTime, timer));
+
+            return timer + 1;
+        }
+
+        /**
+         * Sprawdza, czy wierzchołki są potomkami.
+         * @param vertex1 wierzchołek 1
+         * @param vertex2 wierzchołek 2
+         * @return czy wierzchołek 1 jest potomkiem wierzchołka 2
+         */
+        private boolean isOffspring(int vertex1, int vertex2)
+        {
+            return prePostTimes.get(vertex1).getFirst() >= prePostTimes.get(vertex2).getFirst()
+                   && prePostTimes.get(vertex1).getSecond() <= prePostTimes.get(vertex2)
+                                                                           .getSecond();
         }
     }
 
     /**
-     * Znajduje najniższego wspólnego przodka.
+     * Wyznaczanie najniższego wspólnego przodka.
+     * @param treegraph graf drzewo
      * @param vertex1 wierzchołek 1
      * @param vertex2 wierzchołek 2
      * @return najniższy wspólny przodek
      */
-    public int findLca(int vertex1, int vertex2)
+    public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2)
     {
-        return findLca(vertex1, vertex2, 1);
+        return findLCA(treegraph, vertex1, vertex2, 0);
     }
 
     /**
-     * Znajduje najniższego wspólnego przodka.
+     * Wyznaczanie najniższego wspólnego przodka.
+     * @param treegraph graf drzewo
      * @param vertex1 wierzchołek 1
      * @param vertex2 wierzchołek 2
      * @param root korzeń drzewa
      * @return najniższy wspólny przodek
      */
-    public int findLca(int vertex1, int vertex2, int root)
+    public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2, int root)
     {
-        paths = new ArrayList<List<Integer>>();
-        prePostTimes = new ArrayList<Pair<Integer, Integer>>(
-                                                             Collections
-                                                                 .nCopies(verticesNumber + 1,
-                                                                          (Pair<Integer, Integer>)null));
+        if(!treegraph.isSameTree(vertex1, vertex2))
+            throw new IllegalArgumentException("Vertices are not in the same tree.");
 
-        for(int i = 0; i <= verticesNumber; ++i)
-            paths.add(new ArrayList<Integer>());
+        if(!treegraph.isSameTree(vertex1, root) || !treegraph.isSameTree(vertex2, root))
+            throw new IllegalArgumentException("Root vertex does not belong to the tree.");
 
-        dfs(root, root, 0);
-
-        for(int i = 1; i <= Math.log(verticesNumber) / Math.log(2) + 2; ++i)
-            for(int w = 1; w <= verticesNumber; ++w)
-                paths.get(w).add(paths.get(paths.get(w).get(i - 1)).get(i - 1));
-
-        return searchLca(vertex1, vertex2);
-    }
-
-    /**
-     * Algorytm dfs z licznikiem czasu wyznaczający kolejne wierzchołki na ścieżce do korzenia.
-     * @param vertex aktualny wierzchołek
-     * @param parent ojciec wierzchołka
-     * @param timer aktualny czasu
-     * @return nowy czas po przetworzeniu wierzchołka
-     */
-    private int dfs(int vertex, int parent, int timer)
-    {
-        int preTime = timer;
-
-        isVisited.set(vertex, true);
-
-        paths.get(vertex).add(parent);
-        ++timer;
-
-        for(Integer neighbour : graphrepr.get(vertex))
-            if(!isVisited.get(neighbour))
-                timer = dfs(neighbour, vertex, timer);
-
-        prePostTimes.set(vertex, new Pair<Integer, Integer>(preTime, timer));
-
-        return timer + 1;
-    }
-
-    /**
-     * Wyszukuje najniższego wspólnego przodka.
-     * @param vertex1 wierzchołek 1
-     * @param vertex2 wierzchołek 2
-     * @return najniższy wspólny przodek
-     */
-    private int searchLca(int vertex1, int vertex2)
-    {
-        if(isOffspring(vertex1, vertex2))
-            return vertex2;
-
-        if(isOffspring(vertex2, vertex1))
-            return vertex1;
-
-        for(int i = paths.get(vertex1).size() - 1; i > 0; --i)
-        {
-            int candidate = paths.get(vertex1).get(i);
-
-            if(!isOffspring(vertex2, candidate))
-                return searchLca(candidate, vertex2);
-        }
-
-        return searchLca(paths.get(vertex1).get(0), vertex2);
-    }
-
-    /**
-     * Sprawdza, czy wierzchołki są potomkami.
-     * @param vertex1 wierzchołek 1
-     * @param vertex2 wierzchołek 2
-     * @return czy wierzchołek 1 jest potomkiem wierzchołka 2
-     */
-    private boolean isOffspring(int vertex1, int vertex2)
-    {
-        return prePostTimes.get(vertex1).getFirst() >= prePostTimes.get(vertex2).getFirst()
-            && prePostTimes.get(vertex1).getSecond() <= prePostTimes.get(vertex2).getSecond();
+        return new LCAFinder(treegraph).searchLCA(vertex1, vertex2, root);
     }
 }

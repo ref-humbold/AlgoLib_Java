@@ -45,7 +45,7 @@ public class Cutting
             this.lowValues = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
             this.dfsChildren = new ArrayList<>();
 
-            for(Integer v : graph.getVertices())
+            for(int i = 0; i < graph.getVerticesNumber(); ++i)
                 this.dfsChildren.add(new ArrayList<>());
         }
 

@@ -54,7 +54,7 @@ public class AVLTree<E extends Comparable<E>>
         AVLNode<T> maximum();
     }
 
-    private static class AVLNodeElement<T extends Comparable<T>>
+    private static class AVLInnerNode<T extends Comparable<T>>
         implements AVLNode<T>
     {
         /**
@@ -82,7 +82,7 @@ public class AVLTree<E extends Comparable<E>>
          */
         private AVLNode<T> parent = null;
 
-        public AVLNodeElement(T element)
+        public AVLInnerNode(T element)
         {
             this.element = element;
         }
@@ -160,9 +160,6 @@ public class AVLTree<E extends Comparable<E>>
             return "[" + leftString + " " + element.toString() + " " + rightString + "]";
         }
 
-        /**
-         * @see AVLNode#countBalance
-         */
         @Override
         public int countBalance()
         {
@@ -172,9 +169,6 @@ public class AVLTree<E extends Comparable<E>>
             return leftHeight - rightHeight;
         }
 
-        /**
-         * @see AVLNode#recountHeight
-         */
         @Override
         public void recountHeight()
         {
@@ -184,18 +178,12 @@ public class AVLTree<E extends Comparable<E>>
             height = Math.max(leftHeight, rightHeight) + 1;
         }
 
-        /**
-         * @see AVLNode#minimum
-         */
         @Override
         public AVLNode<T> minimum()
         {
             return left == null ? this : left.minimum();
         }
 
-        /**
-         * @see AVLNode#maximum
-         */
         @Override
         public AVLNode<T> maximum()
         {
@@ -203,28 +191,27 @@ public class AVLTree<E extends Comparable<E>>
         }
     }
 
-    private static class AVLNodeNull<T extends Comparable<T>>
+    private static class AVLRootNode<T extends Comparable<T>>
         implements AVLNode<T>
     {
         /**
-         * Ojciec węzła.
+         * Wewnętrzne wierzchołki.
          */
-        private AVLNode<T> parent = null;
+        private AVLNode<T> inner = null;
 
-        public AVLNodeNull()
+        public AVLRootNode()
         {
         }
 
         @Override
         public T getElement()
         {
-            throw new UnsupportedOperationException();
+            return null;
         }
 
         @Override
         public void setElement(T element)
         {
-            throw new UnsupportedOperationException();
         }
 
         @Override
@@ -236,35 +223,36 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public AVLNode<T> getLeft()
         {
-            return null;
+            return inner;
         }
 
         @Override
         public void setLeft(AVLNode<T> node)
         {
+            inner = node;
         }
 
         @Override
         public AVLNode<T> getRight()
         {
-            return null;
+            return inner;
         }
 
         @Override
         public void setRight(AVLNode<T> node)
         {
+            inner = node;
         }
 
         @Override
         public AVLNode<T> getParent()
         {
-            return parent;
+            return null;
         }
 
         @Override
         public void setParent(AVLNode<T> node)
         {
-            parent = node;
         }
 
         @Override
@@ -273,35 +261,23 @@ public class AVLTree<E extends Comparable<E>>
             return "[Null]";
         }
 
-        /**
-         * @see AVLNode#countBalance
-         */
         @Override
         public int countBalance()
         {
             return 0;
         }
 
-        /**
-         * @see AVLNode#recountHeight
-         */
         @Override
         public void recountHeight()
         {
         }
 
-        /**
-         * @see AVLNode#minimum
-         */
         @Override
         public AVLNode<T> minimum()
         {
             throw new UnsupportedOperationException();
         }
 
-        /**
-         * @see AVLNode#maximum
-         */
         @Override
         public AVLNode<T> maximum()
         {
@@ -398,7 +374,7 @@ public class AVLTree<E extends Comparable<E>>
     /**
      * Korzeń drzewa.
      */
-    private AVLNode<E> tree = new AVLNodeNull<>();
+    private AVLNode<E> tree = new AVLRootNode<>();
 
     /**
      * Liczba elementów drzewa.
@@ -440,7 +416,7 @@ public class AVLTree<E extends Comparable<E>>
     @Override
     public AVLIterator iterator()
     {
-        return new AVLIterator(getRoot().minimum());
+        return new AVLIterator(getInnerRoot().minimum());
     }
 
     /**
@@ -449,7 +425,7 @@ public class AVLTree<E extends Comparable<E>>
      */
     public boolean isEmpty()
     {
-        return getRoot() == null;
+        return getInnerRoot() == null;
     }
 
     /**
@@ -484,12 +460,12 @@ public class AVLTree<E extends Comparable<E>>
     public boolean add(E element)
     {
         AVLNode<E> nodeParent = findNodeParent(element);
-        AVLNode<E> theNode = nodeParent == null ? getRoot() : getSubtree(nodeParent, element);
+        AVLNode<E> theNode = nodeParent == null ? getInnerRoot() : getSubtree(nodeParent, element);
 
         if(theNode != null)
             return false;
 
-        AVLNode<E> newNode = new AVLNodeElement<>(element);
+        AVLNode<E> newNode = new AVLInnerNode<>(element);
 
         if(nodeParent != null)
         {
@@ -501,7 +477,7 @@ public class AVLTree<E extends Comparable<E>>
             rebalance(nodeParent);
         }
         else
-            setRoot(newNode);
+            setInnerRoot(newNode);
 
         ++elems;
 
@@ -516,7 +492,7 @@ public class AVLTree<E extends Comparable<E>>
     public boolean remove(E element)
     {
         AVLNode<E> nodeParent = findNodeParent(element);
-        AVLNode<E> theNode = nodeParent == null ? getRoot() : getSubtree(nodeParent, element);
+        AVLNode<E> theNode = nodeParent == null ? getInnerRoot() : getSubtree(nodeParent, element);
 
         if(theNode == null)
             return false;
@@ -534,43 +510,41 @@ public class AVLTree<E extends Comparable<E>>
      */
     public void clear()
     {
-        setRoot(null);
+        setInnerRoot(null);
         elems = 0;
     }
 
     /**
-     * Pobieranie własciwego korzenia drzewa
-     * @return korzeń drzewa
+     * @return wewnętrzny korzeń drzewa
      */
-    private AVLNode<E> getRoot()
+    private AVLNode<E> getInnerRoot()
     {
-        return tree.getParent();
+        return tree.getRight();
     }
 
     /**
-     * Ustawianie węzła jako korzeń drzewa
-     * @param node: węzeł
+     * @param node: węzeł, który zostanie wewnętrznym korzeniem
      */
-    private void setRoot(AVLNode<E> node)
+    private void setInnerRoot(AVLNode<E> node)
     {
         if(node != null)
             node.setParent(tree);
 
-        tree.setParent(node);
+        tree.setLeft(node);
     }
 
     /**
-     * Sprawdzanie, czy węzeł jest korzeniem
+     * Sprawdzanie, czy węzeł jest wewnętrznym korzeniem.
      * @param node węzeł
      * @return czy węzeł to korzeń
      */
-    private boolean isRoot(AVLNode<E> node)
+    private boolean isInnerRoot(AVLNode<E> node)
     {
         return node.getParent().getHeight() < 0;
     }
 
     /**
-     * Sprawdzanie, czy węzeł jest lewym synem
+     * Sprawdzanie, czy węzeł jest lewym synem.
      * @param node węzeł
      * @return czy węzeł to lewy syn
      */
@@ -580,7 +554,7 @@ public class AVLTree<E extends Comparable<E>>
     }
 
     /**
-     * Sprawdzanie, czy węzeł jest prawym synem
+     * Sprawdzanie, czy węzeł jest prawym synem.
      * @param node węzeł
      * @return czy węzeł to prawy syn
      */
@@ -612,7 +586,7 @@ public class AVLTree<E extends Comparable<E>>
      */
     private AVLNode<E> findNodeParent(E element)
     {
-        AVLNode<E> treeIter = getRoot();
+        AVLNode<E> treeIter = getInnerRoot();
         AVLNode<E> iterParent = null;
 
         while(treeIter != null)
@@ -641,7 +615,7 @@ public class AVLTree<E extends Comparable<E>>
 
             root.getLeft().setElement(root.getElement());
             root.setElement(temp);
-            setRoot(root.getLeft());
+            setInnerRoot(root.getLeft());
             root.setLeft(null);
             --elems;
         }
@@ -651,7 +625,7 @@ public class AVLTree<E extends Comparable<E>>
 
             root.getRight().setElement(root.getElement());
             root.setElement(temp);
-            setRoot(root.getRight());
+            setInnerRoot(root.getRight());
             root.setRight(null);
             --elems;
         }
@@ -692,8 +666,8 @@ public class AVLTree<E extends Comparable<E>>
      */
     private void replaceSubtree(AVLNode<E> node, AVLNode<E> node2)
     {
-        if(isRoot(node))
-            setRoot(node2);
+        if(isInnerRoot(node))
+            setInnerRoot(node2);
         else if(isLeftSon(node))
             node.getParent().setLeft(node2);
         else if(isRightSon(node))
@@ -708,7 +682,7 @@ public class AVLTree<E extends Comparable<E>>
      */
     private void rotate(AVLNode<E> node)
     {
-        if(isRoot(node))
+        if(isInnerRoot(node))
             return;
 
         AVLNode<E> upperNode = node.getParent();
