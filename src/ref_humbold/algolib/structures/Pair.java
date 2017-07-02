@@ -26,21 +26,21 @@ public class Pair<F extends Comparable<F>, S extends Comparable<S>>
 
     public F getFirst()
     {
-        return first;
+        return this.first;
     }
 
     public S getSecond()
     {
-        return second;
+        return this.second;
     }
 
     @Override
     public int compareTo(Pair<F, S> p)
     {
         if(this.first == null)
-            return p.getFirst() == null ? 0 : -1;
+            return p.first == null ? 0 : -1;
 
-        int comparedFirst = this.first.compareTo(p.getFirst());
+        int comparedFirst = this.first.compareTo(p.first);
 
         if(comparedFirst != 0)
             return comparedFirst;
@@ -48,7 +48,7 @@ public class Pair<F extends Comparable<F>, S extends Comparable<S>>
         if(this.second == null)
             return p.getSecond() == null ? 0 : -1;
 
-        return this.second.compareTo(p.getSecond());
+        return this.second.compareTo(p.second);
     }
 
     @Override

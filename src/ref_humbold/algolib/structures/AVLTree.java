@@ -90,7 +90,7 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public T getElement()
         {
-            return element;
+            return this.element;
         }
 
         @Override
@@ -102,22 +102,22 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public int getHeight()
         {
-            return height;
+            return this.height;
         }
 
         @Override
         public AVLNode<T> getLeft()
         {
-            return left;
+            return this.left;
         }
 
         @Override
         public void setLeft(AVLNode<T> node)
         {
-            left = node;
+            this.left = node;
 
-            if(left != null)
-                left.setParent(this);
+            if(this.left != null)
+                this.left.setParent(this);
 
             recountHeight();
         }
@@ -125,16 +125,16 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public AVLNode<T> getRight()
         {
-            return right;
+            return this.right;
         }
 
         @Override
         public void setRight(AVLNode<T> node)
         {
-            right = node;
+            this.right = node;
 
-            if(right != null)
-                right.setParent(this);
+            if(this.right != null)
+                this.right.setParent(this);
 
             recountHeight();
         }
@@ -142,22 +142,13 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public AVLNode<T> getParent()
         {
-            return parent;
+            return this.parent;
         }
 
         @Override
         public void setParent(AVLNode<T> node)
         {
-            parent = node;
-        }
-
-        @Override
-        public String toString()
-        {
-            String leftString = left == null ? "" : left.toString();
-            String rightString = right == null ? "" : right.toString();
-
-            return "[" + leftString + " " + element.toString() + " " + rightString + "]";
+            this.parent = node;
         }
 
         @Override
@@ -199,6 +190,11 @@ public class AVLTree<E extends Comparable<E>>
          */
         private AVLNode<T> inner = null;
 
+        /**
+         * Ojciec węzła.
+         */
+        private AVLNode<T> parent = null;
+
         public AVLRootNode()
         {
         }
@@ -223,42 +219,37 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public AVLNode<T> getLeft()
         {
-            return inner;
+            return this.inner;
         }
 
         @Override
         public void setLeft(AVLNode<T> node)
         {
-            inner = node;
+            this.inner = node;
         }
 
         @Override
         public AVLNode<T> getRight()
         {
-            return inner;
+            return this.inner;
         }
 
         @Override
         public void setRight(AVLNode<T> node)
         {
-            inner = node;
+            this.inner = node;
         }
 
         @Override
         public AVLNode<T> getParent()
         {
-            return null;
+            return this.parent;
         }
 
         @Override
         public void setParent(AVLNode<T> node)
         {
-        }
-
-        @Override
-        public String toString()
-        {
-            return "[Null]";
+            this.parent = node;
         }
 
         @Override
@@ -275,13 +266,13 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public AVLNode<T> minimum()
         {
-            throw new UnsupportedOperationException();
+            return this;
         }
 
         @Override
         public AVLNode<T> maximum()
         {
-            throw new UnsupportedOperationException();
+            return this;
         }
     }
 

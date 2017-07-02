@@ -45,9 +45,9 @@ public class Triple<F extends Comparable<F>, S extends Comparable<S>, T extends 
     public int compareTo(Triple<F, S, T> t)
     {
         if(this.first == null)
-            return t.getFirst() == null ? 0 : -1;
+            return t.first == null ? 0 : -1;
 
-        int comparedFirst = this.first.compareTo(t.getFirst());
+        int comparedFirst = this.first.compareTo(t.first);
 
         if(comparedFirst != 0)
             return comparedFirst;
@@ -55,7 +55,7 @@ public class Triple<F extends Comparable<F>, S extends Comparable<S>, T extends 
         if(this.second == null)
             return t.getSecond() == null ? 0 : -1;
 
-        int comparedSecond = this.second.compareTo(t.getSecond());
+        int comparedSecond = this.second.compareTo(t.second);
 
         if(comparedSecond != 0)
             return comparedSecond;
@@ -63,7 +63,7 @@ public class Triple<F extends Comparable<F>, S extends Comparable<S>, T extends 
         if(this.third == null)
             return t.getThird() == null ? 0 : -1;
 
-        return this.third.compareTo(t.getThird());
+        return this.third.compareTo(t.third);
     }
 
     @Override
