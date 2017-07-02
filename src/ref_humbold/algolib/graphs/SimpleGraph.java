@@ -37,14 +37,6 @@ public abstract class SimpleGraph
     }
 
     @Override
-    public Integer addVertex()
-    {
-        graphrepr.add(new HashSet<>());
-
-        return graphrepr.size() - 1;
-    }
-
-    @Override
     public Collection<Integer> getVertices()
     {
         List<Integer> vertices = new ArrayList<>();
@@ -53,6 +45,14 @@ public abstract class SimpleGraph
             vertices.add(i);
 
         return vertices;
+    }
+
+    @Override
+    public Integer addVertex()
+    {
+        graphrepr.add(new HashSet<>());
+
+        return graphrepr.size() - 1;
     }
 
     @Override

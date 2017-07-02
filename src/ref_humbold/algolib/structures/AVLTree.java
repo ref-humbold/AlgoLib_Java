@@ -285,13 +285,13 @@ public class AVLTree<E extends Comparable<E>>
         }
     }
 
-    private class AVLIterator
+    private abstract class AVLIterator
         implements Iterator<E>
     {
         /**
          * Aktualny węzeł.
          */
-        private AVLNode<E> currentNode;
+        protected AVLNode<E> currentNode;
 
         public AVLIterator(AVLNode<E> node)
         {
@@ -304,42 +304,16 @@ public class AVLTree<E extends Comparable<E>>
             return currentNode.getHeight() >= 0;
         }
 
-        public boolean hasPrevious()
-        {
-            return predecessor(currentNode).getHeight() >= 0;
-        }
-
         @Override
-        public E next()
-            throws NoSuchElementException
-        {
-            if(!hasNext())
-                throw new NoSuchElementException();
-
-            E returnValue = currentNode.getElement();
-
-            currentNode = successor(currentNode);
-
-            return returnValue;
-        }
-
-        public E previous()
-            throws NoSuchElementException
-        {
-            if(!hasPrevious())
-                throw new NoSuchElementException();
-
-            currentNode = predecessor(currentNode);
-
-            return currentNode.getElement();
-        }
+        public abstract E next()
+            throws NoSuchElementException;
 
         /**
          * Wyznaczanie następnika węzła w drzewie.
          * @param node węzeł
          * @return węzeł z następną wartością
          */
-        private AVLNode<E> successor(AVLNode<E> node)
+        protected AVLNode<E> successor(AVLNode<E> node)
         {
             AVLNode<E> succ = node;
 
@@ -357,7 +331,7 @@ public class AVLTree<E extends Comparable<E>>
          * @param node węzeł
          * @return węzeł z poprzednią wartością
          */
-        private AVLNode<E> predecessor(AVLNode<E> node)
+        protected AVLNode<E> predecessor(AVLNode<E> node)
         {
             AVLNode<E> pred = node;
 
@@ -368,6 +342,53 @@ public class AVLTree<E extends Comparable<E>>
                 pred = pred.getParent();
 
             return pred;
+        }
+    }
+
+    private class AVLFwdIterator
+        extends AVLIterator
+    {
+
+        public AVLFwdIterator(AVLNode<E> node)
+        {
+            super(node);
+        }
+
+        @Override
+        public E next()
+            throws NoSuchElementException
+        {
+            if(!hasNext())
+                throw new NoSuchElementException();
+
+            E returnValue = currentNode.getElement();
+
+            currentNode = successor(currentNode);
+
+            return returnValue;
+        }
+    }
+
+    private class AVLRevIterator
+        extends AVLIterator
+    {
+        public AVLRevIterator(AVLNode<E> node)
+        {
+            super(node);
+        }
+
+        @Override
+        public E next()
+            throws NoSuchElementException
+        {
+            if(!hasNext())
+                throw new NoSuchElementException();
+
+            E returnValue = currentNode.getElement();
+
+            currentNode = predecessor(currentNode);
+
+            return returnValue;
         }
     }
 
@@ -416,7 +437,16 @@ public class AVLTree<E extends Comparable<E>>
     @Override
     public AVLIterator iterator()
     {
-        return new AVLIterator(getInnerRoot().minimum());
+        return new AVLFwdIterator(getInnerRoot().minimum());
+    }
+
+    /**
+     * Tworzenie odwróconego iteratora dla drzewa.
+     * @return obiekt odwróconego iteratora
+     */
+    public AVLIterator descendingIterator()
+    {
+        return new AVLRevIterator(getInnerRoot().maximum());
     }
 
     /**

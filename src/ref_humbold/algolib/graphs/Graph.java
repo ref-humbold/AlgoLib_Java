@@ -18,25 +18,25 @@ public interface Graph
     int getVerticesNumber();
 
     /**
-     * @return liczba krawędzi
-     */
-    int getEdgesNumber();
-
-    /**
      * @return lista wierzchołków
      */
     Collection<Integer> getVertices();
-
-    /**
-     * @return lista krawędzi
-     */
-    Collection<Pair<Integer, Integer>> getEdges();
 
     /**
      * Dodawanie nowego wierzchołka.
      * @return oznaczenie wierzchołka
      */
     Integer addVertex();
+
+    /**
+     * @return liczba krawędzi
+     */
+    int getEdgesNumber();
+
+    /**
+     * @return lista krawędzi
+     */
+    Collection<Pair<Integer, Integer>> getEdges();
 
     /**
      * Dodawanie nowej krawędzi.

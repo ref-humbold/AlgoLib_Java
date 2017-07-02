@@ -2,7 +2,10 @@ package ref_humbold.algolib.structures;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -94,7 +97,7 @@ public class AVLTreeTest
     @Test
     public void testIterator()
     {
-        ArrayList<Integer> result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
         Iterator<Integer> iterator = testObject.iterator();
 
         while(iterator.hasNext())
@@ -103,6 +106,22 @@ public class AVLTreeTest
         Arrays.sort(numbers);
 
         Assert.assertArrayEquals(numbers, result.toArray());
+    }
+
+    @Test
+    public void testDescendingIterator()
+    {
+        List<Integer> result = new ArrayList<>();
+        List<Integer> revNumbers = Arrays.asList(numbers);
+        Iterator<Integer> iterator = testObject.descendingIterator();
+
+        while(iterator.hasNext())
+            result.add(iterator.next());
+
+        Collections.sort(revNumbers);
+        Collections.reverse(revNumbers);
+
+        Assert.assertArrayEquals(revNumbers.toArray(), result.toArray());
     }
 
     @Test
