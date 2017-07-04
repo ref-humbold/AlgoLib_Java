@@ -46,7 +46,7 @@ public class Maths
      * @param modulo modulo
      * @return wynik potęgowania wzięty modulo
      */
-    public static long powerI(long base, long exponent, long modulo)
+    public static long powerMod(long base, long exponent, long modulo)
     {
         long result = 1;
 

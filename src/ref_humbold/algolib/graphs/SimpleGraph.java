@@ -24,10 +24,10 @@ public abstract class SimpleGraph
 
     public SimpleGraph(int n)
     {
-        graphrepr = new ArrayList<>();
+        this.graphrepr = new ArrayList<>();
 
         for(int i = 0; i < n; ++i)
-            graphrepr.add(new HashSet<>());
+            this.graphrepr.add(new HashSet<>());
     }
 
     @Override

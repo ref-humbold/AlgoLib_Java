@@ -47,7 +47,7 @@ public class Matching
          */
         public List<Integer> getMatching()
         {
-            return new ArrayList<>(matching);
+            return new ArrayList<>(this.matching);
         }
 
         /**

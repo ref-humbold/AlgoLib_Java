@@ -50,6 +50,7 @@
       <test name="ref_humbold.algolib.graphs.MSTTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.UndirectedSimpleGraphTest"
             todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.maths.SieveTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.structures.AVLTreeTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.structures.DisjointSetsTest" todir="${junit.output.dir}" />
       <classpath refid="AlgoLib_Java.classpath" />
