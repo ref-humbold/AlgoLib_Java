@@ -1,3 +1,4 @@
+// TESTY DLA ALGORYTMU SITA ERASTOTENESA
 package ref_humbold.algolib.maths;
 
 import java.util.Collection;

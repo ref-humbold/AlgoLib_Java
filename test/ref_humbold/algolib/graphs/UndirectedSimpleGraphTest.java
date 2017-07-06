@@ -1,3 +1,4 @@
+// TESTY DLA GRAFÓW NIESKIEROWANYCH
 package ref_humbold.algolib.graphs;
 
 import java.util.Arrays;

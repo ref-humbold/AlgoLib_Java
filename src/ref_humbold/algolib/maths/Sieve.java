@@ -1,3 +1,4 @@
+// ALGORYTM WYZNACZANIA LICZB PIERWSZYCH PRZEZ SITO ERASTOTENESA
 package ref_humbold.algolib.maths;
 
 import java.util.ArrayList;

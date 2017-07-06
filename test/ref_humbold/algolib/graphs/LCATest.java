@@ -1,3 +1,4 @@
+// TESTY DLA ALGORYTMU NAJNIŻSZEGO WSPÓLNEGO PRZODKA
 package ref_humbold.algolib.graphs;
 
 import java.util.Arrays;

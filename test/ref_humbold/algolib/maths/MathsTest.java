@@ -1,3 +1,4 @@
+// TESTY DLA ALGORYTMÓW MATEMATYCZNYCH
 package ref_humbold.algolib.maths;
 
 import org.junit.After;

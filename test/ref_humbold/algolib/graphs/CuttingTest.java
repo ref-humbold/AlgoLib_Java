@@ -1,3 +1,4 @@
+// TESTY DLA ALGORYTMÓW WYSZUKIWANIA MOSTÓW I PUNKTÓW ARTYKULACJI
 package ref_humbold.algolib.graphs;
 
 import java.util.Arrays;

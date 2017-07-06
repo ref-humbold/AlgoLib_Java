@@ -1,6 +1,8 @@
+// TESTY DLA STRUKTURY ZBIORÓW ROZŁĄCZNYCH
 package ref_humbold.algolib.structures;
 
 import java.util.Arrays;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

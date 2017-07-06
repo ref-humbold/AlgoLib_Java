@@ -1,3 +1,4 @@
+// ALGORYTMY TESTOWANIA PIERWSZOŚCI
 package ref_humbold.algolib.maths;
 
 import java.util.Random;

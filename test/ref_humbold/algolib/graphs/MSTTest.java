@@ -1,3 +1,4 @@
+// TESTY DLA ALGORYTMÓW MINIMALNEGO DRZEWA SPINAJĄCEGO
 package ref_humbold.algolib.graphs;
 
 import java.util.Arrays;

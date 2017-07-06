@@ -1,3 +1,4 @@
+// TESTY DLA ALGORYTMU KNUTHA-MORRISA-PRATTA
 package ref_humbold.algolib;
 
 import java.util.List;
