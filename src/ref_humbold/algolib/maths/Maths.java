@@ -50,6 +50,9 @@ public class Maths
     {
         long result = 1;
 
+        if(modulo < 0)
+            throw new ArithmeticException("Negative modulo.");
+
         if(exponent < 0)
             throw new ArithmeticException("Negative exponent.");
 
@@ -79,16 +82,25 @@ public class Maths
     {
         long result = 0;
 
+        if(modulo < 0)
+            throw new ArithmeticException("Negative modulo.");
+
+        if(factor1 < 0 && factor2 < 0)
+            return multMod(-factor1, -factor2, modulo);
+
+        if(factor1 < 0)
+            return modulo - multMod(-factor1, factor2, modulo);
+
         if(factor2 < 0)
             return modulo - multMod(factor1, -factor2, modulo);
 
         while(factor2 > 0)
         {
             if((factor2 & 1) == 1)
-                result = (result + factor1) % modulo;
+                result = modulo == 0 ? result + factor1 : (result + factor1) % modulo;
 
             factor2 >>= 1;
-            factor1 = (factor1 + factor1) % modulo;
+            factor1 = modulo == 0 ? factor1 + factor1 : (factor1 + factor1) % modulo;
         }
 
         return result;

@@ -47,6 +47,7 @@
       <test name="ref_humbold.algolib.KMPTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.CuttingTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.DirectedSimpleGraphTest" todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.maths.MathsTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.MSTTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.UndirectedSimpleGraphTest"
             todir="${junit.output.dir}" />
