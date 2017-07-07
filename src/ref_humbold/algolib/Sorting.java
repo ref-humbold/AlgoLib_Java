@@ -1,6 +1,9 @@
 package ref_humbold.algolib;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
 
 import ref_humbold.algolib.structures.Pair;
 
@@ -14,8 +17,8 @@ public class Sorting
         {
             Double angle1 = countAngle(pt1), angle2 = countAngle(pt2);
 
-            return angle1.equals(angle2) ? countRadius(pt1).compareTo(countRadius(pt2)) :
-                   angle1.compareTo(angle2);
+            return angle1.equals(angle2) ? countRadius(pt1).compareTo(countRadius(pt2))
+                                         : angle1.compareTo(angle2);
         }
 
         private Double countAngle(Pair<Double, Double> pt)
@@ -33,11 +36,17 @@ public class Sorting
 
     public static void angleSort(List<Pair<Double, Double>> points)
     {
-        Collections.sort(points, new AngleComparator());
+        if(points == null)
+            throw new IllegalArgumentException("List of points is null.");
+
+        points.sort(new AngleComparator());
     }
 
     public static List<Pair<Double, Double>> angleSorted(List<Pair<Double, Double>> points)
     {
+        if(points == null)
+            throw new IllegalArgumentException("List of points is null.");
+
         List<Pair<Double, Double>> pointsCopy = new ArrayList<>(points);
 
         angleSort(pointsCopy);
@@ -45,143 +54,227 @@ public class Sorting
         return pointsCopy;
     }
 
-    public static <T extends Comparable<T>> void heapSort(List<T> sequence, int index_begin,
-                                                          int index_end)
+    public static <T extends Comparable<T>> void heapSort(List<T> sequence)
     {
-        index_begin = (index_begin + sequence.size()) % sequence.size();
-        index_end = (index_end + sequence.size()) % sequence.size();
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
 
-        int heap_size = index_end - index_begin;
+        heapSort(sequence, 0, sequence.size());
+    }
 
-        for(int i = index_begin + heap_size / 2; i >= index_begin; --i)
-            moveDown(sequence, i, index_begin, index_end);
+    public static <T extends Comparable<T>> void heapSort(List<T> sequence, int indexBegin,
+                                                          int indexEnd)
+    {
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
 
-        while(heap_size > 1)
+        if(indexBegin < 0 || indexEnd > sequence.size())
+            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
+
+        if(indexEnd < 0 || indexEnd > sequence.size())
+            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
+
+        int heapSize = indexEnd - indexBegin;
+
+        if(heapSize <= 1)
+            return;
+
+        for(int i = indexBegin + heapSize / 2; i >= indexBegin; --i)
+            moveDown(sequence, i, indexBegin, indexEnd);
+
+        while(heapSize > 1)
         {
-            int index_heap = index_begin + heap_size;
-            T temp = sequence.get(index_heap);
+            int indexHeap = indexBegin + heapSize - 1;
+            T temp = sequence.get(indexHeap);
 
-            sequence.set(index_heap, sequence.get(index_begin));
-            sequence.set(index_begin, temp);
-            moveDown(sequence, index_begin, index_begin, index_heap - 1);
+            sequence.set(indexHeap, sequence.get(indexBegin));
+            sequence.set(indexBegin, temp);
+            moveDown(sequence, indexBegin, indexBegin, indexHeap);
+            --heapSize;
         }
     }
 
-    public static <T extends Comparable<T>> List<T> heapSorted(List<T> sequence, int index_begin,
-                                                               int index_end)
+    public static <T extends Comparable<T>> List<T> heapSorted(List<T> sequence)
     {
-        heapSort(sequence, index_begin, index_end);
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
 
-        return sequence;
+        return heapSorted(sequence, 0, sequence.size());
     }
 
-    public static <T extends Comparable<T>> void mergeSort(List<T> sequence, int index_begin,
-                                                           int index_end)
+    public static <T extends Comparable<T>> List<T> heapSorted(List<T> sequence, int indexBegin,
+                                                               int indexEnd)
     {
-        index_begin = (index_begin + sequence.size()) % sequence.size();
-        index_end = (index_end + sequence.size()) % sequence.size();
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
 
-        if(index_begin < index_end)
-        {
-            int index_middle = (index_begin + index_end) / 2;
+        List<T> sequenceCopy = new ArrayList<>(sequence);
 
-            mergeSort(sequence, index_begin, index_middle);
-            mergeSort(sequence, index_middle + 1, index_end);
-            merge(sequence, index_begin, index_middle, index_end);
-        }
+        heapSort(sequenceCopy, indexBegin, indexEnd);
+
+        return sequenceCopy;
     }
 
-    public static <T extends Comparable<T>> List<T> mergeSorted(List<T> sequence, int index_begin,
-                                                                int index_end)
+    public static <T extends Comparable<T>> void mergeSort(List<T> sequence)
     {
-        mergeSort(sequence, index_begin, index_end);
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
 
-        return sequence;
+        mergeSort(sequence, 0, sequence.size());
     }
 
-    public static <T extends Comparable<T>> void quickSort(List<T> sequence, int index_begin,
-                                                           int index_end)
+    public static <T extends Comparable<T>> void mergeSort(List<T> sequence, int indexBegin,
+                                                           int indexEnd)
     {
-        index_begin = (index_begin + sequence.size()) % sequence.size();
-        index_end = (index_end + sequence.size()) % sequence.size();
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
 
-        if(index_begin < index_end)
-        {
-            int index_pivot = index_begin, index_front = index_begin + 1, index_back = index_end;
-            int rdpv = index_begin + choosePivot(index_end - index_begin + 1);
-            T temp1 = sequence.get(index_pivot);
+        if(indexBegin < 0 || indexEnd > sequence.size())
+            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
 
-            sequence.set(index_pivot, sequence.get(rdpv));
-            sequence.set(rdpv, temp1);
+        if(indexEnd < 0 || indexEnd > sequence.size())
+            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
 
-            while(index_pivot < index_back)
-                if(sequence.get(index_front).compareTo(sequence.get(index_pivot)) < 0)
-                {
-                    T temp2 = sequence.get(index_front);
+        if(indexEnd - indexBegin <= 1)
+            return;
 
-                    sequence.set(index_front, sequence.get(index_pivot));
-                    sequence.set(index_pivot, temp2);
-                    index_pivot = index_front;
-                    ++index_front;
-                }
-                else
-                {
-                    T temp2 = sequence.get(index_front);
+        int indexMiddle = (indexBegin + indexEnd) / 2;
 
-                    sequence.set(index_front, sequence.get(index_back));
-                    sequence.set(index_back, temp2);
-                    --index_back;
-                }
-
-            quickSort(sequence, index_begin, index_pivot - 1);
-            quickSort(sequence, index_pivot + 1, index_end);
-        }
+        mergeSort(sequence, indexBegin, indexMiddle);
+        mergeSort(sequence, indexMiddle, indexEnd);
+        merge(sequence, indexBegin, indexMiddle, indexEnd);
     }
 
-    public static <T extends Comparable<T>> List<T> quickSorted(List<T> sequence, int index_begin,
-                                                                int index_end)
+    public static <T extends Comparable<T>> List<T> mergeSorted(List<T> sequence)
     {
-        quickSort(sequence, index_begin, index_end);
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
 
-        return sequence;
+        return mergeSorted(sequence, 0, sequence.size());
     }
 
-    private static <T extends Comparable<T>> void moveDown(List<T> heap, int vertex,
-                                                           int index_begin, int index_end)
+    public static <T extends Comparable<T>> List<T> mergeSorted(List<T> sequence, int indexBegin,
+                                                                int indexEnd)
     {
-        int next_vertex = -1;
-        int left_vertex = (vertex * 2) - index_begin + 1;
-        int right_vertex = (vertex * 2) - index_begin + 2;
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
 
-        if(right_vertex <= index_end)
-            next_vertex =
-                heap.get(right_vertex).compareTo(heap.get(left_vertex)) < 0 ? left_vertex :
-                right_vertex;
+        List<T> sequenceCopy = new ArrayList<>(sequence);
 
-        if(left_vertex == index_end)
-            next_vertex = left_vertex;
+        mergeSort(sequenceCopy, indexBegin, indexEnd);
 
-        if(next_vertex >= 0)
-        {
-            if(heap.get(next_vertex).compareTo(heap.get(vertex)) > 0)
+        return sequenceCopy;
+    }
+
+    public static <T extends Comparable<T>> void quickSort(List<T> sequence)
+    {
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
+
+        quickSort(sequence, 0, sequence.size());
+    }
+
+    public static <T extends Comparable<T>> void quickSort(List<T> sequence, int indexBegin,
+                                                           int indexEnd)
+    {
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
+
+        if(indexBegin < 0 || indexEnd > sequence.size())
+            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
+
+        if(indexEnd < 0 || indexEnd > sequence.size())
+            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
+
+        if(indexEnd - indexBegin <= 1)
+            return;
+
+        int indexPivot = indexBegin, indexFront = indexBegin + 1, indexBack = indexEnd - 1;
+        int rdpv = indexBegin + choosePivot(indexEnd - indexBegin);
+        T temp1 = sequence.get(indexPivot);
+
+        sequence.set(indexPivot, sequence.get(rdpv));
+        sequence.set(rdpv, temp1);
+
+        while(indexPivot < indexBack)
+            if(sequence.get(indexFront).compareTo(sequence.get(indexPivot)) < 0)
             {
-                T temp = heap.get(next_vertex);
+                T temp2 = sequence.get(indexFront);
 
-                heap.set(next_vertex, heap.get(vertex));
-                heap.set(vertex, temp);
+                sequence.set(indexFront, sequence.get(indexPivot));
+                sequence.set(indexPivot, temp2);
+                indexPivot = indexFront;
+                ++indexFront;
+            }
+            else
+            {
+                T temp2 = sequence.get(indexFront);
+
+                sequence.set(indexFront, sequence.get(indexBack));
+                sequence.set(indexBack, temp2);
+                --indexBack;
             }
 
-            moveDown(heap, next_vertex, index_begin, index_end);
-        }
+        quickSort(sequence, indexBegin, indexPivot);
+        quickSort(sequence, indexPivot + 1, indexEnd);
     }
 
-    private static <T extends Comparable<T>> void merge(List<T> sequence, int index_begin,
-                                                        int index_middle, int index_end)
+    public static <T extends Comparable<T>> List<T> quickSorted(List<T> sequence)
+    {
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
+
+        return quickSorted(sequence, 0, sequence.size());
+    }
+
+    public static <T extends Comparable<T>> List<T> quickSorted(List<T> sequence, int indexBegin,
+                                                                int indexEnd)
+    {
+        if(sequence == null)
+            throw new IllegalArgumentException("Sequence is null.");
+
+        List<T> sequenceCopy = new ArrayList<>(sequence);
+
+        quickSort(sequenceCopy, indexBegin, indexEnd);
+
+        return sequenceCopy;
+    }
+
+    private static <T extends Comparable<T>> void moveDown(List<T> heap, int vertex, int indexBegin,
+                                                           int indexEnd)
+    {
+        int nextVertex = -1;
+        int leftVertex = vertex + vertex - indexBegin + 1;
+        int rightVertex = vertex + vertex - indexBegin + 2;
+
+        if(rightVertex < indexEnd)
+            nextVertex = heap.get(rightVertex).compareTo(heap.get(leftVertex)) < 0 ? leftVertex
+                                                                                   : rightVertex;
+
+        if(leftVertex == indexEnd - 1)
+            nextVertex = leftVertex;
+
+        if(nextVertex < 0)
+            return;
+
+        if(heap.get(nextVertex).compareTo(heap.get(vertex)) > 0)
+        {
+            T temp = heap.get(nextVertex);
+
+            heap.set(nextVertex, heap.get(vertex));
+            heap.set(vertex, temp);
+        }
+
+        moveDown(heap, nextVertex, indexBegin, indexEnd);
+    }
+
+    private static <T extends Comparable<T>> void merge(List<T> sequence, int indexBegin,
+                                                        int indexMiddle, int indexEnd)
     {
         List<T> ordered = new ArrayList<>();
-        int iter1 = index_begin, iter2 = index_middle + 1;
+        int iter1 = indexBegin, iter2 = indexMiddle;
 
-        while(iter1 <= index_middle && iter2 <= index_end)
+        while(iter1 < indexMiddle && iter2 < indexEnd)
             if(sequence.get(iter1).compareTo(sequence.get(iter2)) < 0)
             {
                 ordered.add(sequence.get(iter1));
@@ -193,16 +286,14 @@ public class Sorting
                 ++iter2;
             }
 
-        if(iter1 <= index_middle)
-            for(int i = iter1; i <= index_middle; ++i)
-                ordered.add(sequence.get(i));
+        for(int i = iter1; i < indexMiddle; ++i)
+            ordered.add(sequence.get(i));
 
-        if(iter2 <= index_end)
-            for(int i = iter2; i <= index_end; ++i)
-                ordered.add(sequence.get(i));
+        for(int i = iter2; i < indexEnd; ++i)
+            ordered.add(sequence.get(i));
 
         for(int i = 0; i < ordered.size(); ++i)
-            sequence.set(index_begin + i, ordered.get(i));
+            sequence.set(indexBegin + i, ordered.get(i));
     }
 
     private static int choosePivot(int size)
@@ -212,11 +303,11 @@ public class Sorting
         int candidate2 = random.nextInt(size);
         int candidate3 = random.nextInt(size);
 
-        if(Math.min(candidate2, candidate3) <= candidate1 && candidate1 <= Math
-            .max(candidate2, candidate3))
+        if(Math.min(candidate2, candidate3) <= candidate1 && candidate1 <= Math.max(candidate2,
+                                                                                    candidate3))
             return candidate2;
-        else if(Math.min(candidate1, candidate3) <= candidate2 && candidate2 <= Math
-            .max(candidate1, candidate3))
+        else if(Math.min(candidate1, candidate3) <= candidate2 && candidate2 <= Math.max(candidate1,
+                                                                                         candidate3))
             return candidate2;
         else
             return candidate3;

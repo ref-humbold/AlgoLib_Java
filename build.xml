@@ -46,6 +46,7 @@
       <formatter type="xml" />
       <test name="ref_humbold.algolib.KMPTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.MaximumSubarrayTest" todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.SortingTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.CuttingTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.DirectedSimpleGraphTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.LCATest" todir="${junit.output.dir}" />
