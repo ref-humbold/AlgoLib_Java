@@ -213,7 +213,7 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public int getHeight()
         {
-            return -1;
+            return 0;
         }
 
         @Override
@@ -226,18 +226,21 @@ public class AVLTree<E extends Comparable<E>>
         public void setLeft(AVLNode<T> node)
         {
             this.inner = node;
+
+            if(this.inner != null)
+                this.inner.setParent(this);
         }
 
         @Override
         public AVLNode<T> getRight()
         {
-            return this.inner;
+            return this.getLeft();
         }
 
         @Override
         public void setRight(AVLNode<T> node)
         {
-            this.inner = node;
+            this.setLeft(node);
         }
 
         @Override
@@ -292,7 +295,7 @@ public class AVLTree<E extends Comparable<E>>
         @Override
         public boolean hasNext()
         {
-            return currentNode.getHeight() >= 0;
+            return currentNode.getHeight() > 0;
         }
 
         @Override
@@ -311,7 +314,7 @@ public class AVLTree<E extends Comparable<E>>
             if(node.getRight() != null)
                 return node.getRight().minimum();
 
-            while(succ.getHeight() >= 0 && succ.getElement().compareTo(node.getElement()) <= 0)
+            while(succ.getHeight() > 0 && succ.getElement().compareTo(node.getElement()) <= 0)
                 succ = succ.getParent();
 
             return succ;
@@ -329,7 +332,7 @@ public class AVLTree<E extends Comparable<E>>
             if(node.getLeft() != null)
                 return node.getLeft().maximum();
 
-            while(pred.getHeight() >= 0 && pred.getElement().compareTo(node.getElement()) >= 0)
+            while(pred.getHeight() > 0 && pred.getElement().compareTo(node.getElement()) >= 0)
                 pred = pred.getParent();
 
             return pred;
@@ -465,7 +468,7 @@ public class AVLTree<E extends Comparable<E>>
      */
     public boolean contains(E element)
     {
-        if(tree == null)
+        if(isEmpty())
             return false;
 
         AVLNode<E> nodeParent = findNodeParent(element);
@@ -548,9 +551,6 @@ public class AVLTree<E extends Comparable<E>>
      */
     private void setInnerRoot(AVLNode<E> node)
     {
-        if(node != null)
-            node.setParent(tree);
-
         tree.setLeft(node);
     }
 
@@ -561,7 +561,7 @@ public class AVLTree<E extends Comparable<E>>
      */
     private boolean isInnerRoot(AVLNode<E> node)
     {
-        return node.getParent().getHeight() < 0;
+        return node.getParent().getHeight() == 0;
     }
 
     /**
@@ -630,28 +630,13 @@ public class AVLTree<E extends Comparable<E>>
     {
         if(root.getLeft() != null && root.getRight() != null)
             deleteNode(root);
-        else if(root.getLeft() != null && root.getRight() == null)
-        {
-            E temp = root.getLeft().getElement();
-
-            root.getLeft().setElement(root.getElement());
-            root.setElement(temp);
-            setInnerRoot(root.getLeft());
-            root.setLeft(null);
-            --elems;
-        }
-        else if(root.getLeft() == null && root.getRight() != null)
-        {
-            E temp = root.getRight().getElement();
-
-            root.getRight().setElement(root.getElement());
-            root.setElement(temp);
-            setInnerRoot(root.getRight());
-            root.setRight(null);
-            --elems;
-        }
         else
-            clear();
+        {
+            AVLNode<E> new_root = root.getLeft() != null ? root.getLeft() : root.getRight();
+
+            setInnerRoot(new_root);
+            --elems;
+        }
     }
 
     /**
@@ -728,7 +713,7 @@ public class AVLTree<E extends Comparable<E>>
      */
     private void rebalance(AVLNode<E> node)
     {
-        while(node.getHeight() >= 0)
+        while(node.getHeight() > 0)
         {
             node.recountHeight();
 

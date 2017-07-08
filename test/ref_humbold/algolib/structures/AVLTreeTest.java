@@ -140,7 +140,7 @@ public class AVLTreeTest
     @Test
     public void testAddWhenPresentElement()
     {
-        for(Integer i : new Integer[]{14, 30, 45})
+        for(Integer i : new Integer[]{14, 24, 30, 45})
         {
             boolean result = testObject.add(i);
 
@@ -152,13 +152,68 @@ public class AVLTreeTest
     @Test
     public void testRemoveWhenPresentElement()
     {
-        for(Integer i : new Integer[]{14, 30, 45})
+        for(Integer i : new Integer[]{14, 24, 30, 45})
         {
             boolean result = testObject.remove(i);
 
             Assert.assertTrue(result);
             Assert.assertFalse(testObject.contains(i));
         }
+    }
+
+    @Test
+    public void testRemoveRootWhenTwoElements1()
+    {
+        int root = 27;
+        int elem = 11;
+
+        testObject = new AVLTree<>(Arrays.asList(root, elem));
+
+        boolean result = testObject.remove(root);
+
+        Assert.assertTrue(result);
+        Assert.assertFalse(testObject.contains(root));
+        Assert.assertTrue(testObject.contains(elem));
+    }
+
+    @Test
+    public void testRemoveRootWhenTwoElements2()
+    {
+        int root = 11;
+        int elem = 27;
+
+        testObject = new AVLTree<>(Arrays.asList(root, elem));
+
+        boolean result = testObject.remove(root);
+
+        Assert.assertTrue(result);
+        Assert.assertFalse(testObject.contains(root));
+        Assert.assertTrue(testObject.contains(elem));
+    }
+
+    @Test
+    public void testRemoveRootWhenOneElement()
+    {
+        int root = 0;
+
+        testObject = new AVLTree<>(Arrays.asList(root));
+
+        boolean result = testObject.remove(root);
+
+        Assert.assertTrue(result);
+        Assert.assertFalse(testObject.contains(root));
+        Assert.assertTrue(testObject.isEmpty());
+    }
+
+    @Test
+    public void testRemoveWhenEmpty()
+    {
+        testObject = new AVLTree<>();
+
+        boolean result = testObject.remove(0);
+
+        Assert.assertFalse(result);
+        Assert.assertTrue(testObject.isEmpty());
     }
 
     @Test
