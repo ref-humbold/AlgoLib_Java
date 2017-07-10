@@ -13,7 +13,7 @@ public class Paths
 {
     /**
      * Algorytm Bellmana-Forda.
-     * @param diwgraph graf ważony
+     * @param diwgraph skierowany graf ważony
      * @param source wierzchołek początkowy
      * @return lista odległości wierzchołków
      */
@@ -22,6 +22,8 @@ public class Paths
     {
         List<Double> distances = new ArrayList<>(
             Collections.nCopies(diwgraph.getVerticesNumber(), DirectedWeightedSimpleGraph.INF));
+
+        distances.set(source, 0.0);
 
         for(int u = 0; u < diwgraph.getVerticesNumber() - 1; ++u)
             for(Integer v : diwgraph.getVertices())
@@ -47,6 +49,10 @@ public class Paths
     public static List<Double> dijkstra(WeightedGraph wgraph, int source)
         throws IllegalStateException
     {
+        for(Triple<Integer, Integer, Double> wedge : wgraph.getWeightedEdges())
+            if(wedge.getThird() < 0.0)
+                throw new IllegalStateException("Graph contains an edge with negative weight.");
+
         List<Double> distances = new ArrayList<>(
             Collections.nCopies(wgraph.getVerticesNumber(), WeightedGraph.INF));
         List<Boolean> isVisited = new ArrayList<>(
@@ -54,7 +60,7 @@ public class Paths
         PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
 
         distances.set(source, 0.0);
-        vertexQueue.add(new Pair<>(0.0, source));
+        vertexQueue.add(Pair.make(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
@@ -69,13 +75,10 @@ public class Paths
                     Integer nb = e.getFirst();
                     Double wg = e.getSecond();
 
-                    if(wg < 0)
-                        throw new IllegalStateException("Graph contains a negative weighted edge.");
-
                     if(distances.get(v) + wg < distances.get(nb))
                     {
                         distances.set(nb, distances.get(v) + wg);
-                        vertexQueue.add(Pair.make(-distances.get(nb), nb));
+                        vertexQueue.add(Pair.make(distances.get(nb), nb));
                     }
                 }
             }
@@ -86,8 +89,8 @@ public class Paths
 
     /**
      * Algorytm Floyda-Warshalla.
-     * @param diwgraph graf ważony
-     * @return macierz odległości
+     * @param diwgraph skierowany graf ważony
+     * @return macierz odległości wierzchołków
      */
     public static double[][] floydWarshall(DirectedWeightedSimpleGraph diwgraph)
     {
@@ -100,10 +103,10 @@ public class Paths
         for(Triple<Integer, Integer, Double> e : diwgraph.getWeightedEdges())
             distances[e.getFirst()][e.getSecond()] = e.getThird();
 
-        for(int x : diwgraph.getVertices())
-            for(int v : diwgraph.getVertices())
-                for(int u : diwgraph.getVertices())
-                    distances[v][u] = Math.min(distances[v][u], distances[v][x] + distances[x][u]);
+        for(Integer w : diwgraph.getVertices())
+            for(Integer v : diwgraph.getVertices())
+                for(Integer u : diwgraph.getVertices())
+                    distances[v][u] = Math.min(distances[v][u], distances[v][w] + distances[w][u]);
 
         return distances;
     }
