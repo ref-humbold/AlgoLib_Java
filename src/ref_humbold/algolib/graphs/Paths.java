@@ -17,11 +17,11 @@ public class Paths
      * @param source wierzchołek początkowy
      * @return lista odległości wierzchołków
      */
-    public static List<Double> bellmanFord(DirectedWeightedSimpleGraph diwgraph, int source)
+    public static List<Double> bellmanFord(DirectedWeightedGraph diwgraph, int source)
         throws IllegalStateException
     {
         List<Double> distances = new ArrayList<>(
-            Collections.nCopies(diwgraph.getVerticesNumber(), DirectedWeightedSimpleGraph.INF));
+            Collections.nCopies(diwgraph.getVerticesNumber(), DirectedWeightedGraph.INF));
 
         distances.set(source, 0.0);
 
@@ -33,7 +33,7 @@ public class Paths
 
         for(Integer v : diwgraph.getVertices())
             for(Pair<Integer, Double> e : diwgraph.getWeightedNeighbours(v))
-                if(distances.get(v) < DirectedWeightedSimpleGraph.INF
+                if(distances.get(v) < DirectedWeightedGraph.INF
                    && distances.get(v) + e.getSecond() < distances.get(e.getFirst()))
                     throw new IllegalStateException("Graph contains a negative cycle.");
 
@@ -92,13 +92,13 @@ public class Paths
      * @param diwgraph skierowany graf ważony
      * @return macierz odległości wierzchołków
      */
-    public static double[][] floydWarshall(DirectedWeightedSimpleGraph diwgraph)
+    public static double[][] floydWarshall(DirectedWeightedGraph diwgraph)
     {
         double[][] distances = new double[diwgraph.getVerticesNumber()][diwgraph.getVerticesNumber()];
 
         for(int i = 0; i < distances.length; ++i)
             for(int j = 0; j < distances[i].length; ++j)
-                distances[i][j] = i == j ? 0.0 : DirectedWeightedSimpleGraph.INF;
+                distances[i][j] = i == j ? 0.0 : DirectedWeightedGraph.INF;
 
         for(Triple<Integer, Integer, Double> e : diwgraph.getWeightedEdges())
             distances[e.getFirst()][e.getSecond()] = e.getThird();

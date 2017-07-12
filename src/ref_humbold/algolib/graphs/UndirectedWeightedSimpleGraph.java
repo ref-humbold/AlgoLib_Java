@@ -10,7 +10,7 @@ import ref_humbold.algolib.structures.Triple;
 
 public class UndirectedWeightedSimpleGraph
     extends UndirectedSimpleGraph
-    implements WeightedGraph
+    implements UndirectedWeightedGraph
 {
     public UndirectedWeightedSimpleGraph(int n)
     {

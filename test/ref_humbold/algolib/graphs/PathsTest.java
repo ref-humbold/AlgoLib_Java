@@ -125,7 +125,7 @@ public class PathsTest
     }
 
     @Test
-    public void testFloydWarshall()
+    public void testFloydWarshallWhenDirectedGraph()
     {
         diwgraph.addWeightedEdge(2, 1, -2.0);
 
