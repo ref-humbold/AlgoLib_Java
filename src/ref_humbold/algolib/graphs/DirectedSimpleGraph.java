@@ -53,10 +53,10 @@ public class DirectedSimpleGraph
     public void addEdge(Integer vertex1, Integer vertex2)
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new IllegalArgumentException("No such vertex: " + vertex1.toString() + ".");
+            throw new IllegalArgumentException(vertex1.toString());
 
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
+            throw new IllegalArgumentException(vertex2.toString());
 
         graphrepr.get(vertex1).add(Pair.make(vertex2, DEFAULT_WEIGHT));
     }

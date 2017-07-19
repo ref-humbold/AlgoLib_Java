@@ -26,11 +26,11 @@ public class MultipartiteGraph
      */
     private List<Integer> groups;
 
-    public MultipartiteGraph(Integer group, Integer n)
+    public MultipartiteGraph(Integer group, UndirectedGraph ugraph)
     {
         this.groupsNumber = group;
-        this.graph = new UndirectedSimpleGraph(n);
-        this.groups = new ArrayList<>(Collections.nCopies(getVerticesNumber(), 1));
+        this.graph = ugraph;
+        this.groups = new ArrayList<>(Collections.nCopies(ugraph.getVerticesNumber(), 1));
     }
 
     public Integer getGroupsNumber()
@@ -45,21 +45,24 @@ public class MultipartiteGraph
     }
 
     @Override
-    public int getEdgesNumber()
-    {
-        return graph.getEdgesNumber();
-    }
-
-    @Override
     public Collection<Integer> getVertices()
     {
         return graph.getVertices();
     }
 
-    @Override
-    public Collection<Pair<Integer, Integer>> getEdges()
+    /**
+     * @param group numer grupy
+     * @return lista wierzchołków grupy
+     */
+    public Collection<Integer> getVertices(Integer group)
     {
-        return graph.getEdges();
+        List<Integer> part = new ArrayList<>();
+
+        for(Integer v : graph.getVertices())
+            if(groups.get(v).equals(group))
+                part.add(v);
+
+        return part;
     }
 
     @Override
@@ -69,23 +72,43 @@ public class MultipartiteGraph
     }
 
     /**
-     * Dodawanie nowego wierzchołka.
-     * @param group czy wierzchołek w pierwszej grupie
+     * Dodawanie nowego wierzchołka do grupy.
+     * @param group numer grupy
      * @return oznaczenie wierzchołka
      */
     public Integer addVertex(Integer group)
     {
+        if(group == 0)
+            throw new IllegalStateException("Cannot add vertex to group 0.");
+
+        if(group < 0)
+            throw new IllegalArgumentException("Group number is negative.");
+
         groups.add(group);
 
         return graph.addVertex();
     }
 
     @Override
+    public int getEdgesNumber()
+    {
+        return graph.getEdgesNumber();
+    }
+
+    @Override
+    public Collection<Pair<Integer, Integer>> getEdges()
+    {
+        return graph.getEdges();
+    }
+
+    @Override
     public void addEdge(Integer vertex1, Integer vertex2)
     {
-        if(vertex1 < 0 || vertex1 > getVerticesNumber() || vertex2 < 0
-           || vertex2 > getVerticesNumber())
-            throw new IllegalArgumentException("No such vertex.");
+        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
+            throw new IllegalArgumentException(vertex1.toString());
+
+        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
+            throw new IllegalArgumentException(vertex2.toString());
 
         if(isSameGroup(vertex1, vertex2))
             throw new GraphPartitionException("Vertices in the same part.");
@@ -118,22 +141,6 @@ public class MultipartiteGraph
     }
 
     /**
-     * Wierzchołki zadanej grupy.
-     * @param group numer grupy
-     * @return lista wierzchołków grupy
-     */
-    public Iterable<Integer> getGroup(Integer group)
-    {
-        List<Integer> part = new ArrayList<>();
-
-        for(Integer v : graph.getVertices())
-            if(groups.get(v).equals(group))
-                part.add(v);
-
-        return part;
-    }
-
-    /**
      * Sprawdza, czy wierzchołek należy do zadanej grupy.
      * @param vertex wierzchołek
      * @param group numer grupy
@@ -141,6 +148,9 @@ public class MultipartiteGraph
      */
     public boolean isInGroup(Integer vertex, Integer group)
     {
+        if(vertex < 0 || vertex > getVerticesNumber())
+            throw new NoSuchVertexException(vertex.toString());
+
         return groups.get(vertex).equals(group);
     }
 
@@ -152,6 +162,12 @@ public class MultipartiteGraph
      */
     public boolean isSameGroup(Integer vertex1, Integer vertex2)
     {
+        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
+            throw new IllegalArgumentException(vertex1.toString());
+
+        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
+            throw new IllegalArgumentException(vertex2.toString());
+
         return groups.get(vertex1).equals(groups.get(vertex2));
     }
 }

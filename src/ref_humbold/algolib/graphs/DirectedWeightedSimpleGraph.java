@@ -43,10 +43,10 @@ public class DirectedWeightedSimpleGraph
     public void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new IllegalArgumentException("No such vertex: " + vertex1.toString() + ".");
+            throw new IllegalArgumentException(vertex1.toString());
 
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new IllegalArgumentException("No such vertex: " + vertex2.toString() + ".");
+            throw new IllegalArgumentException(vertex2.toString());
 
         graphrepr.get(vertex1).add(Pair.make(vertex2, weight));
     }

@@ -24,9 +24,4 @@ public class DirectedCyclicGraphException
     {
         super(s, t);
     }
-
-    public DirectedCyclicGraphException(String s, Throwable t, boolean b1, boolean b2)
-    {
-        super(s, t, b1, b2);
-    }
 }
