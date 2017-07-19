@@ -64,7 +64,7 @@ public class Matching
 
             bfs();
 
-            for(Integer v : graph.getGroup(1))
+            for(Integer v : graph.getVertices(1))
                 matchAdded = dfs(v) || matchAdded;
 
             return matchAdded;
@@ -77,7 +77,7 @@ public class Matching
         {
             Deque<Integer> vertexDeque = new ArrayDeque<>();
 
-            for(Integer v : graph.getGroup(1))
+            for(Integer v : graph.getVertices(1))
             {
                 distances.set(v, 0.0);
                 vertexDeque.addLast(v);
@@ -148,7 +148,7 @@ public class Matching
         List<Integer> matching = augmenter.getMatching();
         List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
 
-        for(Integer v : partgraph.getGroup(1))
+        for(Integer v : partgraph.getVertices(1))
             matchPairs.add(Pair.make(v, matching.get(v)));
 
         return matchPairs;
