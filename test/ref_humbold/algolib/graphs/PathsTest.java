@@ -18,6 +18,7 @@ public class PathsTest
 
     @Before
     public void setUp()
+        throws Exception
     {
         diwgraph = new DirectedWeightedSimpleGraph(10, Arrays.asList(Triple.make(0, 1, 4.0),
                                                                      Triple.make(1, 4, 7.0),
@@ -52,6 +53,7 @@ public class PathsTest
 
     @After
     public void tearDown()
+        throws Exception
     {
         diwgraph = null;
         uwgraph = null;

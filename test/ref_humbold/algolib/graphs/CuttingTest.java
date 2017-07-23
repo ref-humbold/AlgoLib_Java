@@ -15,11 +15,13 @@ public class CuttingTest
 {
     @Before
     public void setUp()
+        throws Exception
     {
     }
 
     @After
     public void tearDown()
+        throws Exception
     {
     }
 
@@ -43,7 +45,7 @@ public class CuttingTest
                                                                             Pair.make(9, 11),
                                                                             Pair.make(10, 11)));
 
-        Object[] result = Cutting.findBridges(graph).toArray();
+        Object[] result = Cutting.findEdgeCut(graph).toArray();
 
         Arrays.sort(result);
 
@@ -61,7 +63,7 @@ public class CuttingTest
                                                                            Pair.make(3, 5),
                                                                            Pair.make(4, 5)));
 
-        Collection<Pair<Integer, Integer>> result = Cutting.findBridges(graph);
+        Collection<Pair<Integer, Integer>> result = Cutting.findEdgeCut(graph);
 
         Assert.assertArrayEquals(new Object[]{}, result.toArray());
     }
@@ -86,7 +88,7 @@ public class CuttingTest
                                                                             Pair.make(9, 11),
                                                                             Pair.make(10, 11)));
 
-        Object[] result = Cutting.findVertexSeparators(graph).toArray();
+        Object[] result = Cutting.findVertexCut(graph).toArray();
 
         Arrays.sort(result);
 
@@ -105,7 +107,7 @@ public class CuttingTest
                                                                            Pair.make(3, 5),
                                                                            Pair.make(4, 5)));
 
-        Collection<Integer> result = Cutting.findVertexSeparators(graph);
+        Collection<Integer> result = Cutting.findVertexCut(graph);
 
         Assert.assertArrayEquals(new Object[]{}, result.toArray());
     }

@@ -16,6 +16,7 @@ public class LCATest
 
     @Before
     public void setUp()
+        throws Exception
     {
         trees = new ForestGraph(new UndirectedSimpleGraph(12),
                                 Arrays.asList(Pair.make(0, 1), Pair.make(0, 2), Pair.make(1, 3),
@@ -26,6 +27,7 @@ public class LCATest
 
     @After
     public void tearDown()
+        throws Exception
     {
         trees = null;
     }

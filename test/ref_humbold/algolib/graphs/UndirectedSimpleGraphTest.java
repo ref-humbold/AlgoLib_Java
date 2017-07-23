@@ -16,12 +16,14 @@ public class UndirectedSimpleGraphTest
 
     @Before
     public void setUp()
+        throws Exception
     {
         testObject = new UndirectedSimpleGraph(10);
     }
 
     @After
     public void tearDown()
+        throws Exception
     {
         testObject = null;
     }

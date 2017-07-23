@@ -53,7 +53,7 @@ public class Cutting
          * Znajdowanie mostów w grafie.
          * @return lista krawędzi będących mostami
          */
-        public Collection<Pair<Integer, Integer>> bridges()
+        public Collection<Pair<Integer, Integer>> edgeCut()
         {
             List<Pair<Integer, Integer>> bridges = new ArrayList<>();
 
@@ -73,7 +73,7 @@ public class Cutting
          * Znajdowanie punktów artykulacji.
          * @return lista punktów artykulacji
          */
-        public Collection<Integer> separators()
+        public Collection<Integer> vertexCut()
         {
             List<Integer> separators = new ArrayList<>();
 
@@ -154,17 +154,17 @@ public class Cutting
      * Wyznacza mosty w grafie.
      * @return lista krawędzi będących mostami
      */
-    public static Collection<Pair<Integer, Integer>> findBridges(UndirectedGraph ugraph)
+    public static Collection<Pair<Integer, Integer>> findEdgeCut(UndirectedGraph ugraph)
     {
-        return new GraphCutting(ugraph).bridges();
+        return new GraphCutting(ugraph).edgeCut();
     }
 
     /**
      * Wyznaczanie punktów artykulacji.
      * @return lista punktów artykulacji
      */
-    public static Collection<Integer> findVertexSeparators(UndirectedGraph ugraph)
+    public static Collection<Integer> findVertexCut(UndirectedGraph ugraph)
     {
-        return new GraphCutting(ugraph).separators();
+        return new GraphCutting(ugraph).vertexCut();
     }
 }

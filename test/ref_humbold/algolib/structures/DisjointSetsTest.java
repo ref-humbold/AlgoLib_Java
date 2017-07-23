@@ -14,12 +14,14 @@ public class DisjointSetsTest
 
     @Before
     public void setUp()
+        throws Exception
     {
         testObject = new DisjointSets<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
     @After
     public void tearDown()
+        throws Exception
     {
         testObject = null;
     }

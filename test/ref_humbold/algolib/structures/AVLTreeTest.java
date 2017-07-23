@@ -19,12 +19,14 @@ public class AVLTreeTest
 
     @Before
     public void setUp()
+        throws Exception
     {
         testObject = new AVLTree<>(Arrays.asList(numbers));
     }
 
     @After
     public void tearDown()
+        throws Exception
     {
         testObject = null;
     }
