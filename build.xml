@@ -17,7 +17,8 @@
     <path refid="JUnit4.userclasspath" />
     <pathelement location="${build.dir}" />
   </path>
-  <target name="all" depends="clean, build, junit" />
+  <target name="all" depends="make, junit" />
+  <target name="make" depends="clean, build" />
   <target name="clean">
     <delete dir="${build.dir}" />
   </target>
@@ -31,8 +32,7 @@
     </copy>
   </target>
   <target name="build" depends="init">
-    <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" source="${source}"
-           target="${target}" includeantruntime="false">
+    <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" source="${source}" target="${target}" includeantruntime="false">
       <src path="${src.dir}" />
       <src path="${test.dir}" />
       <compilerarg line="-Xlint" />
@@ -52,8 +52,7 @@
       <test name="ref_humbold.algolib.graphs.LCATest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.MSTTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.graphs.PathsTest" todir="${junit.output.dir}" />
-      <test name="ref_humbold.algolib.graphs.UndirectedSimpleGraphTest"
-            todir="${junit.output.dir}" />
+      <test name="ref_humbold.algolib.graphs.UndirectedSimpleGraphTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.maths.MathsTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.maths.SieveTest" todir="${junit.output.dir}" />
       <test name="ref_humbold.algolib.structures.AVLTreeTest" todir="${junit.output.dir}" />
