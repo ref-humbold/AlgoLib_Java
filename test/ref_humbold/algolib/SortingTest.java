@@ -181,13 +181,13 @@ public class SortingTest
     }
 
     @Test
-    public void testMergeSorted()
+    public void testMergedownSorted()
     {
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
         List<Integer> sequenceSorted = new ArrayList<>(sequence);
 
-        List<Integer> result = Sorting.mergeSorted(sequence);
+        List<Integer> result = Sorting.mergedownSorted(sequence);
         Collections.sort(sequenceSorted);
 
         Assert.assertArrayEquals(sequenceSorted.toArray(), result.toArray());
@@ -195,86 +195,183 @@ public class SortingTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMergeSortedWhenNull()
+    public void testMergedownSortedWhenNull()
     {
         List<Integer> sequence = null;
 
-        Sorting.mergeSorted(sequence);
+        Sorting.mergedownSorted(sequence);
     }
 
     @Test
-    public void testMergeSort()
+    public void testMergedownSort()
     {
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        Sorting.mergeSort(sequence);
+        Sorting.mergedownSort(sequence);
         Collections.sort(sequenceCopy);
 
         Assert.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
     }
 
     @Test
-    public void testMergeSortWhenIndices()
+    public void testMergedownSortWhenIndices()
     {
         int index1 = 3;
         int index2 = 7;
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
-        Sorting.mergeSort(sequence, index1, index2);
+        Sorting.mergedownSort(sequence, index1, index2);
 
         Assert.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2}, sequence.toArray());
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testMergeSortWhenIndexOutOfRange1()
+    public void testMergedownSortWhenIndexOutOfRange1()
     {
         int index1 = -13;
         int index2 = 7;
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
-        Sorting.mergeSort(sequence, index1, index2);
+        Sorting.mergedownSort(sequence, index1, index2);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testMergeSortWhenIndexOutOfRange2()
+    public void testMergedownSortWhenIndexOutOfRange2()
     {
         int index1 = 3;
         int index2 = 17;
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
-        Sorting.mergeSort(sequence, index1, index2);
+        Sorting.mergedownSort(sequence, index1, index2);
     }
 
     @Test
-    public void testMergeSortWhenIndicesReversed()
+    public void testMergedownSortWhenIndicesReversed()
     {
         int index1 = 7;
         int index2 = 3;
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        Sorting.mergeSort(sequence, index1, index2);
+        Sorting.mergedownSort(sequence, index1, index2);
 
         Assert.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
     }
 
     @Test
-    public void testMergeSortWhenEmptyList()
+    public void testMergedownSortWhenEmptyList()
     {
         List<Integer> sequence = new ArrayList<>();
 
-        Sorting.mergeSort(sequence);
+        Sorting.mergedownSort(sequence);
 
         Assert.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMergeSortWhenNull()
+    public void testMergedownSortWhenNull()
     {
         List<Integer> sequence = null;
 
-        Sorting.mergeSort(sequence);
+        Sorting.mergedownSort(sequence);
+    }
+
+    @Test
+    public void testMergeupSorted()
+    {
+        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
+        List<Integer> sequenceCopy = new ArrayList<>(sequence);
+        List<Integer> sequenceSorted = new ArrayList<>(sequence);
+
+        List<Integer> result = Sorting.mergeupSorted(sequence);
+        Collections.sort(sequenceSorted);
+
+        Assert.assertArrayEquals(sequenceSorted.toArray(), result.toArray());
+        Assert.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMergeupSortedWhenNull()
+    {
+        List<Integer> sequence = null;
+
+        Sorting.mergeupSorted(sequence);
+    }
+
+    @Test
+    public void testMergeupSort()
+    {
+        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
+        List<Integer> sequenceCopy = new ArrayList<>(sequence);
+
+        Sorting.mergeupSort(sequence);
+        Collections.sort(sequenceCopy);
+
+        Assert.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
+    }
+
+    @Test
+    public void testMergeupSortWhenIndices()
+    {
+        int index1 = 3;
+        int index2 = 7;
+        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
+
+        Sorting.mergeupSort(sequence, index1, index2);
+
+        Assert.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2}, sequence.toArray());
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testMergeupSortWhenIndexOutOfRange1()
+    {
+        int index1 = -13;
+        int index2 = 7;
+        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
+
+        Sorting.mergeupSort(sequence, index1, index2);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testMergeupSortWhenIndexOutOfRange2()
+    {
+        int index1 = 3;
+        int index2 = 17;
+        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
+
+        Sorting.mergeupSort(sequence, index1, index2);
+    }
+
+    @Test
+    public void testMergeupSortWhenIndicesReversed()
+    {
+        int index1 = 7;
+        int index2 = 3;
+        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
+        List<Integer> sequenceCopy = new ArrayList<>(sequence);
+
+        Sorting.mergeupSort(sequence, index1, index2);
+
+        Assert.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
+    }
+
+    @Test
+    public void testMergeupSortWhenEmptyList()
+    {
+        List<Integer> sequence = new ArrayList<>();
+
+        Sorting.mergeupSort(sequence);
+
+        Assert.assertArrayEquals(new Object[]{}, sequence.toArray());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMergeupSortWhenNull()
+    {
+        List<Integer> sequence = null;
+
+        Sorting.mergeupSort(sequence);
     }
 
     @Test
