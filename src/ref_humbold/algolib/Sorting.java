@@ -47,23 +47,6 @@ public class Sorting
     }
 
     /**
-     * Niemutowalne sortowanie kątowe punktów na płaszczyźnie.
-     * @param points lista punktów
-     * @return lista punktów posortowana względem kąta
-     */
-    public static List<Pair<Double, Double>> angleSorted(List<Pair<Double, Double>> points)
-    {
-        if(points == null)
-            throw new IllegalArgumentException("List of points is null.");
-
-        List<Pair<Double, Double>> pointsCopy = new ArrayList<>(points);
-
-        angleSort(pointsCopy);
-
-        return pointsCopy;
-    }
-
-    /**
      * Mutowalne sortowanie ciągu przez kopcowanie.
      * @param sequence ciąg
      */
@@ -114,39 +97,6 @@ public class Sorting
     }
 
     /**
-     * Niemutowalne sortowanie ciągu przez kopcowanie.
-     * @param sequence ciąg
-     * @return ciąg posortowanych elementów
-     */
-    public static <T extends Comparable<T>> List<T> heapSorted(List<T> sequence)
-    {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        return heapSorted(sequence, 0, sequence.size());
-    }
-
-    /**
-     * Niemutowalne sortowanie ciągu przez kopcowanie.
-     * @param sequence ciąg
-     * @param indexBegin początkowy indeks ciągu
-     * @param indexEnd końcowy indeks ciągu
-     * @return ciąg posortowanych elementów
-     */
-    public static <T extends Comparable<T>> List<T> heapSorted(List<T> sequence, int indexBegin,
-                                                               int indexEnd)
-    {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        List<T> sequenceCopy = new ArrayList<>(sequence);
-
-        heapSort(sequenceCopy, indexBegin, indexEnd);
-
-        return sequenceCopy;
-    }
-
-    /**
      * Mutowalne sortowanie ciągu przez scalanie top-down.
      * @param sequence ciąg
      */
@@ -187,39 +137,6 @@ public class Sorting
     }
 
     /**
-     * Niemutowalne sortowanie ciągu przez scalanie top-down.
-     * @param sequence ciąg
-     * @return ciąg posortowanych elementów
-     */
-    public static <T extends Comparable<T>> List<T> mergedownSorted(List<T> sequence)
-    {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        return mergedownSorted(sequence, 0, sequence.size());
-    }
-
-    /**
-     * Niemutowalne sortowanie ciągu przez scalanie top-down.
-     * @param sequence ciąg
-     * @param indexBegin początkowy indeks ciągu
-     * @param indexEnd końcowy indeks ciągu
-     * @return ciąg posortowanych elementów
-     */
-    public static <T extends Comparable<T>> List<T> mergedownSorted(List<T> sequence,
-                                                                    int indexBegin, int indexEnd)
-    {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        List<T> sequenceCopy = new ArrayList<>(sequence);
-
-        mergedownSort(sequenceCopy, indexBegin, indexEnd);
-
-        return sequenceCopy;
-    }
-
-    /**
      * Mutowalne sortowanie ciągu przez scalanie bottom-up.
      * @param sequence ciąg
      */
@@ -255,39 +172,6 @@ public class Sorting
         for(int i = 2; i < 2 * (indexEnd - indexBegin); i *= 2)
             for(int j = indexBegin; j < indexEnd; j += i)
                 merge(sequence, j, Math.min(j + i / 2, indexEnd), Math.min(j + i, indexEnd));
-    }
-
-    /**
-     * Niemutowalne sortowanie ciągu przez scalanie bottom-up.
-     * @param sequence ciąg
-     * @return ciąg posortowanych elementów
-     */
-    public static <T extends Comparable<T>> List<T> mergeupSorted(List<T> sequence)
-    {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        return mergeupSorted(sequence, 0, sequence.size());
-    }
-
-    /**
-     * Niemutowalne sortowanie ciągu przez scalanie bottom-up.
-     * @param sequence ciąg
-     * @param indexBegin początkowy indeks ciągu
-     * @param indexEnd końcowy indeks ciągu
-     * @return ciąg posortowanych elementów
-     */
-    public static <T extends Comparable<T>> List<T> mergeupSorted(List<T> sequence, int indexBegin,
-                                                                  int indexEnd)
-    {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        List<T> sequenceCopy = new ArrayList<>(sequence);
-
-        mergeupSort(sequenceCopy, indexBegin, indexEnd);
-
-        return sequenceCopy;
     }
 
     /**
@@ -351,39 +235,6 @@ public class Sorting
 
         quickSort(sequence, indexBegin, indexPivot);
         quickSort(sequence, indexPivot + 1, indexEnd);
-    }
-
-    /**
-     * Niemutowalne szybkie sortowanie ciągu.
-     * @param sequence ciąg
-     * @return ciąg posortowanych elementów
-     */
-    public static <T extends Comparable<T>> List<T> quickSorted(List<T> sequence)
-    {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        return quickSorted(sequence, 0, sequence.size());
-    }
-
-    /**
-     * Niemutowalne szybkie sortowanie ciągu.
-     * @param sequence ciąg
-     * @param indexBegin początkowy indeks ciągu
-     * @param indexEnd końcowy indeks ciągu
-     * @return ciąg posortowanych elementów
-     */
-    public static <T extends Comparable<T>> List<T> quickSorted(List<T> sequence, int indexBegin,
-                                                                int indexEnd)
-    {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        List<T> sequenceCopy = new ArrayList<>(sequence);
-
-        quickSort(sequenceCopy, indexBegin, indexEnd);
-
-        return sequenceCopy;
     }
 
     /**
