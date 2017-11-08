@@ -2,35 +2,43 @@
 package ref_humbold.algolib.structures;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class DisjointSets<E>
 {
-    /** Mapa reprezentantów elementów. */
+    /**
+     * Mapa reprezentantów elementów.
+     */
     private Map<E, E> represents;
+
+    /**
+     * Liczba zbiorów.
+     */
+    private int elems;
+
+    public DisjointSets()
+    {
+        this.represents = new HashMap<>();
+        this.elems = 0;
+    }
 
     public DisjointSets(Iterable<E> universe)
     {
-        represents = new HashMap<E, E>();
+        this();
 
         for(E e : universe)
-            represents.put(e, e);
+        {
+            this.represents.put(e, e);
+            ++this.elems;
+        }
     }
 
     /**
-     * Liczenie zbiorów.
      * @return liczba zbiorów
      */
     public int size()
     {
-        Set<E> reprs = new HashSet<>();
-
-        for(E e : represents.keySet())
-            reprs.add(findSet(e));
-
-        return reprs.size();
+        return elems;
     }
 
     /**
@@ -53,6 +61,7 @@ public class DisjointSets<E>
             throw new IllegalArgumentException("Value " + element.toString() + "already present.");
 
         represents.put(element, element);
+        ++elems;
     }
 
     /**
@@ -76,7 +85,10 @@ public class DisjointSets<E>
     public void unionSet(E element1, E element2)
     {
         if(!isSameSet(element1, element2))
+        {
             represents.put(findSet(element1), findSet(element2));
+            --elems;
+        }
     }
 
     /**
@@ -85,6 +97,7 @@ public class DisjointSets<E>
      * @param element2 element drugiego zbioru
      * @return czy elementy znajdują się w jednym zbiorze
      */
+
     public boolean isSameSet(E element1, E element2)
     {
         return findSet(element1).equals(findSet(element2));
