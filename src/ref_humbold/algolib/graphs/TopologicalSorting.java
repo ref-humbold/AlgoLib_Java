@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class TopologicalSorting
 {

@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import ref_humbold.algolib.structures.DisjointSets;
-import ref_humbold.algolib.structures.Pair;
-import ref_humbold.algolib.structures.Triple;
+import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.Pair;
+import ref_humbold.algolib.tuples.Triple;
 
 public class MST
 {
@@ -57,8 +58,8 @@ public class MST
     {
         double sizeMST = 0.0;
         PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
-        List<Boolean> isVisited = new ArrayList<>(
-            Collections.nCopies(uwgraph.getVerticesNumber(), false));
+        List<Boolean> isVisited =
+            new ArrayList<>(Collections.nCopies(uwgraph.getVerticesNumber(), false));
 
         vertexQueue.add(Pair.make(0.0, source));
 
@@ -76,7 +77,7 @@ public class MST
 
                 for(Pair<Integer, Double> e : uwgraph.getWeightedNeighbours(v))
                     if(!isVisited.get(e.getFirst()))
-                        vertexQueue.add(Pair.make(e.getSecond(), e.getFirst()));
+                        vertexQueue.add(ComparablePair.make(e.getSecond(), e.getFirst()));
             }
         }
 

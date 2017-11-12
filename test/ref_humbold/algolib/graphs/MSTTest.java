@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ref_humbold.algolib.structures.Triple;
+import ref_humbold.algolib.tuples.Triple;
 
 public class MSTTest
 {

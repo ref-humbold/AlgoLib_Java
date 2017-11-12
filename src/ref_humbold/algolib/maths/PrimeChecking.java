@@ -3,7 +3,7 @@ package ref_humbold.algolib.maths;
 
 import java.util.Random;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class PrimeChecking
 {

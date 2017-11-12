@@ -7,8 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ref_humbold.algolib.structures.Pair;
-import ref_humbold.algolib.structures.Triple;
+import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.Pair;
+import ref_humbold.algolib.tuples.Triple;
 
 public class DirectedWeightedSimpleGraph
     extends DirectedSimpleGraph
@@ -48,11 +49,11 @@ public class DirectedWeightedSimpleGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new IllegalArgumentException(vertex2.toString());
 
-        graphrepr.get(vertex1).add(Pair.make(vertex2, weight));
+        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, weight));
     }
 
     @Override
-    public Collection<Pair<Integer, Double>> getWeightedNeighbours(Integer vertex)
+    public Collection<ComparablePair<Integer, Double>> getWeightedNeighbours(Integer vertex)
     {
         return new ArrayList<>(graphrepr.get(vertex));
     }
@@ -60,13 +61,13 @@ public class DirectedWeightedSimpleGraph
     @Override
     public void reverse()
     {
-        List<Set<Pair<Integer, Double>>> revgraphrepr = new ArrayList<>();
+        List<Set<ComparablePair<Integer, Double>>> revgraphrepr = new ArrayList<>();
 
         for(Integer v : getVertices())
             revgraphrepr.add(new HashSet<>());
 
         for(Triple<Integer, Integer, Double> e : getWeightedEdges())
-            revgraphrepr.get(e.getSecond()).add(Pair.make(e.getFirst(), e.getThird()));
+            revgraphrepr.get(e.getSecond()).add(ComparablePair.make(e.getFirst(), e.getThird()));
 
         graphrepr = revgraphrepr;
     }

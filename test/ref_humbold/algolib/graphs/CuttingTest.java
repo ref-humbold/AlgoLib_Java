@@ -9,7 +9,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class CuttingTest
 {
@@ -63,7 +64,7 @@ public class CuttingTest
                                                                            Pair.make(3, 5),
                                                                            Pair.make(4, 5)));
 
-        Collection<Pair<Integer, Integer>> result = Cutting.findEdgeCut(graph);
+        Collection<ComparablePair<Integer, Integer>> result = Cutting.findEdgeCut(graph);
 
         Assert.assertArrayEquals(new Object[]{}, result.toArray());
     }

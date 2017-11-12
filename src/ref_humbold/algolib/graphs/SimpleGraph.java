@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.Pair;
 
 public abstract class SimpleGraph
     implements Graph
@@ -20,7 +21,7 @@ public abstract class SimpleGraph
     /**
      * Lista sąsiedztwa grafu.
      */
-    protected List<Set<Pair<Integer, Double>>> graphrepr;
+    protected List<Set<ComparablePair<Integer, Double>>> graphrepr;
 
     public SimpleGraph(int n)
     {

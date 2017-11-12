@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ref_humbold.algolib.structures.Triple;
+import ref_humbold.algolib.tuples.Triple;
 
 public class PathsTest
 {
@@ -77,7 +77,7 @@ public class PathsTest
     {
         Integer source = 1;
 
-        List<Double> result = Paths.dijkstra(uwgraph.asDirected(), source);
+        List<Double> result = Paths.bellmanFord(uwgraph.asDirected(), source);
         double i = Graph.INF;
 
         Assert.assertArrayEquals(new Double[]{4.0, 0.0, i, 7.0, 7.0, 8.0, i, 10.0, 10.0, i},

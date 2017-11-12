@@ -5,35 +5,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class Sorting
 {
-    private static class AngleComparator
-        implements Comparator<Pair<Double, Double>>
-    {
-        @Override
-        public int compare(Pair<Double, Double> pt1, Pair<Double, Double> pt2)
-        {
-            Double angle1 = countAngle(pt1), angle2 = countAngle(pt2);
-
-            return angle1.equals(angle2) ? countRadius(pt1).compareTo(countRadius(pt2))
-                                         : angle1.compareTo(angle2);
-        }
-
-        private Double countAngle(Pair<Double, Double> pt)
-        {
-            double ang = Math.atan2(pt.getSecond(), pt.getFirst()) * 90.0 / Math.acos(0);
-
-            return pt.getSecond() >= 0.0 ? ang : ang + 360.0;
-        }
-
-        private Double countRadius(Pair<Double, Double> pt)
-        {
-            return pt.getFirst() * pt.getFirst() + pt.getSecond() * pt.getSecond();
-        }
-    }
-
     /**
      * Mutowalne sortowanie kątowe punktów na płaszczyźnie.
      * @param points lista punktów
@@ -328,5 +303,30 @@ public class Sorting
             return candidate2;
 
         return candidate3;
+    }
+
+    private static class AngleComparator
+        implements Comparator<Pair<Double, Double>>
+    {
+        @Override
+        public int compare(Pair<Double, Double> pt1, Pair<Double, Double> pt2)
+        {
+            Double angle1 = countAngle(pt1), angle2 = countAngle(pt2);
+
+            return angle1.equals(angle2) ? countRadius(pt1).compareTo(countRadius(pt2))
+                                         : angle1.compareTo(angle2);
+        }
+
+        private Double countAngle(Pair<Double, Double> pt)
+        {
+            double ang = Math.atan2(pt.getSecond(), pt.getFirst()) * 90.0 / Math.acos(0);
+
+            return pt.getSecond() >= 0.0 ? ang : ang + 360.0;
+        }
+
+        private Double countRadius(Pair<Double, Double> pt)
+        {
+            return pt.getFirst() * pt.getFirst() + pt.getSecond() * pt.getSecond();
+        }
     }
 }

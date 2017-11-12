@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class SortingTest
 {

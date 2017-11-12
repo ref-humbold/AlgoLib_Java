@@ -7,10 +7,32 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class Matching
 {
+    /**
+     * Wyznaczanie maksymalnego skojarzenia.
+     * @param partgraph: graf wielodzielny
+     * @return pary skojarzonych wierzchołków
+     */
+    public static List<Pair<Integer, Integer>> match(MultipartiteGraph partgraph)
+    {
+        MatchAugmenter augmenter = new MatchAugmenter(partgraph);
+
+        while(augmenter.augmentMatch())
+        {
+        }
+
+        List<Integer> matching = augmenter.getMatching();
+        List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
+
+        for(Integer v : partgraph.getVertices(1))
+            matchPairs.add(Pair.make(v, matching.get(v)));
+
+        return matchPairs;
+    }
+
     private static class MatchAugmenter
     {
         /**
@@ -130,27 +152,5 @@ public class Matching
 
             return false;
         }
-    }
-
-    /**
-     * Wyznaczanie maksymalnego skojarzenia.
-     * @param partgraph: graf wielodzielny
-     * @return pary skojarzonych wierzchołków
-     */
-    public static List<Pair<Integer, Integer>> match(MultipartiteGraph partgraph)
-    {
-        MatchAugmenter augmenter = new MatchAugmenter(partgraph);
-
-        while(augmenter.augmentMatch())
-        {
-        }
-
-        List<Integer> matching = augmenter.getMatching();
-        List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
-
-        for(Integer v : partgraph.getVertices(1))
-            matchPairs.add(Pair.make(v, matching.get(v)));
-
-        return matchPairs;
     }
 }

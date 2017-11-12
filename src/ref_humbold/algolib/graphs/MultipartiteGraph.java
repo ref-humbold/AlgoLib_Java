@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.ComparablePair;
 
 public class MultipartiteGraph
     implements UndirectedGraph
@@ -96,7 +96,7 @@ public class MultipartiteGraph
     }
 
     @Override
-    public Collection<Pair<Integer, Integer>> getEdges()
+    public Collection<ComparablePair<Integer, Integer>> getEdges()
     {
         return graph.getEdges();
     }

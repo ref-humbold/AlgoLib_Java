@@ -1,21 +1,17 @@
 // PARA
-package ref_humbold.algolib.structures;
+package ref_humbold.algolib.tuples;
 
-public class Pair<F extends Comparable<F>, S extends Comparable<S>>
-    implements Comparable<Pair<F, S>>
+import java.util.Objects;
+
+public class Pair<F, S>
 {
-    private final F first;
-    private final S second;
+    protected final F first;
+    protected final S second;
 
     public Pair(F first, S second)
     {
         this.first = first;
         this.second = second;
-    }
-
-    public static <F extends Comparable<F>, S extends Comparable<S>> Pair<F, S> make()
-    {
-        return make(null, null);
     }
 
     public static <F extends Comparable<F>, S extends Comparable<S>> Pair<F, S> make(F first,
@@ -35,47 +31,23 @@ public class Pair<F extends Comparable<F>, S extends Comparable<S>>
     }
 
     @Override
-    public int compareTo(Pair<F, S> p)
-    {
-        if(this.first == null)
-            return p.first == null ? 0 : -1;
-
-        int comparedFirst = this.first.compareTo(p.first);
-
-        if(comparedFirst != 0)
-            return comparedFirst;
-
-        if(this.second == null)
-            return p.getSecond() == null ? 0 : -1;
-
-        return this.second.compareTo(p.second);
-    }
-
-    @Override
     public boolean equals(Object obj)
     {
         if(this == obj)
             return true;
 
-        if(obj == null)
-            return false;
-
-        if(!(obj instanceof Pair))
+        if(obj == null || !(obj instanceof Pair))
             return false;
 
         Pair<?, ?> other = (Pair<?, ?>)obj;
 
-        if(this.first == null && other.first == null || this.second == null && other.second == null)
-            return true;
-
-        return this.first != null && this.first.equals(other.first) && this.second != null
-               && this.second.equals(other.second);
+        return Objects.equals(this.first, other.first) && Objects.equals(this.second, other.second);
     }
 
     @Override
     public int hashCode()
     {
-        final int prime = 37;
+        int prime = 37;
         int result = 1;
 
         result = prime * result + (first == null ? 0 : first.hashCode());

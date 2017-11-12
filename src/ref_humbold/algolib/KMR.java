@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.ComparableTriple;
+import ref_humbold.algolib.tuples.Triple;
 
 public class KMR
 {
@@ -34,7 +35,7 @@ public class KMR
      */
     private static Map<String, Integer> signLetters(String text)
     {
-        Map<String, Integer> factors = new HashMap<String, Integer>();
+        Map<String, Integer> factors = new HashMap<>();
         List<String> letters = Arrays.asList(text.split(""));
         Integer codeValue = 0;
 
@@ -59,7 +60,7 @@ public class KMR
      */
     private static void doubleLength(int newLength, String text, Map<String, Integer> factors)
     {
-        List<Pair<Pair<Integer, Integer>, Integer>> codes = new ArrayList<>();
+        List<ComparableTriple<Integer, Integer, Integer>> codes = new ArrayList<>();
         int codeValue = 0;
 
         for(int i = 0; i <= text.length() - newLength; ++i)
@@ -67,19 +68,25 @@ public class KMR
             String s1 = text.substring(i, i + newLength / 2);
             String s2 = text.substring(i + newLength / 2, i + newLength);
 
-            codes.add(new Pair<>(new Pair<>(factors.get(s1), factors.get(s2)), i));
+            codes.add(ComparableTriple.make(factors.get(s1), factors.get(s2), i));
         }
 
         Collections.sort(codes);
         factors.put(text.substring(codes.get(0).getSecond(), newLength), codeValue);
 
         for(int i = 1; i < codes.size(); ++i)
-            if(codes.get(i).getFirst().equals(codes.get(i - 1).getFirst()))
+        {
+            Triple<Integer, Integer, Integer> current = codes.get(i);
+            Triple<Integer, Integer, Integer> last = codes.get(i - 1);
+
+            if(current.getFirst().equals(last.getFirst()) && current.getFirst()
+                                                                    .equals(last.getFirst()))
             {
-                int index = codes.get(i).getSecond();
+                int index = codes.get(i).getThird();
 
                 ++codeValue;
                 factors.put(text.substring(index, index + newLength), codeValue);
             }
+        }
     }
 }

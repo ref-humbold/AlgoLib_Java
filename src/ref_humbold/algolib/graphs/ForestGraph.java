@@ -3,7 +3,8 @@ package ref_humbold.algolib.graphs;
 import java.util.Collection;
 
 import ref_humbold.algolib.structures.DisjointSets;
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class ForestGraph
     implements UndirectedGraph
@@ -52,7 +53,7 @@ public class ForestGraph
     }
 
     @Override
-    public Collection<Pair<Integer, Integer>> getEdges()
+    public Collection<ComparablePair<Integer, Integer>> getEdges()
     {
         return graph.getEdges();
     }

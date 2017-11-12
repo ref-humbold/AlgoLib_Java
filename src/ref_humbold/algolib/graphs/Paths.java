@@ -6,8 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import ref_humbold.algolib.structures.Pair;
-import ref_humbold.algolib.structures.Triple;
+import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.Pair;
+import ref_humbold.algolib.tuples.Triple;
 
 public class Paths
 {
@@ -34,7 +35,7 @@ public class Paths
         for(Integer v : diwgraph.getVertices())
             for(Pair<Integer, Double> e : diwgraph.getWeightedNeighbours(v))
                 if(distances.get(v) < DirectedWeightedGraph.INF
-                   && distances.get(v) + e.getSecond() < distances.get(e.getFirst()))
+                    && distances.get(v) + e.getSecond() < distances.get(e.getFirst()))
                     throw new IllegalStateException("Graph contains a negative cycle.");
 
         return distances;
@@ -53,10 +54,10 @@ public class Paths
             if(wedge.getThird() < 0.0)
                 throw new IllegalStateException("Graph contains an edge with negative weight.");
 
-        List<Double> distances = new ArrayList<>(
-            Collections.nCopies(wgraph.getVerticesNumber(), WeightedGraph.INF));
-        List<Boolean> isVisited = new ArrayList<>(
-            Collections.nCopies(wgraph.getVerticesNumber(), false));
+        List<Double> distances =
+            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), WeightedGraph.INF));
+        List<Boolean> isVisited =
+            new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), false));
         PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
 
         distances.set(source, 0.0);
@@ -78,7 +79,7 @@ public class Paths
                     if(distances.get(v) + wg < distances.get(nb))
                     {
                         distances.set(nb, distances.get(v) + wg);
-                        vertexQueue.add(Pair.make(distances.get(nb), nb));
+                        vertexQueue.add(ComparablePair.make(distances.get(nb), nb));
                     }
                 }
             }
@@ -94,7 +95,8 @@ public class Paths
      */
     public static double[][] floydWarshall(DirectedWeightedGraph diwgraph)
     {
-        double[][] distances = new double[diwgraph.getVerticesNumber()][diwgraph.getVerticesNumber()];
+        double[][] distances =
+            new double[diwgraph.getVerticesNumber()][diwgraph.getVerticesNumber()];
 
         for(int i = 0; i < distances.length; ++i)
             for(int j = 0; j < distances[i].length; ++j)

@@ -5,10 +5,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class LCA
 {
+    /**
+     * Wyznaczanie najniższego wspólnego przodka.
+     * @param treegraph graf drzewo
+     * @param vertex1 wierzchołek 1
+     * @param vertex2 wierzchołek 2
+     * @return najniższy wspólny przodek
+     */
+    public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2)
+    {
+        return findLCA(treegraph, vertex1, vertex2, 0);
+    }
+
+    /**
+     * Wyznaczanie najniższego wspólnego przodka.
+     * @param treegraph graf drzewo
+     * @param vertex1 wierzchołek 1
+     * @param vertex2 wierzchołek 2
+     * @param root korzeń drzewa
+     * @return najniższy wspólny przodek
+     */
+    public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2, int root)
+    {
+        if(!treegraph.isSameTree(vertex1, vertex2))
+            throw new IllegalArgumentException("Vertices are not in the same tree.");
+
+        if(!treegraph.isSameTree(vertex1, root) || !treegraph.isSameTree(vertex2, root))
+            throw new IllegalArgumentException("Root vertex does not belong to the tree.");
+
+        return new LCAFinder(treegraph).searchLCA(vertex1, vertex2, root);
+    }
+
     private static class LCAFinder
     {
         /**
@@ -92,7 +123,7 @@ public class LCA
         {
             int preTime = timer;
 
-            prePostTimes.set(vertex, Pair.make());
+            prePostTimes.set(vertex, Pair.make(null, null));
             paths.get(vertex).add(parent);
             ++timer;
 
@@ -114,39 +145,7 @@ public class LCA
         private boolean isOffspring(int vertex1, int vertex2)
         {
             return prePostTimes.get(vertex1).getFirst() >= prePostTimes.get(vertex2).getFirst()
-                   && prePostTimes.get(vertex1).getSecond() <= prePostTimes.get(vertex2)
-                                                                           .getSecond();
+                && prePostTimes.get(vertex1).getSecond() <= prePostTimes.get(vertex2).getSecond();
         }
-    }
-
-    /**
-     * Wyznaczanie najniższego wspólnego przodka.
-     * @param treegraph graf drzewo
-     * @param vertex1 wierzchołek 1
-     * @param vertex2 wierzchołek 2
-     * @return najniższy wspólny przodek
-     */
-    public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2)
-    {
-        return findLCA(treegraph, vertex1, vertex2, 0);
-    }
-
-    /**
-     * Wyznaczanie najniższego wspólnego przodka.
-     * @param treegraph graf drzewo
-     * @param vertex1 wierzchołek 1
-     * @param vertex2 wierzchołek 2
-     * @param root korzeń drzewa
-     * @return najniższy wspólny przodek
-     */
-    public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2, int root)
-    {
-        if(!treegraph.isSameTree(vertex1, vertex2))
-            throw new IllegalArgumentException("Vertices are not in the same tree.");
-
-        if(!treegraph.isSameTree(vertex1, root) || !treegraph.isSameTree(vertex2, root))
-            throw new IllegalArgumentException("Root vertex does not belong to the tree.");
-
-        return new LCAFinder(treegraph).searchLCA(vertex1, vertex2, root);
     }
 }

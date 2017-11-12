@@ -3,7 +3,7 @@ package ref_humbold.algolib.graphs;
 
 import java.util.Collection;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.ComparablePair;
 
 public interface Graph
 {
@@ -36,7 +36,7 @@ public interface Graph
     /**
      * @return lista krawędzi
      */
-    Collection<Pair<Integer, Integer>> getEdges();
+    Collection<ComparablePair<Integer, Integer>> getEdges();
 
     /**
      * Dodawanie nowej krawędzi.

@@ -6,10 +6,28 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.ComparablePair;
 
 public class Cutting
 {
+    /**
+     * Wyznacza mosty w grafie.
+     * @return lista krawędzi będących mostami
+     */
+    public static Collection<ComparablePair<Integer, Integer>> findEdgeCut(UndirectedGraph ugraph)
+    {
+        return new GraphCutting(ugraph).edgeCut();
+    }
+
+    /**
+     * Wyznaczanie punktów artykulacji.
+     * @return lista punktów artykulacji
+     */
+    public static Collection<Integer> findVertexCut(UndirectedGraph ugraph)
+    {
+        return new GraphCutting(ugraph).vertexCut();
+    }
+
     private static class GraphCutting
     {
         /**
@@ -53,9 +71,9 @@ public class Cutting
          * Znajdowanie mostów w grafie.
          * @return lista krawędzi będących mostami
          */
-        public Collection<Pair<Integer, Integer>> edgeCut()
+        public Collection<ComparablePair<Integer, Integer>> edgeCut()
         {
-            List<Pair<Integer, Integer>> bridges = new ArrayList<>();
+            List<ComparablePair<Integer, Integer>> bridges = new ArrayList<>();
 
             for(Integer v : graph.getVertices())
                 if(dfsDepths.get(v) == null)
@@ -63,8 +81,8 @@ public class Cutting
 
             for(Integer v : graph.getVertices())
                 if(hasBridge(v))
-                    bridges.add(
-                        Pair.make(Math.min(v, dfsParents.get(v)), Math.max(v, dfsParents.get(v))));
+                    bridges.add(ComparablePair.make(Math.min(v, dfsParents.get(v)),
+                                                    Math.max(v, dfsParents.get(v))));
 
             return bridges;
         }
@@ -148,23 +166,5 @@ public class Cutting
                     lowValues.set(vertex,
                                   Math.min(lowValues.get(vertex), dfsDepths.get(neighbour)));
         }
-    }
-
-    /**
-     * Wyznacza mosty w grafie.
-     * @return lista krawędzi będących mostami
-     */
-    public static Collection<Pair<Integer, Integer>> findEdgeCut(UndirectedGraph ugraph)
-    {
-        return new GraphCutting(ugraph).edgeCut();
-    }
-
-    /**
-     * Wyznaczanie punktów artykulacji.
-     * @return lista punktów artykulacji
-     */
-    public static Collection<Integer> findVertexCut(UndirectedGraph ugraph)
-    {
-        return new GraphCutting(ugraph).vertexCut();
     }
 }

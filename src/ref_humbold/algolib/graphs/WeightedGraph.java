@@ -2,8 +2,8 @@ package ref_humbold.algolib.graphs;
 
 import java.util.Collection;
 
-import ref_humbold.algolib.structures.Pair;
-import ref_humbold.algolib.structures.Triple;
+import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.Triple;
 
 public interface WeightedGraph
     extends Graph
@@ -25,5 +25,5 @@ public interface WeightedGraph
      * @param vertex numer wierzchołka
      * @return lista sąsiadów wierzchołka wraz z wagami krawędzi
      */
-    Collection<Pair<Integer, Double>> getWeightedNeighbours(Integer vertex);
+    Collection<ComparablePair<Integer, Double>> getWeightedNeighbours(Integer vertex);
 }

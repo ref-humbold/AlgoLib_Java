@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import ref_humbold.algolib.structures.Pair;
+import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.Pair;
 
 public class UndirectedSimpleGraph
     extends SimpleGraph
@@ -41,14 +42,14 @@ public class UndirectedSimpleGraph
     }
 
     @Override
-    public Collection<Pair<Integer, Integer>> getEdges()
+    public Collection<ComparablePair<Integer, Integer>> getEdges()
     {
-        List<Pair<Integer, Integer>> edges = new ArrayList<>();
+        List<ComparablePair<Integer, Integer>> edges = new ArrayList<>();
 
         for(Integer v : getVertices())
             for(Integer u : getNeighbours(v))
                 if(u >= v)
-                    edges.add(new Pair<>(v, u));
+                    edges.add(ComparablePair.make(v, u));
 
         return edges;
     }
@@ -62,8 +63,8 @@ public class UndirectedSimpleGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new IllegalArgumentException(vertex2.toString());
 
-        graphrepr.get(vertex1).add(Pair.make(vertex2, DEFAULT_WEIGHT));
-        graphrepr.get(vertex2).add(Pair.make(vertex1, DEFAULT_WEIGHT));
+        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, DEFAULT_WEIGHT));
+        graphrepr.get(vertex2).add(ComparablePair.make(vertex1, DEFAULT_WEIGHT));
     }
 
     @Override
@@ -75,10 +76,13 @@ public class UndirectedSimpleGraph
     @Override
     public DirectedSimpleGraph asDirected()
     {
-        Collection<Pair<Integer, Integer>> diedges = getEdges();
+        Collection<Pair<Integer, Integer>> diedges = new ArrayList<>();
 
         for(Pair<Integer, Integer> e : getEdges())
+        {
+            diedges.add(Pair.make(e.getFirst(), e.getSecond()));
             diedges.add(Pair.make(e.getSecond(), e.getFirst()));
+        }
 
         return new DirectedSimpleGraph(getVerticesNumber(), diedges);
     }
