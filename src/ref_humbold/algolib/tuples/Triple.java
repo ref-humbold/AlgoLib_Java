@@ -3,7 +3,7 @@ package ref_humbold.algolib.tuples;
 
 import java.util.Objects;
 
-public class Triple<F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>>
+public class Triple<F, S, T>
 {
     protected final F first;
     protected final S second;
@@ -16,10 +16,9 @@ public class Triple<F extends Comparable<F>, S extends Comparable<S>, T extends 
         this.third = third;
     }
 
-    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> Triple<F, S, T> make(
-        F first, S second, T third)
+    public static <F, S, T> Triple<F, S, T> make(F first, S second, T third)
     {
-        return new ComparableTriple<>(first, second, third);
+        return new Triple<>(first, second, third);
     }
 
     public F getFirst()

@@ -2,8 +2,11 @@
 package ref_humbold.algolib;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import ref_humbold.algolib.tuples.Pair;
 
 public class MaximumSubarray
 {
@@ -12,31 +15,24 @@ public class MaximumSubarray
      * @param sequence ciąg
      * @return elementy spójnego podciągu o maksymalnej sumie
      */
-    public static List<Double> findMaximumSubarray(List<Double> sequence)
+    public static List<Double> findMaximumSubarray(Iterable<Double> sequence)
     {
-        List<Double> maxSubseq = new ArrayList<>();
-        List<Double> actualSubseq = new ArrayList<>();
-        double maxSum = 0.0, actualSum = 0.0;
+        Pair<Double, List<Double>> actual = Pair.make(0.0, new ArrayList<Double>());
+        Pair<Double, List<Double>> maximal = Pair.make(0.0, new ArrayList<Double>());
 
         for(Double elem : sequence)
         {
-            if(actualSum < 0.0)
-            {
-                actualSum = 0.0;
-                actualSubseq.clear();
-            }
+            if(actual.getFirst() < 0.0)
+                actual = Pair.make(0.0, new ArrayList<Double>());
 
-            actualSubseq.add(elem);
-            actualSum += elem;
+            actual = Pair.make(actual.getFirst() + elem, actual.getSecond());
+            actual.getSecond().add(elem);
 
-            if(actualSum > maxSum)
-            {
-                maxSum = actualSum;
-                maxSubseq = new ArrayList<>(actualSubseq);
-            }
+            if(actual.getFirst() > maximal.getFirst())
+                maximal = Pair.make(actual.getFirst(), new ArrayList<>(actual.getSecond()));
         }
 
-        return maxSubseq;
+        return maximal.getSecond();
     }
 
     /**
@@ -44,7 +40,7 @@ public class MaximumSubarray
      * @param sequence ciąg
      * @return maksymalna suma
      */
-    public static double findMaximalSum(List<Double> sequence)
+    public static double findMaximalSum(Collection<Double> sequence)
     {
         int size = 1;
 
@@ -56,15 +52,18 @@ public class MaximumSubarray
         List<Double> suffixSums = new ArrayList<>(Collections.nCopies(size, 0.0));
         List<Double> allSums = new ArrayList<>(Collections.nCopies(size, 0.0));
 
-        for(int i = 0; i < sequence.size(); ++i)
+        int i = 0;
+
+        for(Double elem : sequence)
         {
             int index = size / 2 + i;
 
-            allSums.set(index, allSums.get(index) + sequence.get(i));
+            allSums.set(index, allSums.get(index) + elem);
             intervalSums.set(index, Math.max(allSums.get(index), 0.0));
             prefixSums.set(index, Math.max(allSums.get(index), 0.0));
             suffixSums.set(index, Math.max(allSums.get(index), 0.0));
-            index >>= 1;
+            index /= 2;
+            ++i;
 
             while(index > 0)
             {
@@ -81,7 +80,7 @@ public class MaximumSubarray
                                                suffixSums.get(indexRight) + allSums.get(
                                                    indexLeft)));
                 allSums.set(index, allSums.get(indexRight) + allSums.get(indexLeft));
-                index >>= 1;
+                index /= 2;
             }
         }
 

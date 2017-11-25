@@ -14,8 +14,7 @@ public class Pair<F, S>
         this.second = second;
     }
 
-    public static <F extends Comparable<F>, S extends Comparable<S>> Pair<F, S> make(F first,
-                                                                                     S second)
+    public static <F, S> Pair<F, S> make(F first, S second)
     {
         return new Pair<>(first, second);
     }
