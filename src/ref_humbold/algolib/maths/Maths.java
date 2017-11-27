@@ -40,38 +40,6 @@ public class Maths
     }
 
     /**
-     * Szybkie potęgowanie binarne modulowane.
-     * @param base podstawa
-     * @param exponent wykładnik
-     * @param modulo modulo
-     * @return wynik potęgowania wzięty modulo
-     */
-    public static long powerMod(long base, long exponent, long modulo)
-    {
-        long result = 1;
-
-        if(modulo < 0)
-            throw new ArithmeticException("Negative modulo.");
-
-        if(exponent < 0)
-            throw new ArithmeticException("Negative exponent.");
-
-        if(base == 0 && exponent == 0)
-            throw new ArithmeticException("Zero to the power of zero is NaN.");
-
-        while(exponent > 0)
-        {
-            if((exponent & 1) == 1)
-                result = multMod(result, base, modulo);
-
-            base = multMod(base, base, modulo);
-            exponent >>= 1;
-        }
-
-        return result;
-    }
-
-    /**
      * Mnożenie binarne modulowane.
      * @param factor1 pierwszy czynnik
      * @param factor2 drugi czynnik
@@ -96,11 +64,43 @@ public class Maths
 
         while(factor2 > 0)
         {
-            if((factor2 & 1) == 1)
+            if(factor2 % 2 == 1)
                 result = modulo == 0 ? result + factor1 : (result + factor1) % modulo;
 
-            factor2 >>= 1;
             factor1 = modulo == 0 ? factor1 + factor1 : (factor1 + factor1) % modulo;
+            factor2 >>= 1;
+        }
+
+        return result;
+    }
+
+    /**
+     * Szybkie potęgowanie binarne modulowane.
+     * @param base podstawa
+     * @param exponent wykładnik
+     * @param modulo modulo
+     * @return wynik potęgowania wzięty modulo
+     */
+    public static long powerMod(long base, long exponent, long modulo)
+    {
+        long result = 1;
+
+        if(modulo < 0)
+            throw new ArithmeticException("Negative modulo.");
+
+        if(exponent < 0)
+            throw new ArithmeticException("Negative exponent.");
+
+        if(base == 0 && exponent == 0)
+            throw new ArithmeticException("Not a number.");
+
+        while(exponent > 0)
+        {
+            if(exponent % 2 == 1)
+                result = multMod(result, base, modulo);
+
+            base = multMod(base, base, modulo);
+            exponent >>= 1;
         }
 
         return result;
