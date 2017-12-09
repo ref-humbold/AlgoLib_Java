@@ -5,19 +5,9 @@ public class CycleException
 {
     private static final long serialVersionUID = -4104441005709091878L;
 
-    public CycleException()
-    {
-        super();
-    }
-
     public CycleException(String s)
     {
         super(s);
-    }
-
-    public CycleException(Throwable t)
-    {
-        super(t);
     }
 
     public CycleException(String s, Throwable t)

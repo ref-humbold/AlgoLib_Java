@@ -71,7 +71,8 @@ public class ForestGraph
     public void addEdge(Integer vertex1, Integer vertex2)
     {
         if(isSameTree(vertex1, vertex2))
-            throw new CycleException();
+            throw new CycleException(
+                "Edge from vertex " + vertex1 + " to vertex " + vertex2 + " will create a cycle.");
 
         components.unionSet(vertex1, vertex2);
         graph.addEdge(vertex1, vertex2);

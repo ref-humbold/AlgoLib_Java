@@ -5,19 +5,9 @@ public class GraphPartitionException
 {
     private static final long serialVersionUID = -2107505164132960758L;
 
-    public GraphPartitionException()
-    {
-        super();
-    }
-
     public GraphPartitionException(String s)
     {
         super(s);
-    }
-
-    public GraphPartitionException(Throwable t)
-    {
-        super(t);
     }
 
     public GraphPartitionException(String s, Throwable t)

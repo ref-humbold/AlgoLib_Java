@@ -5,19 +5,9 @@ public class NoSuchVertexException
 {
     private static final long serialVersionUID = -5380156876701376673L;
 
-    public NoSuchVertexException()
-    {
-        super();
-    }
-
     public NoSuchVertexException(String s)
     {
         super(s);
-    }
-
-    public NoSuchVertexException(Throwable t)
-    {
-        super(t);
     }
 
     public NoSuchVertexException(String s, Throwable t)
