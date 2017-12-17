@@ -20,6 +20,7 @@ public class DirectedSimpleGraph
     }
 
     public DirectedSimpleGraph(int n, Iterable<Pair<Integer, Integer>> edges)
+        throws NoSuchVertexException
     {
         super(n);
 
@@ -52,12 +53,13 @@ public class DirectedSimpleGraph
 
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
+        throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new IllegalArgumentException(vertex1.toString());
+            throw new NoSuchVertexException(vertex1.toString());
 
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new IllegalArgumentException(vertex2.toString());
+            throw new NoSuchVertexException(vertex2.toString());
 
         graphrepr.get(vertex1).add(ComparablePair.make(vertex2, DEFAULT_WEIGHT));
     }

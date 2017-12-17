@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 
 import ref_humbold.algolib.structures.DisjointSets;
 import ref_humbold.algolib.tuples.ComparablePair;
+import ref_humbold.algolib.tuples.ComparableTriple;
 import ref_humbold.algolib.tuples.Pair;
 import ref_humbold.algolib.tuples.Triple;
 
@@ -27,7 +28,7 @@ public class MST
 
         for(int v : uwgraph.getVertices())
             for(Pair<Integer, Double> e : uwgraph.getWeightedNeighbours(v))
-                edgeQueue.add(Triple.make(e.getSecond(), e.getFirst(), v));
+                edgeQueue.add(ComparableTriple.make(e.getSecond(), e.getFirst(), v));
 
         while(components > 1 && !edgeQueue.isEmpty())
         {

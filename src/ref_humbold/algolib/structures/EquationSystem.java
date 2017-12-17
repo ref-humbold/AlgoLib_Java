@@ -3,13 +3,19 @@ package ref_humbold.algolib.structures;
 
 public class EquationSystem
 {
-    /** Liczba równań układu. */
+    /**
+     * Liczba równań układu.
+     */
     private int equations;
 
-    /** Macierz współczynników równania. */
+    /**
+     * Macierz współczynników równania.
+     */
     private double[][] coeffs;
 
-    /** Wektor wyrazów wolnych równania. */
+    /**
+     * Wektor wyrazów wolnych równania.
+     */
     private double[] freeTerms;
 
     public EquationSystem(int numEq)
@@ -56,7 +62,9 @@ public class EquationSystem
         return solution;
     }
 
-    /** Algorytm eliminacji Gaussa. */
+    /**
+     * Algorytm eliminacji Gaussa.
+     */
     public void gaussianReduce()
     {
         for(int equ = 0; equ < equations - 1; ++equ)
@@ -88,36 +96,36 @@ public class EquationSystem
 
     /**
      * Zamiana równań miejscami.
-     * @param eq1 numer pierwszego równania
-     * @param eq2 numer drugiego równania
+     * @param eqnum1 numer pierwszego równania
+     * @param eqnum2 numer drugiego równania
      */
-    public void change(int equ1, int equ2)
+    public void change(int eqnum1, int eqnum2)
     {
         double temp;
 
         for(int i = 0; i < equations; ++i)
         {
-            temp = coeffs[equ1][i];
-            coeffs[equ1][i] = coeffs[equ2][i];
-            coeffs[equ2][i] = temp;
+            temp = coeffs[eqnum1][i];
+            coeffs[eqnum1][i] = coeffs[eqnum2][i];
+            coeffs[eqnum2][i] = temp;
         }
 
-        temp = freeTerms[equ1];
-        freeTerms[equ1] = freeTerms[equ2];
-        freeTerms[equ2] = temp;
+        temp = freeTerms[eqnum1];
+        freeTerms[eqnum1] = freeTerms[eqnum2];
+        freeTerms[eqnum2] = temp;
     }
 
     /**
      * Przekształcenie równania przez kombinację liniową z innym równaniem.
-     * @param eq1 numer równania przekształcanego
-     * @param eq2 numer drugiego równania
-     * @param cst stała kombinacji liniowej
+     * @param eqnum1 numer równania przekształcanego
+     * @param eqnum2 numer drugiego równania
+     * @param constans stała kombinacji liniowej
      */
-    public void linearComb(int equ1, int equ2, double cst)
+    public void linearComb(int eqnum1, int eqnum2, double constans)
     {
         for(int i = 0; i < equations; ++i)
-            coeffs[equ1][i] += cst * coeffs[equ2][i];
+            coeffs[eqnum1][i] += constans * coeffs[eqnum2][i];
 
-        freeTerms[equ1] += cst * freeTerms[equ2];
+        freeTerms[eqnum1] += constans * freeTerms[eqnum2];
     }
 }

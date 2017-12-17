@@ -19,11 +19,12 @@ public class ForestGraph
     }
 
     public ForestGraph(UndirectedGraph graph, Iterable<Pair<Integer, Integer>> edges)
+        throws NoSuchVertexException
     {
         this(graph);
 
         for(Pair<Integer, Integer> e : edges)
-            addEdge(e.getFirst(), e.getSecond());
+            this.addEdge(e.getFirst(), e.getSecond());
     }
 
     /**
@@ -69,6 +70,7 @@ public class ForestGraph
 
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
+        throws NoSuchVertexException
     {
         if(isSameTree(vertex1, vertex2))
             throw new CycleException(

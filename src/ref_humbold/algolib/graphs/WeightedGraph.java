@@ -19,7 +19,8 @@ public interface WeightedGraph
      * @param vertex2 końcowy wierzchołek
      * @param weight waga krawędzi
      */
-    void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight);
+    void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
+        throws NoSuchVertexException;
 
     /**
      * @param vertex numer wierzchołka

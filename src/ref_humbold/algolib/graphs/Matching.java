@@ -13,21 +13,24 @@ public class Matching
 {
     /**
      * Wyznaczanie maksymalnego skojarzenia.
-     * @param partgraph: graf wielodzielny
+     * @param multipartiteGraph graf wielodzielny
      * @return pary skojarzonych wierzchołków
      */
-    public static List<Pair<Integer, Integer>> match(MultipartiteGraph partgraph)
+    public static List<Pair<Integer, Integer>> match(MultipartiteGraph multipartiteGraph)
     {
-        MatchAugmenter augmenter = new MatchAugmenter(partgraph);
+        MatchAugmenter augmenter = new MatchAugmenter(multipartiteGraph);
 
-        while(augmenter.augmentMatch())
+        boolean hasAugmented = true;
+
+        while(hasAugmented)
         {
+            hasAugmented = augmenter.augmentMatch();
         }
 
         List<Integer> matching = augmenter.getMatching();
         List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
 
-        for(Integer v : partgraph.getVertices(1))
+        for(Integer v : multipartiteGraph.getVertices(1))
             matchPairs.add(Pair.make(v, matching.get(v)));
 
         return matchPairs;
@@ -38,36 +41,36 @@ public class Matching
         /**
          * Graf dwudzielny.
          */
-        MultipartiteGraph graph;
+        private MultipartiteGraph graph;
 
         /**
          * Skojarzenia wierzchołków.
          */
-        List<Integer> matching;
+        private List<Integer> matching;
 
         /**
          * Odległości wierzchołków.
          */
-        List<Double> distances;
+        private List<Double> distances;
 
         /**
          * Lista odwiedzonych wierzchołków.
          */
-        List<Boolean> isVisited;
+        private List<Boolean> isVisited;
 
-        public MatchAugmenter(MultipartiteGraph partgraph)
+        private MatchAugmenter(MultipartiteGraph multipartiteGraph)
         {
-            if(partgraph.getGroupsNumber() != 2)
+            if(multipartiteGraph.getGroupsNumber() != 2)
                 throw new IllegalArgumentException("Graph is not bipartite");
 
-            this.graph = partgraph;
+            this.graph = multipartiteGraph;
             this.matching = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
         }
 
         /**
          * @return skojarzenia wierzchołków
          */
-        public List<Integer> getMatching()
+        private List<Integer> getMatching()
         {
             return new ArrayList<>(this.matching);
         }
@@ -76,7 +79,7 @@ public class Matching
          * Powiększanie skojarzenia przy pomocy scieżek poiększających.
          * @return czy powiększono skojarzenie
          */
-        public boolean augmentMatch()
+        private boolean augmentMatch()
         {
             boolean matchAdded = false;
 
@@ -141,7 +144,7 @@ public class Matching
                     Integer mtc = matching.get(neighbour);
 
                     if(distances.get(mtc).equals(distances.get(vertex) + 1) && !isVisited.get(mtc)
-                       && dfs(mtc))
+                        && dfs(mtc))
                     {
                         matching.set(vertex, neighbour);
                         matching.set(neighbour, vertex);

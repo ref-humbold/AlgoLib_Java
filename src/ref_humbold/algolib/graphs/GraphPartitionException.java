@@ -9,9 +9,4 @@ public class GraphPartitionException
     {
         super(s);
     }
-
-    public GraphPartitionException(String s, Throwable t)
-    {
-        super(s, t);
-    }
 }

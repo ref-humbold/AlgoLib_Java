@@ -50,6 +50,18 @@ public class MultipartiteGraph
         return graph.getVertices();
     }
 
+    @Override
+    public int getEdgesNumber()
+    {
+        return graph.getEdgesNumber();
+    }
+
+    @Override
+    public Collection<ComparablePair<Integer, Integer>> getEdges()
+    {
+        return graph.getEdges();
+    }
+
     /**
      * @param group numer grupy
      * @return lista wierzchołków grupy
@@ -90,25 +102,14 @@ public class MultipartiteGraph
     }
 
     @Override
-    public int getEdgesNumber()
-    {
-        return graph.getEdgesNumber();
-    }
-
-    @Override
-    public Collection<ComparablePair<Integer, Integer>> getEdges()
-    {
-        return graph.getEdges();
-    }
-
-    @Override
     public void addEdge(Integer vertex1, Integer vertex2)
+        throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new IllegalArgumentException(vertex1.toString());
+            throw new NoSuchVertexException(vertex1.toString());
 
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new IllegalArgumentException(vertex2.toString());
+            throw new NoSuchVertexException(vertex2.toString());
 
         if(isSameGroup(vertex1, vertex2))
             throw new GraphPartitionException("Vertices in the same part.");
@@ -147,6 +148,7 @@ public class MultipartiteGraph
      * @return czy wierzchołek jest w grupie
      */
     public boolean isInGroup(Integer vertex, Integer group)
+        throws NoSuchVertexException
     {
         if(vertex < 0 || vertex > getVerticesNumber())
             throw new NoSuchVertexException(vertex.toString());
@@ -161,12 +163,13 @@ public class MultipartiteGraph
      * @return czy wierzchołki są w różnych grupach
      */
     public boolean isSameGroup(Integer vertex1, Integer vertex2)
+        throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new IllegalArgumentException(vertex1.toString());
+            throw new NoSuchVertexException(vertex1.toString());
 
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new IllegalArgumentException(vertex2.toString());
+            throw new NoSuchVertexException(vertex2.toString());
 
         return groups.get(vertex1).equals(groups.get(vertex2));
     }

@@ -3,7 +3,6 @@ package ref_humbold.algolib.graphs;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -53,7 +52,6 @@ public class PathsTest
 
     @After
     public void tearDown()
-        throws Exception
     {
         diwgraph = null;
         uwgraph = null;
@@ -63,7 +61,16 @@ public class PathsTest
     public void testBellmanFordWhenDirectedGraph()
     {
         Integer source = 1;
-        diwgraph.addWeightedEdge(2, 1, -2.0);
+
+        try
+        {
+            diwgraph.addWeightedEdge(2, 1, -2.0);
+        }
+        catch(NoSuchVertexException e)
+        {
+            e.printStackTrace();
+            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
+        }
 
         List<Double> result = Paths.bellmanFord(diwgraph, source);
 
@@ -88,7 +95,16 @@ public class PathsTest
     public void testBellmanFordWhenNegativeCycle()
     {
         Integer source = 1;
-        diwgraph.addWeightedEdge(8, 3, -20.0);
+
+        try
+        {
+            diwgraph.addWeightedEdge(8, 3, -20.0);
+        }
+        catch(NoSuchVertexException e)
+        {
+            e.printStackTrace();
+            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
+        }
 
         Paths.bellmanFord(diwgraph, source);
     }
@@ -121,7 +137,16 @@ public class PathsTest
     public void testDijkstraWhenNegativeEdge()
     {
         Integer source = 1;
-        diwgraph.addWeightedEdge(2, 1, -2.0);
+        
+        try
+        {
+            diwgraph.addWeightedEdge(2, 1, -2.0);
+        }
+        catch(NoSuchVertexException e)
+        {
+            e.printStackTrace();
+            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
+        }
 
         Paths.dijkstra(diwgraph, source);
     }
@@ -129,7 +154,15 @@ public class PathsTest
     @Test
     public void testFloydWarshallWhenDirectedGraph()
     {
-        diwgraph.addWeightedEdge(2, 1, -2.0);
+        try
+        {
+            diwgraph.addWeightedEdge(2, 1, -2.0);
+        }
+        catch(NoSuchVertexException e)
+        {
+            e.printStackTrace();
+            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
+        }
 
         double[][] result = Paths.floydWarshall(diwgraph);
         double i = Graph.INF;

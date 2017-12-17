@@ -21,6 +21,7 @@ public class DirectedWeightedSimpleGraph
     }
 
     public DirectedWeightedSimpleGraph(int n, Iterable<Triple<Integer, Integer, Double>> edges)
+        throws NoSuchVertexException
     {
         super(n);
 
@@ -42,12 +43,13 @@ public class DirectedWeightedSimpleGraph
 
     @Override
     public void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
+        throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new IllegalArgumentException(vertex1.toString());
+            throw new NoSuchVertexException(vertex1.toString());
 
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new IllegalArgumentException(vertex2.toString());
+            throw new NoSuchVertexException(vertex2.toString());
 
         graphrepr.get(vertex1).add(ComparablePair.make(vertex2, weight));
     }

@@ -9,9 +9,4 @@ public class CycleException
     {
         super(s);
     }
-
-    public CycleException(String s, Throwable t)
-    {
-        super(s, t);
-    }
 }

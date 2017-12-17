@@ -9,9 +9,4 @@ public class DirectedCyclicGraphException
     {
         super(s);
     }
-
-    public DirectedCyclicGraphException(String s, Throwable t)
-    {
-        super(s, t);
-    }
 }

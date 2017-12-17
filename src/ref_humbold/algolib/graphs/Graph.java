@@ -23,12 +23,6 @@ public interface Graph
     Collection<Integer> getVertices();
 
     /**
-     * Dodawanie nowego wierzchołka.
-     * @return oznaczenie wierzchołka
-     */
-    Integer addVertex();
-
-    /**
      * @return liczba krawędzi
      */
     int getEdgesNumber();
@@ -39,11 +33,18 @@ public interface Graph
     Collection<ComparablePair<Integer, Integer>> getEdges();
 
     /**
+     * Dodawanie nowego wierzchołka.
+     * @return oznaczenie wierzchołka
+     */
+    Integer addVertex();
+
+    /**
      * Dodawanie nowej krawędzi.
      * @param vertex1 początkowy wierzchołek
      * @param vertex2 końcowy wierzchołek
      */
-    void addEdge(Integer vertex1, Integer vertex2);
+    void addEdge(Integer vertex1, Integer vertex2)
+        throws NoSuchVertexException;
 
     /**
      * @param vertex numer wierzchołka
