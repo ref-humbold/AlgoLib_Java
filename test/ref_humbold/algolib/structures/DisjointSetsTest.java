@@ -51,22 +51,22 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testMakeSetWhenNewElement()
+    public void testAddElemWhenNewElement()
     {
         Integer elem = 20;
 
-        testObject.makeSet(elem);
+        testObject.addElem(elem);
 
         Assert.assertTrue(testObject.contains(elem));
         Assert.assertEquals(elem, testObject.findSet(elem));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMakeSetWhenPresentElement()
+    public void testAddElemWhenPresentElement()
     {
         Integer elem = 7;
 
-        testObject.makeSet(elem);
+        testObject.addElem(elem);
     }
 
     @Test
