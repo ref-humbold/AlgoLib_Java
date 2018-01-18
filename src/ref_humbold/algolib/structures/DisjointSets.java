@@ -3,29 +3,26 @@ package ref_humbold.algolib.structures;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class DisjointSets<E>
 {
     /**
      * Mapa reprezentantów elementów.
      */
-    private Map<E, E> represents;
+    private Map<E, E> represents = new HashMap<>();
 
     /**
      * Liczba zbiorów.
      */
-    private int elems;
+    private int elems = 0;
 
     public DisjointSets()
     {
-        this.represents = new HashMap<>();
-        this.elems = 0;
     }
 
     public DisjointSets(Iterable<E> universe)
     {
-        this();
-
         for(E e : universe)
         {
             this.represents.put(e, e);
@@ -55,7 +52,7 @@ public class DisjointSets<E>
      * Tworzenie nowego zbioru jednoelementowego.
      * @param element nowy element
      */
-    public void makeSet(E element)
+    public void addElem(E element)
     {
         if(contains(element))
             throw new IllegalArgumentException("Value " + element.toString() + "already present.");
@@ -71,7 +68,7 @@ public class DisjointSets<E>
      */
     public E findSet(E element)
     {
-        if(!represents.get(element).equals(element))
+        if(!Objects.equals(represents.get(element), element))
             represents.put(element, findSet(represents.get(element)));
 
         return represents.get(element);
@@ -100,6 +97,6 @@ public class DisjointSets<E>
 
     public boolean isSameSet(E element1, E element2)
     {
-        return findSet(element1).equals(findSet(element2));
+        return Objects.equals(findSet(element1), findSet(element2));
     }
 }

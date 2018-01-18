@@ -63,7 +63,7 @@ public class ForestGraph
     public Integer addVertex()
     {
         Integer vertex = graph.addVertex();
-        components.makeSet(vertex);
+        components.addElem(vertex);
 
         return vertex;
     }

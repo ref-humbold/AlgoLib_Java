@@ -57,9 +57,9 @@ public class Triple<F, S, T>
         int prime = 37;
         int result = 1;
 
-        result = prime * result + (first == null ? 0 : first.hashCode());
-        result = prime * result + (second == null ? 0 : second.hashCode());
-        result = prime * result + (third == null ? 0 : third.hashCode());
+        result = prime * result + Objects.hashCode(first);
+        result = prime * result + Objects.hashCode(second);
+        result = prime * result + Objects.hashCode(third);
 
         return result;
     }
@@ -67,10 +67,7 @@ public class Triple<F, S, T>
     @Override
     public String toString()
     {
-        String firstString = first == null ? "null" : first.toString();
-        String secondString = second == null ? "null" : second.toString();
-        String thirdString = third == null ? "null" : third.toString();
-
-        return "(" + firstString + ", " + secondString + ", " + thirdString + ")";
+        return "(" + Objects.toString(first) + ", " + Objects.toString(second) + ", "
+            + Objects.toString(third) + ")";
     }
 }
