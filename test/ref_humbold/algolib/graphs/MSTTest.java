@@ -2,7 +2,6 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.Arrays;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +28,6 @@ public class MSTTest
 
     @After
     public void tearDown()
-        throws Exception
     {
         graph = null;
     }

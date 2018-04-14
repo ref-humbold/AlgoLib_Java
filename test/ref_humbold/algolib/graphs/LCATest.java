@@ -2,7 +2,6 @@
 package ref_humbold.algolib.graphs;
 
 import java.util.Arrays;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,16 +17,14 @@ public class LCATest
     public void setUp()
         throws Exception
     {
-        trees = new ForestGraph(new UndirectedSimpleGraph(12),
-                                Arrays.asList(Pair.make(0, 1), Pair.make(0, 2), Pair.make(1, 3),
-                                              Pair.make(1, 4), Pair.make(1, 5), Pair.make(2, 6),
-                                              Pair.make(4, 7), Pair.make(6, 8), Pair.make(6, 9),
-                                              Pair.make(10, 11)));
+        trees = new ForestGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2), Pair.make(1, 3),
+                                                  Pair.make(1, 4), Pair.make(1, 5), Pair.make(2, 6),
+                                                  Pair.make(4, 7), Pair.make(6, 8), Pair.make(6, 9),
+                                                  Pair.make(10, 11)));
     }
 
     @After
     public void tearDown()
-        throws Exception
     {
         trees = null;
     }

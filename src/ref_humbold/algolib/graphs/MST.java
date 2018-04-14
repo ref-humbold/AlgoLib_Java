@@ -19,7 +19,7 @@ public class MST
      * @param uwgraph graf ważony
      * @return długość minimalnego drzewa spinającego
      */
-    public static double kruskal(UndirectedWeightedGraph uwgraph)
+    public static double kruskal(UndirectedWeightedSimpleGraph uwgraph)
     {
         double sizeMST = 0.0;
         int components = uwgraph.getVerticesNumber();
@@ -32,9 +32,9 @@ public class MST
 
         while(components > 1 && !edgeQueue.isEmpty())
         {
-            Double edgeWeight = edgeQueue.peek().getFirst();
-            Integer vertex1 = edgeQueue.peek().getSecond();
-            Integer vertex2 = edgeQueue.peek().getThird();
+            Double edgeWeight = edgeQueue.element().getFirst();
+            Integer vertex1 = edgeQueue.element().getSecond();
+            Integer vertex2 = edgeQueue.element().getThird();
 
             edgeQueue.poll();
 
@@ -55,19 +55,19 @@ public class MST
      * @param source początkowy wierzchołek
      * @return długość minimalnego drzewa spinającego
      */
-    public static double prim(UndirectedWeightedGraph uwgraph, int source)
+    public static double prim(UndirectedWeightedSimpleGraph uwgraph, int source)
     {
         double sizeMST = 0.0;
         PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
-        List<Boolean> isVisited =
-            new ArrayList<>(Collections.nCopies(uwgraph.getVerticesNumber(), false));
+        List<Boolean> isVisited = new ArrayList<>(
+            Collections.nCopies(uwgraph.getVerticesNumber(), false));
 
         vertexQueue.add(Pair.make(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
-            Double edgeWeight = vertexQueue.peek().getFirst();
-            Integer v = vertexQueue.peek().getSecond();
+            Double edgeWeight = vertexQueue.element().getFirst();
+            Integer v = vertexQueue.element().getSecond();
 
             vertexQueue.poll();
 

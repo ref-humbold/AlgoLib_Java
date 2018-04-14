@@ -7,5 +7,5 @@ public interface UndirectedGraph
      * Zamiana krawędzi nieskierowanych na skierowane.
      * @return graf ze skierowanymi krawędziami
      */
-    public DirectedGraph asDirected();
+    DirectedGraph asDirected();
 }

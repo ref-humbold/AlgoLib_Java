@@ -12,16 +12,16 @@ public class ForestGraph
     private UndirectedGraph graph;
     private DisjointSets<Integer> components;
 
-    public ForestGraph(UndirectedGraph graph)
+    public ForestGraph(int n)
     {
-        this.graph = graph;
+        this.graph = new UndirectedSimpleGraph(n);
         this.components = new DisjointSets<>(this.graph.getVertices());
     }
 
-    public ForestGraph(UndirectedGraph graph, Iterable<Pair<Integer, Integer>> edges)
+    public ForestGraph(int n, Iterable<Pair<Integer, Integer>> edges)
         throws NoSuchVertexException
     {
-        this(graph);
+        this(n);
 
         for(Pair<Integer, Integer> e : edges)
             this.addEdge(e.getFirst(), e.getSecond());

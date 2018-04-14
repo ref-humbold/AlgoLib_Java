@@ -1,10 +1,7 @@
 // STRUKTURA GRAFU DWUDZIELNEGO
 package ref_humbold.algolib.graphs;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import ref_humbold.algolib.tuples.ComparablePair;
 
@@ -26,11 +23,11 @@ public class MultipartiteGraph
      */
     private List<Integer> groups;
 
-    public MultipartiteGraph(Integer group, UndirectedGraph ugraph)
+    public MultipartiteGraph(int n, Integer group)
     {
+        this.graph = new UndirectedSimpleGraph(n);
         this.groupsNumber = group;
-        this.graph = ugraph;
-        this.groups = new ArrayList<>(Collections.nCopies(ugraph.getVerticesNumber(), 1));
+        this.groups = new ArrayList<>(Collections.nCopies(this.graph.getVerticesNumber(), 1));
     }
 
     public Integer getGroupsNumber()
@@ -71,7 +68,7 @@ public class MultipartiteGraph
         List<Integer> part = new ArrayList<>();
 
         for(Integer v : graph.getVertices())
-            if(groups.get(v).equals(group))
+            if(Objects.equals(groups.get(v), group))
                 part.add(v);
 
         return part;
@@ -153,7 +150,7 @@ public class MultipartiteGraph
         if(vertex < 0 || vertex > getVerticesNumber())
             throw new NoSuchVertexException(vertex.toString());
 
-        return groups.get(vertex).equals(group);
+        return Objects.equals(groups.get(vertex), group);
     }
 
     /**
@@ -171,6 +168,6 @@ public class MultipartiteGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex2.toString());
 
-        return groups.get(vertex1).equals(groups.get(vertex2));
+        return Objects.equals(groups.get(vertex1), groups.get(vertex2));
     }
 }
