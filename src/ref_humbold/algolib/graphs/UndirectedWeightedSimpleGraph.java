@@ -11,7 +11,7 @@ import ref_humbold.algolib.tuples.Triple;
 
 public class UndirectedWeightedSimpleGraph
     extends UndirectedSimpleGraph
-    implements WeightedGraph
+    implements UndirectedWeightedGraph
 {
     public UndirectedWeightedSimpleGraph(int n)
     {

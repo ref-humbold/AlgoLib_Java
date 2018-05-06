@@ -9,7 +9,7 @@ import ref_humbold.algolib.tuples.Triple;
 
 public class DirectedWeightedSimpleGraph
     extends DirectedSimpleGraph
-    implements WeightedGraph
+    implements DirectedWeightedGraph
 {
     public DirectedWeightedSimpleGraph(int n)
     {

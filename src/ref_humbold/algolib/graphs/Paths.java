@@ -18,7 +18,7 @@ public class Paths
      * @param source wierzchołek początkowy
      * @return lista odległości wierzchołków
      */
-    public static List<Double> bellmanFord(DirectedWeightedSimpleGraph diwgraph, int source)
+    public static List<Double> bellmanFord(DirectedWeightedGraph diwgraph, int source)
         throws IllegalStateException
     {
         List<Double> distances = new ArrayList<>(
@@ -58,14 +58,14 @@ public class Paths
             Collections.nCopies(wgraph.getVerticesNumber(), WeightedGraph.INF));
         List<Boolean> isVisited = new ArrayList<>(
             Collections.nCopies(wgraph.getVerticesNumber(), false));
-        PriorityQueue<Pair<Double, Integer>> vertexQueue = new PriorityQueue<>();
+        PriorityQueue<ComparablePair<Double, Integer>> vertexQueue = new PriorityQueue<>();
 
         distances.set(source, 0.0);
-        vertexQueue.add(Pair.make(0.0, source));
+        vertexQueue.add(ComparablePair.make(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
-            Integer v = vertexQueue.poll().getSecond();
+            Integer v = vertexQueue.remove().getSecond();
 
             if(!isVisited.get(v))
             {
@@ -93,7 +93,7 @@ public class Paths
      * @param diwgraph skierowany graf ważony
      * @return macierz odległości wierzchołków
      */
-    public static double[][] floydWarshall(DirectedWeightedSimpleGraph diwgraph)
+    public static double[][] floydWarshall(DirectedWeightedGraph diwgraph)
     {
         double[][] distances = new double[diwgraph.getVerticesNumber()][diwgraph.getVerticesNumber()];
 

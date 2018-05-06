@@ -9,7 +9,7 @@ import ref_humbold.algolib.tuples.Pair;
 public class ForestGraph
     implements UndirectedGraph
 {
-    private UndirectedGraph graph;
+    private UndirectedSimpleGraph graph;
     private DisjointSets<Integer> components;
 
     public ForestGraph(int n)

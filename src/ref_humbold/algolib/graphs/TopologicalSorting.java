@@ -19,8 +19,8 @@ public class TopologicalSorting
         throws DirectedCyclicGraphException
     {
         List<Integer> order = new ArrayList<>();
-        List<Integer> indegs =
-            new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
+        List<Integer> indegs = new ArrayList<>(
+            Collections.nCopies(digraph.getVerticesNumber(), null));
         PriorityQueue<Integer> vertexQueue = new PriorityQueue<>();
 
         for(Integer v : digraph.getVertices())
@@ -32,7 +32,7 @@ public class TopologicalSorting
 
         while(!vertexQueue.isEmpty())
         {
-            Integer v = vertexQueue.poll();
+            Integer v = vertexQueue.remove();
 
             order.add(v);
             indegs.set(v, null);
@@ -61,8 +61,8 @@ public class TopologicalSorting
         throws DirectedCyclicGraphException
     {
         List<Integer> order = new ArrayList<>();
-        List<Pair<Integer, Boolean>> indices =
-            new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
+        List<Pair<Integer, Boolean>> indices = new ArrayList<>(
+            Collections.nCopies(digraph.getVerticesNumber(), null));
         List<Integer> vertices = new ArrayList<>(digraph.getVertices());
 
         Collections.sort(vertices);
