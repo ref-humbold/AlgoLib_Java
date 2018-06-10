@@ -68,13 +68,6 @@ public class UndirectedWeightedSimpleGraph
         for(Triple<Integer, Integer, Double> e : getWeightedEdges())
             diwedges.add(Triple.make(e.getSecond(), e.getFirst(), e.getThird()));
 
-        try
-        {
-            return new DirectedWeightedSimpleGraph(getVerticesNumber(), diwedges);
-        }
-        catch(NoSuchVertexException e)
-        {
-            return null;
-        }
+        return new DirectedWeightedSimpleGraph(getVerticesNumber(), diwedges);
     }
 }

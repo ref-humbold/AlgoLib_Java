@@ -1,12 +1,7 @@
 // SŁOWNIK PODSŁÓW BAZOWYCH Z ALGORYTMEM KARPA-MILLERA-ROSENBERGA
 package ref_humbold.algolib;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import ref_humbold.algolib.tuples.ComparableTriple;
 import ref_humbold.algolib.tuples.Triple;

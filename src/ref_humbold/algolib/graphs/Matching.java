@@ -1,11 +1,7 @@
 // ALGORYTM HOPCROFTA-KARPA WYZNACZANIA SKOJARZEŃ W GRAFIE DWUDZIELNYM
 package ref_humbold.algolib.graphs;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 import ref_humbold.algolib.tuples.Pair;
 

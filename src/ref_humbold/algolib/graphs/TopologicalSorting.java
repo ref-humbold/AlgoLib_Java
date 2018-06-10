@@ -1,10 +1,7 @@
 // ALGORYTM: SORTOWANIE TOPOLOGICZNE GRAFU SKIEROWANEGO
 package ref_humbold.algolib.graphs;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 import ref_humbold.algolib.tuples.Pair;
 
@@ -27,7 +24,7 @@ public class TopologicalSorting
             indegs.set(v, digraph.getIndegree(v));
 
         for(Integer v : digraph.getVertices())
-            if(indegs.get(v).equals(0))
+            if(Objects.equals(indegs.get(v), 0))
                 vertexQueue.add(v);
 
         while(!vertexQueue.isEmpty())
@@ -41,13 +38,13 @@ public class TopologicalSorting
             {
                 indegs.set(nb, indegs.get(nb) - 1);
 
-                if(indegs.get(nb).equals(0))
+                if(Objects.equals(indegs.get(nb), 0))
                     vertexQueue.add(nb);
             }
         }
 
         if(order.size() != digraph.getVerticesNumber())
-            throw new DirectedCyclicGraphException("Given graph has a cycle.");
+            throw new DirectedCyclicGraphException("Given graph contains a cycle.");
 
         return order;
     }
@@ -94,9 +91,9 @@ public class TopologicalSorting
         for(Integer neighbour : digraph.getNeighbours(vertex))
             if(indices.get(neighbour) == null)
                 dfs(neighbour, index, digraph, order, indices);
-            else if(indices.get(neighbour).getFirst().equals(index) && indices.get(neighbour)
-                                                                              .getSecond())
-                throw new DirectedCyclicGraphException("Given graph has a cycle.");
+            else if(Objects.equals(indices.get(neighbour).getFirst(), index) && indices.get(
+                neighbour).getSecond())
+                throw new DirectedCyclicGraphException("Given graph contains a cycle.");
 
         order.add(vertex);
         indices.set(vertex, Pair.make(index, false));

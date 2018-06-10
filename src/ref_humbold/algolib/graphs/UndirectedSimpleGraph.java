@@ -86,13 +86,6 @@ public class UndirectedSimpleGraph
             diedges.add(Pair.make(e.getSecond(), e.getFirst()));
         }
 
-        try
-        {
-            return new DirectedSimpleGraph(getVerticesNumber(), diedges);
-        }
-        catch(NoSuchVertexException e)
-        {
-            return null;
-        }
+        return new DirectedSimpleGraph(getVerticesNumber(), diedges);
     }
 }

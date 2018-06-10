@@ -1,7 +1,7 @@
 package ref_humbold.algolib.graphs;
 
 public class NoSuchVertexException
-    extends Exception
+    extends RuntimeException
 {
     private static final long serialVersionUID = -5380156876701376673L;
 

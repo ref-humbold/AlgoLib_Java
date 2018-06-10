@@ -1,11 +1,7 @@
 // ALGORYTMY PRZESZUKIWANIA GRAFU
 package ref_humbold.algolib.graphs;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Searching
 {

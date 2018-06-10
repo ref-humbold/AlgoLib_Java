@@ -15,7 +15,6 @@ public class MSTTest
 
     @Before
     public void setUp()
-        throws Exception
     {
         graph = new UndirectedWeightedSimpleGraph(5, Arrays.asList(Triple.make(0, 1, -1.0),
                                                                    Triple.make(0, 2, 4.0),

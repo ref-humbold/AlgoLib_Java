@@ -17,7 +17,6 @@ public class PathsTest
 
     @Before
     public void setUp()
-        throws Exception
     {
         diwgraph = new DirectedWeightedSimpleGraph(10, Arrays.asList(Triple.make(0, 1, 4.0),
                                                                      Triple.make(1, 4, 7.0),
@@ -62,15 +61,7 @@ public class PathsTest
     {
         Integer source = 1;
 
-        try
-        {
-            diwgraph.addWeightedEdge(2, 1, -2.0);
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+        diwgraph.addWeightedEdge(2, 1, -2.0);
 
         List<Double> result = Paths.bellmanFord(diwgraph, source);
 
@@ -96,15 +87,7 @@ public class PathsTest
     {
         Integer source = 1;
 
-        try
-        {
-            diwgraph.addWeightedEdge(8, 3, -20.0);
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+        diwgraph.addWeightedEdge(8, 3, -20.0);
 
         Paths.bellmanFord(diwgraph, source);
     }
@@ -137,16 +120,8 @@ public class PathsTest
     public void testDijkstraWhenNegativeEdge()
     {
         Integer source = 1;
-        
-        try
-        {
-            diwgraph.addWeightedEdge(2, 1, -2.0);
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+
+        diwgraph.addWeightedEdge(2, 1, -2.0);
 
         Paths.dijkstra(diwgraph, source);
     }
@@ -154,15 +129,7 @@ public class PathsTest
     @Test
     public void testFloydWarshallWhenDirectedGraph()
     {
-        try
-        {
-            diwgraph.addWeightedEdge(2, 1, -2.0);
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+        diwgraph.addWeightedEdge(2, 1, -2.0);
 
         double[][] result = Paths.floydWarshall(diwgraph);
         double i = Graph.INF;

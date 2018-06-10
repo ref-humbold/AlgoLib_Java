@@ -29,23 +29,14 @@ public class CuttingTest
     @Test
     public void testFindBridgesWhenPresentBridges()
     {
-        try
-        {
-            graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                                Pair.make(0, 7), Pair.make(1, 2),
-                                                                Pair.make(1, 3), Pair.make(1, 4),
-                                                                Pair.make(3, 5), Pair.make(4, 5),
-                                                                Pair.make(5, 6), Pair.make(7, 8),
-                                                                Pair.make(7, 9), Pair.make(7, 11),
-                                                                Pair.make(8, 9), Pair.make(9, 10),
-                                                                Pair.make(9, 11),
-                                                                Pair.make(10, 11)));
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+        graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
+                                                            Pair.make(0, 7), Pair.make(1, 2),
+                                                            Pair.make(1, 3), Pair.make(1, 4),
+                                                            Pair.make(3, 5), Pair.make(4, 5),
+                                                            Pair.make(5, 6), Pair.make(7, 8),
+                                                            Pair.make(7, 9), Pair.make(7, 11),
+                                                            Pair.make(8, 9), Pair.make(9, 10),
+                                                            Pair.make(9, 11), Pair.make(10, 11)));
 
         Object[] result = Cutting.findEdgeCut(graph).toArray();
 
@@ -57,18 +48,10 @@ public class CuttingTest
     @Test
     public void testFindBridgesWhenNoBridges()
     {
-        try
-        {
-            graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                               Pair.make(1, 2), Pair.make(1, 3),
-                                                               Pair.make(1, 4), Pair.make(3, 5),
-                                                               Pair.make(4, 5)));
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+        graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
+                                                           Pair.make(1, 2), Pair.make(1, 3),
+                                                           Pair.make(1, 4), Pair.make(3, 5),
+                                                           Pair.make(4, 5)));
 
         Collection<ComparablePair<Integer, Integer>> result = Cutting.findEdgeCut(graph);
 
@@ -78,23 +61,14 @@ public class CuttingTest
     @Test
     public void testFindVertexSeparatorsWhenPresentSeparators()
     {
-        try
-        {
-            graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                                Pair.make(0, 7), Pair.make(1, 2),
-                                                                Pair.make(1, 3), Pair.make(1, 4),
-                                                                Pair.make(3, 5), Pair.make(4, 5),
-                                                                Pair.make(5, 6), Pair.make(7, 8),
-                                                                Pair.make(7, 9), Pair.make(7, 11),
-                                                                Pair.make(8, 9), Pair.make(9, 10),
-                                                                Pair.make(9, 11),
-                                                                Pair.make(10, 11)));
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+        graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
+                                                            Pair.make(0, 7), Pair.make(1, 2),
+                                                            Pair.make(1, 3), Pair.make(1, 4),
+                                                            Pair.make(3, 5), Pair.make(4, 5),
+                                                            Pair.make(5, 6), Pair.make(7, 8),
+                                                            Pair.make(7, 9), Pair.make(7, 11),
+                                                            Pair.make(8, 9), Pair.make(9, 10),
+                                                            Pair.make(9, 11), Pair.make(10, 11)));
 
         Object[] result = Cutting.findVertexCut(graph).toArray();
 
@@ -106,18 +80,10 @@ public class CuttingTest
     @Test
     public void testFindVertexSeparatorsWhenNoSeparators()
     {
-        try
-        {
-            graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                               Pair.make(1, 2), Pair.make(1, 3),
-                                                               Pair.make(1, 4), Pair.make(2, 3),
-                                                               Pair.make(3, 5), Pair.make(4, 5)));
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+        graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
+                                                           Pair.make(1, 2), Pair.make(1, 3),
+                                                           Pair.make(1, 4), Pair.make(2, 3),
+                                                           Pair.make(3, 5), Pair.make(4, 5)));
 
         Collection<Integer> result = Cutting.findVertexCut(graph);
 

@@ -23,23 +23,20 @@ public class SCCTest
     @Test
     public void testFindSCC()
     {
-        DirectedGraph digraph = null;
-
-        try
-        {
-            digraph = new DirectedSimpleGraph(10, Arrays.asList(Pair.make(0, 4), Pair.make(0, 5),
-                                                                Pair.make(1, 0), Pair.make(2, 3),
-                                                                Pair.make(3, 1), Pair.make(4, 1),
-                                                                Pair.make(4, 3), Pair.make(6, 5),
-                                                                Pair.make(6, 9), Pair.make(7, 4),
-                                                                Pair.make(7, 6), Pair.make(8, 3),
-                                                                Pair.make(8, 7), Pair.make(9, 8)));
-        }
-        catch(NoSuchVertexException e)
-        {
-            e.printStackTrace();
-            Assert.fail("Unexpected exception " + e.getClass().getSimpleName());
-        }
+        DirectedGraph digraph = new DirectedSimpleGraph(10, Arrays.asList(Pair.make(0, 4),
+                                                                          Pair.make(0, 5),
+                                                                          Pair.make(1, 0),
+                                                                          Pair.make(2, 3),
+                                                                          Pair.make(3, 1),
+                                                                          Pair.make(4, 1),
+                                                                          Pair.make(4, 3),
+                                                                          Pair.make(6, 5),
+                                                                          Pair.make(6, 9),
+                                                                          Pair.make(7, 4),
+                                                                          Pair.make(7, 6),
+                                                                          Pair.make(8, 3),
+                                                                          Pair.make(8, 7),
+                                                                          Pair.make(9, 8)));
 
         List<Set<Integer>> result = SCC.findSCC(digraph);
 

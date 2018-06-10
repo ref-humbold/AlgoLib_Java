@@ -1,11 +1,7 @@
 // STRUKTURA SKIEROWANEGO GRAFU PROSTEGO
 package ref_humbold.algolib.graphs;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import ref_humbold.algolib.tuples.ComparablePair;
 import ref_humbold.algolib.tuples.Pair;

@@ -1,12 +1,7 @@
 // TESTY DLA DRZEWA AVL
 package ref_humbold.algolib.structures;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
+import java.util.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

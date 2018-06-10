@@ -2,7 +2,6 @@
 package ref_humbold.algolib;
 
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -15,7 +15,6 @@ public class LCATest
 
     @Before
     public void setUp()
-        throws Exception
     {
         trees = new ForestGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2), Pair.make(1, 3),
                                                   Pair.make(1, 4), Pair.make(1, 5), Pair.make(2, 6),
