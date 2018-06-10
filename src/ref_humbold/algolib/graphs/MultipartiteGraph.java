@@ -132,12 +132,6 @@ public class MultipartiteGraph
         return graph.getIndegree(vertex);
     }
 
-    @Override
-    public DirectedGraph asDirected()
-    {
-        return graph.asDirected();
-    }
-
     /**
      * Sprawdza, czy wierzchołek należy do zadanej grupy.
      * @param vertex wierzchołek

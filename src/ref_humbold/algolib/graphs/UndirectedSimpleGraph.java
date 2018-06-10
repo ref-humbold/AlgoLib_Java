@@ -75,7 +75,6 @@ public class UndirectedSimpleGraph
         return getOutdegree(vertex);
     }
 
-    @Override
     public DirectedSimpleGraph asDirected()
     {
         Collection<Pair<Integer, Integer>> diedges = new ArrayList<>();

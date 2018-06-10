@@ -98,12 +98,6 @@ public class ForestGraph
         return graph.getIndegree(vertex);
     }
 
-    @Override
-    public DirectedGraph asDirected()
-    {
-        return graph.asDirected();
-    }
-
     /**
      * Sprawdzanie, czy wierzchołki należą do tego samego drzewa.
      * @param vertex1 pierwszy wierzchołek
