@@ -14,14 +14,12 @@ public class AVLTreeTest
 
     @Before
     public void setUp()
-        throws Exception
     {
         testObject = new AVLTree<>(Arrays.asList(numbers));
     }
 
     @After
     public void tearDown()
-        throws Exception
     {
         testObject = null;
     }
@@ -193,7 +191,7 @@ public class AVLTreeTest
     {
         int root = 0;
 
-        testObject = new AVLTree<>(Arrays.asList(root));
+        testObject = new AVLTree<>(Collections.singletonList(root));
 
         boolean result = testObject.remove(root);
 
