@@ -1,5 +1,5 @@
 // ALGORYTMY MATEMATYCZNE
-package ref_humbold.algolib.maths;
+package ref_humbold.algolib.math;
 
 public class Maths
 {
@@ -36,7 +36,7 @@ public class Maths
         long min_number = Math.min(number1, number2);
         long max_number = Math.max(number1, number2);
 
-        return max_number / gcd(number1, number2) * min_number;
+        return max_number / Maths.gcd(number1, number2) * min_number;
     }
 
     /**
@@ -54,13 +54,13 @@ public class Maths
             throw new ArithmeticException("Negative modulo.");
 
         if(factor1 < 0 && factor2 < 0)
-            return multMod(-factor1, -factor2, modulo);
+            return Maths.multMod(-factor1, -factor2, modulo);
 
         if(factor1 < 0)
-            return modulo - multMod(-factor1, factor2, modulo);
+            return modulo - Maths.multMod(-factor1, factor2, modulo);
 
         if(factor2 < 0)
-            return modulo - multMod(factor1, -factor2, modulo);
+            return modulo - Maths.multMod(factor1, -factor2, modulo);
 
         while(factor2 > 0)
         {
@@ -97,9 +97,9 @@ public class Maths
         while(exponent > 0)
         {
             if(exponent % 2 == 1)
-                result = multMod(result, base, modulo);
+                result = Maths.multMod(result, base, modulo);
 
-            base = multMod(base, base, modulo);
+            base = Maths.multMod(base, base, modulo);
             exponent >>= 1;
         }
 

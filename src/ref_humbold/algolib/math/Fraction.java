@@ -1,5 +1,5 @@
 // UŁAMKI
-package ref_humbold.algolib.maths;
+package ref_humbold.algolib.math;
 
 import java.util.Objects;
 

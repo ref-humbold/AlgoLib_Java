@@ -1,5 +1,5 @@
 // TESTY DLA ALGORYTMÓW MATEMATYCZNYCH
-package ref_humbold.algolib.maths;
+package ref_humbold.algolib.math;
 
 import org.junit.After;
 import org.junit.Assert;
