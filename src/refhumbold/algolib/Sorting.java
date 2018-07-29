@@ -30,7 +30,7 @@ public class Sorting
         if(sequence == null)
             throw new IllegalArgumentException("Sequence is null.");
 
-        heapSort(sequence, 0, sequence.size());
+        Sorting.heapSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -57,7 +57,7 @@ public class Sorting
             return;
 
         for(int i = indexBegin + heapSize / 2; i >= indexBegin; --i)
-            moveDown(sequence, i, indexBegin, indexEnd);
+            Sorting.moveDown(sequence, i, indexBegin, indexEnd);
 
         while(heapSize > 1)
         {
@@ -66,7 +66,7 @@ public class Sorting
 
             sequence.set(indexHeap, sequence.get(indexBegin));
             sequence.set(indexBegin, temp);
-            moveDown(sequence, indexBegin, indexBegin, indexHeap);
+            Sorting.moveDown(sequence, indexBegin, indexBegin, indexHeap);
             --heapSize;
         }
     }
@@ -80,7 +80,7 @@ public class Sorting
         if(sequence == null)
             throw new IllegalArgumentException("Sequence is null.");
 
-        mergedownSort(sequence, 0, sequence.size());
+        Sorting.mergedownSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -106,9 +106,9 @@ public class Sorting
 
         int indexMiddle = (indexBegin + indexEnd) / 2;
 
-        mergedownSort(sequence, indexBegin, indexMiddle);
-        mergedownSort(sequence, indexMiddle, indexEnd);
-        merge(sequence, indexBegin, indexMiddle, indexEnd);
+        Sorting.mergedownSort(sequence, indexBegin, indexMiddle);
+        Sorting.mergedownSort(sequence, indexMiddle, indexEnd);
+        Sorting.merge(sequence, indexBegin, indexMiddle, indexEnd);
     }
 
     /**
@@ -120,7 +120,7 @@ public class Sorting
         if(sequence == null)
             throw new IllegalArgumentException("Sequence is null.");
 
-        mergeupSort(sequence, 0, sequence.size());
+        Sorting.mergeupSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -146,7 +146,8 @@ public class Sorting
 
         for(int i = 2; i < 2 * (indexEnd - indexBegin); i *= 2)
             for(int j = indexBegin; j < indexEnd; j += i)
-                merge(sequence, j, Math.min(j + i / 2, indexEnd), Math.min(j + i, indexEnd));
+                Sorting.merge(sequence, j, Math.min(j + i / 2, indexEnd),
+                              Math.min(j + i, indexEnd));
     }
 
     /**
@@ -158,7 +159,7 @@ public class Sorting
         if(sequence == null)
             throw new IllegalArgumentException("Sequence is null.");
 
-        quickSort(sequence, 0, sequence.size());
+        Sorting.quickSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -183,7 +184,7 @@ public class Sorting
             return;
 
         int indexPivot = indexBegin, indexFront = indexBegin + 1, indexBack = indexEnd - 1;
-        int rdpv = indexBegin + choosePivot(indexEnd - indexBegin);
+        int rdpv = indexBegin + Sorting.choosePivot(indexEnd - indexBegin);
         T temp1 = sequence.get(indexPivot);
 
         sequence.set(indexPivot, sequence.get(rdpv));
@@ -208,8 +209,8 @@ public class Sorting
                 --indexBack;
             }
 
-        quickSort(sequence, indexBegin, indexPivot);
-        quickSort(sequence, indexPivot + 1, indexEnd);
+        Sorting.quickSort(sequence, indexBegin, indexPivot);
+        Sorting.quickSort(sequence, indexPivot + 1, indexEnd);
     }
 
     /**
@@ -244,7 +245,7 @@ public class Sorting
             heap.set(vertex, temp);
         }
 
-        moveDown(heap, nextVertex, indexBegin, indexEnd);
+        Sorting.moveDown(heap, nextVertex, indexBegin, indexEnd);
     }
 
     /**

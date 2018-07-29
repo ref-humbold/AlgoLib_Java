@@ -29,7 +29,7 @@ public class Fraction
 
     public static Fraction fromInt(int value)
     {
-        return fromLong(value);
+        return Fraction.fromLong(value);
     }
 
     public static Fraction fromLong(long value)

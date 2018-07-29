@@ -31,7 +31,7 @@ public class LIS
             }
             else
             {
-                int index = search(sequence, subseqLast, 0, subseqLast.size() - 1, i);
+                int index = LIS.search(sequence, subseqLast, 0, subseqLast.size() - 1, i);
                 subseqLast.set(index, i);
                 previousElem.set(i, index > 0 ? subseqLast.get(index - 1) : null);
             }
@@ -60,8 +60,8 @@ public class LIS
         int indexMiddle = (indexBegin + indexEnd) / 2;
 
         if(sequence.get(indexElem).compareTo(sequence.get(subseqLast.get(indexMiddle))) > 0)
-            return search(sequence, subseqLast, indexMiddle + 1, indexEnd, indexElem);
+            return LIS.search(sequence, subseqLast, indexMiddle + 1, indexEnd, indexElem);
         else
-            return search(sequence, subseqLast, indexBegin, indexMiddle, indexElem);
+            return LIS.search(sequence, subseqLast, indexBegin, indexMiddle, indexElem);
     }
 }

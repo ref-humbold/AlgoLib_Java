@@ -65,8 +65,8 @@ public class UndirectedSimpleGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex2.toString());
 
-        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, DEFAULT_WEIGHT));
-        graphrepr.get(vertex2).add(ComparablePair.make(vertex1, DEFAULT_WEIGHT));
+        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, SimpleGraph.DEFAULT_WEIGHT));
+        graphrepr.get(vertex2).add(ComparablePair.make(vertex1, SimpleGraph.DEFAULT_WEIGHT));
     }
 
     @Override

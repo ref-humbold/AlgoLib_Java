@@ -12,7 +12,7 @@ public class Primes
 {
     public static Collection<Integer> find(int maxNumber)
     {
-        return find(0, maxNumber);
+        return Primes.find(0, maxNumber);
     }
 
     public static Collection<Integer> find(int minNumber, int maxNumber)
@@ -78,7 +78,7 @@ public class Primes
         if(number < 2 || number % 2 == 0 || number % 3 == 0)
             return false;
 
-        Pair<Long, Long> distribution = distribute(number - 1);
+        Pair<Long, Long> distribution = Primes.distribute(number - 1);
         Random rd = new Random();
 
         for(int i = 0; i < 12; ++i)

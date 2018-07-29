@@ -17,13 +17,13 @@ public class MaximumSubarray
      */
     public static List<Double> findMaximumSubarray(Iterable<Double> sequence)
     {
-        Pair<Double, List<Double>> actual = Pair.make(0.0, new ArrayList<Double>());
-        Pair<Double, List<Double>> maximal = Pair.make(0.0, new ArrayList<Double>());
+        Pair<Double, List<Double>> actual = Pair.make(0.0, new ArrayList<>());
+        Pair<Double, List<Double>> maximal = Pair.make(0.0, new ArrayList<>());
 
         for(Double elem : sequence)
         {
             if(actual.getFirst() < 0.0)
-                actual = Pair.make(0.0, new ArrayList<Double>());
+                actual = Pair.make(0.0, new ArrayList<>());
 
             actual = Pair.make(actual.getFirst() + elem, actual.getSecond());
             actual.getSecond().add(elem);

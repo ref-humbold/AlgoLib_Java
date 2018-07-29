@@ -17,7 +17,7 @@ public class KMP
             return new ArrayList<>();
 
         List<Integer> places = new ArrayList<>();
-        List<Integer> pi = prefixes(pattern);
+        List<Integer> pi = KMP.prefixes(pattern);
         int pos = 0;
 
         for(int i = 0; i < text.length(); ++i)

@@ -57,7 +57,7 @@ public class DirectedSimpleGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex2.toString());
 
-        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, DEFAULT_WEIGHT));
+        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, SimpleGraph.DEFAULT_WEIGHT));
     }
 
     @Override
@@ -82,7 +82,8 @@ public class DirectedSimpleGraph
             revgraphrepr.add(new HashSet<>());
 
         for(Pair<Integer, Integer> e : getEdges())
-            revgraphrepr.get(e.getSecond()).add(ComparablePair.make(e.getFirst(), DEFAULT_WEIGHT));
+            revgraphrepr.get(e.getSecond())
+                        .add(ComparablePair.make(e.getFirst(), SimpleGraph.DEFAULT_WEIGHT));
 
         graphrepr = revgraphrepr;
     }

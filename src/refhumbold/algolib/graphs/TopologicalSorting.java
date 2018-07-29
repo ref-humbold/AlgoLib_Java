@@ -67,7 +67,7 @@ public class TopologicalSorting
 
         for(Integer v : vertices)
             if(indices.get(v) == null)
-                dfs(v, v, digraph, order, indices);
+                TopologicalSorting.dfs(v, v, digraph, order, indices);
 
         Collections.reverse(order);
 
@@ -90,7 +90,7 @@ public class TopologicalSorting
 
         for(Integer neighbour : digraph.getNeighbours(vertex))
             if(indices.get(neighbour) == null)
-                dfs(neighbour, index, digraph, order, indices);
+                TopologicalSorting.dfs(neighbour, index, digraph, order, indices);
             else if(Objects.equals(indices.get(neighbour).getFirst(), index) && indices.get(
                 neighbour).getSecond())
                 throw new DirectedCyclicGraphException("Given graph contains a cycle.");

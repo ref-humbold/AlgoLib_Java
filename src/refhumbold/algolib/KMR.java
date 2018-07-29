@@ -15,10 +15,10 @@ public class KMR
      */
     public static Map<String, Integer> kmr(String text)
     {
-        Map<String, Integer> factors = signLetters(text);
+        Map<String, Integer> factors = KMR.signLetters(text);
 
         for(int length = 2; length <= text.length(); length <<= 1)
-            doubleLength(length, text, factors);
+            KMR.doubleLength(length, text, factors);
 
         return factors;
     }

@@ -78,7 +78,7 @@ public class Searching
         List<Boolean> isVisited = new ArrayList<>(
             Collections.nCopies(graph.getVerticesNumber(), false));
 
-        dfsrStep(graph, root, isVisited);
+        Searching.dfsrStep(graph, root, isVisited);
 
         return isVisited;
     }
@@ -95,6 +95,6 @@ public class Searching
 
         for(Integer neighbour : graph.getNeighbours(vertex))
             if(!isVisited.get(neighbour))
-                dfsrStep(graph, neighbour, isVisited);
+                Searching.dfsrStep(graph, neighbour, isVisited);
     }
 }

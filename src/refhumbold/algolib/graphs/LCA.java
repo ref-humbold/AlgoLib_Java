@@ -18,7 +18,7 @@ public class LCA
      */
     public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2)
     {
-        return findLCA(treegraph, vertex1, vertex2, 0);
+        return LCA.findLCA(treegraph, vertex1, vertex2, 0);
     }
 
     /**
