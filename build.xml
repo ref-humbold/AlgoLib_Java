@@ -9,6 +9,7 @@
   <property name="junit.output.dir" value="junit_results" />
   <property name="junit.report.dir" value="junit_reports" />
   <property name="javadoc.output.dir" value="docs" />
+  <property name="main.package" value="refhumbold.algolib" />
   <property name="ivy.lib.dir" value="lib" />
   <property name="ivy.install.version" value="2.4.0" />
   <property name="debuglevel" value="source,lines,vars" />
@@ -24,7 +25,7 @@
     <mkdir dir="${ivy.lib.dir}" />
     <get
       src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
-      dest="${ivy.lib.dir}/ivy.jar" usetimestamp="true" />
+      dest="${ivy.lib.dir}/ivy-${ivy.install.version}.jar" usetimestamp="true" />
   </target>
 
   <target name="init-ivy" depends="download-ivy">
@@ -84,7 +85,7 @@
     <delete dir="${javadoc.output.dir}" />
     <mkdir dir="${javadoc.output.dir}" />
     <javadoc sourcepath="${src.dir}" destdir="${javadoc.output.dir}" access="public">
-      <package name="refhumbold.algolib.*" />
+      <package name="${main.package}.*" />
     </javadoc>
   </target>
 
