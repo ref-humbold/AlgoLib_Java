@@ -1,7 +1,7 @@
 // PORÓWNYWALNA PARA
 package refhumbold.algolib.tuples;
 
-public class ComparablePair<F extends Comparable<? super F>, S extends Comparable<? super S>>
+public final class ComparablePair<F extends Comparable<? super F>, S extends Comparable<? super S>>
     extends Pair<F, S>
     implements Comparable<Pair<F, S>>
 {

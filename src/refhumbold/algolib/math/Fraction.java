@@ -3,7 +3,7 @@ package refhumbold.algolib.math;
 
 import java.util.Objects;
 
-public class Fraction
+public final class Fraction
     extends Number
 {
     private static final long serialVersionUID = 330776497365163091L;
@@ -48,7 +48,7 @@ public class Fraction
         if(this == obj)
             return true;
 
-        if(obj == null || !(obj instanceof Fraction))
+        if(!(obj instanceof Fraction))
             return false;
 
         Fraction other = (Fraction)obj;

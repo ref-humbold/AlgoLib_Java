@@ -106,8 +106,7 @@ public class Primes
 
     private static Pair<Long, Long> distribute(long number)
     {
-        Long power = 2L;
-        Long exponent = 1L;
+        long power = 2L, exponent = 1L;
 
         while(number % power == 0)
         {

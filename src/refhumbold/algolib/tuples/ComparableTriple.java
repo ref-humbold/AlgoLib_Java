@@ -1,7 +1,7 @@
 // PORÓWNYWALNA TRÓJKA
 package refhumbold.algolib.tuples;
 
-public class ComparableTriple<F extends Comparable<? super F>, S extends Comparable<? super S>, T extends Comparable<? super T>>
+public final class ComparableTriple<F extends Comparable<? super F>, S extends Comparable<? super S>, T extends Comparable<? super T>>
     extends Triple<F, S, T>
     implements Comparable<Triple<F, S, T>>
 {

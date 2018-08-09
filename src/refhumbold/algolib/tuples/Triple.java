@@ -42,7 +42,7 @@ public class Triple<F, S, T>
         if(this == obj)
             return true;
 
-        if(obj == null || !(obj instanceof Triple))
+        if(!(obj instanceof Triple))
             return false;
 
         Triple<?, ?, ?> other = (Triple<?, ?, ?>)obj;

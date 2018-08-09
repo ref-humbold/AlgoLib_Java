@@ -362,32 +362,32 @@ public class AVLTree<E>
          */
         private AVLNode<T> parent = null;
 
-        public AVLNode(T element)
+        AVLNode(T element)
         {
             this.element = element;
         }
 
-        public T getElement()
+        T getElement()
         {
             return this.element;
         }
 
-        public void setElement(T element)
+        void setElement(T element)
         {
             this.element = element;
         }
 
-        public int getHeight()
+        int getHeight()
         {
             return this.height;
         }
 
-        public AVLNode<T> getLeft()
+        AVLNode<T> getLeft()
         {
             return this.left;
         }
 
-        public void setLeft(AVLNode<T> node)
+        void setLeft(AVLNode<T> node)
         {
             this.left = node;
 
@@ -397,12 +397,12 @@ public class AVLTree<E>
             countHeight();
         }
 
-        public AVLNode<T> getRight()
+        AVLNode<T> getRight()
         {
             return this.right;
         }
 
-        public void setRight(AVLNode<T> node)
+        void setRight(AVLNode<T> node)
         {
             this.right = node;
 
@@ -412,12 +412,12 @@ public class AVLTree<E>
             countHeight();
         }
 
-        public AVLNode<T> getParent()
+        AVLNode<T> getParent()
         {
             return this.parent;
         }
 
-        public void setParent(AVLNode<T> node)
+        void setParent(AVLNode<T> node)
         {
             this.parent = node;
         }
@@ -425,7 +425,7 @@ public class AVLTree<E>
         /**
          * @return czy węzeł to lewy syn
          */
-        public boolean isLeftSon()
+        boolean isLeftSon()
         {
             return this.getParent() != null && this.getParent().getLeft() == this;
         }
@@ -433,7 +433,7 @@ public class AVLTree<E>
         /**
          * @return czy węzeł to prawy syn
          */
-        public boolean isRightSon()
+        boolean isRightSon()
         {
             return this.getParent() != null && this.getParent().getRight() == this;
         }
@@ -441,7 +441,7 @@ public class AVLTree<E>
         /**
          * Wyliczanie wysokości wierzchołka.
          */
-        public void countHeight()
+        void countHeight()
         {
             int leftHeight = left == null ? 0 : left.getHeight();
             int rightHeight = right == null ? 0 : right.getHeight();
@@ -453,7 +453,7 @@ public class AVLTree<E>
          * Wyszukiwanie minimum w poddrzewie.
          * @return węzeł z minimalną wartością w poddrzewie
          */
-        public AVLNode<T> minimum()
+        AVLNode<T> minimum()
         {
             return left == null ? this : left.minimum();
         }
@@ -462,7 +462,7 @@ public class AVLTree<E>
          * Wyszukiwanie maksimum w ukorzenionym poddrzewie.
          * @return węzeł z maksymalną wartością w poddrzewie
          */
-        public AVLNode<T> maximum()
+        AVLNode<T> maximum()
         {
             return right == null ? this : right.maximum();
         }
@@ -474,9 +474,9 @@ public class AVLTree<E>
         /**
          * Aktualny węzeł.
          */
-        protected AVLNode<E> currentNode;
+        AVLNode<E> currentNode;
 
-        public AVLIterator(AVLNode<E> node)
+        AVLIterator(AVLNode<E> node)
         {
             currentNode = node;
         }
@@ -496,7 +496,7 @@ public class AVLTree<E>
          * @param node węzeł
          * @return węzeł z następną wartością
          */
-        protected AVLNode<E> successor(AVLNode<E> node)
+        AVLNode<E> successor(AVLNode<E> node)
         {
             AVLNode<E> succ = node;
 
@@ -514,7 +514,7 @@ public class AVLTree<E>
          * @param node węzeł
          * @return węzeł z poprzednią wartością
          */
-        protected AVLNode<E> predecessor(AVLNode<E> node)
+        AVLNode<E> predecessor(AVLNode<E> node)
         {
             AVLNode<E> pred = node;
 
@@ -531,8 +531,7 @@ public class AVLTree<E>
     private class AVLSuccIterator
         extends AVLIterator
     {
-
-        public AVLSuccIterator(AVLNode<E> node)
+        AVLSuccIterator(AVLNode<E> node)
         {
             super(node);
         }
@@ -555,7 +554,7 @@ public class AVLTree<E>
     private class AVLPredIterator
         extends AVLIterator
     {
-        public AVLPredIterator(AVLNode<E> node)
+        AVLPredIterator(AVLNode<E> node)
         {
             super(node);
         }
