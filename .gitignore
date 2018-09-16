@@ -6,7 +6,7 @@ junit_results
 lib
 
 # Visual Paradigm
-*.bak*
+UML/*.bak*
 
 # IntelliJ
 *.iml
