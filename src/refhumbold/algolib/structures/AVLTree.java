@@ -1,14 +1,17 @@
 // DRZEWO AVL
 package refhumbold.algolib.structures;
 
-import java.util.AbstractSet;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class AVLTree<E>
-    extends AbstractSet<E>
+    extends AbstractCollection<E>
+    implements Set<E>
 {
+    /**
+     * Obiekt komparatora
+     */
+    private final Comparator<? super E> comparator;
+
     /**
      * Korzeń drzewa.
      */
@@ -17,19 +20,24 @@ public class AVLTree<E>
     /**
      * Liczba elementów drzewa.
      */
-    private int elems = 0;
+    private int count = 0;
 
     public AVLTree()
     {
         super();
+        this.comparator = null;
     }
 
-    public AVLTree(Iterable<E> iterable)
+    public AVLTree(Collection<E> collection)
+    {
+        this();
+        this.addAll(collection);
+    }
+
+    public AVLTree(Comparator<? super E> comparator)
     {
         super();
-
-        for(E e : iterable)
-            add(e);
+        this.comparator = comparator;
     }
 
     /**
@@ -52,6 +60,26 @@ public class AVLTree<E>
     }
 
     @Override
+    public boolean equals(Object obj)
+    {
+        if(this == obj)
+            return true;
+
+        if(!(obj instanceof AVLTree))
+            return false;
+
+        AVLTree<?> other = (AVLTree<?>)obj;
+
+        return this.size() == other.size() && this.containsAll(other);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(this.toArray());
+    }
+
+    @Override
     public AVLIterator iterator()
     {
         return new AVLSuccIterator(getRoot().minimum());
@@ -68,7 +96,7 @@ public class AVLTree<E>
     @Override
     public int size()
     {
-        return elems;
+        return count;
     }
 
     @Override
@@ -83,7 +111,6 @@ public class AVLTree<E>
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean add(E element)
     {
         AVLNode<E> nodeParent = findNodeParent(element);
@@ -96,9 +123,7 @@ public class AVLTree<E>
 
         if(nodeParent != null)
         {
-            Comparable<E> comparable = (Comparable<E>)element;
-
-            if(comparable.compareTo(nodeParent.getElement()) < 0)
+            if(this.compare(element, nodeParent.getElement()) < 0)
                 nodeParent.setLeft(newNode);
             else
                 nodeParent.setRight(newNode);
@@ -108,7 +133,7 @@ public class AVLTree<E>
         else
             setRoot(newNode);
 
-        ++elems;
+        ++count;
 
         return true;
     }
@@ -134,7 +159,7 @@ public class AVLTree<E>
     public void clear()
     {
         setRoot(null);
-        elems = 0;
+        count = 0;
     }
 
     @Override
@@ -154,6 +179,20 @@ public class AVLTree<E>
     }
 
     /**
+     * Porównywanie obiektów z użyciem komparatora lub naturalnego porządku.
+     * @param elem1 obiekt 1
+     * @param elem2 obiekt 2
+     * @return wynik porównania
+     */
+    @SuppressWarnings("unchecked")
+    private int compare(Object elem1, Object elem2)
+    {
+        return this.comparator == null ? ((Comparable<Object>)elem1).compareTo(elem2)
+                                       : ((Comparator<Object>)this.comparator).compare(elem1,
+                                                                                       elem2);
+    }
+
+    /**
      * @param node węzeł
      * @return czy węzeł to korzeń
      */
@@ -168,10 +207,9 @@ public class AVLTree<E>
      * @param object element
      * @return korzeń poddrzewa, w którym znalazłby się element
      */
-    @SuppressWarnings("unchecked")
     private AVLNode<E> getSubtree(AVLNode<E> node, Object object)
     {
-        int result = ((Comparable<E>)object).compareTo(node.getElement());
+        int result = this.compare(object, node.getElement());
 
         if(result < 0)
             return node.getLeft();
@@ -189,19 +227,19 @@ public class AVLTree<E>
      */
     private AVLNode<E> findNodeParent(Object object)
     {
-        AVLNode<E> treeIter = getRoot();
-        AVLNode<E> iterParent = null;
+        AVLNode<E> treeNode = getRoot();
+        AVLNode<E> parentNode = null;
 
-        while(treeIter != null)
-            if(Objects.equals(treeIter.getElement(), object))
-                return iterParent;
+        while(treeNode != null)
+            if(Objects.equals(treeNode.getElement(), object))
+                return parentNode;
             else
             {
-                iterParent = treeIter;
-                treeIter = getSubtree(treeIter, object);
+                parentNode = treeNode;
+                treeNode = getSubtree(treeNode, object);
             }
 
-        return iterParent;
+        return parentNode;
     }
 
     /**
@@ -217,7 +255,7 @@ public class AVLTree<E>
             AVLNode<E> new_root = root.getLeft() != null ? root.getLeft() : root.getRight();
 
             setRoot(new_root);
-            --elems;
+            --count;
         }
     }
 
@@ -243,7 +281,7 @@ public class AVLTree<E>
 
             replaceSubtree(node, son);
             balance(nodeParent);
-            --elems;
+            --count;
         }
     }
 
@@ -488,8 +526,7 @@ public class AVLTree<E>
         }
 
         @Override
-        public abstract E next()
-            throws NoSuchElementException;
+        public abstract E next();
 
         /**
          * Wyznaczanie następnika węzła w drzewie.
