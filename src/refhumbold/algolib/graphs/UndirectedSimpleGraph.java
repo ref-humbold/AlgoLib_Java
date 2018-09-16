@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import refhumbold.algolib.tuples.ComparablePair;
+import refhumbold.algolib.tuples.ImmutablePair;
 import refhumbold.algolib.tuples.Pair;
 
 public class UndirectedSimpleGraph
@@ -17,12 +18,12 @@ public class UndirectedSimpleGraph
         super(n);
     }
 
-    public UndirectedSimpleGraph(int n, Iterable<Pair<Integer, Integer>> edges)
+    public UndirectedSimpleGraph(int n, Iterable<ImmutablePair<Integer, Integer>> edges)
         throws NoSuchVertexException
     {
         super(n);
 
-        for(Pair<Integer, Integer> e : edges)
+        for(ImmutablePair<Integer, Integer> e : edges)
             this.addEdge(e.getFirst(), e.getSecond());
     }
 
@@ -81,8 +82,8 @@ public class UndirectedSimpleGraph
 
         for(Pair<Integer, Integer> e : getEdges())
         {
-            diedges.add(Pair.make(e.getFirst(), e.getSecond()));
-            diedges.add(Pair.make(e.getSecond(), e.getFirst()));
+            diedges.add(ImmutablePair.make(e.getFirst(), e.getSecond()));
+            diedges.add(ImmutablePair.make(e.getSecond(), e.getFirst()));
         }
 
         return new DirectedSimpleGraph(getVerticesNumber(), diedges);

@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import refhumbold.algolib.tuples.ComparablePair;
+import refhumbold.algolib.tuples.ImmutableTriple;
 import refhumbold.algolib.tuples.Pair;
-import refhumbold.algolib.tuples.Triple;
 
 public class Paths
 {
@@ -50,7 +50,7 @@ public class Paths
     public static List<Double> dijkstra(WeightedGraph wgraph, int source)
         throws IllegalStateException
     {
-        for(Triple<Integer, Integer, Double> wedge : wgraph.getWeightedEdges())
+        for(ImmutableTriple<Integer, Integer, Double> wedge : wgraph.getWeightedEdges())
             if(wedge.getThird() < 0.0)
                 throw new IllegalStateException("Graph contains an edge with negative weight.");
 
@@ -101,7 +101,7 @@ public class Paths
             for(int j = 0; j < distances[i].length; ++j)
                 distances[i][j] = i == j ? 0.0 : Graph.INF;
 
-        for(Triple<Integer, Integer, Double> e : diwgraph.getWeightedEdges())
+        for(ImmutableTriple<Integer, Integer, Double> e : diwgraph.getWeightedEdges())
             distances[e.getFirst()][e.getSecond()] = e.getThird();
 
         for(Integer w : diwgraph.getVertices())

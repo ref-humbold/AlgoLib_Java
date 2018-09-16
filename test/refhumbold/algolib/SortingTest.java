@@ -10,61 +10,62 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import refhumbold.algolib.tuples.ImmutablePair;
 import refhumbold.algolib.tuples.Pair;
 
 public class SortingTest
 {
     @Before
     public void setUp()
-        throws Exception
     {
     }
 
     @After
     public void tearDown()
-        throws Exception
     {
     }
 
     @Test
     public void testAngleSort()
     {
-        List<Pair<Double, Double>> sequence = Arrays.asList(Pair.make(0.0, 0.0),
-                                                            Pair.make(-2.0, -3.0),
-                                                            Pair.make(-3.0, -2.0),
-                                                            Pair.make(3.0, -2.0),
-                                                            Pair.make(-2.0, 3.0),
-                                                            Pair.make(3.0, 2.0),
-                                                            Pair.make(2.0, -3.0),
-                                                            Pair.make(2.0, 3.0),
-                                                            Pair.make(-3.0, 2.0));
+        List<Pair<Double, Double>> sequence = Arrays.asList(ImmutablePair.make(0.0, 0.0),
+                                                            ImmutablePair.make(-2.0, -3.0),
+                                                            ImmutablePair.make(-3.0, -2.0),
+                                                            ImmutablePair.make(3.0, -2.0),
+                                                            ImmutablePair.make(-2.0, 3.0),
+                                                            ImmutablePair.make(3.0, 2.0),
+                                                            ImmutablePair.make(2.0, -3.0),
+                                                            ImmutablePair.make(2.0, 3.0),
+                                                            ImmutablePair.make(-3.0, 2.0));
 
         Sorting.angleSort(sequence);
 
         Assert.assertArrayEquals(
-            new Object[]{Pair.make(0.0, 0.0), Pair.make(3.0, 2.0), Pair.make(2.0, 3.0),
-                         Pair.make(-2.0, 3.0), Pair.make(-3.0, 2.0), Pair.make(-3.0, -2.0),
-                         Pair.make(-2.0, -3.0), Pair.make(2.0, -3.0), Pair.make(3.0, -2.0)},
-            sequence.toArray());
+            new Object[]{ImmutablePair.make(0.0, 0.0), ImmutablePair.make(3.0, 2.0),
+                         ImmutablePair.make(2.0, 3.0), ImmutablePair.make(-2.0, 3.0),
+                         ImmutablePair.make(-3.0, 2.0), ImmutablePair.make(-3.0, -2.0),
+                         ImmutablePair.make(-2.0, -3.0), ImmutablePair.make(2.0, -3.0),
+                         ImmutablePair.make(3.0, -2.0)}, sequence.toArray());
     }
 
     @Test
     public void testAngleSortWhenAllEqual()
     {
-        List<Pair<Double, Double>> sequence = Arrays.asList(Pair.make(1.0, 2.0),
-                                                            Pair.make(1.0, 2.0),
-                                                            Pair.make(1.0, 2.0),
-                                                            Pair.make(1.0, 2.0),
-                                                            Pair.make(1.0, 2.0),
-                                                            Pair.make(1.0, 2.0),
-                                                            Pair.make(1.0, 2.0));
+        List<Pair<Double, Double>> sequence = Arrays.asList(ImmutablePair.make(1.0, 2.0),
+                                                            ImmutablePair.make(1.0, 2.0),
+                                                            ImmutablePair.make(1.0, 2.0),
+                                                            ImmutablePair.make(1.0, 2.0),
+                                                            ImmutablePair.make(1.0, 2.0),
+                                                            ImmutablePair.make(1.0, 2.0),
+                                                            ImmutablePair.make(1.0, 2.0));
 
         Sorting.angleSort(sequence);
 
         Assert.assertArrayEquals(
-            new Object[]{Pair.make(1.0, 2.0), Pair.make(1.0, 2.0), Pair.make(1.0, 2.0),
-                         Pair.make(1.0, 2.0), Pair.make(1.0, 2.0), Pair.make(1.0, 2.0),
-                         Pair.make(1.0, 2.0)}, sequence.toArray());
+            new Object[]{ImmutablePair.make(1.0, 2.0), ImmutablePair.make(1.0, 2.0),
+                         ImmutablePair.make(1.0, 2.0), ImmutablePair.make(1.0, 2.0),
+                         ImmutablePair.make(1.0, 2.0), ImmutablePair.make(1.0, 2.0),
+                         ImmutablePair.make(1.0, 2.0)}, sequence.toArray());
     }
 
     @Test
@@ -155,7 +156,7 @@ public class SortingTest
         Assert.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testHeapSortWhenNull()
     {
         List<Integer> sequence = null;
@@ -241,7 +242,7 @@ public class SortingTest
         Assert.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testMergedownSortWhenNull()
     {
         List<Integer> sequence = null;
@@ -327,7 +328,7 @@ public class SortingTest
         Assert.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testMergeupSortWhenNull()
     {
         List<Integer> sequence = null;
@@ -413,7 +414,7 @@ public class SortingTest
         Assert.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testQuickSortWhenNull()
     {
         List<Integer> sequence = null;

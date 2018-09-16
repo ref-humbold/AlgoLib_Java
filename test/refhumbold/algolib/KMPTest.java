@@ -11,13 +11,11 @@ public class KMPTest
 {
     @Before
     public void setUp()
-        throws Exception
     {
     }
 
     @After
     public void tearDown()
-        throws Exception
     {
     }
 
@@ -76,7 +74,7 @@ public class KMPTest
         Assert.assertArrayEquals(new Integer[]{}, result.toArray());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testKMPWhenPatternIsNull()
     {
         String text = "abcde";
@@ -96,7 +94,7 @@ public class KMPTest
         Assert.assertArrayEquals(new Integer[]{}, result.toArray());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testKMPWhenTextIsNull()
     {
         String text = null;

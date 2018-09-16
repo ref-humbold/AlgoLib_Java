@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import refhumbold.algolib.tuples.ComparablePair;
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class CuttingTest
 {
@@ -29,29 +29,41 @@ public class CuttingTest
     @Test
     public void testFindBridgesWhenPresentBridges()
     {
-        graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                            Pair.make(0, 7), Pair.make(1, 2),
-                                                            Pair.make(1, 3), Pair.make(1, 4),
-                                                            Pair.make(3, 5), Pair.make(4, 5),
-                                                            Pair.make(5, 6), Pair.make(7, 8),
-                                                            Pair.make(7, 9), Pair.make(7, 11),
-                                                            Pair.make(8, 9), Pair.make(9, 10),
-                                                            Pair.make(9, 11), Pair.make(10, 11)));
+        graph = new UndirectedSimpleGraph(12, Arrays.asList(ImmutablePair.make(0, 1),
+                                                            ImmutablePair.make(0, 2),
+                                                            ImmutablePair.make(0, 7),
+                                                            ImmutablePair.make(1, 2),
+                                                            ImmutablePair.make(1, 3),
+                                                            ImmutablePair.make(1, 4),
+                                                            ImmutablePair.make(3, 5),
+                                                            ImmutablePair.make(4, 5),
+                                                            ImmutablePair.make(5, 6),
+                                                            ImmutablePair.make(7, 8),
+                                                            ImmutablePair.make(7, 9),
+                                                            ImmutablePair.make(7, 11),
+                                                            ImmutablePair.make(8, 9),
+                                                            ImmutablePair.make(9, 10),
+                                                            ImmutablePair.make(9, 11),
+                                                            ImmutablePair.make(10, 11)));
 
         Object[] result = Cutting.findEdgeCut(graph).toArray();
 
         Arrays.sort(result);
 
-        Assert.assertArrayEquals(new Object[]{Pair.make(0, 7), Pair.make(5, 6)}, result);
+        Assert.assertArrayEquals(new Object[]{ImmutablePair.make(0, 7), ImmutablePair.make(5, 6)},
+                                 result);
     }
 
     @Test
     public void testFindBridgesWhenNoBridges()
     {
-        graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                           Pair.make(1, 2), Pair.make(1, 3),
-                                                           Pair.make(1, 4), Pair.make(3, 5),
-                                                           Pair.make(4, 5)));
+        graph = new UndirectedSimpleGraph(6, Arrays.asList(ImmutablePair.make(0, 1),
+                                                           ImmutablePair.make(0, 2),
+                                                           ImmutablePair.make(1, 2),
+                                                           ImmutablePair.make(1, 3),
+                                                           ImmutablePair.make(1, 4),
+                                                           ImmutablePair.make(3, 5),
+                                                           ImmutablePair.make(4, 5)));
 
         Collection<ComparablePair<Integer, Integer>> result = Cutting.findEdgeCut(graph);
 
@@ -61,14 +73,22 @@ public class CuttingTest
     @Test
     public void testFindVertexSeparatorsWhenPresentSeparators()
     {
-        graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                            Pair.make(0, 7), Pair.make(1, 2),
-                                                            Pair.make(1, 3), Pair.make(1, 4),
-                                                            Pair.make(3, 5), Pair.make(4, 5),
-                                                            Pair.make(5, 6), Pair.make(7, 8),
-                                                            Pair.make(7, 9), Pair.make(7, 11),
-                                                            Pair.make(8, 9), Pair.make(9, 10),
-                                                            Pair.make(9, 11), Pair.make(10, 11)));
+        graph = new UndirectedSimpleGraph(12, Arrays.asList(ImmutablePair.make(0, 1),
+                                                            ImmutablePair.make(0, 2),
+                                                            ImmutablePair.make(0, 7),
+                                                            ImmutablePair.make(1, 2),
+                                                            ImmutablePair.make(1, 3),
+                                                            ImmutablePair.make(1, 4),
+                                                            ImmutablePair.make(3, 5),
+                                                            ImmutablePair.make(4, 5),
+                                                            ImmutablePair.make(5, 6),
+                                                            ImmutablePair.make(7, 8),
+                                                            ImmutablePair.make(7, 9),
+                                                            ImmutablePair.make(7, 11),
+                                                            ImmutablePair.make(8, 9),
+                                                            ImmutablePair.make(9, 10),
+                                                            ImmutablePair.make(9, 11),
+                                                            ImmutablePair.make(10, 11)));
 
         Object[] result = Cutting.findVertexCut(graph).toArray();
 
@@ -80,10 +100,14 @@ public class CuttingTest
     @Test
     public void testFindVertexSeparatorsWhenNoSeparators()
     {
-        graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                           Pair.make(1, 2), Pair.make(1, 3),
-                                                           Pair.make(1, 4), Pair.make(2, 3),
-                                                           Pair.make(3, 5), Pair.make(4, 5)));
+        graph = new UndirectedSimpleGraph(6, Arrays.asList(ImmutablePair.make(0, 1),
+                                                           ImmutablePair.make(0, 2),
+                                                           ImmutablePair.make(1, 2),
+                                                           ImmutablePair.make(1, 3),
+                                                           ImmutablePair.make(1, 4),
+                                                           ImmutablePair.make(2, 3),
+                                                           ImmutablePair.make(3, 5),
+                                                           ImmutablePair.make(4, 5)));
 
         Collection<Integer> result = Cutting.findVertexCut(graph);
 

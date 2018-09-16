@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class LCATest
 {
@@ -16,10 +16,13 @@ public class LCATest
     @Before
     public void setUp()
     {
-        trees = new ForestGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2), Pair.make(1, 3),
-                                                  Pair.make(1, 4), Pair.make(1, 5), Pair.make(2, 6),
-                                                  Pair.make(4, 7), Pair.make(6, 8), Pair.make(6, 9),
-                                                  Pair.make(10, 11)));
+        trees = new ForestGraph(12,
+                                Arrays.asList(ImmutablePair.make(0, 1), ImmutablePair.make(0, 2),
+                                              ImmutablePair.make(1, 3), ImmutablePair.make(1, 4),
+                                              ImmutablePair.make(1, 5), ImmutablePair.make(2, 6),
+                                              ImmutablePair.make(4, 7), ImmutablePair.make(6, 8),
+                                              ImmutablePair.make(6, 9),
+                                              ImmutablePair.make(10, 11)));
     }
 
     @After

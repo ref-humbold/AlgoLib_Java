@@ -10,7 +10,6 @@ import refhumbold.algolib.structures.DisjointSets;
 import refhumbold.algolib.tuples.ComparablePair;
 import refhumbold.algolib.tuples.ComparableTriple;
 import refhumbold.algolib.tuples.Pair;
-import refhumbold.algolib.tuples.Triple;
 
 public class MST
 {
@@ -23,7 +22,7 @@ public class MST
     {
         double sizeMST = 0.0;
         int components = uwgraph.getVerticesNumber();
-        PriorityQueue<Triple<Double, Integer, Integer>> edgeQueue = new PriorityQueue<>();
+        PriorityQueue<ComparableTriple<Double, Integer, Integer>> edgeQueue = new PriorityQueue<>();
         DisjointSets<Integer> vertexSets = new DisjointSets<>(uwgraph.getVertices());
 
         for(int v : uwgraph.getVertices())

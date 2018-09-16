@@ -74,8 +74,8 @@ public class KMR
             Triple<Integer, Integer, Integer> current = codes.get(i);
             Triple<Integer, Integer, Integer> last = codes.get(i - 1);
 
-            if(current.getFirst().equals(last.getFirst()) && current.getFirst()
-                                                                    .equals(last.getFirst()))
+            if(current.getFirst().equals(last.getFirst()) && current.getSecond()
+                                                                    .equals(last.getSecond()))
             {
                 int index = codes.get(i).getThird();
 

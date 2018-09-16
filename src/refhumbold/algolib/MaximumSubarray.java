@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class MaximumSubarray
 {
@@ -17,19 +17,20 @@ public class MaximumSubarray
      */
     public static List<Double> findMaximumSubarray(Iterable<Double> sequence)
     {
-        Pair<Double, List<Double>> actual = Pair.make(0.0, new ArrayList<>());
-        Pair<Double, List<Double>> maximal = Pair.make(0.0, new ArrayList<>());
+        ImmutablePair<Double, List<Double>> actual = ImmutablePair.make(0.0, new ArrayList<>());
+        ImmutablePair<Double, List<Double>> maximal = ImmutablePair.make(0.0, new ArrayList<>());
 
         for(Double elem : sequence)
         {
             if(actual.getFirst() < 0.0)
-                actual = Pair.make(0.0, new ArrayList<>());
+                actual = ImmutablePair.make(0.0, new ArrayList<>());
 
-            actual = Pair.make(actual.getFirst() + elem, actual.getSecond());
+            actual = ImmutablePair.make(actual.getFirst() + elem, actual.getSecond());
             actual.getSecond().add(elem);
 
             if(actual.getFirst() > maximal.getFirst())
-                maximal = Pair.make(actual.getFirst(), new ArrayList<>(actual.getSecond()));
+                maximal = ImmutablePair.make(actual.getFirst(),
+                                             new ArrayList<>(actual.getSecond()));
         }
 
         return maximal.getSecond();

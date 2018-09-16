@@ -1,9 +1,13 @@
 // ALGORYTM HOPCROFTA-KARPA WYZNACZANIA SKOJARZEŃ W GRAFIE DWUDZIELNYM
 package refhumbold.algolib.graphs;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.List;
 
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class Matching
 {
@@ -12,7 +16,7 @@ public class Matching
      * @param multipartiteGraph graf wielodzielny
      * @return pary skojarzonych wierzchołków
      */
-    public static List<Pair<Integer, Integer>> match(MultipartiteGraph multipartiteGraph)
+    public static List<ImmutablePair<Integer, Integer>> match(MultipartiteGraph multipartiteGraph)
     {
         MatchAugmenter augmenter = new MatchAugmenter(multipartiteGraph);
 
@@ -24,15 +28,15 @@ public class Matching
         }
 
         List<Integer> matching = augmenter.getMatching();
-        List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
+        List<ImmutablePair<Integer, Integer>> matchPairs = new ArrayList<>();
 
         for(Integer v : multipartiteGraph.getVertices(1))
-            matchPairs.add(Pair.make(v, matching.get(v)));
+            matchPairs.add(ImmutablePair.make(v, matching.get(v)));
 
         return matchPairs;
     }
 
-    private static class MatchAugmenter
+    private static final class MatchAugmenter
     {
         /**
          * Graf dwudzielny.

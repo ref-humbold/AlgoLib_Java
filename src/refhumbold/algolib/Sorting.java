@@ -3,6 +3,7 @@ package refhumbold.algolib;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import refhumbold.algolib.tuples.Pair;
@@ -15,8 +16,7 @@ public class Sorting
      */
     public static void angleSort(List<Pair<Double, Double>> points)
     {
-        if(points == null)
-            throw new IllegalArgumentException("List of points is null.");
+        Objects.requireNonNull(points, "List of points is null.");
 
         points.sort(new AngleComparator());
     }
@@ -27,8 +27,7 @@ public class Sorting
      */
     public static <T extends Comparable<T>> void heapSort(List<T> sequence)
     {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null.");
 
         Sorting.heapSort(sequence, 0, sequence.size());
     }
@@ -42,14 +41,9 @@ public class Sorting
     public static <T extends Comparable<T>> void heapSort(List<T> sequence, int indexBegin,
                                                           int indexEnd)
     {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null.");
 
-        if(indexBegin < 0 || indexEnd > sequence.size())
-            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
-
-        if(indexEnd < 0 || indexEnd > sequence.size())
-            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
+        assertIndices(indexBegin, indexEnd, sequence.size());
 
         int heapSize = indexEnd - indexBegin;
 
@@ -77,8 +71,7 @@ public class Sorting
      */
     public static <T extends Comparable<T>> void mergedownSort(List<T> sequence)
     {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null.");
 
         Sorting.mergedownSort(sequence, 0, sequence.size());
     }
@@ -92,14 +85,8 @@ public class Sorting
     public static <T extends Comparable<T>> void mergedownSort(List<T> sequence, int indexBegin,
                                                                int indexEnd)
     {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        if(indexBegin < 0 || indexEnd > sequence.size())
-            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
-
-        if(indexEnd < 0 || indexEnd > sequence.size())
-            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
+        Objects.requireNonNull(sequence, "Sequence is null.");
+        assertIndices(indexBegin, indexEnd, sequence.size());
 
         if(indexEnd - indexBegin <= 1)
             return;
@@ -117,8 +104,7 @@ public class Sorting
      */
     public static <T extends Comparable<T>> void mergeupSort(List<T> sequence)
     {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null.");
 
         Sorting.mergeupSort(sequence, 0, sequence.size());
     }
@@ -132,14 +118,8 @@ public class Sorting
     public static <T extends Comparable<T>> void mergeupSort(List<T> sequence, int indexBegin,
                                                              int indexEnd)
     {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        if(indexBegin < 0 || indexEnd > sequence.size())
-            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
-
-        if(indexEnd < 0 || indexEnd > sequence.size())
-            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
+        Objects.requireNonNull(sequence, "Sequence is null.");
+        assertIndices(indexBegin, indexEnd, sequence.size());
 
         if(indexEnd - indexBegin <= 1)
             return;
@@ -156,8 +136,7 @@ public class Sorting
      */
     public static <T extends Comparable<T>> void quickSort(List<T> sequence)
     {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null.");
 
         Sorting.quickSort(sequence, 0, sequence.size());
     }
@@ -171,14 +150,8 @@ public class Sorting
     public static <T extends Comparable<T>> void quickSort(List<T> sequence, int indexBegin,
                                                            int indexEnd)
     {
-        if(sequence == null)
-            throw new IllegalArgumentException("Sequence is null.");
-
-        if(indexBegin < 0 || indexEnd > sequence.size())
-            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
-
-        if(indexEnd < 0 || indexEnd > sequence.size())
-            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
+        Objects.requireNonNull(sequence, "Sequence is null.");
+        assertIndices(indexBegin, indexEnd, sequence.size());
 
         if(indexEnd - indexBegin <= 1)
             return;
@@ -306,6 +279,15 @@ public class Sorting
         return candidate3;
     }
 
+    private static void assertIndices(int indexBegin, int indexEnd, int size)
+    {
+        if(indexBegin < 0 || indexBegin > size)
+            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
+
+        if(indexEnd < 0 || indexEnd > size)
+            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
+    }
+
     private static class AngleComparator
         implements Comparator<Pair<Double, Double>>
     {
@@ -320,7 +302,7 @@ public class Sorting
 
         private Double countAngle(Pair<Double, Double> pt)
         {
-            double ang = Math.atan2(pt.getSecond(), pt.getFirst()) * 90.0 / Math.acos(0);
+            double ang = Math.atan2(pt.getSecond(), pt.getFirst()) * 90.0 / (Math.PI / 2.0);
 
             return pt.getSecond() >= 0.0 ? ang : ang + 360.0;
         }

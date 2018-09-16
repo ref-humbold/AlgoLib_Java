@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import refhumbold.algolib.tuples.Triple;
+import refhumbold.algolib.tuples.ImmutableTriple;
 
 public class MSTTest
 {
@@ -16,13 +16,14 @@ public class MSTTest
     @Before
     public void setUp()
     {
-        graph = new UndirectedWeightedSimpleGraph(5, Arrays.asList(Triple.make(0, 1, -1.0),
-                                                                   Triple.make(0, 2, 4.0),
-                                                                   Triple.make(1, 2, 9.0),
-                                                                   Triple.make(1, 3, 7.0),
-                                                                   Triple.make(1, 4, 12.0),
-                                                                   Triple.make(2, 4, 6.0),
-                                                                   Triple.make(3, 4, 3.0)));
+        graph = new UndirectedWeightedSimpleGraph(5, Arrays.asList(ImmutableTriple.make(0, 1, -1.0),
+                                                                   ImmutableTriple.make(0, 2, 4.0),
+                                                                   ImmutableTriple.make(1, 2, 9.0),
+                                                                   ImmutableTriple.make(1, 3, 7.0),
+                                                                   ImmutableTriple.make(1, 4, 12.0),
+                                                                   ImmutableTriple.make(2, 4, 6.0),
+                                                                   ImmutableTriple.make(3, 4,
+                                                                                        3.0)));
     }
 
     @After

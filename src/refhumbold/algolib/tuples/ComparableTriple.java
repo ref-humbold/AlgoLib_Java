@@ -2,7 +2,7 @@
 package refhumbold.algolib.tuples;
 
 public final class ComparableTriple<F extends Comparable<? super F>, S extends Comparable<? super S>, T extends Comparable<? super T>>
-    extends Triple<F, S, T>
+    extends AbstractTriple<F, S, T>
     implements Comparable<Triple<F, S, T>>
 {
     public ComparableTriple(F first, S second, T third)
@@ -19,16 +19,16 @@ public final class ComparableTriple<F extends Comparable<? super F>, S extends C
     public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> ComparableTriple<F, S, T> from(
         Triple<F, S, T> triple)
     {
-        return new ComparableTriple<>(triple.first, triple.second, triple.third);
+        return new ComparableTriple<>(triple.getFirst(), triple.getSecond(), triple.getThird());
     }
 
     @Override
     public int compareTo(Triple<F, S, T> t)
     {
         if(this.first == null)
-            return t.first == null ? 0 : -1;
+            return t.getFirst() == null ? 0 : -1;
 
-        int comparedFirst = this.first.compareTo(t.first);
+        int comparedFirst = this.first.compareTo(t.getFirst());
 
         if(comparedFirst != 0)
             return comparedFirst;
@@ -36,7 +36,7 @@ public final class ComparableTriple<F extends Comparable<? super F>, S extends C
         if(this.second == null)
             return t.getSecond() == null ? 0 : -1;
 
-        int comparedSecond = this.second.compareTo(t.second);
+        int comparedSecond = this.second.compareTo(t.getSecond());
 
         if(comparedSecond != 0)
             return comparedSecond;
@@ -44,6 +44,18 @@ public final class ComparableTriple<F extends Comparable<? super F>, S extends C
         if(this.third == null)
             return t.getThird() == null ? 0 : -1;
 
-        return this.third.compareTo(t.third);
+        return this.third.compareTo(t.getThird());
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return super.hashCode();
     }
 }

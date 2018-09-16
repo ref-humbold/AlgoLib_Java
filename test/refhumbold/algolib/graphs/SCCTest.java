@@ -1,12 +1,16 @@
 package refhumbold.algolib.graphs;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class SCCTest
 {
@@ -23,20 +27,21 @@ public class SCCTest
     @Test
     public void testFindSCC()
     {
-        DirectedGraph digraph = new DirectedSimpleGraph(10, Arrays.asList(Pair.make(0, 4),
-                                                                          Pair.make(0, 5),
-                                                                          Pair.make(1, 0),
-                                                                          Pair.make(2, 3),
-                                                                          Pair.make(3, 1),
-                                                                          Pair.make(4, 1),
-                                                                          Pair.make(4, 3),
-                                                                          Pair.make(6, 5),
-                                                                          Pair.make(6, 9),
-                                                                          Pair.make(7, 4),
-                                                                          Pair.make(7, 6),
-                                                                          Pair.make(8, 3),
-                                                                          Pair.make(8, 7),
-                                                                          Pair.make(9, 8)));
+        DirectedGraph digraph = new DirectedSimpleGraph(10, Arrays.asList(ImmutablePair.make(0, 4),
+                                                                          ImmutablePair.make(0, 5),
+                                                                          ImmutablePair.make(1, 0),
+                                                                          ImmutablePair.make(2, 3),
+                                                                          ImmutablePair.make(3, 1),
+                                                                          ImmutablePair.make(4, 1),
+                                                                          ImmutablePair.make(4, 3),
+                                                                          ImmutablePair.make(6, 5),
+                                                                          ImmutablePair.make(6, 9),
+                                                                          ImmutablePair.make(7, 4),
+                                                                          ImmutablePair.make(7, 6),
+                                                                          ImmutablePair.make(8, 3),
+                                                                          ImmutablePair.make(8, 7),
+                                                                          ImmutablePair.make(9,
+                                                                                             8)));
 
         List<Set<Integer>> result = SCC.findSCC(digraph);
 

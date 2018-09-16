@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class LCA
 {
@@ -55,14 +55,14 @@ public class LCA
         /**
          * Czas wejścia i wyjścia dla wierzchołka.
          */
-        private List<Pair<Integer, Integer>> prePostTimes;
+        private List<ImmutablePair<Integer, Integer>> prePostTimes;
 
         public LCAFinder(ForestGraph treegraph)
         {
             this.graph = treegraph;
             this.paths = new ArrayList<>();
             this.prePostTimes = new ArrayList<>(
-                Collections.nCopies(graph.getVerticesNumber(), (Pair<Integer, Integer>)null));
+                Collections.nCopies(graph.getVerticesNumber(), null));
 
             for(int i = 0; i < graph.getVerticesNumber(); ++i)
                 paths.add(new ArrayList<>());
@@ -123,7 +123,7 @@ public class LCA
         {
             int preTime = timer;
 
-            prePostTimes.set(vertex, Pair.make(null, null));
+            prePostTimes.set(vertex, ImmutablePair.make(null, null));
             paths.get(vertex).add(parent);
             ++timer;
 
@@ -131,7 +131,7 @@ public class LCA
                 if(prePostTimes.get(neighbour) == null)
                     timer = dfs(neighbour, vertex, timer);
 
-            prePostTimes.set(vertex, Pair.make(preTime, timer));
+            prePostTimes.set(vertex, ImmutablePair.make(preTime, timer));
 
             return timer + 1;
         }
