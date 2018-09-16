@@ -5,6 +5,9 @@ junit_reports
 junit_results
 lib
 
+# Visual Paradigm
+*.bak*
+
 # IntelliJ
 *.iml
 .idea
