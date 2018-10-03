@@ -1,6 +1,9 @@
 // STRUKTURA UKŁADÓW RÓWNAŃ LINIOWYCH Z ALGORYTMEM ELIMINACJI GAUSSA
 package refhumbold.algolib.math;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class EquationSystem
 {
     /**
@@ -20,9 +23,17 @@ public class EquationSystem
 
     public EquationSystem(int numEq)
     {
-        equations = numEq;
-        coeffs = new double[numEq][numEq];
-        freeTerms = new double[numEq];
+        this.equations = numEq;
+        this.coeffs = new double[numEq][numEq];
+        this.freeTerms = new double[numEq];
+    }
+
+    public EquationSystem(int numEq, double[][] coef, double[] frees)
+    {
+        this.validate(numEq, coef, frees);
+        this.equations = numEq;
+        this.coeffs = coef;
+        this.freeTerms = frees;
     }
 
     public int getEquationsNumber()
@@ -69,20 +80,20 @@ public class EquationSystem
     {
         for(int equ = 0; equ < equations - 1; ++equ)
         {
-            int index_min = equ;
+            int indexMin = equ;
 
             for(int i = equ + 1; i < equations; ++i)
             {
-                double min_coef = coeffs[index_min][equ];
-                double act_coef = coeffs[i][equ];
+                double minCoef = coeffs[indexMin][equ];
+                double actCoef = coeffs[i][equ];
 
-                if(act_coef != 0 && (min_coef == 0 || Math.abs(act_coef) < Math.abs(min_coef)))
-                    index_min = i;
+                if(actCoef != 0 && (minCoef == 0 || Math.abs(actCoef) < Math.abs(minCoef)))
+                    indexMin = i;
             }
 
-            if(coeffs[index_min][equ] != 0)
+            if(coeffs[indexMin][equ] != 0)
             {
-                swap(index_min, equ);
+                swap(indexMin, equ);
 
                 for(int i = equ + 1; i < equations; ++i)
                 {
@@ -101,6 +112,9 @@ public class EquationSystem
      */
     public void mult(int eq1, double constant)
     {
+        if(constant == 0)
+            throw new IllegalArgumentException("Constant cannot equal zero.");
+
         for(int i = 0; i < equations; ++i)
             coeffs[eq1][i] *= constant;
 
@@ -140,5 +154,17 @@ public class EquationSystem
             coeffs[eq1][i] += constant * coeffs[eq2][i];
 
         freeTerms[eq1] += constant * freeTerms[eq2];
+    }
+
+    private void validate(int numEq, double[][] coef, double[] frees)
+    {
+        Objects.requireNonNull(coef);
+        Objects.requireNonNull(frees);
+
+        if(coef.length != numEq || frees.length != numEq)
+            throw new IllegalArgumentException("Wrong number of equations.");
+
+        if(Arrays.stream(coef).anyMatch(a -> a.length != numEq))
+            throw new IllegalArgumentException("Coefficient matrix is not a square matrix.");
     }
 }
