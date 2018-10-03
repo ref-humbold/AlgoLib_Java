@@ -1,5 +1,5 @@
 // SŁOWNIK PODSŁÓW BAZOWYCH Z ALGORYTMEM KARPA-MILLERA-ROSENBERGA
-package refhumbold.algolib;
+package refhumbold.algolib.text;
 
 import java.util.*;
 

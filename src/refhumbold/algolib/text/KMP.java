@@ -1,4 +1,4 @@
-package refhumbold.algolib;
+package refhumbold.algolib.text;
 
 import java.util.ArrayList;
 import java.util.List;

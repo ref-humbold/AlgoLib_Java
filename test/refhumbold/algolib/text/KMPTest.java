@@ -1,5 +1,5 @@
 // TESTY DLA ALGORYTMU KNUTHA-MORRISA-PRATTA
-package refhumbold.algolib;
+package refhumbold.algolib.text;
 
 import java.util.List;
 import org.junit.After;
