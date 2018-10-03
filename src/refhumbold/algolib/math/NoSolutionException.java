@@ -1,4 +1,4 @@
-package refhumbold.algolib.structures;
+package refhumbold.algolib.math;
 
 public class NoSolutionException
     extends Exception

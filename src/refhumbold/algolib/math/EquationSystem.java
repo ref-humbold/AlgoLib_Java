@@ -1,12 +1,12 @@
 // STRUKTURA UKŁADÓW RÓWNAŃ LINIOWYCH Z ALGORYTMEM ELIMINACJI GAUSSA
-package refhumbold.algolib.structures;
+package refhumbold.algolib.math;
 
 public class EquationSystem
 {
     /**
      * Liczba równań układu.
      */
-    private int equations;
+    private final int equations;
 
     /**
      * Macierz współczynników równania.
@@ -82,50 +82,63 @@ public class EquationSystem
 
             if(coeffs[index_min][equ] != 0)
             {
-                change(index_min, equ);
+                swap(index_min, equ);
 
                 for(int i = equ + 1; i < equations; ++i)
                 {
                     double param = coeffs[i][equ] / coeffs[equ][equ];
 
-                    linearComb(i, equ, -param);
+                    combine(i, equ, -param);
                 }
             }
         }
     }
 
     /**
-     * Zamiana równań miejscami.
-     * @param eqnum1 numer pierwszego równania
-     * @param eqnum2 numer drugiego równania
+     * Przemnożenie równania przez niezerową stałą.
+     * @param eq1 numer równania
+     * @param constant stała
      */
-    public void change(int eqnum1, int eqnum2)
+    public void mult(int eq1, double constant)
+    {
+        for(int i = 0; i < equations; ++i)
+            coeffs[eq1][i] *= constant;
+
+        freeTerms[eq1] *= constant;
+    }
+
+    /**
+     * Zamiana równań miejscami.
+     * @param eq1 numer pierwszego równania
+     * @param eq2 numer drugiego równania
+     */
+    public void swap(int eq1, int eq2)
     {
         double temp;
 
         for(int i = 0; i < equations; ++i)
         {
-            temp = coeffs[eqnum1][i];
-            coeffs[eqnum1][i] = coeffs[eqnum2][i];
-            coeffs[eqnum2][i] = temp;
+            temp = coeffs[eq1][i];
+            coeffs[eq1][i] = coeffs[eq2][i];
+            coeffs[eq2][i] = temp;
         }
 
-        temp = freeTerms[eqnum1];
-        freeTerms[eqnum1] = freeTerms[eqnum2];
-        freeTerms[eqnum2] = temp;
+        temp = freeTerms[eq1];
+        freeTerms[eq1] = freeTerms[eq2];
+        freeTerms[eq2] = temp;
     }
 
     /**
      * Przekształcenie równania przez kombinację liniową z innym równaniem.
-     * @param eqnum1 numer równania przekształcanego
-     * @param eqnum2 numer drugiego równania
-     * @param constans stała kombinacji liniowej
+     * @param eq1 numer równania przekształcanego
+     * @param eq2 numer drugiego równania
+     * @param constant stała kombinacji liniowej
      */
-    public void linearComb(int eqnum1, int eqnum2, double constans)
+    public void combine(int eq1, int eq2, double constant)
     {
         for(int i = 0; i < equations; ++i)
-            coeffs[eqnum1][i] += constans * coeffs[eqnum2][i];
+            coeffs[eq1][i] += constant * coeffs[eq2][i];
 
-        freeTerms[eqnum1] += constans * freeTerms[eqnum2];
+        freeTerms[eq1] += constant * freeTerms[eq2];
     }
 }
