@@ -1,11 +1,15 @@
 // STRUKTURA SKIEROWANEGO GRAFU WAŻONEGO
 package refhumbold.algolib.graphs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import refhumbold.algolib.tuples.ComparablePair;
+import refhumbold.algolib.tuples.ImmutableTriple;
 import refhumbold.algolib.tuples.Pair;
-import refhumbold.algolib.tuples.Triple;
 
 public class DirectedWeightedSimpleGraph
     extends DirectedSimpleGraph
@@ -16,23 +20,24 @@ public class DirectedWeightedSimpleGraph
         super(n);
     }
 
-    public DirectedWeightedSimpleGraph(int n, Iterable<Triple<Integer, Integer, Double>> edges)
+    public DirectedWeightedSimpleGraph(int n,
+                                       Iterable<ImmutableTriple<Integer, Integer, Double>> edges)
         throws NoSuchVertexException
     {
         super(n);
 
-        for(Triple<Integer, Integer, Double> e : edges)
+        for(ImmutableTriple<Integer, Integer, Double> e : edges)
             this.addWeightedEdge(e.getFirst(), e.getSecond(), e.getThird());
     }
 
     @Override
-    public Collection<Triple<Integer, Integer, Double>> getWeightedEdges()
+    public Collection<ImmutableTriple<Integer, Integer, Double>> getWeightedEdges()
     {
-        List<Triple<Integer, Integer, Double>> edges = new ArrayList<>();
+        List<ImmutableTriple<Integer, Integer, Double>> edges = new ArrayList<>();
 
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
-                edges.add(Triple.make(v, e.getFirst(), e.getSecond()));
+                edges.add(ImmutableTriple.make(v, e.getFirst(), e.getSecond()));
 
         return edges;
     }
@@ -64,7 +69,7 @@ public class DirectedWeightedSimpleGraph
         for(Integer v : getVertices())
             revgraphrepr.add(new HashSet<>());
 
-        for(Triple<Integer, Integer, Double> e : getWeightedEdges())
+        for(ImmutableTriple<Integer, Integer, Double> e : getWeightedEdges())
             revgraphrepr.get(e.getSecond()).add(ComparablePair.make(e.getFirst(), e.getThird()));
 
         graphrepr = revgraphrepr;

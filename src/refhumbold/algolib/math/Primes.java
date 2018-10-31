@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class Primes
 {
@@ -78,7 +78,7 @@ public class Primes
         if(number < 2 || number % 2 == 0 || number % 3 == 0)
             return false;
 
-        Pair<Long, Long> distribution = Primes.distribute(number - 1);
+        ImmutablePair<Long, Long> distribution = Primes.distribute(number - 1);
         Random rd = new Random();
 
         for(int i = 0; i < 12; ++i)
@@ -104,7 +104,7 @@ public class Primes
         return true;
     }
 
-    private static Pair<Long, Long> distribute(long number)
+    private static ImmutablePair<Long, Long> distribute(long number)
     {
         long power = 2L, exponent = 1L;
 
@@ -116,6 +116,6 @@ public class Primes
 
         --exponent;
 
-        return Pair.make(exponent, number / (1L << exponent));
+        return ImmutablePair.make(exponent, number / (1L << exponent));
     }
 }

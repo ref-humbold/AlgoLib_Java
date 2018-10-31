@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import refhumbold.algolib.structures.DisjointSets;
 import refhumbold.algolib.tuples.ComparablePair;
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class ForestGraph
     implements UndirectedGraph
@@ -18,12 +18,12 @@ public class ForestGraph
         this.components = new DisjointSets<>(this.graph.getVertices());
     }
 
-    public ForestGraph(int n, Iterable<Pair<Integer, Integer>> edges)
+    public ForestGraph(int n, Iterable<ImmutablePair<Integer, Integer>> edges)
         throws NoSuchVertexException
     {
         this(n);
 
-        for(Pair<Integer, Integer> e : edges)
+        for(ImmutablePair<Integer, Integer> e : edges)
             this.addEdge(e.getFirst(), e.getSecond());
     }
 

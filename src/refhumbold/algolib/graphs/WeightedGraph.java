@@ -3,7 +3,7 @@ package refhumbold.algolib.graphs;
 import java.util.Collection;
 
 import refhumbold.algolib.tuples.ComparablePair;
-import refhumbold.algolib.tuples.Triple;
+import refhumbold.algolib.tuples.ImmutableTriple;
 
 public interface WeightedGraph
     extends Graph
@@ -11,7 +11,7 @@ public interface WeightedGraph
     /**
      * @return lista krawędzi z wagami
      */
-    Collection<Triple<Integer, Integer, Double>> getWeightedEdges();
+    Collection<ImmutableTriple<Integer, Integer, Double>> getWeightedEdges();
 
     /**
      * Dodawanie nowej krawędzi z jej wagą.

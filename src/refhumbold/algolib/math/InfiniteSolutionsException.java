@@ -1,4 +1,4 @@
-package refhumbold.algolib.structures;
+package refhumbold.algolib.math;
 
 public class InfiniteSolutionsException
     extends Exception

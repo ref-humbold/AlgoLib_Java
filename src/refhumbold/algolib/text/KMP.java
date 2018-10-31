@@ -1,19 +1,17 @@
-package refhumbold.algolib;
+package refhumbold.algolib.text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class KMP
 {
     public static List<Integer> kmp(String text, String pattern)
     {
-        if(text == null)
-            throw new IllegalArgumentException("Text is null.");
+        Objects.requireNonNull(text, "Text is null.");
+        Objects.requireNonNull(pattern, "Pattern is null.");
 
-        if(pattern == null)
-            throw new IllegalArgumentException("Pattern is null.");
-
-        if(pattern == "")
+        if("".equals(pattern))
             return new ArrayList<>();
 
         List<Integer> places = new ArrayList<>();

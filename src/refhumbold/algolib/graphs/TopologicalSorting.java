@@ -1,9 +1,13 @@
 // ALGORYTM: SORTOWANIE TOPOLOGICZNE GRAFU SKIEROWANEGO
 package refhumbold.algolib.graphs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.PriorityQueue;
 
-import refhumbold.algolib.tuples.Pair;
+import refhumbold.algolib.tuples.ImmutablePair;
 
 public class TopologicalSorting
 {
@@ -58,7 +62,7 @@ public class TopologicalSorting
         throws DirectedCyclicGraphException
     {
         List<Integer> order = new ArrayList<>();
-        List<Pair<Integer, Boolean>> indices = new ArrayList<>(
+        List<ImmutablePair<Integer, Boolean>> indices = new ArrayList<>(
             Collections.nCopies(digraph.getVerticesNumber(), null));
         List<Integer> vertices = new ArrayList<>(digraph.getVertices());
 
@@ -83,10 +87,10 @@ public class TopologicalSorting
      * @param indices: indeksy iteracji i przetwarzania wierzchołków
      */
     private static void dfs(int vertex, int index, DirectedGraph digraph, List<Integer> order,
-                            List<Pair<Integer, Boolean>> indices)
+                            List<ImmutablePair<Integer, Boolean>> indices)
         throws DirectedCyclicGraphException
     {
-        indices.set(vertex, Pair.make(index, true));
+        indices.set(vertex, ImmutablePair.make(index, true));
 
         for(Integer neighbour : digraph.getNeighbours(vertex))
             if(indices.get(neighbour) == null)
@@ -96,6 +100,6 @@ public class TopologicalSorting
                 throw new DirectedCyclicGraphException("Given graph contains a cycle.");
 
         order.add(vertex);
-        indices.set(vertex, Pair.make(index, false));
+        indices.set(vertex, ImmutablePair.make(index, false));
     }
 }

@@ -2,7 +2,7 @@
 package refhumbold.algolib.tuples;
 
 public final class ComparablePair<F extends Comparable<? super F>, S extends Comparable<? super S>>
-    extends Pair<F, S>
+    extends AbstractPair<F, S>
     implements Comparable<Pair<F, S>>
 {
     public ComparablePair(F first, S second)
@@ -19,16 +19,16 @@ public final class ComparablePair<F extends Comparable<? super F>, S extends Com
     public static <F extends Comparable<F>, S extends Comparable<S>> ComparablePair<F, S> from(
         Pair<F, S> pair)
     {
-        return new ComparablePair<>(pair.first, pair.second);
+        return new ComparablePair<>(pair.getFirst(), pair.getSecond());
     }
 
     @Override
     public int compareTo(Pair<F, S> p)
     {
         if(this.first == null)
-            return p.first == null ? 0 : -1;
+            return p.getFirst() == null ? 0 : -1;
 
-        int comparedFirst = this.first.compareTo(p.first);
+        int comparedFirst = this.first.compareTo(p.getFirst());
 
         if(comparedFirst != 0)
             return comparedFirst;
@@ -36,6 +36,18 @@ public final class ComparablePair<F extends Comparable<? super F>, S extends Com
         if(this.second == null)
             return p.getSecond() == null ? 0 : -1;
 
-        return this.second.compareTo(p.second);
+        return this.second.compareTo(p.getSecond());
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return super.hashCode();
     }
 }

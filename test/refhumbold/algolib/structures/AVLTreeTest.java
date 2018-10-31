@@ -15,7 +15,8 @@ public class AVLTreeTest
     @Before
     public void setUp()
     {
-        testObject = new AVLTree<>(Arrays.asList(numbers));
+        testObject = new AVLTree<>(Comparator.naturalOrder());
+        testObject.addAll(Arrays.asList(numbers));
     }
 
     @After
