@@ -6,19 +6,13 @@ import java.util.Objects;
 
 public class EquationSystem
 {
-    /**
-     * Liczba równań układu.
-     */
+    /** Liczba równań układu. */
     private final int equations;
 
-    /**
-     * Macierz współczynników równania.
-     */
+    /** Macierz współczynników równania */
     private double[][] coeffs;
 
-    /**
-     * Wektor wyrazów wolnych równania.
-     */
+    /** Wektor wyrazów wolnych równania */
     private double[] freeTerms;
 
     public EquationSystem(int numEq)
@@ -42,7 +36,7 @@ public class EquationSystem
     }
 
     /**
-     * Wyliczanie rozwiązań układu równań liniowych.
+     * Wyliczanie rozwiązań układu równań liniowych
      * @return wektor wyniku równania
      */
     public double[] solve()
@@ -73,9 +67,7 @@ public class EquationSystem
         return solution;
     }
 
-    /**
-     * Algorytm eliminacji Gaussa.
-     */
+    /** Algorytm eliminacji Gaussa */
     public void gauss()
     {
         for(int equ = 0; equ < equations - 1; ++equ)
@@ -122,7 +114,7 @@ public class EquationSystem
     }
 
     /**
-     * Zamiana równań miejscami.
+     * Zamiana równań miejscami
      * @param eq1 numer pierwszego równania
      * @param eq2 numer drugiego równania
      */
@@ -143,7 +135,7 @@ public class EquationSystem
     }
 
     /**
-     * Przekształcenie równania przez kombinację liniową z innym równaniem.
+     * Przekształcenie równania przez kombinację liniową z innym równaniem
      * @param eq1 numer równania przekształcanego
      * @param eq2 numer drugiego równania
      * @param constant stała kombinacji liniowej
@@ -168,4 +160,3 @@ public class EquationSystem
             throw new IllegalArgumentException("Coefficient matrix is not a square matrix.");
     }
 }
-
