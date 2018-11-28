@@ -48,7 +48,7 @@ public class EquationSystem
     public double[] solve()
         throws Exception
     {
-        gaussianReduce();
+        gauss();
 
         if(coeffs[equations - 1][equations - 1] == 0 && freeTerms[equations - 1] == 0)
             throw new InfiniteSolutionsException();
@@ -76,7 +76,7 @@ public class EquationSystem
     /**
      * Algorytm eliminacji Gaussa.
      */
-    public void gaussianReduce()
+    public void gauss()
     {
         for(int equ = 0; equ < equations - 1; ++equ)
         {
@@ -168,3 +168,4 @@ public class EquationSystem
             throw new IllegalArgumentException("Coefficient matrix is not a square matrix.");
     }
 }
+
