@@ -2,7 +2,7 @@ package refhumbold.algolib.tuples;
 
 import java.util.Objects;
 
-class AbstractTriple<F, S, T>
+abstract class AbstractTriple<F, S, T>
     implements Triple<F, S, T>
 {
     protected final F first;
@@ -58,7 +58,6 @@ class AbstractTriple<F, S, T>
     @Override
     public String toString()
     {
-        return "(" + Objects.toString(first) + ", " + Objects.toString(second) + ", "
-            + Objects.toString(third) + ")";
+        return "(" + first + ", " + second + ", " + third + ")";
     }
 }

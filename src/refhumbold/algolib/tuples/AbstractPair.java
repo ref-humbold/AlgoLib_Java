@@ -49,6 +49,6 @@ abstract class AbstractPair<F, S>
     @Override
     public String toString()
     {
-        return "(" + Objects.toString(first) + ", " + Objects.toString(second) + ")";
+        return "(" + first + ", " + second + ")";
     }
 }
