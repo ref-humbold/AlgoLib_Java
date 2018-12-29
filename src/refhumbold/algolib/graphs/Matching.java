@@ -38,24 +38,16 @@ public class Matching
 
     private static final class MatchAugmenter
     {
-        /**
-         * Graf dwudzielny.
-         */
+        /** Graf dwudzielny */
         private MultipartiteGraph graph;
 
-        /**
-         * Skojarzenia wierzchołków.
-         */
+        /** Skojarzenia wierzchołków */
         private List<Integer> matching;
 
-        /**
-         * Odległości wierzchołków.
-         */
+        /** Odległości wierzchołków */
         private List<Double> distances;
 
-        /**
-         * Lista odwiedzonych wierzchołków.
-         */
+        /** Lista odwiedzonych wierzchołków */
         private List<Boolean> isVisited;
 
         private MatchAugmenter(MultipartiteGraph multipartiteGraph)
@@ -63,16 +55,14 @@ public class Matching
             if(multipartiteGraph.getGroupsNumber() != 2)
                 throw new IllegalArgumentException("Graph is not bipartite");
 
-            this.graph = multipartiteGraph;
-            this.matching = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
+            graph = multipartiteGraph;
+            matching = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
         }
 
-        /**
-         * @return skojarzenia wierzchołków
-         */
+        /** @return skojarzenia wierzchołków */
         private List<Integer> getMatching()
         {
-            return new ArrayList<>(this.matching);
+            return new ArrayList<>(matching);
         }
 
         /**
@@ -95,9 +85,7 @@ public class Matching
             return matchAdded;
         }
 
-        /**
-         * Algorytm BFS wyliczający odległości wierzchołków.
-         */
+        /** Algorytm BFS wyliczający odległości wierzchołków */
         private void bfs()
         {
             Deque<Integer> vertexDeque = new ArrayDeque<>();

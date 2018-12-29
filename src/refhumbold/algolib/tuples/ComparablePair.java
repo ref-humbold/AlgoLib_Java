@@ -25,18 +25,18 @@ public final class ComparablePair<F extends Comparable<? super F>, S extends Com
     @Override
     public int compareTo(Pair<F, S> p)
     {
-        if(this.first == null)
+        if(first == null)
             return p.getFirst() == null ? 0 : -1;
 
-        int comparedFirst = this.first.compareTo(p.getFirst());
+        int comparedFirst = first.compareTo(p.getFirst());
 
         if(comparedFirst != 0)
             return comparedFirst;
 
-        if(this.second == null)
+        if(second == null)
             return p.getSecond() == null ? 0 : -1;
 
-        return this.second.compareTo(p.getSecond());
+        return second.compareTo(p.getSecond());
     }
 
     @Override

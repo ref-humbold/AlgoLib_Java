@@ -14,8 +14,8 @@ public class ForestGraph
 
     public ForestGraph(int n)
     {
-        this.graph = new UndirectedSimpleGraph(n);
-        this.components = new DisjointSets<>(this.graph.getVertices());
+        graph = new UndirectedSimpleGraph(n);
+        components = new DisjointSets<>(graph.getVertices());
     }
 
     public ForestGraph(int n, Iterable<ImmutablePair<Integer, Integer>> edges)
@@ -24,7 +24,7 @@ public class ForestGraph
         this(n);
 
         for(ImmutablePair<Integer, Integer> e : edges)
-            this.addEdge(e.getFirst(), e.getSecond());
+            addEdge(e.getFirst(), e.getSecond());
     }
 
     /**

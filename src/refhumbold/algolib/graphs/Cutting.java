@@ -58,13 +58,13 @@ public class Cutting
         public GraphCutting(UndirectedGraph graph)
         {
             this.graph = graph;
-            this.dfsParents = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
-            this.dfsDepths = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
-            this.lowValues = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
-            this.dfsChildren = new ArrayList<>();
+            dfsParents = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
+            dfsDepths = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
+            lowValues = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
+            dfsChildren = new ArrayList<>();
 
             for(int i = 0; i < graph.getVerticesNumber(); ++i)
-                this.dfsChildren.add(new ArrayList<>());
+                dfsChildren.add(new ArrayList<>());
         }
 
         /**

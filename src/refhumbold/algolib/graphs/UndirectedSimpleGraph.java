@@ -24,7 +24,7 @@ public class UndirectedSimpleGraph
         super(n);
 
         for(ImmutablePair<Integer, Integer> e : edges)
-            this.addEdge(e.getFirst(), e.getSecond());
+            addEdge(e.getFirst(), e.getSecond());
     }
 
     @Override

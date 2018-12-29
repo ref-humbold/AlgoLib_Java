@@ -19,19 +19,19 @@ class AbstractTriple<F, S, T>
     @Override
     public F getFirst()
     {
-        return this.first;
+        return first;
     }
 
     @Override
     public S getSecond()
     {
-        return this.second;
+        return second;
     }
 
     @Override
     public T getThird()
     {
-        return this.third;
+        return third;
     }
 
     @Override

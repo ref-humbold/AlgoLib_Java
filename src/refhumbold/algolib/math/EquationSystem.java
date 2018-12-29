@@ -17,17 +17,17 @@ public class EquationSystem
 
     public EquationSystem(int numEq)
     {
-        this.equations = numEq;
-        this.coeffs = new double[numEq][numEq];
-        this.freeTerms = new double[numEq];
+        equations = numEq;
+        coeffs = new double[numEq][numEq];
+        freeTerms = new double[numEq];
     }
 
     public EquationSystem(int numEq, double[][] coef, double[] frees)
     {
-        this.validate(numEq, coef, frees);
-        this.equations = numEq;
-        this.coeffs = coef;
-        this.freeTerms = frees;
+        validate(numEq, coef, frees);
+        equations = numEq;
+        coeffs = coef;
+        freeTerms = frees;
     }
 
     public int getEquationsNumber()

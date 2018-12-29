@@ -1,7 +1,11 @@
 // STRUKTURA GRAFU DWUDZIELNEGO
 package refhumbold.algolib.graphs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 import refhumbold.algolib.tuples.ComparablePair;
 
@@ -25,9 +29,9 @@ public class MultipartiteGraph
 
     public MultipartiteGraph(int n, Integer group)
     {
-        this.graph = new UndirectedSimpleGraph(n);
-        this.groupsNumber = group;
-        this.groups = new ArrayList<>(Collections.nCopies(this.graph.getVerticesNumber(), 1));
+        graph = new UndirectedSimpleGraph(n);
+        groupsNumber = group;
+        groups = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 1));
     }
 
     public Integer getGroupsNumber()

@@ -59,10 +59,9 @@ public class LCA
 
         public LCAFinder(ForestGraph treegraph)
         {
-            this.graph = treegraph;
-            this.paths = new ArrayList<>();
-            this.prePostTimes = new ArrayList<>(
-                Collections.nCopies(graph.getVerticesNumber(), null));
+            graph = treegraph;
+            paths = new ArrayList<>();
+            prePostTimes = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
 
             for(int i = 0; i < graph.getVerticesNumber(); ++i)
                 paths.add(new ArrayList<>());

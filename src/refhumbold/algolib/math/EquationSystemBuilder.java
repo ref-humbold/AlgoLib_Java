@@ -9,10 +9,10 @@ public class EquationSystemBuilder
 
     public EquationSystemBuilder(int numEq)
     {
-        this.equationsNum = numEq;
-        this.equationsAdded = 0;
-        this.coeffs = new double[numEq][numEq];
-        this.freeTerms = new double[numEq];
+        equationsNum = numEq;
+        equationsAdded = 0;
+        coeffs = new double[numEq][numEq];
+        freeTerms = new double[numEq];
     }
 
     public EquationSystemBuilder add(double[] coef, double free)

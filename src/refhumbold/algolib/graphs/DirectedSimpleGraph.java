@@ -25,7 +25,7 @@ public class DirectedSimpleGraph
         super(n);
 
         for(Pair<Integer, Integer> e : edges)
-            this.addEdge(e.getFirst(), e.getSecond());
+            addEdge(e.getFirst(), e.getSecond());
     }
 
     @Override

@@ -25,7 +25,7 @@ public class UndirectedWeightedSimpleGraph
         super(n);
 
         for(ImmutableTriple<Integer, Integer, Double> e : edges)
-            this.addWeightedEdge(e.getFirst(), e.getSecond(), e.getThird());
+            addWeightedEdge(e.getFirst(), e.getSecond(), e.getThird());
     }
 
     @Override

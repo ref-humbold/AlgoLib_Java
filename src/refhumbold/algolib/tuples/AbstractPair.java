@@ -17,13 +17,13 @@ abstract class AbstractPair<F, S>
     @Override
     public F getFirst()
     {
-        return this.first;
+        return first;
     }
 
     @Override
     public S getSecond()
     {
-        return this.second;
+        return second;
     }
 
     @Override

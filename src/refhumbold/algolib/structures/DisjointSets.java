@@ -25,8 +25,8 @@ public class DisjointSets<E>
     {
         for(E e : universe)
         {
-            this.represents.put(e, e);
-            ++this.elems;
+            represents.put(e, e);
+            ++elems;
         }
     }
 

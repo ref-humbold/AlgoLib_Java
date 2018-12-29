@@ -25,26 +25,26 @@ public final class ComparableTriple<F extends Comparable<? super F>, S extends C
     @Override
     public int compareTo(Triple<F, S, T> t)
     {
-        if(this.first == null)
+        if(first == null)
             return t.getFirst() == null ? 0 : -1;
 
-        int comparedFirst = this.first.compareTo(t.getFirst());
+        int comparedFirst = first.compareTo(t.getFirst());
 
         if(comparedFirst != 0)
             return comparedFirst;
 
-        if(this.second == null)
+        if(second == null)
             return t.getSecond() == null ? 0 : -1;
 
-        int comparedSecond = this.second.compareTo(t.getSecond());
+        int comparedSecond = second.compareTo(t.getSecond());
 
         if(comparedSecond != 0)
             return comparedSecond;
 
-        if(this.third == null)
+        if(third == null)
             return t.getThird() == null ? 0 : -1;
 
-        return this.third.compareTo(t.getThird());
+        return third.compareTo(t.getThird());
     }
 
     @Override

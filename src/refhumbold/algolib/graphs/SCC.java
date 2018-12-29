@@ -1,6 +1,10 @@
 package refhumbold.algolib.graphs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import refhumbold.algolib.tuples.ComparablePair;
 
@@ -43,10 +47,8 @@ public class SCC
         public GraphComponents(DirectedGraph digraph)
         {
             this.digraph = digraph;
-            this.components = new ArrayList<>(
-                Collections.nCopies(this.digraph.getVerticesNumber(), null));
-            this.postorder = new ArrayList<>(
-                Collections.nCopies(this.digraph.getVerticesNumber(), null));
+            components = new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
+            postorder = new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
         }
 
         /**

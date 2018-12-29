@@ -24,7 +24,7 @@ public final class Fraction
 
         this.numerator = numerator;
         this.denominator = denominator;
-        this.normalize();
+        normalize();
     }
 
     public static Fraction fromInt(int value)
@@ -71,7 +71,7 @@ public final class Fraction
 
     public Fraction add(long d)
     {
-        return this.add(Fraction.fromLong(d));
+        return add(Fraction.fromLong(d));
     }
 
     public Fraction sub(Fraction f)
@@ -82,7 +82,7 @@ public final class Fraction
 
     public Fraction sub(long d)
     {
-        return this.sub(Fraction.fromLong(d));
+        return sub(Fraction.fromLong(d));
     }
 
     public Fraction mult(Fraction f)
@@ -92,7 +92,7 @@ public final class Fraction
 
     public Fraction mult(long d)
     {
-        return this.mult(Fraction.fromLong(d));
+        return mult(Fraction.fromLong(d));
     }
 
     public Fraction div(Fraction f)
@@ -105,7 +105,7 @@ public final class Fraction
 
     public Fraction div(long d)
     {
-        return this.div(Fraction.fromLong(d));
+        return div(Fraction.fromLong(d));
     }
 
     @Override
