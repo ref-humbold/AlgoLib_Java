@@ -7,13 +7,8 @@ public class AVLTree<E>
     extends AbstractCollection<E>
     implements Set<E>
 {
-    /** Obiekt komparatora */
     private final Comparator<? super E> comparator;
-
-    /** Korzeń drzewa */
     private AVLNode<E> tree = null;
-
-    /** Liczba elementów drzewa */
     private int count = 0;
 
     public AVLTree()
