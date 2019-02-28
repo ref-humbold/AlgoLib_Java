@@ -42,6 +42,10 @@ public class SuffixArray
         return text.substring(suffixArray.get(i));
     }
 
+    /**
+     * @param i index in suffix array
+     * @return index in text where suffix begins
+     */
     public int indexAt(int i)
     {
         if(i < 0 || i >= length)
@@ -50,6 +54,11 @@ public class SuffixArray
         return suffixArray.get(i);
     }
 
+
+    /**
+     * @param suf index in text where suffix begins
+     * @return index of suffix in suffix array
+     */
     public int indexOf(int suf)
     {
         if(suf < 0 || suf >= length)
@@ -58,6 +67,11 @@ public class SuffixArray
         return inverseArray.get(suf);
     }
 
+    /**
+     * @param suf1 index in text where first suffix begins
+     * @param suf2 index in text where second suffix begins
+     * @return longest common prefix of both suffices
+     */
     public int countLCP(int suf1, int suf2)
     {
         if(suf1 < 0 || suf1 >= length || suf2 < 0 || suf2 >= length)

@@ -7,15 +7,8 @@ import java.util.Objects;
 
 public class DisjointSets<E>
 {
-    /**
-     * Mapa reprezentantów elementów.
-     */
     private Map<E, E> represents = new HashMap<>();
-
-    /**
-     * Liczba zbiorów.
-     */
-    private int elems = 0;
+    private int count = 0;
 
     public DisjointSets()
     {
@@ -26,16 +19,13 @@ public class DisjointSets<E>
         for(E e : universe)
         {
             represents.put(e, e);
-            ++elems;
+            ++count;
         }
     }
 
-    /**
-     * @return liczba zbiorów
-     */
     public int size()
     {
-        return elems;
+        return count;
     }
 
     /**
@@ -58,7 +48,7 @@ public class DisjointSets<E>
             throw new IllegalArgumentException("Value " + element.toString() + "already present.");
 
         represents.put(element, element);
-        ++elems;
+        ++count;
     }
 
     /**
@@ -84,7 +74,7 @@ public class DisjointSets<E>
         if(!isSameSet(element1, element2))
         {
             represents.put(findSet(element1), findSet(element2));
-            --elems;
+            --count;
         }
     }
 
