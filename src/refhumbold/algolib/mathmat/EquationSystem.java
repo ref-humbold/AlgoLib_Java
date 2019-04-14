@@ -1,5 +1,5 @@
 // STRUKTURA UKŁADÓW RÓWNAŃ LINIOWYCH Z ALGORYTMEM ELIMINACJI GAUSSA
-package refhumbold.algolib.math;
+package refhumbold.algolib.mathmat;
 
 import java.util.Arrays;
 import java.util.Objects;

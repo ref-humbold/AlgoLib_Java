@@ -1,5 +1,5 @@
 // ALGORYTMY DLA LICZB PIERWSZYCH
-package refhumbold.algolib.math;
+package refhumbold.algolib.mathmat;
 
 import java.util.ArrayList;
 import java.util.Collection;

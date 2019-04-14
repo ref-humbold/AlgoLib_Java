@@ -1,5 +1,5 @@
 // TESTY DLA ALGORYTMÓW MATEMATYCZNYCH
-package refhumbold.algolib.math;
+package refhumbold.algolib.mathmat;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -10,13 +10,11 @@ public class MathsTest
 {
     @Before
     public void setUp()
-        throws Exception
     {
     }
 
     @After
     public void tearDown()
-        throws Exception
     {
     }
 

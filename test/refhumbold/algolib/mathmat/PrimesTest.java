@@ -1,5 +1,5 @@
 // TESTY DLA ALGORYTMÓW DLA LICZB PIERWSZYCH
-package refhumbold.algolib.math;
+package refhumbold.algolib.mathmat;
 
 import java.util.Collection;
 import org.junit.After;

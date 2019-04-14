@@ -1,5 +1,5 @@
 // ALGORYTMY MATEMATYCZNE
-package refhumbold.algolib.math;
+package refhumbold.algolib.mathmat;
 
 public class Maths
 {
