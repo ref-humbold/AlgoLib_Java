@@ -5,12 +5,11 @@ docs
 junit
 lib
 
+# Visual Paradigm
+UML/*.bak*
+UML/*.vbak*
+
 # IntelliJ IDEA
 *.iml
 .idea
 out
-gen
-
-# Visual Paradigm
-UML/*.bak*
-UML/*.vbak*
