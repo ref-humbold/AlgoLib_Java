@@ -20,8 +20,8 @@ public class PointsSorting
     }
 
     /**
-     * Mutably sorts points by their cartesian coordinates. First sorts by X coordinate, then by
-     * Y coordinate.
+     * Mutably sorts points by their cartesian coordinates.
+     * First sorts by X coordinate, then by Y coordinate.
      * @param points list of points
      */
     public static void sortByX(List<Point2D> points)
@@ -32,8 +32,8 @@ public class PointsSorting
     }
 
     /**
-     * Mutably sorts points by their cartesian coordinates. First sorts by Y coordinate, then by
-     * X coordinate.
+     * Mutably sorts points by their cartesian coordinates.
+     * First sorts by Y coordinate, then by X coordinate.
      * @param points list of points
      */
     public static void sortByY(List<Point2D> points)
