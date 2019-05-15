@@ -2,6 +2,7 @@
 package refhumbold.algolib.geometry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class ConvexHull
@@ -11,18 +12,18 @@ class ConvexHull
         List<Point2D> hull = new ArrayList<>();
         List<Point2D> sorted = new ArrayList<>(points);
 
-        sorted.sort((p1, p2) -> p1.compareTo(p2));
-        hull.add(points.get(0));
-        hull.add(points.get(1));
+        PointsSorting.sortByX(sorted);
+        hull.add(sorted.get(0));
+        hull.add(sorted.get(1));
 
         for(int i = 2; i < sorted.size(); ++i)
             addPoint(sorted.get(i), hull, 1);
 
         int upper_size = hull.size();
 
-        sorted.sort((p1, p2) -> p2.compareTo(p1));
+        Collections.reverse(sorted);
 
-        for(int i = sorted.size() - 3; i >= 0; --i)
+        for(int i = sorted.size() - 2; i >= 0; --i)
             addPoint(sorted.get(i), hull, upper_size);
 
         hull.remove(hull.size() - 1);
