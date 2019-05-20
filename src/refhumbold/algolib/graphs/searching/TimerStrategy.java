@@ -41,11 +41,6 @@ public class TimerStrategy
     }
 
     @Override
-    public void checkNeighbour(int neighbour)
-    {
-    }
-
-    @Override
     public void onCycle(int vertex, int neighbour)
     {
     }

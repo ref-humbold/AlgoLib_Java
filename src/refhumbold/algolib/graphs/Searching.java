@@ -1,11 +1,8 @@
 // ALGORYTMY PRZESZUKIWANIA GRAFU
 package refhumbold.algolib.graphs;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import refhumbold.algolib.graphs.searching.SearchingStrategy;
 
@@ -18,17 +15,17 @@ public class Searching
      * @param roots wierzchołki początkowe
      * @return lista odwiedzonych wierzchołków
      */
-    public static List<Boolean> bfs(Graph graph, SearchingStrategy strategy, int... roots)
+    public static List<Boolean> bfs(Graph graph, SearchingStrategy strategy, Integer... roots)
     {
-        List<Boolean> visited =
-                new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), false));
+        List<Integer> reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
         Deque<Integer> vertexDeque = new ArrayDeque<>();
+        int iter = 1;
 
         for(int root : roots)
-            if(!visited.get(root))
+            if(reached.get(root) == 0)
             {
                 vertexDeque.addLast(root);
-                visited.set(root, true);
+                reached.set(root, iter);
 
                 while(!vertexDeque.isEmpty())
                 {
@@ -37,23 +34,22 @@ public class Searching
                     strategy.preprocess(vertex);
 
                     for(Integer neighbour : graph.getNeighbours(vertex))
-                    {
-                        strategy.checkNeighbour(neighbour);
-
-                        if(!visited.get(neighbour))
+                        if(reached.get(neighbour) == null)
                         {
-                            visited.set(neighbour, true);
+                            reached.set(neighbour, iter);
                             vertexDeque.addLast(neighbour);
                         }
-                        else
+                        else if(reached.get(neighbour) == iter)
                             strategy.onCycle(vertex, neighbour);
-                    }
 
                     strategy.postprocess(vertex);
+                    reached.set(root, -iter);
                 }
+
+                ++iter;
             }
 
-        return visited;
+        return reached.stream().map(v -> v == 0).collect(Collectors.toList());
     }
 
     /**
@@ -63,43 +59,42 @@ public class Searching
      * @param roots wierzchołki początkowe
      * @return lista odwiedzonych wierzchołków
      */
-    public static List<Boolean> dfsi(Graph graph, SearchingStrategy strategy, int... roots)
+    public static List<Boolean> dfsi(Graph graph, SearchingStrategy strategy, Integer... roots)
     {
-        List<Boolean> visited =
-                new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), false));
+        List<Integer> reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
         Deque<Integer> vertexDeque = new ArrayDeque<>();
+        int iter = 1;
 
         for(int root : roots)
-            if(!visited.get(root))
+            if(reached.get(root) == 0)
             {
                 vertexDeque.addFirst(root);
-                visited.set(root, true);
+                reached.set(root, iter);
 
                 while(!vertexDeque.isEmpty())
                 {
                     Integer vertex = vertexDeque.removeFirst();
 
-                    if(!visited.get(vertex))
+                    if(reached.get(vertex) == 0)
                     {
-                        visited.set(vertex, true);
+                        reached.set(vertex, iter);
                         strategy.preprocess(vertex);
 
                         for(Integer neighbour : graph.getNeighbours(vertex))
-                        {
-                            strategy.checkNeighbour(neighbour);
-
-                            if(!visited.get(neighbour))
+                            if(reached.get(neighbour) == null)
                                 vertexDeque.addFirst(neighbour);
-                            else
+                            else if(reached.get(neighbour) == iter)
                                 strategy.onCycle(vertex, neighbour);
-                        }
 
                         strategy.postprocess(vertex);
+                        reached.set(root, -iter);
                     }
                 }
+
+                ++iter;
             }
 
-        return visited;
+        return reached.stream().map(Objects::isNull).collect(Collectors.toList());
     }
 
     /**
@@ -109,16 +104,18 @@ public class Searching
      * @param roots wierzchołki początkowe
      * @return lista odwiedzonych wierzchołków
      */
-    public static List<Boolean> dfsr(Graph graph, SearchingStrategy strategy, int... roots)
+    public static List<Boolean> dfsr(Graph graph, SearchingStrategy strategy, Integer... roots)
     {
-        List<Boolean> visited =
-                new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), false));
+        List<Integer> reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
+        int iter = 1;
 
         for(int root : roots)
-            if(!visited.get(root))
-                dfsrStep(graph, strategy, root, visited);
-
-        return visited;
+            if(reached.get(root) == 0)
+            {
+                dfsrStep(graph, strategy, root, iter, reached);
+                ++iter;
+            }
+        return reached.stream().map(Objects::isNull).collect(Collectors.toList());
     }
 
     /**
@@ -126,23 +123,22 @@ public class Searching
      * @param graph graf
      * @param strategy strategia procesowania wierzchołka
      * @param vertex aktualny wierzchołek
-     * @param visited lista odwiedzonych wierzchołków
+     * @param iter numer iteracji
+     * @param reached lista iteracji dla wierzchołków
      */
-    private static void dfsrStep(Graph graph, SearchingStrategy strategy, int vertex,
-                                 List<Boolean> visited)
+    private static void dfsrStep(Graph graph, SearchingStrategy strategy, int vertex, int iter,
+                                 List<Integer> reached)
     {
-        visited.set(vertex, true);
+        reached.set(vertex, iter);
         strategy.preprocess(vertex);
 
         for(Integer neighbour : graph.getNeighbours(vertex))
-        {
-            strategy.checkNeighbour(neighbour);
-
-            if(!visited.get(neighbour))
-                dfsrStep(graph, strategy, neighbour, visited);
-            else
+            if(reached.get(neighbour) == 0)
+                dfsrStep(graph, strategy, neighbour, iter, reached);
+            else if(reached.get(neighbour) == iter)
                 strategy.onCycle(vertex, neighbour);
-        }
+
         strategy.postprocess(vertex);
+        reached.set(vertex, -iter);
     }
 }
