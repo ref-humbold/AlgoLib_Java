@@ -39,4 +39,14 @@ public class TimerStrategy
         ++timer;
         postTime.set(vertex, timer);
     }
+
+    @Override
+    public void checkNeighbour(int neighbour)
+    {
+    }
+
+    @Override
+    public void onCycle(int vertex, int neighbour)
+    {
+    }
 }
