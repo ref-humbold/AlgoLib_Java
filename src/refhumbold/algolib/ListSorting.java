@@ -1,26 +1,12 @@
 package refhumbold.algolib;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-import refhumbold.algolib.tuples.Pair;
-
-public class Sorting
+public class ListSorting
 {
-    /**
-     * Mutowalne sortowanie kątowe punktów na płaszczyźnie.
-     * @param points lista punktów
-     */
-    public static void angleSort(List<Pair<Double, Double>> points)
-    {
-        Objects.requireNonNull(points, "List of points is null.");
-
-        points.sort(new AngleComparator());
-    }
-
     /**
      * Mutowalne sortowanie ciągu przez kopcowanie.
      * @param sequence ciąg
@@ -29,7 +15,7 @@ public class Sorting
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        Sorting.heapSort(sequence, 0, sequence.size());
+        ListSorting.heapSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -51,7 +37,7 @@ public class Sorting
             return;
 
         for(int i = indexBegin + heapSize / 2; i >= indexBegin; --i)
-            Sorting.moveDown(sequence, i, indexBegin, indexEnd);
+            ListSorting.moveDown(sequence, i, indexBegin, indexEnd);
 
         while(heapSize > 1)
         {
@@ -60,7 +46,7 @@ public class Sorting
 
             sequence.set(indexHeap, sequence.get(indexBegin));
             sequence.set(indexBegin, temp);
-            Sorting.moveDown(sequence, indexBegin, indexBegin, indexHeap);
+            ListSorting.moveDown(sequence, indexBegin, indexBegin, indexHeap);
             --heapSize;
         }
     }
@@ -73,7 +59,7 @@ public class Sorting
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        Sorting.mergedownSort(sequence, 0, sequence.size());
+        ListSorting.mergedownSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -93,9 +79,9 @@ public class Sorting
 
         int indexMiddle = (indexBegin + indexEnd) / 2;
 
-        Sorting.mergedownSort(sequence, indexBegin, indexMiddle);
-        Sorting.mergedownSort(sequence, indexMiddle, indexEnd);
-        Sorting.merge(sequence, indexBegin, indexMiddle, indexEnd);
+        ListSorting.mergedownSort(sequence, indexBegin, indexMiddle);
+        ListSorting.mergedownSort(sequence, indexMiddle, indexEnd);
+        ListSorting.merge(sequence, indexBegin, indexMiddle, indexEnd);
     }
 
     /**
@@ -106,7 +92,7 @@ public class Sorting
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        Sorting.mergeupSort(sequence, 0, sequence.size());
+        ListSorting.mergeupSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -126,8 +112,8 @@ public class Sorting
 
         for(int i = 2; i < 2 * (indexEnd - indexBegin); i *= 2)
             for(int j = indexBegin; j < indexEnd; j += i)
-                Sorting.merge(sequence, j, Math.min(j + i / 2, indexEnd),
-                              Math.min(j + i, indexEnd));
+                ListSorting.merge(sequence, j, Math.min(j + i / 2, indexEnd),
+                                  Math.min(j + i, indexEnd));
     }
 
     /**
@@ -138,7 +124,7 @@ public class Sorting
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        Sorting.quickSort(sequence, 0, sequence.size());
+        ListSorting.quickSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -157,7 +143,7 @@ public class Sorting
             return;
 
         int indexPivot = indexBegin, indexFront = indexBegin + 1, indexBack = indexEnd - 1;
-        int rdpv = indexBegin + Sorting.choosePivot(indexEnd - indexBegin);
+        int rdpv = indexBegin + ListSorting.choosePivot(indexEnd - indexBegin);
         T temp1 = sequence.get(indexPivot);
 
         sequence.set(indexPivot, sequence.get(rdpv));
@@ -182,8 +168,8 @@ public class Sorting
                 --indexBack;
             }
 
-        Sorting.quickSort(sequence, indexBegin, indexPivot);
-        Sorting.quickSort(sequence, indexPivot + 1, indexEnd);
+        ListSorting.quickSort(sequence, indexBegin, indexPivot);
+        ListSorting.quickSort(sequence, indexPivot + 1, indexEnd);
     }
 
     /**
@@ -218,7 +204,7 @@ public class Sorting
             heap.set(vertex, temp);
         }
 
-        Sorting.moveDown(heap, nextVertex, indexBegin, indexEnd);
+        ListSorting.moveDown(heap, nextVertex, indexBegin, indexEnd);
     }
 
     /**
@@ -286,30 +272,5 @@ public class Sorting
 
         if(indexEnd < 0 || indexEnd > size)
             throw new IndexOutOfBoundsException("Sequence ending index out of range.");
-    }
-
-    private static class AngleComparator
-        implements Comparator<Pair<Double, Double>>
-    {
-        @Override
-        public int compare(Pair<Double, Double> pt1, Pair<Double, Double> pt2)
-        {
-            Double angle1 = countAngle(pt1), angle2 = countAngle(pt2);
-
-            return angle1.equals(angle2) ? countRadius(pt1).compareTo(countRadius(pt2))
-                                         : angle1.compareTo(angle2);
-        }
-
-        private Double countAngle(Pair<Double, Double> pt)
-        {
-            double ang = Math.atan2(pt.getSecond(), pt.getFirst()) * 90.0 / (Math.PI / 2.0);
-
-            return pt.getSecond() >= 0.0 ? ang : ang + 360.0;
-        }
-
-        private Double countRadius(Pair<Double, Double> pt)
-        {
-            return pt.getFirst() * pt.getFirst() + pt.getSecond() * pt.getSecond();
-        }
     }
 }
