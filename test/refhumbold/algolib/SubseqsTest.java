@@ -54,7 +54,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximalSum1()
+    public void testMaximalSubsum1()
     {
         sequence = Arrays.asList(3.5, 4.8, -1.6, 7.7, 2.1, -9.3, 0.8);
 
@@ -64,7 +64,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximalSum2()
+    public void testMaximalSubsum2()
     {
         sequence = Arrays.asList(-9.3, -1.2, 3.5, 4.8, -10.6, 7.7, 2.1, 0.8, 4.0);
 
@@ -74,7 +74,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximumalSumWhenAllElementsAreNegative()
+    public void testMaximumalSubsumWhenAllElementsAreNegative()
     {
         sequence = Arrays.asList(-9.0, -2.4, -3.07, -1.93, -12.67);
 
