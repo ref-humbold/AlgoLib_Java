@@ -7,20 +7,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import refhumbold.algolib.graphs.exceptions.NoSuchVertexException;
 import refhumbold.algolib.tuples.ComparablePair;
 import refhumbold.algolib.tuples.Pair;
 
 public abstract class SimpleGraph
-    implements Graph
+        implements Graph
 {
-    /**
-     * Domyślna waga krawędzi.
-     */
+    /** Domyślna waga krawędzi. */
     protected static Double DEFAULT_WEIGHT = 1.0;
 
-    /**
-     * Lista sąsiedztwa grafu.
-     */
+    /** Lista sąsiedztwa grafu. */
     protected List<Set<ComparablePair<Integer, Double>>> graphrepr;
 
     public SimpleGraph(int n)
@@ -49,11 +46,22 @@ public abstract class SimpleGraph
     }
 
     @Override
-    public Integer addVertex()
+    public Integer addVertex(Collection<Integer> neighbours)
     {
+        for(Integer nb : neighbours)
+        {
+            if(nb < 0 || nb >= graphrepr.size())
+                throw new NoSuchVertexException("No vertex " + nb);
+        }
+
         graphrepr.add(new HashSet<>());
 
-        return graphrepr.size() - 1;
+        Integer v = graphrepr.size() - 1;
+
+        for(Integer nb : neighbours)
+            addEdge(v, nb);
+
+        return v;
     }
 
     @Override

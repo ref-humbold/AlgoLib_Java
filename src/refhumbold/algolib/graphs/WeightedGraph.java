@@ -2,11 +2,12 @@ package refhumbold.algolib.graphs;
 
 import java.util.Collection;
 
+import refhumbold.algolib.graphs.exceptions.NoSuchVertexException;
 import refhumbold.algolib.tuples.ComparablePair;
 import refhumbold.algolib.tuples.ImmutableTriple;
 
 public interface WeightedGraph
-    extends Graph
+        extends Graph
 {
     /**
      * @return lista krawędzi z wagami
@@ -20,7 +21,7 @@ public interface WeightedGraph
      * @param weight waga krawędzi
      */
     void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
-        throws NoSuchVertexException;
+            throws NoSuchVertexException;
 
     /**
      * @param vertex numer wierzchołka

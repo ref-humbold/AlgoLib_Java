@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.PriorityQueue;
 
+import refhumbold.algolib.graphs.exceptions.DirectedCyclicGraphException;
 import refhumbold.algolib.tuples.ImmutablePair;
 
 public class TopologicalSorting
@@ -17,11 +18,11 @@ public class TopologicalSorting
      * @return porządek topologiczny wierzchołków
      */
     public static List<Integer> sortTopological1(DirectedGraph digraph)
-        throws DirectedCyclicGraphException
+            throws DirectedCyclicGraphException
     {
         List<Integer> order = new ArrayList<>();
-        List<Integer> indegs = new ArrayList<>(
-            Collections.nCopies(digraph.getVerticesNumber(), null));
+        List<Integer> indegs =
+                new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
         PriorityQueue<Integer> vertexQueue = new PriorityQueue<>();
 
         for(Integer v : digraph.getVertices())
@@ -59,11 +60,11 @@ public class TopologicalSorting
      * @return porządek topologiczny wierzchołków
      */
     public static List<Integer> sortTopological2(DirectedGraph digraph)
-        throws DirectedCyclicGraphException
+            throws DirectedCyclicGraphException
     {
         List<Integer> order = new ArrayList<>();
-        List<ImmutablePair<Integer, Boolean>> indices = new ArrayList<>(
-            Collections.nCopies(digraph.getVerticesNumber(), null));
+        List<ImmutablePair<Integer, Boolean>> indices =
+                new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
         List<Integer> vertices = new ArrayList<>(digraph.getVertices());
 
         Collections.sort(vertices);
@@ -88,7 +89,7 @@ public class TopologicalSorting
      */
     private static void dfs(int vertex, int index, DirectedGraph digraph, List<Integer> order,
                             List<ImmutablePair<Integer, Boolean>> indices)
-        throws DirectedCyclicGraphException
+            throws DirectedCyclicGraphException
     {
         indices.set(vertex, ImmutablePair.make(index, true));
 
@@ -96,7 +97,7 @@ public class TopologicalSorting
             if(indices.get(neighbour) == null)
                 TopologicalSorting.dfs(neighbour, index, digraph, order, indices);
             else if(Objects.equals(indices.get(neighbour).getFirst(), index) && indices.get(
-                neighbour).getSecond())
+                    neighbour).getSecond())
                 throw new DirectedCyclicGraphException("Given graph contains a cycle.");
 
         order.add(vertex);

@@ -1,7 +1,7 @@
-package refhumbold.algolib.graphs;
+package refhumbold.algolib.graphs.exceptions;
 
 public class CycleException
-    extends RuntimeException
+        extends RuntimeException
 {
     private static final long serialVersionUID = -4104441005709091878L;
 

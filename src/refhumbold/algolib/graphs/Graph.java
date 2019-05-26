@@ -2,7 +2,9 @@
 package refhumbold.algolib.graphs;
 
 import java.util.Collection;
+import java.util.Collections;
 
+import refhumbold.algolib.graphs.exceptions.NoSuchVertexException;
 import refhumbold.algolib.tuples.ComparablePair;
 
 public interface Graph
@@ -36,7 +38,17 @@ public interface Graph
      * Dodawanie nowego wierzchołka.
      * @return oznaczenie wierzchołka
      */
-    Integer addVertex();
+    default Integer addVertex()
+    {
+        return addVertex(Collections.emptyList());
+    }
+
+    /**
+     * Dodawanie nowego wierzchołka.
+     * @param neighbours sąsiedzi nowego wierzchołka
+     * @return oznaczenie wierzchołka
+     */
+    Integer addVertex(Collection<Integer> neighbours);
 
     /**
      * Dodawanie nowej krawędzi.
@@ -44,7 +56,7 @@ public interface Graph
      * @param vertex2 końcowy wierzchołek
      */
     void addEdge(Integer vertex1, Integer vertex2)
-        throws NoSuchVertexException;
+            throws NoSuchVertexException;
 
     /**
      * @param vertex numer wierzchołka

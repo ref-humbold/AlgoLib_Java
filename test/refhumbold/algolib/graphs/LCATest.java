@@ -11,43 +11,22 @@ import refhumbold.algolib.tuples.ImmutablePair;
 
 public class LCATest
 {
-    private ForestGraph trees;
+    private TreeGraph trees;
 
     @Before
     public void setUp()
     {
-        trees = new ForestGraph(12,
-                                Arrays.asList(ImmutablePair.make(0, 1), ImmutablePair.make(0, 2),
-                                              ImmutablePair.make(1, 3), ImmutablePair.make(1, 4),
-                                              ImmutablePair.make(1, 5), ImmutablePair.make(2, 6),
-                                              ImmutablePair.make(4, 7), ImmutablePair.make(6, 8),
-                                              ImmutablePair.make(6, 9),
-                                              ImmutablePair.make(10, 11)));
+        trees = new TreeGraph(10, Arrays.asList(ImmutablePair.make(0, 1), ImmutablePair.make(0, 2),
+                                                ImmutablePair.make(1, 3), ImmutablePair.make(1, 4),
+                                                ImmutablePair.make(1, 5), ImmutablePair.make(2, 6),
+                                                ImmutablePair.make(4, 7), ImmutablePair.make(6, 8),
+                                                ImmutablePair.make(6, 9)));
     }
 
     @After
     public void tearDown()
     {
         trees = null;
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void findLCAWhenVerticesNotInSameTree()
-    {
-        int vertex1 = 1;
-        int vertex2 = 11;
-
-        LCA.findLCA(trees, vertex1, vertex2);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void findLCAWhenRootNotInSameTree()
-    {
-        int vertex1 = 1;
-        int vertex2 = 9;
-        int root = 10;
-
-        LCA.findLCA(trees, vertex1, vertex2, root);
     }
 
     @Test
@@ -108,18 +87,7 @@ public class LCATest
     }
 
     @Test
-    public void findLCAWhenRootIsOneOfVertices1()
-    {
-        int vertex1 = 11;
-        int vertex2 = 10;
-
-        int result = LCA.findLCA(trees, vertex1, vertex2, vertex1);
-
-        Assert.assertEquals(vertex1, result);
-    }
-
-    @Test
-    public void findLCAWhenRootIsOneOfVertices2()
+    public void findLCAWhenRootIsOneOfVertices()
     {
         int vertex1 = 4;
         int vertex2 = 0;

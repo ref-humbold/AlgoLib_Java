@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import refhumbold.algolib.graphs.exceptions.NoSuchVertexException;
 import refhumbold.algolib.tuples.ComparablePair;
 import refhumbold.algolib.tuples.ImmutableTriple;
 import refhumbold.algolib.tuples.Pair;
 
 public class UndirectedWeightedSimpleGraph
-    extends UndirectedSimpleGraph
-    implements UndirectedWeightedGraph
+        extends UndirectedSimpleGraph
+        implements UndirectedWeightedGraph
 {
     public UndirectedWeightedSimpleGraph(int n)
     {
@@ -20,7 +21,7 @@ public class UndirectedWeightedSimpleGraph
 
     public UndirectedWeightedSimpleGraph(int n,
                                          Iterable<ImmutableTriple<Integer, Integer, Double>> edges)
-        throws NoSuchVertexException
+            throws NoSuchVertexException
     {
         super(n);
 
@@ -43,7 +44,7 @@ public class UndirectedWeightedSimpleGraph
 
     @Override
     public void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
-        throws NoSuchVertexException
+            throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex1.toString());

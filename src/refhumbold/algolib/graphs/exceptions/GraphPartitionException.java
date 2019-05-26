@@ -1,7 +1,7 @@
-package refhumbold.algolib.graphs;
+package refhumbold.algolib.graphs.exceptions;
 
 public class GraphPartitionException
-    extends RuntimeException
+        extends RuntimeException
 {
     private static final long serialVersionUID = -2107505164132960758L;
 

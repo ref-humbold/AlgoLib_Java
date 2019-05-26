@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import refhumbold.algolib.graphs.exceptions.NoSuchVertexException;
 import refhumbold.algolib.tuples.ComparablePair;
 import refhumbold.algolib.tuples.ImmutableTriple;
 import refhumbold.algolib.tuples.Pair;
 
 public class DirectedWeightedSimpleGraph
-    extends DirectedSimpleGraph
-    implements DirectedWeightedGraph
+        extends DirectedSimpleGraph
+        implements DirectedWeightedGraph
 {
     public DirectedWeightedSimpleGraph(int n)
     {
@@ -22,7 +23,7 @@ public class DirectedWeightedSimpleGraph
 
     public DirectedWeightedSimpleGraph(int n,
                                        Iterable<ImmutableTriple<Integer, Integer, Double>> edges)
-        throws NoSuchVertexException
+            throws NoSuchVertexException
     {
         super(n);
 
@@ -44,7 +45,7 @@ public class DirectedWeightedSimpleGraph
 
     @Override
     public void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
-        throws NoSuchVertexException
+            throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex1.toString());

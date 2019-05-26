@@ -46,10 +46,15 @@ public class DirectedSimpleGraphTest
     @Test
     public void testAddVertex()
     {
-        int result = testObject.addVertex();
+        Integer[] neighbours = new Integer[]{2, 6};
+        int result = testObject.addVertex(Arrays.asList(neighbours));
+        Object[] resultNeighbours = testObject.getNeighbours(result).toArray();
+
+        Arrays.sort(resultNeighbours);
 
         Assert.assertEquals(10, result);
         Assert.assertEquals(11, testObject.getVerticesNumber());
+        Assert.assertArrayEquals(neighbours, resultNeighbours);
     }
 
     @Test
