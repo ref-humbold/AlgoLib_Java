@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import algolib.tuples.ImmutablePair;
 
-public class SCCTest
+public class StronglyConnectedComponentsTest
 {
     @Before
     public void setUp()
@@ -43,7 +43,7 @@ public class SCCTest
                                                                           ImmutablePair.make(9,
                                                                                              8)));
 
-        List<Set<Integer>> result = SCC.findSCC(digraph);
+        List<Set<Integer>> result = StronglyConnectedComponents.findSCC(digraph);
 
         Assert.assertEquals(4, result.size());
         Assert.assertTrue(result.contains(Collections.singleton(5)));

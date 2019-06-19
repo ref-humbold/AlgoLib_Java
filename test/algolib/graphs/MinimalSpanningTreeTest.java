@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import algolib.tuples.ImmutableTriple;
 
-public class MSTTest
+public class MinimalSpanningTreeTest
 {
     private UndirectedWeightedSimpleGraph graph;
 
@@ -35,7 +35,7 @@ public class MSTTest
     @Test
     public void testKruskal()
     {
-        double result = MST.kruskal(graph);
+        double result = MinimalSpanningTree.kruskal(graph);
 
         Assert.assertEquals(12.0, result, 0.000001);
     }
@@ -43,7 +43,7 @@ public class MSTTest
     @Test
     public void testPrim()
     {
-        double result = MST.prim(graph, 0);
+        double result = MinimalSpanningTree.prim(graph, 0);
 
         Assert.assertEquals(12.0, result, 0.000001);
     }
@@ -51,8 +51,8 @@ public class MSTTest
     @Test
     public void testPrimWhenDifferentSources()
     {
-        double result1 = MST.prim(graph, 1);
-        double result4 = MST.prim(graph, 4);
+        double result1 = MinimalSpanningTree.prim(graph, 1);
+        double result4 = MinimalSpanningTree.prim(graph, 4);
 
         Assert.assertEquals(12.0, result1, 0.000001);
         Assert.assertEquals(12.0, result4, 0.000001);

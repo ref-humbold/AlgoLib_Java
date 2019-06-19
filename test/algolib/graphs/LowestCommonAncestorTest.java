@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import algolib.tuples.ImmutablePair;
 
-public class LCATest
+public class LowestCommonAncestorTest
 {
     private ForestGraph trees;
 
@@ -37,7 +37,7 @@ public class LCATest
         int vertex1 = 1;
         int vertex2 = 11;
 
-        LCA.findLCA(trees, vertex1, vertex2);
+        LowestCommonAncestor.findLCA(trees, vertex1, vertex2);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -47,7 +47,7 @@ public class LCATest
         int vertex2 = 9;
         int root = 10;
 
-        LCA.findLCA(trees, vertex1, vertex2, root);
+        LowestCommonAncestor.findLCA(trees, vertex1, vertex2, root);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class LCATest
     {
         int vertex = 6;
 
-        int result = LCA.findLCA(trees, vertex, vertex);
+        int result = LowestCommonAncestor.findLCA(trees, vertex, vertex);
 
         Assert.assertEquals(vertex, result);
     }
@@ -66,8 +66,8 @@ public class LCATest
         int vertex1 = 5;
         int vertex2 = 7;
 
-        int result1 = LCA.findLCA(trees, vertex1, vertex2);
-        int result2 = LCA.findLCA(trees, vertex2, vertex1);
+        int result1 = LowestCommonAncestor.findLCA(trees, vertex1, vertex2);
+        int result2 = LowestCommonAncestor.findLCA(trees, vertex2, vertex1);
 
         Assert.assertEquals(1, result1);
         Assert.assertEquals(1, result2);
@@ -79,7 +79,7 @@ public class LCATest
         int vertex1 = 5;
         int vertex2 = 7;
 
-        int result = LCA.findLCA(trees, vertex1, vertex2);
+        int result = LowestCommonAncestor.findLCA(trees, vertex1, vertex2);
 
         Assert.assertEquals(1, result);
     }
@@ -91,7 +91,7 @@ public class LCATest
         int vertex2 = 9;
         int root = 0;
 
-        int result = LCA.findLCA(trees, vertex1, vertex2, root);
+        int result = LowestCommonAncestor.findLCA(trees, vertex1, vertex2, root);
 
         Assert.assertEquals(root, result);
     }
@@ -102,7 +102,7 @@ public class LCATest
         int vertex1 = 8;
         int vertex2 = 2;
 
-        int result = LCA.findLCA(trees, vertex1, vertex2);
+        int result = LowestCommonAncestor.findLCA(trees, vertex1, vertex2);
 
         Assert.assertEquals(vertex2, result);
     }
@@ -113,7 +113,7 @@ public class LCATest
         int vertex1 = 11;
         int vertex2 = 10;
 
-        int result = LCA.findLCA(trees, vertex1, vertex2, vertex1);
+        int result = LowestCommonAncestor.findLCA(trees, vertex1, vertex2, vertex1);
 
         Assert.assertEquals(vertex1, result);
     }
@@ -124,7 +124,7 @@ public class LCATest
         int vertex1 = 4;
         int vertex2 = 0;
 
-        int result = LCA.findLCA(trees, vertex1, vertex2, vertex2);
+        int result = LowestCommonAncestor.findLCA(trees, vertex1, vertex2, vertex2);
 
         Assert.assertEquals(vertex2, result);
     }

@@ -11,7 +11,7 @@ import algolib.tuples.ComparablePair;
 import algolib.tuples.ComparableTriple;
 import algolib.tuples.Pair;
 
-public class MST
+public class MinimalSpanningTree
 {
     /**
      * Algorytm Kruskala wyliczający długość MST.
