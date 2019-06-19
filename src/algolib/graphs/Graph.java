@@ -4,7 +4,6 @@ package algolib.graphs;
 import java.util.Collection;
 import java.util.Collections;
 
-import algolib.graphs.exceptions.NoSuchVertexException;
 import algolib.tuples.ComparablePair;
 
 public interface Graph

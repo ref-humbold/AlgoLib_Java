@@ -1,13 +1,10 @@
-package refhumbold.algolib.graphs;
+package algolib.graphs;
 
 import java.util.Collection;
 
-import refhumbold.algolib.graphs.exceptions.CycleException;
-import refhumbold.algolib.graphs.exceptions.NoSuchVertexException;
-import refhumbold.algolib.graphs.exceptions.NotConnectedException;
-import refhumbold.algolib.structures.DisjointSets;
-import refhumbold.algolib.tuples.ComparablePair;
-import refhumbold.algolib.tuples.ImmutablePair;
+import algolib.structures.DisjointSets;
+import algolib.tuples.ComparablePair;
+import algolib.tuples.ImmutablePair;
 
 public class TreeGraph
         implements UndirectedGraph

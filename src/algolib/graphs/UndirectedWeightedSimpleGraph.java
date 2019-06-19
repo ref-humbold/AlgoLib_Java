@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import algolib.graphs.exceptions.NoSuchVertexException;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.ImmutableTriple;
 import algolib.tuples.Pair;

@@ -1,4 +1,4 @@
-package refhumbold.algolib.graphs.exceptions;
+package algolib.graphs;
 
 public class NotConnectedException
         extends RuntimeException

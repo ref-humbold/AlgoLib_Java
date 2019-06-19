@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import algolib.graphs.exceptions.NoSuchVertexException;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
 

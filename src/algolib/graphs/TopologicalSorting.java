@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.PriorityQueue;
 
-import algolib.graphs.exceptions.DirectedCyclicGraphException;
 import algolib.tuples.ImmutablePair;
 
 public class TopologicalSorting

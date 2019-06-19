@@ -8,7 +8,6 @@ import java.util.List;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.ImmutablePair;
 import algolib.tuples.Pair;
-import algolib.graphs.exceptions.NoSuchVertexException;
 
 public class UndirectedSimpleGraph
         extends SimpleGraph

@@ -2,7 +2,6 @@ package algolib.graphs;
 
 import java.util.Collection;
 
-import algolib.graphs.exceptions.NoSuchVertexException;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.ImmutableTriple;
 

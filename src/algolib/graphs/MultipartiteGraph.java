@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import algolib.graphs.exceptions.GraphPartitionException;
-import algolib.graphs.exceptions.NoSuchVertexException;
 import algolib.tuples.ComparablePair;
 
 public class MultipartiteGraph
