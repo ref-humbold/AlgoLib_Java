@@ -1,4 +1,4 @@
-package refhumbold.algolib.graphs;
+package algolib.graphs;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import refhumbold.algolib.tuples.ImmutablePair;
+import algolib.tuples.ImmutablePair;
 
 public class TopologicalSortingTest
 {

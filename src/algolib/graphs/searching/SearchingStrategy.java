@@ -1,4 +1,4 @@
-package refhumbold.algolib.graphs.searching;
+package algolib.graphs.searching;
 
 public interface SearchingStrategy
 {

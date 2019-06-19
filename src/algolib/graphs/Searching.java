@@ -4,7 +4,7 @@ package algolib.graphs;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import refhumbold.algolib.graphs.searching.SearchingStrategy;
+import algolib.graphs.searching.SearchingStrategy;
 
 public class Searching
 {

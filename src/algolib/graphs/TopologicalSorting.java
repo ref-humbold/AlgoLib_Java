@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.PriorityQueue;
 
-import refhumbold.algolib.graphs.searching.SearchingStrategy;
+import algolib.graphs.searching.SearchingStrategy;
 
 public class TopologicalSorting
 {
