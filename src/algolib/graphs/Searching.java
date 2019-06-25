@@ -34,7 +34,7 @@ public class Searching
                     strategy.preprocess(vertex);
 
                     for(Integer neighbour : graph.getNeighbours(vertex))
-                        if(reached.get(neighbour) == null)
+                        if(reached.get(neighbour) == 0)
                         {
                             reached.set(neighbour, iter);
                             vertexDeque.addLast(neighbour);
@@ -81,7 +81,7 @@ public class Searching
                         strategy.preprocess(vertex);
 
                         for(Integer neighbour : graph.getNeighbours(vertex))
-                            if(reached.get(neighbour) == null)
+                            if(reached.get(neighbour) == 0)
                                 vertexDeque.addFirst(neighbour);
                             else if(reached.get(neighbour) == iter)
                                 strategy.onCycle(vertex, neighbour);
