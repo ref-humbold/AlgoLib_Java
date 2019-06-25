@@ -69,7 +69,6 @@ public class Searching
             if(reached.get(root) == 0)
             {
                 vertexDeque.addFirst(root);
-                reached.set(root, iter);
 
                 while(!vertexDeque.isEmpty())
                 {
