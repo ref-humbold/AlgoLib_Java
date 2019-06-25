@@ -7,37 +7,37 @@ public class TimerStrategy
         implements SearchingStrategy
 {
     private int timer = 0;
-    private List<Integer> preTime;
-    private List<Integer> postTime;
+    private List<Integer> preTimes;
+    private List<Integer> postTimes;
 
     public TimerStrategy(int verticesNumber)
     {
-        preTime = Collections.nCopies(verticesNumber, 0);
-        postTime = Collections.nCopies(verticesNumber, 0);
+        preTimes = Collections.nCopies(verticesNumber, 0);
+        postTimes = Collections.nCopies(verticesNumber, 0);
     }
 
     public int getPreTime(int vertex)
     {
-        return preTime.get(vertex);
+        return preTimes.get(vertex);
     }
 
     public int getPostTime(int vertex)
     {
-        return postTime.get(vertex);
+        return postTimes.get(vertex);
     }
 
     @Override
     public void preprocess(int vertex)
     {
+        preTimes.set(vertex, timer);
         ++timer;
-        preTime.set(vertex, timer);
     }
 
     @Override
     public void postprocess(int vertex)
     {
+        postTimes.set(vertex, timer);
         ++timer;
-        postTime.set(vertex, timer);
     }
 
     @Override
