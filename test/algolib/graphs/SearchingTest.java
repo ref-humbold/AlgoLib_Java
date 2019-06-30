@@ -76,6 +76,32 @@ public class SearchingTest
     }
 
     @Test
+    public void bfsWhenUndirectedGraphAndManyRootsThenAllVisited()
+    {
+        List<Boolean> result = Searching.bfs(ugraph, strategy, 0, 6);
+        List<Integer> visited = strategy.getVisited();
+
+        visited.sort(Integer::compare);
+
+        Assert.assertArrayEquals(
+                new Boolean[]{true, true, true, true, true, true, true, true, true, true},
+                result.toArray());
+        Assert.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+    }
+
+    @Test
+    public void bfsWhenUndirectedGraphAndNoRootsThenNoVisited()
+    {
+        List<Boolean> result = Searching.bfs(ugraph, strategy);
+        List<Integer> visited = strategy.getVisited();
+
+        Assert.assertArrayEquals(
+                new Boolean[]{false, false, false, false, false, false, false, false, false, false},
+                result.toArray());
+        Assert.assertTrue(visited.isEmpty());
+    }
+
+    @Test
     public void bfsWhenDirectedGraphAndSingleRootThenNotAllVisited()
     {
         List<Boolean> result = Searching.bfs(digraph, strategy, 1);
@@ -104,6 +130,32 @@ public class SearchingTest
     }
 
     @Test
+    public void dfsiWhenUndirectedGraphAndManyRootsThenAllVisited()
+    {
+        List<Boolean> result = Searching.dfsi(ugraph, strategy, 0, 6);
+        List<Integer> visited = strategy.getVisited();
+
+        visited.sort(Integer::compare);
+
+        Assert.assertArrayEquals(
+                new Boolean[]{true, true, true, true, true, true, true, true, true, true},
+                result.toArray());
+        Assert.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+    }
+
+    @Test
+    public void dfsiWhenUndirectedGraphAndNoRootsThenNoVisited()
+    {
+        List<Boolean> result = Searching.dfsi(ugraph, strategy);
+        List<Integer> visited = strategy.getVisited();
+
+        Assert.assertArrayEquals(
+                new Boolean[]{false, false, false, false, false, false, false, false, false, false},
+                result.toArray());
+        Assert.assertTrue(visited.isEmpty());
+    }
+
+    @Test
     public void dfsiWhenDirectedGraphAndSingleRootThenNotAllVisited()
     {
         List<Boolean> result = Searching.dfsi(digraph, strategy, 1);
@@ -129,6 +181,32 @@ public class SearchingTest
                 new Boolean[]{true, true, false, true, true, true, false, true, true, false},
                 result.toArray());
         Assert.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
+    }
+
+    @Test
+    public void dfsrWhenUndirectedGraphAndManyRootsThenAllVisited()
+    {
+        List<Boolean> result = Searching.dfsr(ugraph, strategy, 0, 6);
+        List<Integer> visited = strategy.getVisited();
+
+        visited.sort(Integer::compare);
+
+        Assert.assertArrayEquals(
+                new Boolean[]{true, true, true, true, true, true, true, true, true, true},
+                result.toArray());
+        Assert.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+    }
+
+    @Test
+    public void dfsrWhenUndirectedGraphAndNoRootsThenNoVisited()
+    {
+        List<Boolean> result = Searching.dfsr(ugraph, strategy);
+        List<Integer> visited = strategy.getVisited();
+
+        Assert.assertArrayEquals(
+                new Boolean[]{false, false, false, false, false, false, false, false, false, false},
+                result.toArray());
+        Assert.assertTrue(visited.isEmpty());
     }
 
     @Test
