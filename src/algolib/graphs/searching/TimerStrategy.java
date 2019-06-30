@@ -14,7 +14,7 @@ public class TimerStrategy
 
     public TimerStrategy(Graph graph)
     {
-        timer = 0;
+        timer = 1;
         preTimes = Collections.nCopies(graph.getVerticesNumber(), 0);
         postTimes = Collections.nCopies(graph.getVerticesNumber(), 0);
     }

@@ -1,10 +1,13 @@
 // NAJNIŻSZY WSPÓLNY PRZODEK DWÓCH WIERZCHOŁKÓW W DRZEWIE
 package algolib.graphs;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
 
+import algolib.graphs.searching.TimerStrategy;
 import algolib.tuples.ImmutablePair;
 
 public class LowestCommonAncestor
@@ -42,19 +45,13 @@ public class LowestCommonAncestor
 
     private static class LCAFinder
     {
-        /**
-         * Reprezentacja drzewa.
-         */
+        /** Reprezentacja drzewa. */
         private ForestGraph graph;
 
-        /**
-         * Skompresowane ścieżki do korzenia drzewa.
-         */
+        /** Skompresowane ścieżki do korzenia drzewa. */
         private List<List<Integer>> paths;
 
-        /**
-         * Czas wejścia i wyjścia dla wierzchołka.
-         */
+        /** Czas wejścia i wyjścia dla wierzchołka. */
         private List<ImmutablePair<Integer, Integer>> prePostTimes;
 
         public LCAFinder(ForestGraph treegraph)
@@ -146,6 +143,44 @@ public class LowestCommonAncestor
             return prePostTimes.get(vertex1).getFirst() >= prePostTimes.get(vertex2).getFirst()
                     && prePostTimes.get(vertex1).getSecond() <= prePostTimes.get(vertex2)
                                                                             .getSecond();
+        }
+    }
+
+    private static class LCAStrategy
+            extends TimerStrategy
+    {
+        public Deque<Integer> currentPath;
+        private List<Integer> parents;
+
+        public LCAStrategy(Graph graph)
+        {
+            super(graph);
+            currentPath = new ArrayDeque<>();
+            parents = Collections.nCopies(graph.getVerticesNumber(), null);
+        }
+
+        @Override
+        public void preprocess(int vertex)
+        {
+            if(currentPath.isEmpty())
+                parents.set(vertex, vertex);
+            else
+                parents.set(vertex, currentPath.peekFirst());
+
+            currentPath.addFirst(vertex);
+            super.preprocess(vertex);
+        }
+
+        @Override
+        public void postprocess(int vertex)
+        {
+            super.postprocess(vertex);
+            currentPath.removeFirst();
+        }
+
+        @Override
+        public void onCycle(int vertex, int neighbour)
+        {
         }
     }
 }
