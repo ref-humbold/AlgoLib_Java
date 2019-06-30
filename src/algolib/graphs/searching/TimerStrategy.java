@@ -3,17 +3,20 @@ package algolib.graphs.searching;
 import java.util.Collections;
 import java.util.List;
 
+import algolib.graphs.Graph;
+
 public class TimerStrategy
         implements SearchingStrategy
 {
-    private int timer = 0;
+    private int timer;
     private List<Integer> preTimes;
     private List<Integer> postTimes;
 
-    public TimerStrategy(int verticesNumber)
+    public TimerStrategy(Graph graph)
     {
-        preTimes = Collections.nCopies(verticesNumber, 0);
-        postTimes = Collections.nCopies(verticesNumber, 0);
+        timer = 0;
+        preTimes = Collections.nCopies(graph.getVerticesNumber(), 0);
+        postTimes = Collections.nCopies(graph.getVerticesNumber(), 0);
     }
 
     public int getPreTime(int vertex)
