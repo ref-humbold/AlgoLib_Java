@@ -1,10 +1,8 @@
 // NAJNIŻSZY WSPÓLNY PRZODEK DWÓCH WIERZCHOŁKÓW W DRZEWIE
 package algolib.graphs;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.List;
 
 import algolib.graphs.searching.TimerStrategy;
@@ -143,38 +141,22 @@ public class LowestCommonAncestor
     private static class LCAStrategy
             extends TimerStrategy
     {
-        public Deque<Integer> currentPath;
         private List<Integer> parents;
 
         public LCAStrategy(Graph graph)
         {
             super(graph);
-            currentPath = new ArrayDeque<>();
             parents = Collections.nCopies(graph.getVerticesNumber(), null);
+
+            for(Integer v : graph.getVertices())
+                parents.set(v, v);
         }
 
         @Override
-        public void preprocess(int vertex)
+        public void forNeighbour(int vertex, int neighbour)
         {
-            if(currentPath.isEmpty())
-                parents.set(vertex, vertex);
-            else
-                parents.set(vertex, currentPath.peekFirst());
-
-            currentPath.addFirst(vertex);
-            super.preprocess(vertex);
-        }
-
-        @Override
-        public void postprocess(int vertex)
-        {
-            super.postprocess(vertex);
-            currentPath.removeFirst();
-        }
-
-        @Override
-        public void onCycle(int vertex, int neighbour)
-        {
+            super.forNeighbour(vertex, neighbour);
+            parents.set(neighbour, vertex);
         }
     }
 }

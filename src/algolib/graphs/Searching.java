@@ -40,6 +40,7 @@ public class Searching
                     for(Integer neighbour : graph.getNeighbours(vertex))
                         if(reached.get(neighbour) == 0)
                         {
+                            strategy.forNeighbour(vertex, neighbour);
                             reached.set(neighbour, iter);
                             vertexDeque.addLast(neighbour);
                         }
@@ -85,7 +86,10 @@ public class Searching
 
                         for(Integer neighbour : graph.getNeighbours(vertex))
                             if(reached.get(neighbour) == 0)
+                            {
+                                strategy.forNeighbour(vertex, neighbour);
                                 vertexDeque.addFirst(neighbour);
+                            }
                             else if(reached.get(neighbour) == iter)
                                 strategy.onCycle(vertex, neighbour);
 
@@ -117,8 +121,7 @@ public class Searching
         for(int root : roots)
             if(state.reached.get(root) == 0)
             {
-                state.vertex = root;
-                dfsrStep(graph, strategy, state);
+                dfsrStep(graph, strategy, root, state);
                 ++state.iteration;
             }
 
@@ -131,47 +134,42 @@ public class Searching
      * @param strategy strategia procesowania wierzchołka
      * @param state aktualny stan rekurencji
      */
-    private static void dfsrStep(Graph graph, SearchingStrategy strategy, DfsrState state)
+    private static void dfsrStep(Graph graph, SearchingStrategy strategy, Integer vertex,
+                                 DfsrState state)
     {
-        state.onEntry();
-        strategy.preprocess(state.vertex);
+        state.onEntry(vertex);
+        strategy.preprocess(vertex);
 
-        for(Integer neighbour : graph.getNeighbours(state.vertex))
+        for(Integer neighbour : graph.getNeighbours(vertex))
             if(state.reached.get(neighbour) == 0)
-                dfsrStep(graph, strategy, new DfsrState(neighbour, state.iteration, state.reached));
+            {
+                strategy.forNeighbour(vertex, neighbour);
+                dfsrStep(graph, strategy, neighbour, state);
+            }
             else if(state.reached.get(neighbour) == state.iteration)
-                strategy.onCycle(state.vertex, neighbour);
+                strategy.onCycle(vertex, neighbour);
 
-        strategy.postprocess(state.vertex);
-        state.onExit();
+        strategy.postprocess(vertex);
+        state.onExit(vertex);
     }
 
     private static class DfsrState
     {
-        int vertex;
         int iteration;
         List<Integer> reached;
 
-        DfsrState(int vertex, int iteration, List<Integer> reached)
-        {
-            this.vertex = vertex;
-            this.iteration = iteration;
-            this.reached = reached;
-        }
-
         DfsrState(int verticesNumber)
         {
-            vertex = 0;
             iteration = 1;
             reached = new ArrayList<>(Collections.nCopies(verticesNumber, 0));
         }
 
-        void onEntry()
+        void onEntry(int vertex)
         {
             reached.set(vertex, iteration);
         }
 
-        void onExit()
+        void onExit(int vertex)
         {
             reached.set(vertex, -iteration);
         }

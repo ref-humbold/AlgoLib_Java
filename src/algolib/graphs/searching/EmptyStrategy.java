@@ -9,6 +9,11 @@ public class EmptyStrategy
     }
 
     @Override
+    public void forNeighbour(int vertex, int neighbour)
+    {
+    }
+
+    @Override
     public void postprocess(int vertex)
     {
     }

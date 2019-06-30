@@ -37,6 +37,11 @@ public class TimerStrategy
     }
 
     @Override
+    public void forNeighbour(int vertex, int neighbour)
+    {
+    }
+
+    @Override
     public void postprocess(int vertex)
     {
         postTimes.set(vertex, timer);
