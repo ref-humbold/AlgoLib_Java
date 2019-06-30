@@ -19,7 +19,7 @@ public class LowestCommonAncestor
      * @param vertex2 wierzchołek 2
      * @return najniższy wspólny przodek
      */
-    public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2)
+    public static Integer findLCA(TreeGraph treegraph, int vertex1, int vertex2)
     {
         return LowestCommonAncestor.findLCA(treegraph, vertex1, vertex2, 0);
     }
@@ -32,21 +32,15 @@ public class LowestCommonAncestor
      * @param root korzeń drzewa
      * @return najniższy wspólny przodek
      */
-    public static Integer findLCA(ForestGraph treegraph, int vertex1, int vertex2, int root)
+    public static Integer findLCA(TreeGraph treegraph, int vertex1, int vertex2, int root)
     {
-        if(!treegraph.isSameTree(vertex1, vertex2))
-            throw new IllegalArgumentException("Vertices are not in the same tree.");
-
-        if(!treegraph.isSameTree(vertex1, root) || !treegraph.isSameTree(vertex2, root))
-            throw new IllegalArgumentException("Root vertex does not belong to the tree.");
-
         return new LCAFinder(treegraph).searchLCA(vertex1, vertex2, root);
     }
 
     private static class LCAFinder
     {
         /** Reprezentacja drzewa. */
-        private ForestGraph graph;
+        private TreeGraph graph;
 
         /** Skompresowane ścieżki do korzenia drzewa. */
         private List<List<Integer>> paths;
@@ -54,7 +48,7 @@ public class LowestCommonAncestor
         /** Czas wejścia i wyjścia dla wierzchołka. */
         private List<ImmutablePair<Integer, Integer>> prePostTimes;
 
-        public LCAFinder(ForestGraph treegraph)
+        public LCAFinder(TreeGraph treegraph)
         {
             graph = treegraph;
             paths = new ArrayList<>();

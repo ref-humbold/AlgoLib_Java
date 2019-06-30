@@ -6,33 +6,29 @@ import algolib.structures.DisjointSets;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.ImmutablePair;
 
-public class ForestGraph
+public class TreeGraph
         implements UndirectedGraph
 {
     private UndirectedSimpleGraph graph;
-    private DisjointSets<Integer> components;
 
-    public ForestGraph(int n)
-    {
-        graph = new UndirectedSimpleGraph(n);
-        components = new DisjointSets<>(graph.getVertices());
-    }
-
-    public ForestGraph(int n, Iterable<ImmutablePair<Integer, Integer>> edges)
+    public TreeGraph(int n, Iterable<ImmutablePair<Integer, Integer>> edges)
             throws NoSuchVertexException
     {
-        this(n);
+        graph = new UndirectedSimpleGraph(n);
+        DisjointSets<Integer> components = new DisjointSets<>(graph.getVertices());
 
         for(ImmutablePair<Integer, Integer> e : edges)
-            addEdge(e.getFirst(), e.getSecond());
-    }
+        {
+            if(components.isSameSet(e.getFirst(), e.getSecond()))
+                throw new CycleException("Edge from " + e.getFirst() + " to " + e.getSecond()
+                                                 + " may create a cycle");
 
-    /**
-     * @return liczba drzew w grafie
-     */
-    public int getTreesNumber()
-    {
-        return components.size();
+            graph.addEdge(e.getFirst(), e.getSecond());
+            components.unionSet(e.getFirst(), e.getSecond());
+        }
+
+        if(components.size() > 1)
+            throw new NotConnectedException("Tree is not a connected graph");
     }
 
     @Override
@@ -60,24 +56,24 @@ public class ForestGraph
     }
 
     @Override
-    public Integer addVertex()
+    public Integer addVertex(Collection<Integer> neighbours)
     {
-        Integer vertex = graph.addVertex();
-        components.addElem(vertex);
+        if(neighbours.size() == 0)
+            throw new NotConnectedException(
+                    "New vertex won't be connected with the rest of the tree");
 
-        return vertex;
+        if(neighbours.size() > 1)
+            throw new CycleException("More than one edge from new vertex may create a cycle");
+
+        return graph.addVertex(neighbours);
     }
 
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
             throws NoSuchVertexException
     {
-        if(isSameTree(vertex1, vertex2))
-            throw new CycleException("Edge from vertex " + vertex1 + " to vertex " + vertex2
-                                             + " will create a cycle.");
-
-        components.unionSet(vertex1, vertex2);
-        graph.addEdge(vertex1, vertex2);
+        throw new CycleException(
+                "Edge from vertex " + vertex1 + " to vertex " + vertex2 + " will create a cycle.");
     }
 
     @Override
@@ -96,16 +92,5 @@ public class ForestGraph
     public int getIndegree(Integer vertex)
     {
         return graph.getIndegree(vertex);
-    }
-
-    /**
-     * Sprawdzanie, czy wierzchołki należą do tego samego drzewa.
-     * @param vertex1 pierwszy wierzchołek
-     * @param vertex2 drugi wierzchołek
-     * @return czy wierzchołki są w jednym drzewie
-     */
-    public boolean isSameTree(Integer vertex1, Integer vertex2)
-    {
-        return components.isSameSet(vertex1, vertex2);
     }
 }

@@ -2,6 +2,7 @@
 package algolib.graphs;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import algolib.tuples.ComparablePair;
 
@@ -36,7 +37,17 @@ public interface Graph
      * Dodawanie nowego wierzchołka.
      * @return oznaczenie wierzchołka
      */
-    Integer addVertex();
+    default Integer addVertex()
+    {
+        return addVertex(Collections.emptyList());
+    }
+
+    /**
+     * Dodawanie nowego wierzchołka.
+     * @param neighbours sąsiedzi nowego wierzchołka
+     * @return oznaczenie wierzchołka
+     */
+    Integer addVertex(Collection<Integer> neighbours);
 
     /**
      * Dodawanie nowej krawędzi.

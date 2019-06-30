@@ -17,6 +17,7 @@ public class TopologicalSorting
      * @return porządek topologiczny wierzchołków
      */
     public static List<Integer> sortTopological1(DirectedGraph digraph)
+            throws DirectedCyclicGraphException
     {
         List<Integer> order = new ArrayList<>();
         List<Integer> indegs =
@@ -58,6 +59,7 @@ public class TopologicalSorting
      * @return porządek topologiczny wierzchołków
      */
     public static List<Integer> sortTopological2(DirectedGraph digraph)
+            throws DirectedCyclicGraphException
     {
         List<Integer> vertices = new ArrayList<>(digraph.getVertices());
         TopologicalStrategy strategy = new TopologicalStrategy();

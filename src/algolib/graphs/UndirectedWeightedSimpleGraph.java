@@ -10,8 +10,8 @@ import algolib.tuples.ImmutableTriple;
 import algolib.tuples.Pair;
 
 public class UndirectedWeightedSimpleGraph
-    extends UndirectedSimpleGraph
-    implements UndirectedWeightedGraph
+        extends UndirectedSimpleGraph
+        implements UndirectedWeightedGraph
 {
     public UndirectedWeightedSimpleGraph(int n)
     {
@@ -20,7 +20,7 @@ public class UndirectedWeightedSimpleGraph
 
     public UndirectedWeightedSimpleGraph(int n,
                                          Iterable<ImmutableTriple<Integer, Integer, Double>> edges)
-        throws NoSuchVertexException
+            throws NoSuchVertexException
     {
         super(n);
 
@@ -43,7 +43,7 @@ public class UndirectedWeightedSimpleGraph
 
     @Override
     public void addWeightedEdge(Integer vertex1, Integer vertex2, Double weight)
-        throws NoSuchVertexException
+            throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex1.toString());
