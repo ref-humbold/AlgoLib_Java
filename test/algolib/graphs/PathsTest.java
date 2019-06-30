@@ -112,10 +112,10 @@ public class PathsTest
         int source = 1;
 
         List<Double> result = Paths.dijkstra(uwgraph, source);
-        double i = Graph.INF;
 
-        Assert.assertArrayEquals(new Double[]{4.0, 0.0, i, 7.0, 7.0, 8.0, i, 10.0, 10.0, i},
-                                 result.toArray());
+        Assert.assertArrayEquals(
+                new Double[]{4.0, 0.0, Graph.INF, 7.0, 7.0, 8.0, Graph.INF, 10.0, 10.0, Graph.INF},
+                result.toArray());
     }
 
     @Test(expected = IllegalStateException.class)

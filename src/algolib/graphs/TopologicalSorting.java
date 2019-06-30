@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.PriorityQueue;
 
-import algolib.tuples.ImmutablePair;
+import algolib.graphs.searching.SearchingStrategy;
 
 public class TopologicalSorting
 {
@@ -17,11 +17,10 @@ public class TopologicalSorting
      * @return porządek topologiczny wierzchołków
      */
     public static List<Integer> sortTopological1(DirectedGraph digraph)
-        throws DirectedCyclicGraphException
     {
         List<Integer> order = new ArrayList<>();
-        List<Integer> indegs = new ArrayList<>(
-            Collections.nCopies(digraph.getVerticesNumber(), null));
+        List<Integer> indegs =
+                new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
         PriorityQueue<Integer> vertexQueue = new PriorityQueue<>();
 
         for(Integer v : digraph.getVertices())
@@ -59,47 +58,45 @@ public class TopologicalSorting
      * @return porządek topologiczny wierzchołków
      */
     public static List<Integer> sortTopological2(DirectedGraph digraph)
-        throws DirectedCyclicGraphException
     {
-        List<Integer> order = new ArrayList<>();
-        List<ImmutablePair<Integer, Boolean>> indices = new ArrayList<>(
-            Collections.nCopies(digraph.getVerticesNumber(), null));
         List<Integer> vertices = new ArrayList<>(digraph.getVertices());
+        TopologicalStrategy strategy = new TopologicalStrategy();
 
         Collections.sort(vertices);
         Collections.reverse(vertices);
 
-        for(Integer v : vertices)
-            if(indices.get(v) == null)
-                TopologicalSorting.dfs(v, v, digraph, order, indices);
+        Searching.dfsr(digraph, strategy, vertices.<Integer>toArray(new Integer[0]));
 
-        Collections.reverse(order);
+        Collections.reverse(strategy.getOrder());
 
-        return order;
+        return strategy.getOrder();
     }
 
-    /**
-     * Algorytm DFS wyznaczający kolejność wierzchołków.
-     * @param vertex aktualny wierzchołek
-     * @param index numer iteracji
-     * @param digraph graf skierowany
-     * @param order aktualny porządek topologiczny
-     * @param indices: indeksy iteracji i przetwarzania wierzchołków
-     */
-    private static void dfs(int vertex, int index, DirectedGraph digraph, List<Integer> order,
-                            List<ImmutablePair<Integer, Boolean>> indices)
-        throws DirectedCyclicGraphException
+    private static class TopologicalStrategy
+            implements SearchingStrategy
     {
-        indices.set(vertex, ImmutablePair.make(index, true));
+        private List<Integer> order = new ArrayList<>();
 
-        for(Integer neighbour : digraph.getNeighbours(vertex))
-            if(indices.get(neighbour) == null)
-                TopologicalSorting.dfs(neighbour, index, digraph, order, indices);
-            else if(Objects.equals(indices.get(neighbour).getFirst(), index) && indices.get(
-                neighbour).getSecond())
-                throw new DirectedCyclicGraphException("Given graph contains a cycle.");
+        public List<Integer> getOrder()
+        {
+            return order;
+        }
 
-        order.add(vertex);
-        indices.set(vertex, ImmutablePair.make(index, false));
+        @Override
+        public void preprocess(int vertex)
+        {
+        }
+
+        @Override
+        public void postprocess(int vertex)
+        {
+            order.add(vertex);
+        }
+
+        @Override
+        public void onCycle(int vertex, int neighbour)
+        {
+            throw new DirectedCyclicGraphException("Given graph contains a cycle.");
+        }
     }
 }
