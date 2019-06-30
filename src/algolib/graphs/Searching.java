@@ -6,99 +6,174 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import algolib.graphs.searching.SearchingStrategy;
 
 public class Searching
 {
     /**
-     * Algorytm BFS.
+     * Algorytm BFS od danych wierzchołków.
      * @param graph graf
-     * @param root wierzchołek początkowy
+     * @param strategy strategia procesowania wierzchołka
+     * @param roots wierzchołki początkowe
      * @return lista odwiedzonych wierzchołków
      */
-    public static List<Boolean> bfs(Graph graph, int root)
+    public static List<Boolean> bfs(Graph graph, SearchingStrategy strategy, Integer... roots)
     {
-        List<Boolean> isVisited =
-                new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), false));
+        List<Integer> reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
         Deque<Integer> vertexDeque = new ArrayDeque<>();
+        int iter = 1;
 
-        vertexDeque.addLast(root);
-        isVisited.set(root, true);
-
-        while(!vertexDeque.isEmpty())
-        {
-            Integer v = vertexDeque.removeFirst();
-
-            for(Integer nb : graph.getNeighbours(v))
-                if(!isVisited.get(nb))
-                {
-                    isVisited.set(nb, true);
-                    vertexDeque.addLast(nb);
-                }
-        }
-
-        return isVisited;
-    }
-
-    /**
-     * Iteracyjny algorytm DFS.
-     * @param graph graf
-     * @param root wierzchołek początkowy
-     * @return lista odwiedzonych wierzchołków
-     */
-    public static List<Boolean> dfsi(Graph graph, int root)
-    {
-        List<Boolean> isVisited =
-                new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), false));
-        Deque<Integer> vertexDeque = new ArrayDeque<>();
-
-        vertexDeque.addFirst(root);
-        isVisited.set(root, true);
-
-        while(!vertexDeque.isEmpty())
-        {
-            Integer v = vertexDeque.removeFirst();
-
-            if(!isVisited.get(v))
+        for(int root : roots)
+            if(reached.get(root) == 0)
             {
-                isVisited.set(v, true);
+                vertexDeque.addLast(root);
+                reached.set(root, iter);
 
-                for(Integer nb : graph.getNeighbours(v))
-                    if(!isVisited.get(nb))
-                        vertexDeque.addFirst(nb);
+                while(!vertexDeque.isEmpty())
+                {
+                    Integer vertex = vertexDeque.removeFirst();
+
+                    strategy.preprocess(vertex);
+
+                    for(Integer neighbour : graph.getNeighbours(vertex))
+                        if(reached.get(neighbour) == 0)
+                        {
+                            reached.set(neighbour, iter);
+                            vertexDeque.addLast(neighbour);
+                        }
+                        else if(reached.get(neighbour) == iter)
+                            strategy.onCycle(vertex, neighbour);
+
+                    strategy.postprocess(vertex);
+                    reached.set(root, -iter);
+                }
+
+                ++iter;
             }
-        }
 
-        return isVisited;
+        return reached.stream().map(v -> v != 0).collect(Collectors.toList());
     }
 
     /**
-     * Rekurencyjny algorytm DFS.
+     * Iteracyjny algorytm DFS od danych wierzchołków.
      * @param graph graf
-     * @param root wierzchołek początkowy
+     * @param strategy strategia procesowania wierzchołka
+     * @param roots wierzchołki początkowe
      * @return lista odwiedzonych wierzchołków
      */
-    public static List<Boolean> dfsr(Graph graph, int root)
+    public static List<Boolean> dfsi(Graph graph, SearchingStrategy strategy, Integer... roots)
     {
-        List<Boolean> isVisited =
-                new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), false));
+        List<Integer> reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
+        Deque<Integer> vertexDeque = new ArrayDeque<>();
+        int iter = 1;
 
-        Searching.dfsrStep(graph, root, isVisited);
+        for(int root : roots)
+            if(reached.get(root) == 0)
+            {
+                vertexDeque.addFirst(root);
 
-        return isVisited;
+                while(!vertexDeque.isEmpty())
+                {
+                    Integer vertex = vertexDeque.removeFirst();
+
+                    if(reached.get(vertex) == 0)
+                    {
+                        reached.set(vertex, iter);
+                        strategy.preprocess(vertex);
+
+                        for(Integer neighbour : graph.getNeighbours(vertex))
+                            if(reached.get(neighbour) == 0)
+                                vertexDeque.addFirst(neighbour);
+                            else if(reached.get(neighbour) == iter)
+                                strategy.onCycle(vertex, neighbour);
+
+                        strategy.postprocess(vertex);
+                        reached.set(root, -iter);
+                    }
+                }
+
+                ++iter;
+            }
+
+        return reached.stream().map(v -> v != 0).collect(Collectors.toList());
+    }
+
+    /**
+     * Rekurencyjny algorytm DFS od danych wierzchołków.
+     * @param graph graf
+     * @param strategy strategia procesowania wierzchołka
+     * @param roots wierzchołki początkowe
+     * @return lista odwiedzonych wierzchołków
+     */
+    public static List<Boolean> dfsr(Graph graph, SearchingStrategy strategy, Integer... roots)
+    {
+        DfsrState state = new DfsrState(graph.getVerticesNumber());
+
+        state.iteration = 1;
+        state.reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
+
+        for(int root : roots)
+            if(state.reached.get(root) == 0)
+            {
+                state.vertex = root;
+                dfsrStep(graph, strategy, state);
+                ++state.iteration;
+            }
+
+        return state.reached.stream().map(v -> v != 0).collect(Collectors.toList());
     }
 
     /**
      * Krok rekurencyjnego DFS.
      * @param graph graf
-     * @param isVisited lista odwiedzonych wierzchołków
-     * @param vertex aktualny wierzchołek
+     * @param strategy strategia procesowania wierzchołka
+     * @param state aktualny stan rekurencji
      */
-    private static void dfsrStep(Graph graph, int vertex, List<Boolean> isVisited)
+    private static void dfsrStep(Graph graph, SearchingStrategy strategy, DfsrState state)
     {
-        isVisited.set(vertex, true);
+        state.onEntry();
+        strategy.preprocess(state.vertex);
 
-        for(Integer neighbour : graph.getNeighbours(vertex))
-            if(!isVisited.get(neighbour))
-                Searching.dfsrStep(graph, neighbour, isVisited);
+        for(Integer neighbour : graph.getNeighbours(state.vertex))
+            if(state.reached.get(neighbour) == 0)
+                dfsrStep(graph, strategy, new DfsrState(neighbour, state.iteration, state.reached));
+            else if(state.reached.get(neighbour) == state.iteration)
+                strategy.onCycle(state.vertex, neighbour);
+
+        strategy.postprocess(state.vertex);
+        state.onExit();
+    }
+
+    private static class DfsrState
+    {
+        int vertex;
+        int iteration;
+        List<Integer> reached;
+
+        DfsrState(int vertex, int iteration, List<Integer> reached)
+        {
+            this.vertex = vertex;
+            this.iteration = iteration;
+            this.reached = reached;
+        }
+
+        DfsrState(int verticesNumber)
+        {
+            vertex = 0;
+            iteration = 1;
+            reached = new ArrayList<>(Collections.nCopies(verticesNumber, 0));
+        }
+
+        void onEntry()
+        {
+            reached.set(vertex, iteration);
+        }
+
+        void onExit()
+        {
+            reached.set(vertex, -iteration);
+        }
     }
 }

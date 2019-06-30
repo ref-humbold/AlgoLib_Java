@@ -7,7 +7,7 @@ import java.util.List;
 
 import algolib.tuples.ImmutablePair;
 
-public class LCA
+public class LowestCommonAncestor
 {
     /**
      * Wyznaczanie najniższego wspólnego przodka.
@@ -18,7 +18,7 @@ public class LCA
      */
     public static Integer findLCA(TreeGraph treegraph, int vertex1, int vertex2)
     {
-        return LCA.findLCA(treegraph, vertex1, vertex2, 0);
+        return LowestCommonAncestor.findLCA(treegraph, vertex1, vertex2, 0);
     }
 
     /**

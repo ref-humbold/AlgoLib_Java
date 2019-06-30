@@ -8,7 +8,7 @@ import java.util.Set;
 
 import algolib.tuples.ComparablePair;
 
-public class SCC
+public class StronglyConnectedComponents
 {
     /**
      * Algorytm wyznaczania silnie spójnych składowych grafu.
