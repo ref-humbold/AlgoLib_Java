@@ -10,21 +10,15 @@ import java.util.Objects;
 import algolib.tuples.ComparablePair;
 
 public class MultipartiteGraph
-    implements UndirectedGraph
+        implements UndirectedGraph
 {
-    /**
-     * Struktura grafu wielodzielnego.
-     */
+    /** Struktura grafu wielodzielnego. */
     private UndirectedGraph graph;
 
-    /**
-     * Maksymalna liczba grup wierzchołków.
-     */
+    /** Maksymalna liczba grup wierzchołków. */
     private Integer groupsNumber;
 
-    /**
-     * Numery grup wierzchołków.
-     */
+    /** Numery grup wierzchołków. */
     private List<Integer> groups;
 
     public MultipartiteGraph(int n, Integer group)
@@ -79,17 +73,18 @@ public class MultipartiteGraph
     }
 
     @Override
-    public Integer addVertex()
+    public Integer addVertex(Collection<Integer> neighbours)
     {
-        return addVertex(1);
+        return addVertex(1, neighbours);
     }
 
     /**
      * Dodawanie nowego wierzchołka do grupy.
      * @param group numer grupy
+     * @param neighbours sąsiedzi wierzchołka
      * @return oznaczenie wierzchołka
      */
-    public Integer addVertex(Integer group)
+    public Integer addVertex(Integer group, Collection<Integer> neighbours)
     {
         if(group == 0)
             throw new IllegalStateException("Cannot add vertex to group 0.");
@@ -97,14 +92,15 @@ public class MultipartiteGraph
         if(group < 0)
             throw new IllegalArgumentException("Group number is negative.");
 
+        Integer v = graph.addVertex(neighbours);
+
         groups.add(group);
 
-        return graph.addVertex();
+        return v;
     }
 
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
-        throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex1.toString());
@@ -143,7 +139,7 @@ public class MultipartiteGraph
      * @return czy wierzchołek jest w grupie
      */
     public boolean isInGroup(Integer vertex, Integer group)
-        throws NoSuchVertexException
+            throws NoSuchVertexException
     {
         if(vertex < 0 || vertex > getVerticesNumber())
             throw new NoSuchVertexException(vertex.toString());
@@ -158,7 +154,7 @@ public class MultipartiteGraph
      * @return czy wierzchołki są w różnych grupach
      */
     public boolean isSameGroup(Integer vertex1, Integer vertex2)
-        throws NoSuchVertexException
+            throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex1.toString());

@@ -58,13 +58,12 @@ public class UndirectedSimpleGraph
 
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
-            throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new NoSuchVertexException(vertex1.toString());
+            throw new NoSuchVertexException("No vertex " + vertex1);
 
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new NoSuchVertexException(vertex2.toString());
+            throw new NoSuchVertexException("No vertex " + vertex2);
 
         graphrepr.get(vertex1).add(ComparablePair.make(vertex2, SimpleGraph.DEFAULT_WEIGHT));
         graphrepr.get(vertex2).add(ComparablePair.make(vertex1, SimpleGraph.DEFAULT_WEIGHT));
