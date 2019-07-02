@@ -54,8 +54,7 @@ public interface Graph
      * @param vertex1 początkowy wierzchołek
      * @param vertex2 końcowy wierzchołek
      */
-    void addEdge(Integer vertex1, Integer vertex2)
-            throws NoSuchVertexException;
+    void addEdge(Integer vertex1, Integer vertex2);
 
     /**
      * @param vertex numer wierzchołka

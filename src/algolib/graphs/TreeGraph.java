@@ -12,7 +12,6 @@ public class TreeGraph
     private UndirectedSimpleGraph graph;
 
     public TreeGraph(int n, Iterable<ImmutablePair<Integer, Integer>> edges)
-            throws NoSuchVertexException
     {
         graph = new UndirectedSimpleGraph(n);
         DisjointSets<Integer> components = new DisjointSets<>(graph.getVertices());
@@ -70,7 +69,6 @@ public class TreeGraph
 
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
-            throws NoSuchVertexException
     {
         throw new CycleException(
                 "Edge from vertex " + vertex1 + " to vertex " + vertex2 + " will create a cycle.");

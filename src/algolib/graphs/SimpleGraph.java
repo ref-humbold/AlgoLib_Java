@@ -48,10 +48,8 @@ public abstract class SimpleGraph
     public Integer addVertex(Collection<Integer> neighbours)
     {
         for(Integer nb : neighbours)
-        {
             if(nb < 0 || nb >= graphrepr.size())
                 throw new NoSuchVertexException("No vertex " + nb);
-        }
 
         graphrepr.add(new HashSet<>());
 

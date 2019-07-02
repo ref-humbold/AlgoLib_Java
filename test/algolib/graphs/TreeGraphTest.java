@@ -54,7 +54,6 @@ public class TreeGraphTest
 
     @Test(expected = CycleException.class)
     public void testAddEdge()
-            throws CycleException
     {
         int vertex1 = 1;
         int vertex2 = 5;
