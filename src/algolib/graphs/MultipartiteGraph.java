@@ -101,7 +101,6 @@ public class MultipartiteGraph
 
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
-            throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex1.toString());

@@ -53,7 +53,6 @@ public class DirectedSimpleGraph
 
     @Override
     public void addEdge(Integer vertex1, Integer vertex2)
-            throws NoSuchVertexException
     {
         if(vertex1 < 0 || vertex1 >= getVerticesNumber())
             throw new NoSuchVertexException("No vertex " + vertex1);
