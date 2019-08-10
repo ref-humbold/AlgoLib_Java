@@ -1,12 +1,10 @@
-// ALGORYTMY DLA LICZB PIERWSZYCH
+// Algorithms for prime numbers.
 package algolib.mathmat;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
-
-import algolib.tuples.ImmutablePair;
 
 public class Primes
 {
@@ -78,20 +76,24 @@ public class Primes
         if(number < 2 || number % 2 == 0 || number % 3 == 0)
             return false;
 
-        ImmutablePair<Long, Long> distribution = Primes.distribute(number - 1);
+        long multip = number - 1;
+
+        while(multip % 2 == 0)
+            multip >>= 1;
+
         Random rd = new Random();
 
         for(int i = 0; i < 12; ++i)
         {
             long rdv = 1L + Math.abs(rd.nextLong()) % (number - 1);
 
-            if(Maths.powerMod(rdv, distribution.getSecond(), number) != 1)
+            if(Maths.powerMod(rdv, multip, number) != 1)
             {
                 boolean isComposite = true;
 
-                for(long j = 0L; j < distribution.getFirst(); ++j)
+                for(long d = multip; d <= number / 2; d <<= 1)
                 {
-                    long pwm = Maths.powerMod(rdv, (1L << j) * distribution.getSecond(), number);
+                    long pwm = Maths.powerMod(rdv, d, number);
 
                     isComposite = isComposite && pwm != number - 1;
                 }
@@ -102,20 +104,5 @@ public class Primes
         }
 
         return true;
-    }
-
-    private static ImmutablePair<Long, Long> distribute(long number)
-    {
-        long power = 2L, exponent = 1L;
-
-        while(number % power == 0)
-        {
-            ++exponent;
-            power <<= 1;
-        }
-
-        --exponent;
-
-        return ImmutablePair.make(exponent, number / (1L << exponent));
     }
 }
