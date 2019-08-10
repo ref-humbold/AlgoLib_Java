@@ -54,7 +54,7 @@ public class Searching
                 ++iter;
             }
 
-        return reached.stream().map(v -> v != 0).collect(Collectors.toList());
+        return reached.stream().map(i -> i != 0).collect(Collectors.toList());
     }
 
     /**
@@ -101,7 +101,7 @@ public class Searching
                 ++iter;
             }
 
-        return reached.stream().map(v -> v != 0).collect(Collectors.toList());
+        return reached.stream().map(i -> i != 0).collect(Collectors.toList());
     }
 
     /**
@@ -115,9 +115,6 @@ public class Searching
     {
         DfsrState state = new DfsrState(graph.getVerticesNumber());
 
-        state.iteration = 1;
-        state.reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
-
         for(int root : roots)
             if(state.reached.get(root) == 0)
             {
@@ -125,13 +122,14 @@ public class Searching
                 ++state.iteration;
             }
 
-        return state.reached.stream().map(v -> v != 0).collect(Collectors.toList());
+        return state.reached.stream().map(i -> i != 0).collect(Collectors.toList());
     }
 
     /**
      * Krok rekurencyjnego DFS.
      * @param graph graf
      * @param strategy strategia procesowania wierzchołka
+     * @param vertex aktualny wierzchołek
      * @param state aktualny stan rekurencji
      */
     private static void dfsrStep(Graph graph, SearchingStrategy strategy, Integer vertex,
