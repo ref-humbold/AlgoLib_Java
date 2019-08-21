@@ -240,9 +240,13 @@ public class SearchingTest
         }
 
         @Override
+        public void forNeighbour(int vertex, int neighbour)
+        {
+        }
+
+        @Override
         public void postprocess(int vertex)
         {
-
         }
 
         @Override

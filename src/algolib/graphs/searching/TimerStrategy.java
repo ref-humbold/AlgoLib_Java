@@ -1,5 +1,6 @@
 package algolib.graphs.searching;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,9 +15,9 @@ public class TimerStrategy
 
     public TimerStrategy(Graph graph)
     {
-        timer = 0;
-        preTimes = Collections.nCopies(graph.getVerticesNumber(), 0);
-        postTimes = Collections.nCopies(graph.getVerticesNumber(), 0);
+        timer = 1;
+        preTimes = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
+        postTimes = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
     }
 
     public int getPreTime(int vertex)
@@ -34,6 +35,11 @@ public class TimerStrategy
     {
         preTimes.set(vertex, timer);
         ++timer;
+    }
+
+    @Override
+    public void forNeighbour(int vertex, int neighbour)
+    {
     }
 
     @Override

@@ -90,6 +90,11 @@ public class TopologicalSorting
         }
 
         @Override
+        public void forNeighbour(int vertex, int neighbour)
+        {
+        }
+
+        @Override
         public void postprocess(int vertex)
         {
             order.add(vertex);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import algolib.tuples.ImmutablePair;
+import algolib.graphs.searching.TimerStrategy;
 
 public class LowestCommonAncestor
 {
@@ -42,14 +42,14 @@ public class LowestCommonAncestor
         /** Skompresowane ścieżki do korzenia drzewa. */
         private List<List<Integer>> paths;
 
-        /** Czas wejścia i wyjścia dla wierzchołka. */
-        private List<ImmutablePair<Integer, Integer>> prePostTimes;
+        /** Strategia przeszukiwania DFS. */
+        private LCAStrategy strategy;
 
         public LCAFinder(TreeGraph treegraph)
         {
             graph = treegraph;
             paths = new ArrayList<>();
-            prePostTimes = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
+            strategy = new LCAStrategy(treegraph);
 
             for(int i = 0; i < graph.getVerticesNumber(); ++i)
                 paths.add(new ArrayList<>());
@@ -64,12 +64,14 @@ public class LowestCommonAncestor
          */
         public int searchLCA(int vertex1, int vertex2, int root)
         {
-            dfs(root, root, 0);
+            Searching.dfsr(graph, strategy, root);
+
+            for(Integer v : graph.getVertices())
+                paths.get(v).add(strategy.getParent(v));
 
             for(int i = 0; i < Math.log(graph.getVerticesNumber()) / Math.log(2) + 3; ++i)
                 for(Integer v : graph.getVertices())
-                    if(!paths.get(v).isEmpty())
-                        paths.get(v).add(paths.get(paths.get(v).get(i)).get(i));
+                    paths.get(v).add(paths.get(paths.get(v).get(i)).get(i));
 
             return search(vertex1, vertex2);
         }
@@ -100,30 +102,6 @@ public class LowestCommonAncestor
         }
 
         /**
-         * Algorytm dfs z licznikiem czasu wyznaczający kolejne wierzchołki na ścieżce do korzenia.
-         * @param vertex aktualny wierzchołek
-         * @param parent ojciec wierzchołka
-         * @param timer aktualny czasu
-         * @return nowy czas po przetworzeniu wierzchołka
-         */
-        private int dfs(int vertex, int parent, int timer)
-        {
-            int preTime = timer;
-
-            prePostTimes.set(vertex, ImmutablePair.make(null, null));
-            paths.get(vertex).add(parent);
-            ++timer;
-
-            for(Integer neighbour : graph.getNeighbours(vertex))
-                if(prePostTimes.get(neighbour) == null)
-                    timer = dfs(neighbour, vertex, timer);
-
-            prePostTimes.set(vertex, ImmutablePair.make(preTime, timer));
-
-            return timer + 1;
-        }
-
-        /**
          * Sprawdza, czy wierzchołki są potomkami.
          * @param vertex1 wierzchołek 1
          * @param vertex2 wierzchołek 2
@@ -131,9 +109,35 @@ public class LowestCommonAncestor
          */
         private boolean isOffspring(int vertex1, int vertex2)
         {
-            return prePostTimes.get(vertex1).getFirst() >= prePostTimes.get(vertex2).getFirst()
-                    && prePostTimes.get(vertex1).getSecond() <= prePostTimes.get(vertex2)
-                                                                            .getSecond();
+            return strategy.getPreTime(vertex1) >= strategy.getPreTime(vertex2)
+                    && strategy.getPostTime(vertex1) <= strategy.getPostTime(vertex2);
+        }
+    }
+
+    private static class LCAStrategy
+            extends TimerStrategy
+    {
+        private List<Integer> parents;
+
+        public LCAStrategy(Graph graph)
+        {
+            super(graph);
+            parents = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
+
+            for(Integer v : graph.getVertices())
+                parents.set(v, v);
+        }
+
+        @Override
+        public void forNeighbour(int vertex, int neighbour)
+        {
+            super.forNeighbour(vertex, neighbour);
+            parents.set(neighbour, vertex);
+        }
+
+        public Integer getParent(int vertex)
+        {
+            return parents.get(vertex);
         }
     }
 }
