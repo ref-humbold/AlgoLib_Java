@@ -33,7 +33,7 @@ public class MinimalSpanningTreeTest
     }
 
     @Test
-    public void testKruskal()
+    public void kruskal()
     {
         double result = MinimalSpanningTree.kruskal(graph);
 
@@ -41,7 +41,7 @@ public class MinimalSpanningTreeTest
     }
 
     @Test
-    public void testPrim()
+    public void prim()
     {
         double result = MinimalSpanningTree.prim(graph, 0);
 
@@ -49,7 +49,7 @@ public class MinimalSpanningTreeTest
     }
 
     @Test
-    public void testPrimWhenDifferentSources()
+    public void prim_WhenDifferentSources()
     {
         double result1 = MinimalSpanningTree.prim(graph, 1);
         double result4 = MinimalSpanningTree.prim(graph, 4);

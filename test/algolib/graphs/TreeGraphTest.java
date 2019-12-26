@@ -32,7 +32,7 @@ public class TreeGraphTest
     }
 
     @Test
-    public void testAddVertexWhenOneNeighbour()
+    public void addVertex_WhenOneNeighbour()
     {
         int result = testObject.addVertex(Collections.singletonList(2));
 
@@ -41,19 +41,19 @@ public class TreeGraphTest
     }
 
     @Test(expected = NotConnectedException.class)
-    public void testAddVertexWhenNoNeighbours()
+    public void addVertex_WhenNoNeighbours()
     {
         testObject.addVertex(Collections.emptyList());
     }
 
     @Test(expected = CycleException.class)
-    public void testAddVertexWhenManyNeighbours()
+    public void addVertex_WhenManyNeighbours()
     {
         testObject.addVertex(Arrays.asList(2, 5, 9));
     }
 
     @Test(expected = CycleException.class)
-    public void testAddEdge()
+    public void addEdge()
     {
         int vertex1 = 1;
         int vertex2 = 5;

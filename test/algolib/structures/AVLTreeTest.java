@@ -26,7 +26,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testToString()
+    public void toString_WhenNotEmpty_ThenTextRepresentation()
     {
         String result = testObject.toString();
 
@@ -34,7 +34,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testIsEmptyWhenEmpty()
+    public void isEmpty_WhenEmpty_ThenTrue()
     {
         testObject = new AVLTree<>();
 
@@ -44,7 +44,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testIsEmptyWhenNotEmpty()
+    public void isEmpty_WhenNotEmpty_ThenFalse()
     {
         boolean result = testObject.isEmpty();
 
@@ -52,7 +52,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testSizeWhenEmpty()
+    public void size_WhenEmpty_ThenZero()
     {
         testObject = new AVLTree<>();
 
@@ -62,7 +62,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testSizeWhenNotEmpty()
+    public void size_WhenNotEmpty_ThenNumberOfElements()
     {
         int result = testObject.size();
 
@@ -70,7 +70,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testContainsWhenPresentElement()
+    public void contains_WhenPresentElement_ThenTrue()
     {
         for(Integer i : numbers)
         {
@@ -81,7 +81,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testContainsWhenOuterElement()
+    public void contains_WhenAbsentElement_ThenFalse()
     {
         for(Integer i : new Integer[]{111, 140, 187})
         {
@@ -92,7 +92,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testIterator()
+    public void iterator()
     {
         List<Integer> result = new ArrayList<>();
         Iterator<Integer> iterator = testObject.iterator();
@@ -106,7 +106,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testDescendingIterator()
+    public void descendingIterator()
     {
         List<Integer> result = new ArrayList<>();
         List<Integer> revNumbers = Arrays.asList(numbers);
@@ -122,7 +122,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testAddWhenNewElement()
+    public void add_WhenNewElement_ThenTrue()
     {
         for(Integer i : new Integer[]{111, 140, 187})
         {
@@ -134,7 +134,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testAddWhenPresentElement()
+    public void add_WhenPresentElement_ThenFalse()
     {
         for(Integer i : new Integer[]{14, 24, 30, 45})
         {
@@ -146,7 +146,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testRemoveWhenPresentElement()
+    public void remove_WhenPresentElement_ThenTrue()
     {
         for(Integer i : new Integer[]{14, 24, 30, 45})
         {
@@ -158,7 +158,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testRemoveRootWhenTwoElements1()
+    public void removeRoot_WhenTwoElements1()
     {
         int root = 27;
         int elem = 11;
@@ -173,7 +173,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testRemoveRootWhenTwoElements2()
+    public void removeRoot_WhenTwoElements2()
     {
         int root = 11;
         int elem = 27;
@@ -188,7 +188,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testRemoveRootWhenOneElement()
+    public void removeRoot_WhenOneElement()
     {
         int root = 0;
 
@@ -202,7 +202,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testRemoveWhenEmpty()
+    public void remove_WhenEmpty_ThenFalse()
     {
         testObject = new AVLTree<>();
 
@@ -213,7 +213,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testRemoveWhenOuterElement()
+    public void remove_WhenAbsentElement_ThenFalse()
     {
         for(Integer i : new Integer[]{111, 140, 187})
         {
@@ -225,7 +225,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void testClear()
+    public void clear_ThenTrue()
     {
         testObject.clear();
 

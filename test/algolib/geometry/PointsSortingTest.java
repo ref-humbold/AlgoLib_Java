@@ -21,7 +21,7 @@ public class PointsSortingTest
     }
 
     @Test
-    public void testAngleSort()
+    public void angleSort()
     {
         List<Point2D> sequence = Arrays.asList(Point2D.make(0.0, 0.0), Point2D.make(-2.0, -3.0),
                                                Point2D.make(-3.0, -2.0), Point2D.make(3.0, -2.0),
@@ -39,7 +39,7 @@ public class PointsSortingTest
     }
 
     @Test
-    public void testAngleSortWhenAllEqual()
+    public void angleSort_WhenAllEqual()
     {
         List<Point2D> sequence = Arrays.asList(Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0),
                                                Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0),
@@ -55,7 +55,7 @@ public class PointsSortingTest
     }
 
     @Test
-    public void testAngleSortWhenEmptyList()
+    public void angleSort_WhenEmptyList()
     {
         List<Point2D> sequence = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class PointsSortingTest
     }
 
     @Test
-    public void testSortByX()
+    public void sortByX()
     {
         List<Point2D> sequence = Arrays.asList(Point2D.make(0.0, 0.0), Point2D.make(-2.0, -3.0),
                                                Point2D.make(-3.0, -2.0), Point2D.make(3.0, -2.0),
@@ -83,7 +83,7 @@ public class PointsSortingTest
     }
 
     @Test
-    public void testSortByY()
+    public void sortByY()
     {
         List<Point2D> sequence = Arrays.asList(Point2D.make(0.0, 0.0), Point2D.make(-2.0, -3.0),
                                                Point2D.make(-3.0, -2.0), Point2D.make(3.0, -2.0),

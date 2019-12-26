@@ -23,7 +23,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testHeapSort()
+    public void heapSort()
     {
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
@@ -35,7 +35,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testHeapSortWhenAllEqual()
+    public void heapSort_WhenAllEqual()
     {
         List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
 
@@ -46,7 +46,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testHeapSortWhenIndices()
+    public void heapSort_WhenIndices()
     {
         int index1 = 3;
         int index2 = 7;
@@ -58,7 +58,7 @@ public class ListSortingTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testHeapSortWhenLeftIndexOutOfRange()
+    public void heapSort_WhenLeftIndexOutOfRange()
     {
         int index1 = -13;
         int index2 = 7;
@@ -68,7 +68,7 @@ public class ListSortingTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testHeapSortWhenRightIndexOutOfRange()
+    public void heapSort_WhenRightIndexOutOfRange()
     {
         int index1 = 3;
         int index2 = 17;
@@ -78,7 +78,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testHeapSortWhenIndicesReversed()
+    public void heapSort_WhenIndicesReversed()
     {
         int index1 = 7;
         int index2 = 3;
@@ -91,7 +91,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testHeapSortWhenEmptyList()
+    public void heapSort_WhenEmptyList()
     {
         List<Integer> sequence = new ArrayList<>();
 
@@ -101,7 +101,7 @@ public class ListSortingTest
     }
 
     @Test(expected = NullPointerException.class)
-    public void testHeapSortWhenNull()
+    public void heapSort_WhenNull()
     {
         List<Integer> sequence = null;
 
@@ -109,7 +109,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergedownSort()
+    public void mergedownSort()
     {
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
@@ -121,7 +121,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergedownSortWhenAllEqual()
+    public void mergedownSort_WhenAllEqual()
     {
         List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
 
@@ -132,7 +132,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergedownSortWhenIndices()
+    public void mergedownSort_WhenIndices()
     {
         int index1 = 3;
         int index2 = 7;
@@ -144,7 +144,7 @@ public class ListSortingTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testMergedownSortWhenLeftIndexOutOfRange()
+    public void mergedownSort_WhenLeftIndexOutOfRange()
     {
         int index1 = -13;
         int index2 = 7;
@@ -154,7 +154,7 @@ public class ListSortingTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testMergedownSortWhenRightIndexOutOfRange()
+    public void mergedownSort_WhenRightIndexOutOfRange()
     {
         int index1 = 3;
         int index2 = 17;
@@ -164,7 +164,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergedownSortWhenIndicesReversed()
+    public void mergedownSort_WhenIndicesReversed()
     {
         int index1 = 7;
         int index2 = 3;
@@ -177,7 +177,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergedownSortWhenEmptyList()
+    public void mergedownSort_WhenEmptyList()
     {
         List<Integer> sequence = new ArrayList<>();
 
@@ -187,7 +187,7 @@ public class ListSortingTest
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMergedownSortWhenNull()
+    public void mergedownSort_WhenNull()
     {
         List<Integer> sequence = null;
 
@@ -195,7 +195,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergeupSort()
+    public void mergeupSort()
     {
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
@@ -207,7 +207,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergeupSortWhenAllEqual()
+    public void mergeupSort_WhenAllEqual()
     {
         List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
 
@@ -218,7 +218,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergeupSortWhenIndices()
+    public void mergeupSort_WhenIndices()
     {
         int index1 = 3;
         int index2 = 7;
@@ -230,7 +230,7 @@ public class ListSortingTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testMergeupSortWhenLeftIndexOutOfRange()
+    public void mergeupSort_WhenLeftIndexOutOfRange()
     {
         int index1 = -13;
         int index2 = 7;
@@ -240,7 +240,7 @@ public class ListSortingTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testMergeupSortWhenRightIndexOutOfRange()
+    public void mergeupSort_WhenRightIndexOutOfRange()
     {
         int index1 = 3;
         int index2 = 17;
@@ -250,7 +250,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergeupSortWhenIndicesReversed()
+    public void mergeupSort_WhenIndicesReversed()
     {
         int index1 = 7;
         int index2 = 3;
@@ -263,7 +263,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testMergeupSortWhenEmptyList()
+    public void mergeupSort_WhenEmptyList()
     {
         List<Integer> sequence = new ArrayList<>();
 
@@ -273,7 +273,7 @@ public class ListSortingTest
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMergeupSortWhenNull()
+    public void mergeupSort_WhenNull()
     {
         List<Integer> sequence = null;
 
@@ -281,7 +281,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testQuickSort()
+    public void quickSort()
     {
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
@@ -293,7 +293,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testQuickSortWhenAllEqual()
+    public void quickSort_WhenAllEqual()
     {
         List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
 
@@ -304,7 +304,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testQuickSortWhenIndices()
+    public void quickSort_WhenIndices()
     {
         int index1 = 3;
         int index2 = 7;
@@ -316,7 +316,7 @@ public class ListSortingTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testQuickSortWhenLeftIndexOutOfRange()
+    public void quickSort_WhenLeftIndexOutOfRange()
     {
         int index1 = -13;
         int index2 = 7;
@@ -326,7 +326,7 @@ public class ListSortingTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testQuickSortWhenRightIndexOutOfRange()
+    public void quickSort_WhenRightIndexOutOfRange()
     {
         int index1 = 3;
         int index2 = 17;
@@ -336,7 +336,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testQuickSortWhenIndicesReversed()
+    public void quickSort_WhenIndicesReversed()
     {
         int index1 = 7;
         int index2 = 3;
@@ -349,7 +349,7 @@ public class ListSortingTest
     }
 
     @Test
-    public void testQuickSortWhenEmptyList()
+    public void quickSort_WhenEmptyList()
     {
         List<Integer> sequence = new ArrayList<>();
 
@@ -359,7 +359,7 @@ public class ListSortingTest
     }
 
     @Test(expected = NullPointerException.class)
-    public void testQuickSortWhenNull()
+    public void quickSort_WhenNull()
     {
         List<Integer> sequence = null;
 

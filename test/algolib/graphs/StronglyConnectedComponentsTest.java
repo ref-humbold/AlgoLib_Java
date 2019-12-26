@@ -25,7 +25,7 @@ public class StronglyConnectedComponentsTest
     }
 
     @Test
-    public void testFindSCC()
+    public void findSCC()
     {
         DirectedGraph digraph = new DirectedSimpleGraph(10, Arrays.asList(ImmutablePair.make(0, 4),
                                                                           ImmutablePair.make(0, 5),

@@ -27,7 +27,7 @@ public class CuttingTest
     }
 
     @Test
-    public void testFindBridgesWhenPresentBridges()
+    public void findBridges_WhenPresentBridges()
     {
         graph = new UndirectedSimpleGraph(12, Arrays.asList(ImmutablePair.make(0, 1),
                                                             ImmutablePair.make(0, 2),
@@ -55,7 +55,7 @@ public class CuttingTest
     }
 
     @Test
-    public void testFindBridgesWhenNoBridges()
+    public void findBridges_WhenNoBridges()
     {
         graph = new UndirectedSimpleGraph(6, Arrays.asList(ImmutablePair.make(0, 1),
                                                            ImmutablePair.make(0, 2),
@@ -71,7 +71,7 @@ public class CuttingTest
     }
 
     @Test
-    public void testFindVertexSeparatorsWhenPresentSeparators()
+    public void findVertexSeparators_WhenPresentSeparators()
     {
         graph = new UndirectedSimpleGraph(12, Arrays.asList(ImmutablePair.make(0, 1),
                                                             ImmutablePair.make(0, 2),
@@ -98,7 +98,7 @@ public class CuttingTest
     }
 
     @Test
-    public void testFindVertexSeparatorsWhenNoSeparators()
+    public void findVertexSeparators_WhenNoSeparators()
     {
         graph = new UndirectedSimpleGraph(6, Arrays.asList(ImmutablePair.make(0, 1),
                                                            ImmutablePair.make(0, 2),

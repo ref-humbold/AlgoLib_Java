@@ -23,7 +23,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void testGetText()
+    public void getText_ThenText()
     {
         String result = testObject.getText();
 
@@ -31,7 +31,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void testSize()
+    public void size_ThenNumberOfElements()
     {
         int result = testObject.size();
 
@@ -39,7 +39,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void testGet()
+    public void get_WhenInRange_ThenSuffix()
     {
         String result0 = testObject.get(0);
         String result1 = testObject.get(3);
@@ -53,13 +53,13 @@ public class SuffixArrayTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testAtWhenOutOfRange()
+    public void get_WhenOutOfRange_ThenIndexOutOfBoundsException()
     {
         testObject.get(20);
     }
 
     @Test
-    public void testIndexAt()
+    public void indexAt_WhenInRange_ThenIndexInText()
     {
         int result0 = testObject.indexAt(0);
         int result1 = testObject.indexAt(3);
@@ -73,13 +73,13 @@ public class SuffixArrayTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testIndexAtWhenOutOfRange()
+    public void indexAt_WhenOutOfRange_ThenIndexOutOfBoundsException()
     {
         testObject.indexAt(20);
     }
 
     @Test
-    public void textIndexOf()
+    public void indexOf_WhenInRange_ThenIndexInArray()
     {
         int result0 = testObject.indexOf(0);
         int result1 = testObject.indexOf(3);
@@ -93,13 +93,13 @@ public class SuffixArrayTest
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testIndexOfWhenOutOfRange()
+    public void indexOf_WhenOutOfRange_ThenIndexOutOfBoundsException()
     {
         testObject.indexOf(20);
     }
 
     @Test
-    public void testLCPWhenSameSuffix()
+    public void countLCP_WhenSameSuffix_ThenLengthOfPrefix()
     {
         int result = testObject.countLCP(4, 4);
 
@@ -107,7 +107,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void testLCPWhenDifferentSuffix1()
+    public void countLCP_WhenFirstEarlierThanSecondSuffix_ThenLengthOfPrefix()
     {
         int result = testObject.countLCP(1, 10);
 
@@ -115,7 +115,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void testLCPWhenDifferentSuffix2()
+    public void countLCP_WhenFirstFurtherThanSecondSuffix_ThenLengthOfPrefix()
     {
         int result = testObject.countLCP(9, 6);
 
@@ -123,7 +123,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void testLCPWhenSwapSuffix()
+    public void countLCP_WhenSwapSuffix_ThenSameLength()
     {
         int result0 = testObject.countLCP(2, 5);
         int result1 = testObject.countLCP(5, 2);

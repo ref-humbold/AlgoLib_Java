@@ -22,13 +22,13 @@ public class PrimesTest
     //region testFindPrimes
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFindPrimesWhenTwoArgsDescending()
+    public void findPrimes_WhenTwoArgsDescending()
     {
         Primes.find(100, 30);
     }
 
     @Test
-    public void testFindPrimesOneArgIsTwoArgsWithZeroAsMin()
+    public void findPrimesOneArgIsTwoArgsWithZeroAsMin()
     {
         Collection<Integer> result1 = Primes.find(100);
         Collection<Integer> result2 = Primes.find(0, 100);
@@ -37,7 +37,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testFindPrimesOneArg()
+    public void findPrimesOneArg()
     {
         Collection<Integer> result = Primes.find(100);
 
@@ -47,7 +47,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testFindPrimesOneArgWhenMaxIsPrime()
+    public void findPrimesOneArg_WhenMaxIsPrime()
     {
         Collection<Integer> result = Primes.find(67);
 
@@ -57,7 +57,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testFindPrimesOneArgWhenLessThanTwo()
+    public void findPrimesOneArg_WhenLessThanTwo()
     {
         Collection<Integer> result = Primes.find(1);
 
@@ -65,7 +65,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testFindPrimesTwoArgs()
+    public void findPrimesTwoArgs()
     {
         Collection<Integer> result = Primes.find(30, 200);
 
@@ -76,7 +76,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testFindPrimesTwoArgsWhenMinLessThanSqrtOfMax()
+    public void findPrimesTwoArgs_WhenMinLessThanSqrtOfMax()
     {
         Collection<Integer> result = Primes.find(5, 150);
 
@@ -87,7 +87,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testFindPrimesTwoArgsWhenMinAndMaxAreFindPrimes()
+    public void findPrimesTwoArgs_WhenMinAndMaxAreFindPrimes()
     {
         Collection<Integer> result = Primes.find(137, 317);
 
@@ -98,7 +98,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testFindPrimesTwoArgsWhenMinEqualsMaxAndPrime()
+    public void findPrimesTwoArgs_WhenMinEqualsMaxAndPrime()
     {
         Collection<Integer> result = Primes.find(41, 41);
 
@@ -106,7 +106,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testFindPrimesTwoArgsWhenMinEqualsMaxAndComposite()
+    public void findPrimesTwoArgs_WhenMinEqualsMaxAndComposite()
     {
         Collection<Integer> result = Primes.find(91, 91);
 
@@ -117,7 +117,7 @@ public class PrimesTest
     //region testTestFermat
 
     @Test
-    public void testTestFermatWhenZero()
+    public void testFermat_WhenZero()
     {
         boolean result = Primes.testFermat(0);
 
@@ -125,7 +125,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestFermatWhenOne()
+    public void testFermat_WhenOne()
     {
         boolean result = Primes.testFermat(1);
 
@@ -133,7 +133,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestFermatWhenTwo()
+    public void testFermat_WhenTwo()
     {
         boolean result = Primes.testFermat(2);
 
@@ -141,7 +141,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestFermatWhenPrime()
+    public void testFermat_WhenPrime()
     {
         boolean result = Primes.testFermat(1013);
 
@@ -149,7 +149,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestFermatWhenComposite()
+    public void testFermat_WhenComposite()
     {
         boolean result = Primes.testFermat(1001);
 
@@ -157,7 +157,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestFermatWhenCarmichaelNumber()
+    public void testFermat_WhenCarmichaelNumber()
     {
         boolean result = Primes.testFermat(1105);  // 1105 = 5 * 13 * 17 is a Carmichael number
 
@@ -168,7 +168,7 @@ public class PrimesTest
     //region testTestMiller
 
     @Test
-    public void testTestMillerWhenZero()
+    public void testMiller_WhenZero()
     {
         boolean result = Primes.testMiller(0);
 
@@ -176,7 +176,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestMillerWhenOne()
+    public void testMiller_WhenOne()
     {
         boolean result = Primes.testMiller(1);
 
@@ -184,7 +184,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestMillerWhenTwo()
+    public void testMiller_WhenTwo()
     {
         boolean result = Primes.testMiller(2);
 
@@ -192,7 +192,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestMillerWhenPrime()
+    public void testMiller_WhenPrime()
     {
         boolean result = Primes.testMiller(1013);
 
@@ -200,7 +200,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestMillerWhenComposite1()
+    public void testMiller_WhenComposite1()
     {
         boolean result = Primes.testMiller(1001);
 
@@ -208,7 +208,7 @@ public class PrimesTest
     }
 
     @Test
-    public void testTestMillerWhenComposite2()
+    public void testMiller_WhenComposite2()
     {
         boolean result = Primes.testMiller(1105);
 

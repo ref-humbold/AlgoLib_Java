@@ -26,7 +26,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testGetVerticesNumber()
+    public void getVerticesNumber()
     {
         int result = testObject.getVerticesNumber();
 
@@ -34,7 +34,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testGetVertices()
+    public void getVertices()
     {
         Object[] result = testObject.getVertices().toArray();
 
@@ -44,7 +44,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testAddVertex()
+    public void addVertex()
     {
         Integer[] neighbours = new Integer[]{2, 6};
         int result = testObject.addVertex(Arrays.asList(neighbours));
@@ -58,7 +58,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testGetEdgesNumber()
+    public void getEdgesNumber()
     {
         testObject.addEdge(7, 7);
         testObject.addEdge(1, 5);
@@ -75,7 +75,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testGetEdges()
+    public void getEdges()
     {
         testObject.addEdge(7, 7);
         testObject.addEdge(1, 5);
@@ -97,7 +97,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testAddEdge()
+    public void addEdge()
     {
         testObject.addEdge(1, 5);
         testObject.addEdge(1, 5);
@@ -116,7 +116,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testGetNeighbours()
+    public void getNeighbours()
     {
         testObject.addEdge(1, 1);
         testObject.addEdge(1, 3);
@@ -134,7 +134,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testGetOutdegree()
+    public void getOutdegree()
     {
         testObject.addEdge(1, 1);
         testObject.addEdge(1, 3);
@@ -150,7 +150,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testGetIndegree()
+    public void getIndegree()
     {
         testObject.addEdge(1, 1);
         testObject.addEdge(3, 1);
@@ -166,7 +166,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void testAsDirected()
+    public void asDirected()
     {
         testObject.addEdge(7, 7);
         testObject.addEdge(1, 5);

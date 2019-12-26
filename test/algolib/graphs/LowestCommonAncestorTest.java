@@ -30,7 +30,7 @@ public class LowestCommonAncestorTest
     }
 
     @Test
-    public void findLCAWhenSameVertex()
+    public void findLCA_WhenSameVertex()
     {
         int vertex = 6;
 
@@ -40,7 +40,7 @@ public class LowestCommonAncestorTest
     }
 
     @Test
-    public void findLCAWhenVerticesChanged()
+    public void findLCA_WhenVerticesChanged()
     {
         int vertex1 = 5;
         int vertex2 = 7;
@@ -53,7 +53,7 @@ public class LowestCommonAncestorTest
     }
 
     @Test
-    public void findLCAWhenVerticesInDifferentSubtrees()
+    public void findLCA_WhenVerticesInDifferentSubtrees()
     {
         int vertex1 = 5;
         int vertex2 = 7;
@@ -64,7 +64,7 @@ public class LowestCommonAncestorTest
     }
 
     @Test
-    public void findLCAWhenRootIsLCA()
+    public void findLCA_WhenRootIsLCA()
     {
         int vertex1 = 3;
         int vertex2 = 9;
@@ -76,7 +76,7 @@ public class LowestCommonAncestorTest
     }
 
     @Test
-    public void findLCAWhenVerticesAreOffsprings()
+    public void findLCA_WhenVerticesAreOffsprings()
     {
         int vertex1 = 8;
         int vertex2 = 2;
@@ -87,7 +87,7 @@ public class LowestCommonAncestorTest
     }
 
     @Test
-    public void findLCAWhenRootIsOneOfVertices()
+    public void findLCA_WhenRootIsOneOfVertices()
     {
         int vertex1 = 4;
         int vertex2 = 0;

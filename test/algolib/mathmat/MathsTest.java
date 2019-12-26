@@ -19,7 +19,7 @@ public class MathsTest
     }
 
     @Test
-    public void testGCDWhenNumbersAreComposite()
+    public void gCD_WhenNumbersAreComposite()
     {
         long number1 = 161;
         long number2 = 46;
@@ -30,7 +30,7 @@ public class MathsTest
     }
 
     @Test
-    public void testGCDWhenNumbersArePrime()
+    public void gCD_WhenNumbersArePrime()
     {
         long number1 = 127;
         long number2 = 41;
@@ -41,7 +41,7 @@ public class MathsTest
     }
 
     @Test
-    public void testGCDWhenNumbersAreMutuallyPrime()
+    public void gCD_WhenNumbersAreMutuallyPrime()
     {
         long number1 = 119;
         long number2 = 57;
@@ -52,7 +52,7 @@ public class MathsTest
     }
 
     @Test
-    public void testGCDWhenOneOfNumbersIsMultipleOfAnother()
+    public void gCD_WhenOneOfNumbersIsMultipleOfAnother()
     {
         long number1 = 272;
         long number2 = 34;
@@ -63,7 +63,7 @@ public class MathsTest
     }
 
     @Test
-    public void testGCDWhenOneOfNumbersIsZero()
+    public void gCD_WhenOneOfNumbersIsZero()
     {
         long number1 = 96;
         long number2 = 0;
@@ -74,7 +74,7 @@ public class MathsTest
     }
 
     @Test
-    public void testLCMWhenNumbersAreComposite()
+    public void lCM_WhenNumbersAreComposite()
     {
         long number1 = 161;
         long number2 = 46;
@@ -85,7 +85,7 @@ public class MathsTest
     }
 
     @Test
-    public void testLCMWhenNumbersArePrime()
+    public void lCM_WhenNumbersArePrime()
     {
         long number1 = 127;
         long number2 = 41;
@@ -96,7 +96,7 @@ public class MathsTest
     }
 
     @Test
-    public void testLCMWhenNumbersAreMutuallyPrime()
+    public void lCM_WhenNumbersAreMutuallyPrime()
     {
         long number1 = 119;
         long number2 = 57;
@@ -107,7 +107,7 @@ public class MathsTest
     }
 
     @Test
-    public void testLCMWhenOneOfNumbersIsMultipleOfAnother()
+    public void lCM_WhenOneOfNumbersIsMultipleOfAnother()
     {
         long number1 = 272;
         long number2 = 34;
@@ -118,7 +118,7 @@ public class MathsTest
     }
 
     @Test
-    public void testLCMWhenOneOfNumbersIsZero()
+    public void lCM_WhenOneOfNumbersIsZero()
     {
         long number1 = 96;
         long number2 = 0;
@@ -129,7 +129,7 @@ public class MathsTest
     }
 
     @Test
-    public void testPowerModWhenBaseIsZero()
+    public void powerMod_WhenBaseIsZero()
     {
         long number1 = 0;
         long number2 = 14;
@@ -141,7 +141,7 @@ public class MathsTest
     }
 
     @Test
-    public void testPowerModWhenExponentIsZero()
+    public void powerMod_WhenExponentIsZero()
     {
         long number1 = 14;
         long number2 = 0;
@@ -153,7 +153,7 @@ public class MathsTest
     }
 
     @Test(expected = ArithmeticException.class)
-    public void testPowerModWhenBaseAndExponentAreZero()
+    public void powerMod_WhenBaseAndExponentAreZero()
     {
         long number1 = 0;
         long number2 = 0;
@@ -163,7 +163,7 @@ public class MathsTest
     }
 
     @Test
-    public void testPowerModWhenBaseAndExponentArePositive()
+    public void powerMod_WhenBaseAndExponentArePositive()
     {
         long number1 = 3;
         long number2 = 10;
@@ -175,7 +175,7 @@ public class MathsTest
     }
 
     @Test
-    public void testPowerModWhenBaseIsNegativeAndExponentIsEven()
+    public void powerMod_WhenBaseIsNegativeAndExponentIsEven()
     {
         long number1 = -3;
         long number2 = 10;
@@ -187,7 +187,7 @@ public class MathsTest
     }
 
     @Test
-    public void testPowerModWhenBaseIsNegativeAndExponentIsOdd()
+    public void powerMod_WhenBaseIsNegativeAndExponentIsOdd()
     {
         long number1 = -3;
         long number2 = 9;
@@ -199,7 +199,7 @@ public class MathsTest
     }
 
     @Test(expected = ArithmeticException.class)
-    public void testPowerModWhenExponentIsNegative()
+    public void powerMod_WhenExponentIsNegative()
     {
         long number1 = 3;
         long number2 = -10;
@@ -209,7 +209,7 @@ public class MathsTest
     }
 
     @Test
-    public void testPowerModWhenModuloAndBaseArePositive()
+    public void powerMod_WhenModuloAndBaseArePositive()
     {
         long number1 = 5;
         long number2 = 11;
@@ -221,7 +221,7 @@ public class MathsTest
     }
 
     @Test
-    public void testPowerModWhenModuloIsPositiveAndBaseIsNegative()
+    public void powerMod_WhenModuloIsPositiveAndBaseIsNegative()
     {
         long number1 = -5;
         long number2 = 11;
@@ -233,7 +233,7 @@ public class MathsTest
     }
 
     @Test(expected = ArithmeticException.class)
-    public void testPowerModWhenModuloIsNegative()
+    public void powerMod_WhenModuloIsNegative()
     {
         long number1 = 5;
         long number2 = 11;
@@ -243,7 +243,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenFactor1IsZero()
+    public void multMod_WhenFactor1IsZero()
     {
         long number1 = 0;
         long number2 = 14;
@@ -255,7 +255,7 @@ public class MathsTest
     }
 
     @Test
-    public void testPowerModWhenFactor2IsZero()
+    public void powerMod_WhenFactor2IsZero()
     {
         long number1 = 14;
         long number2 = 0;
@@ -267,7 +267,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenFactorsAreZero()
+    public void multMod_WhenFactorsAreZero()
     {
         long number1 = 0;
         long number2 = 0;
@@ -279,7 +279,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenFactor1IsNegativeAndFactor2IsPositive()
+    public void multMod_WhenFactor1IsNegativeAndFactor2IsPositive()
     {
         long number1 = -3;
         long number2 = 10;
@@ -291,7 +291,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenFactor1IsPositiveAndFactor2IsNegative()
+    public void multMod_WhenFactor1IsPositiveAndFactor2IsNegative()
     {
         long number1 = 3;
         long number2 = -10;
@@ -303,7 +303,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenFactorsAreNegative()
+    public void multMod_WhenFactorsAreNegative()
     {
         long number1 = -3;
         long number2 = -10;
@@ -315,7 +315,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenModuloAndFactorsArePositive()
+    public void multMod_WhenModuloAndFactorsArePositive()
     {
         long number1 = 547;
         long number2 = 312;
@@ -327,7 +327,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenModuloIsPositiveAndFactor1IsNegative()
+    public void multMod_WhenModuloIsPositiveAndFactor1IsNegative()
     {
         long number1 = -547;
         long number2 = 312;
@@ -339,7 +339,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenModuloIsPositiveAndFactor2IsNegative()
+    public void multMod_WhenModuloIsPositiveAndFactor2IsNegative()
     {
         long number1 = 547;
         long number2 = -312;
@@ -351,7 +351,7 @@ public class MathsTest
     }
 
     @Test
-    public void testMultModWhenModuloIsPositiveAndFactorsAreNegative()
+    public void multMod_WhenModuloIsPositiveAndFactorsAreNegative()
     {
         long number1 = -547;
         long number2 = -312;
@@ -363,7 +363,7 @@ public class MathsTest
     }
 
     @Test(expected = ArithmeticException.class)
-    public void testMultModWhenModuloIsNegative()
+    public void multMod_WhenModuloIsNegative()
     {
         long number1 = 547;
         long number2 = 312;

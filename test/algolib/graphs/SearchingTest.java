@@ -62,7 +62,7 @@ public class SearchingTest
     }
 
     @Test
-    public void bfsWhenUndirectedGraphAndSingleRootThenNotAllVisited()
+    public void bfs_WhenUndirectedGraphAndSingleRootThenNotAllVisited()
     {
         List<Boolean> result = Searching.bfs(ugraph, strategy, 0);
         List<Integer> visited = strategy.getVisited();
@@ -76,7 +76,7 @@ public class SearchingTest
     }
 
     @Test
-    public void bfsWhenUndirectedGraphAndManyRootsThenAllVisited()
+    public void bfs_WhenUndirectedGraphAndManyRootsThenAllVisited()
     {
         List<Boolean> result = Searching.bfs(ugraph, strategy, 0, 6);
         List<Integer> visited = strategy.getVisited();
@@ -90,7 +90,7 @@ public class SearchingTest
     }
 
     @Test
-    public void bfsWhenUndirectedGraphAndNoRootsThenNoVisited()
+    public void bfs_WhenUndirectedGraphAndNoRootsThenNoVisited()
     {
         List<Boolean> result = Searching.bfs(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
@@ -102,7 +102,7 @@ public class SearchingTest
     }
 
     @Test
-    public void bfsWhenDirectedGraphAndSingleRootThenNotAllVisited()
+    public void bfs_WhenDirectedGraphAndSingleRootThenNotAllVisited()
     {
         List<Boolean> result = Searching.bfs(digraph, strategy, 1);
         List<Integer> visited = strategy.getVisited();
@@ -116,7 +116,7 @@ public class SearchingTest
     }
 
     @Test
-    public void dfsiWhenUndirectedGraphAndSingleRootThenNotAllVisited()
+    public void dfsi_WhenUndirectedGraphAndSingleRootThenNotAllVisited()
     {
         List<Boolean> result = Searching.dfsi(ugraph, strategy, 0);
         List<Integer> visited = strategy.getVisited();
@@ -130,7 +130,7 @@ public class SearchingTest
     }
 
     @Test
-    public void dfsiWhenUndirectedGraphAndManyRootsThenAllVisited()
+    public void dfsi_WhenUndirectedGraphAndManyRootsThenAllVisited()
     {
         List<Boolean> result = Searching.dfsi(ugraph, strategy, 0, 6);
         List<Integer> visited = strategy.getVisited();
@@ -144,7 +144,7 @@ public class SearchingTest
     }
 
     @Test
-    public void dfsiWhenUndirectedGraphAndNoRootsThenNoVisited()
+    public void dfsi_WhenUndirectedGraphAndNoRootsThenNoVisited()
     {
         List<Boolean> result = Searching.dfsi(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
@@ -156,7 +156,7 @@ public class SearchingTest
     }
 
     @Test
-    public void dfsiWhenDirectedGraphAndSingleRootThenNotAllVisited()
+    public void dfsi_WhenDirectedGraphAndSingleRootThenNotAllVisited()
     {
         List<Boolean> result = Searching.dfsi(digraph, strategy, 1);
         List<Integer> visited = strategy.getVisited();
@@ -170,7 +170,7 @@ public class SearchingTest
     }
 
     @Test
-    public void dfsrWhenUndirectedGraphAndSingleRootThenNotAllVisited()
+    public void dfsr_WhenUndirectedGraphAndSingleRootThenNotAllVisited()
     {
         List<Boolean> result = Searching.dfsr(ugraph, strategy, 0);
         List<Integer> visited = strategy.getVisited();
@@ -184,7 +184,7 @@ public class SearchingTest
     }
 
     @Test
-    public void dfsrWhenUndirectedGraphAndManyRootsThenAllVisited()
+    public void dfsr_WhenUndirectedGraphAndManyRootsThenAllVisited()
     {
         List<Boolean> result = Searching.dfsr(ugraph, strategy, 0, 6);
         List<Integer> visited = strategy.getVisited();
@@ -198,7 +198,7 @@ public class SearchingTest
     }
 
     @Test
-    public void dfsrWhenUndirectedGraphAndNoRootsThenNoVisited()
+    public void dfsr_WhenUndirectedGraphAndNoRootsThenNoVisited()
     {
         List<Boolean> result = Searching.dfsr(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
@@ -210,7 +210,7 @@ public class SearchingTest
     }
 
     @Test
-    public void dfsrWhenDirectedGraphAndSingleRootThenNotAllVisited()
+    public void dfsr_WhenDirectedGraphAndSingleRootThenNotAllVisited()
     {
         List<Boolean> result = Searching.dfsr(digraph, strategy, 1);
         List<Integer> visited = strategy.getVisited();

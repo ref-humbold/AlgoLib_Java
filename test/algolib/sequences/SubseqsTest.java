@@ -24,7 +24,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximumSubarray1()
+    public void maximumSubarray1()
     {
         sequence = Arrays.asList(3.5, 4.8, -1.6, 7.7, 2.1, -9.3, 0.8);
 
@@ -34,7 +34,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximumSubarray2()
+    public void maximumSubarray2()
     {
         sequence = Arrays.asList(-9.3, -1.2, 3.5, 4.8, -10.6, 7.7, 2.1, 0.8, 4.0);
 
@@ -44,7 +44,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximumSubarrayWhenAllElementsAreNegative()
+    public void maximumSubarray_WhenAllElementsAreNegative()
     {
         sequence = Arrays.asList(-9.0, -2.4, -3.07, -1.93, -12.67);
 
@@ -54,7 +54,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximalSubsum1()
+    public void maximalSubsum1()
     {
         sequence = Arrays.asList(3.5, 4.8, -1.6, 7.7, 2.1, -9.3, 0.8);
 
@@ -64,7 +64,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximalSubsum2()
+    public void maximalSubsum2()
     {
         sequence = Arrays.asList(-9.3, -1.2, 3.5, 4.8, -10.6, 7.7, 2.1, 0.8, 4.0);
 
@@ -74,7 +74,7 @@ public class SubseqsTest
     }
 
     @Test
-    public void testMaximumalSubsumWhenAllElementsAreNegative()
+    public void maximumalSubsum_WhenAllElementsAreNegative()
     {
         sequence = Arrays.asList(-9.0, -2.4, -3.07, -1.93, -12.67);
 

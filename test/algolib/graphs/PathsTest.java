@@ -59,7 +59,7 @@ public class PathsTest
     }
 
     @Test
-    public void testBellmanFordWhenDirectedGraph()
+    public void bellmanFord_WhenDirectedGraph()
     {
         int source = 1;
 
@@ -73,7 +73,7 @@ public class PathsTest
     }
 
     @Test
-    public void testBellmanFordWhenUndirectedGraph()
+    public void bellmanFord_WhenUndirectedGraph()
     {
         int source = 1;
 
@@ -85,7 +85,7 @@ public class PathsTest
     }
 
     @Test(expected = IllegalStateException.class)
-    public void testBellmanFordWhenNegativeCycle()
+    public void bellmanFord_WhenNegativeCycle()
     {
         int source = 1;
 
@@ -95,7 +95,7 @@ public class PathsTest
     }
 
     @Test
-    public void testDijkstraWhenDirectedGraph()
+    public void dijkstra_WhenDirectedGraph()
     {
         int source = 1;
 
@@ -107,7 +107,7 @@ public class PathsTest
     }
 
     @Test
-    public void testDijkstraWhenUndirectedGraph()
+    public void dijkstra_WhenUndirectedGraph()
     {
         int source = 1;
 
@@ -119,7 +119,7 @@ public class PathsTest
     }
 
     @Test(expected = IllegalStateException.class)
-    public void testDijkstraWhenNegativeEdge()
+    public void dijkstra_WhenNegativeEdge()
     {
         int source = 1;
 
@@ -129,7 +129,7 @@ public class PathsTest
     }
 
     @Test
-    public void testFloydWarshallWhenDirectedGraph()
+    public void floydWarshall_WhenDirectedGraph()
     {
         diwgraph.addWeightedEdge(2, 1, -2.0);
 
@@ -150,7 +150,7 @@ public class PathsTest
     }
 
     @Test
-    public void testFloydWarshallWhenUndirectedGraph()
+    public void floydWarshall_WhenUndirectedGraph()
     {
         double[][] result = Paths.floydWarshall(uwgraph.asDirected());
         double i = Graph.INF;

@@ -20,7 +20,7 @@ public class KMPTest
     }
 
     @Test
-    public void testKMPWhenPatternFoundOnce()
+    public void kMP_WhenPatternFoundOnce()
     {
         String text = "abcde";
         String pattern = "a";
@@ -31,7 +31,7 @@ public class KMPTest
     }
 
     @Test
-    public void testKMPWhenPatternFoundTwice()
+    public void kMP_WhenPatternFoundTwice()
     {
         String text = "abcdae";
         String pattern = "a";
@@ -42,7 +42,7 @@ public class KMPTest
     }
 
     @Test
-    public void testKMPWhenPatternFoundTwiceAndIntersects()
+    public void kMP_WhenPatternFoundTwiceAndIntersects()
     {
         String text = "aaabcde";
         String pattern = "aa";
@@ -53,7 +53,7 @@ public class KMPTest
     }
 
     @Test
-    public void testKMPWhenPatternNotFound()
+    public void kMP_WhenPatternNotFound()
     {
         String text = "abcde";
         String pattern = "x";
@@ -64,7 +64,7 @@ public class KMPTest
     }
 
     @Test
-    public void testKMPWhenPatternIsEmptyString()
+    public void kMP_WhenPatternIsEmptyString()
     {
         String text = "abcde";
         String pattern = "";
@@ -75,7 +75,7 @@ public class KMPTest
     }
 
     @Test(expected = NullPointerException.class)
-    public void testKMPWhenPatternIsNull()
+    public void kMP_WhenPatternIsNull()
     {
         String text = "abcde";
         String pattern = null;
@@ -84,7 +84,7 @@ public class KMPTest
     }
 
     @Test
-    public void testKMPWhenTextIsEmptyString()
+    public void kMP_WhenTextIsEmptyString()
     {
         String text = "";
         String pattern = "a";
@@ -95,7 +95,7 @@ public class KMPTest
     }
 
     @Test(expected = NullPointerException.class)
-    public void testKMPWhenTextIsNull()
+    public void kMP_WhenTextIsNull()
     {
         String text = null;
         String pattern = "a";

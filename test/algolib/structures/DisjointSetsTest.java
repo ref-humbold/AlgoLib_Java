@@ -24,7 +24,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testSize()
+    public void size()
     {
         int result = testObject.size();
 
@@ -32,7 +32,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testContainsWhenContains()
+    public void contains_WhenContains()
     {
         boolean result = testObject.contains(4);
 
@@ -40,7 +40,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testContainsWhenNotContains()
+    public void contains_WhenNotContains()
     {
         boolean result = testObject.contains(20);
 
@@ -48,7 +48,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testAddElemWhenNewElement()
+    public void addElem_WhenNewElement()
     {
         Integer elem = 20;
 
@@ -59,7 +59,7 @@ public class DisjointSetsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAddElemWhenPresentElement()
+    public void addElem_WhenPresentElement()
     {
         Integer elem = 7;
 
@@ -67,7 +67,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testFindSet()
+    public void findSet()
     {
         Integer elem = 4;
 
@@ -77,7 +77,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testUnionSetWhenDifferentSets()
+    public void unionSet_WhenDifferentSets()
     {
         Integer elem1 = 4;
         Integer elem2 = 6;
@@ -89,7 +89,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testUnionSetWhenSameSets1()
+    public void unionSet_WhenSameSets1()
     {
         Integer elem = 4;
 
@@ -100,7 +100,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testUnionSetWhenSameSets2()
+    public void unionSet_WhenSameSets2()
     {
         Integer elem1 = 3;
         Integer elem2 = 8;
@@ -113,7 +113,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testIsSameSetWhenDifferentSets()
+    public void isSameSet_WhenDifferentSets()
     {
         Integer elem1 = 4;
         Integer elem2 = 6;
@@ -124,7 +124,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testIsSameSetWhenSameSets1()
+    public void isSameSet_WhenSameSets1()
     {
         Integer elem = 4;
 
@@ -134,7 +134,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void testIsSameSetWhenSameSets2()
+    public void isSameSet_WhenSameSets2()
     {
         Integer elem1 = 3;
         Integer elem2 = 8;

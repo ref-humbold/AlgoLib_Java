@@ -48,7 +48,7 @@ public class TopologicalSortingTest
     }
 
     @Test
-    public void testSortTopological1WhenAcyclicGraph()
+    public void sortTopological1WhenAcyclicGraph()
     {
         List<Integer> result = TopologicalSorting.sortTopological1(acyclicGraph);
 
@@ -56,13 +56,13 @@ public class TopologicalSortingTest
     }
 
     @Test(expected = DirectedCyclicGraphException.class)
-    public void testSortTopological1WhenCyclicGraph()
+    public void sortTopological1WhenCyclicGraph()
     {
         TopologicalSorting.sortTopological1(cyclicGraph);
     }
 
     @Test
-    public void testSortTopological1WhenEmptyGraph()
+    public void sortTopological1WhenEmptyGraph()
     {
         DirectedGraph graph = new DirectedSimpleGraph(6);
 
@@ -72,7 +72,7 @@ public class TopologicalSortingTest
     }
 
     @Test
-    public void testSortTopological2WhenAcyclicGraph()
+    public void sortTopological2WhenAcyclicGraph()
     {
         List<Integer> result = TopologicalSorting.sortTopological2(acyclicGraph);
         Object[][] expecteds =
@@ -84,13 +84,13 @@ public class TopologicalSortingTest
     }
 
     @Test(expected = DirectedCyclicGraphException.class)
-    public void testSortTopological2WhenCyclicGraph()
+    public void sortTopological2WhenCyclicGraph()
     {
         TopologicalSorting.sortTopological1(cyclicGraph);
     }
 
     @Test
-    public void testSortTopological2WhenEmptyGraph()
+    public void sortTopological2WhenEmptyGraph()
     {
         DirectedGraph graph = new DirectedSimpleGraph(6);
 
