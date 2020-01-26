@@ -3,21 +3,21 @@ package algolib.sequences;
 
 import java.util.Arrays;
 import java.util.List;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SubseqsTest
 {
     private List<Double> sequence = null;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         sequence = null;
@@ -30,7 +30,7 @@ public class SubseqsTest
 
         List<Double> result = Subseqs.maximumSubarray(sequence);
 
-        Assert.assertArrayEquals(new Double[]{3.5, 4.8, -1.6, 7.7, 2.1}, result.toArray());
+        Assertions.assertArrayEquals(new Double[]{3.5, 4.8, -1.6, 7.7, 2.1}, result.toArray());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class SubseqsTest
 
         List<Double> result = Subseqs.maximumSubarray(sequence);
 
-        Assert.assertArrayEquals(new Double[]{7.7, 2.1, 0.8, 4.0}, result.toArray());
+        Assertions.assertArrayEquals(new Double[]{7.7, 2.1, 0.8, 4.0}, result.toArray());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class SubseqsTest
 
         List<Double> result = Subseqs.maximumSubarray(sequence);
 
-        Assert.assertArrayEquals(new Double[]{}, result.toArray());
+        Assertions.assertArrayEquals(new Double[]{}, result.toArray());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class SubseqsTest
 
         double result = Subseqs.maximalSubsum(sequence);
 
-        Assert.assertEquals(16.5, result, 0.000001);
+        Assertions.assertEquals(16.5, result, 0.000001);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class SubseqsTest
 
         double result = Subseqs.maximalSubsum(sequence);
 
-        Assert.assertEquals(14.6, result, 0.000001);
+        Assertions.assertEquals(14.6, result, 0.000001);
     }
 
     @Test
@@ -80,6 +80,6 @@ public class SubseqsTest
 
         double result = Subseqs.maximalSubsum(sequence);
 
-        Assert.assertEquals(0.0, result, 0.0);
+        Assertions.assertEquals(0.0, result, 0.0);
     }
 }

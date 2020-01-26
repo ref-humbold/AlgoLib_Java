@@ -5,21 +5,21 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import algolib.tuples.ImmutablePair;
 
 public class StronglyConnectedComponentsTest
 {
-    @Before
+    @BeforeEach
     public void setUp()
     {
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
     }
@@ -45,10 +45,10 @@ public class StronglyConnectedComponentsTest
 
         List<Set<Integer>> result = StronglyConnectedComponents.findSCC(digraph);
 
-        Assert.assertEquals(4, result.size());
-        Assert.assertTrue(result.contains(Collections.singleton(5)));
-        Assert.assertTrue(result.contains(Collections.singleton(2)));
-        Assert.assertTrue(result.contains(new HashSet<>(Arrays.asList(0, 1, 3, 4))));
-        Assert.assertTrue(result.contains(new HashSet<>(Arrays.asList(6, 7, 8, 9))));
+        Assertions.assertEquals(4, result.size());
+        Assertions.assertTrue(result.contains(Collections.singleton(5)));
+        Assertions.assertTrue(result.contains(Collections.singleton(2)));
+        Assertions.assertTrue(result.contains(new HashSet<>(Arrays.asList(0, 1, 3, 4))));
+        Assertions.assertTrue(result.contains(new HashSet<>(Arrays.asList(6, 7, 8, 9))));
     }
 }

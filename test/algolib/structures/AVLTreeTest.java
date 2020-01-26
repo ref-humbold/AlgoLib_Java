@@ -2,24 +2,24 @@
 package algolib.structures;
 
 import java.util.*;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class AVLTreeTest
 {
     private AVLTree<Integer> testObject;
     private Integer[] numbers = new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26};
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         testObject = new AVLTree<>(Comparator.naturalOrder());
         testObject.addAll(Arrays.asList(numbers));
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         testObject = null;
@@ -30,7 +30,7 @@ public class AVLTreeTest
     {
         String result = testObject.toString();
 
-        Assert.assertEquals("{|2, 6, 10, 14, 18, 24, 26, 30, 37, 45, 51, 68, 71, 97|}", result);
+        Assertions.assertEquals("{|2, 6, 10, 14, 18, 24, 26, 30, 37, 45, 51, 68, 71, 97|}", result);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class AVLTreeTest
 
         boolean result = testObject.isEmpty();
 
-        Assert.assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class AVLTreeTest
     {
         boolean result = testObject.isEmpty();
 
-        Assert.assertFalse(result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class AVLTreeTest
 
         int result = testObject.size();
 
-        Assert.assertEquals(0, result);
+        Assertions.assertEquals(0, result);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class AVLTreeTest
     {
         int result = testObject.size();
 
-        Assert.assertEquals(14, result);
+        Assertions.assertEquals(14, result);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class AVLTreeTest
         {
             boolean result = testObject.contains(i);
 
-            Assert.assertTrue(result);
+            Assertions.assertTrue(result);
         }
     }
 
@@ -87,7 +87,7 @@ public class AVLTreeTest
         {
             boolean result = testObject.contains(i);
 
-            Assert.assertFalse(result);
+            Assertions.assertFalse(result);
         }
     }
 
@@ -102,7 +102,7 @@ public class AVLTreeTest
 
         Arrays.sort(numbers);
 
-        Assert.assertArrayEquals(numbers, result.toArray());
+        Assertions.assertArrayEquals(numbers, result.toArray());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class AVLTreeTest
         Collections.sort(revNumbers);
         Collections.reverse(revNumbers);
 
-        Assert.assertArrayEquals(revNumbers.toArray(), result.toArray());
+        Assertions.assertArrayEquals(revNumbers.toArray(), result.toArray());
     }
 
     @Test
@@ -128,8 +128,8 @@ public class AVLTreeTest
         {
             boolean result = testObject.add(i);
 
-            Assert.assertTrue(result);
-            Assert.assertTrue(testObject.contains(i));
+            Assertions.assertTrue(result);
+            Assertions.assertTrue(testObject.contains(i));
         }
     }
 
@@ -140,8 +140,8 @@ public class AVLTreeTest
         {
             boolean result = testObject.add(i);
 
-            Assert.assertFalse(result);
-            Assert.assertTrue(testObject.contains(i));
+            Assertions.assertFalse(result);
+            Assertions.assertTrue(testObject.contains(i));
         }
     }
 
@@ -152,8 +152,8 @@ public class AVLTreeTest
         {
             boolean result = testObject.remove(i);
 
-            Assert.assertTrue(result);
-            Assert.assertFalse(testObject.contains(i));
+            Assertions.assertTrue(result);
+            Assertions.assertFalse(testObject.contains(i));
         }
     }
 
@@ -167,9 +167,9 @@ public class AVLTreeTest
 
         boolean result = testObject.remove(root);
 
-        Assert.assertTrue(result);
-        Assert.assertFalse(testObject.contains(root));
-        Assert.assertTrue(testObject.contains(elem));
+        Assertions.assertTrue(result);
+        Assertions.assertFalse(testObject.contains(root));
+        Assertions.assertTrue(testObject.contains(elem));
     }
 
     @Test
@@ -182,9 +182,9 @@ public class AVLTreeTest
 
         boolean result = testObject.remove(root);
 
-        Assert.assertTrue(result);
-        Assert.assertFalse(testObject.contains(root));
-        Assert.assertTrue(testObject.contains(elem));
+        Assertions.assertTrue(result);
+        Assertions.assertFalse(testObject.contains(root));
+        Assertions.assertTrue(testObject.contains(elem));
     }
 
     @Test
@@ -196,9 +196,9 @@ public class AVLTreeTest
 
         boolean result = testObject.remove(root);
 
-        Assert.assertTrue(result);
-        Assert.assertFalse(testObject.contains(root));
-        Assert.assertTrue(testObject.isEmpty());
+        Assertions.assertTrue(result);
+        Assertions.assertFalse(testObject.contains(root));
+        Assertions.assertTrue(testObject.isEmpty());
     }
 
     @Test
@@ -208,8 +208,8 @@ public class AVLTreeTest
 
         boolean result = testObject.remove(0);
 
-        Assert.assertFalse(result);
-        Assert.assertTrue(testObject.isEmpty());
+        Assertions.assertFalse(result);
+        Assertions.assertTrue(testObject.isEmpty());
     }
 
     @Test
@@ -219,8 +219,8 @@ public class AVLTreeTest
         {
             boolean result = testObject.remove(i);
 
-            Assert.assertFalse(result);
-            Assert.assertFalse(testObject.contains(i));
+            Assertions.assertFalse(result);
+            Assertions.assertFalse(testObject.contains(i));
         }
     }
 
@@ -229,7 +229,6 @@ public class AVLTreeTest
     {
         testObject.clear();
 
-        Assert.assertTrue(testObject.isEmpty());
-        Assert.assertEquals(0, testObject.size());
+        Assertions.assertEquals(0, testObject.size());
     }
 }

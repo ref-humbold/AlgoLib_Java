@@ -53,7 +53,7 @@
     <delete dir="${javadoc.output.dir}" />
   </target>
 
-  <target name="init" depends="resolve">
+  <target name="init">
     <mkdir dir="${build.dir}" />
     <copy includeemptydirs="false" todir="${build.dir}">
       <fileset dir="${src.dir}" excludes="**/*.java" />
@@ -109,9 +109,15 @@
 
   <target name="build" depends="jar" />
 
-  <target name="all" depends="build, test" />
+  <target name="rebuild" depends="resolve, build" />
+
+  <target name="main" depends="build, test" />
+
+  <target name="all" depends="resolve, main" />
 
   <target name="refresh" depends="clean, build" />
+
+  <target name="refresh-main" depends="clean, main" />
 
   <target name="refresh-all" depends="clean, all" />
 </project>

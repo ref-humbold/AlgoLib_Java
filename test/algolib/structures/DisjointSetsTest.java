@@ -2,22 +2,22 @@
 package algolib.structures;
 
 import java.util.Arrays;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DisjointSetsTest
 {
     private DisjointSets<Integer> testObject;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         testObject = new DisjointSets<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         testObject = null;
@@ -28,7 +28,7 @@ public class DisjointSetsTest
     {
         int result = testObject.size();
 
-        Assert.assertEquals(9, result);
+        Assertions.assertEquals(9, result);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class DisjointSetsTest
     {
         boolean result = testObject.contains(4);
 
-        Assert.assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class DisjointSetsTest
     {
         boolean result = testObject.contains(20);
 
-        Assert.assertFalse(result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -54,16 +54,16 @@ public class DisjointSetsTest
 
         testObject.addElem(elem);
 
-        Assert.assertTrue(testObject.contains(elem));
-        Assert.assertEquals(elem, testObject.findSet(elem));
+        Assertions.assertTrue(testObject.contains(elem));
+        Assertions.assertEquals(elem, testObject.findSet(elem));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void addElem_WhenPresentElement()
     {
         Integer elem = 7;
 
-        testObject.addElem(elem);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> testObject.addElem(elem));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class DisjointSetsTest
 
         Integer result = testObject.findSet(elem);
 
-        Assert.assertEquals(elem, result);
+        Assertions.assertEquals(elem, result);
     }
 
     @Test
@@ -84,8 +84,8 @@ public class DisjointSetsTest
 
         testObject.unionSet(elem1, elem2);
 
-        Assert.assertTrue(testObject.isSameSet(elem1, elem2));
-        Assert.assertEquals(testObject.findSet(elem1), testObject.findSet(elem2));
+        Assertions.assertTrue(testObject.isSameSet(elem1, elem2));
+        Assertions.assertEquals(testObject.findSet(elem1), testObject.findSet(elem2));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class DisjointSetsTest
 
         testObject.unionSet(elem, elem);
 
-        Assert.assertTrue(testObject.isSameSet(elem, elem));
-        Assert.assertEquals(testObject.findSet(elem), testObject.findSet(elem));
+        Assertions.assertTrue(testObject.isSameSet(elem, elem));
+        Assertions.assertEquals(testObject.findSet(elem), testObject.findSet(elem));
     }
 
     @Test
@@ -108,8 +108,8 @@ public class DisjointSetsTest
 
         testObject.unionSet(elem2, elem1);
 
-        Assert.assertTrue(testObject.isSameSet(elem1, elem2));
-        Assert.assertEquals(testObject.findSet(elem1), testObject.findSet(elem2));
+        Assertions.assertTrue(testObject.isSameSet(elem1, elem2));
+        Assertions.assertEquals(testObject.findSet(elem1), testObject.findSet(elem2));
     }
 
     @Test
@@ -120,7 +120,7 @@ public class DisjointSetsTest
 
         boolean result = testObject.isSameSet(elem1, elem2);
 
-        Assert.assertFalse(result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class DisjointSetsTest
 
         boolean result = testObject.isSameSet(elem, elem);
 
-        Assert.assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -142,6 +142,6 @@ public class DisjointSetsTest
 
         boolean result = testObject.isSameSet(elem2, elem1);
 
-        Assert.assertTrue(result);
+        Assertions.assertTrue(result);
     }
 }
