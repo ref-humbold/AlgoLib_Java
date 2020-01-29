@@ -1,0 +1,14 @@
+os: linux
+dist: bionic
+addons:
+  apt:
+    packages:
+      - ant
+      - ant-optional
+
+language: java
+jdk: openjdk11
+
+before_install: ./travis_before_install.sh
+install: ant rebuild
+script: ant -lib ./lib test

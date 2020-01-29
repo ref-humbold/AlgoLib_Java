@@ -3,10 +3,10 @@ package algolib.graphs;
 
 import java.util.Arrays;
 import java.util.List;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import algolib.tuples.ImmutableTriple;
 
@@ -15,7 +15,7 @@ public class PathsTest
     private DirectedWeightedSimpleGraph diwgraph;
     private UndirectedWeightedSimpleGraph uwgraph;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         diwgraph = new DirectedWeightedSimpleGraph(10,
@@ -51,7 +51,7 @@ public class PathsTest
                                                                   ImmutableTriple.make(9, 6, 3.0)));
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         diwgraph = null;
@@ -67,7 +67,7 @@ public class PathsTest
 
         List<Double> result = Paths.bellmanFord(diwgraph, source);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Double[]{20.0, 0.0, Graph.INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0},
                 result.toArray());
     }
@@ -80,18 +80,19 @@ public class PathsTest
         List<Double> result = Paths.bellmanFord(uwgraph.asDirected(), source);
         double i = Graph.INF;
 
-        Assert.assertArrayEquals(new Double[]{4.0, 0.0, i, 7.0, 7.0, 8.0, i, 10.0, 10.0, i},
-                                 result.toArray());
+        Assertions.assertArrayEquals(new Double[]{4.0, 0.0, i, 7.0, 7.0, 8.0, i, 10.0, 10.0, i},
+                                     result.toArray());
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void bellmanFord_WhenNegativeCycle()
+    @Test
+    public void bellmanFord_WhenNegativeCycle_ThenIllegalStateException()
     {
         int source = 1;
 
         diwgraph.addWeightedEdge(8, 3, -20.0);
 
-        Paths.bellmanFord(diwgraph, source);
+        Assertions.assertThrows(IllegalStateException.class,
+                                () -> Paths.bellmanFord(diwgraph, source));
     }
 
     @Test
@@ -101,7 +102,7 @@ public class PathsTest
 
         List<Double> result = Paths.dijkstra(diwgraph, source);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Double[]{20.0, 0.0, Graph.INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0},
                 result.toArray());
     }
@@ -113,19 +114,20 @@ public class PathsTest
 
         List<Double> result = Paths.dijkstra(uwgraph, source);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Double[]{4.0, 0.0, Graph.INF, 7.0, 7.0, 8.0, Graph.INF, 10.0, 10.0, Graph.INF},
                 result.toArray());
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void dijkstra_WhenNegativeEdge()
+    @Test
+    public void dijkstra_WhenNegativeEdge_ThenIllegalStateException()
     {
         int source = 1;
 
         diwgraph.addWeightedEdge(2, 1, -2.0);
 
-        Paths.dijkstra(diwgraph, source);
+        Assertions.assertThrows(IllegalStateException.class,
+                                () -> Paths.dijkstra(diwgraph, source));
     }
 
     @Test
@@ -136,7 +138,7 @@ public class PathsTest
         double[][] result = Paths.floydWarshall(diwgraph);
         double i = Graph.INF;
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new double[][]{{0.0, 4.0, i, 21.0, 11.0, 12.0, 16.0, 16.0, 14.0, 24.0},
                                {20.0, 0.0, i, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0},
                                {18.0, -2.0, 0.0, 15.0, 5.0, 6.0, 8.0, 10.0, 8.0, 18.0},
@@ -155,15 +157,15 @@ public class PathsTest
         double[][] result = Paths.floydWarshall(uwgraph.asDirected());
         double i = Graph.INF;
 
-        Assert.assertArrayEquals(new double[][]{{0.0, 4.0, i, 3.0, 11.0, 10.0, i, 8.0, 12.0, i},
-                                                {4.0, 0.0, i, 7.0, 7.0, 8.0, i, 10.0, 10.0, i},
-                                                {i, i, 0.0, i, i, i, 8.0, i, i, 11.0},
-                                                {3.0, 7.0, i, 0.0, 8.0, 7.0, i, 5.0, 9.0, i},
-                                                {11.0, 7.0, i, 8.0, 0.0, 1.0, i, 3.0, 3.0, i},
-                                                {10, 8, i, 7.0, 1.0, 0.0, i, 2.0, 2.0, i},
-                                                {i, i, 8.0, i, i, i, 0.0, i, i, 3.0},
-                                                {8.0, 10.0, i, 5.0, 3.0, 2.0, i, 0.0, 4.0, i},
-                                                {12.0, 10.0, i, 9.0, 3.0, 2.0, i, 4.0, 0.0, i},
-                                                {i, i, 11.0, i, i, i, 3.0, i, i, 0.0}}, result);
+        Assertions.assertArrayEquals(new double[][]{{0.0, 4.0, i, 3.0, 11.0, 10.0, i, 8.0, 12.0, i},
+                                                    {4.0, 0.0, i, 7.0, 7.0, 8.0, i, 10.0, 10.0, i},
+                                                    {i, i, 0.0, i, i, i, 8.0, i, i, 11.0},
+                                                    {3.0, 7.0, i, 0.0, 8.0, 7.0, i, 5.0, 9.0, i},
+                                                    {11.0, 7.0, i, 8.0, 0.0, 1.0, i, 3.0, 3.0, i},
+                                                    {10, 8, i, 7.0, 1.0, 0.0, i, 2.0, 2.0, i},
+                                                    {i, i, 8.0, i, i, i, 0.0, i, i, 3.0},
+                                                    {8.0, 10.0, i, 5.0, 3.0, 2.0, i, 0.0, 4.0, i},
+                                                    {12.0, 10.0, i, 9.0, 3.0, 2.0, i, 4.0, 0.0, i},
+                                                    {i, i, 11.0, i, i, i, 3.0, i, i, 0.0}}, result);
     }
 }

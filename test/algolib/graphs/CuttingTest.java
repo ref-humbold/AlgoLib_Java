@@ -3,10 +3,10 @@ package algolib.graphs;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import algolib.tuples.ComparablePair;
 import algolib.tuples.ImmutablePair;
@@ -15,12 +15,12 @@ public class CuttingTest
 {
     private UndirectedGraph graph;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         graph = null;
@@ -50,8 +50,8 @@ public class CuttingTest
 
         Arrays.sort(result);
 
-        Assert.assertArrayEquals(new Object[]{ImmutablePair.make(0, 7), ImmutablePair.make(5, 6)},
-                                 result);
+        Assertions.assertArrayEquals(
+                new Object[]{ImmutablePair.make(0, 7), ImmutablePair.make(5, 6)}, result);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class CuttingTest
 
         Collection<ComparablePair<Integer, Integer>> result = Cutting.findEdgeCut(graph);
 
-        Assert.assertArrayEquals(new Object[]{}, result.toArray());
+        Assertions.assertArrayEquals(new Object[]{}, result.toArray());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class CuttingTest
 
         Arrays.sort(result);
 
-        Assert.assertArrayEquals(new Integer[]{0, 1, 5, 7}, result);
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 5, 7}, result);
     }
 
     @Test
@@ -111,6 +111,6 @@ public class CuttingTest
 
         Collection<Integer> result = Cutting.findVertexCut(graph);
 
-        Assert.assertArrayEquals(new Object[]{}, result.toArray());
+        Assertions.assertArrayEquals(new Object[]{}, result.toArray());
     }
 }

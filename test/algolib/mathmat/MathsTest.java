@@ -1,19 +1,19 @@
 // TESTY DLA ALGORYTMÓW MATEMATYCZNYCH
 package algolib.mathmat;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MathsTest
 {
-    @Before
+    @BeforeEach
     public void setUp()
     {
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
     }
@@ -26,7 +26,7 @@ public class MathsTest
 
         long result = Maths.gcd(number1, number2);
 
-        Assert.assertEquals(23, result);
+        Assertions.assertEquals(23, result);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class MathsTest
 
         long result = Maths.gcd(number1, number2);
 
-        Assert.assertEquals(1, result);
+        Assertions.assertEquals(1, result);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class MathsTest
 
         long result = Maths.gcd(number1, number2);
 
-        Assert.assertEquals(1, result);
+        Assertions.assertEquals(1, result);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class MathsTest
 
         long result = Maths.gcd(number1, number2);
 
-        Assert.assertEquals(number2, result);
+        Assertions.assertEquals(number2, result);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class MathsTest
 
         long result = Maths.gcd(number1, number2);
 
-        Assert.assertEquals(number1, result);
+        Assertions.assertEquals(number1, result);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class MathsTest
 
         long result = Maths.lcm(number1, number2);
 
-        Assert.assertEquals(322, result);
+        Assertions.assertEquals(322, result);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class MathsTest
 
         long result = Maths.lcm(number1, number2);
 
-        Assert.assertEquals(5207, result);
+        Assertions.assertEquals(5207, result);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class MathsTest
 
         long result = Maths.lcm(number1, number2);
 
-        Assert.assertEquals(6783, result);
+        Assertions.assertEquals(6783, result);
     }
 
     @Test
@@ -114,7 +114,7 @@ public class MathsTest
 
         long result = Maths.lcm(number1, number2);
 
-        Assert.assertEquals(number1, result);
+        Assertions.assertEquals(number1, result);
     }
 
     @Test
@@ -125,7 +125,7 @@ public class MathsTest
 
         long result = Maths.lcm(number1, number2);
 
-        Assert.assertEquals(number2, result);
+        Assertions.assertEquals(number2, result);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class MathsTest
 
         long result = Maths.powerMod(number1, number2, number3);
 
-        Assert.assertEquals(number1, result);
+        Assertions.assertEquals(number1, result);
     }
 
     @Test
@@ -149,17 +149,18 @@ public class MathsTest
 
         long result = Maths.powerMod(number1, number2, number3);
 
-        Assert.assertEquals(1, result);
+        Assertions.assertEquals(1, result);
     }
 
-    @Test(expected = ArithmeticException.class)
-    public void powerMod_WhenBaseAndExponentAreZero()
+    @Test
+    public void powerMod_WhenBaseAndExponentAreZero_ThenArithmeticException()
     {
         long number1 = 0;
         long number2 = 0;
         long number3 = 0;
 
-        Maths.powerMod(number1, number2, number3);
+        Assertions.assertThrows(ArithmeticException.class,
+                                () -> Maths.powerMod(number1, number2, number3));
     }
 
     @Test
@@ -171,7 +172,7 @@ public class MathsTest
 
         long result = Maths.powerMod(number1, number2, number3);
 
-        Assert.assertEquals(59049, result);
+        Assertions.assertEquals(59049, result);
     }
 
     @Test
@@ -183,7 +184,7 @@ public class MathsTest
 
         long result = Maths.powerMod(number1, number2, number3);
 
-        Assert.assertEquals(59049, result);
+        Assertions.assertEquals(59049, result);
     }
 
     @Test
@@ -195,17 +196,18 @@ public class MathsTest
 
         long result = Maths.powerMod(number1, number2, number3);
 
-        Assert.assertEquals(-19683, result);
+        Assertions.assertEquals(-19683, result);
     }
 
-    @Test(expected = ArithmeticException.class)
-    public void powerMod_WhenExponentIsNegative()
+    @Test
+    public void powerMod_WhenExponentIsNegative_ThenArithmeticException()
     {
         long number1 = 3;
         long number2 = -10;
         long number3 = 0;
 
-        Maths.powerMod(number1, number2, number3);
+        Assertions.assertThrows(ArithmeticException.class,
+                                () -> Maths.powerMod(number1, number2, number3));
     }
 
     @Test
@@ -217,7 +219,7 @@ public class MathsTest
 
         long result = Maths.powerMod(number1, number2, number3);
 
-        Assert.assertEquals(8125, result);
+        Assertions.assertEquals(8125, result);
     }
 
     @Test
@@ -229,17 +231,18 @@ public class MathsTest
 
         long result = Maths.powerMod(number1, number2, number3);
 
-        Assert.assertEquals(1875, result);
+        Assertions.assertEquals(1875, result);
     }
 
-    @Test(expected = ArithmeticException.class)
-    public void powerMod_WhenModuloIsNegative()
+    @Test
+    public void powerMod_WhenModuloIsNegative_ThenArithmeticException()
     {
         long number1 = 5;
         long number2 = 11;
         long number3 = -10000;
 
-        Maths.powerMod(number1, number2, number3);
+        Assertions.assertThrows(ArithmeticException.class,
+                                () -> Maths.powerMod(number1, number2, number3));
     }
 
     @Test
@@ -251,7 +254,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(number1, result);
+        Assertions.assertEquals(number1, result);
     }
 
     @Test
@@ -263,7 +266,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(number2, result);
+        Assertions.assertEquals(number2, result);
     }
 
     @Test
@@ -275,7 +278,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(number1, result);
+        Assertions.assertEquals(number1, result);
     }
 
     @Test
@@ -287,7 +290,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(-30, result);
+        Assertions.assertEquals(-30, result);
     }
 
     @Test
@@ -299,7 +302,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(-30, result);
+        Assertions.assertEquals(-30, result);
     }
 
     @Test
@@ -311,7 +314,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(30, result);
+        Assertions.assertEquals(30, result);
     }
 
     @Test
@@ -323,7 +326,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(664, result);
+        Assertions.assertEquals(664, result);
     }
 
     @Test
@@ -335,7 +338,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(9336, result);
+        Assertions.assertEquals(9336, result);
     }
 
     @Test
@@ -347,7 +350,7 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(9336, result);
+        Assertions.assertEquals(9336, result);
     }
 
     @Test
@@ -359,16 +362,17 @@ public class MathsTest
 
         long result = Maths.multMod(number1, number2, number3);
 
-        Assert.assertEquals(664, result);
+        Assertions.assertEquals(664, result);
     }
 
-    @Test(expected = ArithmeticException.class)
-    public void multMod_WhenModuloIsNegative()
+    @Test
+    public void multMod_WhenModuloIsNegative_ThenArithmeticException()
     {
         long number1 = 547;
         long number2 = 312;
         long number3 = -10000;
 
-        Maths.multMod(number1, number2, number3);
+        Assertions.assertThrows(ArithmeticException.class,
+                                () -> Maths.multMod(number1, number2, number3));
     }
 }

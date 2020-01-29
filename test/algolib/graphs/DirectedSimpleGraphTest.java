@@ -2,10 +2,10 @@
 package algolib.graphs;
 
 import java.util.Arrays;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import algolib.tuples.ImmutablePair;
 
@@ -13,13 +13,13 @@ public class DirectedSimpleGraphTest
 {
     private DirectedSimpleGraph testObject;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         testObject = new DirectedSimpleGraph(10);
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         testObject = null;
@@ -30,7 +30,7 @@ public class DirectedSimpleGraphTest
     {
         int result = testObject.getVerticesNumber();
 
-        Assert.assertEquals(10, result);
+        Assertions.assertEquals(10, result);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class DirectedSimpleGraphTest
 
         Arrays.sort(result);
 
-        Assert.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, result);
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, result);
     }
 
     @Test
@@ -52,9 +52,9 @@ public class DirectedSimpleGraphTest
 
         Arrays.sort(resultNeighbours);
 
-        Assert.assertEquals(10, result);
-        Assert.assertEquals(11, testObject.getVerticesNumber());
-        Assert.assertArrayEquals(neighbours, resultNeighbours);
+        Assertions.assertEquals(10, result);
+        Assertions.assertEquals(11, testObject.getVerticesNumber());
+        Assertions.assertArrayEquals(neighbours, resultNeighbours);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class DirectedSimpleGraphTest
 
         int result = testObject.getEdgesNumber();
 
-        Assert.assertEquals(7, result);
+        Assertions.assertEquals(7, result);
     }
 
     @Test
@@ -90,10 +90,11 @@ public class DirectedSimpleGraphTest
 
         Arrays.sort(result);
 
-        Assert.assertArrayEquals(new Object[]{ImmutablePair.make(1, 5), ImmutablePair.make(2, 4),
-                                              ImmutablePair.make(3, 6), ImmutablePair.make(6, 3),
-                                              ImmutablePair.make(7, 7), ImmutablePair.make(8, 0),
-                                              ImmutablePair.make(9, 3)}, result);
+        Assertions.assertArrayEquals(
+                new Object[]{ImmutablePair.make(1, 5), ImmutablePair.make(2, 4),
+                             ImmutablePair.make(3, 6), ImmutablePair.make(6, 3),
+                             ImmutablePair.make(7, 7), ImmutablePair.make(8, 0),
+                             ImmutablePair.make(9, 3)}, result);
     }
 
     @Test
@@ -109,9 +110,9 @@ public class DirectedSimpleGraphTest
         Arrays.sort(neighbours1);
         Arrays.sort(neighbours5);
 
-        Assert.assertEquals(2, testObject.getEdgesNumber());
-        Assert.assertArrayEquals(new Integer[]{1, 5}, neighbours1);
-        Assert.assertArrayEquals(new Integer[]{}, neighbours5);
+        Assertions.assertEquals(2, testObject.getEdgesNumber());
+        Assertions.assertArrayEquals(new Integer[]{1, 5}, neighbours1);
+        Assertions.assertArrayEquals(new Integer[]{}, neighbours5);
     }
 
     @Test
@@ -129,7 +130,7 @@ public class DirectedSimpleGraphTest
 
         Arrays.sort(result);
 
-        Assert.assertArrayEquals(new Integer[]{1, 3, 4, 7, 9}, result);
+        Assertions.assertArrayEquals(new Integer[]{1, 3, 4, 7, 9}, result);
     }
 
     @Test
@@ -145,7 +146,7 @@ public class DirectedSimpleGraphTest
 
         int result = testObject.getOutdegree(1);
 
-        Assert.assertEquals(5, result);
+        Assertions.assertEquals(5, result);
     }
 
     @Test
@@ -161,7 +162,7 @@ public class DirectedSimpleGraphTest
 
         int result = testObject.getIndegree(1);
 
-        Assert.assertEquals(5, result);
+        Assertions.assertEquals(5, result);
     }
 
     @Test
@@ -184,11 +185,11 @@ public class DirectedSimpleGraphTest
 
         Arrays.sort(result);
 
-        Assert.assertArrayEquals(new Object[]{ImmutablePair.make(1, 9), ImmutablePair.make(2, 1),
-                                              ImmutablePair.make(2, 6), ImmutablePair.make(4, 5),
-                                              ImmutablePair.make(5, 3), ImmutablePair.make(6, 6),
-                                              ImmutablePair.make(6, 9), ImmutablePair.make(7, 5),
-                                              ImmutablePair.make(8, 7), ImmutablePair.make(9, 4)},
-                                 result);
+        Assertions.assertArrayEquals(
+                new Object[]{ImmutablePair.make(1, 9), ImmutablePair.make(2, 1),
+                             ImmutablePair.make(2, 6), ImmutablePair.make(4, 5),
+                             ImmutablePair.make(5, 3), ImmutablePair.make(6, 6),
+                             ImmutablePair.make(6, 9), ImmutablePair.make(7, 5),
+                             ImmutablePair.make(8, 7), ImmutablePair.make(9, 4)}, result);
     }
 }

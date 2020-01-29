@@ -2,10 +2,10 @@
 package algolib.graphs;
 
 import java.util.Arrays;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import algolib.tuples.ImmutableTriple;
 
@@ -13,7 +13,7 @@ public class MinimalSpanningTreeTest
 {
     private UndirectedWeightedSimpleGraph graph;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         graph = new UndirectedWeightedSimpleGraph(5, Arrays.asList(ImmutableTriple.make(0, 1, -1.0),
@@ -26,7 +26,7 @@ public class MinimalSpanningTreeTest
                                                                                         3.0)));
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         graph = null;
@@ -37,7 +37,7 @@ public class MinimalSpanningTreeTest
     {
         double result = MinimalSpanningTree.kruskal(graph);
 
-        Assert.assertEquals(12.0, result, 0.000001);
+        Assertions.assertEquals(12.0, result, 0.000001);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class MinimalSpanningTreeTest
     {
         double result = MinimalSpanningTree.prim(graph, 0);
 
-        Assert.assertEquals(12.0, result, 0.000001);
+        Assertions.assertEquals(12.0, result, 0.000001);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class MinimalSpanningTreeTest
         double result1 = MinimalSpanningTree.prim(graph, 1);
         double result4 = MinimalSpanningTree.prim(graph, 4);
 
-        Assert.assertEquals(12.0, result1, 0.000001);
-        Assert.assertEquals(12.0, result4, 0.000001);
+        Assertions.assertEquals(12.0, result1, 0.000001);
+        Assertions.assertEquals(12.0, result4, 0.000001);
     }
 }

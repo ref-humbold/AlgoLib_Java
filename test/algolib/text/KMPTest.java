@@ -2,19 +2,19 @@
 package algolib.text;
 
 import java.util.List;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class KMPTest
 {
-    @Before
+    @BeforeEach
     public void setUp()
     {
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
     }
@@ -27,7 +27,7 @@ public class KMPTest
 
         List<Integer> result = KMP.kmp(text, pattern);
 
-        Assert.assertArrayEquals(new Integer[]{0}, result.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0}, result.toArray());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class KMPTest
 
         List<Integer> result = KMP.kmp(text, pattern);
 
-        Assert.assertArrayEquals(new Integer[]{0, 4}, result.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 4}, result.toArray());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class KMPTest
 
         List<Integer> result = KMP.kmp(text, pattern);
 
-        Assert.assertArrayEquals(new Integer[]{0, 1}, result.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1}, result.toArray());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class KMPTest
 
         List<Integer> result = KMP.kmp(text, pattern);
 
-        Assert.assertArrayEquals(new Integer[]{}, result.toArray());
+        Assertions.assertArrayEquals(new Integer[]{}, result.toArray());
     }
 
     @Test
@@ -71,16 +71,16 @@ public class KMPTest
 
         List<Integer> result = KMP.kmp(text, pattern);
 
-        Assert.assertArrayEquals(new Integer[]{}, result.toArray());
+        Assertions.assertArrayEquals(new Integer[]{}, result.toArray());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void kMP_WhenPatternIsNull()
+    @Test
+    public void kMP_WhenPatternIsNull_ThenNullPointerException()
     {
         String text = "abcde";
         String pattern = null;
 
-        KMP.kmp(text, pattern);
+        Assertions.assertThrows(NullPointerException.class, () -> KMP.kmp(text, pattern));
     }
 
     @Test
@@ -91,15 +91,15 @@ public class KMPTest
 
         List<Integer> result = KMP.kmp(text, pattern);
 
-        Assert.assertArrayEquals(new Integer[]{}, result.toArray());
+        Assertions.assertArrayEquals(new Integer[]{}, result.toArray());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void kMP_WhenTextIsNull()
+    @Test
+    public void kMP_WhenTextIsNull_ThenNullPointerException()
     {
         String text = null;
         String pattern = "a";
 
-        KMP.kmp(text, pattern);
+        Assertions.assertThrows(NullPointerException.class, () -> KMP.kmp(text, pattern));
     }
 }

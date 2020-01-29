@@ -3,10 +3,10 @@ package algolib.graphs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import algolib.graphs.searching.SearchingStrategy;
 import algolib.tuples.ImmutablePair;
@@ -17,7 +17,7 @@ public class SearchingTest
     private DirectedSimpleGraph digraph;
     private UndirectedSimpleGraph ugraph;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         strategy = new SearchingTestStrategy();
@@ -53,7 +53,7 @@ public class SearchingTest
                                                              ImmutablePair.make(9, 6)));
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         strategy = null;
@@ -69,10 +69,10 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, false, true, true, true, false, true, true, false},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
     }
 
     @Test
@@ -83,10 +83,11 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, true, true, true, true, true, true, true, true},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+                                     visited.toArray());
     }
 
     @Test
@@ -95,10 +96,10 @@ public class SearchingTest
         List<Boolean> result = Searching.bfs(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{false, false, false, false, false, false, false, false, false, false},
                 result.toArray());
-        Assert.assertTrue(visited.isEmpty());
+        Assertions.assertTrue(visited.isEmpty());
     }
 
     @Test
@@ -109,10 +110,10 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, false, true, true, true, true, true, true, true},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
     }
 
     @Test
@@ -123,10 +124,10 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, false, true, true, true, false, true, true, false},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
     }
 
     @Test
@@ -137,10 +138,11 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, true, true, true, true, true, true, true, true},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+                                     visited.toArray());
     }
 
     @Test
@@ -149,10 +151,10 @@ public class SearchingTest
         List<Boolean> result = Searching.dfsi(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{false, false, false, false, false, false, false, false, false, false},
                 result.toArray());
-        Assert.assertTrue(visited.isEmpty());
+        Assertions.assertTrue(visited.isEmpty());
     }
 
     @Test
@@ -163,10 +165,10 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, false, true, true, true, true, true, true, true},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
     }
 
     @Test
@@ -177,10 +179,10 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, false, true, true, true, false, true, true, false},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
     }
 
     @Test
@@ -191,10 +193,11 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, true, true, true, true, true, true, true, true},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+                                     visited.toArray());
     }
 
     @Test
@@ -203,10 +206,10 @@ public class SearchingTest
         List<Boolean> result = Searching.dfsr(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{false, false, false, false, false, false, false, false, false, false},
                 result.toArray());
-        Assert.assertTrue(visited.isEmpty());
+        Assertions.assertTrue(visited.isEmpty());
     }
 
     @Test
@@ -217,10 +220,10 @@ public class SearchingTest
 
         visited.sort(Integer::compare);
 
-        Assert.assertArrayEquals(
+        Assertions.assertArrayEquals(
                 new Boolean[]{true, true, false, true, true, true, true, true, true, true},
                 result.toArray());
-        Assert.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
     }
 
     private class SearchingTestStrategy
