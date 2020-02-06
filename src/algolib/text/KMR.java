@@ -9,7 +9,7 @@ import algolib.tuples.Triple;
 public class KMR
 {
     /**
-     * Budowa słownika podsłów bazowych.
+     * Budowa słownika podsłów bazowych
      * @param text słowo
      * @return słownik podsłów bazowych
      */
@@ -24,7 +24,7 @@ public class KMR
     }
 
     /**
-     * Budowa podsłów złożonych z pojedynczych znaków.
+     * Budowa podsłów złożonych z pojedynczych znaków
      * @param text słowo
      * @return słownik dla pojedynczych znaków
      */
@@ -48,7 +48,7 @@ public class KMR
     }
 
     /**
-     * Budowa nowych podsłów o podwojonej długości.
+     * Budowa nowych podsłów o podwojonej długości
      * @param newLength nowa długość podsłów
      * @param text słowo
      * @param factors słownik podsłów bazowych

@@ -4,7 +4,7 @@ package algolib.mathmat;
 public class Maths
 {
     /**
-     * Największy wspólny dzielnik dwóch liczb.
+     * Największy wspólny dzielnik dwóch liczb
      * @param number1 pierwsza liczba
      * @param number2 druga liczba
      * @return największy wspólny dzielnik
@@ -26,7 +26,7 @@ public class Maths
     }
 
     /**
-     * Najmniejsza wspólna wielokrotność dwóch liczb.
+     * Najmniejsza wspólna wielokrotność dwóch liczb
      * @param number1 pierwsza liczba
      * @param number2 druga liczba
      * @return najmniejsza wspólna wielokrotność
@@ -40,7 +40,7 @@ public class Maths
     }
 
     /**
-     * Mnożenie binarne modulowane.
+     * Mnożenie binarne modulowane
      * @param factor1 pierwszy czynnik
      * @param factor2 drugi czynnik
      * @param modulo modulo
@@ -75,7 +75,7 @@ public class Maths
     }
 
     /**
-     * Szybkie potęgowanie binarne modulowane.
+     * Szybkie potęgowanie binarne modulowane
      * @param base podstawa
      * @param exponent wykładnik
      * @param modulo modulo

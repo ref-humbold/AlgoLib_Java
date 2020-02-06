@@ -11,7 +11,7 @@ import algolib.tuples.ComparablePair;
 public class Cutting
 {
     /**
-     * Wyznacza mosty w grafie.
+     * Wyznacza mosty w grafie
      * @return lista krawędzi będących mostami
      */
     public static Collection<ComparablePair<Integer, Integer>> findEdgeCut(UndirectedGraph ugraph)
@@ -20,7 +20,7 @@ public class Cutting
     }
 
     /**
-     * Wyznaczanie punktów artykulacji.
+     * Wyznaczanie punktów artykulacji
      * @return lista punktów artykulacji
      */
     public static Collection<Integer> findVertexCut(UndirectedGraph ugraph)
@@ -31,27 +31,27 @@ public class Cutting
     private static class GraphCutting
     {
         /**
-         * Reprezentacja grafu nieskierowanego.
+         * Reprezentacja grafu nieskierowanego
          */
         private Graph graph;
 
         /**
-         * Ojciec wierzchołka w drzewie DFS.
+         * Ojciec wierzchołka w drzewie DFS
          */
         private List<Integer> dfsParents;
 
         /**
-         * Lista synów w drzewie DFS.
+         * Lista synów w drzewie DFS
          */
         private List<List<Integer>> dfsChildren;
 
         /**
-         * Głębokość wierzchołka w drzewie DFS.
+         * Głębokość wierzchołka w drzewie DFS
          */
         private List<Integer> dfsDepths;
 
         /**
-         * Wartości funkcji LOW dla wierzchołków.
+         * Wartości funkcji LOW dla wierzchołków
          */
         private List<Integer> lowValues;
 
@@ -68,7 +68,7 @@ public class Cutting
         }
 
         /**
-         * Znajdowanie mostów w grafie.
+         * Znajdowanie mostów w grafie
          * @return lista krawędzi będących mostami
          */
         public Collection<ComparablePair<Integer, Integer>> edgeCut()
@@ -88,7 +88,7 @@ public class Cutting
         }
 
         /**
-         * Znajdowanie punktów artykulacji.
+         * Znajdowanie punktów artykulacji
          * @return lista punktów artykulacji
          */
         public Collection<Integer> vertexCut()
@@ -117,7 +117,7 @@ public class Cutting
         }
 
         /**
-         * Sprawdzanie wierzchołka jako punktu artykulacji.
+         * Sprawdzanie wierzchołka jako punktu artykulacji
          * @param vertex wierzchołek
          * @return czy wierzchołek to punkt artykulacji
          */
@@ -143,7 +143,7 @@ public class Cutting
         }
 
         /**
-         * Algorytm DFS wyliczający funkcję LOW.
+         * Algorytm DFS wyliczający funkcję LOW
          * @param vertex aktualny wierzchołek
          * @param parent ojciec wierzchołka
          * @param depth głębokość

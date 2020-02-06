@@ -79,7 +79,7 @@ public class MultipartiteGraph
     }
 
     /**
-     * Dodawanie nowego wierzchołka do grupy.
+     * Dodawanie nowego wierzchołka do grupy
      * @param group numer grupy
      * @param neighbours sąsiedzi wierzchołka
      * @return oznaczenie wierzchołka
@@ -133,7 +133,7 @@ public class MultipartiteGraph
     }
 
     /**
-     * Sprawdza, czy wierzchołek należy do zadanej grupy.
+     * Sprawdza, czy wierzchołek należy do zadanej grupy
      * @param vertex wierzchołek
      * @param group numer grupy
      * @return czy wierzchołek jest w grupie
@@ -148,7 +148,7 @@ public class MultipartiteGraph
     }
 
     /**
-     * Sprawdza, czy wierzchołki są w różnych grupach.
+     * Sprawdza, czy wierzchołki są w różnych grupach
      * @param vertex1 pierwszy wierzchołek
      * @param vertex2 drugi wierzchołek
      * @return czy wierzchołki są w różnych grupach

@@ -12,7 +12,7 @@ import algolib.tuples.ImmutablePair;
 public class Matching
 {
     /**
-     * Wyznaczanie maksymalnego skojarzenia.
+     * Wyznaczanie maksymalnego skojarzenia
      * @param multipartiteGraph graf wielodzielny
      * @return pary skojarzonych wierzchołków
      */
@@ -66,7 +66,7 @@ public class Matching
         }
 
         /**
-         * Powiększanie skojarzenia przy pomocy scieżek poiększających.
+         * Powiększanie skojarzenia przy pomocy scieżek poiększających
          * @return czy powiększono skojarzenie
          */
         private boolean augmentMatch()
@@ -111,7 +111,7 @@ public class Matching
         }
 
         /**
-         * Algorytm DFS powiększający skojarzenie za pomocą ścieżek powiekszających.
+         * Algorytm DFS powiększający skojarzenie za pomocą ścieżek powiekszających
          * @param vertex wierzchołek
          * @return czy powiększono skojarzenie
          */

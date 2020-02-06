@@ -9,7 +9,7 @@ import algolib.tuples.ComparablePair;
 public interface Graph
 {
     /**
-     * Oznaczenie nieskończoności.
+     * Oznaczenie nieskończoności
      */
     double INF = Double.POSITIVE_INFINITY;
 
@@ -34,7 +34,7 @@ public interface Graph
     Collection<ComparablePair<Integer, Integer>> getEdges();
 
     /**
-     * Dodawanie nowego wierzchołka.
+     * Dodawanie nowego wierzchołka
      * @return oznaczenie wierzchołka
      */
     default Integer addVertex()
@@ -43,14 +43,14 @@ public interface Graph
     }
 
     /**
-     * Dodawanie nowego wierzchołka.
+     * Dodawanie nowego wierzchołka
      * @param neighbours sąsiedzi nowego wierzchołka
      * @return oznaczenie wierzchołka
      */
     Integer addVertex(Collection<Integer> neighbours);
 
     /**
-     * Dodawanie nowej krawędzi.
+     * Dodawanie nowej krawędzi
      * @param vertex1 początkowy wierzchołek
      * @param vertex2 końcowy wierzchołek
      */

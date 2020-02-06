@@ -40,7 +40,7 @@ public class EquationSystem
      * @return wektor wyniku równania
      */
     public double[] solve()
-        throws Exception
+            throws Exception
     {
         gauss();
 
@@ -98,7 +98,7 @@ public class EquationSystem
     }
 
     /**
-     * Przemnożenie równania przez niezerową stałą.
+     * Przemnożenie równania przez niezerową stałą
      * @param eq1 numer równania
      * @param constant stała
      */

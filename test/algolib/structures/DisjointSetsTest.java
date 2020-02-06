@@ -1,7 +1,7 @@
 // TESTY DLA STRUKTURY ZBIORÓW ROZŁĄCZNYCH
 package algolib.structures;
 
-import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ public class DisjointSetsTest
     @BeforeEach
     public void setUp()
     {
-        testObject = new DisjointSets<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        testObject = new DisjointSets<>(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
     @AfterEach
@@ -28,7 +28,7 @@ public class DisjointSetsTest
     {
         int result = testObject.size();
 
-        Assertions.assertEquals(9, result);
+        Assertions.assertEquals(10, result);
     }
 
     @Test
@@ -48,22 +48,25 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void addElem_WhenNewElement()
+    public void add_WhenNewElements()
     {
-        Integer elem = 20;
+        List<Integer> elems = List.of(20, 17, 35);
 
-        testObject.addElem(elem);
+        testObject.add(elems);
 
-        Assertions.assertTrue(testObject.contains(elem));
-        Assertions.assertEquals(elem, testObject.findSet(elem));
+        for(Integer e : elems)
+        {
+            Assertions.assertTrue(testObject.contains(e));
+            Assertions.assertEquals(e, testObject.findSet(e));
+        }
     }
 
     @Test
-    public void addElem_WhenPresentElement()
+    public void add_WhenPresentElement()
     {
-        Integer elem = 7;
+        List<Integer> elems = List.of(20, 7, 35);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> testObject.addElem(elem));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> testObject.add(elems));
     }
 
     @Test
@@ -77,7 +80,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void unionSet_WhenDifferentSets()
+    public void unionSet_WhenDifferentSets_ThenSameRepresent()
     {
         Integer elem1 = 4;
         Integer elem2 = 6;
@@ -89,7 +92,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void unionSet_WhenSameSets1()
+    public void unionSet_WhenSingleElement_ThenSameRepresent()
     {
         Integer elem = 4;
 
@@ -100,7 +103,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void unionSet_WhenSameSets2()
+    public void unionSet_WhenSameSet_ThenSameRepresent()
     {
         Integer elem1 = 3;
         Integer elem2 = 8;
@@ -113,7 +116,20 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void isSameSet_WhenDifferentSets()
+    public void unionSet_WhenNewElementsInChain_ThenSameRepresent()
+    {
+        List<Integer> elems = List.of(20, 17, 35);
+
+        testObject.add(elems)
+                  .unionSet(elems.get(0), elems.get(1))
+                  .unionSet(elems.get(1), elems.get(2));
+
+        Assertions.assertTrue(testObject.isSameSet(elems.get(0), elems.get(2)));
+        Assertions.assertEquals(testObject.findSet(elems.get(0)), testObject.findSet(elems.get(2)));
+    }
+
+    @Test
+    public void isSameSet_WhenDifferentSets_ThenFalse()
     {
         Integer elem1 = 4;
         Integer elem2 = 6;
@@ -124,7 +140,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void isSameSet_WhenSameSets1()
+    public void isSameSet_WhenSingleElement_ThenTrue()
     {
         Integer elem = 4;
 
@@ -134,7 +150,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void isSameSet_WhenSameSets2()
+    public void isSameSet_WhenSameSet_ThenTrue()
     {
         Integer elem1 = 3;
         Integer elem2 = 8;

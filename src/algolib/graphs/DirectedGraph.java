@@ -4,7 +4,7 @@ public interface DirectedGraph
         extends Graph
 {
     /**
-     * Odwracanie skierowania grafu.
+     * Odwracanie skierowania grafu
      */
     void reverse();
 }

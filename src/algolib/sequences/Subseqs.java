@@ -1,4 +1,4 @@
-// Algorithms for subsequences.
+// Algorithms for subsequences
 package algolib.sequences;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import algolib.tuples.ImmutablePair;
 public class Subseqs
 {
     /**
-     * Constructs longest ordered subsequence.
+     * Constructs longest ordered subsequence
      * @param sequence sequence of elements
      * @param order order function of elements in subsequence
      * @return least lexicographically longest ordered subsequence
@@ -57,7 +57,7 @@ public class Subseqs
     }
 
     /**
-     * Dynamically constructs coherent subarray with maximal sum.
+     * Dynamically constructs coherent subarray with maximal sum
      * @param sequence sequence of numbers
      * @return maximum subarray
      */
@@ -83,7 +83,7 @@ public class Subseqs
     }
 
     /**
-     * Counts maximal sum from all coherent subarrays using interval tree.
+     * Counts maximal sum from all coherent subarrays using interval tree
      * @param sequence sequence of numbers
      * @return the sum of maximum subarray
      */
@@ -135,7 +135,7 @@ public class Subseqs
     }
 
     /**
-     * Searches for place of element in list of subsequences.
+     * Searches for place of element in list of subsequences
      * @param order order function of elements in subsequence
      * @param sequence input sequence
      * @param subseqLast last elements of subsequences

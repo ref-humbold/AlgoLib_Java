@@ -14,7 +14,7 @@ import algolib.tuples.Pair;
 public class MinimalSpanningTree
 {
     /**
-     * Algorytm Kruskala wyliczający długość MST.
+     * Algorytm Kruskala wyliczający długość MST
      * @param uwgraph graf ważony
      * @return długość minimalnego drzewa spinającego
      */
@@ -49,7 +49,7 @@ public class MinimalSpanningTree
     }
 
     /**
-     * Algorytm Prima wyliczający długość MST.
+     * Algorytm Prima wyliczający długość MST
      * @param uwgraph graf ważony
      * @param source początkowy wierzchołek
      * @return długość minimalnego drzewa spinającego

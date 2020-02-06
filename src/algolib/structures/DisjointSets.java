@@ -29,7 +29,7 @@ public class DisjointSets<E>
     }
 
     /**
-     * Należenie do dowolnego zbioru.
+     * Należenie do dowolnego zbioru
      * @param element element
      * @return czy element w jednym ze zbiorów
      */
@@ -39,20 +39,27 @@ public class DisjointSets<E>
     }
 
     /**
-     * Tworzenie nowego zbioru jednoelementowego.
-     * @param element nowy element
+     * Tworzenie nowych zbiorów jednoelementowych
+     * @param elements nowe elementy
+     * @return ``this``
      */
-    public void addElem(E element)
+    public DisjointSets<E> add(Iterable<E> elements)
     {
-        if(contains(element))
-            throw new IllegalArgumentException("Value " + element.toString() + "already present.");
+        for(E elem : elements)
+            if(contains(elem))
+                throw new IllegalArgumentException("Value " + elem.toString() + "already present.");
 
-        represents.put(element, element);
-        ++count;
+        for(E elem : elements)
+        {
+            represents.put(elem, elem);
+            ++count;
+        }
+
+        return this;
     }
 
     /**
-     * Ustalanie reprezentanta zbioru.
+     * Ustalanie reprezentanta zbioru
      * @param element element ze zbioru
      * @return reprezentant elementu
      */
@@ -65,21 +72,24 @@ public class DisjointSets<E>
     }
 
     /**
-     * Scalanie dwóch zbiorów.
+     * Scalanie dwóch zbiorów
      * @param element1 element pierwszego zbioru
      * @param element2 element drugiego zbioru
+     * @return ``this``
      */
-    public void unionSet(E element1, E element2)
+    public DisjointSets<E> unionSet(E element1, E element2)
     {
         if(!isSameSet(element1, element2))
         {
             represents.put(findSet(element1), findSet(element2));
             --count;
         }
+
+        return this;
     }
 
     /**
-     * Sprawdzanie, czy elementy należą do tego samego zbioru.
+     * Sprawdzanie, czy elementy należą do tego samego zbioru
      * @param element1 element pierwszego zbioru
      * @param element2 element drugiego zbioru
      * @return czy elementy znajdują się w jednym zbiorze

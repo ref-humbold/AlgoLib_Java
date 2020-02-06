@@ -8,7 +8,7 @@ import java.util.Random;
 public class ListSorting
 {
     /**
-     * Mutowalne sortowanie ciągu przez kopcowanie.
+     * Mutowalne sortowanie ciągu przez kopcowanie
      * @param sequence ciąg
      */
     public static <T extends Comparable<T>> void heapSort(List<T> sequence)
@@ -19,7 +19,7 @@ public class ListSorting
     }
 
     /**
-     * Mutowalne sortowanie ciągu przez kopcowanie.
+     * Mutowalne sortowanie ciągu przez kopcowanie
      * @param sequence ciąg
      * @param indexBegin początkowy indeks ciągu
      * @param indexEnd końcowy indeks ciągu
@@ -52,7 +52,7 @@ public class ListSorting
     }
 
     /**
-     * Mutowalne sortowanie ciągu przez scalanie top-down.
+     * Mutowalne sortowanie ciągu przez scalanie top-down
      * @param sequence ciąg
      */
     public static <T extends Comparable<T>> void mergedownSort(List<T> sequence)
@@ -63,7 +63,7 @@ public class ListSorting
     }
 
     /**
-     * Mutowalne sortowanie ciągu przez scalanie top-down.
+     * Mutowalne sortowanie ciągu przez scalanie top-down
      * @param sequence ciąg
      * @param indexBegin początkowy indeks ciągu
      * @param indexEnd końcowy indeks ciągu
@@ -85,7 +85,7 @@ public class ListSorting
     }
 
     /**
-     * Mutowalne sortowanie ciągu przez scalanie bottom-up.
+     * Mutowalne sortowanie ciągu przez scalanie bottom-up
      * @param sequence ciąg
      */
     public static <T extends Comparable<T>> void mergeupSort(List<T> sequence)
@@ -96,7 +96,7 @@ public class ListSorting
     }
 
     /**
-     * Mutowalne sortowanie ciągu przez scalanie bottom-up.
+     * Mutowalne sortowanie ciągu przez scalanie bottom-up
      * @param sequence ciąg
      * @param indexBegin początkowy indeks ciągu
      * @param indexEnd końcowy indeks ciągu
@@ -117,7 +117,7 @@ public class ListSorting
     }
 
     /**
-     * Mutowalne szybkie sortowanie ciągu.
+     * Mutowalne szybkie sortowanie ciągu
      * @param sequence ciąg
      */
     public static <T extends Comparable<T>> void quickSort(List<T> sequence)
@@ -128,7 +128,7 @@ public class ListSorting
     }
 
     /**
-     * Mutowalne szybkie sortowanie ciągu.
+     * Mutowalne szybkie sortowanie ciągu
      * @param sequence ciąg
      * @param indexBegin początkowy indeks ciągu
      * @param indexEnd końcowy indeks ciągu
@@ -173,7 +173,7 @@ public class ListSorting
     }
 
     /**
-     * Przywracanie własności kopca.
+     * Przywracanie własności kopca
      * @param heap kopiec
      * @param vertex wierzchołek kopca
      * @param indexBegin początkowy indeks kopca
@@ -208,7 +208,7 @@ public class ListSorting
     }
 
     /**
-     * Scalanie dwóch uporządkowanych fragmentów ciągu.
+     * Scalanie dwóch uporządkowanych fragmentów ciągu
      * @param sequence ciąg
      * @param indexBegin początek fragmentu
      * @param indexMiddle środek fragmentu
@@ -243,7 +243,7 @@ public class ListSorting
     }
 
     /**
-     * Losowanie piwota.
+     * Losowanie piwota
      * @param size liczba elementów
      * @return indeks piwota
      */

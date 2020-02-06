@@ -13,7 +13,7 @@ import algolib.graphs.searching.SearchingStrategy;
 public class Searching
 {
     /**
-     * Algorytm BFS od danych wierzchołków.
+     * Algorytm BFS od danych wierzchołków
      * @param graph graf
      * @param strategy strategia procesowania wierzchołka
      * @param roots wierzchołki początkowe
@@ -58,7 +58,7 @@ public class Searching
     }
 
     /**
-     * Iteracyjny algorytm DFS od danych wierzchołków.
+     * Iteracyjny algorytm DFS od danych wierzchołków
      * @param graph graf
      * @param strategy strategia procesowania wierzchołka
      * @param roots wierzchołki początkowe
@@ -105,7 +105,7 @@ public class Searching
     }
 
     /**
-     * Rekurencyjny algorytm DFS od danych wierzchołków.
+     * Rekurencyjny algorytm DFS od danych wierzchołków
      * @param graph graf
      * @param strategy strategia procesowania wierzchołka
      * @param roots wierzchołki początkowe
@@ -126,7 +126,7 @@ public class Searching
     }
 
     /**
-     * Krok rekurencyjnego DFS.
+     * Krok rekurencyjnego DFS
      * @param graph graf
      * @param strategy strategia procesowania wierzchołka
      * @param vertex aktualny wierzchołek

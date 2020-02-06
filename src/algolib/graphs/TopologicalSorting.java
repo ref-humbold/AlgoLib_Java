@@ -12,7 +12,7 @@ import algolib.graphs.searching.SearchingStrategy;
 public class TopologicalSorting
 {
     /**
-     * Algorytm sortowania topologicznego przez liczenie poprzedników.
+     * Algorytm sortowania topologicznego przez liczenie poprzedników
      * @param digraph graf skierowany
      * @return porządek topologiczny wierzchołków
      */
@@ -54,7 +54,7 @@ public class TopologicalSorting
     }
 
     /**
-     * Algorytm sortowania topologicznego przez dfs.
+     * Algorytm sortowania topologicznego przez dfs
      * @param digraph graf skierowany
      * @return porządek topologiczny wierzchołków
      */

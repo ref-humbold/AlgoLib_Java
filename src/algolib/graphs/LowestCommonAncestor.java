@@ -10,7 +10,7 @@ import algolib.graphs.searching.TimerStrategy;
 public class LowestCommonAncestor
 {
     /**
-     * Wyznaczanie najniższego wspólnego przodka.
+     * Wyznaczanie najniższego wspólnego przodka
      * @param treegraph graf drzewo
      * @param vertex1 wierzchołek 1
      * @param vertex2 wierzchołek 2
@@ -22,7 +22,7 @@ public class LowestCommonAncestor
     }
 
     /**
-     * Wyznaczanie najniższego wspólnego przodka.
+     * Wyznaczanie najniższego wspólnego przodka
      * @param treegraph graf drzewo
      * @param vertex1 wierzchołek 1
      * @param vertex2 wierzchołek 2
@@ -56,7 +56,7 @@ public class LowestCommonAncestor
         }
 
         /**
-         * Wyszukiwanie najniższego wspólnego przodka.
+         * Wyszukiwanie najniższego wspólnego przodka
          * @param vertex1 wierzchołek 1
          * @param vertex2 wierzchołek 2
          * @param root korzeń drzewa
@@ -77,7 +77,7 @@ public class LowestCommonAncestor
         }
 
         /**
-         * Wyszukiwanie najniższego wspólnego przodka.
+         * Wyszukiwanie najniższego wspólnego przodka
          * @param vertex1 wierzchołek 1
          * @param vertex2 wierzchołek 2
          * @return najniższy wspólny przodek
@@ -102,7 +102,7 @@ public class LowestCommonAncestor
         }
 
         /**
-         * Sprawdza, czy wierzchołki są potomkami.
+         * Sprawdza, czy wierzchołki są potomkami
          * @param vertex1 wierzchołek 1
          * @param vertex2 wierzchołek 2
          * @return czy wierzchołek 1 jest potomkiem wierzchołka 2

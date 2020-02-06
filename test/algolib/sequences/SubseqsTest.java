@@ -1,4 +1,4 @@
-// TEST : Algorithms for subsequences.
+// Tests: Algorithms for subsequences
 package algolib.sequences;
 
 import java.util.Arrays;

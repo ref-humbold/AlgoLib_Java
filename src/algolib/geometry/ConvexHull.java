@@ -1,4 +1,4 @@
-// Graham's algorithm for convex hull on a plane.
+// Graham's algorithm for convex hull on a plane
 package algolib.geometry;
 
 import java.util.ArrayList;

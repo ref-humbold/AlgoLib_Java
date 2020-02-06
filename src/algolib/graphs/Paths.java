@@ -13,7 +13,7 @@ import algolib.tuples.Pair;
 public class Paths
 {
     /**
-     * Algorytm Bellmana-Forda.
+     * Algorytm Bellmana-Forda
      * @param diwgraph skierowany graf ważony
      * @param source wierzchołek początkowy
      * @return lista odległości wierzchołków
@@ -42,7 +42,7 @@ public class Paths
     }
 
     /**
-     * Algorytm Dijkstry.
+     * Algorytm Dijkstry
      * @param wgraph graf ważony z wagami nieujemnymi
      * @param source wierzchołek początkowy
      * @return lista odległości wierzchołków
@@ -89,7 +89,7 @@ public class Paths
     }
 
     /**
-     * Algorytm Floyda-Warshalla.
+     * Algorytm Floyda-Warshalla
      * @param diwgraph skierowany graf ważony
      * @return macierz odległości wierzchołków
      */

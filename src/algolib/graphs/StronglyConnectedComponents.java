@@ -11,7 +11,7 @@ import algolib.tuples.ComparablePair;
 public class StronglyConnectedComponents
 {
     /**
-     * Algorytm wyznaczania silnie spójnych składowych grafu.
+     * Algorytm wyznaczania silnie spójnych składowych grafu
      * @param digraph graf skierowany
      * @return numery silnie spójnych składowych dla wierzchołków
      */
@@ -32,15 +32,15 @@ public class StronglyConnectedComponents
     private static class GraphComponents
     {
         /**
-         * Reprezentacja grafu skierowanego.
+         * Reprezentacja grafu skierowanego
          */
         private DirectedGraph digraph;
         /**
-         * Numery silnie spójnych składowych dla wierzchołków.
+         * Numery silnie spójnych składowych dla wierzchołków
          */
         private List<Integer> components;
         /**
-         * Czasy post-order wierzchołków.
+         * Czasy post-order wierzchołków
          */
         private List<ComparablePair<Integer, Integer>> postorder;
 
@@ -52,7 +52,7 @@ public class StronglyConnectedComponents
         }
 
         /**
-         * Algorytm wyznaczania silnie spójnych składowych grafu.
+         * Algorytm wyznaczania silnie spójnych składowych grafu
          * @return numery silnie spójnych składowych dla wierzchołków
          */
         public List<Integer> findSCC()
@@ -80,7 +80,7 @@ public class StronglyConnectedComponents
         }
 
         /**
-         * Algorytm DFS z licznikiem czasu wyznaczający porządek post-order wierzchołków.
+         * Algorytm DFS z licznikiem czasu wyznaczający porządek post-order wierzchołków
          * @param vertex aktualny wierzchołek
          * @param timer aktualny czas
          * @return nowy czas po przetworzeniu wierzchołka
@@ -100,7 +100,7 @@ public class StronglyConnectedComponents
         }
 
         /**
-         * Algorytm DFS wyznaczający silnie spójne składowe.
+         * Algorytm DFS wyznaczający silnie spójne składowe
          * @param vertex aktualny wierzchołek
          * @param component numer składowej
          */

@@ -14,7 +14,7 @@ public interface WeightedGraph
     Collection<ImmutableTriple<Integer, Integer, Double>> getWeightedEdges();
 
     /**
-     * Dodawanie nowej krawędzi z jej wagą.
+     * Dodawanie nowej krawędzi z jej wagą
      * @param vertex1 początkowy wierzchołek
      * @param vertex2 końcowy wierzchołek
      * @param weight waga krawędzi

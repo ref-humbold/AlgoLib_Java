@@ -4,8 +4,8 @@ package algolib.structures;
 import java.util.*;
 
 public class AVLTree<E>
-    extends AbstractCollection<E>
-    implements Set<E>
+        extends AbstractCollection<E>
+        implements Set<E>
 {
     private final Comparator<? super E> comparator;
     private AVLNode<E> tree = null;
@@ -473,7 +473,7 @@ public class AVLTree<E>
     }
 
     private abstract class AVLIterator
-        implements Iterator<E>
+            implements Iterator<E>
     {
         /** Aktualny węzeł */
         AVLNode<E> currentNode;
@@ -493,7 +493,7 @@ public class AVLTree<E>
         public abstract E next();
 
         /**
-         * Wyznaczanie następnika węzła w drzewie.
+         * Wyznaczanie następnika węzła w drzewie
          * @param node węzeł
          * @return węzeł z następną wartością
          */
@@ -511,7 +511,7 @@ public class AVLTree<E>
         }
 
         /**
-         * Wyznaczanie poprzednika węzła w drzewie.
+         * Wyznaczanie poprzednika węzła w drzewie
          * @param node węzeł
          * @return węzeł z poprzednią wartością
          */
@@ -530,7 +530,7 @@ public class AVLTree<E>
     }
 
     private class AVLSuccIterator
-        extends AVLIterator
+            extends AVLIterator
     {
         AVLSuccIterator(AVLNode<E> node)
         {
@@ -539,7 +539,7 @@ public class AVLTree<E>
 
         @Override
         public E next()
-            throws NoSuchElementException
+                throws NoSuchElementException
         {
             if(!hasNext())
                 throw new NoSuchElementException("No more elements in iterator.");
@@ -553,7 +553,7 @@ public class AVLTree<E>
     }
 
     private class AVLPredIterator
-        extends AVLIterator
+            extends AVLIterator
     {
         AVLPredIterator(AVLNode<E> node)
         {
@@ -562,7 +562,7 @@ public class AVLTree<E>
 
         @Override
         public E next()
-            throws NoSuchElementException
+                throws NoSuchElementException
         {
             if(!hasNext())
                 throw new NoSuchElementException("No more elements in iterator.");

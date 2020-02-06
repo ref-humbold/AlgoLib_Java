@@ -1,4 +1,4 @@
-// Algorithms for prime numbers.
+// Algorithms for prime numbers
 package algolib.mathmat;
 
 import java.util.ArrayList;
