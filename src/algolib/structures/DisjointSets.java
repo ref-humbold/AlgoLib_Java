@@ -3,6 +3,7 @@ package algolib.structures;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class DisjointSets<E>
@@ -62,9 +63,13 @@ public class DisjointSets<E>
      * Ustalanie reprezentanta zbioru
      * @param element element ze zbioru
      * @return reprezentant elementu
+     * @throws NoSuchElementException gdy nie znaleziono elementu
      */
     public E findSet(E element)
     {
+        if(represents.get(element) == null)
+            throw new NoSuchElementException();
+
         if(!Objects.equals(represents.get(element), element))
             represents.put(element, findSet(represents.get(element)));
 
@@ -72,10 +77,29 @@ public class DisjointSets<E>
     }
 
     /**
+     * Ustalanie reprezentanta zbioru
+     * @param element element ze zbioru
+     * @param defaultValue wartość, gdy nie znaleziono elementu
+     * @return reprezentant elementu
+     */
+    public E findSetOrDefault(E element, E defaultValue)
+    {
+        try
+        {
+            return findSet(element);
+        }
+        catch(NoSuchElementException e)
+        {
+            return defaultValue;
+        }
+    }
+
+    /**
      * Scalanie dwóch zbiorów
      * @param element1 element pierwszego zbioru
      * @param element2 element drugiego zbioru
      * @return ``this``
+     * @throws NoSuchElementException gdy nie znaleziono któregoś z elementów
      */
     public DisjointSets<E> unionSet(E element1, E element2)
     {
@@ -93,6 +117,7 @@ public class DisjointSets<E>
      * @param element1 element pierwszego zbioru
      * @param element2 element drugiego zbioru
      * @return czy elementy znajdują się w jednym zbiorze
+     * @throws NoSuchElementException gdy nie znaleziono któregoś z elementów
      */
 
     public boolean isSameSet(E element1, E element2)

@@ -2,6 +2,7 @@
 package algolib.structures;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,13 +71,39 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void findSet()
+    public void findSet_WhenPresentElement()
     {
         Integer elem = 4;
 
         Integer result = testObject.findSet(elem);
 
         Assertions.assertEquals(elem, result);
+    }
+
+    @Test
+    public void findSet_WhenAbsentElement()
+    {
+        Assertions.assertThrows(NoSuchElementException.class, () -> testObject.findSet(14));
+    }
+
+    @Test
+    public void findSetOrDefault_WhenPresentElement()
+    {
+        Integer elem = 4;
+
+        Integer result = testObject.findSetOrDefault(elem, 10);
+
+        Assertions.assertEquals(elem, result);
+    }
+
+    @Test
+    public void findSetOrDefault_WhenAbsentElement()
+    {
+        Integer def = 10;
+
+        Integer result = testObject.findSetOrDefault(22, def);
+
+        Assertions.assertEquals(def, result);
     }
 
     @Test
