@@ -15,8 +15,3 @@ lib/
 # IntelliJ IDEA
 .idea
 out/
-
-# [ UML ]
-# Visual Paradigm backup files
-UML/*.bak*
-UML/*.vbak*
