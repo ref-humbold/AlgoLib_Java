@@ -1,4 +1,4 @@
-// TESTY DLA STRUKTURY ZBIORÓW ROZŁĄCZNYCH
+// Tests: Disjoint sets structure (union-find)
 package algolib.structures;
 
 import java.util.List;
@@ -25,7 +25,25 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void size()
+    public void isEmpty_WhenEmpty_ThenTrue()
+    {
+        testObject = new DisjointSets<>();
+
+        boolean result = testObject.isEmpty();
+
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void isEmpty_WhenNonEmpty_ThenFalse()
+    {
+        boolean result = testObject.isEmpty();
+
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void size_WhenElements_ThenSetsCount()
     {
         int result = testObject.size();
 
@@ -33,7 +51,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void contains_WhenContains()
+    public void contains_WhenPresentElement()
     {
         boolean result = testObject.contains(4);
 
@@ -41,7 +59,7 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void contains_WhenNotContains()
+    public void contains_WhenAbsentElement()
     {
         boolean result = testObject.contains(20);
 
@@ -49,11 +67,28 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void add_WhenNewElements()
+    public void add_WhenNewElement()
+    {
+        Integer elem = 24;
+
+        testObject.add(elem);
+
+        Assertions.assertTrue(testObject.contains(elem));
+        Assertions.assertEquals(elem, testObject.findSet(elem));
+    }
+
+    @Test
+    public void add_WhenPresentElement()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> testObject.add(5));
+    }
+
+    @Test
+    public void addAll_WhenNewElements()
     {
         List<Integer> elems = List.of(20, 17, 35);
 
-        testObject.add(elems);
+        testObject.addAll(elems);
 
         for(Integer e : elems)
         {
@@ -63,11 +98,11 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void add_WhenPresentElement()
+    public void addAll_WhenPresentElement()
     {
         List<Integer> elems = List.of(20, 7, 35);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> testObject.add(elems));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> testObject.addAll(elems));
     }
 
     @Test
@@ -147,7 +182,7 @@ public class DisjointSetsTest
     {
         List<Integer> elems = List.of(20, 17, 35);
 
-        testObject.add(elems)
+        testObject.addAll(elems)
                   .unionSet(elems.get(0), elems.get(1))
                   .unionSet(elems.get(1), elems.get(2));
 
