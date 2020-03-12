@@ -1,162 +1,115 @@
-// STRUKTURA UKŁADÓW RÓWNAŃ LINIOWYCH Z ALGORYTMEM ELIMINACJI GAUSSA
+// Structure of linear equation system with Gauss elimination algorithm
 package algolib.mathmat;
 
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.List;
 
 public class EquationSystem
 {
-    /** Liczba równań układu. */
-    private final int equations;
+    private Equation[] equations;
 
-    /** Macierz współczynników równania */
-    private double[][] coeffs;
-
-    /** Wektor wyrazów wolnych równania */
-    private double[] freeTerms;
-
-    public EquationSystem(int numEq)
+    public EquationSystem(Equation[] equations)
     {
-        equations = numEq;
-        coeffs = new double[numEq][numEq];
-        freeTerms = new double[numEq];
+        this.equations = equations;
+
+        if(Arrays.stream(this.equations).anyMatch(eq -> eq.size() != this.equations[0].size()))
+            throw new IllegalArgumentException("Incorrect number of variables in one of equations");
     }
 
-    public EquationSystem(int numEq, double[][] coef, double[] frees)
+    public int size()
     {
-        validate(numEq, coef, frees);
-        equations = numEq;
-        coeffs = coef;
-        freeTerms = frees;
+        return equations.length;
     }
 
-    public int getEquationsNumber()
+    public Equation get(int i)
     {
-        return equations;
+        return equations[i];
     }
 
     /**
-     * Wyliczanie rozwiązań układu równań liniowych
-     * @return wektor wyniku równania
+     * Computes the solution of this equation system.
+     * @return solution vector
+     * @throws NoSolutionException if there is no solution
+     * @throws InfiniteSolutionsException if there are infinitely many solutions
      */
     public double[] solve()
-            throws Exception
+            throws InfiniteSolutionsException, NoSolutionException
     {
-        gauss();
+        gaussianReduce();
 
-        if(coeffs[equations - 1][equations - 1] == 0 && freeTerms[equations - 1] == 0)
+        if(equations[equations.length - 1].get(equations.length - 1) == 0
+                && equations[equations.length - 1].free == 0)
             throw new InfiniteSolutionsException();
 
-        if(coeffs[equations - 1][equations - 1] == 0 && freeTerms[equations - 1] != 0)
+        if(equations[equations.length - 1].get(equations.length - 1) == 0
+                && equations[equations.length - 1].free != 0)
             throw new NoSolutionException();
 
-        double[] solution = new double[equations];
+        double[] solution = new double[equations.length];
 
-        solution[equations - 1] = freeTerms[equations - 1] / coeffs[equations - 1][equations - 1];
+        solution[equations.length - 1] =
+                equations[equations.length - 1].free / equations[equations.length - 1].get(
+                        equations.length - 1);
 
-        for(int equ = equations - 2; equ >= 0; --equ)
+        for(int i = equations.length - 2; i >= 0; --i)
         {
-            double value = freeTerms[equ];
+            double value = equations[i].free;
 
-            for(int i = equations - 1; i > equ; --i)
-                value -= coeffs[equ][i] * solution[i];
+            for(int j = equations.length - 1; j > i; --j)
+                value -= equations[i].get(j) * solution[j];
 
-            solution[equ] = value / coeffs[equ][equ];
+            solution[i] = value / equations[i].get(i);
         }
 
         return solution;
     }
 
-    /** Algorytm eliminacji Gaussa */
-    public void gauss()
+    /** Runs the Gauss elimination algorithm. */
+    public void gaussianReduce()
     {
-        for(int equ = 0; equ < equations - 1; ++equ)
+        for(int i = 0; i < equations.length - 1; ++i)
         {
-            int indexMin = equ;
+            int indexMin = i;
 
-            for(int i = equ + 1; i < equations; ++i)
+            for(int j = i + 1; j < equations.length; ++j)
             {
-                double minCoef = coeffs[indexMin][equ];
-                double actCoef = coeffs[i][equ];
+                double minCoef = equations[indexMin].get(i);
+                double actCoef = equations[j].get(i);
 
                 if(actCoef != 0 && (minCoef == 0 || Math.abs(actCoef) < Math.abs(minCoef)))
-                    indexMin = i;
+                    indexMin = j;
             }
 
-            if(coeffs[indexMin][equ] != 0)
+            if(equations[indexMin].get(i) != 0)
             {
-                swap(indexMin, equ);
+                swap(indexMin, i);
 
-                for(int i = equ + 1; i < equations; ++i)
+                for(int j = i + 1; j < equations.length; ++j)
                 {
-                    double param = coeffs[i][equ] / coeffs[equ][equ];
+                    double param = equations[j].get(i) / equations[i].get(i);
 
-                    combine(i, equ, -param);
+                    if(param != 0)
+                        equations[j].combine(equations[i], -param);
                 }
             }
         }
     }
 
     /**
-     * Przemnożenie równania przez niezerową stałą
-     * @param eq1 numer równania
-     * @param constant stała
+     * Swaps two equations.
+     * @param i index of first equation
+     * @param j index of second equation
      */
-    public void mult(int eq1, double constant)
+    public void swap(int i, int j)
     {
-        if(constant == 0)
-            throw new IllegalArgumentException("Constant cannot equal zero.");
+        Equation temp = equations[i];
 
-        for(int i = 0; i < equations; ++i)
-            coeffs[eq1][i] *= constant;
-
-        freeTerms[eq1] *= constant;
+        equations[i] = equations[j];
+        equations[j] = temp;
     }
 
-    /**
-     * Zamiana równań miejscami
-     * @param eq1 numer pierwszego równania
-     * @param eq2 numer drugiego równania
-     */
-    public void swap(int eq1, int eq2)
+    public boolean isSolution(List<Double> solution)
     {
-        double temp;
-
-        for(int i = 0; i < equations; ++i)
-        {
-            temp = coeffs[eq1][i];
-            coeffs[eq1][i] = coeffs[eq2][i];
-            coeffs[eq2][i] = temp;
-        }
-
-        temp = freeTerms[eq1];
-        freeTerms[eq1] = freeTerms[eq2];
-        freeTerms[eq2] = temp;
-    }
-
-    /**
-     * Przekształcenie równania przez kombinację liniową z innym równaniem
-     * @param eq1 numer równania przekształcanego
-     * @param eq2 numer drugiego równania
-     * @param constant stała kombinacji liniowej
-     */
-    public void combine(int eq1, int eq2, double constant)
-    {
-        for(int i = 0; i < equations; ++i)
-            coeffs[eq1][i] += constant * coeffs[eq2][i];
-
-        freeTerms[eq1] += constant * freeTerms[eq2];
-    }
-
-    private void validate(int numEq, double[][] coef, double[] frees)
-    {
-        Objects.requireNonNull(coef);
-        Objects.requireNonNull(frees);
-
-        if(coef.length != numEq || frees.length != numEq)
-            throw new IllegalArgumentException("Wrong number of equations.");
-
-        if(Arrays.stream(coef).anyMatch(a -> a.length != numEq))
-            throw new IllegalArgumentException("Coefficient matrix is not a square matrix.");
+        return Arrays.stream(equations).allMatch(eq -> eq.isSolution(solution));
     }
 }
