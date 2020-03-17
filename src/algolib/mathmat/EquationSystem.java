@@ -2,7 +2,6 @@
 package algolib.mathmat;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class EquationSystem
 {
@@ -108,7 +107,7 @@ public class EquationSystem
         equations[j] = temp;
     }
 
-    public boolean isSolution(List<Double> solution)
+    public boolean isSolution(double[] solution)
     {
         return Arrays.stream(equations).allMatch(eq -> eq.isSolution(solution));
     }

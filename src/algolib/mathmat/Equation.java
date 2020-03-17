@@ -2,7 +2,6 @@
 package algolib.mathmat;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.IntStream;
 
 public class Equation
@@ -29,12 +28,12 @@ public class Equation
     /**
      * Multiplies equation by a constant.
      * @param constant constant
-     * @throws IllegalArgumentException if constant is zero
+     * @throws ArithmeticException if constant is zero
      */
-    public void mult(double constant)
+    public void multiply(double constant)
     {
         if(constant == 0)
-            throw new IllegalArgumentException("Constant cannot be zero");
+            throw new ArithmeticException("Constant cannot be zero");
 
         for(int i = 0; i < coefficients.length; ++i)
             coefficients[i] *= constant;
@@ -46,7 +45,8 @@ public class Equation
      * Transforms equation through a linear combination with another equation.
      * @param equation equation
      * @param constant linear combination constant
-     * @throws IllegalArgumentException if constant is zero or equations sizes differ
+     * @throws IllegalArgumentException if equations sizes differ
+     * @throws ArithmeticException if constant is zero
      */
     public void combine(Equation equation, double constant)
     {
@@ -54,7 +54,7 @@ public class Equation
             throw new IllegalArgumentException("Equation has different number of variables");
 
         if(constant == 0)
-            throw new IllegalArgumentException("Constant cannot be zero");
+            throw new ArithmeticException("Constant cannot be zero");
 
         for(int i = 0; i < coefficients.length; ++i)
             coefficients[i] += constant * equation.coefficients[i];
@@ -77,10 +77,10 @@ public class Equation
      * @param solution values to check
      * @return {@code true} if solution is correct, otherwise {@code false}
      */
-    public boolean isSolution(List<Double> solution)
+    public boolean isSolution(double[] solution)
     {
-        return solution.size() == coefficients.length && IntStream.range(0, coefficients.length)
-                                                                  .mapToDouble(i -> solution.get(i)
+        return solution.length == coefficients.length && IntStream.range(0, coefficients.length)
+                                                                  .mapToDouble(i -> solution[i]
                                                                           * coefficients[i])
                                                                   .sum() == free;
     }
