@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-import algolib.tuples.ImmutablePair;
+import algolib.tuples.Pair;
 
 public class Subseqs
 {
@@ -63,23 +63,22 @@ public class Subseqs
      */
     public static List<Double> maximumSubarray(Iterable<Double> sequence)
     {
-        ImmutablePair<Double, List<Double>> actual = ImmutablePair.make(0.0, new ArrayList<>());
-        ImmutablePair<Double, List<Double>> maximal = ImmutablePair.make(0.0, new ArrayList<>());
+        Pair<Double, List<Double>> actual = Pair.make(0.0, new ArrayList<>());
+        Pair<Double, List<Double>> maximal = Pair.make(0.0, new ArrayList<>());
 
         for(Double elem : sequence)
         {
-            if(actual.getFirst() < 0.0)
-                actual = ImmutablePair.make(0.0, new ArrayList<>());
+            if(actual.first < 0.0)
+                actual = Pair.make(0.0, new ArrayList<>());
 
-            actual = ImmutablePair.make(actual.getFirst() + elem, actual.getSecond());
-            actual.getSecond().add(elem);
+            actual = Pair.make(actual.first + elem, actual.second);
+            actual.second.add(elem);
 
-            if(actual.getFirst() > maximal.getFirst())
-                maximal =
-                        ImmutablePair.make(actual.getFirst(), new ArrayList<>(actual.getSecond()));
+            if(actual.first > maximal.first)
+                maximal = Pair.make(actual.first, new ArrayList<>(actual.second));
         }
 
-        return maximal.getSecond();
+        return maximal.second;
     }
 
     /**

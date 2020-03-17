@@ -67,7 +67,7 @@ public abstract class SimpleGraph
         List<Integer> neighbours = new ArrayList<>();
 
         for(Pair<Integer, Double> e : graphrepr.get(vertex))
-            neighbours.add(e.getFirst());
+            neighbours.add(e.first);
 
         return neighbours;
     }

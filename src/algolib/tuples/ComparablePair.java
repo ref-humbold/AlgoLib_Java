@@ -2,8 +2,8 @@
 package algolib.tuples;
 
 public final class ComparablePair<F extends Comparable<? super F>, S extends Comparable<? super S>>
-    extends AbstractPair<F, S>
-    implements Comparable<Pair<F, S>>
+        extends Pair<F, S>
+        implements Comparable<Pair<F, S>>
 {
     public ComparablePair(F first, S second)
     {
@@ -11,32 +11,32 @@ public final class ComparablePair<F extends Comparable<? super F>, S extends Com
     }
 
     public static <F extends Comparable<F>, S extends Comparable<S>> ComparablePair<F, S> make(
-        F first, S second)
+            F first, S second)
     {
         return new ComparablePair<>(first, second);
     }
 
     public static <F extends Comparable<F>, S extends Comparable<S>> ComparablePair<F, S> from(
-        Pair<F, S> pair)
+            Pair<F, S> pair)
     {
-        return new ComparablePair<>(pair.getFirst(), pair.getSecond());
+        return new ComparablePair<>(pair.first, pair.second);
     }
 
     @Override
     public int compareTo(Pair<F, S> p)
     {
         if(first == null)
-            return p.getFirst() == null ? 0 : -1;
+            return p.first == null ? 0 : -1;
 
-        int comparedFirst = first.compareTo(p.getFirst());
+        int comparedFirst = first.compareTo(p.first);
 
         if(comparedFirst != 0)
             return comparedFirst;
 
         if(second == null)
-            return p.getSecond() == null ? 0 : -1;
+            return p.second == null ? 0 : -1;
 
-        return second.compareTo(p.getSecond());
+        return second.compareTo(p.second);
     }
 
     @Override

@@ -67,17 +67,16 @@ public class KMR
         }
 
         Collections.sort(codes);
-        factors.put(text.substring(codes.get(0).getSecond(), newLength), codeValue);
+        factors.put(text.substring(codes.get(0).second, newLength), codeValue);
 
         for(int i = 1; i < codes.size(); ++i)
         {
             Triple<Integer, Integer, Integer> current = codes.get(i);
             Triple<Integer, Integer, Integer> last = codes.get(i - 1);
 
-            if(current.getFirst().equals(last.getFirst()) && current.getSecond()
-                                                                    .equals(last.getSecond()))
+            if(current.first.equals(last.first) && current.second.equals(last.second))
             {
-                int index = codes.get(i).getThird();
+                int index = codes.get(i).third;
 
                 ++codeValue;
                 factors.put(text.substring(index, index + newLength), codeValue);

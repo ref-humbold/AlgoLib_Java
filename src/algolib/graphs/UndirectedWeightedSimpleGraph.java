@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import algolib.tuples.ComparablePair;
-import algolib.tuples.ImmutableTriple;
+import algolib.tuples.Triple;
 import algolib.tuples.Pair;
 
 public class UndirectedWeightedSimpleGraph
@@ -18,25 +18,24 @@ public class UndirectedWeightedSimpleGraph
         super(n);
     }
 
-    public UndirectedWeightedSimpleGraph(int n,
-                                         Iterable<ImmutableTriple<Integer, Integer, Double>> edges)
+    public UndirectedWeightedSimpleGraph(int n, Iterable<Triple<Integer, Integer, Double>> edges)
             throws NoSuchVertexException
     {
         super(n);
 
-        for(ImmutableTriple<Integer, Integer, Double> e : edges)
-            addWeightedEdge(e.getFirst(), e.getSecond(), e.getThird());
+        for(Triple<Integer, Integer, Double> e : edges)
+            addWeightedEdge(e.first, e.second, e.third);
     }
 
     @Override
-    public Collection<ImmutableTriple<Integer, Integer, Double>> getWeightedEdges()
+    public Collection<Triple<Integer, Integer, Double>> getWeightedEdges()
     {
-        List<ImmutableTriple<Integer, Integer, Double>> edges = new ArrayList<>();
+        List<Triple<Integer, Integer, Double>> edges = new ArrayList<>();
 
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
-                if(e.getFirst() >= v)
-                    edges.add(ImmutableTriple.make(v, e.getFirst(), e.getSecond()));
+                if(e.first >= v)
+                    edges.add(Triple.make(v, e.first, e.second));
 
         return edges;
     }
@@ -64,10 +63,10 @@ public class UndirectedWeightedSimpleGraph
     @Override
     public DirectedWeightedSimpleGraph asDirected()
     {
-        Collection<ImmutableTriple<Integer, Integer, Double>> diwedges = getWeightedEdges();
+        Collection<Triple<Integer, Integer, Double>> diwedges = getWeightedEdges();
 
-        for(ImmutableTriple<Integer, Integer, Double> e : getWeightedEdges())
-            diwedges.add(ImmutableTriple.make(e.getSecond(), e.getFirst(), e.getThird()));
+        for(Triple<Integer, Integer, Double> e : getWeightedEdges())
+            diwedges.add(Triple.make(e.second, e.first, e.third));
 
         return new DirectedWeightedSimpleGraph(getVerticesNumber(), diwedges);
     }

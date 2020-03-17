@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import algolib.tuples.ComparablePair;
-import algolib.tuples.ImmutableTriple;
+import algolib.tuples.Triple;
 import algolib.tuples.Pair;
 
 public class Paths
@@ -29,13 +29,13 @@ public class Paths
         for(int u = 0; u < diwgraph.getVerticesNumber() - 1; ++u)
             for(Integer v : diwgraph.getVertices())
                 for(Pair<Integer, Double> e : diwgraph.getWeightedNeighbours(v))
-                    distances.set(e.getFirst(), Math.min(distances.get(e.getFirst()),
-                                                         distances.get(v) + e.getSecond()));
+                    distances.set(e.first,
+                                  Math.min(distances.get(e.first), distances.get(v) + e.second));
 
         for(Integer v : diwgraph.getVertices())
             for(Pair<Integer, Double> e : diwgraph.getWeightedNeighbours(v))
-                if(distances.get(v) < Graph.INF && distances.get(v) + e.getSecond() < distances.get(
-                        e.getFirst()))
+                if(distances.get(v) < Graph.INF && distances.get(v) + e.second < distances.get(
+                        e.first))
                     throw new IllegalStateException("Graph contains a negative cycle.");
 
         return distances;
@@ -50,8 +50,8 @@ public class Paths
     public static List<Double> dijkstra(WeightedGraph wgraph, int source)
             throws IllegalStateException
     {
-        for(ImmutableTriple<Integer, Integer, Double> wedge : wgraph.getWeightedEdges())
-            if(wedge.getThird() < 0.0)
+        for(Triple<Integer, Integer, Double> wedge : wgraph.getWeightedEdges())
+            if(wedge.third < 0.0)
                 throw new IllegalStateException("Graph contains an edge with negative weight.");
 
         List<Double> distances =
@@ -65,7 +65,7 @@ public class Paths
 
         while(!vertexQueue.isEmpty())
         {
-            Integer v = vertexQueue.remove().getSecond();
+            Integer v = vertexQueue.remove().second;
 
             if(!isVisited.get(v))
             {
@@ -73,8 +73,8 @@ public class Paths
 
                 for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
                 {
-                    Integer nb = e.getFirst();
-                    Double wg = e.getSecond();
+                    Integer nb = e.first;
+                    Double wg = e.second;
 
                     if(distances.get(v) + wg < distances.get(nb))
                     {
@@ -102,8 +102,8 @@ public class Paths
             for(int j = 0; j < distances[i].length; ++j)
                 distances[i][j] = i == j ? 0.0 : Graph.INF;
 
-        for(ImmutableTriple<Integer, Integer, Double> e : diwgraph.getWeightedEdges())
-            distances[e.getFirst()][e.getSecond()] = e.getThird();
+        for(Triple<Integer, Integer, Double> e : diwgraph.getWeightedEdges())
+            distances[e.first][e.second] = e.third;
 
         for(Integer w : diwgraph.getVertices())
             for(Integer v : diwgraph.getVertices())

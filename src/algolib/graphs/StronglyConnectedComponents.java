@@ -57,7 +57,8 @@ public class StronglyConnectedComponents
          */
         public List<Integer> findSCC()
         {
-            int timer = 0, component = 0;
+            int timer = 0;
+            int component = 0;
 
             for(Integer v : digraph.getVertices())
                 if(postorder.get(v) == null)
@@ -70,9 +71,9 @@ public class StronglyConnectedComponents
             digraph.reverse();
 
             for(ComparablePair<Integer, Integer> vt : postorder)
-                if(components.get(vt.getSecond()) == null)
+                if(components.get(vt.second) == null)
                 {
-                    dfsSCC(vt.getSecond(), component);
+                    dfsSCC(vt.second, component);
                     ++component;
                 }
 

@@ -3,7 +3,7 @@ package algolib.graphs;
 import java.util.Collection;
 
 import algolib.tuples.ComparablePair;
-import algolib.tuples.ImmutableTriple;
+import algolib.tuples.Triple;
 
 public interface WeightedGraph
         extends Graph
@@ -11,7 +11,7 @@ public interface WeightedGraph
     /**
      * @return lista krawędzi z wagami
      */
-    Collection<ImmutableTriple<Integer, Integer, Double>> getWeightedEdges();
+    Collection<Triple<Integer, Integer, Double>> getWeightedEdges();
 
     /**
      * Dodawanie nowej krawędzi z jej wagą

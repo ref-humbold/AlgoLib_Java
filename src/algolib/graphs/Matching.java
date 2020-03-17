@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-import algolib.tuples.ImmutablePair;
+import algolib.tuples.Pair;
 
 public class Matching
 {
@@ -16,7 +16,7 @@ public class Matching
      * @param multipartiteGraph graf wielodzielny
      * @return pary skojarzonych wierzchołków
      */
-    public static List<ImmutablePair<Integer, Integer>> match(MultipartiteGraph multipartiteGraph)
+    public static List<Pair<Integer, Integer>> match(MultipartiteGraph multipartiteGraph)
     {
         MatchAugmenter augmenter = new MatchAugmenter(multipartiteGraph);
 
@@ -28,10 +28,10 @@ public class Matching
         }
 
         List<Integer> matching = augmenter.getMatching();
-        List<ImmutablePair<Integer, Integer>> matchPairs = new ArrayList<>();
+        List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
 
         for(Integer v : multipartiteGraph.getVertices(1))
-            matchPairs.add(ImmutablePair.make(v, matching.get(v)));
+            matchPairs.add(Pair.make(v, matching.get(v)));
 
         return matchPairs;
     }

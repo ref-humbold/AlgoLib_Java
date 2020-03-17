@@ -27,13 +27,13 @@ public class MinimalSpanningTree
 
         for(int v : uwgraph.getVertices())
             for(Pair<Integer, Double> e : uwgraph.getWeightedNeighbours(v))
-                edgeQueue.add(ComparableTriple.make(e.getSecond(), e.getFirst(), v));
+                edgeQueue.add(ComparableTriple.make(e.second, e.first, v));
 
         while(components > 1 && !edgeQueue.isEmpty())
         {
-            Double edgeWeight = edgeQueue.element().getFirst();
-            Integer vertex1 = edgeQueue.element().getSecond();
-            Integer vertex2 = edgeQueue.element().getThird();
+            Double edgeWeight = edgeQueue.element().first;
+            Integer vertex1 = edgeQueue.element().second;
+            Integer vertex2 = edgeQueue.element().third;
 
             edgeQueue.remove();
 
@@ -65,8 +65,8 @@ public class MinimalSpanningTree
 
         while(!vertexQueue.isEmpty())
         {
-            Double edgeWeight = vertexQueue.element().getFirst();
-            Integer v = vertexQueue.element().getSecond();
+            Double edgeWeight = vertexQueue.element().first;
+            Integer v = vertexQueue.element().second;
 
             vertexQueue.remove();
 
@@ -76,8 +76,8 @@ public class MinimalSpanningTree
                 sizeMST += edgeWeight;
 
                 for(Pair<Integer, Double> e : uwgraph.getWeightedNeighbours(v))
-                    if(!isVisited.get(e.getFirst()))
-                        vertexQueue.add(ComparablePair.make(e.getSecond(), e.getFirst()));
+                    if(!isVisited.get(e.first))
+                        vertexQueue.add(ComparablePair.make(e.second, e.first));
             }
         }
 

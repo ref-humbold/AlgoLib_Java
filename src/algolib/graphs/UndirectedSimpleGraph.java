@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import algolib.tuples.ComparablePair;
-import algolib.tuples.ImmutablePair;
+import algolib.tuples.Pair;
 import algolib.tuples.Pair;
 
 public class UndirectedSimpleGraph
@@ -18,13 +18,13 @@ public class UndirectedSimpleGraph
         super(n);
     }
 
-    public UndirectedSimpleGraph(int n, Iterable<ImmutablePair<Integer, Integer>> edges)
+    public UndirectedSimpleGraph(int n, Iterable<Pair<Integer, Integer>> edges)
             throws NoSuchVertexException
     {
         super(n);
 
-        for(ImmutablePair<Integer, Integer> e : edges)
-            addEdge(e.getFirst(), e.getSecond());
+        for(Pair<Integer, Integer> e : edges)
+            addEdge(e.first, e.second);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class UndirectedSimpleGraph
 
         for(Pair<Integer, Integer> e : getEdges())
         {
-            diedges.add(ImmutablePair.make(e.getFirst(), e.getSecond()));
-            diedges.add(ImmutablePair.make(e.getSecond(), e.getFirst()));
+            diedges.add(Pair.make(e.first, e.second));
+            diedges.add(Pair.make(e.second, e.first));
         }
 
         return new DirectedSimpleGraph(getVerticesNumber(), diedges);
