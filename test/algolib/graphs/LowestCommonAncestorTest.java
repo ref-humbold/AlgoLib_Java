@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import algolib.tuples.ImmutablePair;
+import algolib.tuples.Pair;
 
 public class LowestCommonAncestorTest
 {
@@ -16,11 +16,9 @@ public class LowestCommonAncestorTest
     @BeforeEach
     public void setUp()
     {
-        tree = new TreeGraph(10, Arrays.asList(ImmutablePair.make(0, 1), ImmutablePair.make(0, 2),
-                                               ImmutablePair.make(1, 3), ImmutablePair.make(1, 4),
-                                               ImmutablePair.make(1, 5), ImmutablePair.make(2, 6),
-                                               ImmutablePair.make(4, 7), ImmutablePair.make(6, 8),
-                                               ImmutablePair.make(6, 9)));
+        tree = new TreeGraph(10, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2), Pair.make(1, 3),
+                                               Pair.make(1, 4), Pair.make(1, 5), Pair.make(2, 6),
+                                               Pair.make(4, 7), Pair.make(6, 8), Pair.make(6, 9)));
     }
 
     @AfterEach

@@ -25,7 +25,7 @@ public class DirectedSimpleGraph
         super(n);
 
         for(Pair<Integer, Integer> e : edges)
-            addEdge(e.getFirst(), e.getSecond());
+            addEdge(e.first, e.second);
     }
 
     @Override
@@ -85,8 +85,8 @@ public class DirectedSimpleGraph
             revgraphrepr.add(new HashSet<>());
 
         for(Pair<Integer, Integer> e : getEdges())
-            revgraphrepr.get(e.getSecond())
-                        .add(ComparablePair.make(e.getFirst(), SimpleGraph.DEFAULT_WEIGHT));
+            revgraphrepr.get(e.second)
+                        .add(ComparablePair.make(e.first, SimpleGraph.DEFAULT_WEIGHT));
 
         graphrepr = revgraphrepr;
     }

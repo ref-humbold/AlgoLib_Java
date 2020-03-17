@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import algolib.graphs.searching.SearchingStrategy;
-import algolib.tuples.ImmutablePair;
+import algolib.tuples.Pair;
 
 public class SearchingTest
 {
@@ -22,35 +22,21 @@ public class SearchingTest
     {
         strategy = new SearchingTestStrategy();
 
-        digraph = new DirectedSimpleGraph(10, Arrays.asList(ImmutablePair.make(0, 1),
-                                                            ImmutablePair.make(1, 4),
-                                                            ImmutablePair.make(1, 7),
-                                                            ImmutablePair.make(2, 4),
-                                                            ImmutablePair.make(2, 6),
-                                                            ImmutablePair.make(3, 0),
-                                                            ImmutablePair.make(3, 7),
-                                                            ImmutablePair.make(4, 5),
-                                                            ImmutablePair.make(4, 3),
-                                                            ImmutablePair.make(5, 6),
-                                                            ImmutablePair.make(5, 8),
-                                                            ImmutablePair.make(6, 5),
-                                                            ImmutablePair.make(7, 5),
-                                                            ImmutablePair.make(7, 8),
-                                                            ImmutablePair.make(8, 9),
-                                                            ImmutablePair.make(9, 6)));
+        digraph = new DirectedSimpleGraph(10, Arrays.asList(Pair.make(0, 1), Pair.make(1, 4),
+                                                            Pair.make(1, 7), Pair.make(2, 4),
+                                                            Pair.make(2, 6), Pair.make(3, 0),
+                                                            Pair.make(3, 7), Pair.make(4, 5),
+                                                            Pair.make(4, 3), Pair.make(5, 6),
+                                                            Pair.make(5, 8), Pair.make(6, 5),
+                                                            Pair.make(7, 5), Pair.make(7, 8),
+                                                            Pair.make(8, 9), Pair.make(9, 6)));
 
-        ugraph = new UndirectedSimpleGraph(10, Arrays.asList(ImmutablePair.make(0, 1),
-                                                             ImmutablePair.make(1, 4),
-                                                             ImmutablePair.make(1, 7),
-                                                             ImmutablePair.make(2, 6),
-                                                             ImmutablePair.make(3, 0),
-                                                             ImmutablePair.make(3, 7),
-                                                             ImmutablePair.make(4, 5),
-                                                             ImmutablePair.make(4, 3),
-                                                             ImmutablePair.make(5, 8),
-                                                             ImmutablePair.make(7, 5),
-                                                             ImmutablePair.make(7, 8),
-                                                             ImmutablePair.make(9, 6)));
+        ugraph = new UndirectedSimpleGraph(10, Arrays.asList(Pair.make(0, 1), Pair.make(1, 4),
+                                                             Pair.make(1, 7), Pair.make(2, 6),
+                                                             Pair.make(3, 0), Pair.make(3, 7),
+                                                             Pair.make(4, 5), Pair.make(4, 3),
+                                                             Pair.make(5, 8), Pair.make(7, 5),
+                                                             Pair.make(7, 8), Pair.make(9, 6)));
     }
 
     @AfterEach

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import algolib.tuples.ComparablePair;
-import algolib.tuples.ImmutableTriple;
+import algolib.tuples.Triple;
 import algolib.tuples.Pair;
 
 public class DirectedWeightedSimpleGraph
@@ -20,24 +20,23 @@ public class DirectedWeightedSimpleGraph
         super(n);
     }
 
-    public DirectedWeightedSimpleGraph(int n,
-                                       Iterable<ImmutableTriple<Integer, Integer, Double>> edges)
+    public DirectedWeightedSimpleGraph(int n, Iterable<Triple<Integer, Integer, Double>> edges)
             throws NoSuchVertexException
     {
         super(n);
 
-        for(ImmutableTriple<Integer, Integer, Double> e : edges)
-            addWeightedEdge(e.getFirst(), e.getSecond(), e.getThird());
+        for(Triple<Integer, Integer, Double> e : edges)
+            addWeightedEdge(e.first, e.second, e.third);
     }
 
     @Override
-    public Collection<ImmutableTriple<Integer, Integer, Double>> getWeightedEdges()
+    public Collection<Triple<Integer, Integer, Double>> getWeightedEdges()
     {
-        List<ImmutableTriple<Integer, Integer, Double>> edges = new ArrayList<>();
+        List<Triple<Integer, Integer, Double>> edges = new ArrayList<>();
 
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
-                edges.add(ImmutableTriple.make(v, e.getFirst(), e.getSecond()));
+                edges.add(Triple.make(v, e.first, e.second));
 
         return edges;
     }
@@ -69,8 +68,8 @@ public class DirectedWeightedSimpleGraph
         for(Integer v : getVertices())
             revgraphrepr.add(new HashSet<>());
 
-        for(ImmutableTriple<Integer, Integer, Double> e : getWeightedEdges())
-            revgraphrepr.get(e.getSecond()).add(ComparablePair.make(e.getFirst(), e.getThird()));
+        for(Triple<Integer, Integer, Double> e : getWeightedEdges())
+            revgraphrepr.get(e.second).add(ComparablePair.make(e.first, e.third));
 
         graphrepr = revgraphrepr;
     }

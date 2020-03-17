@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import algolib.tuples.ImmutableTriple;
+import algolib.tuples.Triple;
 
 public class MinimalSpanningTreeTest
 {
@@ -16,14 +16,13 @@ public class MinimalSpanningTreeTest
     @BeforeEach
     public void setUp()
     {
-        graph = new UndirectedWeightedSimpleGraph(5, Arrays.asList(ImmutableTriple.make(0, 1, -1.0),
-                                                                   ImmutableTriple.make(0, 2, 4.0),
-                                                                   ImmutableTriple.make(1, 2, 9.0),
-                                                                   ImmutableTriple.make(1, 3, 7.0),
-                                                                   ImmutableTriple.make(1, 4, 12.0),
-                                                                   ImmutableTriple.make(2, 4, 6.0),
-                                                                   ImmutableTriple.make(3, 4,
-                                                                                        3.0)));
+        graph = new UndirectedWeightedSimpleGraph(5, Arrays.asList(Triple.make(0, 1, -1.0),
+                                                                   Triple.make(0, 2, 4.0),
+                                                                   Triple.make(1, 2, 9.0),
+                                                                   Triple.make(1, 3, 7.0),
+                                                                   Triple.make(1, 4, 12.0),
+                                                                   Triple.make(2, 4, 6.0),
+                                                                   Triple.make(3, 4, 3.0)));
     }
 
     @AfterEach

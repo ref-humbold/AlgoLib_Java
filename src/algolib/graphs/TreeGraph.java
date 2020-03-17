@@ -4,26 +4,27 @@ import java.util.Collection;
 
 import algolib.structures.DisjointSets;
 import algolib.tuples.ComparablePair;
-import algolib.tuples.ImmutablePair;
+import algolib.tuples.Pair;
+import algolib.tuples.Pair;
 
 public class TreeGraph
         implements UndirectedGraph
 {
     private UndirectedSimpleGraph graph;
 
-    public TreeGraph(int n, Iterable<ImmutablePair<Integer, Integer>> edges)
+    public TreeGraph(int n, Iterable<Pair<Integer, Integer>> edges)
     {
         graph = new UndirectedSimpleGraph(n);
         DisjointSets<Integer> components = new DisjointSets<>(graph.getVertices());
 
-        for(ImmutablePair<Integer, Integer> e : edges)
+        for(Pair<Integer, Integer> e : edges)
         {
-            if(components.isSameSet(e.getFirst(), e.getSecond()))
-                throw new CycleException("Edge from " + e.getFirst() + " to " + e.getSecond()
-                                                 + " may create a cycle");
+            if(components.isSameSet(e.first, e.second))
+                throw new CycleException(
+                        "Edge from " + e.first + " to " + e.second + " may create a cycle");
 
-            graph.addEdge(e.getFirst(), e.getSecond());
-            components.unionSet(e.getFirst(), e.getSecond());
+            graph.addEdge(e.first, e.second);
+            components.unionSet(e.first, e.second);
         }
 
         if(components.size() > 1)

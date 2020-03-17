@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import algolib.tuples.ImmutablePair;
+import algolib.tuples.Pair;
 
 public class TreeGraphTest
 {
@@ -18,11 +18,10 @@ public class TreeGraphTest
     public void setUp()
     {
         testObject = new TreeGraph(10,
-                                   Arrays.asList(ImmutablePair.make(0, 6), ImmutablePair.make(1, 2),
-                                                 ImmutablePair.make(2, 3), ImmutablePair.make(3, 4),
-                                                 ImmutablePair.make(4, 5), ImmutablePair.make(6, 4),
-                                                 ImmutablePair.make(7, 3), ImmutablePair.make(8, 3),
-                                                 ImmutablePair.make(9, 7)));
+                                   Arrays.asList(Pair.make(0, 6), Pair.make(1, 2), Pair.make(2, 3),
+                                                 Pair.make(3, 4), Pair.make(4, 5), Pair.make(6, 4),
+                                                 Pair.make(7, 3), Pair.make(8, 3),
+                                                 Pair.make(9, 7)));
     }
 
     @AfterEach

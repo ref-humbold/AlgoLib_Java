@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import algolib.tuples.ImmutablePair;
+import algolib.tuples.Pair;
 
 public class UndirectedSimpleGraphTest
 {
@@ -91,9 +91,8 @@ public class UndirectedSimpleGraphTest
         Arrays.sort(result);
 
         Assertions.assertArrayEquals(
-                new Object[]{ImmutablePair.make(0, 8), ImmutablePair.make(1, 5),
-                             ImmutablePair.make(2, 4), ImmutablePair.make(3, 6),
-                             ImmutablePair.make(3, 9), ImmutablePair.make(7, 7)}, result);
+                new Object[]{Pair.make(0, 8), Pair.make(1, 5), Pair.make(2, 4), Pair.make(3, 6),
+                             Pair.make(3, 9), Pair.make(7, 7)}, result);
     }
 
     @Test
@@ -188,11 +187,8 @@ public class UndirectedSimpleGraphTest
 
         Assertions.assertArrayEquals(expectedVertices, resultVertices);
         Assertions.assertArrayEquals(
-                new Object[]{ImmutablePair.make(0, 8), ImmutablePair.make(1, 5),
-                             ImmutablePair.make(2, 4), ImmutablePair.make(3, 6),
-                             ImmutablePair.make(3, 9), ImmutablePair.make(4, 2),
-                             ImmutablePair.make(5, 1), ImmutablePair.make(6, 3),
-                             ImmutablePair.make(7, 7), ImmutablePair.make(8, 0),
-                             ImmutablePair.make(9, 3)}, resultEdges);
+                new Object[]{Pair.make(0, 8), Pair.make(1, 5), Pair.make(2, 4), Pair.make(3, 6),
+                             Pair.make(3, 9), Pair.make(4, 2), Pair.make(5, 1), Pair.make(6, 3),
+                             Pair.make(7, 7), Pair.make(8, 0), Pair.make(9, 3)}, resultEdges);
     }
 }
