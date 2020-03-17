@@ -1,4 +1,4 @@
-// UŁAMKI
+// Fractions structure
 package algolib.mathmat;
 
 import java.util.Objects;
