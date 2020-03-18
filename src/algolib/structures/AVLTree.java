@@ -157,6 +157,11 @@ public class AVLTree<E>
         return returnString.substring(0, returnString.length() - 2) + "|}";
     }
 
+    Comparator<? super E> comparator()
+    {
+        return comparator;
+    }
+
     /**
      * Compares two elements using a comparator or a natural order.
      * @param obj1 first object
