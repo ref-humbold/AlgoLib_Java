@@ -1,43 +1,51 @@
-// Graham's algorithm for convex hull on a plane
+// Algorithm for convex hull on a plane (monotone chain)
 package algolib.geometry;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class ConvexHull
+public class ConvexHull
 {
+    /**
+     * Constructs a convex hull of specified points.
+     * @param points a list of points
+     * @return list of hull points
+     */
     public static List<Point2D> find(List<Point2D> points)
     {
-        List<Point2D> hull = new ArrayList<>();
         List<Point2D> sorted = new ArrayList<>(points);
 
         PointsSorting.sortByX(sorted);
-        hull.add(sorted.get(0));
-        hull.add(sorted.get(1));
 
-        for(int i = 2; i < sorted.size(); ++i)
-            addPoint(sorted.get(i), hull, 1);
-
-        int upper_size = hull.size();
+        List<Point2D> upperHull = createHalfHull(sorted);
 
         Collections.reverse(sorted);
 
-        for(int i = sorted.size() - 2; i >= 0; --i)
-            addPoint(sorted.get(i), hull, upper_size);
+        List<Point2D> lowerHull = createHalfHull(sorted);
 
-        hull.remove(hull.size() - 1);
+        upperHull.remove(upperHull.size() - 1);
+        lowerHull.remove(lowerHull.size() - 1);
+        upperHull.addAll(lowerHull);
 
-        return hull;
+        return upperHull;
     }
 
-    private static void addPoint(Point2D point, List<Point2D> hull, int minSize)
+    // Creates a half of a convex hull for specified points.
+    private static List<Point2D> createHalfHull(List<Point2D> points)
     {
-        while(hull.size() > minSize
-                && crossProduct(hull.get(hull.size() - 2), hull.get(hull.size() - 1), point) <= 0)
-            hull.remove(hull.size() - 1);
+        List<Point2D> hull = new ArrayList<>();
 
-        hull.add(point);
+        for(Point2D pt : points)
+        {
+            while(hull.size() > 1
+                    && crossProduct(hull.get(hull.size() - 2), hull.get(hull.size() - 1), pt) <= 0)
+                hull.remove(hull.size() - 1);
+
+            hull.add(pt);
+        }
+
+        return hull;
     }
 
     private static double crossProduct(Point2D pt1, Point2D pt2, Point2D pt3)
