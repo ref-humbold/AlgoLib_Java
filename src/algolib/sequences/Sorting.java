@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class ListSorting
+public class Sorting
 {
     /**
      * Mutowalne sortowanie ciągu przez kopcowanie
@@ -15,7 +15,7 @@ public class ListSorting
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        ListSorting.heapSort(sequence, 0, sequence.size());
+        Sorting.heapSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -37,7 +37,7 @@ public class ListSorting
             return;
 
         for(int i = indexBegin + heapSize / 2; i >= indexBegin; --i)
-            ListSorting.moveDown(sequence, i, indexBegin, indexEnd);
+            Sorting.moveDown(sequence, i, indexBegin, indexEnd);
 
         while(heapSize > 1)
         {
@@ -46,7 +46,7 @@ public class ListSorting
 
             sequence.set(indexHeap, sequence.get(indexBegin));
             sequence.set(indexBegin, temp);
-            ListSorting.moveDown(sequence, indexBegin, indexBegin, indexHeap);
+            Sorting.moveDown(sequence, indexBegin, indexBegin, indexHeap);
             --heapSize;
         }
     }
@@ -59,7 +59,7 @@ public class ListSorting
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        ListSorting.mergedownSort(sequence, 0, sequence.size());
+        Sorting.mergedownSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -79,9 +79,9 @@ public class ListSorting
 
         int indexMiddle = (indexBegin + indexEnd) / 2;
 
-        ListSorting.mergedownSort(sequence, indexBegin, indexMiddle);
-        ListSorting.mergedownSort(sequence, indexMiddle, indexEnd);
-        ListSorting.merge(sequence, indexBegin, indexMiddle, indexEnd);
+        Sorting.mergedownSort(sequence, indexBegin, indexMiddle);
+        Sorting.mergedownSort(sequence, indexMiddle, indexEnd);
+        Sorting.merge(sequence, indexBegin, indexMiddle, indexEnd);
     }
 
     /**
@@ -92,7 +92,7 @@ public class ListSorting
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        ListSorting.mergeupSort(sequence, 0, sequence.size());
+        Sorting.mergeupSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -112,8 +112,8 @@ public class ListSorting
 
         for(int i = 2; i < 2 * (indexEnd - indexBegin); i *= 2)
             for(int j = indexBegin; j < indexEnd; j += i)
-                ListSorting.merge(sequence, j, Math.min(j + i / 2, indexEnd),
-                                  Math.min(j + i, indexEnd));
+                Sorting.merge(sequence, j, Math.min(j + i / 2, indexEnd),
+                              Math.min(j + i, indexEnd));
     }
 
     /**
@@ -124,7 +124,7 @@ public class ListSorting
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        ListSorting.quickSort(sequence, 0, sequence.size());
+        Sorting.quickSort(sequence, 0, sequence.size());
     }
 
     /**
@@ -143,7 +143,7 @@ public class ListSorting
             return;
 
         int indexPivot = indexBegin, indexFront = indexBegin + 1, indexBack = indexEnd - 1;
-        int rdpv = indexBegin + ListSorting.choosePivot(indexEnd - indexBegin);
+        int rdpv = indexBegin + Sorting.choosePivot(indexEnd - indexBegin);
         T temp1 = sequence.get(indexPivot);
 
         sequence.set(indexPivot, sequence.get(rdpv));
@@ -168,8 +168,8 @@ public class ListSorting
                 --indexBack;
             }
 
-        ListSorting.quickSort(sequence, indexBegin, indexPivot);
-        ListSorting.quickSort(sequence, indexPivot + 1, indexEnd);
+        Sorting.quickSort(sequence, indexBegin, indexPivot);
+        Sorting.quickSort(sequence, indexPivot + 1, indexEnd);
     }
 
     /**
@@ -204,7 +204,7 @@ public class ListSorting
             heap.set(vertex, temp);
         }
 
-        ListSorting.moveDown(heap, nextVertex, indexBegin, indexEnd);
+        Sorting.moveDown(heap, nextVertex, indexBegin, indexEnd);
     }
 
     /**

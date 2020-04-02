@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ListSortingTest
+public class SortingTest
 {
     @BeforeEach
     public void setUp()
@@ -28,7 +28,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        ListSorting.heapSort(sequence);
+        Sorting.heapSort(sequence);
         Collections.sort(sequenceCopy);
 
         Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
@@ -39,7 +39,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
 
-        ListSorting.heapSort(sequence);
+        Sorting.heapSort(sequence);
 
         Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
                                      sequence.toArray());
@@ -52,7 +52,7 @@ public class ListSortingTest
         int index2 = 7;
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
-        ListSorting.heapSort(sequence, index1, index2);
+        Sorting.heapSort(sequence, index1, index2);
 
         Assertions.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2},
                                      sequence.toArray());
@@ -66,7 +66,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> ListSorting.heapSort(sequence, index1, index2));
+                                () -> Sorting.heapSort(sequence, index1, index2));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> ListSorting.heapSort(sequence, index1, index2));
+                                () -> Sorting.heapSort(sequence, index1, index2));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        ListSorting.heapSort(sequence, index1, index2);
+        Sorting.heapSort(sequence, index1, index2);
 
         Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
     }
@@ -98,7 +98,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = new ArrayList<>();
 
-        ListSorting.heapSort(sequence);
+        Sorting.heapSort(sequence);
 
         Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
@@ -108,7 +108,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = null;
 
-        Assertions.assertThrows(NullPointerException.class, () -> ListSorting.heapSort(sequence));
+        Assertions.assertThrows(NullPointerException.class, () -> Sorting.heapSort(sequence));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        ListSorting.mergedownSort(sequence);
+        Sorting.mergedownSort(sequence);
         Collections.sort(sequenceCopy);
 
         Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
@@ -128,7 +128,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
 
-        ListSorting.mergedownSort(sequence);
+        Sorting.mergedownSort(sequence);
 
         Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
                                      sequence.toArray());
@@ -141,7 +141,7 @@ public class ListSortingTest
         int index2 = 7;
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
-        ListSorting.mergedownSort(sequence, index1, index2);
+        Sorting.mergedownSort(sequence, index1, index2);
 
         Assertions.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2},
                                      sequence.toArray());
@@ -155,7 +155,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> ListSorting.mergedownSort(sequence, index1, index2));
+                                () -> Sorting.mergedownSort(sequence, index1, index2));
     }
 
     @Test
@@ -166,7 +166,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> ListSorting.mergedownSort(sequence, index1, index2));
+                                () -> Sorting.mergedownSort(sequence, index1, index2));
     }
 
     @Test
@@ -177,7 +177,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        ListSorting.mergedownSort(sequence, index1, index2);
+        Sorting.mergedownSort(sequence, index1, index2);
 
         Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
     }
@@ -187,7 +187,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = new ArrayList<>();
 
-        ListSorting.mergedownSort(sequence);
+        Sorting.mergedownSort(sequence);
 
         Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
@@ -197,8 +197,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = null;
 
-        Assertions.assertThrows(NullPointerException.class,
-                                () -> ListSorting.mergedownSort(sequence));
+        Assertions.assertThrows(NullPointerException.class, () -> Sorting.mergedownSort(sequence));
     }
 
     @Test
@@ -207,7 +206,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        ListSorting.mergeupSort(sequence);
+        Sorting.mergeupSort(sequence);
         Collections.sort(sequenceCopy);
 
         Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
@@ -218,7 +217,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
 
-        ListSorting.mergeupSort(sequence);
+        Sorting.mergeupSort(sequence);
 
         Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
                                      sequence.toArray());
@@ -231,7 +230,7 @@ public class ListSortingTest
         int index2 = 7;
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
-        ListSorting.mergeupSort(sequence, index1, index2);
+        Sorting.mergeupSort(sequence, index1, index2);
 
         Assertions.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2},
                                      sequence.toArray());
@@ -245,7 +244,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> ListSorting.mergeupSort(sequence, index1, index2));
+                                () -> Sorting.mergeupSort(sequence, index1, index2));
     }
 
     @Test
@@ -256,7 +255,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> ListSorting.mergeupSort(sequence, index1, index2));
+                                () -> Sorting.mergeupSort(sequence, index1, index2));
     }
 
     @Test
@@ -267,7 +266,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        ListSorting.mergeupSort(sequence, index1, index2);
+        Sorting.mergeupSort(sequence, index1, index2);
 
         Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
     }
@@ -277,7 +276,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = new ArrayList<>();
 
-        ListSorting.mergeupSort(sequence);
+        Sorting.mergeupSort(sequence);
 
         Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
@@ -287,8 +286,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = null;
 
-        Assertions.assertThrows(NullPointerException.class,
-                                () -> ListSorting.mergeupSort(sequence));
+        Assertions.assertThrows(NullPointerException.class, () -> Sorting.mergeupSort(sequence));
     }
 
     @Test
@@ -297,7 +295,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        ListSorting.quickSort(sequence);
+        Sorting.quickSort(sequence);
         Collections.sort(sequenceCopy);
 
         Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
@@ -308,7 +306,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
 
-        ListSorting.quickSort(sequence);
+        Sorting.quickSort(sequence);
 
         Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
                                      sequence.toArray());
@@ -321,7 +319,7 @@ public class ListSortingTest
         int index2 = 7;
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
-        ListSorting.quickSort(sequence, index1, index2);
+        Sorting.quickSort(sequence, index1, index2);
 
         Assertions.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2},
                                      sequence.toArray());
@@ -335,7 +333,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> ListSorting.quickSort(sequence, index1, index2));
+                                () -> Sorting.quickSort(sequence, index1, index2));
     }
 
     @Test
@@ -346,7 +344,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> ListSorting.quickSort(sequence, index1, index2));
+                                () -> Sorting.quickSort(sequence, index1, index2));
     }
 
     @Test
@@ -357,7 +355,7 @@ public class ListSortingTest
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
         List<Integer> sequenceCopy = new ArrayList<>(sequence);
 
-        ListSorting.quickSort(sequence, index1, index2);
+        Sorting.quickSort(sequence, index1, index2);
 
         Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
     }
@@ -367,7 +365,7 @@ public class ListSortingTest
     {
         List<Integer> sequence = new ArrayList<>();
 
-        ListSorting.quickSort(sequence);
+        Sorting.quickSort(sequence);
 
         Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
@@ -377,6 +375,6 @@ public class ListSortingTest
     {
         List<Integer> sequence = null;
 
-        Assertions.assertThrows(NullPointerException.class, () -> ListSorting.quickSort(sequence));
+        Assertions.assertThrows(NullPointerException.class, () -> Sorting.quickSort(sequence));
     }
 }

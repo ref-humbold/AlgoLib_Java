@@ -9,7 +9,7 @@ import java.util.function.BiPredicate;
 
 import algolib.tuples.Pair;
 
-public class Subseqs
+public class Subsequences
 {
     /**
      * Constructs longest ordered subsequence

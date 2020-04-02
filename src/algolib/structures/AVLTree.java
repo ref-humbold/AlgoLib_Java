@@ -7,14 +7,14 @@ import java.util.function.BiFunction;
 public class AVLTree<E>
         extends AbstractSet<E>
 {
-    private final Comparator<? super E> comparator;
+    private final Comparator<? super E> elementsComparator;
     private AVLNode<E> tree = null;
     private int count = 0;
 
     public AVLTree()
     {
         super();
-        comparator = null;
+        elementsComparator = null;
     }
 
     public AVLTree(Collection<E> collection)
@@ -26,12 +26,7 @@ public class AVLTree<E>
     public AVLTree(Comparator<? super E> comparator)
     {
         super();
-        this.comparator = comparator;
-    }
-
-    private AVLNode<E> getRoot()
-    {
-        return tree;
+        elementsComparator = comparator;
     }
 
     private void setRoot(AVLNode<E> node)
@@ -62,15 +57,20 @@ public class AVLTree<E>
         return Objects.hash(toArray());
     }
 
+    public Comparator<? super E> comparator()
+    {
+        return elementsComparator;
+    }
+
     @Override
     public Iterator<E> iterator()
     {
-        return new AVLIterator(getRoot().minimum());
+        return new AVLIterator(tree.minimum());
     }
 
     public Iterator<E> descendingIterator()
     {
-        return new AVLDescendingIterator(getRoot().maximum());
+        return new AVLDescendingIterator(tree.maximum());
     }
 
     @Override
@@ -157,9 +157,14 @@ public class AVLTree<E>
         return returnString.substring(0, returnString.length() - 2) + "|}";
     }
 
-    Comparator<? super E> comparator()
+    private boolean isLeftSon(AVLNode<E> node)
     {
-        return comparator;
+        return node.getParent() != null && node.getParent().getLeft() == node;
+    }
+
+    private boolean isRightSon(AVLNode<E> node)
+    {
+        return node.getParent() != null && node.getParent().getRight() == node;
     }
 
     /**
@@ -169,10 +174,13 @@ public class AVLTree<E>
      * @return zero if objects are equal, negative value if first is less than second,
      * positive value if first is greater than second
      */
+    @SuppressWarnings("unchecked")
     private int compare(Object obj1, Object obj2)
     {
-        return comparator == null ? ((Comparable<Object>)obj1).compareTo(obj2)
-                                  : ((Comparator<Object>)comparator).compare(obj1, obj2);
+        if(elementsComparator == null)
+            return ((Comparable<Object>)obj1).compareTo(obj2);
+
+        return ((Comparator<Object>)elementsComparator).compare(obj1, obj2);
     }
 
     // Determines the subtree where given value might be present:
@@ -197,7 +205,7 @@ public class AVLTree<E>
 
     private AVLNode<E> findNode(Object object, BiFunction<AVLNode<E>, Object, Boolean> predicate)
     {
-        AVLNode<E> node = getRoot();
+        AVLNode<E> node = tree;
 
         while(node != null && !predicate.apply(node, object))
             node = search(node, object);
@@ -239,9 +247,9 @@ public class AVLTree<E>
     // Replaces the first node as a child of its parent with the second node.
     private void replaceNode(AVLNode<E> node1, AVLNode<E> node2)
     {
-        if(node1.isLeftSon())
+        if(isLeftSon(node1))
             node1.getParent().setLeft(node2);
-        else if(node1.isRightSon())
+        else if(isRightSon(node1))
             node1.getParent().setRight(node2);
         else
             setRoot(node2);
@@ -252,7 +260,7 @@ public class AVLTree<E>
     // Rotates the node along the edge to its parent.
     private void rotate(AVLNode<E> node)
     {
-        if(node.isRightSon())
+        if(isRightSon(node))
         {
             AVLNode<E> upperNode = node.getParent();
 
@@ -260,7 +268,7 @@ public class AVLTree<E>
             replaceNode(upperNode, node);
             node.setLeft(upperNode);
         }
-        else if(node.isLeftSon())
+        else if(isLeftSon(node))
         {
             AVLNode<E> upperNode = node.getParent();
 
@@ -376,16 +384,6 @@ public class AVLTree<E>
         void setParent(AVLNode<T> parent)
         {
             this.parent = parent;
-        }
-
-        boolean isLeftSon()
-        {
-            return getParent() != null && getParent().getLeft() == this;
-        }
-
-        boolean isRightSon()
-        {
-            return getParent() != null && getParent().getRight() == this;
         }
 
         void countHeight()
