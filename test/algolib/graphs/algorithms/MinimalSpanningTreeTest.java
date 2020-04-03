@@ -1,5 +1,5 @@
 // TESTY DLA ALGORYTMÓW MINIMALNEGO DRZEWA SPINAJĄCEGO
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import algolib.graphs.UndirectedWeightedSimpleGraph;
 import algolib.tuples.Triple;
 
 public class MinimalSpanningTreeTest

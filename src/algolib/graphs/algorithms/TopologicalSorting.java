@@ -1,5 +1,5 @@
 // ALGORYTM: SORTOWANIE TOPOLOGICZNE GRAFU SKIEROWANEGO
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.PriorityQueue;
 
-import algolib.graphs.searching.SearchingStrategy;
+import algolib.graphs.DirectedGraph;
 
 public class TopologicalSorting
 {

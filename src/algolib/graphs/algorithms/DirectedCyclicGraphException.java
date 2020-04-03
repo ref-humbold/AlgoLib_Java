@@ -1,4 +1,4 @@
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 public class DirectedCyclicGraphException
         extends RuntimeException

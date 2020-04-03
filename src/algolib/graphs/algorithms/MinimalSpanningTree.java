@@ -1,11 +1,12 @@
 // ALGORYTMY WYZNACZAJĄCE MINIMALNE DRZEWO SPINAJĄCE
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import algolib.graphs.UndirectedWeightedGraph;
 import algolib.structures.DisjointSets;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.ComparableTriple;

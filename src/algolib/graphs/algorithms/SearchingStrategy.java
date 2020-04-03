@@ -1,4 +1,4 @@
-package algolib.graphs.searching;
+package algolib.graphs.algorithms;
 
 public interface SearchingStrategy
 {

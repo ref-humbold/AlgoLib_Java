@@ -1,5 +1,5 @@
 // TESTY DLA ALGORYTMÓW WYSZUKIWANIA MOSTÓW I PUNKTÓW ARTYKULACJI
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import algolib.graphs.UndirectedGraph;
+import algolib.graphs.UndirectedSimpleGraph;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
 

@@ -1,5 +1,5 @@
 // TESTY DLA ALGORYTMU NAJNIŻSZEGO WSPÓLNEGO PRZODKA
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import algolib.graphs.TreeGraph;
 import algolib.tuples.Pair;
 
 public class LowestCommonAncestorTest

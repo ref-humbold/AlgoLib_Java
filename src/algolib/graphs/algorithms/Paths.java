@@ -1,14 +1,17 @@
 // ALGORYTMY WYLICZANIA NAJKRÓTSZYCH ŚCIEŻEK W GRAFIE WAŻONYM
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import algolib.graphs.DirectedWeightedGraph;
+import algolib.graphs.Graph;
+import algolib.graphs.WeightedGraph;
 import algolib.tuples.ComparablePair;
-import algolib.tuples.Triple;
 import algolib.tuples.Pair;
+import algolib.tuples.Triple;
 
 public class Paths
 {

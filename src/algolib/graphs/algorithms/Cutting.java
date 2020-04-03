@@ -1,11 +1,13 @@
 // WYSZUKIWANIE MOSTÓW I PUNKTÓW ARTYKULACJI W GRAFIE
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import algolib.graphs.Graph;
+import algolib.graphs.UndirectedGraph;
 import algolib.tuples.ComparablePair;
 
 public class Cutting

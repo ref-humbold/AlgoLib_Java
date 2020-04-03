@@ -1,4 +1,4 @@
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import algolib.graphs.DirectedGraph;
 import algolib.tuples.ComparablePair;
 
 public class StronglyConnectedComponents

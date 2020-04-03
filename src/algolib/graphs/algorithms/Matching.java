@@ -1,5 +1,5 @@
 // ALGORYTM HOPCROFTA-KARPA WYZNACZANIA SKOJARZEŃ W GRAFIE DWUDZIELNYM
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
+import algolib.graphs.MultipartiteGraph;
 import algolib.tuples.Pair;
 
 public class Matching

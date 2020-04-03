@@ -1,5 +1,5 @@
 // TESTY DLA ALGORYTMÓW WYZNACZANIA NAJKRÓTSZYCH ŚCIEŻEK
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import algolib.graphs.DirectedWeightedSimpleGraph;
+import algolib.graphs.Graph;
+import algolib.graphs.UndirectedWeightedSimpleGraph;
 import algolib.tuples.Triple;
 
 public class PathsTest

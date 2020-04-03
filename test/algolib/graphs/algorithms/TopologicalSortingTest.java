@@ -1,4 +1,4 @@
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import algolib.graphs.DirectedGraph;
+import algolib.graphs.DirectedSimpleGraph;
 import algolib.tuples.Pair;
 
 public class TopologicalSortingTest
@@ -17,26 +19,16 @@ public class TopologicalSortingTest
     @BeforeEach
     public void setUp()
     {
-        acyclicGraph = new DirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 2),
-                                                                Pair.make(0, 4),
-                                                                Pair.make(1, 0),
-                                                                Pair.make(1, 4),
-                                                                Pair.make(3, 1),
-                                                                Pair.make(3, 0),
-                                                                Pair.make(3, 2),
-                                                                Pair.make(5, 1),
-                                                                Pair.make(5, 2),
-                                                                Pair.make(5, 4)));
-        cyclicGraph = new DirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 2),
-                                                               Pair.make(0, 4),
-                                                               Pair.make(1, 0),
-                                                               Pair.make(1, 4),
-                                                               Pair.make(2, 1),
-                                                               Pair.make(3, 1),
-                                                               Pair.make(3, 0),
-                                                               Pair.make(3, 2),
-                                                               Pair.make(5, 1),
-                                                               Pair.make(5, 2),
+        acyclicGraph = new DirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 2), Pair.make(0, 4),
+                                                                Pair.make(1, 0), Pair.make(1, 4),
+                                                                Pair.make(3, 1), Pair.make(3, 0),
+                                                                Pair.make(3, 2), Pair.make(5, 1),
+                                                                Pair.make(5, 2), Pair.make(5, 4)));
+        cyclicGraph = new DirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 2), Pair.make(0, 4),
+                                                               Pair.make(1, 0), Pair.make(1, 4),
+                                                               Pair.make(2, 1), Pair.make(3, 1),
+                                                               Pair.make(3, 0), Pair.make(3, 2),
+                                                               Pair.make(5, 1), Pair.make(5, 2),
                                                                Pair.make(5, 4)));
     }
 

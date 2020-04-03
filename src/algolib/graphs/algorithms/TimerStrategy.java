@@ -1,4 +1,4 @@
-package algolib.graphs.searching;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;

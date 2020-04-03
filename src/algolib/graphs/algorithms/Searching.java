@@ -1,5 +1,5 @@
 // ALGORYTMY PRZESZUKIWANIA GRAFU
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import algolib.graphs.searching.SearchingStrategy;
+import algolib.graphs.Graph;
 
 public class Searching
 {

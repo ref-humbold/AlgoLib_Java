@@ -1,4 +1,4 @@
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import algolib.graphs.DirectedGraph;
+import algolib.graphs.DirectedSimpleGraph;
 import algolib.tuples.Pair;
 
 public class StronglyConnectedComponentsTest

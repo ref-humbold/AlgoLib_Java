@@ -1,4 +1,4 @@
-package algolib.graphs;
+package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import algolib.graphs.searching.SearchingStrategy;
+import algolib.graphs.DirectedSimpleGraph;
+import algolib.graphs.UndirectedSimpleGraph;
 import algolib.tuples.Pair;
 
 public class SearchingTest
