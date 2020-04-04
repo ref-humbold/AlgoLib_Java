@@ -5,10 +5,11 @@ import java.util.Objects;
 
 public final class Fraction
         extends Number
+        implements Comparable<Number>
 {
     private static final long serialVersionUID = 330776497365163091L;
-    private long numerator;
-    private long denominator;
+    private final long numerator;
+    private final long denominator;
 
     public Fraction(long numerator)
     {
@@ -20,11 +21,21 @@ public final class Fraction
         super();
 
         if(denominator == 0)
-            throw new ArithmeticException("Denominator equals zero.");
+            throw new ArithmeticException("Denominator cannot be equal to zero");
+
+        long gcd = Maths.gcd(numerator, denominator);
+
+        numerator /= gcd;
+        denominator /= gcd;
+
+        if(denominator < 0)
+        {
+            numerator = -numerator;
+            denominator = -denominator;
+        }
 
         this.numerator = numerator;
         this.denominator = denominator;
-        normalize();
     }
 
     public static Fraction fromInt(int value)
@@ -37,7 +48,7 @@ public final class Fraction
         return new Fraction(value);
     }
 
-    public static Fraction from(long numerator, long denominator)
+    public static Fraction of(long numerator, long denominator)
     {
         return new Fraction(numerator, denominator);
     }
@@ -63,9 +74,16 @@ public final class Fraction
         return Objects.hash(numerator, denominator);
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("%d/%d", numerator, denominator);
+    }
+
     public Fraction add(Fraction f)
     {
-        return new Fraction(numerator * f.denominator + f.numerator * denominator, denominator * f.denominator);
+        return new Fraction(numerator * f.denominator + f.numerator * denominator,
+                            denominator * f.denominator);
     }
 
     public Fraction add(long d)
@@ -73,37 +91,46 @@ public final class Fraction
         return add(Fraction.fromLong(d));
     }
 
-    public Fraction sub(Fraction f)
+    public Fraction subtract(Fraction f)
     {
-        return new Fraction(numerator * f.denominator - f.numerator * denominator, denominator * f.denominator);
+        return new Fraction(numerator * f.denominator - f.numerator * denominator,
+                            denominator * f.denominator);
     }
 
-    public Fraction sub(long d)
+    public Fraction subtract(long d)
     {
-        return sub(Fraction.fromLong(d));
+        return subtract(Fraction.fromLong(d));
     }
 
-    public Fraction mult(Fraction f)
+    public Fraction multiply(Fraction f)
     {
         return new Fraction(numerator * f.numerator, denominator * f.denominator);
     }
 
-    public Fraction mult(long d)
+    public Fraction multiply(long d)
     {
-        return mult(Fraction.fromLong(d));
+        return multiply(Fraction.fromLong(d));
     }
 
-    public Fraction div(Fraction f)
+    public Fraction divide(Fraction f)
     {
         if(f.numerator == 0)
-            throw new ArithmeticException("Division by zero.");
+            throw new ArithmeticException("Division by zero");
 
         return new Fraction(numerator * f.denominator, denominator * f.numerator);
     }
 
-    public Fraction div(long d)
+    public Fraction divide(long d)
     {
-        return div(Fraction.fromLong(d));
+        return divide(Fraction.fromLong(d));
+    }
+
+    public Fraction invert()
+    {
+        if(numerator == 0)
+            throw new ArithmeticException("Value of zero cannot be inverted");
+
+        return Fraction.of(denominator, numerator);
     }
 
     @Override
@@ -130,17 +157,22 @@ public final class Fraction
         return (1.0 * numerator) / denominator;
     }
 
-    private void normalize()
+    @Override
+    public int compareTo(Number number)
     {
-        long gcd = Maths.gcd(numerator, denominator);
+        if(number instanceof Fraction)
+            return compare((Fraction)number);
 
-        numerator /= gcd;
-        denominator /= gcd;
+        return Double.compare(doubleValue(), number.doubleValue());
+    }
 
-        if(denominator < 0)
-        {
-            numerator = -numerator;
-            denominator = -denominator;
-        }
+    private int compare(Fraction f)
+    {
+        long lcm = Maths.lcm(denominator, f.denominator);
+
+        long thisNumerator = lcm / denominator * numerator;
+        long otherNumerator = lcm / f.denominator * f.numerator;
+
+        return Long.compare(thisNumerator, otherNumerator);
     }
 }

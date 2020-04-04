@@ -11,8 +11,8 @@ public class Maths
      */
     public static long gcd(long number1, long number2)
     {
-        long min_number = Math.min(number1, number2);
-        long max_number = Math.max(number1, number2);
+        long min_number = Math.min(Math.abs(number1), Math.abs(number2));
+        long max_number = Math.max(Math.abs(number1), Math.abs(number2));
 
         while(min_number > 0)
         {
@@ -33,8 +33,8 @@ public class Maths
      */
     public static long lcm(long number1, long number2)
     {
-        long min_number = Math.min(number1, number2);
-        long max_number = Math.max(number1, number2);
+        long min_number = Math.min(Math.abs(number1), Math.abs(number2));
+        long max_number = Math.max(Math.abs(number1), Math.abs(number2));
 
         return max_number / Maths.gcd(number1, number2) * min_number;
     }
