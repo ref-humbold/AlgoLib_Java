@@ -17,9 +17,9 @@ public class LowestCommonAncestorTest
     @BeforeEach
     public void setUp()
     {
-        tree = new TreeGraph(10, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2), Pair.make(1, 3),
-                                               Pair.make(1, 4), Pair.make(1, 5), Pair.make(2, 6),
-                                               Pair.make(4, 7), Pair.make(6, 8), Pair.make(6, 9)));
+        tree = new TreeGraph(10, Arrays.asList(Pair.of(0, 1), Pair.of(0, 2), Pair.of(1, 3),
+                                               Pair.of(1, 4), Pair.of(1, 5), Pair.of(2, 6),
+                                               Pair.of(4, 7), Pair.of(6, 8), Pair.of(6, 9)));
     }
 
     @AfterEach

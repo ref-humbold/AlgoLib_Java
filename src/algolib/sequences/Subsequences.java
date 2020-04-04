@@ -63,19 +63,19 @@ public class Subsequences
      */
     public static List<Double> maximumSubarray(Iterable<Double> sequence)
     {
-        Pair<Double, List<Double>> actual = Pair.make(0.0, new ArrayList<>());
-        Pair<Double, List<Double>> maximal = Pair.make(0.0, new ArrayList<>());
+        Pair<Double, List<Double>> actual = Pair.of(0.0, new ArrayList<>());
+        Pair<Double, List<Double>> maximal = Pair.of(0.0, new ArrayList<>());
 
         for(Double elem : sequence)
         {
             if(actual.first < 0.0)
-                actual = Pair.make(0.0, new ArrayList<>());
+                actual = Pair.of(0.0, new ArrayList<>());
 
-            actual = Pair.make(actual.first + elem, actual.second);
+            actual = Pair.of(actual.first + elem, actual.second);
             actual.second.add(elem);
 
             if(actual.first > maximal.first)
-                maximal = Pair.make(actual.first, new ArrayList<>(actual.second));
+                maximal = Pair.of(actual.first, new ArrayList<>(actual.second));
         }
 
         return maximal.second;

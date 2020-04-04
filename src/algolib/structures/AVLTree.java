@@ -1,4 +1,4 @@
-// AVL tree structure
+// Structure of AVL tree
 package algolib.structures;
 
 import java.util.*;

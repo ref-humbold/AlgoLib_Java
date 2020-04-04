@@ -23,35 +23,34 @@ public class PointsSortingTest
     @Test
     public void angleSort()
     {
-        List<Point2D> sequence = Arrays.asList(Point2D.make(0.0, 0.0), Point2D.make(-2.0, -3.0),
-                                               Point2D.make(-3.0, -2.0), Point2D.make(3.0, -2.0),
-                                               Point2D.make(-2.0, 3.0), Point2D.make(3.0, 2.0),
-                                               Point2D.make(2.0, -3.0), Point2D.make(2.0, 3.0),
-                                               Point2D.make(-3.0, 2.0));
+        List<Point2D> sequence =
+                Arrays.asList(Point2D.of(0.0, 0.0), Point2D.of(-2.0, -3.0), Point2D.of(-3.0, -2.0),
+                              Point2D.of(3.0, -2.0), Point2D.of(-2.0, 3.0), Point2D.of(3.0, 2.0),
+                              Point2D.of(2.0, -3.0), Point2D.of(2.0, 3.0), Point2D.of(-3.0, 2.0));
 
-        PointsSorting.angleSort(sequence);
+        PointsSorting.sortByAngle(sequence);
 
         Assertions.assertArrayEquals(
-                new Object[]{Point2D.make(0.0, 0.0), Point2D.make(3.0, 2.0), Point2D.make(2.0, 3.0),
-                             Point2D.make(-2.0, 3.0), Point2D.make(-3.0, 2.0),
-                             Point2D.make(-3.0, -2.0), Point2D.make(-2.0, -3.0),
-                             Point2D.make(2.0, -3.0), Point2D.make(3.0, -2.0)}, sequence.toArray());
+                new Object[]{Point2D.of(0.0, 0.0), Point2D.of(3.0, 2.0), Point2D.of(2.0, 3.0),
+                             Point2D.of(-2.0, 3.0), Point2D.of(-3.0, 2.0), Point2D.of(-3.0, -2.0),
+                             Point2D.of(-2.0, -3.0), Point2D.of(2.0, -3.0), Point2D.of(3.0, -2.0)},
+                sequence.toArray());
     }
 
     @Test
     public void angleSort_WhenAllEqual()
     {
-        List<Point2D> sequence = Arrays.asList(Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0),
-                                               Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0),
-                                               Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0),
-                                               Point2D.make(1.0, 2.0));
+        List<Point2D> sequence =
+                Arrays.asList(Point2D.of(1.0, 2.0), Point2D.of(1.0, 2.0), Point2D.of(1.0, 2.0),
+                              Point2D.of(1.0, 2.0), Point2D.of(1.0, 2.0), Point2D.of(1.0, 2.0),
+                              Point2D.of(1.0, 2.0));
 
-        PointsSorting.angleSort(sequence);
+        PointsSorting.sortByAngle(sequence);
 
         Assertions.assertArrayEquals(
-                new Object[]{Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0),
-                             Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0), Point2D.make(1.0, 2.0),
-                             Point2D.make(1.0, 2.0)}, sequence.toArray());
+                new Object[]{Point2D.of(1.0, 2.0), Point2D.of(1.0, 2.0), Point2D.of(1.0, 2.0),
+                             Point2D.of(1.0, 2.0), Point2D.of(1.0, 2.0), Point2D.of(1.0, 2.0),
+                             Point2D.of(1.0, 2.0)}, sequence.toArray());
     }
 
     @Test
@@ -59,7 +58,7 @@ public class PointsSortingTest
     {
         List<Point2D> sequence = new ArrayList<>();
 
-        PointsSorting.angleSort(sequence);
+        PointsSorting.sortByAngle(sequence);
 
         Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
     }
@@ -67,36 +66,34 @@ public class PointsSortingTest
     @Test
     public void sortByX()
     {
-        List<Point2D> sequence = Arrays.asList(Point2D.make(0.0, 0.0), Point2D.make(-2.0, -3.0),
-                                               Point2D.make(-3.0, -2.0), Point2D.make(3.0, -2.0),
-                                               Point2D.make(-2.0, 3.0), Point2D.make(3.0, 2.0),
-                                               Point2D.make(2.0, -3.0), Point2D.make(2.0, 3.0),
-                                               Point2D.make(-3.0, 2.0));
+        List<Point2D> sequence =
+                Arrays.asList(Point2D.of(0.0, 0.0), Point2D.of(-2.0, -3.0), Point2D.of(-3.0, -2.0),
+                              Point2D.of(3.0, -2.0), Point2D.of(-2.0, 3.0), Point2D.of(3.0, 2.0),
+                              Point2D.of(2.0, -3.0), Point2D.of(2.0, 3.0), Point2D.of(-3.0, 2.0));
 
         PointsSorting.sortByX(sequence);
 
-        Assertions.assertArrayEquals(new Object[]{Point2D.make(-3.0, -2.0), Point2D.make(-3.0, 2.0),
-                                                  Point2D.make(-2.0, -3.0), Point2D.make(-2.0, 3.0),
-                                                  Point2D.make(0.0, 0.0), Point2D.make(2.0, -3.0),
-                                                  Point2D.make(2.0, 3.0), Point2D.make(3.0, -2.0),
-                                                  Point2D.make(3.0, 2.0)}, sequence.toArray());
+        Assertions.assertArrayEquals(
+                new Object[]{Point2D.of(-3.0, -2.0), Point2D.of(-3.0, 2.0), Point2D.of(-2.0, -3.0),
+                             Point2D.of(-2.0, 3.0), Point2D.of(0.0, 0.0), Point2D.of(2.0, -3.0),
+                             Point2D.of(2.0, 3.0), Point2D.of(3.0, -2.0), Point2D.of(3.0, 2.0)},
+                sequence.toArray());
     }
 
     @Test
     public void sortByY()
     {
-        List<Point2D> sequence = Arrays.asList(Point2D.make(0.0, 0.0), Point2D.make(-2.0, -3.0),
-                                               Point2D.make(-3.0, -2.0), Point2D.make(3.0, -2.0),
-                                               Point2D.make(-2.0, 3.0), Point2D.make(3.0, 2.0),
-                                               Point2D.make(2.0, -3.0), Point2D.make(2.0, 3.0),
-                                               Point2D.make(-3.0, 2.0));
+        List<Point2D> sequence =
+                Arrays.asList(Point2D.of(0.0, 0.0), Point2D.of(-2.0, -3.0), Point2D.of(-3.0, -2.0),
+                              Point2D.of(3.0, -2.0), Point2D.of(-2.0, 3.0), Point2D.of(3.0, 2.0),
+                              Point2D.of(2.0, -3.0), Point2D.of(2.0, 3.0), Point2D.of(-3.0, 2.0));
 
         PointsSorting.sortByY(sequence);
 
-        Assertions.assertArrayEquals(new Object[]{Point2D.make(-2.0, -3.0), Point2D.make(2.0, -3.0),
-                                                  Point2D.make(-3.0, -2.0), Point2D.make(3.0, -2.0),
-                                                  Point2D.make(0.0, 0.0), Point2D.make(-3.0, 2.0),
-                                                  Point2D.make(3.0, 2.0), Point2D.make(-2.0, 3.0),
-                                                  Point2D.make(2.0, 3.0)}, sequence.toArray());
+        Assertions.assertArrayEquals(
+                new Object[]{Point2D.of(-2.0, -3.0), Point2D.of(2.0, -3.0), Point2D.of(-3.0, -2.0),
+                             Point2D.of(3.0, -2.0), Point2D.of(0.0, 0.0), Point2D.of(-3.0, 2.0),
+                             Point2D.of(3.0, 2.0), Point2D.of(-2.0, 3.0), Point2D.of(2.0, 3.0)},
+                sequence.toArray());
     }
 }

@@ -1,4 +1,4 @@
-// ALGORYTMY MATEMATYCZNE
+// Algorithms for basic mathematical computations
 package algolib.mathmat;
 
 public class Maths

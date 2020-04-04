@@ -89,14 +89,14 @@ public class StronglyConnectedComponents
          */
         int dfsOrder(Integer vertex, int timer)
         {
-            postorder.set(vertex, ComparablePair.make(null, vertex));
+            postorder.set(vertex, ComparablePair.of(null, vertex));
             ++timer;
 
             for(Integer neighbour : digraph.getNeighbours(vertex))
                 if(postorder.get(neighbour) == null)
                     timer = dfsOrder(neighbour, timer);
 
-            postorder.set(vertex, ComparablePair.make(timer, vertex));
+            postorder.set(vertex, ComparablePair.of(timer, vertex));
 
             return timer + 1;
         }

@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import algolib.tuples.ComparablePair;
-import algolib.tuples.Triple;
 import algolib.tuples.Pair;
+import algolib.tuples.Triple;
 
 public class DirectedWeightedSimpleGraph
         extends DirectedSimpleGraph
@@ -36,7 +36,7 @@ public class DirectedWeightedSimpleGraph
 
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
-                edges.add(Triple.make(v, e.first, e.second));
+                edges.add(Triple.of(v, e.first, e.second));
 
         return edges;
     }
@@ -51,7 +51,7 @@ public class DirectedWeightedSimpleGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex2.toString());
 
-        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, weight));
+        graphrepr.get(vertex1).add(ComparablePair.of(vertex2, weight));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class DirectedWeightedSimpleGraph
             revgraphrepr.add(new HashSet<>());
 
         for(Triple<Integer, Integer, Double> e : getWeightedEdges())
-            revgraphrepr.get(e.second).add(ComparablePair.make(e.first, e.third));
+            revgraphrepr.get(e.second).add(ComparablePair.of(e.first, e.third));
 
         graphrepr = revgraphrepr;
     }

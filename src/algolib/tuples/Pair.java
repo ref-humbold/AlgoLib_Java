@@ -1,3 +1,4 @@
+// Structure of pair
 package algolib.tuples;
 
 import java.util.Objects;
@@ -13,7 +14,7 @@ public class Pair<F, S>
         this.second = second;
     }
 
-    public static <F, S> Pair<F, S> make(F first, S second)
+    public static <F, S> Pair<F, S> of(F first, S second)
     {
         return new Pair<>(first, second);
     }
@@ -29,7 +30,7 @@ public class Pair<F, S>
 
         Pair<?, ?> other = (Pair<?, ?>)obj;
 
-        return Objects.equals(this.first, other.first) && Objects.equals(this.second, other.second);
+        return Objects.equals(first, other.first) && Objects.equals(second, other.second);
     }
 
     @Override

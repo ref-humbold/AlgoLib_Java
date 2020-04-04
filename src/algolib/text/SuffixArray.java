@@ -1,3 +1,4 @@
+// Structure of suffix array
 package algolib.text;
 
 import java.util.ArrayDeque;
@@ -18,7 +19,7 @@ public class SuffixArray
     public SuffixArray(String text)
     {
         this.text = text;
-        this.length = text.length();
+        length = text.length();
         initSuffixArray();
         initInverseArray();
         initLcpArray();
@@ -53,7 +54,6 @@ public class SuffixArray
 
         return suffixArray.get(i);
     }
-
 
     /**
      * @param suf index in text where suffix begins
@@ -116,7 +116,7 @@ public class SuffixArray
                 int j = suffixArray.get(inverseArray.get(i) - 1);
 
                 while(i + len < length && j + len < length && text.charAt(i + len) == text.charAt(
-                    j + len))
+                        j + len))
                     ++len;
 
                 lcpArray.set(inverseArray.get(i), len);
@@ -265,7 +265,6 @@ public class SuffixArray
     {
         return i < v.size() ? v.get(i) : 0;
     }
-
 
     private boolean lessOrEqual(int... elems)
     {

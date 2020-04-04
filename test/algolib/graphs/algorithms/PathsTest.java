@@ -21,35 +21,35 @@ public class PathsTest
     @BeforeEach
     public void setUp()
     {
-        diwgraph = new DirectedWeightedSimpleGraph(10, Arrays.asList(Triple.make(0, 1, 4.0),
-                                                                     Triple.make(1, 4, 7.0),
-                                                                     Triple.make(1, 7, 12.0),
-                                                                     Triple.make(2, 4, 6.0),
-                                                                     Triple.make(2, 6, 8.0),
-                                                                     Triple.make(3, 0, 3.0),
-                                                                     Triple.make(3, 7, 5.0),
-                                                                     Triple.make(4, 5, 1.0),
-                                                                     Triple.make(4, 3, 10.0),
-                                                                     Triple.make(5, 6, 4.0),
-                                                                     Triple.make(5, 8, 2.0),
-                                                                     Triple.make(6, 5, 7.0),
-                                                                     Triple.make(7, 5, 2.0),
-                                                                     Triple.make(7, 8, 6.0),
-                                                                     Triple.make(8, 9, 10.0),
-                                                                     Triple.make(9, 6, 3.0)));
+        diwgraph = new DirectedWeightedSimpleGraph(10, Arrays.asList(Triple.of(0, 1, 4.0),
+                                                                     Triple.of(1, 4, 7.0),
+                                                                     Triple.of(1, 7, 12.0),
+                                                                     Triple.of(2, 4, 6.0),
+                                                                     Triple.of(2, 6, 8.0),
+                                                                     Triple.of(3, 0, 3.0),
+                                                                     Triple.of(3, 7, 5.0),
+                                                                     Triple.of(4, 5, 1.0),
+                                                                     Triple.of(4, 3, 10.0),
+                                                                     Triple.of(5, 6, 4.0),
+                                                                     Triple.of(5, 8, 2.0),
+                                                                     Triple.of(6, 5, 7.0),
+                                                                     Triple.of(7, 5, 2.0),
+                                                                     Triple.of(7, 8, 6.0),
+                                                                     Triple.of(8, 9, 10.0),
+                                                                     Triple.of(9, 6, 3.0)));
 
-        uwgraph = new UndirectedWeightedSimpleGraph(10, Arrays.asList(Triple.make(0, 1, 4.0),
-                                                                      Triple.make(1, 4, 7.0),
-                                                                      Triple.make(1, 7, 12.0),
-                                                                      Triple.make(2, 6, 8.0),
-                                                                      Triple.make(3, 0, 3.0),
-                                                                      Triple.make(3, 7, 5.0),
-                                                                      Triple.make(4, 5, 1.0),
-                                                                      Triple.make(4, 3, 10.0),
-                                                                      Triple.make(5, 8, 2.0),
-                                                                      Triple.make(7, 5, 2.0),
-                                                                      Triple.make(7, 8, 6.0),
-                                                                      Triple.make(9, 6, 3.0)));
+        uwgraph = new UndirectedWeightedSimpleGraph(10, Arrays.asList(Triple.of(0, 1, 4.0),
+                                                                      Triple.of(1, 4, 7.0),
+                                                                      Triple.of(1, 7, 12.0),
+                                                                      Triple.of(2, 6, 8.0),
+                                                                      Triple.of(3, 0, 3.0),
+                                                                      Triple.of(3, 7, 5.0),
+                                                                      Triple.of(4, 5, 1.0),
+                                                                      Triple.of(4, 3, 10.0),
+                                                                      Triple.of(5, 8, 2.0),
+                                                                      Triple.of(7, 5, 2.0),
+                                                                      Triple.of(7, 8, 6.0),
+                                                                      Triple.of(9, 6, 3.0)));
     }
 
     @AfterEach

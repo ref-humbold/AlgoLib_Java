@@ -64,7 +64,7 @@ public class Paths
         PriorityQueue<ComparablePair<Double, Integer>> vertexQueue = new PriorityQueue<>();
 
         distances.set(source, 0.0);
-        vertexQueue.add(ComparablePair.make(0.0, source));
+        vertexQueue.add(ComparablePair.of(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
@@ -82,7 +82,7 @@ public class Paths
                     if(distances.get(v) + wg < distances.get(nb))
                     {
                         distances.set(nb, distances.get(v) + wg);
-                        vertexQueue.add(ComparablePair.make(distances.get(nb), nb));
+                        vertexQueue.add(ComparablePair.of(distances.get(nb), nb));
                     }
                 }
             }

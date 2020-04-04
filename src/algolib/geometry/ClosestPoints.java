@@ -42,12 +42,12 @@ class ClosestPoints
         double distance31 = distance(pointsX.get(index_begin), pointsX.get(index_end));
 
         if(distance12 <= distance23 && distance12 <= distance31)
-            return Pair.make(pointsX.get(index_begin), pointsX.get(index_middle));
+            return Pair.of(pointsX.get(index_begin), pointsX.get(index_middle));
 
         if(distance23 <= distance12 && distance23 <= distance31)
-            return Pair.make(pointsX.get(index_middle), pointsX.get(index_end));
+            return Pair.of(pointsX.get(index_middle), pointsX.get(index_end));
 
-        return Pair.make(pointsX.get(index_begin), pointsX.get(index_end));
+        return Pair.of(pointsX.get(index_begin), pointsX.get(index_end));
     }
 
     // Finds closest pair inside a belt of specified width.
@@ -79,7 +79,7 @@ class ClosestPoints
                     if(actual_distance < minDistance)
                     {
                         minDistance = actual_distance;
-                        closestPoints = Pair.make(pt1, pt2);
+                        closestPoints = Pair.of(pt1, pt2);
                     }
                 }
             }
@@ -96,7 +96,7 @@ class ClosestPoints
         index_end = (index_end + pointsX.size()) % pointsX.size();
 
         if(index_end - index_begin == 1)
-            return Pair.make(pointsX.get(index_begin), pointsX.get(index_end));
+            return Pair.of(pointsX.get(index_begin), pointsX.get(index_end));
 
         if(index_end - index_begin == 2)
             return searchThree(pointsX, index_begin, index_end);

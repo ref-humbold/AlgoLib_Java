@@ -1,8 +1,7 @@
-// PORÓWNYWALNA TRÓJKA
+// Structure of comparable triple
 package algolib.tuples;
 
-public final class ComparableTriple<F extends Comparable<? super F>, S extends Comparable<?
-        super S>, T extends Comparable<? super T>>
+public final class ComparableTriple<F extends Comparable<? super F>, S extends Comparable<? super S>, T extends Comparable<? super T>>
         extends Triple<F, S, T>
         implements Comparable<Triple<F, S, T>>
 {
@@ -11,13 +10,13 @@ public final class ComparableTriple<F extends Comparable<? super F>, S extends C
         super(first, second, third);
     }
 
-    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> ComparableTriple<F, S, T> make(
+    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> ComparableTriple<F, S, T> of(
             F first, S second, T third)
     {
         return new ComparableTriple<>(first, second, third);
     }
 
-    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> ComparableTriple<F, S, T> from(
+    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> ComparableTriple<F, S, T> of(
             Triple<F, S, T> triple)
     {
         return new ComparableTriple<>(triple.first, triple.second, triple.third);

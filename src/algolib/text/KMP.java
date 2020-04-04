@@ -1,3 +1,4 @@
+// Karp-Miller-Rosenberg algorithm
 package algolib.text;
 
 import java.util.ArrayList;

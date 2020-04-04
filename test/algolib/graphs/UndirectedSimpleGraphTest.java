@@ -91,8 +91,8 @@ public class UndirectedSimpleGraphTest
         Arrays.sort(result);
 
         Assertions.assertArrayEquals(
-                new Object[]{Pair.make(0, 8), Pair.make(1, 5), Pair.make(2, 4), Pair.make(3, 6),
-                             Pair.make(3, 9), Pair.make(7, 7)}, result);
+                new Object[]{Pair.of(0, 8), Pair.of(1, 5), Pair.of(2, 4), Pair.of(3, 6),
+                             Pair.of(3, 9), Pair.of(7, 7)}, result);
     }
 
     @Test
@@ -187,8 +187,8 @@ public class UndirectedSimpleGraphTest
 
         Assertions.assertArrayEquals(expectedVertices, resultVertices);
         Assertions.assertArrayEquals(
-                new Object[]{Pair.make(0, 8), Pair.make(1, 5), Pair.make(2, 4), Pair.make(3, 6),
-                             Pair.make(3, 9), Pair.make(4, 2), Pair.make(5, 1), Pair.make(6, 3),
-                             Pair.make(7, 7), Pair.make(8, 0), Pair.make(9, 3)}, resultEdges);
+                new Object[]{Pair.of(0, 8), Pair.of(1, 5), Pair.of(2, 4), Pair.of(3, 6),
+                             Pair.of(3, 9), Pair.of(4, 2), Pair.of(5, 1), Pair.of(6, 3),
+                             Pair.of(7, 7), Pair.of(8, 0), Pair.of(9, 3)}, resultEdges);
     }
 }

@@ -1,4 +1,4 @@
-// Fractions structure
+// Structure of fraction
 package algolib.mathmat;
 
 import java.util.Objects;
@@ -53,8 +53,8 @@ public final class Fraction
 
         Fraction other = (Fraction)obj;
 
-        return Objects.equals(this.numerator, other.numerator) && Objects.equals(this.denominator,
-                                                                                 other.denominator);
+        return Objects.equals(numerator, other.numerator) && Objects.equals(denominator,
+                                                                            other.denominator);
     }
 
     @Override
@@ -65,8 +65,7 @@ public final class Fraction
 
     public Fraction add(Fraction f)
     {
-        return new Fraction(this.numerator * f.denominator + f.numerator * this.denominator,
-                            this.denominator * f.denominator);
+        return new Fraction(numerator * f.denominator + f.numerator * denominator, denominator * f.denominator);
     }
 
     public Fraction add(long d)
@@ -76,8 +75,7 @@ public final class Fraction
 
     public Fraction sub(Fraction f)
     {
-        return new Fraction(this.numerator * f.denominator - f.numerator * this.denominator,
-                            this.denominator * f.denominator);
+        return new Fraction(numerator * f.denominator - f.numerator * denominator, denominator * f.denominator);
     }
 
     public Fraction sub(long d)
@@ -87,7 +85,7 @@ public final class Fraction
 
     public Fraction mult(Fraction f)
     {
-        return new Fraction(this.numerator * f.numerator, this.denominator * f.denominator);
+        return new Fraction(numerator * f.numerator, denominator * f.denominator);
     }
 
     public Fraction mult(long d)
@@ -100,7 +98,7 @@ public final class Fraction
         if(f.numerator == 0)
             throw new ArithmeticException("Division by zero.");
 
-        return new Fraction(this.numerator * f.denominator, this.denominator * f.numerator);
+        return new Fraction(numerator * f.denominator, denominator * f.numerator);
     }
 
     public Fraction div(long d)

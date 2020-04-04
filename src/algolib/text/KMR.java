@@ -63,7 +63,7 @@ public class KMR
             String s1 = text.substring(i, i + newLength / 2);
             String s2 = text.substring(i + newLength / 2, i + newLength);
 
-            codes.add(ComparableTriple.make(factors.get(s1), factors.get(s2), i));
+            codes.add(ComparableTriple.of(factors.get(s1), factors.get(s2), i));
         }
 
         Collections.sort(codes);

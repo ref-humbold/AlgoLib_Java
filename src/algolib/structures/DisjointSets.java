@@ -1,4 +1,4 @@
-// Disjoint sets structure (union-find)
+// Structure of disjoint sets (union-find)
 package algolib.structures;
 
 import java.util.HashMap;

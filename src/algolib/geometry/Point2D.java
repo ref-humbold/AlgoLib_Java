@@ -14,7 +14,7 @@ public final class Point2D
         this.y = y;
     }
 
-    public static Point2D make(double x, double y)
+    public static Point2D of(double x, double y)
     {
         return new Point2D(x, y);
     }
@@ -30,7 +30,7 @@ public final class Point2D
 
         Point2D other = (Point2D)obj;
 
-        return Objects.equals(this.x, other.x) && Objects.equals(this.y, other.y);
+        return Objects.equals(x, other.x) && Objects.equals(y, other.y);
     }
 
     @Override
@@ -42,7 +42,7 @@ public final class Point2D
     @Override
     public int compareTo(Point2D p)
     {
-        return this.x == p.x ? Double.compare(this.y, p.y) : Double.compare(this.x, p.x);
+        return x == p.x ? Double.compare(y, p.y) : Double.compare(x, p.x);
     }
 
     @Override

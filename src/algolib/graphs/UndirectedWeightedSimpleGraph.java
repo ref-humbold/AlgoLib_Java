@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.List;
 
 import algolib.tuples.ComparablePair;
-import algolib.tuples.Triple;
 import algolib.tuples.Pair;
+import algolib.tuples.Triple;
 
 public class UndirectedWeightedSimpleGraph
         extends UndirectedSimpleGraph
@@ -35,7 +35,7 @@ public class UndirectedWeightedSimpleGraph
         for(Integer v : getVertices())
             for(Pair<Integer, Double> e : getWeightedNeighbours(v))
                 if(e.first >= v)
-                    edges.add(Triple.make(v, e.first, e.second));
+                    edges.add(Triple.of(v, e.first, e.second));
 
         return edges;
     }
@@ -50,8 +50,8 @@ public class UndirectedWeightedSimpleGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new NoSuchVertexException(vertex2.toString());
 
-        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, weight));
-        graphrepr.get(vertex2).add(ComparablePair.make(vertex1, weight));
+        graphrepr.get(vertex1).add(ComparablePair.of(vertex2, weight));
+        graphrepr.get(vertex2).add(ComparablePair.of(vertex1, weight));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class UndirectedWeightedSimpleGraph
         Collection<Triple<Integer, Integer, Double>> diwedges = getWeightedEdges();
 
         for(Triple<Integer, Integer, Double> e : getWeightedEdges())
-            diwedges.add(Triple.make(e.second, e.first, e.third));
+            diwedges.add(Triple.of(e.second, e.first, e.third));
 
         return new DirectedWeightedSimpleGraph(getVerticesNumber(), diwedges);
     }

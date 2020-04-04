@@ -23,21 +23,20 @@ public class SearchingTest
     {
         strategy = new SearchingTestStrategy();
 
-        digraph = new DirectedSimpleGraph(10, Arrays.asList(Pair.make(0, 1), Pair.make(1, 4),
-                                                            Pair.make(1, 7), Pair.make(2, 4),
-                                                            Pair.make(2, 6), Pair.make(3, 0),
-                                                            Pair.make(3, 7), Pair.make(4, 5),
-                                                            Pair.make(4, 3), Pair.make(5, 6),
-                                                            Pair.make(5, 8), Pair.make(6, 5),
-                                                            Pair.make(7, 5), Pair.make(7, 8),
-                                                            Pair.make(8, 9), Pair.make(9, 6)));
+        digraph = new DirectedSimpleGraph(10,
+                                          Arrays.asList(Pair.of(0, 1), Pair.of(1, 4), Pair.of(1, 7),
+                                                        Pair.of(2, 4), Pair.of(2, 6), Pair.of(3, 0),
+                                                        Pair.of(3, 7), Pair.of(4, 5), Pair.of(4, 3),
+                                                        Pair.of(5, 6), Pair.of(5, 8), Pair.of(6, 5),
+                                                        Pair.of(7, 5), Pair.of(7, 8), Pair.of(8, 9),
+                                                        Pair.of(9, 6)));
 
-        ugraph = new UndirectedSimpleGraph(10, Arrays.asList(Pair.make(0, 1), Pair.make(1, 4),
-                                                             Pair.make(1, 7), Pair.make(2, 6),
-                                                             Pair.make(3, 0), Pair.make(3, 7),
-                                                             Pair.make(4, 5), Pair.make(4, 3),
-                                                             Pair.make(5, 8), Pair.make(7, 5),
-                                                             Pair.make(7, 8), Pair.make(9, 6)));
+        ugraph = new UndirectedSimpleGraph(10, Arrays.asList(Pair.of(0, 1), Pair.of(1, 4),
+                                                             Pair.of(1, 7), Pair.of(2, 6),
+                                                             Pair.of(3, 0), Pair.of(3, 7),
+                                                             Pair.of(4, 5), Pair.of(4, 3),
+                                                             Pair.of(5, 8), Pair.of(7, 5),
+                                                             Pair.of(7, 8), Pair.of(9, 6)));
     }
 
     @AfterEach

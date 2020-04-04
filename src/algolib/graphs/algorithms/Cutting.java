@@ -83,8 +83,8 @@ public class Cutting
 
             for(Integer v : graph.getVertices())
                 if(hasBridge(v))
-                    bridges.add(ComparablePair.make(Math.min(v, dfsParents.get(v)),
-                                                    Math.max(v, dfsParents.get(v))));
+                    bridges.add(ComparablePair.of(Math.min(v, dfsParents.get(v)),
+                                                  Math.max(v, dfsParents.get(v))));
 
             return bridges;
         }

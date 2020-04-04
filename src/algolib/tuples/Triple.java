@@ -1,3 +1,4 @@
+// Structure of triple
 package algolib.tuples;
 
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class Triple<F, S, T>
         this.third = third;
     }
 
-    public static <F, S, T> Triple<F, S, T> make(F first, S second, T third)
+    public static <F, S, T> Triple<F, S, T> of(F first, S second, T third)
     {
         return new Triple<>(first, second, third);
     }
@@ -31,8 +32,8 @@ public class Triple<F, S, T>
 
         Triple<?, ?, ?> other = (Triple<?, ?, ?>)obj;
 
-        return Objects.equals(this.first, other.first) && Objects.equals(this.second, other.second)
-                && Objects.equals(this.third, other.third);
+        return Objects.equals(first, other.first) && Objects.equals(second, other.second) && Objects
+                .equals(third, other.third);
     }
 
     @Override

@@ -31,29 +31,29 @@ public class CuttingTest
     @Test
     public void findBridges_WhenPresentBridges()
     {
-        graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                            Pair.make(0, 7), Pair.make(1, 2),
-                                                            Pair.make(1, 3), Pair.make(1, 4),
-                                                            Pair.make(3, 5), Pair.make(4, 5),
-                                                            Pair.make(5, 6), Pair.make(7, 8),
-                                                            Pair.make(7, 9), Pair.make(7, 11),
-                                                            Pair.make(8, 9), Pair.make(9, 10),
-                                                            Pair.make(9, 11), Pair.make(10, 11)));
+        graph = new UndirectedSimpleGraph(12,
+                                          Arrays.asList(Pair.of(0, 1), Pair.of(0, 2), Pair.of(0, 7),
+                                                        Pair.of(1, 2), Pair.of(1, 3), Pair.of(1, 4),
+                                                        Pair.of(3, 5), Pair.of(4, 5), Pair.of(5, 6),
+                                                        Pair.of(7, 8), Pair.of(7, 9),
+                                                        Pair.of(7, 11), Pair.of(8, 9),
+                                                        Pair.of(9, 10), Pair.of(9, 11),
+                                                        Pair.of(10, 11)));
 
         Object[] result = Cutting.findEdgeCut(graph).toArray();
 
         Arrays.sort(result);
 
-        Assertions.assertArrayEquals(new Object[]{Pair.make(0, 7), Pair.make(5, 6)}, result);
+        Assertions.assertArrayEquals(new Object[]{Pair.of(0, 7), Pair.of(5, 6)}, result);
     }
 
     @Test
     public void findBridges_WhenNoBridges()
     {
-        graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                           Pair.make(1, 2), Pair.make(1, 3),
-                                                           Pair.make(1, 4), Pair.make(3, 5),
-                                                           Pair.make(4, 5)));
+        graph = new UndirectedSimpleGraph(6,
+                                          Arrays.asList(Pair.of(0, 1), Pair.of(0, 2), Pair.of(1, 2),
+                                                        Pair.of(1, 3), Pair.of(1, 4), Pair.of(3, 5),
+                                                        Pair.of(4, 5)));
 
         Collection<ComparablePair<Integer, Integer>> result = Cutting.findEdgeCut(graph);
 
@@ -63,14 +63,14 @@ public class CuttingTest
     @Test
     public void findVertexSeparators_WhenPresentSeparators()
     {
-        graph = new UndirectedSimpleGraph(12, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                            Pair.make(0, 7), Pair.make(1, 2),
-                                                            Pair.make(1, 3), Pair.make(1, 4),
-                                                            Pair.make(3, 5), Pair.make(4, 5),
-                                                            Pair.make(5, 6), Pair.make(7, 8),
-                                                            Pair.make(7, 9), Pair.make(7, 11),
-                                                            Pair.make(8, 9), Pair.make(9, 10),
-                                                            Pair.make(9, 11), Pair.make(10, 11)));
+        graph = new UndirectedSimpleGraph(12,
+                                          Arrays.asList(Pair.of(0, 1), Pair.of(0, 2), Pair.of(0, 7),
+                                                        Pair.of(1, 2), Pair.of(1, 3), Pair.of(1, 4),
+                                                        Pair.of(3, 5), Pair.of(4, 5), Pair.of(5, 6),
+                                                        Pair.of(7, 8), Pair.of(7, 9),
+                                                        Pair.of(7, 11), Pair.of(8, 9),
+                                                        Pair.of(9, 10), Pair.of(9, 11),
+                                                        Pair.of(10, 11)));
 
         Object[] result = Cutting.findVertexCut(graph).toArray();
 
@@ -82,10 +82,10 @@ public class CuttingTest
     @Test
     public void findVertexSeparators_WhenNoSeparators()
     {
-        graph = new UndirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 1), Pair.make(0, 2),
-                                                           Pair.make(1, 2), Pair.make(1, 3),
-                                                           Pair.make(1, 4), Pair.make(2, 3),
-                                                           Pair.make(3, 5), Pair.make(4, 5)));
+        graph = new UndirectedSimpleGraph(6,
+                                          Arrays.asList(Pair.of(0, 1), Pair.of(0, 2), Pair.of(1, 2),
+                                                        Pair.of(1, 3), Pair.of(1, 4), Pair.of(2, 3),
+                                                        Pair.of(3, 5), Pair.of(4, 5)));
 
         Collection<Integer> result = Cutting.findVertexCut(graph);
 

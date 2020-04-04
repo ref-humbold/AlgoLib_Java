@@ -7,7 +7,6 @@ import java.util.List;
 
 import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
-import algolib.tuples.Pair;
 
 public class UndirectedSimpleGraph
         extends SimpleGraph
@@ -51,7 +50,7 @@ public class UndirectedSimpleGraph
         for(Integer v : getVertices())
             for(Integer u : getNeighbours(v))
                 if(u >= v)
-                    edges.add(ComparablePair.make(v, u));
+                    edges.add(ComparablePair.of(v, u));
 
         return edges;
     }
@@ -65,8 +64,8 @@ public class UndirectedSimpleGraph
         if(vertex2 < 0 || vertex2 >= getVerticesNumber())
             throw new NoSuchVertexException("No vertex " + vertex2);
 
-        graphrepr.get(vertex1).add(ComparablePair.make(vertex2, SimpleGraph.DEFAULT_WEIGHT));
-        graphrepr.get(vertex2).add(ComparablePair.make(vertex1, SimpleGraph.DEFAULT_WEIGHT));
+        graphrepr.get(vertex1).add(ComparablePair.of(vertex2, SimpleGraph.DEFAULT_WEIGHT));
+        graphrepr.get(vertex2).add(ComparablePair.of(vertex1, SimpleGraph.DEFAULT_WEIGHT));
     }
 
     @Override
@@ -81,8 +80,8 @@ public class UndirectedSimpleGraph
 
         for(Pair<Integer, Integer> e : getEdges())
         {
-            diedges.add(Pair.make(e.first, e.second));
-            diedges.add(Pair.make(e.second, e.first));
+            diedges.add(Pair.of(e.first, e.second));
+            diedges.add(Pair.of(e.second, e.first));
         }
 
         return new DirectedSimpleGraph(getVerticesNumber(), diedges);

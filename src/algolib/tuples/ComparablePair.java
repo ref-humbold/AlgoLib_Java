@@ -1,4 +1,4 @@
-// PORÓWNYWALNA PARA
+// Structure of comparable pair
 package algolib.tuples;
 
 public final class ComparablePair<F extends Comparable<? super F>, S extends Comparable<? super S>>
@@ -10,13 +10,13 @@ public final class ComparablePair<F extends Comparable<? super F>, S extends Com
         super(first, second);
     }
 
-    public static <F extends Comparable<F>, S extends Comparable<S>> ComparablePair<F, S> make(
+    public static <F extends Comparable<F>, S extends Comparable<S>> ComparablePair<F, S> of(
             F first, S second)
     {
         return new ComparablePair<>(first, second);
     }
 
-    public static <F extends Comparable<F>, S extends Comparable<S>> ComparablePair<F, S> from(
+    public static <F extends Comparable<F>, S extends Comparable<S>> ComparablePair<F, S> of(
             Pair<F, S> pair)
     {
         return new ComparablePair<>(pair.first, pair.second);

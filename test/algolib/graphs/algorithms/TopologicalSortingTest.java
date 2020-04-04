@@ -19,17 +19,17 @@ public class TopologicalSortingTest
     @BeforeEach
     public void setUp()
     {
-        acyclicGraph = new DirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 2), Pair.make(0, 4),
-                                                                Pair.make(1, 0), Pair.make(1, 4),
-                                                                Pair.make(3, 1), Pair.make(3, 0),
-                                                                Pair.make(3, 2), Pair.make(5, 1),
-                                                                Pair.make(5, 2), Pair.make(5, 4)));
-        cyclicGraph = new DirectedSimpleGraph(6, Arrays.asList(Pair.make(0, 2), Pair.make(0, 4),
-                                                               Pair.make(1, 0), Pair.make(1, 4),
-                                                               Pair.make(2, 1), Pair.make(3, 1),
-                                                               Pair.make(3, 0), Pair.make(3, 2),
-                                                               Pair.make(5, 1), Pair.make(5, 2),
-                                                               Pair.make(5, 4)));
+        acyclicGraph = new DirectedSimpleGraph(6, Arrays.asList(Pair.of(0, 2), Pair.of(0, 4),
+                                                                Pair.of(1, 0), Pair.of(1, 4),
+                                                                Pair.of(3, 1), Pair.of(3, 0),
+                                                                Pair.of(3, 2), Pair.of(5, 1),
+                                                                Pair.of(5, 2), Pair.of(5, 4)));
+        cyclicGraph = new DirectedSimpleGraph(6, Arrays.asList(Pair.of(0, 2), Pair.of(0, 4),
+                                                               Pair.of(1, 0), Pair.of(1, 4),
+                                                               Pair.of(2, 1), Pair.of(3, 1),
+                                                               Pair.of(3, 0), Pair.of(3, 2),
+                                                               Pair.of(5, 1), Pair.of(5, 2),
+                                                               Pair.of(5, 4)));
     }
 
     @AfterEach

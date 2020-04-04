@@ -17,11 +17,9 @@ public class TreeGraphTest
     @BeforeEach
     public void setUp()
     {
-        testObject = new TreeGraph(10,
-                                   Arrays.asList(Pair.make(0, 6), Pair.make(1, 2), Pair.make(2, 3),
-                                                 Pair.make(3, 4), Pair.make(4, 5), Pair.make(6, 4),
-                                                 Pair.make(7, 3), Pair.make(8, 3),
-                                                 Pair.make(9, 7)));
+        testObject = new TreeGraph(10, Arrays.asList(Pair.of(0, 6), Pair.of(1, 2), Pair.of(2, 3),
+                                                     Pair.of(3, 4), Pair.of(4, 5), Pair.of(6, 4),
+                                                     Pair.of(7, 3), Pair.of(8, 3), Pair.of(9, 7)));
     }
 
     @AfterEach

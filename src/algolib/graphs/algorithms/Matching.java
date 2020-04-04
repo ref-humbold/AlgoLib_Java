@@ -32,7 +32,7 @@ public class Matching
         List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
 
         for(Integer v : multipartiteGraph.getVertices(1))
-            matchPairs.add(Pair.make(v, matching.get(v)));
+            matchPairs.add(Pair.of(v, matching.get(v)));
 
         return matchPairs;
     }
