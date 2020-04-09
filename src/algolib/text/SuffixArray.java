@@ -240,7 +240,7 @@ public class SuffixArray
 
     private void sortByKeys(List<Integer> v, List<Integer> keys, int shift)
     {
-        Map<Integer, Queue<Integer>> buckets = new HashMap<>();
+        TreeMap<Integer, Queue<Integer>> buckets = new TreeMap<>();
         int j = 0;
 
         for(int i : v)
@@ -251,11 +251,7 @@ public class SuffixArray
             buckets.get(k).add(i);
         }
 
-        for(Queue<Integer> q : buckets.entrySet()
-                                      .stream()
-                                      .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
-                                      .map(Map.Entry::getValue)
-                                      .collect(Collectors.toList()))
+        for(Queue<Integer> q : buckets.values())
             while(!q.isEmpty())
             {
                 v.set(j, q.remove());
