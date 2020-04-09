@@ -1,3 +1,4 @@
+// Structure of point on a plane
 package algolib.geometry;
 
 import java.util.Objects;

@@ -23,16 +23,16 @@ public final class Fraction
         if(denominator == 0)
             throw new ArithmeticException("Denominator cannot be equal to zero");
 
-        long gcd = Maths.gcd(numerator, denominator);
-
-        numerator /= gcd;
-        denominator /= gcd;
-
         if(denominator < 0)
         {
             numerator = -numerator;
             denominator = -denominator;
         }
+
+        long gcd = Maths.gcd(numerator, denominator);
+
+        numerator /= gcd;
+        denominator /= gcd;
 
         this.numerator = numerator;
         this.denominator = denominator;

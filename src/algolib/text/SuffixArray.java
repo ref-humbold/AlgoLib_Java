@@ -1,11 +1,7 @@
 // Structure of suffix array
 package algolib.text;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SuffixArray
@@ -94,7 +90,7 @@ public class SuffixArray
     {
         List<Integer> t = text.chars().boxed().collect(Collectors.toList());
 
-        suffixArray = createArray(t, 128);
+        suffixArray = createArray(t);
     }
 
     private void initInverseArray()
@@ -127,7 +123,7 @@ public class SuffixArray
         }
     }
 
-    private List<Integer> createArray(List<Integer> t, int k)
+    private List<Integer> createArray(List<Integer> t)
     {
         if(t.size() < 2)
             return Collections.singletonList(0);
@@ -142,14 +138,14 @@ public class SuffixArray
             if(i % 3 != 0)
                 t12.add(i);
 
-        sortByKeys(t12, t, 2, k);
-        sortByKeys(t12, t, 1, k);
-        sortByKeys(t12, t, 0, k);
+        sortByKeys(t12, t, 2);
+        sortByKeys(t12, t, 1);
+        sortByKeys(t12, t, 0);
 
         int ix = 0;
-        int last0 = k;
-        int last1 = k;
-        int last2 = k;
+        int last0 = Integer.MAX_VALUE;
+        int last1 = Integer.MAX_VALUE;
+        int last2 = Integer.MAX_VALUE;
         List<Integer> tn12 = new ArrayList<>(Collections.nCopies(n02, 0));
 
         for(int i : t12)
@@ -173,7 +169,7 @@ public class SuffixArray
 
         if(ix < n02)
         {
-            sa12 = createArray(tn12, ix + 1);
+            sa12 = createArray(tn12);
 
             for(int i = 0; i < sa12.size(); ++i)
                 tn12.set(sa12.get(i), i + 1);
@@ -190,7 +186,7 @@ public class SuffixArray
             if(i < n2)
                 sa0.add(3 * i);
 
-        sortByKeys(sa0, t, 0, k);
+        sortByKeys(sa0, t, 0);
 
         return merge(t, sa0, tn12, sa12);
     }
@@ -242,18 +238,24 @@ public class SuffixArray
         return sa;
     }
 
-    private void sortByKeys(List<Integer> v, List<Integer> keys, int shift, int k)
+    private void sortByKeys(List<Integer> v, List<Integer> keys, int shift)
     {
-        List<Queue<Integer>> buckets = new ArrayList<>();
+        Map<Integer, Queue<Integer>> buckets = new HashMap<>();
         int j = 0;
 
-        for(int i = 0; i < k; ++i)
-            buckets.add(new ArrayDeque<>());
-
         for(int i : v)
-            buckets.get(getElem(keys, i + shift)).add(i);
+        {
+            int k = getElem(keys, i + shift);
 
-        for(Queue<Integer> q : buckets)
+            buckets.putIfAbsent(k, new ArrayDeque<>());
+            buckets.get(k).add(i);
+        }
+
+        for(Queue<Integer> q : buckets.entrySet()
+                                      .stream()
+                                      .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
+                                      .map(Map.Entry::getValue)
+                                      .collect(Collectors.toList()))
             while(!q.isEmpty())
             {
                 v.set(j, q.remove());
