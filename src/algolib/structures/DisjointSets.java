@@ -47,8 +47,8 @@ public class DisjointSets<E>
     }
 
     /**
-     * Adds an element as singleton set.
-     * @param element new element
+     * Adds a new value as singleton set.
+     * @param element value to be added
      * @return {@code this} for method chaining
      * @throws IllegalArgumentException if the element is already in this structure
      */
@@ -64,8 +64,8 @@ public class DisjointSets<E>
     }
 
     /**
-     * Adds elements as singleton sets.
-     * @param elements a sequence of elements
+     * Adds new values as singleton sets.
+     * @param elements values to be added
      * @return {@code this} for method chaining
      * @throws IllegalArgumentException if any of the elements is already in this structure
      */

@@ -47,11 +47,48 @@ public class DoubleHeap<E>
     }
 
     @Override
-    public boolean offer(E e)
+    public Iterator<E> iterator()
     {
-        heap.add(e);
+        return new HeapIterator<>(heap);
+    }
 
-        // TODO
+    /**
+     * Adds a new value to this double heap.
+     * @param element value to be added
+     * @return {@code true} if the value was added successfully, otherwise {@code false}
+     */
+    @Override
+    public boolean offer(E element)
+    {
+        heap.add(element);
+
+        if(heap.size() > 1)
+        {
+            int index = heap.size() - 1;
+
+            if(index % 2 == 1)
+            {
+                if(theComparator.compare(heap.get(index), heap.get(index - 1)) < 0)
+                {
+                    swap(index, index - 1);
+                    moveToFirst(index - 1);
+                }
+                else
+                    moveToLast(index);
+            }
+            else
+            {
+                int newIndex = ((index + 1) / 2 - 1) / 2 * 2 + 1;
+
+                if(theComparator.compare(heap.get(index), heap.get(newIndex)) > 0)
+                {
+                    swap(index, newIndex);
+                    moveToLast(newIndex);
+                }
+                else
+                    moveToFirst(index);
+            }
+        }
 
         return true;
     }
@@ -68,6 +105,10 @@ public class DoubleHeap<E>
         return peekFirst();
     }
 
+    /**
+     * Retrieves and removes minimal element from this double heap.
+     * @return removed minimal element
+     */
     public E pollFirst()
     {
         E minimal = peekFirst();
@@ -75,18 +116,27 @@ public class DoubleHeap<E>
         if(minimal != null)
         {
             heap.set(INDEX_FIRST, heap.get(heap.size() - 1));
-
-            // TODO
+            heap.remove(heap.size() - 1);
+            moveToLast(INDEX_FIRST);
         }
 
         return minimal;
     }
 
+    /**
+     * Retrieves minimal element from this double heap.
+     * @return minimal element
+     */
     public E peekFirst()
     {
         return isEmpty() ? null : heap.get(INDEX_FIRST);
     }
 
+    /**
+     * Retrieves and removes minimal element from this double heap.
+     * @return removed minimal element
+     * @throws NoSuchElementException if double heap is empty
+     */
     public E removeFirst()
     {
         E element = pollFirst();
@@ -97,6 +147,11 @@ public class DoubleHeap<E>
         return element;
     }
 
+    /**
+     * Retrieves minimal element from this double heap.
+     * @return minimal element
+     * @throws NoSuchElementException if double heap is empty
+     */
     public E elementFirst()
     {
         E element = peekFirst();
@@ -107,25 +162,51 @@ public class DoubleHeap<E>
         return element;
     }
 
+    /**
+     * Retrieves and removes maximal element from this double heap.
+     * @return maximal element
+     */
     public E pollLast()
     {
+        if(heap.size() == 1)
+            return pollFirst();
+
         E maximal = peekLast();
 
         if(maximal != null)
         {
             heap.set(INDEX_LAST, heap.get(heap.size() - 1));
-
-            // TODO
+            heap.remove(heap.size() - 1);
+            moveToFirst(INDEX_LAST);
         }
 
         return maximal;
     }
 
+    /**
+     * Retrieves maximal element from this double heap.
+     * @return maximal element
+     */
     public E peekLast()
     {
-        return isEmpty() ? null : heap.get(INDEX_LAST);
+        switch(size())
+        {
+            case 0:
+                return null;
+
+            case 1:
+                return heap.get(INDEX_FIRST);
+
+            default:
+                return heap.get(INDEX_LAST);
+        }
     }
 
+    /**
+     * Retrieves and removes maximal element from this double heap.
+     * @return maximal element
+     * @throws NoSuchElementException if double heap is empty
+     */
     public E removeLast()
     {
         E element = pollLast();
@@ -136,6 +217,11 @@ public class DoubleHeap<E>
         return element;
     }
 
+    /**
+     * Retrieves maximal element from this double heap.
+     * @return maximal element
+     * @throws NoSuchElementException if double heap is empty
+     */
     public E elementLast()
     {
         E element = peekLast();
@@ -152,10 +238,84 @@ public class DoubleHeap<E>
         heap.clear();
     }
 
-    @Override
-    public Iterator<E> iterator()
+    private void moveToFirst(int index)
     {
-        return new HeapIterator<>(heap);
+        if(index == INDEX_FIRST)
+            return;
+
+        if(index % 2 == 0)
+            stepToFirst(index, (index / 2 - 1) / 2 * 2);
+        else
+        {
+            int leftIndex = index + index + 1;
+            int rightIndex = index + index + 3;
+
+            if(rightIndex < heap.size())
+            {
+                int childIndex =
+                        theComparator.compare(heap.get(leftIndex), heap.get(rightIndex)) > 0
+                        ? leftIndex : rightIndex;
+
+                stepToFirst(index, childIndex);
+            }
+            else if(leftIndex < heap.size())
+                stepToFirst(index, leftIndex);
+            else
+                stepToFirst(index, index - 1);
+        }
+    }
+
+    private void stepToFirst(int index, int nextIndex)
+    {
+        if(theComparator.compare(heap.get(index), heap.get(nextIndex)) < 0)
+        {
+            swap(index, nextIndex);
+            moveToFirst(nextIndex);
+        }
+    }
+
+    private void moveToLast(int index)
+    {
+        if(index == INDEX_LAST)
+            return;
+
+        if(index % 2 == 1)
+            stepToLast(index, (index / 2 - 1) / 2 * 2 + 1);
+        else
+        {
+            int leftIndex = index + index + 2;
+            int rightIndex = index + index + 4;
+
+            if(rightIndex < heap.size())
+            {
+                int childIndex =
+                        theComparator.compare(heap.get(leftIndex), heap.get(rightIndex)) < 0
+                        ? leftIndex : rightIndex;
+
+                stepToLast(index, childIndex);
+            }
+            else if(leftIndex < heap.size())
+                stepToLast(index, leftIndex);
+            else
+                stepToLast(index, index - 1);
+        }
+    }
+
+    private void stepToLast(int index, int nextIndex)
+    {
+        if(theComparator.compare(heap.get(index), heap.get(nextIndex)) > 0)
+        {
+            swap(index, nextIndex);
+            moveToLast(nextIndex);
+        }
+    }
+
+    private void swap(int index1, int index2)
+    {
+        E temp = heap.get(index1);
+
+        heap.set(index1, heap.get(index2));
+        heap.set(index2, temp);
     }
 
     private static final class HeapIterator<E>
