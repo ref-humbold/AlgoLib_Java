@@ -1,7 +1,11 @@
-// TESTY DLA DRZEWA AVL
+// Tests: Structure of AVL tree
 package algolib.structures;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,14 +13,14 @@ import org.junit.jupiter.api.Test;
 
 public class AVLTreeTest
 {
+    private final Integer[] numbers =
+            new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26};
     private AVLTree<Integer> testObject;
-    private Integer[] numbers = new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26};
 
     @BeforeEach
     public void setUp()
     {
-        testObject = new AVLTree<>(Comparator.naturalOrder());
-        testObject.addAll(Arrays.asList(numbers));
+        testObject = new AVLTree<>(Arrays.asList(numbers));
     }
 
     @AfterEach
@@ -66,7 +70,7 @@ public class AVLTreeTest
     {
         int result = testObject.size();
 
-        Assertions.assertEquals(14, result);
+        Assertions.assertEquals(numbers.length, result);
     }
 
     @Test
