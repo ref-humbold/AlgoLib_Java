@@ -7,14 +7,14 @@ import java.util.function.BiFunction;
 public class AVLTree<E>
         extends AbstractSet<E>
 {
-    private final Comparator<? super E> elementsComparator;
+    private final Comparator<? super E> theComparator;
     private AVLNode<E> tree = null;
     private int count = 0;
 
     public AVLTree()
     {
         super();
-        elementsComparator = null;
+        theComparator = null;
     }
 
     public AVLTree(Collection<E> collection)
@@ -26,7 +26,7 @@ public class AVLTree<E>
     public AVLTree(Comparator<? super E> comparator)
     {
         super();
-        elementsComparator = comparator;
+        theComparator = comparator;
     }
 
     private void setRoot(AVLNode<E> node)
@@ -59,7 +59,7 @@ public class AVLTree<E>
 
     public Comparator<? super E> comparator()
     {
-        return elementsComparator;
+        return theComparator;
     }
 
     @Override
@@ -135,6 +135,12 @@ public class AVLTree<E>
     }
 
     @Override
+    public boolean removeAll(Collection<?> objects)
+    {
+        return objects.stream().reduce(false, (acc, obj) -> remove(obj) | acc, (b1, b2) -> b1 | b2);
+    }
+
+    @Override
     public void clear()
     {
         setRoot(null);
@@ -167,20 +173,14 @@ public class AVLTree<E>
         return node.getParent() != null && node.getParent().getRight() == node;
     }
 
-    /**
-     * Compares two elements using a comparator or a natural order.
-     * @param obj1 first object
-     * @param obj2 second object
-     * @return zero if objects are equal, negative value if first is less than second,
-     * positive value if first is greater than second
-     */
+    // Compares two elements using a comparator or a natural order.
     @SuppressWarnings("unchecked")
     private int compare(Object obj1, Object obj2)
     {
-        if(elementsComparator == null)
+        if(theComparator == null)
             return ((Comparable<Object>)obj1).compareTo(obj2);
 
-        return ((Comparator<Object>)elementsComparator).compare(obj1, obj2);
+        return ((Comparator<Object>)theComparator).compare(obj1, obj2);
     }
 
     // Determines the subtree where given value might be present:
@@ -203,6 +203,7 @@ public class AVLTree<E>
         return node;
     }
 
+    // Searches for node that satisfies specified predicate with specified value.
     private AVLNode<E> findNode(Object object, BiFunction<AVLNode<E>, Object, Boolean> predicate)
     {
         AVLNode<E> node = tree;
@@ -423,7 +424,6 @@ public class AVLTree<E>
 
         @Override
         public E next()
-                throws NoSuchElementException
         {
             if(!hasNext())
                 throw new NoSuchElementException("No more elements in iterator.");
@@ -463,7 +463,6 @@ public class AVLTree<E>
 
         @Override
         public E next()
-                throws NoSuchElementException
         {
             if(!hasNext())
                 throw new NoSuchElementException("No more elements in iterator.");
