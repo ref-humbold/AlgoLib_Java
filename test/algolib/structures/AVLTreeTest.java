@@ -38,24 +38,6 @@ public class AVLTreeTest
     }
 
     @Test
-    public void isEmpty_WhenEmpty_ThenTrue()
-    {
-        testObject = new AVLTree<>();
-
-        boolean result = testObject.isEmpty();
-
-        Assertions.assertTrue(result);
-    }
-
-    @Test
-    public void isEmpty_WhenNotEmpty_ThenFalse()
-    {
-        boolean result = testObject.isEmpty();
-
-        Assertions.assertFalse(result);
-    }
-
-    @Test
     public void size_WhenEmpty_ThenZero()
     {
         testObject = new AVLTree<>();
@@ -71,6 +53,24 @@ public class AVLTreeTest
         int result = testObject.size();
 
         Assertions.assertEquals(numbers.length, result);
+    }
+
+    @Test
+    public void isEmpty_WhenEmpty_ThenTrue()
+    {
+        testObject = new AVLTree<>();
+
+        boolean result = testObject.isEmpty();
+
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void isEmpty_WhenNotEmpty_ThenFalse()
+    {
+        boolean result = testObject.isEmpty();
+
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -96,32 +96,31 @@ public class AVLTreeTest
     }
 
     @Test
-    public void iterator()
+    public void iterator_WhenNotEmpty_ThenSortedElements()
     {
-        List<Integer> result = new ArrayList<>();
-        Iterator<Integer> iterator = testObject.iterator();
+        // when
+        List<Integer> result = new ArrayList<>(testObject);
 
-        while(iterator.hasNext())
-            result.add(iterator.next());
-
+        // then
         Arrays.sort(numbers);
-
         Assertions.assertArrayEquals(numbers, result.toArray());
     }
 
     @Test
-    public void descendingIterator()
+    public void descendingIterator_WhenNotEmpty_ThenReverseSortedElements()
     {
-        List<Integer> result = new ArrayList<>();
+        // given
         List<Integer> revNumbers = Arrays.asList(numbers);
         Iterator<Integer> iterator = testObject.descendingIterator();
+        // when
+        List<Integer> result = new ArrayList<>();
 
         while(iterator.hasNext())
             result.add(iterator.next());
 
         Collections.sort(revNumbers);
         Collections.reverse(revNumbers);
-
+        // then
         Assertions.assertArrayEquals(revNumbers.toArray(), result.toArray());
     }
 

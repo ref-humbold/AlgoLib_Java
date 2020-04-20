@@ -68,7 +68,7 @@ public class DoubleHeap<E>
 
             if(index % 2 == 1)
             {
-                if(compare(heap.get(index), heap.get(index - 1)) < 0)
+                if(compare(index, index - 1) < 0)
                 {
                     swap(index, index - 1);
                     moveToFirst(index - 1);
@@ -80,7 +80,7 @@ public class DoubleHeap<E>
             {
                 int newIndex = ((index + 1) / 2 - 1) / 2 * 2 + 1;
 
-                if(compare(heap.get(index), heap.get(newIndex)) > 0)
+                if(compare(index, newIndex) > 0)
                 {
                     swap(index, newIndex);
                     moveToLast(newIndex);
@@ -240,12 +240,12 @@ public class DoubleHeap<E>
 
     // Compares two elements using a comparator or a natural order.
     @SuppressWarnings("unchecked")
-    private int compare(E obj1, E obj2)
+    private int compare(int index1, int index2)
     {
         if(theComparator == null)
-            return ((Comparable<E>)obj1).compareTo(obj2);
+            return ((Comparable<E>)heap.get(index1)).compareTo(heap.get(index2));
 
-        return theComparator.compare(obj1, obj2);
+        return theComparator.compare(heap.get(index1), heap.get(index2));
     }
 
     private void moveToFirst(int index)
@@ -262,8 +262,7 @@ public class DoubleHeap<E>
 
             if(rightIndex < heap.size())
             {
-                int childIndex = compare(heap.get(leftIndex), heap.get(rightIndex)) > 0 ? leftIndex
-                                                                                        : rightIndex;
+                int childIndex = compare(leftIndex, rightIndex) > 0 ? leftIndex : rightIndex;
 
                 stepToFirst(index, childIndex);
             }
@@ -276,7 +275,7 @@ public class DoubleHeap<E>
 
     private void stepToFirst(int index, int nextIndex)
     {
-        if(compare(heap.get(index), heap.get(nextIndex)) < 0)
+        if(compare(index, nextIndex) < 0)
         {
             swap(index, nextIndex);
             moveToFirst(nextIndex);
@@ -297,21 +296,20 @@ public class DoubleHeap<E>
 
             if(rightIndex < heap.size())
             {
-                int childIndex = compare(heap.get(leftIndex), heap.get(rightIndex)) < 0 ? leftIndex
-                                                                                        : rightIndex;
+                int childIndex = compare(leftIndex, rightIndex) < 0 ? leftIndex : rightIndex;
 
                 stepToLast(index, childIndex);
             }
             else if(leftIndex < heap.size())
                 stepToLast(index, leftIndex);
-            else
-                stepToLast(index, index - 1);
+            else if(index + 1 < heap.size())
+                stepToLast(index, index + 1);
         }
     }
 
     private void stepToLast(int index, int nextIndex)
     {
-        if(compare(heap.get(index), heap.get(nextIndex)) > 0)
+        if(compare(index, nextIndex) > 0)
         {
             swap(index, nextIndex);
             moveToLast(nextIndex);
@@ -377,7 +375,7 @@ public class DoubleHeap<E>
         @Override
         public boolean hasNext()
         {
-            return currentIndex >= orderList.size();
+            return currentIndex < orderList.size();
         }
 
         @Override
