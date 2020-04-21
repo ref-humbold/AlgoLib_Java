@@ -297,6 +297,22 @@ public class DoubleHeapTest
     }
 
     @Test
+    public void removeFirst_WhenMultipleCalls_ThenSortedDescending()
+    {
+        // given
+        Integer[] expected = Arrays.copyOf(numbers, numbers.length);
+
+        Arrays.sort(expected);
+        // when
+        List<Integer> result = new ArrayList<>();
+
+        while(!testObject.isEmpty())
+            result.add(testObject.removeFirst());
+        // then
+        Assertions.assertArrayEquals(expected, result.toArray());
+    }
+
+    @Test
     public void remove_WhenNotEmpty_ThenMinimalElementRemoved()
     {
         // when
@@ -359,6 +375,22 @@ public class DoubleHeapTest
         // then
         Assertions.assertEquals(numbers.length - 1, testObject.size());
         Assertions.assertEquals(maximum, result);
+    }
+
+    @Test
+    public void removeLast_WhenMultipleCalls_ThenSortedDescending()
+    {
+        // given
+        Integer[] expected = Arrays.copyOf(numbers, numbers.length);
+
+        Arrays.sort(expected, (n, m) -> m.compareTo(n));
+        // when
+        List<Integer> result = new ArrayList<>();
+
+        while(!testObject.isEmpty())
+            result.add(testObject.removeLast());
+        // then
+        Assertions.assertArrayEquals(expected, result.toArray());
     }
 
     @Test

@@ -268,7 +268,7 @@ public class DoubleHeap<E>
             }
             else if(leftIndex < heap.size())
                 stepToFirst(index, leftIndex);
-            else
+            else if(index < heap.size())
                 stepToFirst(index, index - 1);
         }
     }
