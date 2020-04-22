@@ -6,8 +6,8 @@ import java.util.*;
 public class DoubleHeap<E>
         extends AbstractQueue<E>
 {
-    private static final int INDEX_FIRST = 0;
-    private static final int INDEX_LAST = 1;
+    private static final int INDEX_MIN = 0;
+    private static final int INDEX_MAX = 1;
     private final Comparator<? super E> theComparator;
     private final List<E> heap = new ArrayList<>();
 
@@ -71,10 +71,10 @@ public class DoubleHeap<E>
                 if(compare(index, index - 1) < 0)
                 {
                     swap(index, index - 1);
-                    moveToFirst(index - 1);
+                    moveToMin(index - 1);
                 }
                 else
-                    moveToLast(index);
+                    moveToMax(index);
             }
             else
             {
@@ -83,10 +83,10 @@ public class DoubleHeap<E>
                 if(compare(index, newIndex) > 0)
                 {
                     swap(index, newIndex);
-                    moveToLast(newIndex);
+                    moveToMax(newIndex);
                 }
                 else
-                    moveToFirst(index);
+                    moveToMin(index);
             }
         }
 
@@ -96,28 +96,28 @@ public class DoubleHeap<E>
     @Override
     public E poll()
     {
-        return pollFirst();
+        return pollMin();
     }
 
     @Override
     public E peek()
     {
-        return peekFirst();
+        return peekMin();
     }
 
     /**
      * Retrieves and removes minimal element from this double heap.
      * @return removed minimal element
      */
-    public E pollFirst()
+    public E pollMin()
     {
-        E minimal = peekFirst();
+        E minimal = peekMin();
 
         if(minimal != null)
         {
-            heap.set(INDEX_FIRST, heap.get(heap.size() - 1));
+            heap.set(INDEX_MIN, heap.get(heap.size() - 1));
             heap.remove(heap.size() - 1);
-            moveToLast(INDEX_FIRST);
+            moveToMax(INDEX_MIN);
         }
 
         return minimal;
@@ -127,9 +127,9 @@ public class DoubleHeap<E>
      * Retrieves minimal element from this double heap.
      * @return minimal element
      */
-    public E peekFirst()
+    public E peekMin()
     {
-        return isEmpty() ? null : heap.get(INDEX_FIRST);
+        return isEmpty() ? null : heap.get(INDEX_MIN);
     }
 
     /**
@@ -137,9 +137,9 @@ public class DoubleHeap<E>
      * @return removed minimal element
      * @throws NoSuchElementException if double heap is empty
      */
-    public E removeFirst()
+    public E removeMin()
     {
-        E element = pollFirst();
+        E element = pollMin();
 
         if(element == null)
             throw new NoSuchElementException();
@@ -152,9 +152,9 @@ public class DoubleHeap<E>
      * @return minimal element
      * @throws NoSuchElementException if double heap is empty
      */
-    public E elementFirst()
+    public E elementMin()
     {
-        E element = peekFirst();
+        E element = peekMin();
 
         if(element == null)
             throw new NoSuchElementException();
@@ -166,18 +166,18 @@ public class DoubleHeap<E>
      * Retrieves and removes maximal element from this double heap.
      * @return maximal element
      */
-    public E pollLast()
+    public E pollMax()
     {
         if(heap.size() == 1)
-            return pollFirst();
+            return pollMin();
 
-        E maximal = peekLast();
+        E maximal = peekMax();
 
         if(maximal != null)
         {
-            heap.set(INDEX_LAST, heap.get(heap.size() - 1));
+            heap.set(INDEX_MAX, heap.get(heap.size() - 1));
             heap.remove(heap.size() - 1);
-            moveToFirst(INDEX_LAST);
+            moveToMin(INDEX_MAX);
         }
 
         return maximal;
@@ -187,7 +187,7 @@ public class DoubleHeap<E>
      * Retrieves maximal element from this double heap.
      * @return maximal element
      */
-    public E peekLast()
+    public E peekMax()
     {
         switch(size())
         {
@@ -195,10 +195,10 @@ public class DoubleHeap<E>
                 return null;
 
             case 1:
-                return heap.get(INDEX_FIRST);
+                return heap.get(INDEX_MIN);
 
             default:
-                return heap.get(INDEX_LAST);
+                return heap.get(INDEX_MAX);
         }
     }
 
@@ -207,9 +207,9 @@ public class DoubleHeap<E>
      * @return maximal element
      * @throws NoSuchElementException if double heap is empty
      */
-    public E removeLast()
+    public E removeMax()
     {
-        E element = pollLast();
+        E element = pollMax();
 
         if(element == null)
             throw new NoSuchElementException();
@@ -222,9 +222,9 @@ public class DoubleHeap<E>
      * @return maximal element
      * @throws NoSuchElementException if double heap is empty
      */
-    public E elementLast()
+    public E elementMax()
     {
-        E element = peekLast();
+        E element = peekMax();
 
         if(element == null)
             throw new NoSuchElementException();
@@ -248,13 +248,13 @@ public class DoubleHeap<E>
         return theComparator.compare(heap.get(index1), heap.get(index2));
     }
 
-    private void moveToFirst(int index)
+    private void moveToMin(int index)
     {
-        if(index == INDEX_FIRST)
+        if(index == INDEX_MIN)
             return;
 
         if(index % 2 == 0)
-            stepToFirst(index, (index / 2 - 1) / 2 * 2);
+            stepToMin(index, (index / 2 - 1) / 2 * 2);
         else
         {
             int leftIndex = index + index + 1;
@@ -264,31 +264,31 @@ public class DoubleHeap<E>
             {
                 int childIndex = compare(leftIndex, rightIndex) > 0 ? leftIndex : rightIndex;
 
-                stepToFirst(index, childIndex);
+                stepToMin(index, childIndex);
             }
             else if(leftIndex < heap.size())
-                stepToFirst(index, leftIndex);
+                stepToMin(index, leftIndex);
             else if(index < heap.size())
-                stepToFirst(index, index - 1);
+                stepToMin(index, index - 1);
         }
     }
 
-    private void stepToFirst(int index, int nextIndex)
+    private void stepToMin(int index, int nextIndex)
     {
         if(compare(index, nextIndex) < 0)
         {
             swap(index, nextIndex);
-            moveToFirst(nextIndex);
+            moveToMin(nextIndex);
         }
     }
 
-    private void moveToLast(int index)
+    private void moveToMax(int index)
     {
-        if(index == INDEX_LAST)
+        if(index == INDEX_MAX)
             return;
 
         if(index % 2 == 1)
-            stepToLast(index, (index / 2 - 1) / 2 * 2 + 1);
+            stepToMax(index, (index / 2 - 1) / 2 * 2 + 1);
         else
         {
             int leftIndex = index + index + 2;
@@ -298,21 +298,21 @@ public class DoubleHeap<E>
             {
                 int childIndex = compare(leftIndex, rightIndex) < 0 ? leftIndex : rightIndex;
 
-                stepToLast(index, childIndex);
+                stepToMax(index, childIndex);
             }
             else if(leftIndex < heap.size())
-                stepToLast(index, leftIndex);
+                stepToMax(index, leftIndex);
             else if(index + 1 < heap.size())
-                stepToLast(index, index + 1);
+                stepToMax(index, index + 1);
         }
     }
 
-    private void stepToLast(int index, int nextIndex)
+    private void stepToMax(int index, int nextIndex)
     {
         if(compare(index, nextIndex) > 0)
         {
             swap(index, nextIndex);
-            moveToLast(nextIndex);
+            moveToMax(nextIndex);
         }
     }
 
@@ -335,7 +335,7 @@ public class DoubleHeap<E>
             Queue<Integer> indices = new ArrayDeque<>();
             List<E> minimalHeap = new ArrayList<>();
 
-            indices.add(DoubleHeap.INDEX_FIRST);
+            indices.add(DoubleHeap.INDEX_MIN);
 
             while(!indices.isEmpty())
             {
@@ -352,7 +352,7 @@ public class DoubleHeap<E>
 
             List<E> maximalHeap = new ArrayList<>();
 
-            indices.add(DoubleHeap.INDEX_LAST);
+            indices.add(DoubleHeap.INDEX_MAX);
 
             while(!indices.isEmpty())
             {

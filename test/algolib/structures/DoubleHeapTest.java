@@ -72,7 +72,7 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void iterator_WhenNotEmpty_ThenFirstisMinimumAndLastIsMaximum()
+    public void iterator_WhenNotEmpty_ThenFirstMinimumAndLastMaximum()
     {
         // when
         List<Integer> result = new ArrayList<>(testObject);
@@ -91,41 +91,41 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void peekFirst_WhenEmpty_ThenNull()
+    public void peekMin_WhenEmpty_ThenNull()
     {
         // given
         testObject = new DoubleHeap<>();
         // when
-        Integer result = testObject.peekFirst();
+        Integer result = testObject.peekMin();
         // then
         Assertions.assertNull(result);
     }
 
     @Test
-    public void peekFirst_WhenNotEmpty_ThenMinimalElement()
+    public void peekMin_WhenNotEmpty_ThenMinimalElement()
     {
         // when
-        Integer result = testObject.peekFirst();
+        Integer result = testObject.peekMin();
         // then
         Assertions.assertEquals(minimum, result);
     }
 
     @Test
-    public void elementFirst_WhenEmpty_ThenNoSuchElementException()
+    public void elementMin_WhenEmpty_ThenNoSuchElementException()
     {
         // given
         testObject = new DoubleHeap<>();
         // when
-        Executable executable = () -> testObject.elementFirst();
+        Executable executable = () -> testObject.elementMin();
         // then
         Assertions.assertThrows(NoSuchElementException.class, executable);
     }
 
     @Test
-    public void elementFirst_WhenNotEmpty_ThenMinimalElement()
+    public void elementMin_WhenNotEmpty_ThenMinimalElement()
     {
         // when
-        Integer result = testObject.elementFirst();
+        Integer result = testObject.elementMin();
         // then
         Assertions.assertEquals(minimum, result);
     }
@@ -140,53 +140,53 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void peekLast_WhenEmpty_ThenNull()
+    public void peekMax_WhenEmpty_ThenNull()
     {
         // given
         testObject = new DoubleHeap<>();
         // when
-        Integer result = testObject.peekLast();
+        Integer result = testObject.peekMax();
         // then
         Assertions.assertNull(result);
     }
 
     @Test
-    public void peekLast_WhenSingleElement_ThenThisElement()
+    public void peekMax_WhenSingleElement_ThenThisElement()
     {
         // given
         int element = 19;
         testObject = new DoubleHeap<>(List.of(element));
         // when
-        Integer result = testObject.peekLast();
+        Integer result = testObject.peekMax();
         // then
         Assertions.assertEquals(element, result);
     }
 
     @Test
-    public void peekLast_WhenMultipleElements_ThenMaximalElement()
+    public void peekMax_WhenMultipleElements_ThenMaximalElement()
     {
         // when
-        Integer result = testObject.peekLast();
+        Integer result = testObject.peekMax();
         // then
         Assertions.assertEquals(maximum, result);
     }
 
     @Test
-    public void elementLast_WhenEmpty_ThenNoSuchElementException()
+    public void elementMax_WhenEmpty_ThenNoSuchElementException()
     {
         // given
         testObject = new DoubleHeap<>();
         // when
-        Executable executable = () -> testObject.elementLast();
+        Executable executable = () -> testObject.elementMax();
         // then
         Assertions.assertThrows(NoSuchElementException.class, executable);
     }
 
     @Test
-    public void elementLast_WhenMultipleElements_ThenMaximalElement()
+    public void elementMax_WhenMultipleElements_ThenMaximalElement()
     {
         // when
-        Integer result = testObject.elementLast();
+        Integer result = testObject.elementMax();
         // then
         Assertions.assertEquals(maximum, result);
     }
@@ -201,12 +201,12 @@ public class DoubleHeapTest
         testObject.offer(element);
         // then
         Assertions.assertEquals(1, testObject.size());
-        Assertions.assertEquals(element, testObject.peekFirst());
-        Assertions.assertEquals(element, testObject.peekLast());
+        Assertions.assertEquals(element, testObject.peekMin());
+        Assertions.assertEquals(element, testObject.peekMax());
     }
 
     @Test
-    public void offer_WhenNewElementIsLess_ThenAddedToFirst()
+    public void offer_WhenNewElementIsLess_ThenAddedToMin()
     {
         // given
         int element = minimum - 1;
@@ -214,11 +214,11 @@ public class DoubleHeapTest
         testObject.offer(element);
         // then
         Assertions.assertEquals(numbers.length + 1, testObject.size());
-        Assertions.assertEquals(element, testObject.peekFirst());
+        Assertions.assertEquals(element, testObject.peekMin());
     }
 
     @Test
-    public void offer_WhenNewElementIsGreater_ThenAddedToLast()
+    public void offer_WhenNewElementIsGreater_ThenAddedToMax()
     {
         // given
         int element = maximum + 1;
@@ -226,7 +226,7 @@ public class DoubleHeapTest
         testObject.offer(element);
         // then
         Assertions.assertEquals(numbers.length + 1, testObject.size());
-        Assertions.assertEquals(element, testObject.peekLast());
+        Assertions.assertEquals(element, testObject.peekMax());
     }
 
     @Test
@@ -238,28 +238,28 @@ public class DoubleHeapTest
         testObject.add(element);
         // then
         Assertions.assertEquals(numbers.length + 1, testObject.size());
-        Assertions.assertEquals(minimum, testObject.peekFirst());
-        Assertions.assertEquals(maximum, testObject.peekLast());
+        Assertions.assertEquals(minimum, testObject.peekMin());
+        Assertions.assertEquals(maximum, testObject.peekMax());
     }
 
     @Test
-    public void pollFirst_WhenNotEmpty_ThenMinimalElementRemoved()
+    public void pollMin_WhenNotEmpty_ThenMinimalElementRemoved()
     {
         // when
-        Integer result = testObject.pollFirst();
+        Integer result = testObject.pollMin();
         // then
         Assertions.assertEquals(numbers.length - 1, testObject.size());
         Assertions.assertEquals(minimum, result);
     }
 
     @Test
-    public void pollFirst_WhenSingleElement_ThenThisElementRemoved()
+    public void pollMin_WhenSingleElement_ThenThisElementRemoved()
     {
         // given
         int element = 19;
         testObject = new DoubleHeap<>(List.of(element));
         // when
-        Integer result = testObject.pollFirst();
+        Integer result = testObject.pollMin();
         // then
         Assertions.assertTrue(testObject.isEmpty());
         Assertions.assertEquals(element, result);
@@ -276,28 +276,28 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void removeFirst_WhenEmpty_ThenNoSuchElementException()
+    public void removeMin_WhenEmpty_ThenNoSuchElementException()
     {
         // given
         testObject = new DoubleHeap<>();
         // when
-        Executable executable = () -> testObject.removeFirst();
+        Executable executable = () -> testObject.removeMin();
         // then
         Assertions.assertThrows(NoSuchElementException.class, executable);
     }
 
     @Test
-    public void removeFirst_WhenNotEmpty_ThenMinimalElementRemoved()
+    public void removeMin_WhenNotEmpty_ThenMinimalElementRemoved()
     {
         // when
-        Integer result = testObject.removeFirst();
+        Integer result = testObject.removeMin();
         // then
         Assertions.assertEquals(numbers.length - 1, testObject.size());
         Assertions.assertEquals(minimum, result);
     }
 
     @Test
-    public void removeFirst_WhenMultipleCalls_ThenSortedDescending()
+    public void removeMin_WhenMultipleCalls_ThenSortedDescending()
     {
         // given
         Integer[] expected = Arrays.copyOf(numbers, numbers.length);
@@ -307,7 +307,7 @@ public class DoubleHeapTest
         List<Integer> result = new ArrayList<>();
 
         while(!testObject.isEmpty())
-            result.add(testObject.removeFirst());
+            result.add(testObject.removeMin());
         // then
         Assertions.assertArrayEquals(expected, result.toArray());
     }
@@ -323,62 +323,62 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void pollLast_WhenEmpty_ThenNull()
+    public void pollMax_WhenEmpty_ThenNull()
     {
         // given
         testObject = new DoubleHeap<>();
         // when
-        Integer result = testObject.pollLast();
+        Integer result = testObject.pollMax();
         // then
         Assertions.assertNull(result);
     }
 
     @Test
-    public void pollLast_WhenSingleElement_ThenThisElementRemoved()
+    public void pollMax_WhenSingleElement_ThenThisElementRemoved()
     {
         // given
         int element = 19;
         testObject = new DoubleHeap<>(List.of(element));
         // when
-        Integer result = testObject.pollLast();
+        Integer result = testObject.pollMax();
         // then
         Assertions.assertTrue(testObject.isEmpty());
         Assertions.assertEquals(element, result);
     }
 
     @Test
-    public void pollLast_WhenMultipleElements_ThenMaximalElementRemoved()
+    public void pollMax_WhenMultipleElements_ThenMaximalElementRemoved()
     {
         // when
-        Integer result = testObject.pollLast();
+        Integer result = testObject.pollMax();
         // then
         Assertions.assertEquals(numbers.length - 1, testObject.size());
         Assertions.assertEquals(maximum, result);
     }
 
     @Test
-    public void removeLast_WhenEmpty_ThenNoSuchElementException()
+    public void removeMax_WhenEmpty_ThenNoSuchElementException()
     {
         // given
         testObject = new DoubleHeap<>();
         // when
-        Executable executable = () -> testObject.removeLast();
+        Executable executable = () -> testObject.removeMax();
         // then
         Assertions.assertThrows(NoSuchElementException.class, executable);
     }
 
     @Test
-    public void removeLast_WhenMultipleElements_ThenMaximalElementRemoved()
+    public void removeMax_WhenMultipleElements_ThenMaximalElementRemoved()
     {
         // when
-        Integer result = testObject.removeLast();
+        Integer result = testObject.removeMax();
         // then
         Assertions.assertEquals(numbers.length - 1, testObject.size());
         Assertions.assertEquals(maximum, result);
     }
 
     @Test
-    public void removeLast_WhenMultipleCalls_ThenSortedDescending()
+    public void removeMax_WhenMultipleCalls_ThenSortedDescending()
     {
         // given
         Integer[] expected = Arrays.copyOf(numbers, numbers.length);
@@ -388,7 +388,7 @@ public class DoubleHeapTest
         List<Integer> result = new ArrayList<>();
 
         while(!testObject.isEmpty())
-            result.add(testObject.removeLast());
+            result.add(testObject.removeMax());
         // then
         Assertions.assertArrayEquals(expected, result.toArray());
     }
