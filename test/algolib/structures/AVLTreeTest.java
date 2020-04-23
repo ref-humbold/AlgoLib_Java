@@ -1,7 +1,11 @@
-// TESTY DLA DRZEWA AVL
+// Tests: Structure of AVL tree
 package algolib.structures;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,14 +13,14 @@ import org.junit.jupiter.api.Test;
 
 public class AVLTreeTest
 {
+    private final Integer[] numbers =
+            new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26};
     private AVLTree<Integer> testObject;
-    private Integer[] numbers = new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26};
 
     @BeforeEach
     public void setUp()
     {
-        testObject = new AVLTree<>(Comparator.naturalOrder());
-        testObject.addAll(Arrays.asList(numbers));
+        testObject = new AVLTree<>(Arrays.asList(numbers));
     }
 
     @AfterEach
@@ -31,6 +35,24 @@ public class AVLTreeTest
         String result = testObject.toString();
 
         Assertions.assertEquals("{|2, 6, 10, 14, 18, 24, 26, 30, 37, 45, 51, 68, 71, 97|}", result);
+    }
+
+    @Test
+    public void size_WhenEmpty_ThenZero()
+    {
+        testObject = new AVLTree<>();
+
+        int result = testObject.size();
+
+        Assertions.assertEquals(0, result);
+    }
+
+    @Test
+    public void size_WhenNotEmpty_ThenNumberOfElements()
+    {
+        int result = testObject.size();
+
+        Assertions.assertEquals(numbers.length, result);
     }
 
     @Test
@@ -49,24 +71,6 @@ public class AVLTreeTest
         boolean result = testObject.isEmpty();
 
         Assertions.assertFalse(result);
-    }
-
-    @Test
-    public void size_WhenEmpty_ThenZero()
-    {
-        testObject = new AVLTree<>();
-
-        int result = testObject.size();
-
-        Assertions.assertEquals(0, result);
-    }
-
-    @Test
-    public void size_WhenNotEmpty_ThenNumberOfElements()
-    {
-        int result = testObject.size();
-
-        Assertions.assertEquals(14, result);
     }
 
     @Test
@@ -92,32 +96,31 @@ public class AVLTreeTest
     }
 
     @Test
-    public void iterator()
+    public void iterator_WhenNotEmpty_ThenSortedElements()
     {
-        List<Integer> result = new ArrayList<>();
-        Iterator<Integer> iterator = testObject.iterator();
+        // when
+        List<Integer> result = new ArrayList<>(testObject);
 
-        while(iterator.hasNext())
-            result.add(iterator.next());
-
+        // then
         Arrays.sort(numbers);
-
         Assertions.assertArrayEquals(numbers, result.toArray());
     }
 
     @Test
-    public void descendingIterator()
+    public void descendingIterator_WhenNotEmpty_ThenReverseSortedElements()
     {
-        List<Integer> result = new ArrayList<>();
+        // given
         List<Integer> revNumbers = Arrays.asList(numbers);
         Iterator<Integer> iterator = testObject.descendingIterator();
+        // when
+        List<Integer> result = new ArrayList<>();
 
         while(iterator.hasNext())
             result.add(iterator.next());
 
         Collections.sort(revNumbers);
         Collections.reverse(revNumbers);
-
+        // then
         Assertions.assertArrayEquals(revNumbers.toArray(), result.toArray());
     }
 
