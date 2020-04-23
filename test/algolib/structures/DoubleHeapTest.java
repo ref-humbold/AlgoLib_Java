@@ -75,10 +75,24 @@ public class DoubleHeapTest
     public void iterator_WhenNotEmpty_ThenFirstMinimumAndLastMaximum()
     {
         // when
-        List<Integer> result = new ArrayList<>(testObject);
+        List<Integer> result = new ArrayList<>();
+
+        testObject.iterator().forEachRemaining(e -> result.add(e));
         // then
         Assertions.assertEquals(minimum, result.get(0));
         Assertions.assertEquals(maximum, result.get(result.size() - 1));
+    }
+
+    @Test
+    public void descendingIterator_WhenNotEmpty_ThenFirstMaximumAndLastMinimum()
+    {
+        // when
+        List<Integer> result = new ArrayList<>();
+
+        testObject.descendingIterator().forEachRemaining(e -> result.add(e));
+        // then
+        Assertions.assertEquals(maximum, result.get(0));
+        Assertions.assertEquals(minimum, result.get(result.size() - 1));
     }
 
     @Test

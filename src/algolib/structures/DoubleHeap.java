@@ -52,6 +52,11 @@ public class DoubleHeap<E>
         return new HeapIterator<>(heap);
     }
 
+    public Iterator<E> descendingIterator()
+    {
+        return new HeapDescendingIterator<>(heap);
+    }
+
     /**
      * Adds a new value to this double heap.
      * @param element value to be added
@@ -324,53 +329,11 @@ public class DoubleHeap<E>
         heap.set(index2, temp);
     }
 
-    private static final class HeapIterator<E>
+    private static abstract class AbstractHeapIterator<E>
             implements Iterator<E>
     {
-        private final List<E> orderList = new ArrayList<>();
-        private int currentIndex;
-
-        private HeapIterator(List<E> heap)
-        {
-            Queue<Integer> indices = new ArrayDeque<>();
-            List<E> minimalHeap = new ArrayList<>();
-
-            indices.add(DoubleHeap.INDEX_MIN);
-
-            while(!indices.isEmpty())
-            {
-                int index = indices.remove();
-
-                minimalHeap.add(heap.get(index));
-
-                if(index + index + 2 < heap.size())
-                    indices.add(index + index + 2);
-
-                if(index + index + 4 < heap.size())
-                    indices.add(index + index + 4);
-            }
-
-            List<E> maximalHeap = new ArrayList<>();
-
-            indices.add(DoubleHeap.INDEX_MAX);
-
-            while(!indices.isEmpty())
-            {
-                int index = indices.remove();
-
-                maximalHeap.add(heap.get(index));
-
-                if(index + index + 1 < heap.size())
-                    indices.add(index + index + 1);
-
-                if(index + index + 3 < heap.size())
-                    indices.add(index + index + 3);
-            }
-
-            Collections.reverse(maximalHeap);
-            orderList.addAll(minimalHeap);
-            orderList.addAll(maximalHeap);
-        }
+        final List<E> orderList = new ArrayList<>();
+        private int currentIndex = 0;
 
         @Override
         public boolean hasNext()
@@ -388,6 +351,84 @@ public class DoubleHeap<E>
 
             ++currentIndex;
             return returnValue;
+        }
+
+        List<E> createOrderedMinimalList(List<E> heap)
+        {
+            Queue<Integer> indices = new ArrayDeque<>();
+            List<E> minimalList = new ArrayList<>();
+
+            indices.add(DoubleHeap.INDEX_MIN);
+
+            while(!indices.isEmpty())
+            {
+                int index = indices.remove();
+
+                minimalList.add(heap.get(index));
+
+                if(index + index + 2 < heap.size())
+                    indices.add(index + index + 2);
+
+                if(index + index + 4 < heap.size())
+                    indices.add(index + index + 4);
+            }
+
+            return minimalList;
+        }
+
+        List<E> createOrderedMaximalList(List<E> heap)
+        {
+            Queue<Integer> indices = new ArrayDeque<>();
+            List<E> maximalList = new ArrayList<>();
+
+            indices.add(DoubleHeap.INDEX_MAX);
+
+            while(!indices.isEmpty())
+            {
+                int index = indices.remove();
+
+                maximalList.add(heap.get(index));
+
+                if(index + index + 1 < heap.size())
+                    indices.add(index + index + 1);
+
+                if(index + index + 3 < heap.size())
+                    indices.add(index + index + 3);
+            }
+
+            return maximalList;
+        }
+    }
+
+    private static final class HeapIterator<E>
+            extends AbstractHeapIterator<E>
+    {
+        private HeapIterator(List<E> heap)
+        {
+            super();
+
+            List<E> minimalList = createOrderedMinimalList(heap);
+            List<E> maximalList = createOrderedMaximalList(heap);
+
+            Collections.reverse(maximalList);
+            orderList.addAll(minimalList);
+            orderList.addAll(maximalList);
+        }
+    }
+
+    private static final class HeapDescendingIterator<E>
+            extends AbstractHeapIterator<E>
+    {
+        private HeapDescendingIterator(List<E> heap)
+        {
+            super();
+
+            List<E> minimalList = createOrderedMinimalList(heap);
+            List<E> maximalList = createOrderedMaximalList(heap);
+
+            Collections.reverse(minimalList);
+            orderList.addAll(maximalList);
+            orderList.addAll(minimalList);
         }
     }
 }
