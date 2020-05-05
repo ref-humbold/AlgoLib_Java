@@ -6,186 +6,77 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class Sorting
+public final class Sorting
 {
     /**
-     * Mutowalne sortowanie ciągu przez kopcowanie
-     * @param sequence ciąg
+     * Mutably sorts specified sequence using a heap.
+     * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void heapSort(List<T> sequence)
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        Sorting.heapSort(sequence, 0, sequence.size());
-    }
-
-    /**
-     * Mutowalne sortowanie ciągu przez kopcowanie
-     * @param sequence ciąg
-     * @param indexBegin początkowy indeks ciągu
-     * @param indexEnd końcowy indeks ciągu
-     */
-    public static <T extends Comparable<T>> void heapSort(List<T> sequence, int indexBegin,
-                                                          int indexEnd)
-    {
-        Objects.requireNonNull(sequence, "Sequence is null.");
-
-        assertIndices(indexBegin, indexEnd, sequence.size());
-
-        int heapSize = indexEnd - indexBegin;
+        int heapSize = sequence.size();
 
         if(heapSize <= 1)
             return;
 
-        for(int i = indexBegin + heapSize / 2; i >= indexBegin; --i)
-            Sorting.moveDown(sequence, i, indexBegin, indexEnd);
+        for(int i = heapSize / 2; i >= 0; --i)
+            Sorting.moveDown(sequence, i, sequence.size());
 
         while(heapSize > 1)
         {
-            int indexHeap = indexBegin + heapSize - 1;
-            T temp = sequence.get(indexHeap);
+            int indexHeap = heapSize - 1;
 
-            sequence.set(indexHeap, sequence.get(indexBegin));
-            sequence.set(indexBegin, temp);
-            Sorting.moveDown(sequence, indexBegin, indexBegin, indexHeap);
+            swap(sequence, indexHeap, 0);
+            Sorting.moveDown(sequence, 0, indexHeap);
             --heapSize;
         }
     }
 
     /**
-     * Mutowalne sortowanie ciągu przez scalanie top-down
-     * @param sequence ciąg
+     * Mutably sorts specified sequence using a top-down merge-sort algorithm.
+     * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void mergedownSort(List<T> sequence)
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
-
-        Sorting.mergedownSort(sequence, 0, sequence.size());
+        Sorting.doMergeSort(sequence, 0, sequence.size());
     }
 
     /**
-     * Mutowalne sortowanie ciągu przez scalanie top-down
-     * @param sequence ciąg
-     * @param indexBegin początkowy indeks ciągu
-     * @param indexEnd końcowy indeks ciągu
-     */
-    public static <T extends Comparable<T>> void mergedownSort(List<T> sequence, int indexBegin,
-                                                               int indexEnd)
-    {
-        Objects.requireNonNull(sequence, "Sequence is null.");
-        assertIndices(indexBegin, indexEnd, sequence.size());
-
-        if(indexEnd - indexBegin <= 1)
-            return;
-
-        int indexMiddle = (indexBegin + indexEnd) / 2;
-
-        Sorting.mergedownSort(sequence, indexBegin, indexMiddle);
-        Sorting.mergedownSort(sequence, indexMiddle, indexEnd);
-        Sorting.merge(sequence, indexBegin, indexMiddle, indexEnd);
-    }
-
-    /**
-     * Mutowalne sortowanie ciągu przez scalanie bottom-up
-     * @param sequence ciąg
+     * Mutably sorts specified sequence using a bottom-up merge-sort algorithm.
+     * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void mergeupSort(List<T> sequence)
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
-        Sorting.mergeupSort(sequence, 0, sequence.size());
-    }
-
-    /**
-     * Mutowalne sortowanie ciągu przez scalanie bottom-up
-     * @param sequence ciąg
-     * @param indexBegin początkowy indeks ciągu
-     * @param indexEnd końcowy indeks ciągu
-     */
-    public static <T extends Comparable<T>> void mergeupSort(List<T> sequence, int indexBegin,
-                                                             int indexEnd)
-    {
-        Objects.requireNonNull(sequence, "Sequence is null.");
-        assertIndices(indexBegin, indexEnd, sequence.size());
-
-        if(indexEnd - indexBegin <= 1)
+        if(sequence.size() <= 1)
             return;
 
-        for(int i = 2; i < 2 * (indexEnd - indexBegin); i *= 2)
-            for(int j = indexBegin; j < indexEnd; j += i)
-                Sorting.merge(sequence, j, Math.min(j + i / 2, indexEnd),
-                              Math.min(j + i, indexEnd));
+        for(int half_step = 1; half_step < sequence.size(); half_step *= 2)
+            for(int i = 0; i < sequence.size(); i += half_step + half_step)
+                Sorting.merge(sequence, i, Math.min(i + half_step, sequence.size()),
+                              Math.min(i + half_step + half_step, sequence.size()));
     }
 
     /**
-     * Mutowalne szybkie sortowanie ciągu
-     * @param sequence ciąg
+     * Mutably sorts specified sequence using a quick-sort algorithm.
+     * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void quickSort(List<T> sequence)
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
-
-        Sorting.quickSort(sequence, 0, sequence.size());
+        doQuickSort(sequence, 0, sequence.size());
     }
 
-    /**
-     * Mutowalne szybkie sortowanie ciągu
-     * @param sequence ciąg
-     * @param indexBegin początkowy indeks ciągu
-     * @param indexEnd końcowy indeks ciągu
-     */
-    public static <T extends Comparable<T>> void quickSort(List<T> sequence, int indexBegin,
-                                                           int indexEnd)
-    {
-        Objects.requireNonNull(sequence, "Sequence is null.");
-        assertIndices(indexBegin, indexEnd, sequence.size());
-
-        if(indexEnd - indexBegin <= 1)
-            return;
-
-        int indexPivot = indexBegin, indexFront = indexBegin + 1, indexBack = indexEnd - 1;
-        int rdpv = indexBegin + Sorting.choosePivot(indexEnd - indexBegin);
-        T temp1 = sequence.get(indexPivot);
-
-        sequence.set(indexPivot, sequence.get(rdpv));
-        sequence.set(rdpv, temp1);
-
-        while(indexPivot < indexBack)
-            if(sequence.get(indexFront).compareTo(sequence.get(indexPivot)) < 0)
-            {
-                T temp2 = sequence.get(indexFront);
-
-                sequence.set(indexFront, sequence.get(indexPivot));
-                sequence.set(indexPivot, temp2);
-                indexPivot = indexFront;
-                ++indexFront;
-            }
-            else
-            {
-                T temp2 = sequence.get(indexFront);
-
-                sequence.set(indexFront, sequence.get(indexBack));
-                sequence.set(indexBack, temp2);
-                --indexBack;
-            }
-
-        Sorting.quickSort(sequence, indexBegin, indexPivot);
-        Sorting.quickSort(sequence, indexPivot + 1, indexEnd);
-    }
-
-    /**
-     * Przywracanie własności kopca
-     * @param heap kopiec
-     * @param vertex wierzchołek kopca
-     * @param indexBegin początkowy indeks kopca
-     * @param indexEnd końcowy indeks kopca
-     */
-    private static <T extends Comparable<T>> void moveDown(List<T> heap, int vertex, int indexBegin,
-                                                           int indexEnd)
+    // Move element down inside specified heap
+    private static <T extends Comparable<T>> void moveDown(List<T> heap, int vertex, int indexEnd)
     {
         int nextVertex = -1;
-        int leftVertex = vertex + vertex - indexBegin + 1;
-        int rightVertex = vertex + vertex - indexBegin + 2;
+        int leftVertex = vertex + vertex + 1;
+        int rightVertex = vertex + vertex + 2;
 
         if(rightVertex < indexEnd)
             nextVertex = heap.get(rightVertex).compareTo(heap.get(leftVertex)) < 0 ? leftVertex
@@ -198,28 +89,32 @@ public class Sorting
             return;
 
         if(heap.get(nextVertex).compareTo(heap.get(vertex)) > 0)
-        {
-            T temp = heap.get(nextVertex);
+            swap(heap, nextVertex, vertex);
 
-            heap.set(nextVertex, heap.get(vertex));
-            heap.set(vertex, temp);
-        }
-
-        Sorting.moveDown(heap, nextVertex, indexBegin, indexEnd);
+        Sorting.moveDown(heap, nextVertex, indexEnd);
     }
 
-    /**
-     * Scalanie dwóch uporządkowanych fragmentów ciągu
-     * @param sequence ciąg
-     * @param indexBegin początek fragmentu
-     * @param indexMiddle środek fragmentu
-     * @param indexEnd koniec fragmentu
-     */
+    // Mutably sorts specified sequence using a recursive merge-sort algorithm.
+    private static <T extends Comparable<T>> void doMergeSort(List<T> sequence, int indexBegin,
+                                                              int indexEnd)
+    {
+        if(indexEnd - indexBegin <= 1)
+            return;
+
+        int indexMiddle = (indexBegin + indexEnd) / 2;
+
+        Sorting.doMergeSort(sequence, indexBegin, indexMiddle);
+        Sorting.doMergeSort(sequence, indexMiddle, indexEnd);
+        Sorting.merge(sequence, indexBegin, indexMiddle, indexEnd);
+    }
+
+    // Merges two sorted fragments of a sequence.
     private static <T extends Comparable<T>> void merge(List<T> sequence, int indexBegin,
                                                         int indexMiddle, int indexEnd)
     {
         List<T> ordered = new ArrayList<>();
-        int iter1 = indexBegin, iter2 = indexMiddle;
+        int iter1 = indexBegin;
+        int iter2 = indexMiddle;
 
         while(iter1 < indexMiddle && iter2 < indexEnd)
             if(sequence.get(iter1).compareTo(sequence.get(iter2)) < 0)
@@ -243,11 +138,39 @@ public class Sorting
             sequence.set(indexBegin + i, ordered.get(i));
     }
 
-    /**
-     * Losowanie piwota
-     * @param size liczba elementów
-     * @return indeks piwota
-     */
+    // Mutably sorts specified sequence using a quick-sort algorithm.
+    private static <T extends Comparable<T>> void doQuickSort(List<T> sequence, int indexBegin,
+                                                              int indexEnd)
+    {
+        if(indexEnd - indexBegin <= 1)
+            return;
+
+        int indexPivot = indexBegin + Sorting.choosePivot(indexEnd - indexBegin);
+
+        swap(sequence, indexPivot, indexBegin);
+        indexPivot = indexBegin;
+
+        int indexFront = indexBegin + 1;
+        int indexBack = indexEnd - 1;
+
+        while(indexPivot < indexBack)
+            if(sequence.get(indexFront).compareTo(sequence.get(indexPivot)) < 0)
+            {
+                swap(sequence, indexPivot, indexFront);
+                indexPivot = indexFront;
+                ++indexFront;
+            }
+            else
+            {
+                swap(sequence, indexBack, indexFront);
+                --indexBack;
+            }
+
+        Sorting.doQuickSort(sequence, indexBegin, indexPivot);
+        Sorting.doQuickSort(sequence, indexPivot + 1, indexEnd);
+    }
+
+    // Randomly chooses pivot for quick-sort algorithm.
     private static int choosePivot(int size)
     {
         Random random = new Random();
@@ -266,12 +189,12 @@ public class Sorting
         return candidate3;
     }
 
-    private static void assertIndices(int indexBegin, int indexEnd, int size)
+    // Swaps two elements in specified sequence.
+    private static <T extends Comparable<T>> void swap(List<T> sequence, int index1, int index2)
     {
-        if(indexBegin < 0 || indexBegin > size)
-            throw new IndexOutOfBoundsException("Sequence beginning index out of range.");
+        T temp = sequence.get(index1);
 
-        if(indexEnd < 0 || indexEnd > size)
-            throw new IndexOutOfBoundsException("Sequence ending index out of range.");
+        sequence.set(index1, sequence.get(index2));
+        sequence.set(index2, temp);
     }
 }

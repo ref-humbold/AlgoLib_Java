@@ -46,54 +46,6 @@ public class SortingTest
     }
 
     @Test
-    public void heapSort_WhenIndices()
-    {
-        int index1 = 3;
-        int index2 = 7;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Sorting.heapSort(sequence, index1, index2);
-
-        Assertions.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2},
-                                     sequence.toArray());
-    }
-
-    @Test
-    public void heapSort_WhenLeftIndexOutOfRange_ThenIndexOutOfBoundsException()
-    {
-        int index1 = -13;
-        int index2 = 7;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> Sorting.heapSort(sequence, index1, index2));
-    }
-
-    @Test
-    public void heapSort_WhenRightIndexOutOfRange_ThenIndexOutOfBoundsException()
-    {
-        int index1 = 3;
-        int index2 = 17;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> Sorting.heapSort(sequence, index1, index2));
-    }
-
-    @Test
-    public void heapSort_WhenIndicesReversed()
-    {
-        int index1 = 7;
-        int index2 = 3;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-        List<Integer> sequenceCopy = new ArrayList<>(sequence);
-
-        Sorting.heapSort(sequence, index1, index2);
-
-        Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
-    }
-
-    @Test
     public void heapSort_WhenEmptyList()
     {
         List<Integer> sequence = new ArrayList<>();
@@ -132,54 +84,6 @@ public class SortingTest
 
         Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
                                      sequence.toArray());
-    }
-
-    @Test
-    public void mergedownSort_WhenIndices()
-    {
-        int index1 = 3;
-        int index2 = 7;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Sorting.mergedownSort(sequence, index1, index2);
-
-        Assertions.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2},
-                                     sequence.toArray());
-    }
-
-    @Test
-    public void mergedownSort_WhenLeftIndexOutOfRange_ThenIndexOutOfBoundsException()
-    {
-        int index1 = -13;
-        int index2 = 7;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> Sorting.mergedownSort(sequence, index1, index2));
-    }
-
-    @Test
-    public void mergedownSort_WhenRightIndexOutOfRange_ThenIndexOutOfBoundsException()
-    {
-        int index1 = 3;
-        int index2 = 17;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> Sorting.mergedownSort(sequence, index1, index2));
-    }
-
-    @Test
-    public void mergedownSort_WhenIndicesReversed()
-    {
-        int index1 = 7;
-        int index2 = 3;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-        List<Integer> sequenceCopy = new ArrayList<>(sequence);
-
-        Sorting.mergedownSort(sequence, index1, index2);
-
-        Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
     }
 
     @Test
@@ -224,54 +128,6 @@ public class SortingTest
     }
 
     @Test
-    public void mergeupSort_WhenIndices()
-    {
-        int index1 = 3;
-        int index2 = 7;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Sorting.mergeupSort(sequence, index1, index2);
-
-        Assertions.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2},
-                                     sequence.toArray());
-    }
-
-    @Test
-    public void mergeupSort_WhenLeftIndexOutOfRange_ThenIndexOutOfBoundsException()
-    {
-        int index1 = -13;
-        int index2 = 7;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> Sorting.mergeupSort(sequence, index1, index2));
-    }
-
-    @Test
-    public void mergeupSort_WhenRightIndexOutOfRange_ThenIndexOutOfBoundsException()
-    {
-        int index1 = 3;
-        int index2 = 17;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> Sorting.mergeupSort(sequence, index1, index2));
-    }
-
-    @Test
-    public void mergeupSort_WhenIndicesReversed()
-    {
-        int index1 = 7;
-        int index2 = 3;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-        List<Integer> sequenceCopy = new ArrayList<>(sequence);
-
-        Sorting.mergeupSort(sequence, index1, index2);
-
-        Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
-    }
-
-    @Test
     public void mergeupSort_WhenEmptyList()
     {
         List<Integer> sequence = new ArrayList<>();
@@ -310,54 +166,6 @@ public class SortingTest
 
         Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
                                      sequence.toArray());
-    }
-
-    @Test
-    public void quickSort_WhenIndices()
-    {
-        int index1 = 3;
-        int index2 = 7;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Sorting.quickSort(sequence, index1, index2);
-
-        Assertions.assertArrayEquals(new Integer[]{3, 17, -6, -12, 0, 7, 9, 4, 2},
-                                     sequence.toArray());
-    }
-
-    @Test
-    public void quickSort_WhenLeftIndexOutOfRange_ThenIndexOutOfBoundsException()
-    {
-        int index1 = -13;
-        int index2 = 7;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> Sorting.quickSort(sequence, index1, index2));
-    }
-
-    @Test
-    public void quickSort_WhenRightIndexOutOfRange_ThenIndexOutOfBoundsException()
-    {
-        int index1 = 3;
-        int index2 = 17;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                                () -> Sorting.quickSort(sequence, index1, index2));
-    }
-
-    @Test
-    public void quickSort_WhenIndicesReversed()
-    {
-        int index1 = 7;
-        int index2 = 3;
-        List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-        List<Integer> sequenceCopy = new ArrayList<>(sequence);
-
-        Sorting.quickSort(sequence, index1, index2);
-
-        Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
     }
 
     @Test
