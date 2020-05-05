@@ -1,4 +1,4 @@
-// Algorithms for list sorting
+// Algorithms for sequence sorting
 package algolib.sequences;
 
 import java.util.ArrayList;

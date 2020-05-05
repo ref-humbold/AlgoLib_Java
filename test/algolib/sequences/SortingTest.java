@@ -1,27 +1,15 @@
-// TESTY DLA ALGORYTMÓW SORTOWANIA
+// Tests: Algorithms for sequence sorting
 package algolib.sequences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SortingTest
 {
-    @BeforeEach
-    public void setUp()
-    {
-    }
-
-    @AfterEach
-    public void tearDown()
-    {
-    }
-
     @Test
     public void heapSort()
     {
