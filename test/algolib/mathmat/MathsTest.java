@@ -1,378 +1,293 @@
-// TESTY DLA ALGORYTMÓW MATEMATYCZNYCH
+// Tests: Algorithms for basic mathematical computations
 package algolib.mathmat;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class MathsTest
 {
-    @BeforeEach
-    public void setUp()
+    @Test
+    public void gcd_WhenNumbersAreComposite()
     {
-    }
-
-    @AfterEach
-    public void tearDown()
-    {
+        // when
+        long result = Maths.gcd(161, 46);
+        // then
+        Assertions.assertThat(result).isEqualTo(23);
     }
 
     @Test
-    public void gCD_WhenNumbersAreComposite()
+    public void gcd_WhenNumbersArePrime()
     {
-        long number1 = 161;
-        long number2 = 46;
-
-        long result = Maths.gcd(number1, number2);
-
-        Assertions.assertEquals(23, result);
+        // when
+        long result = Maths.gcd(127, 41);
+        // then
+        Assertions.assertThat(result).isOne();
     }
 
     @Test
-    public void gCD_WhenNumbersArePrime()
+    public void gcd_WhenNumbersAreMutuallyPrime()
     {
-        long number1 = 127;
-        long number2 = 41;
-
-        long result = Maths.gcd(number1, number2);
-
-        Assertions.assertEquals(1, result);
+        // when
+        long result = Maths.gcd(119, 57);
+        // then
+        Assertions.assertThat(result).isOne();
     }
 
     @Test
-    public void gCD_WhenNumbersAreMutuallyPrime()
+    public void gcd_WhenOneOfNumbersIsMultipleOfAnother()
     {
-        long number1 = 119;
-        long number2 = 57;
-
-        long result = Maths.gcd(number1, number2);
-
-        Assertions.assertEquals(1, result);
+        // given
+        long number = 34;
+        // when
+        long result = Maths.gcd(number, number * 6);
+        // then
+        Assertions.assertThat(result).isEqualTo(number);
     }
 
     @Test
-    public void gCD_WhenOneOfNumbersIsMultipleOfAnother()
+    public void gcd_WhenOneOfNumbersIsZero()
     {
-        long number1 = 272;
-        long number2 = 34;
-
-        long result = Maths.gcd(number1, number2);
-
-        Assertions.assertEquals(number2, result);
+        // given
+        long number = 96;
+        // when
+        long result = Maths.gcd(number, 0);
+        // then
+        Assertions.assertThat(result).isEqualTo(number);
     }
 
     @Test
-    public void gCD_WhenOneOfNumbersIsZero()
+    public void lcm_WhenNumbersAreComposite()
     {
-        long number1 = 96;
-        long number2 = 0;
-
-        long result = Maths.gcd(number1, number2);
-
-        Assertions.assertEquals(number1, result);
+        // when
+        long result = Maths.lcm(161, 46);
+        // then
+        Assertions.assertThat(result).isEqualTo(322);
     }
 
     @Test
-    public void lCM_WhenNumbersAreComposite()
+    public void lcm_WhenNumbersArePrime()
     {
-        long number1 = 161;
-        long number2 = 46;
-
-        long result = Maths.lcm(number1, number2);
-
-        Assertions.assertEquals(322, result);
+        // when
+        long result = Maths.lcm(127, 41);
+        // then
+        Assertions.assertThat(result).isEqualTo(5207);
     }
 
     @Test
-    public void lCM_WhenNumbersArePrime()
+    public void lcm_WhenNumbersAreMutuallyPrime()
     {
-        long number1 = 127;
-        long number2 = 41;
-
-        long result = Maths.lcm(number1, number2);
-
-        Assertions.assertEquals(5207, result);
+        // when
+        long result = Maths.lcm(119, 57);
+        // then
+        Assertions.assertThat(result).isEqualTo(6783);
     }
 
     @Test
-    public void lCM_WhenNumbersAreMutuallyPrime()
+    public void lcm_WhenOneOfNumbersIsMultipleOfAnother()
     {
-        long number1 = 119;
-        long number2 = 57;
-
-        long result = Maths.lcm(number1, number2);
-
-        Assertions.assertEquals(6783, result);
+        // given
+        long number = 34;
+        // when
+        long result = Maths.lcm(number, number * 6);
+        // then
+        Assertions.assertThat(result).isEqualTo(number * 6);
     }
 
     @Test
-    public void lCM_WhenOneOfNumbersIsMultipleOfAnother()
+    public void lcm_WhenOneOfNumbersIsZero_ThenZero()
     {
-        long number1 = 272;
-        long number2 = 34;
-
-        long result = Maths.lcm(number1, number2);
-
-        Assertions.assertEquals(number1, result);
+        // when
+        long result = Maths.lcm(96, 0);
+        // then
+        Assertions.assertThat(result).isZero();
     }
 
     @Test
-    public void lCM_WhenOneOfNumbersIsZero()
+    public void powerMod_WhenBaseIsZero_ThenZero()
     {
-        long number1 = 96;
-        long number2 = 0;
-
-        long result = Maths.lcm(number1, number2);
-
-        Assertions.assertEquals(number2, result);
+        // when
+        long result = Maths.powerMod(0, 14, 0);
+        // then
+        Assertions.assertThat(result).isZero();
     }
 
     @Test
-    public void powerMod_WhenBaseIsZero()
+    public void powerMod_WhenExponentIsZero_ThenOne()
     {
-        long number1 = 0;
-        long number2 = 14;
-        long number3 = 0;
-
-        long result = Maths.powerMod(number1, number2, number3);
-
-        Assertions.assertEquals(number1, result);
-    }
-
-    @Test
-    public void powerMod_WhenExponentIsZero()
-    {
-        long number1 = 14;
-        long number2 = 0;
-        long number3 = 0;
-
-        long result = Maths.powerMod(number1, number2, number3);
-
-        Assertions.assertEquals(1, result);
+        // when
+        long result = Maths.powerMod(14, 0, 0);
+        // then
+        Assertions.assertThat(result).isOne();
     }
 
     @Test
     public void powerMod_WhenBaseAndExponentAreZero_ThenArithmeticException()
     {
-        long number1 = 0;
-        long number2 = 0;
-        long number3 = 0;
-
-        Assertions.assertThrows(ArithmeticException.class,
-                                () -> Maths.powerMod(number1, number2, number3));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.powerMod(0, 0, 0));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 
     @Test
     public void powerMod_WhenBaseAndExponentArePositive()
     {
-        long number1 = 3;
-        long number2 = 10;
-        long number3 = 0;
-
-        long result = Maths.powerMod(number1, number2, number3);
-
-        Assertions.assertEquals(59049, result);
+        // when
+        long result = Maths.powerMod(3, 10, 0);
+        // then
+        Assertions.assertThat(result).isEqualTo(59049);
     }
 
     @Test
     public void powerMod_WhenBaseIsNegativeAndExponentIsEven()
     {
-        long number1 = -3;
-        long number2 = 10;
-        long number3 = 0;
-
-        long result = Maths.powerMod(number1, number2, number3);
-
-        Assertions.assertEquals(59049, result);
+        // when
+        long result = Maths.powerMod(-3, 10, 0);
+        // then
+        Assertions.assertThat(result).isEqualTo(59049);
     }
 
     @Test
     public void powerMod_WhenBaseIsNegativeAndExponentIsOdd()
     {
-        long number1 = -3;
-        long number2 = 9;
-        long number3 = 0;
-
-        long result = Maths.powerMod(number1, number2, number3);
-
-        Assertions.assertEquals(-19683, result);
+        // when
+        long result = Maths.powerMod(-3, 9, 0);
+        // then
+        Assertions.assertThat(result).isEqualTo(-19683);
     }
 
     @Test
     public void powerMod_WhenExponentIsNegative_ThenArithmeticException()
     {
-        long number1 = 3;
-        long number2 = -10;
-        long number3 = 0;
-
-        Assertions.assertThrows(ArithmeticException.class,
-                                () -> Maths.powerMod(number1, number2, number3));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.powerMod(3, -10, 0));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 
     @Test
     public void powerMod_WhenModuloAndBaseArePositive()
     {
-        long number1 = 5;
-        long number2 = 11;
-        long number3 = 10000;
-
-        long result = Maths.powerMod(number1, number2, number3);
-
-        Assertions.assertEquals(8125, result);
+        // when
+        long result = Maths.powerMod(5, 11, 10000);
+        // then
+        Assertions.assertThat(result).isEqualTo(8125);
     }
 
     @Test
     public void powerMod_WhenModuloIsPositiveAndBaseIsNegative()
     {
-        long number1 = -5;
-        long number2 = 11;
-        long number3 = 10000;
-
-        long result = Maths.powerMod(number1, number2, number3);
-
-        Assertions.assertEquals(1875, result);
+        // when
+        long result = Maths.powerMod(-5, 11, 10000);
+        // then
+        Assertions.assertThat(result).isEqualTo(1875);
     }
 
     @Test
     public void powerMod_WhenModuloIsNegative_ThenArithmeticException()
     {
-        long number1 = 5;
-        long number2 = 11;
-        long number3 = -10000;
-
-        Assertions.assertThrows(ArithmeticException.class,
-                                () -> Maths.powerMod(number1, number2, number3));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.powerMod(5, 11, -10000));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 
     @Test
     public void multMod_WhenFactor1IsZero()
     {
-        long number1 = 0;
-        long number2 = 14;
-        long number3 = 0;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(number1, result);
+        // when
+        long result = Maths.multMod(0, 14, 0);
+        // then
+        Assertions.assertThat(result).isZero();
     }
 
     @Test
-    public void powerMod_WhenFactor2IsZero()
+    public void multMod_WhenFactor2IsZero()
     {
-        long number1 = 14;
-        long number2 = 0;
-        long number3 = 0;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(number2, result);
+        // when
+        long result = Maths.multMod(14, 0, 0);
+        // then
+        Assertions.assertThat(result).isZero();
     }
 
     @Test
     public void multMod_WhenFactorsAreZero()
     {
-        long number1 = 0;
-        long number2 = 0;
-        long number3 = 0;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(number1, result);
+        // when
+        long result = Maths.multMod(0, 0, 0);
+        // then
+        Assertions.assertThat(result).isZero();
     }
 
     @Test
     public void multMod_WhenFactor1IsNegativeAndFactor2IsPositive()
     {
-        long number1 = -3;
-        long number2 = 10;
-        long number3 = 0;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(-30, result);
+        // when
+        long result = Maths.multMod(-3, 10, 0);
+        // then
+        Assertions.assertThat(result).isEqualTo(-30);
     }
 
     @Test
     public void multMod_WhenFactor1IsPositiveAndFactor2IsNegative()
     {
-        long number1 = 3;
-        long number2 = -10;
-        long number3 = 0;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(-30, result);
+        // when
+        long result = Maths.multMod(3, -10, 0);
+        // then
+        Assertions.assertThat(result).isEqualTo(-30);
     }
 
     @Test
     public void multMod_WhenFactorsAreNegative()
     {
-        long number1 = -3;
-        long number2 = -10;
-        long number3 = 0;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(30, result);
+        // when
+        long result = Maths.multMod(-3, -10, 0);
+        // then
+        Assertions.assertThat(result).isEqualTo(30);
     }
 
     @Test
     public void multMod_WhenModuloAndFactorsArePositive()
     {
-        long number1 = 547;
-        long number2 = 312;
-        long number3 = 10000;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(664, result);
+        // when
+        long result = Maths.multMod(547, 312, 10000);
+        // then
+        Assertions.assertThat(result).isEqualTo(664);
     }
 
     @Test
     public void multMod_WhenModuloIsPositiveAndFactor1IsNegative()
     {
-        long number1 = -547;
-        long number2 = 312;
-        long number3 = 10000;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(9336, result);
+        // when
+        long result = Maths.multMod(-547, 312, 10000);
+        // then
+        Assertions.assertThat(result).isEqualTo(9336);
     }
 
     @Test
     public void multMod_WhenModuloIsPositiveAndFactor2IsNegative()
     {
-        long number1 = 547;
-        long number2 = -312;
-        long number3 = 10000;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(9336, result);
+        // when
+        long result = Maths.multMod(547, -312, 10000);
+        // then
+        Assertions.assertThat(result).isEqualTo(9336);
     }
 
     @Test
     public void multMod_WhenModuloIsPositiveAndFactorsAreNegative()
     {
-        long number1 = -547;
-        long number2 = -312;
-        long number3 = 10000;
-
-        long result = Maths.multMod(number1, number2, number3);
-
-        Assertions.assertEquals(664, result);
+        // when
+        long result = Maths.multMod(-547, -312, 10000);
+        // then
+        Assertions.assertThat(result).isEqualTo(664);
     }
 
     @Test
     public void multMod_WhenModuloIsNegative_ThenArithmeticException()
     {
-        long number1 = 547;
-        long number2 = 312;
-        long number3 = -10000;
-
-        Assertions.assertThrows(ArithmeticException.class,
-                                () -> Maths.multMod(number1, number2, number3));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.multMod(547, 312, -10000));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 }

@@ -1,23 +1,11 @@
 package algolib.mathmat;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 public class FractionTest
 {
-    @BeforeEach
-    public void setUp()
-    {
-    }
-
-    @AfterEach
-    public void tearDown()
-    {
-    }
-
     @Test
     public void constructor_WhenNumeratorAndDenominatorAreDivisible_ThenNormalized()
     {

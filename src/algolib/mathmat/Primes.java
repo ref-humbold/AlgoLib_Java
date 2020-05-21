@@ -6,8 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 
-public class Primes
+public final class Primes
 {
+    private static final int ATTEMPTS = 16;
+
     public static Collection<Integer> find(int maxNumber)
     {
         return Primes.find(0, maxNumber);
@@ -57,7 +59,7 @@ public class Primes
 
         Random rd = new Random();
 
-        for(int i = 0; i < 12; ++i)
+        for(int i = 0; i < ATTEMPTS; ++i)
         {
             long rdv = 1L + Math.abs(rd.nextLong()) % (number - 1);
 
@@ -83,7 +85,7 @@ public class Primes
 
         Random rd = new Random();
 
-        for(int i = 0; i < 12; ++i)
+        for(int i = 0; i < ATTEMPTS; ++i)
         {
             long rdv = 1L + Math.abs(rd.nextLong()) % (number - 1);
 

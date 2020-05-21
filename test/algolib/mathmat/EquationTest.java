@@ -1,7 +1,7 @@
 package algolib.mathmat;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,15 +27,17 @@ class EquationTest
         // when
         testObject.multiply(2);
         // then
-        Assertions.assertArrayEquals(new double[]{4, 6, 0, -4}, testObject.coefficients);
-        Assertions.assertEquals(30, testObject.free);
+        Assertions.assertThat(testObject.coefficients).containsExactly(4, 6, 0, -4);
+        Assertions.assertThat(testObject.free).isEqualTo(30);
     }
 
     @Test
     public void multiply_WhenConstantIsZero_ThenArithmeticException()
     {
-        // when - then
-        Assertions.assertThrows(ArithmeticException.class, () -> testObject.multiply(0));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.multiply(0));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 
     @Test
@@ -44,8 +46,8 @@ class EquationTest
         // when
         testObject.combine(new Equation(new double[]{1, -1, 4, 10}, 5), -2);
         // then
-        Assertions.assertArrayEquals(new double[]{0, 5, -8, -22}, testObject.coefficients);
-        Assertions.assertEquals(5, testObject.free);
+        Assertions.assertThat(testObject.coefficients).containsExactly(0, 5, -8, -22);
+        Assertions.assertThat(testObject.free).isEqualTo(5);
     }
 
     @Test
@@ -54,15 +56,17 @@ class EquationTest
         // when
         testObject.combine(new Equation(new double[]{1, -1, 4, 10}, 5));
         // then
-        Assertions.assertArrayEquals(new double[]{3, 2, 4, 8}, testObject.coefficients);
-        Assertions.assertEquals(20, testObject.free);
+        Assertions.assertThat(testObject.coefficients).containsExactly(3, 2, 4, 8);
+        Assertions.assertThat(testObject.free).isEqualTo(20);
     }
 
     @Test
     public void combine_WhenConstantIsZero_ThenArithmeticException()
     {
-        // when - then
-        Assertions.assertThrows(ArithmeticException.class, () -> testObject.combine(
-                new Equation(new double[]{1, -1, 10, 7}, 5), 0));
+        // when
+        Throwable throwable = Assertions.catchThrowable(
+                () -> testObject.combine(new Equation(new double[]{1, -1, 10, 7}, 5), 0));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 }

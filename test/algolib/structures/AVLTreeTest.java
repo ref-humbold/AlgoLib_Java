@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,45 +32,51 @@ public class AVLTreeTest
     @Test
     public void toString_WhenNotEmpty_ThenTextRepresentation()
     {
+        // when
         String result = testObject.toString();
-
-        Assertions.assertEquals("{|2, 6, 10, 14, 18, 24, 26, 30, 37, 45, 51, 68, 71, 97|}", result);
+        // then
+        Assertions.assertThat(result)
+                  .isEqualTo("{|2, 6, 10, 14, 18, 24, 26, 30, 37, 45, 51, 68, 71, 97|}");
     }
 
     @Test
     public void size_WhenEmpty_ThenZero()
     {
+        // given
         testObject = new AVLTree<>();
-
+        // when
         int result = testObject.size();
-
-        Assertions.assertEquals(0, result);
+        // then
+        Assertions.assertThat(result).isZero();
     }
 
     @Test
     public void size_WhenNotEmpty_ThenNumberOfElements()
     {
+        // when
         int result = testObject.size();
-
-        Assertions.assertEquals(numbers.length, result);
+        // then
+        Assertions.assertThat(result).isEqualTo(numbers.length);
     }
 
     @Test
     public void isEmpty_WhenEmpty_ThenTrue()
     {
+        // given
         testObject = new AVLTree<>();
-
+        // when
         boolean result = testObject.isEmpty();
-
-        Assertions.assertTrue(result);
+        // then
+        Assertions.assertThat(result).isTrue();
     }
 
     @Test
     public void isEmpty_WhenNotEmpty_ThenFalse()
     {
+        // when
         boolean result = testObject.isEmpty();
-
-        Assertions.assertFalse(result);
+        // then
+        Assertions.assertThat(result).isFalse();
     }
 
     @Test
@@ -78,9 +84,10 @@ public class AVLTreeTest
     {
         for(Integer i : numbers)
         {
+            // when
             boolean result = testObject.contains(i);
-
-            Assertions.assertTrue(result);
+            // then
+            Assertions.assertThat(result).isTrue();
         }
     }
 
@@ -89,9 +96,10 @@ public class AVLTreeTest
     {
         for(Integer i : new Integer[]{111, 140, 187})
         {
+            // when
             boolean result = testObject.contains(i);
-
-            Assertions.assertFalse(result);
+            // then
+            Assertions.assertThat(result).isFalse();
         }
     }
 
@@ -100,28 +108,24 @@ public class AVLTreeTest
     {
         // when
         List<Integer> result = new ArrayList<>(testObject);
-
         // then
-        Arrays.sort(numbers);
-        Assertions.assertArrayEquals(numbers, result.toArray());
+        Assertions.assertThat(result).isSorted();
+        Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
     }
 
     @Test
     public void descendingIterator_WhenNotEmpty_ThenReverseSortedElements()
     {
         // given
-        List<Integer> revNumbers = Arrays.asList(numbers);
         Iterator<Integer> iterator = testObject.descendingIterator();
         // when
         List<Integer> result = new ArrayList<>();
 
         while(iterator.hasNext())
             result.add(iterator.next());
-
-        Collections.sort(revNumbers);
-        Collections.reverse(revNumbers);
         // then
-        Assertions.assertArrayEquals(revNumbers.toArray(), result.toArray());
+        Assertions.assertThat(result).isSortedAccordingTo((n, m) -> m.compareTo(n));
+        Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
     }
 
     @Test
@@ -129,10 +133,11 @@ public class AVLTreeTest
     {
         for(Integer i : new Integer[]{111, 140, 187})
         {
+            // when
             boolean result = testObject.add(i);
-
-            Assertions.assertTrue(result);
-            Assertions.assertTrue(testObject.contains(i));
+            // then
+            Assertions.assertThat(result).isTrue();
+            Assertions.assertThat(testObject).contains(i);
         }
     }
 
@@ -141,10 +146,11 @@ public class AVLTreeTest
     {
         for(Integer i : new Integer[]{14, 24, 30, 45})
         {
+            // when
             boolean result = testObject.add(i);
-
-            Assertions.assertFalse(result);
-            Assertions.assertTrue(testObject.contains(i));
+            // then
+            Assertions.assertThat(result).isFalse();
+            Assertions.assertThat(testObject).contains(i);
         }
     }
 
@@ -153,66 +159,71 @@ public class AVLTreeTest
     {
         for(Integer i : new Integer[]{14, 24, 30, 45})
         {
+            // when
             boolean result = testObject.remove(i);
-
-            Assertions.assertTrue(result);
-            Assertions.assertFalse(testObject.contains(i));
+            // then
+            Assertions.assertThat(result).isTrue();
+            Assertions.assertThat(testObject).doesNotContain(i);
         }
     }
 
     @Test
     public void removeRoot_WhenTwoElements1()
     {
+        // given
         int root = 27;
         int elem = 11;
 
         testObject = new AVLTree<>(Arrays.asList(root, elem));
-
+        // when
         boolean result = testObject.remove(root);
-
-        Assertions.assertTrue(result);
-        Assertions.assertFalse(testObject.contains(root));
-        Assertions.assertTrue(testObject.contains(elem));
+        // then
+        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(testObject).doesNotContain(root);
+        Assertions.assertThat(testObject).contains(elem);
     }
 
     @Test
     public void removeRoot_WhenTwoElements2()
     {
+        // given
         int root = 11;
         int elem = 27;
 
         testObject = new AVLTree<>(Arrays.asList(root, elem));
-
+        // when
         boolean result = testObject.remove(root);
-
-        Assertions.assertTrue(result);
-        Assertions.assertFalse(testObject.contains(root));
-        Assertions.assertTrue(testObject.contains(elem));
+        // then
+        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(testObject).doesNotContain(root);
+        Assertions.assertThat(testObject).contains(elem);
     }
 
     @Test
     public void removeRoot_WhenOneElement()
     {
+        // given
         int root = 0;
 
         testObject = new AVLTree<>(Collections.singletonList(root));
-
+        // when
         boolean result = testObject.remove(root);
-
-        Assertions.assertTrue(result);
-        Assertions.assertFalse(testObject.contains(root));
-        Assertions.assertTrue(testObject.isEmpty());
+        // then
+        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(testObject).doesNotContain(root);
+        Assertions.assertThat(testObject).isEmpty();
     }
 
     @Test
     public void remove_WhenEmpty_ThenFalse()
     {
+        // given
         testObject = new AVLTree<>();
-
+        // when
         boolean result = testObject.remove(0);
-
-        Assertions.assertFalse(result);
-        Assertions.assertTrue(testObject.isEmpty());
+        // then
+        Assertions.assertThat(result).isFalse();
+        Assertions.assertThat(testObject).isEmpty();
     }
 
     @Test
@@ -220,18 +231,20 @@ public class AVLTreeTest
     {
         for(Integer i : new Integer[]{111, 140, 187})
         {
+            // when
             boolean result = testObject.remove(i);
-
-            Assertions.assertFalse(result);
-            Assertions.assertFalse(testObject.contains(i));
+            // then
+            Assertions.assertThat(result).isFalse();
+            Assertions.assertThat(testObject).doesNotContain(i);
         }
     }
 
     @Test
-    public void clear_ThenTrue()
+    public void clear_ThenEmpty()
     {
+        // when
         testObject.clear();
-
-        Assertions.assertEquals(0, testObject.size());
+        // then
+        Assertions.assertThat(testObject).isEmpty();
     }
 }
