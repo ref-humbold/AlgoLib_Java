@@ -1,4 +1,4 @@
-// STRUKTURA SKIEROWANEGO GRAFU PROSTEGO
+// Structure of directed simple graph
 package algolib.graphs;
 
 import java.util.ArrayList;

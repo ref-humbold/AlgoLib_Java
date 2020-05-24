@@ -1,10 +1,10 @@
+// Structure of tree graph
 package algolib.graphs;
 
 import java.util.Collection;
 
 import algolib.structures.DisjointSets;
 import algolib.tuples.ComparablePair;
-import algolib.tuples.Pair;
 import algolib.tuples.Pair;
 
 public class TreeGraph
