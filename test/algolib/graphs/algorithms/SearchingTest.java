@@ -1,10 +1,11 @@
+// Tests: Algorithms for graph searching
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,166 +51,145 @@ public class SearchingTest
     @Test
     public void bfs_WhenUndirectedGraphAndSingleRoot_ThenNotAllVisited()
     {
+        // when
         List<Boolean> result = Searching.bfs(ugraph, strategy, 0);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, false, true, true, true, false, true, true, false},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
+        // then
+        Assertions.assertThat(result)
+                  .containsExactly(true, true, false, true, true, true, false, true, true, false);
+        Assertions.assertThat(visited).isSubsetOf(ugraph.getVertices());
+        Assertions.assertThat(visited).doesNotContain(2, 6, 9);
     }
 
     @Test
     public void bfs_WhenUndirectedGraphAndManyRoots_ThenAllVisited()
     {
+        // when
         List<Boolean> result = Searching.bfs(ugraph, strategy, 0, 6);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, true, true, true, true, true, true, true, true},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-                                     visited.toArray());
+        // then
+        Assertions.assertThat(result).containsOnly(true);
+        Assertions.assertThat(visited).hasSameElementsAs(ugraph.getVertices());
     }
 
     @Test
     public void bfs_WhenUndirectedGraphAndNoRoots_ThenNoVisited()
     {
+        // when
         List<Boolean> result = Searching.bfs(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{false, false, false, false, false, false, false, false, false, false},
-                result.toArray());
-        Assertions.assertTrue(visited.isEmpty());
+        // then
+        Assertions.assertThat(result).containsOnly(false);
+        Assertions.assertThat(visited).isEmpty();
     }
 
     @Test
     public void bfs_WhenDirectedGraphAndSingleRoot_ThenNotAllVisited()
     {
+        // when
         List<Boolean> result = Searching.bfs(digraph, strategy, 1);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, false, true, true, true, true, true, true, true},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        // then
+        Assertions.assertThat(result)
+                  .containsExactly(true, true, false, true, true, true, true, true, true, true);
+        Assertions.assertThat(visited).isSubsetOf(digraph.getVertices());
+        Assertions.assertThat(visited).doesNotContain(2);
     }
 
     @Test
     public void dfsi_WhenUndirectedGraphAndSingleRoot_ThenNotAllVisited()
     {
+        // when
         List<Boolean> result = Searching.dfsi(ugraph, strategy, 0);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, false, true, true, true, false, true, true, false},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
+        // then
+        Assertions.assertThat(result)
+                  .containsExactly(true, true, false, true, true, true, false, true, true, false);
+        Assertions.assertThat(visited).isSubsetOf(ugraph.getVertices());
+        Assertions.assertThat(visited).doesNotContain(2, 6, 9);
     }
 
     @Test
     public void dfsi_WhenUndirectedGraphAndManyRoots_ThenAllVisited()
     {
+        // when
         List<Boolean> result = Searching.dfsi(ugraph, strategy, 0, 6);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, true, true, true, true, true, true, true, true},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-                                     visited.toArray());
+        // then
+        Assertions.assertThat(result).containsOnly(true);
+        Assertions.assertThat(visited).hasSameElementsAs(ugraph.getVertices());
     }
 
     @Test
     public void dfsi_WhenUndirectedGraphAndNoRoots_ThenNoVisited()
     {
+        // when
         List<Boolean> result = Searching.dfsi(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{false, false, false, false, false, false, false, false, false, false},
-                result.toArray());
-        Assertions.assertTrue(visited.isEmpty());
+        // then
+        Assertions.assertThat(result).containsOnly(false);
+        Assertions.assertThat(visited).isEmpty();
     }
 
     @Test
     public void dfsi_WhenDirectedGraphAndSingleRoot_ThenNotAllVisited()
     {
+        // when
         List<Boolean> result = Searching.dfsi(digraph, strategy, 1);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, false, true, true, true, true, true, true, true},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        // then
+        Assertions.assertThat(result)
+                  .containsExactly(true, true, false, true, true, true, true, true, true, true);
+        Assertions.assertThat(visited).isSubsetOf(digraph.getVertices());
+        Assertions.assertThat(visited).doesNotContain(2);
     }
 
     @Test
     public void dfsr_WhenUndirectedGraphAndSingleRoot_ThenNotAllVisited()
     {
+        // when
         List<Boolean> result = Searching.dfsr(ugraph, strategy, 0);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, false, true, true, true, false, true, true, false},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 7, 8}, visited.toArray());
+        // then
+        Assertions.assertThat(result)
+                  .containsExactly(true, true, false, true, true, true, false, true, true, false);
+        Assertions.assertThat(visited).isSubsetOf(ugraph.getVertices());
+        Assertions.assertThat(visited).doesNotContain(2, 6, 9);
     }
 
     @Test
     public void dfsr_WhenUndirectedGraphAndManyRoots_ThenAllVisited()
     {
+        // when
         List<Boolean> result = Searching.dfsr(ugraph, strategy, 0, 6);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, true, true, true, true, true, true, true, true},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-                                     visited.toArray());
+        // then
+        Assertions.assertThat(result).containsOnly(true);
+        Assertions.assertThat(visited).hasSameElementsAs(ugraph.getVertices());
     }
 
     @Test
     public void dfsr_WhenUndirectedGraphAndNoRoots_ThenNoVisited()
     {
+        // when
         List<Boolean> result = Searching.dfsr(ugraph, strategy);
         List<Integer> visited = strategy.getVisited();
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{false, false, false, false, false, false, false, false, false, false},
-                result.toArray());
-        Assertions.assertTrue(visited.isEmpty());
+        // then
+        Assertions.assertThat(result).containsOnly(false);
+        Assertions.assertThat(visited).isEmpty();
     }
 
     @Test
     public void dfsr_WhenDirectedGraphAndSingleRoot_ThenNotAllVisited()
     {
+        // when
         List<Boolean> result = Searching.dfsr(digraph, strategy, 1);
         List<Integer> visited = strategy.getVisited();
-
-        visited.sort(Integer::compare);
-
-        Assertions.assertArrayEquals(
-                new Boolean[]{true, true, false, true, true, true, true, true, true, true},
-                result.toArray());
-        Assertions.assertArrayEquals(new Integer[]{0, 1, 3, 4, 5, 6, 7, 8, 9}, visited.toArray());
+        // then
+        Assertions.assertThat(result)
+                  .containsExactly(true, true, false, true, true, true, true, true, true, true);
+        Assertions.assertThat(visited).isSubsetOf(digraph.getVertices());
+        Assertions.assertThat(visited).doesNotContain(2);
     }
 
     private static class SearchingTestStrategy

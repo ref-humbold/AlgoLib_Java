@@ -1,4 +1,4 @@
-// ALGORYTMY WYZNACZAJĄCE MINIMALNE DRZEWO SPINAJĄCE
+// Algorithms for minimal spanning tree
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import algolib.tuples.ComparablePair;
 import algolib.tuples.ComparableTriple;
 import algolib.tuples.Pair;
 
-public class MinimalSpanningTree
+public final class MinimalSpanningTree
 {
     /**
      * Algorytm Kruskala wyliczający długość MST

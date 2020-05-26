@@ -1,4 +1,4 @@
-// ALGORYTMY WYLICZANIA NAJKRÓTSZYCH ŚCIEŻEK W GRAFIE WAŻONYM
+// Algorithms for shortest paths
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
 import algolib.tuples.Triple;
 
-public class Paths
+public final class Paths
 {
     /**
      * Algorytm Bellmana-Forda
