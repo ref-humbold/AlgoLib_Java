@@ -1,4 +1,4 @@
-// STRUKTURA NIESKIEROWANEGO GRAFU PROSTEGO
+// Structure of undirected simple graph
 package algolib.graphs;
 
 import java.util.ArrayList;

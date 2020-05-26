@@ -1,7 +1,7 @@
 package algolib.mathmat;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,9 +40,9 @@ class EquationSystemTest
         }
 
         // then
-        Assertions.assertArrayEquals(new double[]{1, 3, -2}, result);
-        Assertions.assertTrue(testObject.isSolution(result));
-        Assertions.assertFalse(testObject.isSolution(new double[]{-2, -18, -36.5}));
+        Assertions.assertThat(result).containsExactly(1, 3, -2);
+        Assertions.assertThat(testObject.isSolution(result)).isTrue();
+        Assertions.assertThat(testObject.isSolution(new double[]{-2, -18, -36.5})).isFalse();
     }
 
     @Test
@@ -54,10 +54,12 @@ class EquationSystemTest
                                                        new Equation(new double[]{-1, -1.5, 1},
                                                                     -1)});
 
-        // when - then
-        Assertions.assertThrows(NoSolutionException.class, () -> testObject.solve());
-        Assertions.assertFalse(testObject.isSolution(new double[]{1, 3, -2}));
-        Assertions.assertFalse(testObject.isSolution(new double[]{-2, -18, -36.5}));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.solve());
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(NoSolutionException.class);
+        Assertions.assertThat(testObject.isSolution(new double[]{1, 3, -2})).isFalse();
+        Assertions.assertThat(testObject.isSolution(new double[]{-2, -18, -36.5})).isFalse();
     }
 
     @Test
@@ -68,9 +70,11 @@ class EquationSystemTest
                                                        new Equation(new double[]{7, -1, 0}, 4),
                                                        new Equation(new double[]{4, 6, -4}, 30)});
 
-        // when - then
-        Assertions.assertThrows(InfiniteSolutionsException.class, () -> testObject.solve());
-        Assertions.assertTrue(testObject.isSolution(new double[]{1, 3, -2}));
-        Assertions.assertTrue(testObject.isSolution(new double[]{-2, -18, -36.5}));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.solve());
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(InfiniteSolutionsException.class);
+        Assertions.assertThat(testObject.isSolution(new double[]{1, 3, -2})).isTrue();
+        Assertions.assertThat(testObject.isSolution(new double[]{-2, -18, -36.5})).isTrue();
     }
 }

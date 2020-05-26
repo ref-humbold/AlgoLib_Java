@@ -1,30 +1,17 @@
 package algolib.mathmat;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 public class FractionTest
 {
-    @BeforeEach
-    public void setUp()
-    {
-    }
-
-    @AfterEach
-    public void tearDown()
-    {
-    }
-
     @Test
     public void constructor_WhenNumeratorAndDenominatorAreDivisible_ThenNormalized()
     {
         // when
         Fraction result = new Fraction(32, 104);
         // then
-        Assertions.assertEquals(Fraction.of(4, 13), result);
+        Assertions.assertThat(result).isEqualTo(Fraction.of(4, 13));
     }
 
     @Test
@@ -35,16 +22,16 @@ public class FractionTest
         // when
         Fraction result = new Fraction(value);
         // then
-        Assertions.assertEquals(0, result.compareTo(value));
+        Assertions.assertThat(result.compareTo(value)).isEqualTo(0);
     }
 
     @Test
     public void constructor_WhenDenominatorIsZero_ThenArithmeticException()
     {
         // when
-        Executable executable = () -> new Fraction(1, 0);
+        Throwable throwable = Assertions.catchThrowable(() -> new Fraction(1, 0));
         // then
-        Assertions.assertThrows(ArithmeticException.class, executable);
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 
     @Test
@@ -53,7 +40,7 @@ public class FractionTest
         // when
         Fraction result = new Fraction(-4, 11);
         // then
-        Assertions.assertEquals(-1, result.compareTo(0L));
+        Assertions.assertThat(result.compareTo(0L)).isEqualTo(-1);
     }
 
     @Test
@@ -62,7 +49,7 @@ public class FractionTest
         // when
         Fraction result = new Fraction(4, -11);
         // then
-        Assertions.assertEquals(-1, result.compareTo(0L));
+        Assertions.assertThat(result.compareTo(0L)).isEqualTo(-1);
     }
 
     @Test
@@ -71,7 +58,7 @@ public class FractionTest
         // when
         Fraction result = new Fraction(-4, -11);
         // then
-        Assertions.assertEquals(1, result.compareTo(0L));
+        Assertions.assertThat(result.compareTo(0L)).isEqualTo(1);
     }
 
     @Test
@@ -82,7 +69,7 @@ public class FractionTest
         // when
         Fraction result = fraction.add(Fraction.of(5, 7));
         // then
-        Assertions.assertEquals(Fraction.of(17, 14), result);
+        Assertions.assertThat(result).isEqualTo(Fraction.of(17, 14));
     }
 
     @Test
@@ -93,7 +80,7 @@ public class FractionTest
         // when
         Fraction result = fraction.subtract(Fraction.of(3, 10));
         // then
-        Assertions.assertEquals(Fraction.of(1, 5), result);
+        Assertions.assertThat(result).isEqualTo(Fraction.of(1, 5));
     }
 
     @Test
@@ -104,7 +91,7 @@ public class FractionTest
         // when
         Fraction result = fraction.multiply(Fraction.of(5, 12));
         // then
-        Assertions.assertEquals(Fraction.of(5, 28), result);
+        Assertions.assertThat(result).isEqualTo(Fraction.of(5, 28));
     }
 
     @Test
@@ -115,7 +102,7 @@ public class FractionTest
         // when
         Fraction result = fraction.divide(Fraction.of(2, 5));
         // then
-        Assertions.assertEquals(Fraction.of(45, 28), result);
+        Assertions.assertThat(result).isEqualTo(Fraction.of(45, 28));
     }
 
     @Test
@@ -126,7 +113,7 @@ public class FractionTest
         // when
         Fraction result = fraction.invert();
         // then
-        Assertions.assertEquals(Fraction.of(18, 23), result);
+        Assertions.assertThat(result).isEqualTo(Fraction.of(18, 23));
     }
 
     @Test
@@ -135,8 +122,8 @@ public class FractionTest
         // given
         Fraction fraction = new Fraction(0);
         // when
-        Executable executable = () -> fraction.invert();
+        Throwable throwable = Assertions.catchThrowable(() -> fraction.invert());
         // then
-        Assertions.assertThrows(ArithmeticException.class, executable);
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 }

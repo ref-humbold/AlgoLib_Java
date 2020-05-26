@@ -3,174 +3,133 @@ package algolib.sequences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class SortingTest
 {
     @Test
-    public void heapSort()
+    public void heapSort_ThenSortedAscending()
     {
+        // given
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-        List<Integer> sequenceCopy = new ArrayList<>(sequence);
-
+        // when
         Sorting.heapSort(sequence);
-        Collections.sort(sequenceCopy);
-
-        Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
+        // then
+        Assertions.assertThat(sequence).isSorted();
     }
 
     @Test
-    public void heapSort_WhenAllEqual()
+    public void heapSort_WhenEmptyList_ThenEmpty()
     {
-        List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
-
-        Sorting.heapSort(sequence);
-
-        Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
-                                     sequence.toArray());
-    }
-
-    @Test
-    public void heapSort_WhenEmptyList()
-    {
+        // given
         List<Integer> sequence = new ArrayList<>();
-
+        // when
         Sorting.heapSort(sequence);
-
-        Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
+        // then
+        Assertions.assertThat(sequence).isEmpty();
     }
 
     @Test
     public void heapSort_WhenNull_ThenNullPointerException()
     {
-        List<Integer> sequence = null;
-
-        Assertions.assertThrows(NullPointerException.class, () -> Sorting.heapSort(sequence));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Sorting.heapSort(null));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }
 
     @Test
-    public void mergedownSort()
+    public void mergedownSort_ThenSortedAscending()
     {
+        // given
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-        List<Integer> sequenceCopy = new ArrayList<>(sequence);
-
+        // when
         Sorting.mergedownSort(sequence);
-        Collections.sort(sequenceCopy);
-
-        Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
+        // then
+        Assertions.assertThat(sequence).isSorted();
     }
 
     @Test
-    public void mergedownSort_WhenAllEqual()
+    public void mergedownSort_WhenEmptyList_ThenEmpty()
     {
-        List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
-
-        Sorting.mergedownSort(sequence);
-
-        Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
-                                     sequence.toArray());
-    }
-
-    @Test
-    public void mergedownSort_WhenEmptyList()
-    {
+        // given
         List<Integer> sequence = new ArrayList<>();
-
+        // when
         Sorting.mergedownSort(sequence);
-
-        Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
+        // then
+        Assertions.assertThat(sequence).isEmpty();
     }
 
     @Test
     public void mergedownSort_WhenNull_ThenNullPointerException()
     {
-        List<Integer> sequence = null;
-
-        Assertions.assertThrows(NullPointerException.class, () -> Sorting.mergedownSort(sequence));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Sorting.mergedownSort(null));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }
 
     @Test
-    public void mergeupSort()
+    public void mergeupSort_ThenSortedAscending()
     {
+        // given
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-        List<Integer> sequenceCopy = new ArrayList<>(sequence);
-
+        // when
         Sorting.mergeupSort(sequence);
-        Collections.sort(sequenceCopy);
-
-        Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
+        // then
+        Assertions.assertThat(sequence).isSorted();
     }
 
     @Test
-    public void mergeupSort_WhenAllEqual()
+    public void mergeupSort_WhenEmptyList_ThenEmpty()
     {
-        List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
-
-        Sorting.mergeupSort(sequence);
-
-        Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
-                                     sequence.toArray());
-    }
-
-    @Test
-    public void mergeupSort_WhenEmptyList()
-    {
+        // given
         List<Integer> sequence = new ArrayList<>();
-
+        // when
         Sorting.mergeupSort(sequence);
-
-        Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
+        // then
+        Assertions.assertThat(sequence).isEmpty();
     }
 
     @Test
     public void mergeupSort_WhenNull_ThenNullPointerException()
     {
-        List<Integer> sequence = null;
-
-        Assertions.assertThrows(NullPointerException.class, () -> Sorting.mergeupSort(sequence));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Sorting.mergeupSort(null));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }
 
     @Test
-    public void quickSort()
+    public void quickSort_ThenSortedAscending()
     {
+        // given
         List<Integer> sequence = Arrays.asList(3, 17, -6, 0, 9, -12, 7, 4, 2);
-        List<Integer> sequenceCopy = new ArrayList<>(sequence);
-
+        // when
         Sorting.quickSort(sequence);
-        Collections.sort(sequenceCopy);
-
-        Assertions.assertArrayEquals(sequenceCopy.toArray(), sequence.toArray());
+        // then
+        Assertions.assertThat(sequence).isSorted();
     }
 
     @Test
-    public void quickSort_WhenAllEqual()
+    public void quickSort_WhenEmptyList_ThenEmpty()
     {
-        List<Integer> sequence = Arrays.asList(10, 10, 10, 10, 10, 10, 10, 10, 10);
-
-        Sorting.quickSort(sequence);
-
-        Assertions.assertArrayEquals(new Integer[]{10, 10, 10, 10, 10, 10, 10, 10, 10},
-                                     sequence.toArray());
-    }
-
-    @Test
-    public void quickSort_WhenEmptyList()
-    {
+        // given
         List<Integer> sequence = new ArrayList<>();
-
+        // when
         Sorting.quickSort(sequence);
-
-        Assertions.assertArrayEquals(new Object[]{}, sequence.toArray());
+        // then
+        Assertions.assertThat(sequence).isEmpty();
     }
 
     @Test
     public void quickSort_WhenNull_ThenNullPointerException()
     {
-        List<Integer> sequence = null;
-
-        Assertions.assertThrows(NullPointerException.class, () -> Sorting.quickSort(sequence));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Sorting.quickSort(null));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }
 }

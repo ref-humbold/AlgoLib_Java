@@ -1,9 +1,9 @@
-// TESTY DLA ALGORYTMU NAJNIŻSZEGO WSPÓLNEGO PRZODKA
+// Tests: Algorithm for lowest common ancestor
 package algolib.graphs.algorithms;
 
 import java.util.Arrays;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,70 +29,66 @@ public class LowestCommonAncestorTest
     }
 
     @Test
-    public void findLCA_WhenSameVertex()
+    public void findLCA_WhenSameVertex_ThenVertexIsLCA()
     {
+        // given
         int vertex = 6;
-
+        // when
         int result = LowestCommonAncestor.findLCA(tree, vertex, vertex);
-
-        Assertions.assertEquals(vertex, result);
+        // then
+        Assertions.assertThat(result).isEqualTo(vertex);
     }
 
     @Test
-    public void findLCA_WhenVerticesChanged()
+    public void findLCA_WhenVerticesSwapped_ThenSameLCA()
     {
-        int vertex1 = 5;
-        int vertex2 = 7;
-
-        int result1 = LowestCommonAncestor.findLCA(tree, vertex1, vertex2);
-        int result2 = LowestCommonAncestor.findLCA(tree, vertex2, vertex1);
-
-        Assertions.assertEquals(1, result1);
-        Assertions.assertEquals(1, result2);
+        // when
+        int result1 = LowestCommonAncestor.findLCA(tree, 5, 7);
+        int result2 = LowestCommonAncestor.findLCA(tree, 7, 5);
+        // then
+        Assertions.assertThat(result1).isEqualTo(1);
+        Assertions.assertThat(result2).isEqualTo(result1);
     }
 
     @Test
-    public void findLCA_WhenVerticesInDifferentSubtrees()
+    public void findLCA_WhenVerticesInDifferentSubtrees_ThenLCA()
     {
-        int vertex1 = 5;
-        int vertex2 = 7;
-
-        int result = LowestCommonAncestor.findLCA(tree, vertex1, vertex2);
-
-        Assertions.assertEquals(1, result);
+        // when
+        int result = LowestCommonAncestor.findLCA(tree, 5, 7);
+        // then
+        Assertions.assertThat(result).isEqualTo(1);
     }
 
     @Test
-    public void findLCA_WhenRootIsLCA()
+    public void findLCA_WhenRootIsCommonAncestor_ThenLCAIsRoot()
     {
-        int vertex1 = 3;
-        int vertex2 = 9;
-        int root = 0;
-
-        int result = LowestCommonAncestor.findLCA(tree, vertex1, vertex2, root);
-
-        Assertions.assertEquals(root, result);
+        // when
+        int result = LowestCommonAncestor.findLCA(tree, 3, 9);
+        // then
+        Assertions.assertThat(result).isEqualTo(0);
     }
 
     @Test
-    public void findLCA_WhenVerticesAreOffsprings()
+    public void findLCA_WhenVerticesAreOnSamePathFromRoot_ThenLCAIsCloserToRoot()
     {
+        //given
         int vertex1 = 8;
         int vertex2 = 2;
-
+        // when
         int result = LowestCommonAncestor.findLCA(tree, vertex1, vertex2);
-
-        Assertions.assertEquals(vertex2, result);
+        // then
+        Assertions.assertThat(result).isEqualTo(vertex2);
     }
 
     @Test
-    public void findLCA_WhenRootIsOneOfVertices()
+    public void findLCA_WhenRootIsOneOfVertices_ThenRoot()
     {
+        // given
         int vertex1 = 4;
         int vertex2 = 0;
-
+        // when
         int result = LowestCommonAncestor.findLCA(tree, vertex1, vertex2, vertex2);
-
-        Assertions.assertEquals(vertex2, result);
+        // then
+        Assertions.assertThat(result).isEqualTo(vertex2);
     }
 }

@@ -1,10 +1,10 @@
-// TESTY DLA STRUKTURY GRAFÓW DRZEW
+// Tests: Structure of tree graph
 package algolib.graphs;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,32 +31,41 @@ public class TreeGraphTest
     @Test
     public void addVertex_WhenOneNeighbour()
     {
-        int result = testObject.addVertex(Collections.singletonList(2));
-
-        Assertions.assertEquals(10, result);
-        Assertions.assertArrayEquals(new Object[]{2}, testObject.getNeighbours(result).toArray());
+        // when
+        int result = testObject.addVertex(List.of(2));
+        // then
+        Assertions.assertThat(result).isEqualTo(10);
+        Assertions.assertThat(testObject.getNeighbours(result)).containsExactly(2);
     }
 
     @Test
     public void addVertex_WhenNoNeighbours()
     {
-        Assertions.assertThrows(NotConnectedException.class,
-                                () -> testObject.addVertex(Collections.emptyList()));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.addVertex(List.of()));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(NotConnectedException.class);
     }
 
     @Test
     public void addVertex_WhenManyNeighbours()
     {
-        Assertions.assertThrows(CycleException.class,
-                                () -> testObject.addVertex(Arrays.asList(2, 5, 9)));
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.addVertex(Arrays.asList(2, 5, 9)));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(CycleException.class);
     }
 
     @Test
     public void addEdge()
     {
+        // given
         int vertex1 = 1;
         int vertex2 = 5;
-
-        Assertions.assertThrows(CycleException.class, () -> testObject.addEdge(vertex1, vertex2));
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.addEdge(vertex1, vertex2));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(CycleException.class);
     }
 }

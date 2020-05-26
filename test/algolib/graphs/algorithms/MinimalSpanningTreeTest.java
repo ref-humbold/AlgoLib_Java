@@ -1,9 +1,10 @@
-// TESTY DLA ALGORYTMÓW MINIMALNEGO DRZEWA SPINAJĄCEGO
+// Tests: Algorithms for minimal spanning tree
 package algolib.graphs.algorithms;
 
 import java.util.Arrays;
+import org.assertj.core.api.Assertions;
+import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,28 +34,31 @@ public class MinimalSpanningTreeTest
     }
 
     @Test
-    public void kruskal()
+    public void kruskal_WhenGraph_ThenSize()
     {
+        // when
         double result = MinimalSpanningTree.kruskal(graph);
-
-        Assertions.assertEquals(12.0, result, 0.000001);
+        // then
+        Assertions.assertThat(result).isCloseTo(12.0, Offset.offset(0.000001));
     }
 
     @Test
-    public void prim()
+    public void prim_WhenGraph_ThenSize()
     {
+        // when
         double result = MinimalSpanningTree.prim(graph, 0);
-
-        Assertions.assertEquals(12.0, result, 0.000001);
+        // then
+        Assertions.assertThat(result).isCloseTo(12.0, Offset.offset(0.000001));
     }
 
     @Test
-    public void prim_WhenDifferentSources()
+    public void prim_WhenDifferentSources_ThenSameSize()
     {
+        // when
         double result1 = MinimalSpanningTree.prim(graph, 1);
         double result4 = MinimalSpanningTree.prim(graph, 4);
-
-        Assertions.assertEquals(12.0, result1, 0.000001);
-        Assertions.assertEquals(12.0, result4, 0.000001);
+        // then
+        Assertions.assertThat(result1).isCloseTo(12.0, Offset.offset(0.000001));
+        Assertions.assertThat(result4).isCloseTo(result1, Offset.offset(0.000001));
     }
 }

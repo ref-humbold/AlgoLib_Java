@@ -1,4 +1,4 @@
-// ALGORYTMY PRZESZUKIWANIA GRAFU
+// Algorithms for graph searching
 package algolib.graphs.algorithms;
 
 import java.util.ArrayDeque;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import algolib.graphs.Graph;
 
-public class Searching
+public final class Searching
 {
     /**
      * Algorytm BFS od danych wierzchołków

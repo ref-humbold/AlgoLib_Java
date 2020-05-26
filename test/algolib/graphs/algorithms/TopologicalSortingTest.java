@@ -2,8 +2,8 @@ package algolib.graphs.algorithms;
 
 import java.util.Arrays;
 import java.util.List;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,54 +42,62 @@ public class TopologicalSortingTest
     @Test
     public void sortTopological1_WhenAcyclicGraph()
     {
+        // when
         List<Integer> result = TopologicalSorting.sortTopological1(acyclicGraph);
-
-        Assertions.assertArrayEquals(new Object[]{3, 5, 1, 0, 2, 4}, result.toArray());
+        // then
+        Assertions.assertThat(result).containsExactly(3, 5, 1, 0, 2, 4);
     }
 
     @Test
     public void sortTopological1_WhenCyclicGraph_ThenDirectedCyclicGraphException()
     {
-        Assertions.assertThrows(DirectedCyclicGraphException.class,
-                                () -> TopologicalSorting.sortTopological1(cyclicGraph));
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> TopologicalSorting.sortTopological1(cyclicGraph));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(DirectedCyclicGraphException.class);
     }
 
     @Test
     public void sortTopological1_WhenEmptyGraph()
     {
+        // given
         DirectedGraph graph = new DirectedSimpleGraph(6);
-
+        // when
         List<Integer> result = TopologicalSorting.sortTopological1(graph);
-
-        Assertions.assertArrayEquals(new Object[]{0, 1, 2, 3, 4, 5}, result.toArray());
+        // then
+        Assertions.assertThat(result).isEqualTo(graph.getVertices());
     }
 
     @Test
     public void sortTopological2_WhenAcyclicGraph()
     {
+        // when
         List<Integer> result = TopologicalSorting.sortTopological2(acyclicGraph);
-        Object[][] expecteds =
-                {{3, 5, 1, 0, 2, 4}, {5, 3, 1, 0, 2, 4}, {3, 5, 1, 0, 4, 2}, {5, 3, 1, 0, 4, 2}};
-
-        Assertions.assertTrue(Arrays.stream(expecteds)
-                                    .anyMatch(expected -> Arrays.deepEquals(expected,
-                                                                            result.toArray())));
+        // then
+        Assertions.assertThat(result)
+                  .isIn(List.of(3, 5, 1, 0, 2, 4), List.of(5, 3, 1, 0, 2, 4),
+                        List.of(3, 5, 1, 0, 4, 2), List.of(5, 3, 1, 0, 4, 2));
     }
 
     @Test
     public void sortTopological2_WhenCyclicGraph_ThenDirectedCyclicGraphException()
     {
-        Assertions.assertThrows(DirectedCyclicGraphException.class,
-                                () -> TopologicalSorting.sortTopological1(cyclicGraph));
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> TopologicalSorting.sortTopological1(cyclicGraph));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(DirectedCyclicGraphException.class);
     }
 
     @Test
     public void sortTopological2_WhenEmptyGraph()
     {
+        // given
         DirectedGraph graph = new DirectedSimpleGraph(6);
-
+        // when
         List<Integer> result = TopologicalSorting.sortTopological2(graph);
-
-        Assertions.assertArrayEquals(new Object[]{0, 1, 2, 3, 4, 5}, result.toArray());
+        // then
+        Assertions.assertThat(result).isEqualTo(graph.getVertices());
     }
 }

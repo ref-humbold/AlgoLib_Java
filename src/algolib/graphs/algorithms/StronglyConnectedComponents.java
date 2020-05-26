@@ -1,3 +1,4 @@
+// Algorithms for strongly connected components
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.Set;
 import algolib.graphs.DirectedGraph;
 import algolib.tuples.ComparablePair;
 
-public class StronglyConnectedComponents
+public final class StronglyConnectedComponents
 {
     /**
      * Algorytm wyznaczania silnie spójnych składowych grafu

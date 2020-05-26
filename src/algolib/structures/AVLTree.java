@@ -65,7 +65,7 @@ public class AVLTree<E>
     @Override
     public Iterator<E> iterator()
     {
-        return new AVLIterator(tree.minimum());
+        return new AVLIterator(tree != null ? tree.minimum() : null);
     }
 
     public Iterator<E> descendingIterator()

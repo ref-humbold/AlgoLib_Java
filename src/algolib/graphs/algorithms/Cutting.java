@@ -1,4 +1,4 @@
-// WYSZUKIWANIE MOSTÓW I PUNKTÓW ARTYKULACJI W GRAFIE
+// Algorithms for graph cutting (edge cut and vertex cut)
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import algolib.graphs.Graph;
 import algolib.graphs.UndirectedGraph;
 import algolib.tuples.ComparablePair;
 
-public class Cutting
+public final class Cutting
 {
     /**
      * Wyznacza mosty w grafie

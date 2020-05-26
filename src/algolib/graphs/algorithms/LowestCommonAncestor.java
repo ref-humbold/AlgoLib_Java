@@ -1,4 +1,4 @@
-// NAJNIŻSZY WSPÓLNY PRZODEK DWÓCH WIERZCHOŁKÓW W DRZEWIE
+// Algorithm for lowest common ancestor
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 import algolib.graphs.Graph;
 import algolib.graphs.TreeGraph;
 
-public class LowestCommonAncestor
+public final class LowestCommonAncestor
 {
     /**
      * Wyznaczanie najniższego wspólnego przodka
