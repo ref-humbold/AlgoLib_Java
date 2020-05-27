@@ -1,11 +1,7 @@
 // Structure of simple graph
 package algolib.graphs;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class SimpleGraph<V, E>
@@ -21,9 +17,9 @@ public abstract class SimpleGraph<V, E>
     }
 
     @Override
-    public Collection<Vertex<V>> getVertices()
+    public List<Vertex<V>> getVertices()
     {
-        return graphMap.keySet();
+        return graphMap.keySet().stream().sorted().collect(Collectors.toList());
     }
 
     @Override
@@ -37,7 +33,7 @@ public abstract class SimpleGraph<V, E>
     {
         return graphMap.get(vertex)
                        .stream()
-                       .map(edge -> edge.destination)
+                       .map(edge -> vertex.equals(edge.source) ? edge.destination : edge.source)
                        .collect(Collectors.toSet());
     }
 

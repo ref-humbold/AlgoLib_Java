@@ -2,20 +2,21 @@
 package algolib.graphs;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface Graph<V, E>
 {
     /** @return number of vertices */
     long getVerticesCount();
 
-    /** @return list of vertices */
-    Collection<Vertex<V>> getVertices();
+    /** @return sorted list of vertices */
+    List<Vertex<V>> getVertices();
 
     /** @return number of edges */
     long getEdgesCount();
 
-    /** @return list of edges */
-    Collection<Edge<E, V>> getEdges();
+    /** @return sorted list of edges */
+    List<Edge<E, V>> getEdges();
 
     /**
      * @param vertex a vertex from this graph

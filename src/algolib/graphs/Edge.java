@@ -1,3 +1,4 @@
+// Structure of edge in graph
 package algolib.graphs;
 
 import java.util.Objects;
@@ -14,6 +15,16 @@ public class Edge<E, V>
         this.source = source;
         this.destination = destination;
         this.property = property;
+    }
+
+    public Edge<E, V> reverse()
+    {
+        return new Edge<>(destination, source, property);
+    }
+
+    public Edge<E, V> reverse(E newProperty)
+    {
+        return new Edge<>(destination, source, newProperty);
     }
 
     @Override

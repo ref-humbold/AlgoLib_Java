@@ -1,3 +1,4 @@
+// Structure of vertex in graph
 package algolib.graphs;
 
 import java.util.Objects;

@@ -1,9 +1,11 @@
+// Structure of directed graph
 package algolib.graphs;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DirectedGraph<V, E>
         extends SimpleGraph<V, E>
@@ -11,19 +13,17 @@ public class DirectedGraph<V, E>
     @Override
     public long getEdgesCount()
     {
-        return graphMap.values().stream().mapToInt(edges -> edges.size()).sum();
+        return graphMap.values().stream().mapToLong(Set::size).sum();
     }
 
     @Override
-    public Collection<Edge<E, V>> getEdges()
+    public List<Edge<E, V>> getEdges()
     {
-        return graphMap.values().stream().reduce(new HashSet<>(), (acc, edges) -> {
-            acc.addAll(edges);
-            return acc;
-        }, (set1, set2) -> {
-            set1.addAll(set2);
-            return set1;
-        });
+        return graphMap.values()
+                       .stream()
+                       .flatMap(Set::stream)
+                       .sorted()
+                       .collect(Collectors.toList());
     }
 
     @Override
