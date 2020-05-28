@@ -10,6 +10,15 @@ public abstract class SimpleGraph<V, E>
     // Adjacency list
     protected Map<Vertex<V>, Set<Edge<E, V>>> graphMap = new HashMap<>();
 
+    public SimpleGraph()
+    {
+    }
+
+    public SimpleGraph(Iterable<V> properties)
+    {
+        properties.forEach(property -> addVertex(property));
+    }
+
     @Override
     public long getVerticesCount()
     {
@@ -23,18 +32,18 @@ public abstract class SimpleGraph<V, E>
     }
 
     @Override
-    public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
-    {
-        return graphMap.get(vertex);
-    }
-
-    @Override
     public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
     {
         return graphMap.get(vertex)
                        .stream()
                        .map(edge -> vertex.equals(edge.source) ? edge.destination : edge.source)
                        .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
+    {
+        return graphMap.get(vertex);
     }
 
     /**

@@ -1,25 +1,22 @@
-// Tests: Structure of undirected graph
+// Tests: Structure of directed simple graph
 package algolib.graphs;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UndirectedGraphTest
+public class DirectedSimpleGraphTest
 {
-    private UndirectedGraph<Void, Void> testObject;
+    private DirectedSimpleGraph<Void, Void> testObject;
 
     @BeforeEach
     public void setUp()
     {
-        testObject = new UndirectedGraph<>();
-
-        for(int i = 0; i < 10; ++i)
-            testObject.addVertex(null);
+        testObject = new DirectedSimpleGraph<>(Collections.nCopies(10, null));
     }
 
     @AfterEach
@@ -80,7 +77,7 @@ public class UndirectedGraphTest
         // when
         long result = testObject.getEdgesCount();
         // then
-        Assertions.assertThat(result).isEqualTo(6L);
+        Assertions.assertThat(result).isEqualTo(7L);
     }
 
     @Test
@@ -102,12 +99,13 @@ public class UndirectedGraphTest
         // then
         Assertions.assertThat(result).isSorted();
         Assertions.assertThat(result)
-                  .containsExactly(new Edge<>(vertices.get(0), vertices.get(8), null),
-                                   new Edge<>(vertices.get(1), vertices.get(5), null),
+                  .containsExactly(new Edge<>(vertices.get(1), vertices.get(5), null),
                                    new Edge<>(vertices.get(2), vertices.get(4), null),
                                    new Edge<>(vertices.get(3), vertices.get(6), null),
-                                   new Edge<>(vertices.get(3), vertices.get(9), null),
-                                   new Edge<>(vertices.get(7), vertices.get(7), null));
+                                   new Edge<>(vertices.get(6), vertices.get(3), null),
+                                   new Edge<>(vertices.get(7), vertices.get(7), null),
+                                   new Edge<>(vertices.get(8), vertices.get(0), null),
+                                   new Edge<>(vertices.get(9), vertices.get(3), null));
     }
 
     @Test
@@ -123,11 +121,9 @@ public class UndirectedGraphTest
         // then
         Assertions.assertThat(result.source).isEqualTo(vertices.get(1));
         Assertions.assertThat(result.destination).isEqualTo(vertices.get(5));
-
         Assertions.assertThat(testObject.getNeighbours(vertices.get(1)))
                   .containsOnly(vertices.get(1), vertices.get(5));
-        Assertions.assertThat(testObject.getNeighbours(vertices.get(5)))
-                  .containsOnly(vertices.get(1));
+        Assertions.assertThat(testObject.getNeighbours(vertices.get(5))).isEmpty();
     }
 
     @Test
@@ -146,10 +142,10 @@ public class UndirectedGraphTest
         // when
         Collection<Vertex<Void>> result = testObject.getNeighbours(vertices.get(1));
         // then
-        Assertions.assertThat(result).hasSize(7);
+        Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsOnly(vertices.get(1), vertices.get(2), vertices.get(3), vertices.get(4),
-                                vertices.get(6), vertices.get(7), vertices.get(9));
+                  .containsOnly(vertices.get(1), vertices.get(3), vertices.get(4), vertices.get(7),
+                                vertices.get(9));
     }
 
     @Test
@@ -168,13 +164,11 @@ public class UndirectedGraphTest
         // when
         Collection<Edge<Void, Void>> result = testObject.getAdjacentEdges(vertices.get(1));
         // then
-        Assertions.assertThat(result).hasSize(7);
+        Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
                   .containsOnly(new Edge<>(vertices.get(1), vertices.get(1), null),
-                                new Edge<>(vertices.get(1), vertices.get(2), null),
                                 new Edge<>(vertices.get(1), vertices.get(3), null),
                                 new Edge<>(vertices.get(1), vertices.get(4), null),
-                                new Edge<>(vertices.get(1), vertices.get(6), null),
                                 new Edge<>(vertices.get(1), vertices.get(7), null),
                                 new Edge<>(vertices.get(1), vertices.get(9), null));
     }
@@ -195,7 +189,7 @@ public class UndirectedGraphTest
         // when
         long result = testObject.getOutputDegree(vertices.get(1));
         // then
-        Assertions.assertThat(result).isEqualTo(7L);
+        Assertions.assertThat(result).isEqualTo(5L);
     }
 
     @Test
@@ -214,38 +208,38 @@ public class UndirectedGraphTest
         // when
         long result = testObject.getInputDegree(vertices.get(1));
         // then
-        Assertions.assertThat(result).isEqualTo(7L);
+        Assertions.assertThat(result).isEqualTo(5L);
     }
 
     @Test
-    public void asDirected_ThenDirectedGraph()
+    public void reverse_ThenAllEdgesHaveReversedDirection()
     {
         // given
         List<Vertex<Void>> vertices = testObject.getVertices();
 
-        testObject.addEdge(vertices.get(7), vertices.get(7), null);
-        testObject.addEdge(vertices.get(1), vertices.get(5), null);
-        testObject.addEdge(vertices.get(2), vertices.get(4), null);
-        testObject.addEdge(vertices.get(8), vertices.get(0), null);
-        testObject.addEdge(vertices.get(6), vertices.get(3), null);
-        testObject.addEdge(vertices.get(3), vertices.get(6), null);
-        testObject.addEdge(vertices.get(9), vertices.get(3), null);
-        testObject.addEdge(vertices.get(8), vertices.get(0), null);
+        testObject.addEdge(vertices.get(1), vertices.get(2), null);
+        testObject.addEdge(vertices.get(3), vertices.get(5), null);
+        testObject.addEdge(vertices.get(4), vertices.get(9), null);
+        testObject.addEdge(vertices.get(5), vertices.get(4), null);
+        testObject.addEdge(vertices.get(5), vertices.get(7), null);
+        testObject.addEdge(vertices.get(6), vertices.get(2), null);
+        testObject.addEdge(vertices.get(6), vertices.get(6), null);
+        testObject.addEdge(vertices.get(7), vertices.get(8), null);
+        testObject.addEdge(vertices.get(9), vertices.get(1), null);
+        testObject.addEdge(vertices.get(9), vertices.get(6), null);
         // when
-        DirectedGraph<Void, Void> result = testObject.asDirected(Function.identity());
+        testObject.reverse();
         // then
-        Assertions.assertThat(result.getVertices()).hasSameSizeAs(testObject.getVertices());
-        Assertions.assertThat(result.getEdges())
-                  .containsExactly(new Edge<>(vertices.get(0), vertices.get(8), null),
-                                   new Edge<>(vertices.get(1), vertices.get(5), null),
-                                   new Edge<>(vertices.get(2), vertices.get(4), null),
-                                   new Edge<>(vertices.get(3), vertices.get(6), null),
-                                   new Edge<>(vertices.get(3), vertices.get(9), null),
-                                   new Edge<>(vertices.get(4), vertices.get(2), null),
-                                   new Edge<>(vertices.get(5), vertices.get(1), null),
-                                   new Edge<>(vertices.get(6), vertices.get(3), null),
-                                   new Edge<>(vertices.get(7), vertices.get(7), null),
-                                   new Edge<>(vertices.get(8), vertices.get(0), null),
-                                   new Edge<>(vertices.get(9), vertices.get(3), null));
+        Assertions.assertThat(testObject.getEdges())
+                  .containsExactly(new Edge<>(vertices.get(1), vertices.get(9), null),
+                                   new Edge<>(vertices.get(2), vertices.get(1), null),
+                                   new Edge<>(vertices.get(2), vertices.get(6), null),
+                                   new Edge<>(vertices.get(4), vertices.get(5), null),
+                                   new Edge<>(vertices.get(5), vertices.get(3), null),
+                                   new Edge<>(vertices.get(6), vertices.get(6), null),
+                                   new Edge<>(vertices.get(6), vertices.get(9), null),
+                                   new Edge<>(vertices.get(7), vertices.get(5), null),
+                                   new Edge<>(vertices.get(8), vertices.get(7), null),
+                                   new Edge<>(vertices.get(9), vertices.get(4), null));
     }
 }
