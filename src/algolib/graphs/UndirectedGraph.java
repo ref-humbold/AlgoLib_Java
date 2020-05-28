@@ -4,6 +4,7 @@ package algolib.graphs;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UndirectedGraph<V, E>
@@ -52,9 +53,10 @@ public class UndirectedGraph<V, E>
 
     /**
      * Converts this graph to a directed graph with same vertices and edges
+     * @param edgePropertyMapper mapping function for edge properties
      * @return directed graph
      */
-    public DirectedGraph<V, E> asDirected()
+    public DirectedGraph<V, E> asDirected(Function<E, E> edgePropertyMapper)
     {
         DirectedGraph<V, E> directedGraph = new DirectedGraph<>();
 
@@ -63,15 +65,17 @@ public class UndirectedGraph<V, E>
             directedGraph.graphMap.put(entry.getKey(), entry.getValue()
                                                             .stream()
                                                             .map(edge -> getEdgeFrom(entry.getKey(),
-                                                                                     edge))
+                                                                                     edge,
+                                                                                     edgePropertyMapper))
                                                             .collect(Collectors.toSet()));
         }
 
         return directedGraph;
     }
 
-    private Edge<E, V> getEdgeFrom(Vertex<V> vertex, Edge<E, V> edge)
+    private Edge<E, V> getEdgeFrom(Vertex<V> vertex, Edge<E, V> edge,
+                                   Function<E, E> edgePropertyMapper)
     {
-        return vertex.equals(edge.source) ? edge : edge.reverse();
+        return vertex.equals(edge.source) ? edge : edge.reverse(edgePropertyMapper);
     }
 }

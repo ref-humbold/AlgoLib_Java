@@ -2,6 +2,7 @@
 package algolib.graphs;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 public class Edge<E, V>
         implements Comparable<Edge<E, V>>
@@ -17,14 +18,14 @@ public class Edge<E, V>
         this.property = property;
     }
 
-    public Edge<E, V> reverse()
+    /**
+     * Reverses direction of this edge.
+     * @param propertyMapper function that creates property of reversed edge from current edge property
+     * @return reversed edge
+     */
+    public Edge<E, V> reverse(Function<E, E> propertyMapper)
     {
-        return new Edge<>(destination, source, property);
-    }
-
-    public Edge<E, V> reverse(E newProperty)
-    {
-        return new Edge<>(destination, source, newProperty);
+        return new Edge<>(destination, source, propertyMapper.apply(property));
     }
 
     @Override
