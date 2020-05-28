@@ -203,7 +203,7 @@ public class AVLTree<E>
         return node;
     }
 
-    // Searches for node that satisfies specified predicate with specified value.
+    // Searches for node that satisfies given predicate with given value.
     private AVLNode<E> findNode(Object object, BiFunction<AVLNode<E>, Object, Boolean> predicate)
     {
         AVLNode<E> node = tree;
@@ -279,7 +279,7 @@ public class AVLTree<E>
         }
     }
 
-    // Restores balancing on a path from specified node to the root.
+    // Restores balancing on a path from given node to the root.
     private void balance(AVLNode<E> node)
     {
         while(node != null)

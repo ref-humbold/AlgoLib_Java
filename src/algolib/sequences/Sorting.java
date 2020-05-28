@@ -9,7 +9,7 @@ import java.util.Random;
 public final class Sorting
 {
     /**
-     * Mutably sorts specified sequence using a heap.
+     * Mutably sorts given sequence using a heap.
      * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void heapSort(List<T> sequence)
@@ -35,7 +35,7 @@ public final class Sorting
     }
 
     /**
-     * Mutably sorts specified sequence using a top-down merge-sort algorithm.
+     * Mutably sorts given sequence using a top-down merge-sort algorithm.
      * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void mergedownSort(List<T> sequence)
@@ -45,7 +45,7 @@ public final class Sorting
     }
 
     /**
-     * Mutably sorts specified sequence using a bottom-up merge-sort algorithm.
+     * Mutably sorts given sequence using a bottom-up merge-sort algorithm.
      * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void mergeupSort(List<T> sequence)
@@ -62,7 +62,7 @@ public final class Sorting
     }
 
     /**
-     * Mutably sorts specified sequence using a quick-sort algorithm.
+     * Mutably sorts given sequence using a quick-sort algorithm.
      * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void quickSort(List<T> sequence)
@@ -71,7 +71,7 @@ public final class Sorting
         doQuickSort(sequence, 0, sequence.size());
     }
 
-    // Move element down inside specified heap
+    // Move element down inside given heap
     private static <T extends Comparable<T>> void moveDown(List<T> heap, int vertex, int indexEnd)
     {
         int nextVertex = -1;
@@ -94,7 +94,7 @@ public final class Sorting
         Sorting.moveDown(heap, nextVertex, indexEnd);
     }
 
-    // Mutably sorts specified sequence using a recursive merge-sort algorithm.
+    // Mutably sorts given sequence using a recursive merge-sort algorithm.
     private static <T extends Comparable<T>> void doMergeSort(List<T> sequence, int indexBegin,
                                                               int indexEnd)
     {
@@ -138,7 +138,7 @@ public final class Sorting
             sequence.set(indexBegin + i, ordered.get(i));
     }
 
-    // Mutably sorts specified sequence using a quick-sort algorithm.
+    // Mutably sorts given sequence using a quick-sort algorithm.
     private static <T extends Comparable<T>> void doQuickSort(List<T> sequence, int indexBegin,
                                                               int indexEnd)
     {
@@ -189,7 +189,7 @@ public final class Sorting
         return candidate3;
     }
 
-    // Swaps two elements in specified sequence.
+    // Swaps two elements in given sequence.
     private static <T extends Comparable<T>> void swap(List<T> sequence, int index1, int index2)
     {
         T temp = sequence.get(index1);

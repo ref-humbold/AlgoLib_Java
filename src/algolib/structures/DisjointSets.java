@@ -37,7 +37,7 @@ public class DisjointSets<E>
     }
 
     /**
-     * Checks if specified element belongs to any set.
+     * Checks if given element belongs to any set.
      * @param element element to be found
      * @return {@code true} if the element is included in one of sets, otherwise {@code false}
      */

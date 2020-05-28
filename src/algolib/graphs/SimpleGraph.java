@@ -47,7 +47,7 @@ public abstract class SimpleGraph<V, E>
     }
 
     /**
-     * Adds a new vertex with specified properties to this graph.
+     * Adds a new vertex with given property to this graph.
      * @param property a vertex property
      * @return the new vertex
      */
@@ -60,7 +60,7 @@ public abstract class SimpleGraph<V, E>
     }
 
     /**
-     * Adds a new edge with specified properties to this graph.
+     * Adds a new edge with given properties to this graph.
      * @param source a source vertex
      * @param destination a destination vertex
      * @param property an edge property
