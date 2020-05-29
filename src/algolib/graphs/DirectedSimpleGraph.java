@@ -1,6 +1,7 @@
 // Structure of directed simple graph
 package algolib.graphs;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +17,7 @@ public class DirectedSimpleGraph<V, E>
         super();
     }
 
-    public DirectedSimpleGraph(Iterable<V> properties)
+    public DirectedSimpleGraph(Collection<V> properties)
     {
         super(properties);
     }

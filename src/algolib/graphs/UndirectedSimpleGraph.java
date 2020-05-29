@@ -1,6 +1,7 @@
 // Structure of undirected simple graph
 package algolib.graphs;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class UndirectedSimpleGraph<V, E>
         super();
     }
 
-    public UndirectedSimpleGraph(Iterable<V> properties)
+    public UndirectedSimpleGraph(Collection<V> properties)
     {
         super(properties);
     }

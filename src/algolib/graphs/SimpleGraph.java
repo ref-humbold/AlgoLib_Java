@@ -14,7 +14,7 @@ public abstract class SimpleGraph<V, E>
     {
     }
 
-    public SimpleGraph(Iterable<V> properties)
+    public SimpleGraph(Collection<V> properties)
     {
         properties.forEach(property -> addVertex(property));
     }
