@@ -166,10 +166,10 @@ public class SearchingTest
         // when
         Collection<Vertex<Void>> result =
                 Searching.dfsIterative(directedGraph, new EmptyStrategy<>(),
-                                       List.of(verticesUndirected.get(1)));
+                                       List.of(verticesDirected.get(1)));
         // then
         Assertions.assertThat(result).isSubsetOf(directedGraph.getVertices());
-        Assertions.assertThat(result).doesNotContain(verticesUndirected.get(2));
+        Assertions.assertThat(result).doesNotContain(verticesDirected.get(2));
     }
 
     // endregion
@@ -217,10 +217,10 @@ public class SearchingTest
         // when
         Collection<Vertex<Void>> result =
                 Searching.dfsRecursive(directedGraph, new EmptyStrategy<>(),
-                                       List.of(verticesUndirected.get(1)));
+                                       List.of(verticesDirected.get(1)));
         // then
         Assertions.assertThat(result).isSubsetOf(directedGraph.getVertices());
-        Assertions.assertThat(result).doesNotContain(verticesUndirected.get(2));
+        Assertions.assertThat(result).doesNotContain(verticesDirected.get(2));
     }
 
     // endregion

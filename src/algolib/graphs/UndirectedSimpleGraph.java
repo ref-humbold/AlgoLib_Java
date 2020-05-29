@@ -3,9 +3,6 @@ package algolib.graphs;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UndirectedSimpleGraph<V, E>
@@ -25,30 +22,25 @@ public class UndirectedSimpleGraph<V, E>
     @Override
     public int getEdgesCount()
     {
-        return graphMap.values().stream().flatMap(Set::stream).distinct().mapToInt(edge -> 1).sum();
+        return graphRepresentation.getEdges().distinct().mapToInt(edge -> 1).sum();
     }
 
     @Override
     public List<Edge<E, V>> getEdges()
     {
-        return graphMap.values()
-                       .stream()
-                       .flatMap(Set::stream)
-                       .distinct()
-                       .sorted()
-                       .collect(Collectors.toList());
+        return graphRepresentation.getEdges().distinct().sorted().collect(Collectors.toList());
     }
 
     @Override
     public int getOutputDegree(Vertex<V> vertex)
     {
-        return graphMap.get(vertex).size();
+        return graphRepresentation.getAdjacentEdges(vertex).size();
     }
 
     @Override
     public int getInputDegree(Vertex<V> vertex)
     {
-        return graphMap.get(vertex).size();
+        return graphRepresentation.getAdjacentEdges(vertex).size();
     }
 
     @Override
@@ -58,36 +50,25 @@ public class UndirectedSimpleGraph<V, E>
         Vertex<V> newDestination = source.compareTo(destination) >= 0 ? source : destination;
         Edge<E, V> edge = new Edge<>(newSource, newDestination, property);
 
-        graphMap.get(source).add(edge);
-        graphMap.get(destination).add(edge);
+        graphRepresentation.addEdgeToSource(edge);
+        graphRepresentation.addEdgeToDestination(edge);
         return edge;
     }
 
     /**
-     * Converts this graph to a directed graph with same vertices and edges
-     * @param edgePropertyMapper mapping function for edge properties
+     * Converts this graph to a directed graph with same vertices.
      * @return directed graph
      */
-    public DirectedSimpleGraph<V, E> asDirected(Function<E, E> edgePropertyMapper)
+    public DirectedSimpleGraph<V, E> asDirected()
     {
         DirectedSimpleGraph<V, E> directedSimpleGraph = new DirectedSimpleGraph<>();
 
-        for(Map.Entry<Vertex<V>, Set<Edge<E, V>>> entry : graphMap.entrySet())
-        {
-            directedSimpleGraph.graphMap.put(entry.getKey(), entry.getValue()
-                                                                  .stream()
-                                                                  .map(edge -> getEdgeFrom(
-                                                                          entry.getKey(), edge,
-                                                                          edgePropertyMapper))
-                                                                  .collect(Collectors.toSet()));
-        }
+        directedSimpleGraph.graphRepresentation = new GraphRepresentation<>(graphRepresentation);
+        getEdges().forEach(edge -> {
+            directedSimpleGraph.addEdge(edge.source, edge.destination, edge.property);
+            directedSimpleGraph.addEdge(edge.destination, edge.source, edge.property);
+        });
 
         return directedSimpleGraph;
-    }
-
-    private Edge<E, V> getEdgeFrom(Vertex<V> vertex, Edge<E, V> edge,
-                                   Function<E, E> edgePropertyMapper)
-    {
-        return vertex.equals(edge.source) ? edge : edge.reverse(edgePropertyMapper);
     }
 }

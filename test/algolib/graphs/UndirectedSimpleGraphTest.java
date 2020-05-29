@@ -4,7 +4,6 @@ package algolib.graphs;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -230,7 +229,7 @@ public class UndirectedSimpleGraphTest
         testObject.addEdge(vertices.get(9), vertices.get(3), null);
         testObject.addEdge(vertices.get(8), vertices.get(0), null);
         // when
-        DirectedSimpleGraph<Void, Void> result = testObject.asDirected(Function.identity());
+        DirectedSimpleGraph<Void, Void> result = testObject.asDirected();
         // then
         Assertions.assertThat(result.getVertices()).hasSameSizeAs(testObject.getVertices());
         Assertions.assertThat(result.getEdges())

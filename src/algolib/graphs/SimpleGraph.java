@@ -1,49 +1,53 @@
 // Structure of simple graph
 package algolib.graphs;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class SimpleGraph<V, E>
         implements Graph<V, E>
 {
     // Adjacency list
-    protected Map<Vertex<V>, Set<Edge<E, V>>> graphMap = new HashMap<>();
+    protected GraphRepresentation<V, E> graphRepresentation;
 
     public SimpleGraph()
     {
+        this(List.of());
     }
 
     public SimpleGraph(Collection<V> properties)
     {
+        graphRepresentation = new GraphRepresentation<>();
         properties.forEach(property -> addVertex(property));
     }
 
     @Override
     public int getVerticesCount()
     {
-        return graphMap.size();
+        return graphRepresentation.size();
     }
 
     @Override
     public List<Vertex<V>> getVertices()
     {
-        return graphMap.keySet().stream().sorted().collect(Collectors.toList());
+        return graphRepresentation.getVertices().sorted().collect(Collectors.toList());
     }
 
     @Override
     public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
     {
-        return graphMap.get(vertex)
-                       .stream()
-                       .map(edge -> vertex.equals(edge.source) ? edge.destination : edge.source)
-                       .collect(Collectors.toSet());
+        return graphRepresentation.getAdjacentEdges(vertex)
+                                  .stream()
+                                  .map(edge -> vertex.equals(edge.source) ? edge.destination
+                                                                          : edge.source)
+                                  .collect(Collectors.toSet());
     }
 
     @Override
     public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
     {
-        return graphMap.get(vertex);
+        return graphRepresentation.getAdjacentEdges(vertex);
     }
 
     /**
@@ -53,10 +57,7 @@ public abstract class SimpleGraph<V, E>
      */
     public Vertex<V> addVertex(V property)
     {
-        Vertex<V> vertex = new Vertex<>(graphMap.size(), property);
-
-        graphMap.put(vertex, new HashSet<>());
-        return vertex;
+        return graphRepresentation.addVertex(property);
     }
 
     /**

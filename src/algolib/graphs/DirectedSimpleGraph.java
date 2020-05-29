@@ -2,8 +2,6 @@
 package algolib.graphs;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,34 +23,30 @@ public class DirectedSimpleGraph<V, E>
     @Override
     public int getEdgesCount()
     {
-        return graphMap.values().stream().mapToInt(Set::size).sum();
+        return graphRepresentation.getEdgesSet().mapToInt(Set::size).sum();
     }
 
     @Override
     public List<Edge<E, V>> getEdges()
     {
-        return graphMap.values()
-                       .stream()
-                       .flatMap(Set::stream)
-                       .sorted()
-                       .collect(Collectors.toList());
+        return graphRepresentation.getEdges().sorted().collect(Collectors.toList());
     }
 
     @Override
     public int getOutputDegree(Vertex<V> vertex)
     {
-        return graphMap.get(vertex).size();
+        return graphRepresentation.getAdjacentEdges(vertex).size();
     }
 
     @Override
     public int getInputDegree(Vertex<V> vertex)
     {
-        return graphMap.values()
-                       .stream()
-                       .flatMap(edges -> edges.stream()
-                                              .filter(edge -> edge.destination.equals(vertex)))
-                       .mapToInt(edge -> 1)
-                       .sum();
+        return graphRepresentation.getEdgesSet()
+                                  .flatMap(edges -> edges.stream()
+                                                         .filter(edge -> edge.destination.equals(
+                                                                 vertex)))
+                                  .mapToInt(edge -> 1)
+                                  .sum();
     }
 
     @Override
@@ -60,20 +54,17 @@ public class DirectedSimpleGraph<V, E>
     {
         Edge<E, V> edge = new Edge<>(source, destination, property);
 
-        graphMap.get(source).add(edge);
+        graphRepresentation.addEdgeToSource(edge);
         return edge;
     }
 
     @Override
     public void reverse()
     {
-        HashMap<Vertex<V>, Set<Edge<E, V>>> reverseGraphMap = new HashMap<>();
+        List<Edge<E, V>> edges = getEdges();
 
-        getVertices().forEach(vertex -> reverseGraphMap.put(vertex, new HashSet<>()));
-        getEdges().forEach(edge -> reverseGraphMap.get(edge.destination)
-                                                  .add(new Edge<>(edge.destination, edge.source,
-                                                                  edge.property)));
-
-        graphMap = reverseGraphMap;
+        graphRepresentation = new GraphRepresentation<>(graphRepresentation);
+        edges.forEach(edge -> graphRepresentation.addEdgeToSource(
+                new Edge<>(edge.destination, edge.source, edge.property)));
     }
 }
