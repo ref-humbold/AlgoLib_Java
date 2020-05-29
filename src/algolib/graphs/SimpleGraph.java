@@ -20,7 +20,7 @@ public abstract class SimpleGraph<V, E>
     }
 
     @Override
-    public long getVerticesCount()
+    public int getVerticesCount()
     {
         return graphMap.size();
     }

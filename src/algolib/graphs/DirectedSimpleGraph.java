@@ -23,9 +23,9 @@ public class DirectedSimpleGraph<V, E>
     }
 
     @Override
-    public long getEdgesCount()
+    public int getEdgesCount()
     {
-        return graphMap.values().stream().mapToLong(Set::size).sum();
+        return graphMap.values().stream().mapToInt(Set::size).sum();
     }
 
     @Override
@@ -39,19 +39,20 @@ public class DirectedSimpleGraph<V, E>
     }
 
     @Override
-    public long getOutputDegree(Vertex<V> vertex)
+    public int getOutputDegree(Vertex<V> vertex)
     {
         return graphMap.get(vertex).size();
     }
 
     @Override
-    public long getInputDegree(Vertex<V> vertex)
+    public int getInputDegree(Vertex<V> vertex)
     {
         return graphMap.values()
                        .stream()
                        .flatMap(edges -> edges.stream()
                                               .filter(edge -> edge.destination.equals(vertex)))
-                       .count();
+                       .mapToInt(edge -> 1)
+                       .sum();
     }
 
     @Override

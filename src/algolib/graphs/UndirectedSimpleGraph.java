@@ -23,9 +23,9 @@ public class UndirectedSimpleGraph<V, E>
     }
 
     @Override
-    public long getEdgesCount()
+    public int getEdgesCount()
     {
-        return graphMap.values().stream().flatMap(Set::stream).distinct().count();
+        return graphMap.values().stream().flatMap(Set::stream).distinct().mapToInt(edge -> 1).sum();
     }
 
     @Override
@@ -40,13 +40,13 @@ public class UndirectedSimpleGraph<V, E>
     }
 
     @Override
-    public long getOutputDegree(Vertex<V> vertex)
+    public int getOutputDegree(Vertex<V> vertex)
     {
         return graphMap.get(vertex).size();
     }
 
     @Override
-    public long getInputDegree(Vertex<V> vertex)
+    public int getInputDegree(Vertex<V> vertex)
     {
         return graphMap.get(vertex).size();
     }

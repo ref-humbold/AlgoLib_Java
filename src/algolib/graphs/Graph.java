@@ -7,13 +7,13 @@ import java.util.List;
 public interface Graph<V, E>
 {
     /** @return number of vertices */
-    long getVerticesCount();
+    int getVerticesCount();
 
     /** @return sorted list of vertices */
     List<Vertex<V>> getVertices();
 
     /** @return number of edges */
-    long getEdgesCount();
+    int getEdgesCount();
 
     /** @return sorted list of edges */
     List<Edge<E, V>> getEdges();
@@ -34,11 +34,11 @@ public interface Graph<V, E>
      * @param vertex a vertex from this graph
      * @return the output degree of this vertex
      */
-    long getOutputDegree(Vertex<V> vertex);
+    int getOutputDegree(Vertex<V> vertex);
 
     /**
      * @param vertex a vertex from this graph
      * @return the input degree of this vertex
      */
-    long getInputDegree(Vertex<V> vertex);
+    int getInputDegree(Vertex<V> vertex);
 }

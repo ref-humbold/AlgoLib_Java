@@ -30,7 +30,7 @@ public class MultipartiteGraph<V, E>
     }
 
     @Override
-    public long getVerticesCount()
+    public int getVerticesCount()
     {
         return graph.getVerticesCount();
     }
@@ -42,7 +42,7 @@ public class MultipartiteGraph<V, E>
     }
 
     @Override
-    public long getEdgesCount()
+    public int getEdgesCount()
     {
         return graph.getEdgesCount();
     }
@@ -85,13 +85,13 @@ public class MultipartiteGraph<V, E>
     }
 
     @Override
-    public long getOutputDegree(Vertex<V> vertex)
+    public int getOutputDegree(Vertex<V> vertex)
     {
         return graph.getOutputDegree(vertex);
     }
 
     @Override
-    public long getInputDegree(Vertex<V> vertex)
+    public int getInputDegree(Vertex<V> vertex)
     {
         return graph.getInputDegree(vertex);
     }

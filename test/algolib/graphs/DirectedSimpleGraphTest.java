@@ -29,7 +29,7 @@ public class DirectedSimpleGraphTest
     public void getVerticesCount_ThenNumberOfVertices()
     {
         // when
-        long result = testObject.getVerticesCount();
+        int result = testObject.getVerticesCount();
         // then
         Assertions.assertThat(result).isEqualTo(10L);
     }
