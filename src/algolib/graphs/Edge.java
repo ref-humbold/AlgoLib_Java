@@ -55,4 +55,11 @@ public class Edge<E, V>
 
         return compareFrom != 0 ? compareFrom : destination.compareTo(edge.destination);
     }
+
+    @Override
+    public String toString()
+    {
+        return String.format("Edge{%d -> %d (%s)}", source.index, destination.index,
+                             Objects.toString(property));
+    }
 }

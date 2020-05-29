@@ -40,4 +40,10 @@ public class Vertex<V>
     {
         return Integer.compare(index, vertex.index);
     }
+
+    @Override
+    public String toString()
+    {
+        return String.format("Vertex{%d (%s)}", index, Objects.toString(property));
+    }
 }
