@@ -17,6 +17,19 @@ public class Edge<E, V>
         this.property = property;
     }
 
+    public Vertex<V> getNeighbour(Vertex<V> vertex)
+    {
+        if(source.equals(vertex))
+            return destination;
+
+        if(destination.equals(vertex))
+            return source;
+
+        throw new IllegalArgumentException(
+                String.format("Edge %s is not adjacent to given vertex %s", toString(),
+                              vertex.toString()));
+    }
+
     @Override
     public boolean equals(Object obj)
     {

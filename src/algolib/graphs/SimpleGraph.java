@@ -39,8 +39,7 @@ public abstract class SimpleGraph<V, E>
     {
         return graphRepresentation.getAdjacentEdges(vertex)
                                   .stream()
-                                  .map(edge -> vertex.equals(edge.source) ? edge.destination
-                                                                          : edge.source)
+                                  .map(edge -> edge.getNeighbour(vertex))
                                   .collect(Collectors.toSet());
     }
 
