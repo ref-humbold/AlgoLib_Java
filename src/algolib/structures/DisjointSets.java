@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class DisjointSets<E>
 {
-    private Map<E, E> represents = new HashMap<>();
+    private final Map<E, E> represents = new HashMap<>();
     private int count = 0;
 
     public DisjointSets()

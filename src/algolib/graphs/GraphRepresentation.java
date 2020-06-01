@@ -40,12 +40,6 @@ class GraphRepresentation<V, E>
         return graphMap.size();
     }
 
-    void clearEdges()
-    {
-        for(Map.Entry<Vertex<V>, Set<Edge<E, V>>> entry : graphMap.entrySet())
-            entry.setValue(new HashSet<>());
-    }
-
     Set<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
     {
         validateVertex(vertex);
