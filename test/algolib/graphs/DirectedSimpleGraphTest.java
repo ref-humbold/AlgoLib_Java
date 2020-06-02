@@ -50,6 +50,29 @@ public class DirectedSimpleGraphTest
     }
 
     @Test
+    public void getVertex_WhenIndexInRange_ThenVertex()
+    {
+        // given
+        int index = 4;
+        List<Vertex<Void>> vertices = testObject.getVertices();
+        // when
+        Vertex<Void> result = testObject.getVertex(index);
+        // then
+        Assertions.assertThat(result).isSameAs(vertices.get(index));
+    }
+
+    @Test
+    public void getVertex_WhenIndexOutOfRange_ThenIndexOutOfBoundsException()
+    {
+        // given
+        int index = 29;
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.getVertex(index));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+    }
+
+    @Test
     public void addVertex_ThenNewVertex()
     {
         // when
@@ -64,16 +87,14 @@ public class DirectedSimpleGraphTest
     public void getEdgesCount_ThenNumberOfEdges()
     {
         // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
-
-        testObject.addEdge(vertices.get(7), vertices.get(7), null);
-        testObject.addEdge(vertices.get(1), vertices.get(5), null);
-        testObject.addEdge(vertices.get(2), vertices.get(4), null);
-        testObject.addEdge(vertices.get(8), vertices.get(0), null);
-        testObject.addEdge(vertices.get(6), vertices.get(3), null);
-        testObject.addEdge(vertices.get(3), vertices.get(6), null);
-        testObject.addEdge(vertices.get(9), vertices.get(3), null);
-        testObject.addEdge(vertices.get(8), vertices.get(0), null);
+        testObject.addEdge(testObject.getVertex(7), testObject.getVertex(7), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(5), null);
+        testObject.addEdge(testObject.getVertex(2), testObject.getVertex(4), null);
+        testObject.addEdge(testObject.getVertex(8), testObject.getVertex(0), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(3), null);
+        testObject.addEdge(testObject.getVertex(3), testObject.getVertex(6), null);
+        testObject.addEdge(testObject.getVertex(9), testObject.getVertex(3), null);
+        testObject.addEdge(testObject.getVertex(8), testObject.getVertex(0), null);
         // when
         long result = testObject.getEdgesCount();
         // then
@@ -84,110 +105,141 @@ public class DirectedSimpleGraphTest
     public void getEdges_ThenAllEdges()
     {
         // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
-
-        testObject.addEdge(vertices.get(7), vertices.get(7), null);
-        testObject.addEdge(vertices.get(1), vertices.get(5), null);
-        testObject.addEdge(vertices.get(2), vertices.get(4), null);
-        testObject.addEdge(vertices.get(8), vertices.get(0), null);
-        testObject.addEdge(vertices.get(6), vertices.get(3), null);
-        testObject.addEdge(vertices.get(3), vertices.get(6), null);
-        testObject.addEdge(vertices.get(9), vertices.get(3), null);
-        testObject.addEdge(vertices.get(8), vertices.get(0), null);
+        testObject.addEdge(testObject.getVertex(7), testObject.getVertex(7), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(5), null);
+        testObject.addEdge(testObject.getVertex(2), testObject.getVertex(4), null);
+        testObject.addEdge(testObject.getVertex(8), testObject.getVertex(0), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(3), null);
+        testObject.addEdge(testObject.getVertex(3), testObject.getVertex(6), null);
+        testObject.addEdge(testObject.getVertex(9), testObject.getVertex(3), null);
+        testObject.addEdge(testObject.getVertex(8), testObject.getVertex(0), null);
         // when
         List<Edge<Void, Void>> result = testObject.getEdges();
         // then
         Assertions.assertThat(result).isSorted();
         Assertions.assertThat(result)
-                  .containsExactly(new Edge<>(vertices.get(1), vertices.get(5), null),
-                                   new Edge<>(vertices.get(2), vertices.get(4), null),
-                                   new Edge<>(vertices.get(3), vertices.get(6), null),
-                                   new Edge<>(vertices.get(6), vertices.get(3), null),
-                                   new Edge<>(vertices.get(7), vertices.get(7), null),
-                                   new Edge<>(vertices.get(8), vertices.get(0), null),
-                                   new Edge<>(vertices.get(9), vertices.get(3), null));
+                  .containsExactly(
+                          new Edge<>(testObject.getVertex(1), testObject.getVertex(5), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(4), null),
+                          new Edge<>(testObject.getVertex(3), testObject.getVertex(6), null),
+                          new Edge<>(testObject.getVertex(6), testObject.getVertex(3), null),
+                          new Edge<>(testObject.getVertex(7), testObject.getVertex(7), null),
+                          new Edge<>(testObject.getVertex(8), testObject.getVertex(0), null),
+                          new Edge<>(testObject.getVertex(9), testObject.getVertex(3), null));
+    }
+
+    @Test
+    public void getEdge_WhenInDirection_ThenEdge()
+    {
+        // given
+        Vertex<Void> source = testObject.getVertex(9);
+        Vertex<Void> destination = testObject.getVertex(5);
+
+        testObject.addEdge(source, destination, null);
+        // when
+        Edge<Void, Void> result = testObject.getEdge(source, destination);
+        // then
+        Assertions.assertThat(result.source).isSameAs(source);
+        Assertions.assertThat(result.destination).isSameAs(destination);
+    }
+
+    @Test
+    public void getEdge_WhenNotInDirection_ThenNull()
+    {
+        // given
+        Vertex<Void> source = testObject.getVertex(9);
+        Vertex<Void> destination = testObject.getVertex(5);
+
+        testObject.addEdge(source, destination, null);
+        // when
+        Edge<Void, Void> result = testObject.getEdge(destination, source);
+        // then
+        Assertions.assertThat(result).isNull();
+    }
+
+    @Test
+    public void getEdge_WhenNotExists_ThenNull()
+    {
+        // when
+        Edge<Void, Void> result =
+                testObject.getEdge(testObject.getVertex(1), testObject.getVertex(2));
+        // then
+        Assertions.assertThat(result).isNull();
     }
 
     @Test
     public void addEdge_ThenNewEdge()
     {
-        // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
-
         // when
-        Edge<Void, Void> result = testObject.addEdge(vertices.get(1), vertices.get(5), null);
-        testObject.addEdge(vertices.get(1), vertices.get(5), null);
-        testObject.addEdge(vertices.get(1), vertices.get(1), null);
+        Edge<Void, Void> result =
+                testObject.addEdge(testObject.getVertex(1), testObject.getVertex(5), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(5), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(1), null);
         // then
-        Assertions.assertThat(result.source).isEqualTo(vertices.get(1));
-        Assertions.assertThat(result.destination).isEqualTo(vertices.get(5));
-        Assertions.assertThat(testObject.getNeighbours(vertices.get(1)))
-                  .containsOnly(vertices.get(1), vertices.get(5));
-        Assertions.assertThat(testObject.getNeighbours(vertices.get(5))).isEmpty();
+        Assertions.assertThat(result.source).isEqualTo(testObject.getVertex(1));
+        Assertions.assertThat(result.destination).isEqualTo(testObject.getVertex(5));
+        Assertions.assertThat(testObject.getNeighbours(testObject.getVertex(1)))
+                  .containsOnly(testObject.getVertex(1), testObject.getVertex(5));
+        Assertions.assertThat(testObject.getNeighbours(testObject.getVertex(5))).isEmpty();
     }
 
     @Test
     public void getNeighbours_ThenDestinationVerticesOfOutgoingEdges()
     {
         // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
-
-        testObject.addEdge(vertices.get(1), vertices.get(1), null);
-        testObject.addEdge(vertices.get(1), vertices.get(3), null);
-        testObject.addEdge(vertices.get(1), vertices.get(4), null);
-        testObject.addEdge(vertices.get(1), vertices.get(7), null);
-        testObject.addEdge(vertices.get(1), vertices.get(9), null);
-        testObject.addEdge(vertices.get(2), vertices.get(1), null);
-        testObject.addEdge(vertices.get(6), vertices.get(1), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(3), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(4), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(7), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(9), null);
+        testObject.addEdge(testObject.getVertex(2), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(1), null);
         // when
-        Collection<Vertex<Void>> result = testObject.getNeighbours(vertices.get(1));
+        Collection<Vertex<Void>> result = testObject.getNeighbours(testObject.getVertex(1));
         // then
         Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsOnly(vertices.get(1), vertices.get(3), vertices.get(4), vertices.get(7),
-                                vertices.get(9));
+                  .containsOnly(testObject.getVertex(1), testObject.getVertex(3),
+                                testObject.getVertex(4), testObject.getVertex(7),
+                                testObject.getVertex(9));
     }
 
     @Test
     public void getAdjacentEdges_ThenDestinationVerticesOfOutgoingEdges()
     {
         // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
-
-        testObject.addEdge(vertices.get(1), vertices.get(1), null);
-        testObject.addEdge(vertices.get(1), vertices.get(3), null);
-        testObject.addEdge(vertices.get(1), vertices.get(4), null);
-        testObject.addEdge(vertices.get(1), vertices.get(7), null);
-        testObject.addEdge(vertices.get(1), vertices.get(9), null);
-        testObject.addEdge(vertices.get(2), vertices.get(1), null);
-        testObject.addEdge(vertices.get(6), vertices.get(1), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(3), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(4), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(7), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(9), null);
+        testObject.addEdge(testObject.getVertex(2), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(1), null);
         // when
-        Collection<Edge<Void, Void>> result = testObject.getAdjacentEdges(vertices.get(1));
+        Collection<Edge<Void, Void>> result = testObject.getAdjacentEdges(testObject.getVertex(1));
         // then
         Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(vertices.get(1), vertices.get(1), null),
-                                new Edge<>(vertices.get(1), vertices.get(3), null),
-                                new Edge<>(vertices.get(1), vertices.get(4), null),
-                                new Edge<>(vertices.get(1), vertices.get(7), null),
-                                new Edge<>(vertices.get(1), vertices.get(9), null));
+                  .containsOnly(new Edge<>(testObject.getVertex(1), testObject.getVertex(1), null),
+                                new Edge<>(testObject.getVertex(1), testObject.getVertex(3), null),
+                                new Edge<>(testObject.getVertex(1), testObject.getVertex(4), null),
+                                new Edge<>(testObject.getVertex(1), testObject.getVertex(7), null),
+                                new Edge<>(testObject.getVertex(1), testObject.getVertex(9), null));
     }
 
     @Test
     public void getOutputDegree_ThenNumberOfOutgoingEdges()
     {
         // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
-
-        testObject.addEdge(vertices.get(1), vertices.get(1), null);
-        testObject.addEdge(vertices.get(1), vertices.get(3), null);
-        testObject.addEdge(vertices.get(1), vertices.get(4), null);
-        testObject.addEdge(vertices.get(1), vertices.get(7), null);
-        testObject.addEdge(vertices.get(1), vertices.get(9), null);
-        testObject.addEdge(vertices.get(2), vertices.get(1), null);
-        testObject.addEdge(vertices.get(6), vertices.get(1), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(3), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(4), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(7), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(9), null);
+        testObject.addEdge(testObject.getVertex(2), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(1), null);
         // when
-        long result = testObject.getOutputDegree(vertices.get(1));
+        long result = testObject.getOutputDegree(testObject.getVertex(1));
         // then
         Assertions.assertThat(result).isEqualTo(5L);
     }
@@ -196,17 +248,15 @@ public class DirectedSimpleGraphTest
     public void getInputDegree_ThenNumberOfIncomingEdges()
     {
         // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
-
-        testObject.addEdge(vertices.get(1), vertices.get(1), null);
-        testObject.addEdge(vertices.get(3), vertices.get(1), null);
-        testObject.addEdge(vertices.get(4), vertices.get(1), null);
-        testObject.addEdge(vertices.get(7), vertices.get(1), null);
-        testObject.addEdge(vertices.get(9), vertices.get(1), null);
-        testObject.addEdge(vertices.get(1), vertices.get(2), null);
-        testObject.addEdge(vertices.get(1), vertices.get(6), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(3), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(4), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(7), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(9), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(2), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(6), null);
         // when
-        long result = testObject.getInputDegree(vertices.get(1));
+        long result = testObject.getInputDegree(testObject.getVertex(1));
         // then
         Assertions.assertThat(result).isEqualTo(5L);
     }
@@ -215,31 +265,30 @@ public class DirectedSimpleGraphTest
     public void reverse_ThenAllEdgesHaveReversedDirection()
     {
         // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
-
-        testObject.addEdge(vertices.get(1), vertices.get(2), null);
-        testObject.addEdge(vertices.get(3), vertices.get(5), null);
-        testObject.addEdge(vertices.get(4), vertices.get(9), null);
-        testObject.addEdge(vertices.get(5), vertices.get(4), null);
-        testObject.addEdge(vertices.get(5), vertices.get(7), null);
-        testObject.addEdge(vertices.get(6), vertices.get(2), null);
-        testObject.addEdge(vertices.get(6), vertices.get(6), null);
-        testObject.addEdge(vertices.get(7), vertices.get(8), null);
-        testObject.addEdge(vertices.get(9), vertices.get(1), null);
-        testObject.addEdge(vertices.get(9), vertices.get(6), null);
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(2), null);
+        testObject.addEdge(testObject.getVertex(3), testObject.getVertex(5), null);
+        testObject.addEdge(testObject.getVertex(4), testObject.getVertex(9), null);
+        testObject.addEdge(testObject.getVertex(5), testObject.getVertex(4), null);
+        testObject.addEdge(testObject.getVertex(5), testObject.getVertex(7), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(2), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(6), null);
+        testObject.addEdge(testObject.getVertex(7), testObject.getVertex(8), null);
+        testObject.addEdge(testObject.getVertex(9), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(9), testObject.getVertex(6), null);
         // when
         testObject.reverse();
         // then
         Assertions.assertThat(testObject.getEdges())
-                  .containsExactly(new Edge<>(vertices.get(1), vertices.get(9), null),
-                                   new Edge<>(vertices.get(2), vertices.get(1), null),
-                                   new Edge<>(vertices.get(2), vertices.get(6), null),
-                                   new Edge<>(vertices.get(4), vertices.get(5), null),
-                                   new Edge<>(vertices.get(5), vertices.get(3), null),
-                                   new Edge<>(vertices.get(6), vertices.get(6), null),
-                                   new Edge<>(vertices.get(6), vertices.get(9), null),
-                                   new Edge<>(vertices.get(7), vertices.get(5), null),
-                                   new Edge<>(vertices.get(8), vertices.get(7), null),
-                                   new Edge<>(vertices.get(9), vertices.get(4), null));
+                  .containsExactly(
+                          new Edge<>(testObject.getVertex(1), testObject.getVertex(9), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(1), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(6), null),
+                          new Edge<>(testObject.getVertex(4), testObject.getVertex(5), null),
+                          new Edge<>(testObject.getVertex(5), testObject.getVertex(3), null),
+                          new Edge<>(testObject.getVertex(6), testObject.getVertex(6), null),
+                          new Edge<>(testObject.getVertex(6), testObject.getVertex(9), null),
+                          new Edge<>(testObject.getVertex(7), testObject.getVertex(5), null),
+                          new Edge<>(testObject.getVertex(8), testObject.getVertex(7), null),
+                          new Edge<>(testObject.getVertex(9), testObject.getVertex(4), null));
     }
 }

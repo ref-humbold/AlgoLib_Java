@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedSimpleGraph;
+import algolib.graphs.Graph;
 import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.Paths;
@@ -21,58 +22,70 @@ public class PathsTest
 {
     private DirectedSimpleGraph<Void, Weight> directedGraph;
     private UndirectedSimpleGraph<Void, Weight> undirectedGraph;
-    private List<Vertex<Void>> verticesDirected;
-    private List<Vertex<Void>> verticesUndirected;
 
     @BeforeEach
     public void setUp()
     {
         directedGraph = new DirectedSimpleGraph<>(Collections.nCopies(10, null));
-        verticesDirected = directedGraph.getVertices();
 
-        directedGraph.addEdge(verticesDirected.get(0), verticesDirected.get(1), new Weight(4.0));
-        directedGraph.addEdge(verticesDirected.get(1), verticesDirected.get(4), new Weight(7.0));
-        directedGraph.addEdge(verticesDirected.get(1), verticesDirected.get(7), new Weight(12.0));
-        directedGraph.addEdge(verticesDirected.get(2), verticesDirected.get(4), new Weight(6.0));
-        directedGraph.addEdge(verticesDirected.get(2), verticesDirected.get(6), new Weight(8.0));
-        directedGraph.addEdge(verticesDirected.get(3), verticesDirected.get(0), new Weight(3.0));
-        directedGraph.addEdge(verticesDirected.get(3), verticesDirected.get(7), new Weight(5.0));
-        directedGraph.addEdge(verticesDirected.get(4), verticesDirected.get(5), new Weight(1.0));
-        directedGraph.addEdge(verticesDirected.get(4), verticesDirected.get(3), new Weight(10.0));
-        directedGraph.addEdge(verticesDirected.get(5), verticesDirected.get(6), new Weight(4.0));
-        directedGraph.addEdge(verticesDirected.get(5), verticesDirected.get(8), new Weight(2.0));
-        directedGraph.addEdge(verticesDirected.get(6), verticesDirected.get(5), new Weight(7.0));
-        directedGraph.addEdge(verticesDirected.get(7), verticesDirected.get(5), new Weight(2.0));
-        directedGraph.addEdge(verticesDirected.get(7), verticesDirected.get(8), new Weight(6.0));
-        directedGraph.addEdge(verticesDirected.get(8), verticesDirected.get(9), new Weight(10.0));
-        directedGraph.addEdge(verticesDirected.get(9), verticesDirected.get(6), new Weight(3.0));
+        directedGraph.addEdge(directedGraph.getVertex(0), directedGraph.getVertex(1),
+                              new Weight(4.0));
+        directedGraph.addEdge(directedGraph.getVertex(1), directedGraph.getVertex(4),
+                              new Weight(7.0));
+        directedGraph.addEdge(directedGraph.getVertex(1), directedGraph.getVertex(7),
+                              new Weight(12.0));
+        directedGraph.addEdge(directedGraph.getVertex(2), directedGraph.getVertex(4),
+                              new Weight(6.0));
+        directedGraph.addEdge(directedGraph.getVertex(2), directedGraph.getVertex(6),
+                              new Weight(8.0));
+        directedGraph.addEdge(directedGraph.getVertex(3), directedGraph.getVertex(0),
+                              new Weight(3.0));
+        directedGraph.addEdge(directedGraph.getVertex(3), directedGraph.getVertex(7),
+                              new Weight(5.0));
+        directedGraph.addEdge(directedGraph.getVertex(4), directedGraph.getVertex(5),
+                              new Weight(1.0));
+        directedGraph.addEdge(directedGraph.getVertex(4), directedGraph.getVertex(3),
+                              new Weight(10.0));
+        directedGraph.addEdge(directedGraph.getVertex(5), directedGraph.getVertex(6),
+                              new Weight(4.0));
+        directedGraph.addEdge(directedGraph.getVertex(5), directedGraph.getVertex(8),
+                              new Weight(2.0));
+        directedGraph.addEdge(directedGraph.getVertex(6), directedGraph.getVertex(5),
+                              new Weight(7.0));
+        directedGraph.addEdge(directedGraph.getVertex(7), directedGraph.getVertex(5),
+                              new Weight(2.0));
+        directedGraph.addEdge(directedGraph.getVertex(7), directedGraph.getVertex(8),
+                              new Weight(6.0));
+        directedGraph.addEdge(directedGraph.getVertex(8), directedGraph.getVertex(9),
+                              new Weight(10.0));
+        directedGraph.addEdge(directedGraph.getVertex(9), directedGraph.getVertex(6),
+                              new Weight(3.0));
 
         undirectedGraph = new UndirectedSimpleGraph<>(Collections.nCopies(10, null));
-        verticesUndirected = undirectedGraph.getVertices();
 
-        undirectedGraph.addEdge(verticesUndirected.get(0), verticesUndirected.get(1),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(0), undirectedGraph.getVertex(1),
                                 new Weight(4.0));
-        undirectedGraph.addEdge(verticesUndirected.get(1), verticesUndirected.get(4),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(1), undirectedGraph.getVertex(4),
                                 new Weight(7.0));
-        undirectedGraph.addEdge(verticesUndirected.get(1), verticesUndirected.get(7),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(1), undirectedGraph.getVertex(7),
                                 new Weight(12.0));
-        undirectedGraph.addEdge(verticesUndirected.get(2), verticesUndirected.get(6),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(2), undirectedGraph.getVertex(6),
                                 new Weight(8.0));
-        undirectedGraph.addEdge(verticesUndirected.get(3), verticesUndirected.get(0),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(3), undirectedGraph.getVertex(0),
                                 new Weight(3.0));
-        undirectedGraph.addEdge(verticesUndirected.get(3), verticesUndirected.get(7),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(3), undirectedGraph.getVertex(7),
                                 new Weight(5.0));
-        undirectedGraph.addEdge(verticesUndirected.get(4), verticesUndirected.get(5),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(4), undirectedGraph.getVertex(5),
                                 new Weight(1.0));
-        undirectedGraph.addEdge(verticesUndirected.get(4), verticesUndirected.get(3),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(4), undirectedGraph.getVertex(3),
                                 new Weight(10.0));
-        undirectedGraph.addEdge(verticesUndirected.get(5), verticesUndirected.get(8),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(5), undirectedGraph.getVertex(8),
                                 new Weight(2.0));
-        undirectedGraph.addEdge(verticesUndirected.get(7), verticesUndirected.get(5),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(7), undirectedGraph.getVertex(5),
                                 new Weight(2.0));
-        undirectedGraph.addEdge(verticesUndirected.get(7), verticesUndirected.get(8),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(7), undirectedGraph.getVertex(8),
                                 new Weight(6.0));
-        undirectedGraph.addEdge(verticesUndirected.get(9), verticesUndirected.get(6),
+        undirectedGraph.addEdge(undirectedGraph.getVertex(9), undirectedGraph.getVertex(6),
                                 new Weight(3.0));
     }
 
@@ -81,24 +94,23 @@ public class PathsTest
     {
         directedGraph = null;
         undirectedGraph = null;
-        verticesDirected = null;
-        verticesUndirected = null;
     }
 
     @Test
     public void bellmanFord_WhenDirectedGraph()
     {
         // given
-        Map<Vertex<Void>, Double> expected = getExpected(verticesDirected,
+        Map<Vertex<Void>, Double> expected = getExpected(directedGraph,
                                                          List.of(20.0, 0.0, Weighted.INFINITY, 17.0,
                                                                  7.0, 8.0, 12.0, 12.0, 10.0, 20.0));
 
-        directedGraph.addEdge(verticesDirected.get(2), verticesDirected.get(1), new Weight(-2.0));
+        directedGraph.addEdge(directedGraph.getVertex(2), directedGraph.getVertex(1),
+                              new Weight(-2.0));
         // when
         Map<Vertex<Void>, Double> result =
-                Paths.bellmanFord(directedGraph, verticesDirected.get(1));
+                Paths.bellmanFord(directedGraph, directedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(verticesDirected);
+        Assertions.assertThat(result).containsOnlyKeys(directedGraph.getVertices());
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
@@ -106,15 +118,15 @@ public class PathsTest
     public void bellmanFord_WhenUndirectedGraph()
     {
         // given
-        Map<Vertex<Void>, Double> expected = getExpected(verticesUndirected,
+        Map<Vertex<Void>, Double> expected = getExpected(undirectedGraph,
                                                          List.of(4.0, 0.0, Weighted.INFINITY, 7.0,
                                                                  7.0, 8.0, Weighted.INFINITY, 10.0,
                                                                  10.0, Weighted.INFINITY));
         // when
         Map<Vertex<Void>, Double> result =
-                Paths.bellmanFord(undirectedGraph.asDirected(), verticesUndirected.get(1));
+                Paths.bellmanFord(undirectedGraph.asDirected(), undirectedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(verticesUndirected);
+        Assertions.assertThat(result).containsOnlyKeys(undirectedGraph.getVertices());
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
@@ -122,10 +134,11 @@ public class PathsTest
     public void bellmanFord_WhenNegativeCycle_ThenIllegalStateException()
     {
         // given
-        directedGraph.addEdge(verticesDirected.get(8), verticesDirected.get(3), new Weight(-20.0));
+        directedGraph.addEdge(directedGraph.getVertex(8), directedGraph.getVertex(3),
+                              new Weight(-20.0));
         // when
         Throwable throwable = Assertions.catchThrowable(
-                () -> Paths.bellmanFord(directedGraph, verticesDirected.get(1)));
+                () -> Paths.bellmanFord(directedGraph, directedGraph.getVertex(1)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalStateException.class);
     }
@@ -134,13 +147,14 @@ public class PathsTest
     public void dijkstra_WhenDirectedGraph()
     {
         // given
-        Map<Vertex<Void>, Double> expected = getExpected(verticesDirected,
+        Map<Vertex<Void>, Double> expected = getExpected(directedGraph,
                                                          List.of(20.0, 0.0, Weighted.INFINITY, 17.0,
                                                                  7.0, 8.0, 12.0, 12.0, 10.0, 20.0));
         // when
-        Map<Vertex<Void>, Double> result = Paths.dijkstra(directedGraph, verticesDirected.get(1));
+        Map<Vertex<Void>, Double> result =
+                Paths.dijkstra(directedGraph, directedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(verticesDirected);
+        Assertions.assertThat(result).containsOnlyKeys(directedGraph.getVertices());
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
@@ -148,15 +162,15 @@ public class PathsTest
     public void dijkstra_WhenUndirectedGraph()
     {
         // given
-        Map<Vertex<Void>, Double> expected = getExpected(verticesUndirected,
+        Map<Vertex<Void>, Double> expected = getExpected(undirectedGraph,
                                                          List.of(4.0, 0.0, Weighted.INFINITY, 7.0,
                                                                  7.0, 8.0, Weighted.INFINITY, 10.0,
                                                                  10.0, Weighted.INFINITY));
         // when
         Map<Vertex<Void>, Double> result =
-                Paths.dijkstra(undirectedGraph, verticesUndirected.get(1));
+                Paths.dijkstra(undirectedGraph, undirectedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(verticesUndirected);
+        Assertions.assertThat(result).containsOnlyKeys(undirectedGraph.getVertices());
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
@@ -164,10 +178,11 @@ public class PathsTest
     public void dijkstra_WhenNegativeEdge_ThenIllegalStateException()
     {
         // given
-        directedGraph.addEdge(verticesDirected.get(2), verticesDirected.get(1), new Weight(-2.0));
+        directedGraph.addEdge(directedGraph.getVertex(2), directedGraph.getVertex(1),
+                              new Weight(-2.0));
         // when
         Throwable throwable = Assertions.catchThrowable(
-                () -> Paths.dijkstra(directedGraph, verticesDirected.get(1)));
+                () -> Paths.dijkstra(directedGraph, directedGraph.getVertex(1)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalStateException.class);
     }
@@ -196,10 +211,11 @@ public class PathsTest
 
         for(int i = 0; i < distances.length; ++i)
             for(int j = 0; j < distances[i].length; ++j)
-                expected.put(Pair.of(verticesDirected.get(i), verticesDirected.get(j)),
+                expected.put(Pair.of(directedGraph.getVertex(i), directedGraph.getVertex(j)),
                              distances[i][j]);
 
-        directedGraph.addEdge(verticesDirected.get(2), verticesDirected.get(1), new Weight(-2.0));
+        directedGraph.addEdge(directedGraph.getVertex(2), directedGraph.getVertex(1),
+                              new Weight(-2.0));
         // when
         Map<Pair<Vertex<Void>, Vertex<Void>>, Double> result = Paths.floydWarshall(directedGraph);
         // then
@@ -235,7 +251,7 @@ public class PathsTest
 
         for(int i = 0; i < distances.length; ++i)
             for(int j = 0; j < distances[i].length; ++j)
-                expected.put(Pair.of(verticesUndirected.get(i), verticesUndirected.get(j)),
+                expected.put(Pair.of(undirectedGraph.getVertex(i), undirectedGraph.getVertex(j)),
                              distances[i][j]);
 
         // when
@@ -245,13 +261,12 @@ public class PathsTest
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
-    private Map<Vertex<Void>, Double> getExpected(List<Vertex<Void>> vertices,
-                                                  List<Double> distances)
+    private Map<Vertex<Void>, Double> getExpected(Graph<Void, Weight> graph, List<Double> distances)
     {
         Map<Vertex<Void>, Double> map = new HashMap<>();
 
         for(int i = 0; i < distances.size(); ++i)
-            map.put(vertices.get(i), distances.get(i));
+            map.put(graph.getVertex(i), distances.get(i));
 
         return map;
     }

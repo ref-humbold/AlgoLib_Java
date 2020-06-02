@@ -2,72 +2,90 @@
 package algolib.graphs.algorithm;
 
 import java.util.Collections;
-import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import algolib.graphs.UndirectedGraph;
 import algolib.graphs.UndirectedSimpleGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.MinimalSpanningTree;
 import algolib.graphs.properties.Weighted;
 
 public class MinimalSpanningTreeTest
 {
     private UndirectedSimpleGraph<Void, Weight> graph;
-    private List<Vertex<Void>> vertices;
 
     @BeforeEach
     public void setUp()
     {
         graph = new UndirectedSimpleGraph<>(Collections.nCopies(5, null));
-        vertices = graph.getVertices();
 
-        graph.addEdge(vertices.get(0), vertices.get(1), new Weight(-1.0));
-        graph.addEdge(vertices.get(0), vertices.get(2), new Weight(4.0));
-        graph.addEdge(vertices.get(1), vertices.get(2), new Weight(9.0));
-        graph.addEdge(vertices.get(1), vertices.get(3), new Weight(7.0));
-        graph.addEdge(vertices.get(1), vertices.get(4), new Weight(12.0));
-        graph.addEdge(vertices.get(2), vertices.get(4), new Weight(6.0));
-        graph.addEdge(vertices.get(3), vertices.get(4), new Weight(3.0));
+        graph.addEdge(graph.getVertex(0), graph.getVertex(1), new Weight(-1.0));
+        graph.addEdge(graph.getVertex(0), graph.getVertex(2), new Weight(4.0));
+        graph.addEdge(graph.getVertex(1), graph.getVertex(2), new Weight(9.0));
+        graph.addEdge(graph.getVertex(1), graph.getVertex(3), new Weight(7.0));
+        graph.addEdge(graph.getVertex(1), graph.getVertex(4), new Weight(12.0));
+        graph.addEdge(graph.getVertex(2), graph.getVertex(4), new Weight(6.0));
+        graph.addEdge(graph.getVertex(3), graph.getVertex(4), new Weight(3.0));
     }
 
     @AfterEach
     public void tearDown()
     {
         graph = null;
-        vertices = null;
     }
 
     @Test
-    public void kruskal_ThenSizeOfMST()
+    public void kruskal_ThenMST()
     {
         // when
-        double result = MinimalSpanningTree.kruskal(graph);
+        UndirectedGraph<Void, Weight> result = MinimalSpanningTree.kruskal(graph);
         // then
-        Assertions.assertThat(result).isCloseTo(12.0, Offset.offset(0.000001));
+        double mstSize =
+                result.getEdges().stream().mapToDouble(edge -> edge.property.getWeight()).sum();
+
+        Assertions.assertThat(result.getVerticesCount()).isEqualTo(graph.getVerticesCount());
+        Assertions.assertThat(result.getVertices()).hasSameElementsAs(graph.getVertices());
+        Assertions.assertThat(result.getEdgesCount()).isEqualTo(4);
+        Assertions.assertThat(result.getEdges())
+                  .containsOnly(graph.getEdge(graph.getVertex(0), graph.getVertex(1)),
+                                graph.getEdge(graph.getVertex(0), graph.getVertex(2)),
+                                graph.getEdge(graph.getVertex(2), graph.getVertex(4)),
+                                graph.getEdge(graph.getVertex(3), graph.getVertex(4)));
+        Assertions.assertThat(mstSize).isCloseTo(12.0, Offset.offset(0.000001));
     }
 
     @Test
-    public void prim_ThenSizeOfMST()
+    public void prim_ThenMST()
     {
         // when
-        double result = MinimalSpanningTree.prim(graph, vertices.get(0));
+        UndirectedGraph<Void, Weight> result = MinimalSpanningTree.prim(graph, graph.getVertex(0));
         // then
-        Assertions.assertThat(result).isCloseTo(12.0, Offset.offset(0.000001));
+        double mstSize =
+                result.getEdges().stream().mapToDouble(edge -> edge.property.getWeight()).sum();
+
+        Assertions.assertThat(result.getVerticesCount()).isEqualTo(graph.getVerticesCount());
+        Assertions.assertThat(result.getVertices()).hasSameElementsAs(graph.getVertices());
+        Assertions.assertThat(result.getEdgesCount()).isEqualTo(4);
+        Assertions.assertThat(result.getEdges())
+                  .containsOnly(graph.getEdge(graph.getVertex(0), graph.getVertex(1)),
+                                graph.getEdge(graph.getVertex(0), graph.getVertex(2)),
+                                graph.getEdge(graph.getVertex(2), graph.getVertex(4)),
+                                graph.getEdge(graph.getVertex(3), graph.getVertex(4)));
+        Assertions.assertThat(mstSize).isCloseTo(12.0, Offset.offset(0.000001));
     }
 
     @Test
-    public void prim_WhenDifferentSources_ThenSameSize()
+    public void prim_WhenDifferentSources_ThenSameMST()
     {
         // when
-        double result1 = MinimalSpanningTree.prim(graph, vertices.get(1));
-        double result4 = MinimalSpanningTree.prim(graph, vertices.get(4));
+        UndirectedGraph<Void, Weight> result1 = MinimalSpanningTree.prim(graph, graph.getVertex(1));
+        UndirectedGraph<Void, Weight> result4 = MinimalSpanningTree.prim(graph, graph.getVertex(4));
         // then
-        Assertions.assertThat(result1).isCloseTo(12.0, Offset.offset(0.000001));
-        Assertions.assertThat(result4).isCloseTo(result1, Offset.offset(0.000001));
+        Assertions.assertThat(result1.getEdgesCount()).isEqualTo(result4.getEdgesCount());
+        Assertions.assertThat(result1.getEdges()).hasSameElementsAs(result4.getEdges());
     }
 
     private static final class Weight

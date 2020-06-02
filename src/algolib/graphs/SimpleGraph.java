@@ -13,13 +13,18 @@ public abstract class SimpleGraph<V, E>
 
     public SimpleGraph()
     {
-        this(List.of());
+        graphRepresentation = new GraphRepresentation<>();
     }
 
     public SimpleGraph(Collection<V> properties)
     {
-        graphRepresentation = new GraphRepresentation<>();
+        this();
         properties.forEach(property -> addVertex(property));
+    }
+
+    public SimpleGraph(Graph<V, E> graph)
+    {
+        graphRepresentation = new GraphRepresentation<>(graph.getVertices());
     }
 
     @Override
@@ -35,6 +40,17 @@ public abstract class SimpleGraph<V, E>
     }
 
     @Override
+    public Vertex<V> getVertex(int index)
+    {
+        return graphRepresentation.getVertices()
+                                  .filter(v -> index == v.index)
+                                  .findFirst()
+                                  .orElseThrow(() -> new IndexOutOfBoundsException(
+                                          String.format("No vertex with index %d in this graph",
+                                                        index)));
+    }
+
+    @Override
     public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
     {
         return graphRepresentation.getAdjacentEdges(vertex)
@@ -47,6 +63,16 @@ public abstract class SimpleGraph<V, E>
     public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
     {
         return graphRepresentation.getAdjacentEdges(vertex);
+    }
+
+    @Override
+    public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
+    {
+        return graphRepresentation.getAdjacentEdges(source)
+                                  .stream()
+                                  .filter(edge -> edge.getNeighbour(source) == destination)
+                                  .findFirst()
+                                  .orElse(null);
     }
 
     /**

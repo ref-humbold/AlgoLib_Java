@@ -19,6 +19,11 @@ public class UndirectedSimpleGraph<V, E>
         super(properties);
     }
 
+    public UndirectedSimpleGraph(Graph<V, E> graph)
+    {
+        super(graph);
+    }
+
     @Override
     public int getEdgesCount()
     {
@@ -61,9 +66,8 @@ public class UndirectedSimpleGraph<V, E>
      */
     public DirectedSimpleGraph<V, E> asDirected()
     {
-        DirectedSimpleGraph<V, E> directedSimpleGraph = new DirectedSimpleGraph<>();
+        DirectedSimpleGraph<V, E> directedSimpleGraph = new DirectedSimpleGraph<>(this);
 
-        directedSimpleGraph.graphRepresentation = new GraphRepresentation<>(graphRepresentation);
         getEdges().forEach(edge -> {
             directedSimpleGraph.addEdge(edge.source, edge.destination, edge.property);
             directedSimpleGraph.addEdge(edge.destination, edge.source, edge.property);

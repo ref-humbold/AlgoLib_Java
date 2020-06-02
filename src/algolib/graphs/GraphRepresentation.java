@@ -15,9 +15,9 @@ class GraphRepresentation<V, E>
     {
     }
 
-    GraphRepresentation(GraphRepresentation<V, E> representation)
+    GraphRepresentation(Collection<Vertex<V>> vertices)
     {
-        representation.graphMap.keySet().forEach(vertex -> graphMap.put(vertex, new HashSet<>()));
+        vertices.forEach(vertex -> graphMap.put(vertex, new HashSet<>()));
     }
 
     Stream<Vertex<V>> getVertices()

@@ -39,6 +39,18 @@ public class TreeGraph<V, E>
         return graph.getEdges();
     }
 
+    @Override
+    public Vertex<V> getVertex(int index)
+    {
+        return graph.getVertex(index);
+    }
+
+    @Override
+    public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
+    {
+        return graph.getEdge(source, destination);
+    }
+
     public Vertex<V> addVertex(V vertexProperty, E edgeProperty, Vertex<V> neighbour)
     {
         Vertex<V> vertex = graph.addVertex(vertexProperty);

@@ -20,6 +20,11 @@ public class DirectedSimpleGraph<V, E>
         super(properties);
     }
 
+    public DirectedSimpleGraph(Graph<V, E> graph)
+    {
+        super(graph);
+    }
+
     @Override
     public int getEdgesCount()
     {
@@ -63,7 +68,7 @@ public class DirectedSimpleGraph<V, E>
     {
         List<Edge<E, V>> edges = getEdges();
 
-        graphRepresentation = new GraphRepresentation<>(graphRepresentation);
+        graphRepresentation = new GraphRepresentation<>(getVertices());
         edges.forEach(edge -> graphRepresentation.addEdgeToSource(
                 new Edge<>(edge.destination, edge.source, edge.property)));
     }

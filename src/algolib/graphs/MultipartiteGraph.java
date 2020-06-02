@@ -53,6 +53,18 @@ public class MultipartiteGraph<V, E>
         return graph.getEdges();
     }
 
+    @Override
+    public Vertex<V> getVertex(int index)
+    {
+        return graph.getVertex(index);
+    }
+
+    @Override
+    public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
+    {
+        return graph.getEdge(source, destination);
+    }
+
     public Vertex<V> addVertex(V property, int group)
     {
         validateGroup(group);

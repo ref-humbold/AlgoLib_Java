@@ -7,10 +7,11 @@ import java.util.Set;
 
 import algolib.graphs.Edge;
 import algolib.graphs.UndirectedGraph;
+import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.structures.DisjointSets;
-import algolib.tuples.ComparablePair;
+import algolib.tuples.Pair;
 
 public final class MinimalSpanningTree
 {
@@ -19,9 +20,9 @@ public final class MinimalSpanningTree
      * @param graph an undirected weighted graph
      * @return size of the minimal spanning tree
      */
-    public static <V, E extends Weighted> double kruskal(UndirectedGraph<V, E> graph)
+    public static <V, E extends Weighted> UndirectedGraph<V, E> kruskal(UndirectedGraph<V, E> graph)
     {
-        double sizeMST = 0.0;
+        UndirectedSimpleGraph<V, E> mst = new UndirectedSimpleGraph<>(graph);
         DisjointSets<Vertex<V>> vertexSets = new DisjointSets<>(graph.getVertices());
         PriorityQueue<Edge<E, V>> edgeQueue = new PriorityQueue<>((edge1, edge2) -> {
             int compareWeights =
@@ -38,12 +39,12 @@ public final class MinimalSpanningTree
             Edge<E, V> edge = edgeQueue.remove();
 
             if(!vertexSets.isSameSet(edge.source, edge.destination))
-                sizeMST += edge.property.getWeight();
+                mst.addEdge(edge.source, edge.destination, edge.property);
 
             vertexSets.unionSet(edge.source, edge.destination);
         }
 
-        return sizeMST;
+        return mst;
     }
 
     /**
@@ -52,36 +53,50 @@ public final class MinimalSpanningTree
      * @param source starting vertex
      * @return size of the minimal spanning tree
      */
-    public static <V, E extends Weighted> double prim(UndirectedGraph<V, E> graph, Vertex<V> source)
+    public static <V, E extends Weighted> UndirectedGraph<V, E> prim(UndirectedGraph<V, E> graph,
+                                                                     Vertex<V> source)
     {
-        double sizeMST = 0.0;
-        PriorityQueue<ComparablePair<Double, Vertex<V>>> vertexQueue = new PriorityQueue<>();
+        UndirectedSimpleGraph<V, E> mst = new UndirectedSimpleGraph<>(graph);
         Set<Vertex<V>> visited = new HashSet<>();
+        PriorityQueue<Pair<Edge<E, V>, Vertex<V>>> queue = new PriorityQueue<>((pair1, pair2) -> {
+            int compareWeights = Double.compare(pair1.first.property.getWeight(),
+                                                pair2.first.property.getWeight());
 
-        vertexQueue.add(ComparablePair.of(0.0, source));
+            return compareWeights != 0 ? compareWeights : pair1.second.compareTo(pair2.second);
+        });
 
-        while(!vertexQueue.isEmpty())
+        visited.add(source);
+
+        for(Edge<E, V> adjacentEdges : graph.getAdjacentEdges(source))
         {
-            Double edgeWeight = vertexQueue.element().first;
-            Vertex<V> vertex = vertexQueue.element().second;
+            Vertex<V> neighbour = adjacentEdges.getNeighbour(source);
 
-            vertexQueue.remove();
+            if(!visited.contains(neighbour))
+                queue.add(Pair.of(adjacentEdges, neighbour));
+        }
+
+        while(!queue.isEmpty())
+        {
+            Edge<E, V> edge = queue.element().first;
+            Vertex<V> vertex = queue.element().second;
+
+            queue.remove();
 
             if(!visited.contains(vertex))
             {
                 visited.add(vertex);
-                sizeMST += edgeWeight;
+                mst.addEdge(edge.source, edge.destination, edge.property);
 
-                for(Edge<E, V> edge : graph.getAdjacentEdges(vertex))
+                for(Edge<E, V> adjacentEdges : graph.getAdjacentEdges(vertex))
                 {
-                    Vertex<V> neighbour = edge.getNeighbour(vertex);
+                    Vertex<V> neighbour = adjacentEdges.getNeighbour(vertex);
 
                     if(!visited.contains(neighbour))
-                        vertexQueue.add(ComparablePair.of(edge.property.getWeight(), neighbour));
+                        queue.add(Pair.of(adjacentEdges, neighbour));
                 }
             }
         }
 
-        return sizeMST;
+        return mst;
     }
 }

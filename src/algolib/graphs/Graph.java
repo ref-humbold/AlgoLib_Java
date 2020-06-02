@@ -19,6 +19,19 @@ public interface Graph<V, E>
     List<Edge<E, V>> getEdges();
 
     /**
+     * @param index vertex index
+     * @return vertex with the index
+     */
+    Vertex<V> getVertex(int index);
+
+    /**
+     * @param source source vertex
+     * @param destination destination vertex
+     * @return edge between the vertices, or {@code null} of no edge
+     */
+    Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination);
+
+    /**
      * @param vertex a vertex from this graph
      * @return list of neighbouring vertices
      */

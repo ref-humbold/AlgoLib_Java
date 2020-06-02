@@ -1,7 +1,6 @@
 // Tests: Structure of tree graph
 package algolib.graphs;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -18,15 +17,13 @@ public class TreeGraphTest
     {
         testObject = new TreeGraph<>(null);
 
-        List<Vertex<Void>> vertices = new ArrayList<>(testObject.getVertices());
-
-        vertices.add(testObject.addVertex(null, null, vertices.get(0)));
-        vertices.add(testObject.addVertex(null, null, vertices.get(0)));
-        vertices.add(testObject.addVertex(null, null, vertices.get(0)));
-        vertices.add(testObject.addVertex(null, null, vertices.get(1)));
-        vertices.add(testObject.addVertex(null, null, vertices.get(1)));
-        vertices.add(testObject.addVertex(null, null, vertices.get(2)));
-        vertices.add(testObject.addVertex(null, null, vertices.get(2)));
+        testObject.addVertex(null, null, testObject.getVertex(0));
+        testObject.addVertex(null, null, testObject.getVertex(0));
+        testObject.addVertex(null, null, testObject.getVertex(0));
+        testObject.addVertex(null, null, testObject.getVertex(1));
+        testObject.addVertex(null, null, testObject.getVertex(1));
+        testObject.addVertex(null, null, testObject.getVertex(2));
+        testObject.addVertex(null, null, testObject.getVertex(2));
     }
 
     @AfterEach
@@ -59,16 +56,27 @@ public class TreeGraphTest
     }
 
     @Test
-    public void addVertex_ThenNewVertex()
+    public void getVertex_WhenIndexInRange_ThenVertex()
     {
         // given
+        int index = 7;
         List<Vertex<Void>> vertices = testObject.getVertices();
         // when
-        Vertex<Void> result = testObject.addVertex(null, null, vertices.get(0));
+        Vertex<Void> result = testObject.getVertex(index);
+        // then
+        Assertions.assertThat(result).isSameAs(vertices.get(index));
+    }
+
+    @Test
+    public void addVertex_ThenNewVertex()
+    {
+        // when
+        Vertex<Void> result = testObject.addVertex(null, null, testObject.getVertex(0));
         // then
         Assertions.assertThat(result.index).isEqualTo(8);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(9);
-        Assertions.assertThat(testObject.getNeighbours(result)).containsExactly(vertices.get(0));
+        Assertions.assertThat(testObject.getNeighbours(result))
+                  .containsExactly(testObject.getVertex(0));
     }
 
     @Test
@@ -83,57 +91,64 @@ public class TreeGraphTest
     @Test
     public void getEdges_ThenAllEdges()
     {
-        // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
         // when
         List<Edge<Void, Void>> result = testObject.getEdges();
         // then
         Assertions.assertThat(result).isSorted();
         Assertions.assertThat(result)
-                  .containsExactly(new Edge<>(vertices.get(0), vertices.get(1), null),
-                                   new Edge<>(vertices.get(0), vertices.get(2), null),
-                                   new Edge<>(vertices.get(0), vertices.get(3), null),
-                                   new Edge<>(vertices.get(1), vertices.get(4), null),
-                                   new Edge<>(vertices.get(1), vertices.get(5), null),
-                                   new Edge<>(vertices.get(2), vertices.get(6), null),
-                                   new Edge<>(vertices.get(2), vertices.get(7), null));
+                  .containsExactly(
+                          new Edge<>(testObject.getVertex(0), testObject.getVertex(1), null),
+                          new Edge<>(testObject.getVertex(0), testObject.getVertex(2), null),
+                          new Edge<>(testObject.getVertex(0), testObject.getVertex(3), null),
+                          new Edge<>(testObject.getVertex(1), testObject.getVertex(4), null),
+                          new Edge<>(testObject.getVertex(1), testObject.getVertex(5), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(6), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(7), null));
+    }
+
+    @Test
+    public void getEdge_WhenExists_ThenEdge()
+    {
+        // given
+        Vertex<Void> source = testObject.getVertex(1);
+        Vertex<Void> destination = testObject.getVertex(5);
+        // when
+        Edge<Void, Void> result = testObject.getEdge(source, destination);
+        // then
+        Assertions.assertThat(result.source).isSameAs(source);
+        Assertions.assertThat(result.destination).isSameAs(destination);
     }
 
     @Test
     public void getNeighbours_ThenDestinationVerticesOfOutgoingEdges()
     {
-        // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
         // when
-        Collection<Vertex<Void>> result = testObject.getNeighbours(vertices.get(1));
+        Collection<Vertex<Void>> result = testObject.getNeighbours(testObject.getVertex(1));
         // then
         Assertions.assertThat(result).hasSize(3);
         Assertions.assertThat(result)
-                  .containsOnly(vertices.get(0), vertices.get(4), vertices.get(5));
+                  .containsOnly(testObject.getVertex(0), testObject.getVertex(4),
+                                testObject.getVertex(5));
     }
 
     @Test
     public void getAdjacentEdges_ThenDestinationVerticesOfOutgoingEdges()
     {
-        // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
         // when
-        Collection<Edge<Void, Void>> result = testObject.getAdjacentEdges(vertices.get(1));
+        Collection<Edge<Void, Void>> result = testObject.getAdjacentEdges(testObject.getVertex(1));
         // then
         Assertions.assertThat(result).hasSize(3);
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(vertices.get(0), vertices.get(1), null),
-                                new Edge<>(vertices.get(1), vertices.get(4), null),
-                                new Edge<>(vertices.get(1), vertices.get(5), null));
+                  .containsOnly(new Edge<>(testObject.getVertex(0), testObject.getVertex(1), null),
+                                new Edge<>(testObject.getVertex(1), testObject.getVertex(4), null),
+                                new Edge<>(testObject.getVertex(1), testObject.getVertex(5), null));
     }
 
     @Test
     public void getOutputDegree_ThenNumberOfOutgoingEdges()
     {
-        // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
         // when
-        long result = testObject.getOutputDegree(vertices.get(1));
+        long result = testObject.getOutputDegree(testObject.getVertex(1));
         // then
         Assertions.assertThat(result).isEqualTo(3L);
     }
@@ -141,10 +156,8 @@ public class TreeGraphTest
     @Test
     public void getInputDegree_ThenNumberOfIncomingEdges()
     {
-        // given
-        List<Vertex<Void>> vertices = testObject.getVertices();
         // when
-        long result = testObject.getInputDegree(vertices.get(1));
+        long result = testObject.getInputDegree(testObject.getVertex(1));
         // then
         Assertions.assertThat(result).isEqualTo(3L);
     }
