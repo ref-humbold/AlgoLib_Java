@@ -3,15 +3,20 @@ package algolib.graphs.algorithms.strategy;
 import algolib.graphs.Vertex;
 
 public class EmptyStrategy<V>
-        implements SearchingStrategy<V>
+        implements DFSStrategy<V>
 {
+    @Override
+    public void forRoot(Vertex<V> root)
+    {
+    }
+
     @Override
     public void preProcess(Vertex<V> vertex)
     {
     }
 
     @Override
-    public void forNeighbour(Vertex<V> vertex, Vertex<V> neighbour)
+    public void forNext(Vertex<V> vertex, Vertex<V> neighbour)
     {
     }
 
@@ -21,7 +26,7 @@ public class EmptyStrategy<V>
     }
 
     @Override
-    public void onCycle(Vertex<V> vertex, Vertex<V> neighbour)
+    public void forVisited(Vertex<V> vertex, Vertex<V> neighbour)
     {
     }
 }

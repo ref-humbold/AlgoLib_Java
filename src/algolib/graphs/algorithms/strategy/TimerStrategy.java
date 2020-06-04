@@ -3,24 +3,14 @@ package algolib.graphs.algorithms.strategy;
 import java.util.HashMap;
 import java.util.Map;
 
-import algolib.graphs.Graph;
 import algolib.graphs.Vertex;
 
 public class TimerStrategy<V>
-        implements SearchingStrategy<V>
+        implements DFSStrategy<V>
 {
     private final Map<Vertex<V>, Integer> preTimes = new HashMap<>();
     private final Map<Vertex<V>, Integer> postTimes = new HashMap<>();
-    private int timer;
-
-    public <E> TimerStrategy(Graph<V, E> graph)
-    {
-        timer = 1;
-        graph.getVertices().forEach(vertex -> {
-            preTimes.put(vertex, 0);
-            postTimes.put(vertex, 0);
-        });
-    }
+    private int timer = 1;
 
     public int getPreTime(Vertex<V> vertex)
     {
@@ -33,6 +23,11 @@ public class TimerStrategy<V>
     }
 
     @Override
+    public void forRoot(Vertex<V> root)
+    {
+    }
+
+    @Override
     public void preProcess(Vertex<V> vertex)
     {
         preTimes.put(vertex, timer);
@@ -40,7 +35,7 @@ public class TimerStrategy<V>
     }
 
     @Override
-    public void forNeighbour(Vertex<V> vertex, Vertex<V> neighbour)
+    public void forNext(Vertex<V> vertex, Vertex<V> neighbour)
     {
     }
 
@@ -52,7 +47,7 @@ public class TimerStrategy<V>
     }
 
     @Override
-    public void onCycle(Vertex<V> vertex, Vertex<V> neighbour)
+    public void forVisited(Vertex<V> vertex, Vertex<V> neighbour)
     {
     }
 }

@@ -2,13 +2,13 @@ package algolib.graphs.algorithms.strategy;
 
 import algolib.graphs.Vertex;
 
-public interface SearchingStrategy<V>
+public interface BFSStrategy<V>
 {
+    void forRoot(Vertex<V> root);
+
     void preProcess(Vertex<V> vertex);
 
-    void forNeighbour(Vertex<V> vertex, Vertex<V> neighbour);
+    void forNext(Vertex<V> vertex, Vertex<V> neighbour);
 
     void postProcess(Vertex<V> vertex);
-
-    void onCycle(Vertex<V> vertex, Vertex<V> neighbour);
 }

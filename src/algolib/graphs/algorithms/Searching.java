@@ -9,7 +9,8 @@ import java.util.Map;
 
 import algolib.graphs.Graph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.strategy.SearchingStrategy;
+import algolib.graphs.algorithms.strategy.BFSStrategy;
+import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class Searching
 {
@@ -20,7 +21,7 @@ public final class Searching
      * @param roots starting vertices
      * @return list of visited vertices
      */
-    public static <V, E> Collection<Vertex<V>> bfs(Graph<V, E> graph, SearchingStrategy<V> strategy,
+    public static <V, E> Collection<Vertex<V>> bfs(Graph<V, E> graph, BFSStrategy<V> strategy,
                                                    Collection<Vertex<V>> roots)
     {
         Map<Vertex<V>, Integer> reached = new HashMap<>();
@@ -30,6 +31,7 @@ public final class Searching
         for(Vertex<V> root : roots)
             if(!reached.containsKey(root))
             {
+                strategy.forRoot(root);
                 vertexDeque.addLast(root);
                 reached.put(root, iteration);
 
@@ -42,7 +44,7 @@ public final class Searching
                     for(Vertex<V> neighbour : graph.getNeighbours(vertex))
                         if(!reached.containsKey(neighbour))
                         {
-                            strategy.forNeighbour(vertex, neighbour);
+                            strategy.forNext(vertex, neighbour);
                             reached.put(neighbour, iteration);
                             vertexDeque.addLast(neighbour);
                         }
@@ -65,7 +67,7 @@ public final class Searching
      * @return list of visited vertices
      */
     public static <V, E> Collection<Vertex<V>> dfsIterative(Graph<V, E> graph,
-                                                            SearchingStrategy<V> strategy,
+                                                            DFSStrategy<V> strategy,
                                                             Collection<Vertex<V>> roots)
     {
         Map<Vertex<V>, Integer> reached = new HashMap<>();
@@ -73,32 +75,36 @@ public final class Searching
         int iteration = 1;
 
         for(Vertex<V> root : roots)
-        {
-            vertexDeque.addFirst(root);
-
-            while(!vertexDeque.isEmpty())
+            if(!reached.containsKey(root))
             {
-                Vertex<V> vertex = vertexDeque.removeFirst();
+                strategy.forRoot(root);
+                vertexDeque.addFirst(root);
 
-                if(!reached.containsKey(vertex))
+                while(!vertexDeque.isEmpty())
                 {
-                    reached.put(vertex, iteration);
-                    strategy.preProcess(vertex);
+                    Vertex<V> vertex = vertexDeque.removeFirst();
 
-                    for(Vertex<V> neighbour : graph.getNeighbours(vertex))
-                        if(!reached.containsKey(neighbour))
-                        {
-                            strategy.forNeighbour(vertex, neighbour);
-                            vertexDeque.addFirst(neighbour);
-                        }
+                    if(!reached.containsKey(vertex))
+                    {
+                        reached.put(vertex, iteration);
+                        strategy.preProcess(vertex);
 
-                    strategy.postProcess(vertex);
-                    reached.put(root, -iteration);
+                        for(Vertex<V> neighbour : graph.getNeighbours(vertex))
+                            if(!reached.containsKey(neighbour))
+                            {
+                                strategy.forNext(vertex, neighbour);
+                                vertexDeque.addFirst(neighbour);
+                            }
+                            else if(reached.get(neighbour) == iteration)
+                                strategy.forVisited(vertex, neighbour);
+
+                        strategy.postProcess(vertex);
+                        reached.put(root, -iteration);
+                    }
                 }
-            }
 
-            ++iteration;
-        }
+                ++iteration;
+            }
 
         return reached.keySet();
     }
@@ -111,15 +117,17 @@ public final class Searching
      * @return list of visited vertices
      */
     public static <V, E> Collection<Vertex<V>> dfsRecursive(Graph<V, E> graph,
-                                                            SearchingStrategy<V> strategy,
+                                                            DFSStrategy<V> strategy,
                                                             Collection<Vertex<V>> roots)
     {
-        DfsrState<V> state = new DfsrState<>();
+        DfsRecursiveState<V> state = new DfsRecursiveState<>();
 
         for(Vertex<V> root : roots)
             if(!state.reached.containsKey(root))
             {
-                dfsrStep(graph, strategy, root, state);
+                strategy.forRoot(root);
+                state.vertex = root;
+                dfsRecursiveStep(graph, strategy, state);
                 ++state.iteration;
             }
 
@@ -127,25 +135,31 @@ public final class Searching
     }
 
     // Single step of the recursive DFS
-    private static <V, E> void dfsrStep(Graph<V, E> graph, SearchingStrategy<V> strategy,
-                                        Vertex<V> vertex, DfsrState<V> state)
+    private static <V, E> void dfsRecursiveStep(Graph<V, E> graph, DFSStrategy<V> strategy,
+                                                DfsRecursiveState<V> state)
     {
+        Vertex<V> vertex = state.vertex;
+
         state.onEntry(vertex);
         strategy.preProcess(vertex);
 
         for(Vertex<V> neighbour : graph.getNeighbours(vertex))
             if(!state.reached.containsKey(neighbour))
             {
-                strategy.forNeighbour(vertex, neighbour);
-                dfsrStep(graph, strategy, neighbour, state);
+                strategy.forNext(vertex, neighbour);
+                state.vertex = neighbour;
+                dfsRecursiveStep(graph, strategy, state);
             }
+            else if(state.reached.get(neighbour) == state.iteration)
+                strategy.forVisited(vertex, neighbour);
 
         strategy.postProcess(vertex);
         state.onExit(vertex);
     }
 
-    private static class DfsrState<V>
+    private static class DfsRecursiveState<V>
     {
+        Vertex<V> vertex;
         int iteration = 1;
         Map<Vertex<V>, Integer> reached = new HashMap<>();
 
