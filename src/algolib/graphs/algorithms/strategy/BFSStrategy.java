@@ -6,9 +6,9 @@ public interface BFSStrategy<V>
 {
     void forRoot(Vertex<V> root);
 
-    void preProcess(Vertex<V> vertex);
+    void onEnter(Vertex<V> vertex);
 
-    void forNext(Vertex<V> vertex, Vertex<V> neighbour);
+    void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour);
 
-    void postProcess(Vertex<V> vertex);
+    void onExit(Vertex<V> vertex);
 }

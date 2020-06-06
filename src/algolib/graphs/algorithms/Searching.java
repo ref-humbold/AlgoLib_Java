@@ -39,17 +39,17 @@ public final class Searching
                 {
                     Vertex<V> vertex = vertexDeque.removeFirst();
 
-                    strategy.preProcess(vertex);
+                    strategy.onEnter(vertex);
 
                     for(Vertex<V> neighbour : graph.getNeighbours(vertex))
                         if(!reached.containsKey(neighbour))
                         {
-                            strategy.forNext(vertex, neighbour);
+                            strategy.onNextVertex(vertex, neighbour);
                             reached.put(neighbour, iteration);
                             vertexDeque.addLast(neighbour);
                         }
 
-                    strategy.postProcess(vertex);
+                    strategy.onExit(vertex);
                     reached.put(root, -iteration);
                 }
 
@@ -87,18 +87,18 @@ public final class Searching
                     if(!reached.containsKey(vertex))
                     {
                         reached.put(vertex, iteration);
-                        strategy.preProcess(vertex);
+                        strategy.onEnter(vertex);
 
                         for(Vertex<V> neighbour : graph.getNeighbours(vertex))
                             if(!reached.containsKey(neighbour))
                             {
-                                strategy.forNext(vertex, neighbour);
+                                strategy.onNextVertex(vertex, neighbour);
                                 vertexDeque.addFirst(neighbour);
                             }
                             else if(reached.get(neighbour) == iteration)
-                                strategy.forVisited(vertex, neighbour);
+                                strategy.onEdgeToVisited(vertex, neighbour);
 
-                        strategy.postProcess(vertex);
+                        strategy.onExit(vertex);
                         reached.put(root, -iteration);
                     }
                 }
@@ -141,19 +141,19 @@ public final class Searching
         Vertex<V> vertex = state.vertex;
 
         state.onEntry(vertex);
-        strategy.preProcess(vertex);
+        strategy.onEnter(vertex);
 
         for(Vertex<V> neighbour : graph.getNeighbours(vertex))
             if(!state.reached.containsKey(neighbour))
             {
-                strategy.forNext(vertex, neighbour);
+                strategy.onNextVertex(vertex, neighbour);
                 state.vertex = neighbour;
                 dfsRecursiveStep(graph, strategy, state);
             }
             else if(state.reached.get(neighbour) == state.iteration)
-                strategy.forVisited(vertex, neighbour);
+                strategy.onEdgeToVisited(vertex, neighbour);
 
-        strategy.postProcess(vertex);
+        strategy.onExit(vertex);
         state.onExit(vertex);
     }
 

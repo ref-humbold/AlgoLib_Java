@@ -11,22 +11,22 @@ public class EmptyStrategy<V>
     }
 
     @Override
-    public void preProcess(Vertex<V> vertex)
+    public void onEnter(Vertex<V> vertex)
     {
     }
 
     @Override
-    public void forNext(Vertex<V> vertex, Vertex<V> neighbour)
+    public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
     {
     }
 
     @Override
-    public void postProcess(Vertex<V> vertex)
+    public void onExit(Vertex<V> vertex)
     {
     }
 
     @Override
-    public void forVisited(Vertex<V> vertex, Vertex<V> neighbour)
+    public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
     {
     }
 }

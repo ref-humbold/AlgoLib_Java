@@ -5,5 +5,5 @@ import algolib.graphs.Vertex;
 public interface DFSStrategy<V>
         extends BFSStrategy<V>
 {
-    void forVisited(Vertex<V> vertex, Vertex<V> neighbour);
+    void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour);
 }
