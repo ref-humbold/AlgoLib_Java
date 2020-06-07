@@ -13,7 +13,7 @@ import algolib.graphs.Vertex;
 public class StronglyConnectedComponentsTest
 {
     @Test
-    public void find_ThenStronglyConnectedComponents()
+    public void findSCC_ThenStronglyConnectedComponents()
     {
         // given
         DirectedSimpleGraph<Void, Void> graph =
@@ -34,7 +34,7 @@ public class StronglyConnectedComponentsTest
         graph.addEdge(graph.getVertex(8), graph.getVertex(7), null);
         graph.addEdge(graph.getVertex(9), graph.getVertex(8), null);
         // when
-        List<Set<Vertex<Void>>> result = StronglyConnectedComponents.find(graph);
+        List<Set<Vertex<Void>>> result = StronglyConnectedComponents.findSCC(graph);
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(

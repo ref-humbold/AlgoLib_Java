@@ -15,7 +15,7 @@ public final class StronglyConnectedComponents
      * @param graph a directed graph
      * @return list of vertices in strongly connected components
      */
-    public static <V, E> List<Set<Vertex<V>>> find(DirectedGraph<V, E> graph)
+    public static <V, E> List<Set<Vertex<V>>> findSCC(DirectedGraph<V, E> graph)
     {
         PostOrderStrategy<V> postOrderStrategy = new PostOrderStrategy<>();
 
@@ -27,11 +27,11 @@ public final class StronglyConnectedComponents
                                                               .map(Map.Entry::getKey)
                                                               .collect(Collectors.toList());
         DirectedGraph<V, E> reversedCopy = graph.reversedCopy();
-        ComponentsStrategy<V> componentsStrategy = new ComponentsStrategy<>();
+        SCCStrategy<V> sccStrategy = new SCCStrategy<>();
 
-        Searching.dfsRecursive(reversedCopy, componentsStrategy, vertices);
+        Searching.dfsRecursive(reversedCopy, sccStrategy, vertices);
 
-        return componentsStrategy.components;
+        return sccStrategy.components;
     }
 
     private static class ReversedPostOrderComparator<V>
@@ -80,7 +80,7 @@ public final class StronglyConnectedComponents
         }
     }
 
-    private static class ComponentsStrategy<V>
+    private static class SCCStrategy<V>
             implements DFSStrategy<V>
     {
         final List<Set<Vertex<V>>> components = new ArrayList<>();
