@@ -28,30 +28,30 @@ public class DirectedSimpleGraph<V, E>
     @Override
     public int getEdgesCount()
     {
-        return graphRepresentation.getEdgesSet().mapToInt(Set::size).sum();
+        return representation.getEdgesSet().mapToInt(Set::size).sum();
     }
 
     @Override
     public List<Edge<E, V>> getEdges()
     {
-        return graphRepresentation.getEdges().sorted().collect(Collectors.toList());
+        return representation.getEdges().sorted().collect(Collectors.toList());
     }
 
     @Override
     public int getOutputDegree(Vertex<V> vertex)
     {
-        return graphRepresentation.getAdjacentEdges(vertex).size();
+        return representation.getAdjacentEdges(vertex).size();
     }
 
     @Override
     public int getInputDegree(Vertex<V> vertex)
     {
-        return graphRepresentation.getEdgesSet()
-                                  .flatMap(edges -> edges.stream()
-                                                         .filter(edge -> edge.destination.equals(
-                                                                 vertex)))
-                                  .mapToInt(edge -> 1)
-                                  .sum();
+        return representation.getEdgesSet()
+                             .flatMap(edges -> edges.stream()
+                                                    .filter(edge -> edge.destination.equals(
+                                                            vertex)))
+                             .mapToInt(edge -> 1)
+                             .sum();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class DirectedSimpleGraph<V, E>
     {
         Edge<E, V> edge = new Edge<>(source, destination, property);
 
-        graphRepresentation.addEdgeToSource(edge);
+        representation.addEdgeToSource(edge);
         return edge;
     }
 
@@ -68,8 +68,17 @@ public class DirectedSimpleGraph<V, E>
     {
         List<Edge<E, V>> edges = getEdges();
 
-        graphRepresentation = new GraphRepresentation<>(getVertices());
-        edges.forEach(edge -> graphRepresentation.addEdgeToSource(
-                new Edge<>(edge.destination, edge.source, edge.property)));
+        representation = new GraphRepresentation<>(getVertices());
+        edges.forEach(edge -> representation.addEdgeToSource(edge.reversed()));
+    }
+
+    @Override
+    public DirectedGraph<V, E> reversedCopy()
+    {
+        DirectedSimpleGraph<V, E> reversedGraph = new DirectedSimpleGraph<>(this);
+
+        getEdges().forEach(
+                edge -> reversedGraph.addEdge(edge.destination, edge.source, edge.property));
+        return reversedGraph;
     }
 }

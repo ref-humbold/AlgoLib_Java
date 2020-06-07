@@ -1,4 +1,4 @@
-package algolib.graphs.algorithm;
+package algolib.graphs.algorithms;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.DirectedGraph;
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.DirectedCyclicGraphException;
-import algolib.graphs.algorithms.TopologicalSorting;
 
 public class TopologicalSortingTest
 {

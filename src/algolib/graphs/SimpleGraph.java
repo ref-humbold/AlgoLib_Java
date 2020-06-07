@@ -8,12 +8,11 @@ import java.util.stream.Collectors;
 public abstract class SimpleGraph<V, E>
         implements Graph<V, E>
 {
-    // Adjacency list
-    protected GraphRepresentation<V, E> graphRepresentation;
+    protected GraphRepresentation<V, E> representation;
 
     public SimpleGraph()
     {
-        graphRepresentation = new GraphRepresentation<>();
+        representation = new GraphRepresentation<>();
     }
 
     public SimpleGraph(Collection<V> properties)
@@ -24,55 +23,55 @@ public abstract class SimpleGraph<V, E>
 
     public SimpleGraph(Graph<V, E> graph)
     {
-        graphRepresentation = new GraphRepresentation<>(graph.getVertices());
+        representation = new GraphRepresentation<>(graph.getVertices());
     }
 
     @Override
     public int getVerticesCount()
     {
-        return graphRepresentation.size();
+        return representation.size();
     }
 
     @Override
     public List<Vertex<V>> getVertices()
     {
-        return graphRepresentation.getVertices().sorted().collect(Collectors.toList());
+        return representation.getVertices().sorted().collect(Collectors.toList());
     }
 
     @Override
     public Vertex<V> getVertex(int index)
     {
-        return graphRepresentation.getVertices()
-                                  .filter(v -> index == v.index)
-                                  .findFirst()
-                                  .orElseThrow(() -> new IndexOutOfBoundsException(
-                                          String.format("No vertex with index %d in this graph",
-                                                        index)));
+        return representation.getVertices()
+                             .filter(v -> index == v.index)
+                             .findFirst()
+                             .orElseThrow(() -> new IndexOutOfBoundsException(
+                                     String.format("No vertex with index %d in this graph",
+                                                   index)));
     }
 
     @Override
     public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
     {
-        return graphRepresentation.getAdjacentEdges(vertex)
-                                  .stream()
-                                  .map(edge -> edge.getNeighbour(vertex))
-                                  .collect(Collectors.toSet());
+        return representation.getAdjacentEdges(vertex)
+                             .stream()
+                             .map(edge -> edge.getNeighbour(vertex))
+                             .collect(Collectors.toSet());
     }
 
     @Override
     public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
     {
-        return graphRepresentation.getAdjacentEdges(vertex);
+        return representation.getAdjacentEdges(vertex);
     }
 
     @Override
     public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
     {
-        return graphRepresentation.getAdjacentEdges(source)
-                                  .stream()
-                                  .filter(edge -> edge.getNeighbour(source) == destination)
-                                  .findFirst()
-                                  .orElse(null);
+        return representation.getAdjacentEdges(source)
+                             .stream()
+                             .filter(edge -> edge.getNeighbour(source) == destination)
+                             .findFirst()
+                             .orElse(null);
     }
 
     /**
@@ -82,7 +81,7 @@ public abstract class SimpleGraph<V, E>
      */
     public Vertex<V> addVertex(V property)
     {
-        return graphRepresentation.addVertex(property);
+        return representation.addVertex(property);
     }
 
     /**

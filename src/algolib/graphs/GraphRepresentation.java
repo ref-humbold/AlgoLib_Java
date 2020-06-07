@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 class GraphRepresentation<V, E>
 {
+    // Adjacency list
     private final Map<Vertex<V>, Set<Edge<E, V>>> graphMap = new HashMap<>();
 
     GraphRepresentation()
@@ -18,6 +19,17 @@ class GraphRepresentation<V, E>
     GraphRepresentation(Collection<Vertex<V>> vertices)
     {
         vertices.forEach(vertex -> graphMap.put(vertex, new HashSet<>()));
+    }
+
+    GraphRepresentation(GraphRepresentation<V, E> representation)
+    {
+        representation.graphMap.entrySet().forEach(entry -> {
+            graphMap.put(entry.getKey(), new HashSet<>());
+            entry.getValue()
+                 .forEach(edge -> graphMap.get(entry.getKey())
+                                          .add(new Edge<>(edge.source, edge.destination,
+                                                          edge.property)));
+        });
     }
 
     Stream<Vertex<V>> getVertices()

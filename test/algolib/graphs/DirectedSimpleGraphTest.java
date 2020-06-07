@@ -291,4 +291,36 @@ public class DirectedSimpleGraphTest
                           new Edge<>(testObject.getVertex(8), testObject.getVertex(7), null),
                           new Edge<>(testObject.getVertex(9), testObject.getVertex(4), null));
     }
+
+    @Test
+    public void reversedCopy_ThenNewGraphWithReversedEdges()
+    {
+        // given
+        testObject.addEdge(testObject.getVertex(1), testObject.getVertex(2), null);
+        testObject.addEdge(testObject.getVertex(3), testObject.getVertex(5), null);
+        testObject.addEdge(testObject.getVertex(4), testObject.getVertex(9), null);
+        testObject.addEdge(testObject.getVertex(5), testObject.getVertex(4), null);
+        testObject.addEdge(testObject.getVertex(5), testObject.getVertex(7), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(2), null);
+        testObject.addEdge(testObject.getVertex(6), testObject.getVertex(6), null);
+        testObject.addEdge(testObject.getVertex(7), testObject.getVertex(8), null);
+        testObject.addEdge(testObject.getVertex(9), testObject.getVertex(1), null);
+        testObject.addEdge(testObject.getVertex(9), testObject.getVertex(6), null);
+        // when
+        DirectedGraph<Void, Void> result = testObject.reversedCopy();
+        // then
+        Assertions.assertThat(result.getVertices()).hasSameElementsAs(testObject.getVertices());
+        Assertions.assertThat(result.getEdges())
+                  .containsExactly(
+                          new Edge<>(testObject.getVertex(1), testObject.getVertex(9), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(1), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(6), null),
+                          new Edge<>(testObject.getVertex(4), testObject.getVertex(5), null),
+                          new Edge<>(testObject.getVertex(5), testObject.getVertex(3), null),
+                          new Edge<>(testObject.getVertex(6), testObject.getVertex(6), null),
+                          new Edge<>(testObject.getVertex(6), testObject.getVertex(9), null),
+                          new Edge<>(testObject.getVertex(7), testObject.getVertex(5), null),
+                          new Edge<>(testObject.getVertex(8), testObject.getVertex(7), null),
+                          new Edge<>(testObject.getVertex(9), testObject.getVertex(4), null));
+    }
 }

@@ -27,25 +27,25 @@ public class UndirectedSimpleGraph<V, E>
     @Override
     public int getEdgesCount()
     {
-        return graphRepresentation.getEdges().distinct().mapToInt(edge -> 1).sum();
+        return representation.getEdges().distinct().mapToInt(edge -> 1).sum();
     }
 
     @Override
     public List<Edge<E, V>> getEdges()
     {
-        return graphRepresentation.getEdges().distinct().sorted().collect(Collectors.toList());
+        return representation.getEdges().distinct().sorted().collect(Collectors.toList());
     }
 
     @Override
     public int getOutputDegree(Vertex<V> vertex)
     {
-        return graphRepresentation.getAdjacentEdges(vertex).size();
+        return representation.getAdjacentEdges(vertex).size();
     }
 
     @Override
     public int getInputDegree(Vertex<V> vertex)
     {
-        return graphRepresentation.getAdjacentEdges(vertex).size();
+        return representation.getAdjacentEdges(vertex).size();
     }
 
     @Override
@@ -55,8 +55,8 @@ public class UndirectedSimpleGraph<V, E>
         Vertex<V> newDestination = source.compareTo(destination) >= 0 ? source : destination;
         Edge<E, V> edge = new Edge<>(newSource, newDestination, property);
 
-        graphRepresentation.addEdgeToSource(edge);
-        graphRepresentation.addEdgeToDestination(edge);
+        representation.addEdgeToSource(edge);
+        representation.addEdgeToDestination(edge);
         return edge;
     }
 

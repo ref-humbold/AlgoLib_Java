@@ -1,5 +1,5 @@
 // Tests: Algorithms for graph searching
-package algolib.graphs.algorithm;
+package algolib.graphs.algorithms;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.Searching;
 import algolib.graphs.algorithms.strategy.EmptyStrategy;
 
 public class SearchingTest

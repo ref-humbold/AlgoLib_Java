@@ -30,6 +30,11 @@ public class Edge<E, V>
                               vertex.toString()));
     }
 
+    public Edge<E, V> reversed()
+    {
+        return new Edge<>(destination, source, property);
+    }
+
     @Override
     public boolean equals(Object obj)
     {

@@ -1,5 +1,5 @@
 // Tests: Algorithms for shortest paths in graph
-package algolib.graphs.algorithm;
+package algolib.graphs.algorithms;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,7 +14,6 @@ import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.Graph;
 import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.Paths;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 

@@ -1,5 +1,5 @@
 // Tests: Algorithms for minimal spanning tree
-package algolib.graphs.algorithm;
+package algolib.graphs.algorithms;
 
 import java.util.Collections;
 import org.assertj.core.api.Assertions;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.UndirectedGraph;
 import algolib.graphs.UndirectedSimpleGraph;
-import algolib.graphs.algorithms.MinimalSpanningTree;
 import algolib.graphs.properties.Weighted;
 
 public class MinimalSpanningTreeTest
