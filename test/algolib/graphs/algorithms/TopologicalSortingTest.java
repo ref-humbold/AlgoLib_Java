@@ -113,7 +113,7 @@ public class TopologicalSortingTest
     {
         // when
         Throwable throwable =
-                Assertions.catchThrowable(() -> TopologicalSorting.sortTopological1(cyclicGraph));
+                Assertions.catchThrowable(() -> TopologicalSorting.sortTopological2(cyclicGraph));
         // then
         Assertions.assertThat(throwable).isInstanceOf(DirectedCyclicGraphException.class);
     }
