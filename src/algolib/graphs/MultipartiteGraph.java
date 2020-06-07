@@ -1,167 +1,139 @@
-// STRUKTURA GRAFU DWUDZIELNEGO
+// Structure of multipartite graph
 package algolib.graphs;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
-import algolib.tuples.ComparablePair;
-
-public class MultipartiteGraph
-        implements UndirectedGraph
+public class MultipartiteGraph<V, E>
+        implements UndirectedGraph<V, E>
 {
-    /** Struktura grafu wielodzielnego. */
-    private UndirectedGraph graph;
+    private final int groupsCount;
+    private final UndirectedSimpleGraph<V, E> graph = new UndirectedSimpleGraph<>();
+    private final Map<Vertex<V>, Integer> vertexGroupMap = new HashMap<>();
 
-    /** Maksymalna liczba grup wierzchołków. */
-    private Integer groupsNumber;
-
-    /** Numery grup wierzchołków. */
-    private List<Integer> groups;
-
-    public MultipartiteGraph(int n, Integer group)
+    public MultipartiteGraph(Collection<Collection<V>> properties)
     {
-        graph = new UndirectedSimpleGraph(n);
-        groupsNumber = group;
-        groups = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 1));
-    }
+        int i = 0;
 
-    public Integer getGroupsNumber()
-    {
-        return groupsNumber;
-    }
+        groupsCount = properties.size();
 
-    @Override
-    public int getVerticesNumber()
-    {
-        return graph.getVerticesNumber();
+        for(Collection<V> groupProperties : properties)
+        {
+            for(V property : groupProperties)
+                addVertex(property, i);
+
+            ++i;
+        }
     }
 
     @Override
-    public Collection<Integer> getVertices()
+    public int getVerticesCount()
+    {
+        return graph.getVerticesCount();
+    }
+
+    @Override
+    public List<Vertex<V>> getVertices()
     {
         return graph.getVertices();
     }
 
     @Override
-    public int getEdgesNumber()
+    public int getEdgesCount()
     {
-        return graph.getEdgesNumber();
+        return graph.getEdgesCount();
     }
 
     @Override
-    public Collection<ComparablePair<Integer, Integer>> getEdges()
+    public List<Edge<E, V>> getEdges()
     {
         return graph.getEdges();
     }
 
-    /**
-     * @param group numer grupy
-     * @return lista wierzchołków grupy
-     */
-    public Collection<Integer> getVertices(Integer group)
+    public int getGroupsCount()
     {
-        List<Integer> part = new ArrayList<>();
-
-        for(Integer v : graph.getVertices())
-            if(Objects.equals(groups.get(v), group))
-                part.add(v);
-
-        return part;
+        return vertexGroupMap.values().stream().distinct().mapToInt(g -> 1).sum();
     }
 
     @Override
-    public Integer addVertex(Collection<Integer> neighbours)
+    public Vertex<V> getVertex(int index)
     {
-        return addVertex(1, neighbours);
-    }
-
-    /**
-     * Dodawanie nowego wierzchołka do grupy
-     * @param group numer grupy
-     * @param neighbours sąsiedzi wierzchołka
-     * @return oznaczenie wierzchołka
-     */
-    public Integer addVertex(Integer group, Collection<Integer> neighbours)
-    {
-        if(group == 0)
-            throw new IllegalStateException("Cannot add vertex to group 0.");
-
-        if(group < 0)
-            throw new IllegalArgumentException("Group number is negative.");
-
-        Integer v = graph.addVertex(neighbours);
-
-        groups.add(group);
-
-        return v;
+        return graph.getVertex(index);
     }
 
     @Override
-    public void addEdge(Integer vertex1, Integer vertex2)
+    public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
     {
-        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new NoSuchVertexException(vertex1.toString());
+        return graph.getEdge(source, destination);
+    }
 
-        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new NoSuchVertexException(vertex2.toString());
+    public Vertex<V> addVertex(V property, int group)
+    {
+        validateGroup(group);
 
-        if(isSameGroup(vertex1, vertex2))
-            throw new GraphPartitionException("Vertices in the same part.");
+        Vertex<V> vertex = graph.addVertex(property);
 
-        graph.addEdge(vertex1, vertex2);
+        vertexGroupMap.put(vertex, group);
+        return vertex;
+    }
+
+    public Edge<E, V> addEdge(Vertex<V> source, Vertex<V> destination, E property)
+    {
+        if(areInSameGroup(source, destination))
+            throw new GraphPartitionException(
+                    "Cannot create an edge between vertices in the same group");
+
+        return graph.addEdge(source, destination, property);
     }
 
     @Override
-    public Collection<Integer> getNeighbours(Integer vertex)
+    public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
     {
         return graph.getNeighbours(vertex);
     }
 
     @Override
-    public int getOutdegree(Integer vertex)
+    public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
     {
-        return graph.getOutdegree(vertex);
+        return graph.getAdjacentEdges(vertex);
     }
 
     @Override
-    public int getIndegree(Integer vertex)
+    public int getOutputDegree(Vertex<V> vertex)
     {
-        return graph.getIndegree(vertex);
+        return graph.getOutputDegree(vertex);
     }
 
-    /**
-     * Sprawdza, czy wierzchołek należy do zadanej grupy
-     * @param vertex wierzchołek
-     * @param group numer grupy
-     * @return czy wierzchołek jest w grupie
-     */
-    public boolean isInGroup(Integer vertex, Integer group)
-            throws NoSuchVertexException
+    @Override
+    public int getInputDegree(Vertex<V> vertex)
     {
-        if(vertex < 0 || vertex > getVerticesNumber())
-            throw new NoSuchVertexException(vertex.toString());
-
-        return Objects.equals(groups.get(vertex), group);
+        return graph.getInputDegree(vertex);
     }
 
-    /**
-     * Sprawdza, czy wierzchołki są w różnych grupach
-     * @param vertex1 pierwszy wierzchołek
-     * @param vertex2 drugi wierzchołek
-     * @return czy wierzchołki są w różnych grupach
-     */
-    public boolean isSameGroup(Integer vertex1, Integer vertex2)
-            throws NoSuchVertexException
+    public boolean areInSameGroup(Vertex<V> vertex1, Vertex<V> vertex2)
     {
-        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new NoSuchVertexException(vertex1.toString());
+        return Objects.equals(vertexGroupMap.get(vertex1), vertexGroupMap.get(vertex2));
+    }
 
-        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new NoSuchVertexException(vertex2.toString());
+    public List<Vertex<V>> getVerticesFromGroup(int groupNumber)
+    {
+        return vertexGroupMap.entrySet()
+                             .stream()
+                             .filter(entry -> entry.getValue() == groupNumber)
+                             .map(Map.Entry::getKey)
+                             .sorted()
+                             .collect(Collectors.toList());
+    }
 
-        return Objects.equals(groups.get(vertex1), groups.get(vertex2));
+    private void validateGroup(int group)
+    {
+        if(group < 0 || group > groupsCount)
+            throw new IndexOutOfBoundsException(
+                    String.format("Invalid group number %d, graph contains only %d groups", group,
+                                  groupsCount));
     }
 }

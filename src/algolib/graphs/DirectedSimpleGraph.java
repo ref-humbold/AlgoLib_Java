@@ -1,92 +1,84 @@
 // Structure of directed simple graph
 package algolib.graphs;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import algolib.tuples.ComparablePair;
-import algolib.tuples.Pair;
-
-public class DirectedSimpleGraph
-        extends SimpleGraph
-        implements DirectedGraph
+public class DirectedSimpleGraph<V, E>
+        extends SimpleGraph<V, E>
+        implements DirectedGraph<V, E>
 {
-    public DirectedSimpleGraph(int n)
+    public DirectedSimpleGraph()
     {
-        super(n);
+        super();
     }
 
-    public DirectedSimpleGraph(int n, Iterable<Pair<Integer, Integer>> edges)
-            throws NoSuchVertexException
+    public DirectedSimpleGraph(Collection<V> properties)
     {
-        super(n);
-
-        for(Pair<Integer, Integer> e : edges)
-            addEdge(e.first, e.second);
+        super(properties);
     }
 
-    @Override
-    public int getEdgesNumber()
+    public DirectedSimpleGraph(Graph<V, E> graph)
     {
-        int edgesNumber = 0;
-
-        for(Integer v : getVertices())
-            edgesNumber += getOutdegree(v);
-
-        return edgesNumber;
+        super(graph);
     }
 
     @Override
-    public Collection<ComparablePair<Integer, Integer>> getEdges()
+    public int getEdgesCount()
     {
-        List<ComparablePair<Integer, Integer>> edges = new ArrayList<>();
-
-        for(Integer v : getVertices())
-            for(Integer u : getNeighbours(v))
-                edges.add(ComparablePair.of(v, u));
-
-        return edges;
+        return representation.getEdgesSet().mapToInt(Set::size).sum();
     }
 
     @Override
-    public void addEdge(Integer vertex1, Integer vertex2)
+    public List<Edge<E, V>> getEdges()
     {
-        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new NoSuchVertexException("No vertex " + vertex1);
-
-        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new NoSuchVertexException("No vertex " + vertex2);
-
-        graphrepr.get(vertex1).add(ComparablePair.of(vertex2, SimpleGraph.DEFAULT_WEIGHT));
+        return representation.getEdges().sorted().collect(Collectors.toList());
     }
 
     @Override
-    public int getIndegree(Integer vertex)
+    public int getOutputDegree(Vertex<V> vertex)
     {
-        int indeg = 0;
+        return representation.getAdjacentEdges(vertex).size();
+    }
 
-        for(Integer w : getVertices())
-            for(Integer u : getNeighbours(w))
-                if(u.equals(vertex))
-                    ++indeg;
+    @Override
+    public int getInputDegree(Vertex<V> vertex)
+    {
+        return representation.getEdgesSet()
+                             .flatMap(edges -> edges.stream()
+                                                    .filter(edge -> edge.destination.equals(
+                                                            vertex)))
+                             .mapToInt(edge -> 1)
+                             .sum();
+    }
 
-        return indeg;
+    @Override
+    public Edge<E, V> addEdge(Vertex<V> source, Vertex<V> destination, E property)
+    {
+        Edge<E, V> edge = new Edge<>(source, destination, property);
+
+        representation.addEdgeToSource(edge);
+        return edge;
     }
 
     @Override
     public void reverse()
     {
-        List<Set<ComparablePair<Integer, Double>>> revgraphrepr = new ArrayList<>();
+        List<Edge<E, V>> edges = getEdges();
 
-        for(Integer v : getVertices())
-            revgraphrepr.add(new HashSet<>());
+        representation = new GraphRepresentation<>(getVertices());
+        edges.forEach(edge -> representation.addEdgeToSource(edge.reversed()));
+    }
 
-        for(Pair<Integer, Integer> e : getEdges())
-            revgraphrepr.get(e.second).add(ComparablePair.of(e.first, SimpleGraph.DEFAULT_WEIGHT));
+    @Override
+    public DirectedGraph<V, E> reversedCopy()
+    {
+        DirectedSimpleGraph<V, E> reversedGraph = new DirectedSimpleGraph<>(this);
 
-        graphrepr = revgraphrepr;
+        getEdges().forEach(
+                edge -> reversedGraph.addEdge(edge.destination, edge.source, edge.property));
+        return reversedGraph;
     }
 }

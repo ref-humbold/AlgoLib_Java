@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ConvexHull
+public final class ConvexHull
 {
     /**
-     * Constructs a convex hull of specified points.
+     * Constructs a convex hull of given points.
      * @param points a list of points
      * @return list of hull points
      */
@@ -31,7 +31,7 @@ public class ConvexHull
         return upperHull;
     }
 
-    // Creates a half of a convex hull for specified points.
+    // Creates a half of a convex hull for given points.
     private static List<Point2D> createHalfHull(List<Point2D> points)
     {
         List<Point2D> hull = new ArrayList<>();

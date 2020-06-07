@@ -2,94 +2,84 @@
 package algolib.graphs;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
-import algolib.structures.DisjointSets;
-import algolib.tuples.ComparablePair;
-import algolib.tuples.Pair;
-
-public class TreeGraph
-        implements UndirectedGraph
+public class TreeGraph<V, E>
+        implements UndirectedGraph<V, E>
 {
-    private UndirectedSimpleGraph graph;
+    private final UndirectedSimpleGraph<V, E> graph;
 
-    public TreeGraph(int n, Iterable<Pair<Integer, Integer>> edges)
+    public TreeGraph(V property)
     {
-        graph = new UndirectedSimpleGraph(n);
-        DisjointSets<Integer> components = new DisjointSets<>(graph.getVertices());
-
-        for(Pair<Integer, Integer> e : edges)
-        {
-            if(components.isSameSet(e.first, e.second))
-                throw new CycleException(
-                        "Edge from " + e.first + " to " + e.second + " may create a cycle");
-
-            graph.addEdge(e.first, e.second);
-            components.unionSet(e.first, e.second);
-        }
-
-        if(components.size() > 1)
-            throw new NotConnectedException("Tree is not a connected graph");
+        graph = new UndirectedSimpleGraph<>(Collections.singleton(property));
     }
 
     @Override
-    public int getVerticesNumber()
+    public int getVerticesCount()
     {
-        return graph.getVerticesNumber();
+        return graph.getVerticesCount();
     }
 
     @Override
-    public int getEdgesNumber()
-    {
-        return graph.getEdgesNumber();
-    }
-
-    @Override
-    public Collection<Integer> getVertices()
+    public List<Vertex<V>> getVertices()
     {
         return graph.getVertices();
     }
 
     @Override
-    public Collection<ComparablePair<Integer, Integer>> getEdges()
+    public int getEdgesCount()
+    {
+        return graph.getEdgesCount();
+    }
+
+    @Override
+    public List<Edge<E, V>> getEdges()
     {
         return graph.getEdges();
     }
 
     @Override
-    public Integer addVertex(Collection<Integer> neighbours)
+    public Vertex<V> getVertex(int index)
     {
-        if(neighbours.size() == 0)
-            throw new NotConnectedException(
-                    "New vertex won't be connected with the rest of the tree");
-
-        if(neighbours.size() > 1)
-            throw new CycleException("More than one edge from new vertex may create a cycle");
-
-        return graph.addVertex(neighbours);
+        return graph.getVertex(index);
     }
 
     @Override
-    public void addEdge(Integer vertex1, Integer vertex2)
+    public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
     {
-        throw new CycleException(
-                "Edge from vertex " + vertex1 + " to vertex " + vertex2 + " will create a cycle.");
+        return graph.getEdge(source, destination);
+    }
+
+    public Vertex<V> addVertex(V vertexProperty, E edgeProperty, Vertex<V> neighbour)
+    {
+        Vertex<V> vertex = graph.addVertex(vertexProperty);
+
+        graph.addEdge(vertex, neighbour, edgeProperty);
+        return vertex;
     }
 
     @Override
-    public Collection<Integer> getNeighbours(Integer vertex)
+    public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
     {
         return graph.getNeighbours(vertex);
     }
 
     @Override
-    public int getOutdegree(Integer vertex)
+    public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
     {
-        return graph.getOutdegree(vertex);
+        return graph.getAdjacentEdges(vertex);
     }
 
     @Override
-    public int getIndegree(Integer vertex)
+    public int getOutputDegree(Vertex<V> vertex)
     {
-        return graph.getIndegree(vertex);
+        return graph.getOutputDegree(vertex);
+    }
+
+    @Override
+    public int getInputDegree(Vertex<V> vertex)
+    {
+        return graph.getInputDegree(vertex);
     }
 }

@@ -1,107 +1,108 @@
-// ALGORYTM: SORTOWANIE TOPOLOGICZNE GRAFU SKIEROWANEGO
+// Algorithms for topological sorting of a directed graph
 package algolib.graphs.algorithms;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.PriorityQueue;
+import java.util.*;
 
 import algolib.graphs.DirectedGraph;
+import algolib.graphs.Vertex;
+import algolib.graphs.algorithms.strategy.DFSStrategy;
 
-public class TopologicalSorting
+public final class TopologicalSorting
 {
     /**
-     * Algorytm sortowania topologicznego przez liczenie poprzedników
-     * @param digraph graf skierowany
-     * @return porządek topologiczny wierzchołków
+     * Topological sorting algorithm using predecessors counting.
+     * @param graph a directed graph
+     * @return topological order of vertices
      */
-    public static List<Integer> sortTopological1(DirectedGraph digraph)
+    public static <V, E> List<Vertex<V>> sortTopological1(DirectedGraph<V, E> graph)
             throws DirectedCyclicGraphException
     {
-        List<Integer> order = new ArrayList<>();
-        List<Integer> indegs =
-                new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
-        PriorityQueue<Integer> vertexQueue = new PriorityQueue<>();
+        List<Vertex<V>> order = new ArrayList<>();
+        Map<Vertex<V>, Integer> inputDegrees = new HashMap<>();
+        PriorityQueue<Vertex<V>> vertexQueue = new PriorityQueue<>();
 
-        for(Integer v : digraph.getVertices())
-            indegs.set(v, digraph.getIndegree(v));
+        for(Vertex<V> vertex : graph.getVertices())
+            inputDegrees.put(vertex, graph.getInputDegree(vertex));
 
-        for(Integer v : digraph.getVertices())
-            if(Objects.equals(indegs.get(v), 0))
-                vertexQueue.add(v);
+        for(Vertex<V> vertex : graph.getVertices())
+            if(Objects.equals(inputDegrees.get(vertex), 0))
+                vertexQueue.add(vertex);
 
         while(!vertexQueue.isEmpty())
         {
-            Integer v = vertexQueue.remove();
+            Vertex<V> vertex = vertexQueue.remove();
 
-            order.add(v);
-            indegs.set(v, null);
+            order.add(vertex);
+            inputDegrees.remove(vertex);
 
-            for(Integer nb : digraph.getNeighbours(v))
+            for(Vertex<V> neighbour : graph.getNeighbours(vertex))
             {
-                indegs.set(nb, indegs.get(nb) - 1);
+                inputDegrees.put(neighbour, inputDegrees.get(neighbour) - 1);
 
-                if(Objects.equals(indegs.get(nb), 0))
-                    vertexQueue.add(nb);
+                if(Objects.equals(inputDegrees.get(neighbour), 0))
+                    vertexQueue.add(neighbour);
             }
         }
 
-        if(order.size() != digraph.getVerticesNumber())
+        if(order.size() != graph.getVerticesCount())
             throw new DirectedCyclicGraphException("Given graph contains a cycle.");
 
         return order;
     }
 
     /**
-     * Algorytm sortowania topologicznego przez dfs
-     * @param digraph graf skierowany
-     * @return porządek topologiczny wierzchołków
+     * Topological sorting algorithm using DFS.
+     * @param graph a directed graph
+     * @return topological order of vertices
      */
-    public static List<Integer> sortTopological2(DirectedGraph digraph)
+    public static <V, E> List<Vertex<V>> sortTopological2(DirectedGraph<V, E> graph)
             throws DirectedCyclicGraphException
     {
-        List<Integer> vertices = new ArrayList<>(digraph.getVertices());
-        TopologicalStrategy strategy = new TopologicalStrategy();
+        List<Vertex<V>> vertices = new ArrayList<>(graph.getVertices());
+        TopologicalStrategy<V> strategy = new TopologicalStrategy<>();
 
-        Collections.sort(vertices);
         Collections.reverse(vertices);
+        Searching.dfsRecursive(graph, strategy, vertices);
 
-        Searching.dfsr(digraph, strategy, vertices.<Integer>toArray(new Integer[0]));
+        List<Vertex<V>> order = strategy.getOrder();
 
-        Collections.reverse(strategy.getOrder());
-
-        return strategy.getOrder();
+        Collections.reverse(order);
+        return order;
     }
 
-    private static class TopologicalStrategy
-            implements SearchingStrategy
+    private static class TopologicalStrategy<V>
+            implements DFSStrategy<V>
     {
-        private List<Integer> order = new ArrayList<>();
+        private final List<Vertex<V>> order = new ArrayList<>();
 
-        public List<Integer> getOrder()
+        public List<Vertex<V>> getOrder()
         {
             return order;
         }
 
         @Override
-        public void preprocess(int vertex)
+        public void forRoot(Vertex<V> root)
         {
         }
 
         @Override
-        public void forNeighbour(int vertex, int neighbour)
+        public void onEnter(Vertex<V> vertex)
         {
         }
 
         @Override
-        public void postprocess(int vertex)
+        public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
+        {
+        }
+
+        @Override
+        public void onExit(Vertex<V> vertex)
         {
             order.add(vertex);
         }
 
         @Override
-        public void onCycle(int vertex, int neighbour)
+        public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
         {
             throw new DirectedCyclicGraphException("Given graph contains a cycle.");
         }

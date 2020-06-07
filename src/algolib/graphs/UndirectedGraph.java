@@ -1,6 +1,6 @@
 package algolib.graphs;
 
-public interface UndirectedGraph
-        extends Graph
+public interface UndirectedGraph<V, E>
+        extends Graph<V, E>
 {
 }

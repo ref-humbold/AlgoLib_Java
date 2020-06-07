@@ -1,10 +1,11 @@
 package algolib.graphs;
 
-public interface DirectedGraph
-        extends Graph
+public interface DirectedGraph<V, E>
+        extends Graph<V, E>
 {
-    /**
-     * Odwracanie skierowania grafu
-     */
+    /** Reverses directions of edges in this graph. */
     void reverse();
+
+    /** Creates a copy of this graph with reversed directions of edges. */
+    DirectedGraph<V, E> reversedCopy();
 }

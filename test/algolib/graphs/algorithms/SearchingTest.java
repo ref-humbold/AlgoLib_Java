@@ -1,8 +1,8 @@
 // Tests: Algorithms for graph searching
 package algolib.graphs.algorithms;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -11,217 +11,212 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.UndirectedSimpleGraph;
-import algolib.tuples.Pair;
+import algolib.graphs.Vertex;
+import algolib.graphs.algorithms.strategy.EmptyStrategy;
 
 public class SearchingTest
 {
-    private SearchingTestStrategy strategy;
-    private DirectedSimpleGraph digraph;
-    private UndirectedSimpleGraph ugraph;
+    private DirectedSimpleGraph<Void, Void> directedGraph;
+    private UndirectedSimpleGraph<Void, Void> undirectedGraph;
 
     @BeforeEach
     public void setUp()
     {
-        strategy = new SearchingTestStrategy();
+        directedGraph = new DirectedSimpleGraph<>(Collections.nCopies(10, null));
 
-        digraph = new DirectedSimpleGraph(10,
-                                          Arrays.asList(Pair.of(0, 1), Pair.of(1, 4), Pair.of(1, 7),
-                                                        Pair.of(2, 4), Pair.of(2, 6), Pair.of(3, 0),
-                                                        Pair.of(3, 7), Pair.of(4, 5), Pair.of(4, 3),
-                                                        Pair.of(5, 6), Pair.of(5, 8), Pair.of(6, 5),
-                                                        Pair.of(7, 5), Pair.of(7, 8), Pair.of(8, 9),
-                                                        Pair.of(9, 6)));
+        directedGraph.addEdge(directedGraph.getVertex(0), directedGraph.getVertex(1), null);
+        directedGraph.addEdge(directedGraph.getVertex(1), directedGraph.getVertex(3), null);
+        directedGraph.addEdge(directedGraph.getVertex(1), directedGraph.getVertex(7), null);
+        directedGraph.addEdge(directedGraph.getVertex(3), directedGraph.getVertex(4), null);
+        directedGraph.addEdge(directedGraph.getVertex(4), directedGraph.getVertex(0), null);
+        directedGraph.addEdge(directedGraph.getVertex(5), directedGraph.getVertex(4), null);
+        directedGraph.addEdge(directedGraph.getVertex(5), directedGraph.getVertex(8), null);
+        directedGraph.addEdge(directedGraph.getVertex(6), directedGraph.getVertex(2), null);
+        directedGraph.addEdge(directedGraph.getVertex(6), directedGraph.getVertex(9), null);
+        directedGraph.addEdge(directedGraph.getVertex(8), directedGraph.getVertex(5), null);
 
-        ugraph = new UndirectedSimpleGraph(10, Arrays.asList(Pair.of(0, 1), Pair.of(1, 4),
-                                                             Pair.of(1, 7), Pair.of(2, 6),
-                                                             Pair.of(3, 0), Pair.of(3, 7),
-                                                             Pair.of(4, 5), Pair.of(4, 3),
-                                                             Pair.of(5, 8), Pair.of(7, 5),
-                                                             Pair.of(7, 8), Pair.of(9, 6)));
+        undirectedGraph = new UndirectedSimpleGraph<>(Collections.nCopies(10, null));
+
+        undirectedGraph.addEdge(undirectedGraph.getVertex(0), undirectedGraph.getVertex(1), null);
+        undirectedGraph.addEdge(undirectedGraph.getVertex(0), undirectedGraph.getVertex(4), null);
+        undirectedGraph.addEdge(undirectedGraph.getVertex(1), undirectedGraph.getVertex(3), null);
+        undirectedGraph.addEdge(undirectedGraph.getVertex(1), undirectedGraph.getVertex(7), null);
+        undirectedGraph.addEdge(undirectedGraph.getVertex(2), undirectedGraph.getVertex(6), null);
+        undirectedGraph.addEdge(undirectedGraph.getVertex(3), undirectedGraph.getVertex(4), null);
+        undirectedGraph.addEdge(undirectedGraph.getVertex(4), undirectedGraph.getVertex(5), null);
+        undirectedGraph.addEdge(undirectedGraph.getVertex(5), undirectedGraph.getVertex(8), null);
+        undirectedGraph.addEdge(undirectedGraph.getVertex(6), undirectedGraph.getVertex(9), null);
     }
 
     @AfterEach
     public void tearDown()
     {
-        strategy = null;
-        digraph = null;
-        ugraph = null;
+        directedGraph = null;
+        undirectedGraph = null;
     }
 
+    // region bfs
+
     @Test
-    public void bfs_WhenUndirectedGraphAndSingleRoot_ThenNotAllVisited()
+    public void bfs_WhenUndirectedGraphAndSingleRoot_ThenVisitedVertices()
     {
         // when
-        List<Boolean> result = Searching.bfs(ugraph, strategy, 0);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result = Searching.bfs(undirectedGraph, new EmptyStrategy<>(),
+                                                        List.of(undirectedGraph.getVertex(0)));
         // then
+        Assertions.assertThat(result).isSubsetOf(undirectedGraph.getVertices());
         Assertions.assertThat(result)
-                  .containsExactly(true, true, false, true, true, true, false, true, true, false);
-        Assertions.assertThat(visited).isSubsetOf(ugraph.getVertices());
-        Assertions.assertThat(visited).doesNotContain(2, 6, 9);
+                  .doesNotContain(undirectedGraph.getVertex(2), undirectedGraph.getVertex(6),
+                                  undirectedGraph.getVertex(9));
     }
 
     @Test
-    public void bfs_WhenUndirectedGraphAndManyRoots_ThenAllVisited()
+    public void bfs_WhenUndirectedGraphAndManyRoots_ThenAllVertices()
     {
         // when
-        List<Boolean> result = Searching.bfs(ugraph, strategy, 0, 6);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result = Searching.bfs(undirectedGraph, new EmptyStrategy<>(),
+                                                        List.of(undirectedGraph.getVertex(0),
+                                                                undirectedGraph.getVertex(6)));
         // then
-        Assertions.assertThat(result).containsOnly(true);
-        Assertions.assertThat(visited).hasSameElementsAs(ugraph.getVertices());
+        Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     @Test
-    public void bfs_WhenUndirectedGraphAndNoRoots_ThenNoVisited()
+    public void bfs_WhenUndirectedGraphAndNoRoots_ThenEmpty()
     {
         // when
-        List<Boolean> result = Searching.bfs(ugraph, strategy);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result =
+                Searching.bfs(undirectedGraph, new EmptyStrategy<>(), List.of());
         // then
-        Assertions.assertThat(result).containsOnly(false);
-        Assertions.assertThat(visited).isEmpty();
+        Assertions.assertThat(result).isEmpty();
     }
 
     @Test
-    public void bfs_WhenDirectedGraphAndSingleRoot_ThenNotAllVisited()
+    public void bfs_WhenDirectedGraphAndSingleRoot_ThenVisitedVertices()
     {
         // when
-        List<Boolean> result = Searching.bfs(digraph, strategy, 1);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result = Searching.bfs(directedGraph, new EmptyStrategy<>(),
+                                                        List.of(directedGraph.getVertex(1)));
         // then
+        Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsExactly(true, true, false, true, true, true, true, true, true, true);
-        Assertions.assertThat(visited).isSubsetOf(digraph.getVertices());
-        Assertions.assertThat(visited).doesNotContain(2);
+                  .containsOnly(directedGraph.getVertex(0), directedGraph.getVertex(1),
+                                directedGraph.getVertex(3), directedGraph.getVertex(4),
+                                directedGraph.getVertex(7));
     }
 
     @Test
-    public void dfsi_WhenUndirectedGraphAndSingleRoot_ThenNotAllVisited()
+    public void bfs_WhenDirectedGraphAndMultipleRoots_ThenAllVertices()
     {
         // when
-        List<Boolean> result = Searching.dfsi(ugraph, strategy, 0);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result = Searching.bfs(directedGraph, new EmptyStrategy<>(),
+                                                        List.of(directedGraph.getVertex(8),
+                                                                directedGraph.getVertex(6)));
         // then
+        Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
+    }
+
+    // endregion
+    // region dfsIterative
+
+    @Test
+    public void dfsIterative_WhenUndirectedGraphAndSingleRoot_ThenVisitedVertices()
+    {
+        // when
+        Collection<Vertex<Void>> result =
+                Searching.dfsIterative(undirectedGraph, new EmptyStrategy<>(),
+                                       List.of(undirectedGraph.getVertex(0)));
+        // then
+        Assertions.assertThat(result).isSubsetOf(undirectedGraph.getVertices());
         Assertions.assertThat(result)
-                  .containsExactly(true, true, false, true, true, true, false, true, true, false);
-        Assertions.assertThat(visited).isSubsetOf(ugraph.getVertices());
-        Assertions.assertThat(visited).doesNotContain(2, 6, 9);
+                  .doesNotContain(undirectedGraph.getVertex(2), undirectedGraph.getVertex(6),
+                                  undirectedGraph.getVertex(9));
     }
 
     @Test
-    public void dfsi_WhenUndirectedGraphAndManyRoots_ThenAllVisited()
+    public void dfsIterative_WhenUndirectedGraphAndManyRoots_ThenAllVertices()
     {
         // when
-        List<Boolean> result = Searching.dfsi(ugraph, strategy, 0, 6);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result =
+                Searching.dfsIterative(undirectedGraph, new EmptyStrategy<>(),
+                                       List.of(undirectedGraph.getVertex(0),
+                                               undirectedGraph.getVertex(6)));
         // then
-        Assertions.assertThat(result).containsOnly(true);
-        Assertions.assertThat(visited).hasSameElementsAs(ugraph.getVertices());
+        Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     @Test
-    public void dfsi_WhenUndirectedGraphAndNoRoots_ThenNoVisited()
+    public void dfsIterative_WhenUndirectedGraphAndNoRoots_ThenEmpty()
     {
         // when
-        List<Boolean> result = Searching.dfsi(ugraph, strategy);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result =
+                Searching.dfsIterative(undirectedGraph, new EmptyStrategy<>(), List.of());
         // then
-        Assertions.assertThat(result).containsOnly(false);
-        Assertions.assertThat(visited).isEmpty();
+        Assertions.assertThat(result).isEmpty();
     }
 
     @Test
-    public void dfsi_WhenDirectedGraphAndSingleRoot_ThenNotAllVisited()
+    public void dfsIterative_WhenDirectedGraphAndSingleRoot_ThenVisitedVertices()
     {
         // when
-        List<Boolean> result = Searching.dfsi(digraph, strategy, 1);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result =
+                Searching.dfsIterative(directedGraph, new EmptyStrategy<>(),
+                                       List.of(directedGraph.getVertex(1)));
         // then
+        Assertions.assertThat(result).isSubsetOf(directedGraph.getVertices());
+        Assertions.assertThat(result).doesNotContain(directedGraph.getVertex(2));
+    }
+
+    // endregion
+    // region dfsRecursive
+
+    @Test
+    public void dfsRecursive_WhenUndirectedGraphAndSingleRoot_ThenVisitedVertices()
+    {
+        // when
+        Collection<Vertex<Void>> result =
+                Searching.dfsRecursive(undirectedGraph, new EmptyStrategy<>(),
+                                       List.of(undirectedGraph.getVertex(0)));
+        // then
+        Assertions.assertThat(result).isSubsetOf(undirectedGraph.getVertices());
         Assertions.assertThat(result)
-                  .containsExactly(true, true, false, true, true, true, true, true, true, true);
-        Assertions.assertThat(visited).isSubsetOf(digraph.getVertices());
-        Assertions.assertThat(visited).doesNotContain(2);
+                  .doesNotContain(undirectedGraph.getVertex(2), undirectedGraph.getVertex(6),
+                                  undirectedGraph.getVertex(9));
     }
 
     @Test
-    public void dfsr_WhenUndirectedGraphAndSingleRoot_ThenNotAllVisited()
+    public void dfsRecursive_WhenUndirectedGraphAndManyRoots_ThenAllVertices()
     {
         // when
-        List<Boolean> result = Searching.dfsr(ugraph, strategy, 0);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result =
+                Searching.dfsRecursive(undirectedGraph, new EmptyStrategy<>(),
+                                       List.of(undirectedGraph.getVertex(0),
+                                               undirectedGraph.getVertex(6)));
         // then
-        Assertions.assertThat(result)
-                  .containsExactly(true, true, false, true, true, true, false, true, true, false);
-        Assertions.assertThat(visited).isSubsetOf(ugraph.getVertices());
-        Assertions.assertThat(visited).doesNotContain(2, 6, 9);
+        Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     @Test
-    public void dfsr_WhenUndirectedGraphAndManyRoots_ThenAllVisited()
+    public void dfsRecursive_WhenUndirectedGraphAndNoRoots_ThenEmpty()
     {
         // when
-        List<Boolean> result = Searching.dfsr(ugraph, strategy, 0, 6);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result =
+                Searching.dfsRecursive(undirectedGraph, new EmptyStrategy<>(), List.of());
         // then
-        Assertions.assertThat(result).containsOnly(true);
-        Assertions.assertThat(visited).hasSameElementsAs(ugraph.getVertices());
+        Assertions.assertThat(result).isEmpty();
     }
 
     @Test
-    public void dfsr_WhenUndirectedGraphAndNoRoots_ThenNoVisited()
+    public void dfsRecursive_WhenDirectedGraphAndSingleRoot_ThenVisitedVertices()
     {
         // when
-        List<Boolean> result = Searching.dfsr(ugraph, strategy);
-        List<Integer> visited = strategy.getVisited();
+        Collection<Vertex<Void>> result =
+                Searching.dfsRecursive(directedGraph, new EmptyStrategy<>(),
+                                       List.of(directedGraph.getVertex(1)));
         // then
-        Assertions.assertThat(result).containsOnly(false);
-        Assertions.assertThat(visited).isEmpty();
+        Assertions.assertThat(result).isSubsetOf(directedGraph.getVertices());
+        Assertions.assertThat(result).doesNotContain(directedGraph.getVertex(2));
     }
 
-    @Test
-    public void dfsr_WhenDirectedGraphAndSingleRoot_ThenNotAllVisited()
-    {
-        // when
-        List<Boolean> result = Searching.dfsr(digraph, strategy, 1);
-        List<Integer> visited = strategy.getVisited();
-        // then
-        Assertions.assertThat(result)
-                  .containsExactly(true, true, false, true, true, true, true, true, true, true);
-        Assertions.assertThat(visited).isSubsetOf(digraph.getVertices());
-        Assertions.assertThat(visited).doesNotContain(2);
-    }
-
-    private static class SearchingTestStrategy
-            implements SearchingStrategy
-    {
-        private List<Integer> visited = new ArrayList<>();
-
-        public List<Integer> getVisited()
-        {
-            return visited;
-        }
-
-        @Override
-        public void preprocess(int vertex)
-        {
-            visited.add(vertex);
-        }
-
-        @Override
-        public void forNeighbour(int vertex, int neighbour)
-        {
-        }
-
-        @Override
-        public void postprocess(int vertex)
-        {
-        }
-
-        @Override
-        public void onCycle(int vertex, int neighbour)
-        {
-
-        }
-    }
+    // endregion
 }

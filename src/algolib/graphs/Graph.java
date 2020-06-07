@@ -1,76 +1,57 @@
-// STRUKTURA GRAFU
+// Structure of graph
 package algolib.graphs;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
-import algolib.tuples.ComparablePair;
-
-public interface Graph
+public interface Graph<V, E>
 {
-    /**
-     * Oznaczenie nieskończoności
-     */
-    double INF = Double.POSITIVE_INFINITY;
+    /** @return number of vertices */
+    int getVerticesCount();
+
+    /** @return sorted list of vertices */
+    List<Vertex<V>> getVertices();
+
+    /** @return number of edges */
+    int getEdgesCount();
+
+    /** @return sorted list of edges */
+    List<Edge<E, V>> getEdges();
 
     /**
-     * @return liczba wierzchołków
+     * @param index vertex index
+     * @return vertex with the index
      */
-    int getVerticesNumber();
+    Vertex<V> getVertex(int index);
 
     /**
-     * @return lista wierzchołków
+     * @param source source vertex
+     * @param destination destination vertex
+     * @return edge between the vertices, or {@code null} of no edge
      */
-    Collection<Integer> getVertices();
+    Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination);
 
     /**
-     * @return liczba krawędzi
+     * @param vertex a vertex from this graph
+     * @return list of neighbouring vertices
      */
-    int getEdgesNumber();
+    Collection<Vertex<V>> getNeighbours(Vertex<V> vertex);
 
     /**
-     * @return lista krawędzi
+     * @param vertex a vertex from this graph
+     * @return list of edges adjacent to this vertex
      */
-    Collection<ComparablePair<Integer, Integer>> getEdges();
+    Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex);
 
     /**
-     * Dodawanie nowego wierzchołka
-     * @return oznaczenie wierzchołka
+     * @param vertex a vertex from this graph
+     * @return the output degree of this vertex
      */
-    default Integer addVertex()
-    {
-        return addVertex(Collections.emptyList());
-    }
+    int getOutputDegree(Vertex<V> vertex);
 
     /**
-     * Dodawanie nowego wierzchołka
-     * @param neighbours sąsiedzi nowego wierzchołka
-     * @return oznaczenie wierzchołka
+     * @param vertex a vertex from this graph
+     * @return the input degree of this vertex
      */
-    Integer addVertex(Collection<Integer> neighbours);
-
-    /**
-     * Dodawanie nowej krawędzi
-     * @param vertex1 początkowy wierzchołek
-     * @param vertex2 końcowy wierzchołek
-     */
-    void addEdge(Integer vertex1, Integer vertex2);
-
-    /**
-     * @param vertex numer wierzchołka
-     * @return lista sąsiadów wierzchołka
-     */
-    Collection<Integer> getNeighbours(Integer vertex);
-
-    /**
-     * @param vertex numer wierzchołka
-     * @return stopień wyjściowy wierzchołka
-     */
-    int getOutdegree(Integer vertex);
-
-    /**
-     * @param vertex numer wierzchołka
-     * @return stopień wejściowy wierzchołka
-     */
-    int getIndegree(Integer vertex);
+    int getInputDegree(Vertex<V> vertex);
 }

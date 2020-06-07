@@ -1,175 +1,172 @@
 // Algorithms for graph searching
 package algolib.graphs.algorithms;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import algolib.graphs.Graph;
+import algolib.graphs.Vertex;
+import algolib.graphs.algorithms.strategy.BFSStrategy;
+import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class Searching
 {
     /**
-     * Algorytm BFS od danych wierzchołków
-     * @param graph graf
-     * @param strategy strategia procesowania wierzchołka
-     * @param roots wierzchołki początkowe
-     * @return lista odwiedzonych wierzchołków
+     * Breadth-first-search algorithm.
+     * @param graph a graph
+     * @param strategy a searching strategy
+     * @param roots starting vertices
+     * @return list of visited vertices
      */
-    public static List<Boolean> bfs(Graph graph, SearchingStrategy strategy, Integer... roots)
+    public static <V, E> Collection<Vertex<V>> bfs(Graph<V, E> graph, BFSStrategy<V> strategy,
+                                                   List<Vertex<V>> roots)
     {
-        List<Integer> reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
-        Deque<Integer> vertexDeque = new ArrayDeque<>();
-        int iter = 1;
+        Map<Vertex<V>, Integer> reached = new HashMap<>();
+        Deque<Vertex<V>> vertexDeque = new ArrayDeque<>();
+        int iteration = 1;
 
-        for(int root : roots)
-            if(reached.get(root) == 0)
+        for(Vertex<V> root : roots)
+            if(!reached.containsKey(root))
             {
+                strategy.forRoot(root);
                 vertexDeque.addLast(root);
-                reached.set(root, iter);
+                reached.put(root, iteration);
 
                 while(!vertexDeque.isEmpty())
                 {
-                    Integer vertex = vertexDeque.removeFirst();
+                    Vertex<V> vertex = vertexDeque.removeFirst();
 
-                    strategy.preprocess(vertex);
+                    strategy.onEnter(vertex);
 
-                    for(Integer neighbour : graph.getNeighbours(vertex))
-                        if(reached.get(neighbour) == 0)
+                    for(Vertex<V> neighbour : graph.getNeighbours(vertex))
+                        if(!reached.containsKey(neighbour))
                         {
-                            strategy.forNeighbour(vertex, neighbour);
-                            reached.set(neighbour, iter);
+                            strategy.onNextVertex(vertex, neighbour);
+                            reached.put(neighbour, iteration);
                             vertexDeque.addLast(neighbour);
                         }
-                        else if(reached.get(neighbour) == iter)
-                            strategy.onCycle(vertex, neighbour);
 
-                    strategy.postprocess(vertex);
-                    reached.set(root, -iter);
+                    strategy.onExit(vertex);
+                    reached.put(root, -iteration);
                 }
 
-                ++iter;
+                ++iteration;
             }
 
-        return reached.stream().map(i -> i != 0).collect(Collectors.toList());
+        return reached.keySet();
     }
 
     /**
-     * Iteracyjny algorytm DFS od danych wierzchołków
-     * @param graph graf
-     * @param strategy strategia procesowania wierzchołka
-     * @param roots wierzchołki początkowe
-     * @return lista odwiedzonych wierzchołków
+     * Iterative depth-first-search algorithm
+     * @param graph a graph
+     * @param strategy a searching strategy
+     * @param roots starting vertices
+     * @return list of visited vertices
      */
-    public static List<Boolean> dfsi(Graph graph, SearchingStrategy strategy, Integer... roots)
+    public static <V, E> Collection<Vertex<V>> dfsIterative(Graph<V, E> graph,
+                                                            DFSStrategy<V> strategy,
+                                                            List<Vertex<V>> roots)
     {
-        List<Integer> reached = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), 0));
-        Deque<Integer> vertexDeque = new ArrayDeque<>();
-        int iter = 1;
+        Map<Vertex<V>, Integer> reached = new HashMap<>();
+        Deque<Vertex<V>> vertexDeque = new ArrayDeque<>();
+        int iteration = 1;
 
-        for(int root : roots)
-            if(reached.get(root) == 0)
+        for(Vertex<V> root : roots)
+            if(!reached.containsKey(root))
             {
+                strategy.forRoot(root);
                 vertexDeque.addFirst(root);
 
                 while(!vertexDeque.isEmpty())
                 {
-                    Integer vertex = vertexDeque.removeFirst();
+                    Vertex<V> vertex = vertexDeque.removeFirst();
 
-                    if(reached.get(vertex) == 0)
+                    if(!reached.containsKey(vertex))
                     {
-                        reached.set(vertex, iter);
-                        strategy.preprocess(vertex);
+                        reached.put(vertex, iteration);
+                        strategy.onEnter(vertex);
 
-                        for(Integer neighbour : graph.getNeighbours(vertex))
-                            if(reached.get(neighbour) == 0)
+                        for(Vertex<V> neighbour : graph.getNeighbours(vertex))
+                            if(!reached.containsKey(neighbour))
                             {
-                                strategy.forNeighbour(vertex, neighbour);
+                                strategy.onNextVertex(vertex, neighbour);
                                 vertexDeque.addFirst(neighbour);
                             }
-                            else if(reached.get(neighbour) == iter)
-                                strategy.onCycle(vertex, neighbour);
+                            else if(reached.get(neighbour) == iteration)
+                                strategy.onEdgeToVisited(vertex, neighbour);
 
-                        strategy.postprocess(vertex);
-                        reached.set(root, -iter);
+                        strategy.onExit(vertex);
+                        reached.put(root, -iteration);
                     }
                 }
 
-                ++iter;
+                ++iteration;
             }
 
-        return reached.stream().map(i -> i != 0).collect(Collectors.toList());
+        return reached.keySet();
     }
 
     /**
-     * Rekurencyjny algorytm DFS od danych wierzchołków
-     * @param graph graf
-     * @param strategy strategia procesowania wierzchołka
-     * @param roots wierzchołki początkowe
-     * @return lista odwiedzonych wierzchołków
+     * Recursive depth-first-search algorithm
+     * @param graph a graph
+     * @param strategy a searching strategy
+     * @param roots starting vertices
+     * @return list of visited vertices
      */
-    public static List<Boolean> dfsr(Graph graph, SearchingStrategy strategy, Integer... roots)
+    public static <V, E> Collection<Vertex<V>> dfsRecursive(Graph<V, E> graph,
+                                                            DFSStrategy<V> strategy,
+                                                            List<Vertex<V>> roots)
     {
-        DfsrState state = new DfsrState(graph.getVerticesNumber());
+        DfsRecursiveState<V> state = new DfsRecursiveState<>();
 
-        for(int root : roots)
-            if(state.reached.get(root) == 0)
+        for(Vertex<V> root : roots)
+            if(!state.reached.containsKey(root))
             {
-                dfsrStep(graph, strategy, root, state);
+                strategy.forRoot(root);
+                state.vertex = root;
+                dfsRecursiveStep(graph, strategy, state);
                 ++state.iteration;
             }
 
-        return state.reached.stream().map(i -> i != 0).collect(Collectors.toList());
+        return state.reached.keySet();
     }
 
-    /**
-     * Krok rekurencyjnego DFS
-     * @param graph graf
-     * @param strategy strategia procesowania wierzchołka
-     * @param vertex aktualny wierzchołek
-     * @param state aktualny stan rekurencji
-     */
-    private static void dfsrStep(Graph graph, SearchingStrategy strategy, Integer vertex,
-                                 DfsrState state)
+    // Single step of the recursive DFS
+    private static <V, E> void dfsRecursiveStep(Graph<V, E> graph, DFSStrategy<V> strategy,
+                                                DfsRecursiveState<V> state)
     {
-        state.onEntry(vertex);
-        strategy.preprocess(vertex);
+        Vertex<V> vertex = state.vertex;
 
-        for(Integer neighbour : graph.getNeighbours(vertex))
-            if(state.reached.get(neighbour) == 0)
+        state.onEntry(vertex);
+        strategy.onEnter(vertex);
+
+        for(Vertex<V> neighbour : graph.getNeighbours(vertex))
+            if(!state.reached.containsKey(neighbour))
             {
-                strategy.forNeighbour(vertex, neighbour);
-                dfsrStep(graph, strategy, neighbour, state);
+                strategy.onNextVertex(vertex, neighbour);
+                state.vertex = neighbour;
+                dfsRecursiveStep(graph, strategy, state);
             }
             else if(state.reached.get(neighbour) == state.iteration)
-                strategy.onCycle(vertex, neighbour);
+                strategy.onEdgeToVisited(vertex, neighbour);
 
-        strategy.postprocess(vertex);
+        strategy.onExit(vertex);
         state.onExit(vertex);
     }
 
-    private static class DfsrState
+    private static class DfsRecursiveState<V>
     {
-        int iteration;
-        List<Integer> reached;
+        Vertex<V> vertex;
+        int iteration = 1;
+        Map<Vertex<V>, Integer> reached = new HashMap<>();
 
-        DfsrState(int verticesNumber)
+        void onEntry(Vertex<V> vertex)
         {
-            iteration = 1;
-            reached = new ArrayList<>(Collections.nCopies(verticesNumber, 0));
+            reached.put(vertex, iteration);
         }
 
-        void onEntry(int vertex)
+        void onExit(Vertex<V> vertex)
         {
-            reached.set(vertex, iteration);
-        }
-
-        void onExit(int vertex)
-        {
-            reached.set(vertex, -iteration);
+            reached.put(vertex, -iteration);
         }
     }
 }

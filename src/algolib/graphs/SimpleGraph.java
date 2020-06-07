@@ -1,80 +1,95 @@
-// STRUKTURA GRAFU PROSTEGO
+// Structure of simple graph
 package algolib.graphs;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
-import algolib.tuples.ComparablePair;
-import algolib.tuples.Pair;
-
-public abstract class SimpleGraph
-        implements Graph
+public abstract class SimpleGraph<V, E>
+        implements Graph<V, E>
 {
-    /** Domyślna waga krawędzi. */
-    protected static Double DEFAULT_WEIGHT = 1.0;
+    protected GraphRepresentation<V, E> representation;
 
-    /** Lista sąsiedztwa grafu. */
-    protected List<Set<ComparablePair<Integer, Double>>> graphrepr;
-
-    public SimpleGraph(int n)
+    public SimpleGraph()
     {
-        graphrepr = new ArrayList<>();
+        representation = new GraphRepresentation<>();
+    }
 
-        for(int i = 0; i < n; ++i)
-            graphrepr.add(new HashSet<>());
+    public SimpleGraph(Collection<V> properties)
+    {
+        this();
+        properties.forEach(property -> addVertex(property));
+    }
+
+    public SimpleGraph(Graph<V, E> graph)
+    {
+        representation = new GraphRepresentation<>(graph.getVertices());
     }
 
     @Override
-    public int getVerticesNumber()
+    public int getVerticesCount()
     {
-        return graphrepr.size();
+        return representation.size();
     }
 
     @Override
-    public Collection<Integer> getVertices()
+    public List<Vertex<V>> getVertices()
     {
-        List<Integer> vertices = new ArrayList<>();
-
-        for(int i = 0; i < getVerticesNumber(); ++i)
-            vertices.add(i);
-
-        return vertices;
+        return representation.getVertices().sorted().collect(Collectors.toList());
     }
 
     @Override
-    public Integer addVertex(Collection<Integer> neighbours)
+    public Vertex<V> getVertex(int index)
     {
-        for(Integer nb : neighbours)
-            if(nb < 0 || nb >= graphrepr.size())
-                throw new NoSuchVertexException("No vertex " + nb);
-
-        graphrepr.add(new HashSet<>());
-
-        Integer v = graphrepr.size() - 1;
-
-        for(Integer nb : neighbours)
-            addEdge(v, nb);
-
-        return v;
+        return representation.getVertices()
+                             .filter(v -> index == v.index)
+                             .findFirst()
+                             .orElseThrow(() -> new IndexOutOfBoundsException(
+                                     String.format("No vertex with index %d in this graph",
+                                                   index)));
     }
 
     @Override
-    public Collection<Integer> getNeighbours(Integer vertex)
+    public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
     {
-        List<Integer> neighbours = new ArrayList<>();
-
-        for(Pair<Integer, Double> e : graphrepr.get(vertex))
-            neighbours.add(e.first);
-
-        return neighbours;
+        return representation.getAdjacentEdges(vertex)
+                             .stream()
+                             .map(edge -> edge.getNeighbour(vertex))
+                             .collect(Collectors.toSet());
     }
 
     @Override
-    public int getOutdegree(Integer vertex)
+    public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
     {
-        return graphrepr.get(vertex).size();
+        return representation.getAdjacentEdges(vertex);
     }
+
+    @Override
+    public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
+    {
+        return representation.getAdjacentEdges(source)
+                             .stream()
+                             .filter(edge -> edge.getNeighbour(source) == destination)
+                             .findFirst()
+                             .orElse(null);
+    }
+
+    /**
+     * Adds a new vertex with given property to this graph.
+     * @param property a vertex property
+     * @return the new vertex
+     */
+    public Vertex<V> addVertex(V property)
+    {
+        return representation.addVertex(property);
+    }
+
+    /**
+     * Adds a new edge with given properties to this graph.
+     * @param source a source vertex
+     * @param destination a destination vertex
+     * @param property an edge property
+     * @return the new edge
+     */
+    public abstract Edge<E, V> addEdge(Vertex<V> source, Vertex<V> destination, E property);
 }

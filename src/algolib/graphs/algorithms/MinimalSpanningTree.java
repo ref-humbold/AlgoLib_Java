@@ -1,87 +1,102 @@
 // Algorithms for minimal spanning tree
 package algolib.graphs.algorithms;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.PriorityQueue;
+import java.util.Set;
 
-import algolib.graphs.UndirectedWeightedGraph;
+import algolib.graphs.Edge;
+import algolib.graphs.UndirectedGraph;
+import algolib.graphs.UndirectedSimpleGraph;
+import algolib.graphs.Vertex;
+import algolib.graphs.properties.Weighted;
 import algolib.structures.DisjointSets;
-import algolib.tuples.ComparablePair;
-import algolib.tuples.ComparableTriple;
 import algolib.tuples.Pair;
 
 public final class MinimalSpanningTree
 {
     /**
-     * Algorytm Kruskala wyliczający długość MST
-     * @param uwgraph graf ważony
-     * @return długość minimalnego drzewa spinającego
+     * Kruskal algorithm counting the size of MST
+     * @param graph an undirected weighted graph
+     * @return size of the minimal spanning tree
      */
-    public static double kruskal(UndirectedWeightedGraph uwgraph)
+    public static <V, E extends Weighted> UndirectedGraph<V, E> kruskal(UndirectedGraph<V, E> graph)
     {
-        double sizeMST = 0.0;
-        int components = uwgraph.getVerticesNumber();
-        PriorityQueue<ComparableTriple<Double, Integer, Integer>> edgeQueue = new PriorityQueue<>();
-        DisjointSets<Integer> vertexSets = new DisjointSets<>(uwgraph.getVertices());
+        UndirectedSimpleGraph<V, E> mst = new UndirectedSimpleGraph<>(graph);
+        DisjointSets<Vertex<V>> vertexSets = new DisjointSets<>(graph.getVertices());
+        PriorityQueue<Edge<E, V>> edgeQueue = new PriorityQueue<>((edge1, edge2) -> {
+            int compareWeights =
+                    Double.compare(edge1.property.getWeight(), edge2.property.getWeight());
 
-        for(int v : uwgraph.getVertices())
-            for(Pair<Integer, Double> e : uwgraph.getWeightedNeighbours(v))
-                edgeQueue.add(ComparableTriple.of(e.second, e.first, v));
+            return compareWeights != 0 ? compareWeights : edge1.compareTo(edge2);
+        });
 
-        while(components > 1 && !edgeQueue.isEmpty())
+        for(Vertex<V> vertex : graph.getVertices())
+            edgeQueue.addAll(graph.getAdjacentEdges(vertex));
+
+        while(vertexSets.size() > 1 && !edgeQueue.isEmpty())
         {
-            Double edgeWeight = edgeQueue.element().first;
-            Integer vertex1 = edgeQueue.element().second;
-            Integer vertex2 = edgeQueue.element().third;
+            Edge<E, V> edge = edgeQueue.remove();
 
-            edgeQueue.remove();
+            if(!vertexSets.isSameSet(edge.source, edge.destination))
+                mst.addEdge(edge.source, edge.destination, edge.property);
 
-            if(!vertexSets.isSameSet(vertex1, vertex2))
-            {
-                sizeMST += edgeWeight;
-                --components;
-                vertexSets.unionSet(vertex1, vertex2);
-            }
+            vertexSets.unionSet(edge.source, edge.destination);
         }
 
-        return sizeMST;
+        return mst;
     }
 
     /**
-     * Algorytm Prima wyliczający długość MST
-     * @param uwgraph graf ważony
-     * @param source początkowy wierzchołek
-     * @return długość minimalnego drzewa spinającego
+     * Prim algorithm counting the size of MST
+     * @param graph an undirected weighted graph
+     * @param source starting vertex
+     * @return size of the minimal spanning tree
      */
-    public static double prim(UndirectedWeightedGraph uwgraph, int source)
+    public static <V, E extends Weighted> UndirectedGraph<V, E> prim(UndirectedGraph<V, E> graph,
+                                                                     Vertex<V> source)
     {
-        double sizeMST = 0.0;
-        PriorityQueue<ComparablePair<Double, Integer>> vertexQueue = new PriorityQueue<>();
-        List<Boolean> isVisited =
-                new ArrayList<>(Collections.nCopies(uwgraph.getVerticesNumber(), false));
+        UndirectedSimpleGraph<V, E> mst = new UndirectedSimpleGraph<>(graph);
+        Set<Vertex<V>> visited = new HashSet<>();
+        PriorityQueue<Pair<Edge<E, V>, Vertex<V>>> queue = new PriorityQueue<>((pair1, pair2) -> {
+            int compareWeights = Double.compare(pair1.first.property.getWeight(),
+                                                pair2.first.property.getWeight());
 
-        vertexQueue.add(ComparablePair.of(0.0, source));
+            return compareWeights != 0 ? compareWeights : pair1.second.compareTo(pair2.second);
+        });
 
-        while(!vertexQueue.isEmpty())
+        visited.add(source);
+
+        for(Edge<E, V> adjacentEdges : graph.getAdjacentEdges(source))
         {
-            Double edgeWeight = vertexQueue.element().first;
-            Integer v = vertexQueue.element().second;
+            Vertex<V> neighbour = adjacentEdges.getNeighbour(source);
 
-            vertexQueue.remove();
+            if(!visited.contains(neighbour))
+                queue.add(Pair.of(adjacentEdges, neighbour));
+        }
 
-            if(!isVisited.get(v))
+        while(!queue.isEmpty())
+        {
+            Edge<E, V> edge = queue.element().first;
+            Vertex<V> vertex = queue.element().second;
+
+            queue.remove();
+
+            if(!visited.contains(vertex))
             {
-                isVisited.set(v, true);
-                sizeMST += edgeWeight;
+                visited.add(vertex);
+                mst.addEdge(edge.source, edge.destination, edge.property);
 
-                for(Pair<Integer, Double> e : uwgraph.getWeightedNeighbours(v))
-                    if(!isVisited.get(e.first))
-                        vertexQueue.add(ComparablePair.of(e.second, e.first));
+                for(Edge<E, V> adjacentEdges : graph.getAdjacentEdges(vertex))
+                {
+                    Vertex<V> neighbour = adjacentEdges.getNeighbour(vertex);
+
+                    if(!visited.contains(neighbour))
+                        queue.add(Pair.of(adjacentEdges, neighbour));
+                }
             }
         }
 
-        return sizeMST;
+        return mst;
     }
 }

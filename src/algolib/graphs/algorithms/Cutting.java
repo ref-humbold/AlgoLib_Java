@@ -2,171 +2,142 @@
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import algolib.graphs.Graph;
+import algolib.graphs.Edge;
 import algolib.graphs.UndirectedGraph;
-import algolib.tuples.ComparablePair;
+import algolib.graphs.Vertex;
+import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class Cutting
 {
     /**
-     * Wyznacza mosty w grafie
-     * @return lista krawędzi będących mostami
+     * Finds an edge cut of given graph.
+     * @param graph an undirected graph
+     * @return list of edges in the edge cut
      */
-    public static Collection<ComparablePair<Integer, Integer>> findEdgeCut(UndirectedGraph ugraph)
+    public static <V, E> List<Edge<E, V>> findEdgeCut(UndirectedGraph<V, E> graph)
     {
-        return new GraphCutting(ugraph).edgeCut();
+        return new GraphCutting<>(graph).edgeCut();
     }
 
     /**
-     * Wyznaczanie punktów artykulacji
-     * @return lista punktów artykulacji
+     * Finds a vertex cut of given graph.
+     * @param graph an undirected graph
+     * @return list of vertices in the vertex cut
      */
-    public static Collection<Integer> findVertexCut(UndirectedGraph ugraph)
+    public static <V, E> List<Vertex<V>> findVertexCut(UndirectedGraph<V, E> graph)
     {
-        return new GraphCutting(ugraph).vertexCut();
+        return new GraphCutting<>(graph).vertexCut();
     }
 
-    private static class GraphCutting
+    private static class CuttingStrategy<V>
+            implements DFSStrategy<V>
     {
-        /**
-         * Reprezentacja grafu nieskierowanego
-         */
-        private Graph graph;
+        private final Map<Vertex<V>, Vertex<V>> dfsParents = new HashMap<>();
+        private final Map<Vertex<V>, List<Vertex<V>>> dfsChildren = new HashMap<>();
+        private final Map<Vertex<V>, Integer> dfsDepths = new HashMap<>();
+        private final Map<Vertex<V>, Integer> lowValues = new HashMap<>();
+        private int depth = 0;
 
-        /**
-         * Ojciec wierzchołka w drzewie DFS
-         */
-        private List<Integer> dfsParents;
+        @Override
+        public void forRoot(Vertex<V> root)
+        {
+        }
 
-        /**
-         * Lista synów w drzewie DFS
-         */
-        private List<List<Integer>> dfsChildren;
+        @Override
+        public void onEnter(Vertex<V> vertex)
+        {
+            dfsDepths.put(vertex, depth);
+            lowValues.put(vertex, depth);
+            dfsChildren.putIfAbsent(vertex, new ArrayList<>());
+            ++depth;
+        }
 
-        /**
-         * Głębokość wierzchołka w drzewie DFS
-         */
-        private List<Integer> dfsDepths;
+        @Override
+        public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
+        {
+            dfsParents.put(neighbour, vertex);
+            dfsChildren.get(vertex).add(neighbour);
+        }
 
-        /**
-         * Wartości funkcji LOW dla wierzchołków
-         */
-        private List<Integer> lowValues;
+        @Override
+        public void onExit(Vertex<V> vertex)
+        {
+            int minimalLowValue = dfsChildren.get(vertex)
+                                             .stream()
+                                             .mapToInt(child -> lowValues.get(child))
+                                             .min()
+                                             .orElse(Integer.MAX_VALUE);
 
-        public GraphCutting(UndirectedGraph graph)
+            lowValues.put(vertex, Math.min(lowValues.get(vertex), minimalLowValue));
+            --depth;
+        }
+
+        @Override
+        public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
+        {
+            if(!neighbour.equals(dfsParents.get(vertex)))
+                lowValues.put(vertex, Math.min(lowValues.get(vertex), dfsDepths.get(neighbour)));
+        }
+    }
+
+    private static class GraphCutting<V, E>
+    {
+        private final UndirectedGraph<V, E> graph;
+
+        GraphCutting(UndirectedGraph<V, E> graph)
         {
             this.graph = graph;
-            dfsParents = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
-            dfsDepths = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
-            lowValues = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
-            dfsChildren = new ArrayList<>();
-
-            for(int i = 0; i < graph.getVerticesNumber(); ++i)
-                dfsChildren.add(new ArrayList<>());
         }
 
-        /**
-         * Znajdowanie mostów w grafie
-         * @return lista krawędzi będących mostami
-         */
-        public Collection<ComparablePair<Integer, Integer>> edgeCut()
+        List<Edge<E, V>> edgeCut()
         {
-            List<ComparablePair<Integer, Integer>> bridges = new ArrayList<>();
+            CuttingStrategy<V> strategy = new CuttingStrategy<>();
 
-            for(Integer v : graph.getVertices())
-                if(dfsDepths.get(v) == null)
-                    dfs(v, null, 0);
-
-            for(Integer v : graph.getVertices())
-                if(hasBridge(v))
-                    bridges.add(ComparablePair.of(Math.min(v, dfsParents.get(v)),
-                                                  Math.max(v, dfsParents.get(v))));
-
-            return bridges;
+            Searching.dfsRecursive(graph, strategy, graph.getVertices());
+            return graph.getVertices()
+                        .stream()
+                        .filter(vertex -> hasBridge(vertex, strategy))
+                        .map(vertex -> graph.getEdge(vertex, strategy.dfsParents.get(vertex)))
+                        .collect(Collectors.toList());
         }
 
-        /**
-         * Znajdowanie punktów artykulacji
-         * @return lista punktów artykulacji
-         */
-        public Collection<Integer> vertexCut()
+        List<Vertex<V>> vertexCut()
         {
-            List<Integer> separators = new ArrayList<>();
+            CuttingStrategy<V> strategy = new CuttingStrategy<>();
 
-            for(Integer v : graph.getVertices())
-                if(dfsDepths.get(v) == null)
-                    dfs(v, null, 0);
-
-            for(Integer v : graph.getVertices())
-                if(isSeparator(v))
-                    separators.add(v);
-
-            return separators;
+            Searching.dfsRecursive(graph, strategy, graph.getVertices());
+            return graph.getVertices()
+                        .stream()
+                        .filter(vertex -> isSeparator(vertex, strategy))
+                        .collect(Collectors.toList());
         }
 
-        /**
-         * Sprawdzanie, czy od wierzchołka wychodzi krawędź będąca mostem
-         * @param vertex wierzchołek
-         * @return czy wierzchołek incydentny z mostem
-         */
-        private boolean hasBridge(Integer vertex)
+        private boolean hasBridge(Vertex<V> vertex, CuttingStrategy<V> strategy)
         {
-            return lowValues.get(vertex).equals(dfsDepths.get(vertex)) && !isDFSRoot(vertex);
+            return !isDFSRoot(vertex, strategy) && strategy.lowValues.get(vertex)
+                                                                     .equals(strategy.dfsDepths.get(
+                                                                             vertex));
         }
 
-        /**
-         * Sprawdzanie wierzchołka jako punktu artykulacji
-         * @param vertex wierzchołek
-         * @return czy wierzchołek to punkt artykulacji
-         */
-        private boolean isSeparator(Integer vertex)
+        private boolean isSeparator(Vertex<V> vertex, CuttingStrategy<V> strategy)
         {
-            if(isDFSRoot(vertex))
-                return dfsChildren.get(vertex).size() > 1;
+            if(isDFSRoot(vertex, strategy))
+                return strategy.dfsChildren.get(vertex).size() > 1;
 
-            for(Integer ch : dfsChildren.get(vertex))
-                if(lowValues.get(ch) >= dfsDepths.get(vertex))
-                    return true;
-
-            return false;
+            return strategy.dfsChildren.get(vertex)
+                                       .stream()
+                                       .anyMatch(child -> strategy.lowValues.get(child)
+                                               >= strategy.dfsDepths.get(vertex));
         }
 
-        /**
-         * Sprawdzanie, czy wierzchołek jest korzeniem drzewa DFS
-         * @return czy wierzchołek to korzeń
-         */
-        private boolean isDFSRoot(Integer vertex)
+        private boolean isDFSRoot(Vertex<V> vertex, CuttingStrategy<V> strategy)
         {
-            return dfsDepths.get(vertex) == 0;
-        }
-
-        /**
-         * Algorytm DFS wyliczający funkcję LOW
-         * @param vertex aktualny wierzchołek
-         * @param parent ojciec wierzchołka
-         * @param depth głębokość
-         */
-        private void dfs(Integer vertex, Integer parent, Integer depth)
-        {
-            dfsParents.set(vertex, parent);
-            dfsDepths.set(vertex, depth);
-            lowValues.set(vertex, depth);
-
-            for(Integer neighbour : graph.getNeighbours(vertex))
-                if(dfsDepths.get(neighbour) == null)
-                {
-                    dfsChildren.get(vertex).add(neighbour);
-                    dfs(neighbour, vertex, depth + 1);
-                    lowValues.set(vertex,
-                                  Math.min(lowValues.get(vertex), lowValues.get(neighbour)));
-                }
-                else if(!neighbour.equals(parent))
-                    lowValues.set(vertex,
-                                  Math.min(lowValues.get(vertex), dfsDepths.get(neighbour)));
+            return strategy.dfsDepths.get(vertex) == 0;
         }
     }
 }

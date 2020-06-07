@@ -1,25 +1,29 @@
 // Tests: Structure of tree graph
 package algolib.graphs;
 
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import algolib.tuples.Pair;
-
 public class TreeGraphTest
 {
-    private TreeGraph testObject;
+    private TreeGraph<Void, Void> testObject;
 
     @BeforeEach
     public void setUp()
     {
-        testObject = new TreeGraph(10, Arrays.asList(Pair.of(0, 6), Pair.of(1, 2), Pair.of(2, 3),
-                                                     Pair.of(3, 4), Pair.of(4, 5), Pair.of(6, 4),
-                                                     Pair.of(7, 3), Pair.of(8, 3), Pair.of(9, 7)));
+        testObject = new TreeGraph<>(null);
+
+        testObject.addVertex(null, null, testObject.getVertex(0));
+        testObject.addVertex(null, null, testObject.getVertex(0));
+        testObject.addVertex(null, null, testObject.getVertex(0));
+        testObject.addVertex(null, null, testObject.getVertex(1));
+        testObject.addVertex(null, null, testObject.getVertex(1));
+        testObject.addVertex(null, null, testObject.getVertex(2));
+        testObject.addVertex(null, null, testObject.getVertex(2));
     }
 
     @AfterEach
@@ -29,43 +33,132 @@ public class TreeGraphTest
     }
 
     @Test
-    public void addVertex_WhenOneNeighbour()
+    public void getVerticesCount_ThenNumberOfVertices()
     {
         // when
-        int result = testObject.addVertex(List.of(2));
+        long result = testObject.getVerticesCount();
         // then
-        Assertions.assertThat(result).isEqualTo(10);
-        Assertions.assertThat(testObject.getNeighbours(result)).containsExactly(2);
+        Assertions.assertThat(result).isEqualTo(8L);
     }
 
     @Test
-    public void addVertex_WhenNoNeighbours()
+    public void getVertices_ThenAllVertices()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.addVertex(List.of()));
+        List<Vertex<Void>> result = testObject.getVertices();
         // then
-        Assertions.assertThat(throwable).isInstanceOf(NotConnectedException.class);
+        Assertions.assertThat(result).isSorted();
+        Assertions.assertThat(result)
+                  .containsExactly(new Vertex<>(0, null), new Vertex<>(1, null),
+                                   new Vertex<>(2, null), new Vertex<>(3, null),
+                                   new Vertex<>(4, null), new Vertex<>(5, null),
+                                   new Vertex<>(6, null), new Vertex<>(7, null));
     }
 
     @Test
-    public void addVertex_WhenManyNeighbours()
-    {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> testObject.addVertex(Arrays.asList(2, 5, 9)));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(CycleException.class);
-    }
-
-    @Test
-    public void addEdge()
+    public void getVertex_WhenIndexInRange_ThenVertex()
     {
         // given
-        int vertex1 = 1;
-        int vertex2 = 5;
+        int index = 7;
+        List<Vertex<Void>> vertices = testObject.getVertices();
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.addEdge(vertex1, vertex2));
+        Vertex<Void> result = testObject.getVertex(index);
         // then
-        Assertions.assertThat(throwable).isInstanceOf(CycleException.class);
+        Assertions.assertThat(result).isSameAs(vertices.get(index));
+    }
+
+    @Test
+    public void addVertex_ThenNewVertex()
+    {
+        // when
+        Vertex<Void> result = testObject.addVertex(null, null, testObject.getVertex(0));
+        // then
+        Assertions.assertThat(result.index).isEqualTo(8);
+        Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(9);
+        Assertions.assertThat(testObject.getNeighbours(result))
+                  .containsExactly(testObject.getVertex(0));
+    }
+
+    @Test
+    public void getEdgesCount_ThenNumberOfEdges()
+    {
+        // when
+        long result = testObject.getEdgesCount();
+        // then
+        Assertions.assertThat(result).isEqualTo(7L);
+    }
+
+    @Test
+    public void getEdges_ThenAllEdges()
+    {
+        // when
+        List<Edge<Void, Void>> result = testObject.getEdges();
+        // then
+        Assertions.assertThat(result).isSorted();
+        Assertions.assertThat(result)
+                  .containsExactly(
+                          new Edge<>(testObject.getVertex(0), testObject.getVertex(1), null),
+                          new Edge<>(testObject.getVertex(0), testObject.getVertex(2), null),
+                          new Edge<>(testObject.getVertex(0), testObject.getVertex(3), null),
+                          new Edge<>(testObject.getVertex(1), testObject.getVertex(4), null),
+                          new Edge<>(testObject.getVertex(1), testObject.getVertex(5), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(6), null),
+                          new Edge<>(testObject.getVertex(2), testObject.getVertex(7), null));
+    }
+
+    @Test
+    public void getEdge_WhenExists_ThenEdge()
+    {
+        // given
+        Vertex<Void> source = testObject.getVertex(1);
+        Vertex<Void> destination = testObject.getVertex(5);
+        // when
+        Edge<Void, Void> result = testObject.getEdge(source, destination);
+        // then
+        Assertions.assertThat(result.source).isSameAs(source);
+        Assertions.assertThat(result.destination).isSameAs(destination);
+    }
+
+    @Test
+    public void getNeighbours_ThenDestinationVerticesOfOutgoingEdges()
+    {
+        // when
+        Collection<Vertex<Void>> result = testObject.getNeighbours(testObject.getVertex(1));
+        // then
+        Assertions.assertThat(result).hasSize(3);
+        Assertions.assertThat(result)
+                  .containsOnly(testObject.getVertex(0), testObject.getVertex(4),
+                                testObject.getVertex(5));
+    }
+
+    @Test
+    public void getAdjacentEdges_ThenDestinationVerticesOfOutgoingEdges()
+    {
+        // when
+        Collection<Edge<Void, Void>> result = testObject.getAdjacentEdges(testObject.getVertex(1));
+        // then
+        Assertions.assertThat(result).hasSize(3);
+        Assertions.assertThat(result)
+                  .containsOnly(new Edge<>(testObject.getVertex(0), testObject.getVertex(1), null),
+                                new Edge<>(testObject.getVertex(1), testObject.getVertex(4), null),
+                                new Edge<>(testObject.getVertex(1), testObject.getVertex(5), null));
+    }
+
+    @Test
+    public void getOutputDegree_ThenNumberOfOutgoingEdges()
+    {
+        // when
+        long result = testObject.getOutputDegree(testObject.getVertex(1));
+        // then
+        Assertions.assertThat(result).isEqualTo(3L);
+    }
+
+    @Test
+    public void getInputDegree_ThenNumberOfIncomingEdges()
+    {
+        // when
+        long result = testObject.getInputDegree(testObject.getVertex(1));
+        // then
+        Assertions.assertThat(result).isEqualTo(3L);
     }
 }

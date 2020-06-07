@@ -1,88 +1,98 @@
-// Algorithms for shortest paths
+// Algorithms for shortest paths in graph
 package algolib.graphs.algorithms;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import algolib.graphs.DirectedWeightedGraph;
+import algolib.graphs.DirectedGraph;
+import algolib.graphs.Edge;
 import algolib.graphs.Graph;
-import algolib.graphs.WeightedGraph;
+import algolib.graphs.Vertex;
+import algolib.graphs.properties.Weighted;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
-import algolib.tuples.Triple;
 
 public final class Paths
 {
     /**
-     * Algorytm Bellmana-Forda
-     * @param diwgraph skierowany graf ważony
-     * @param source wierzchołek początkowy
-     * @return lista odległości wierzchołków
+     * Bellman-Ford algorithm
+     * @param graph directed graph with weighted edges
+     * @param source source vertex
+     * @return map of vertices' distances
      */
-    public static List<Double> bellmanFord(DirectedWeightedGraph diwgraph, int source)
+    public static <V, E extends Weighted> Map<Vertex<V>, Double> bellmanFord(
+            DirectedGraph<V, E> graph, Vertex<V> source)
             throws IllegalStateException
     {
-        List<Double> distances =
-                new ArrayList<>(Collections.nCopies(diwgraph.getVerticesNumber(), Graph.INF));
+        Map<Vertex<V>, Double> distances = graph.getVertices()
+                                                .stream()
+                                                .collect(Collectors.toMap(Function.identity(),
+                                                                          v -> Weighted.INFINITY));
 
-        distances.set(source, 0.0);
+        distances.put(source, 0.0);
 
-        for(int u = 0; u < diwgraph.getVerticesNumber() - 1; ++u)
-            for(Integer v : diwgraph.getVertices())
-                for(Pair<Integer, Double> e : diwgraph.getWeightedNeighbours(v))
-                    distances.set(e.first,
-                                  Math.min(distances.get(e.first), distances.get(v) + e.second));
+        for(int i = 0; i < graph.getVerticesCount() - 1; ++i)
+            for(Vertex<V> v : graph.getVertices())
+                for(Edge<E, V> e : graph.getAdjacentEdges(v))
+                    distances.put(e.destination, Math.min(distances.get(e.destination),
+                                                          distances.get(v)
+                                                                  + e.property.getWeight()));
 
-        for(Integer v : diwgraph.getVertices())
-            for(Pair<Integer, Double> e : diwgraph.getWeightedNeighbours(v))
-                if(distances.get(v) < Graph.INF && distances.get(v) + e.second < distances.get(
-                        e.first))
+        for(Vertex<V> v : graph.getVertices())
+            for(Edge<E, V> e : graph.getAdjacentEdges(v))
+                if(distances.get(v) < Weighted.INFINITY
+                        && distances.get(v) + e.property.getWeight() < distances.get(e.destination))
                     throw new IllegalStateException("Graph contains a negative cycle.");
 
         return distances;
     }
 
     /**
-     * Algorytm Dijkstry
-     * @param wgraph graf ważony z wagami nieujemnymi
-     * @param source wierzchołek początkowy
-     * @return lista odległości wierzchołków
+     * Dijkstra algorithm
+     * @param graph graph with weighted edges (weights are not negative)
+     * @param source source vertex
+     * @return map of vertices' distances
      */
-    public static List<Double> dijkstra(WeightedGraph wgraph, int source)
+    public static <V, E extends Weighted> Map<Vertex<V>, Double> dijkstra(Graph<V, E> graph,
+                                                                          Vertex<V> source)
             throws IllegalStateException
     {
-        for(Triple<Integer, Integer, Double> wedge : wgraph.getWeightedEdges())
-            if(wedge.third < 0.0)
+        for(Edge<E, V> edge : graph.getEdges())
+            if(edge.property.getWeight() < 0.0)
                 throw new IllegalStateException("Graph contains an edge with negative weight.");
 
-        List<Double> distances =
-                new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), WeightedGraph.INF));
-        List<Boolean> isVisited =
-                new ArrayList<>(Collections.nCopies(wgraph.getVerticesNumber(), false));
-        PriorityQueue<ComparablePair<Double, Integer>> vertexQueue = new PriorityQueue<>();
+        Map<Vertex<V>, Double> distances = graph.getVertices()
+                                                .stream()
+                                                .collect(Collectors.toMap(Function.identity(),
+                                                                          v -> Weighted.INFINITY));
+        Set<Vertex<V>> visited = new HashSet<>();
+        PriorityQueue<ComparablePair<Double, Vertex<V>>> vertexQueue = new PriorityQueue<>();
 
-        distances.set(source, 0.0);
+        distances.put(source, 0.0);
         vertexQueue.add(ComparablePair.of(0.0, source));
 
         while(!vertexQueue.isEmpty())
         {
-            Integer v = vertexQueue.remove().second;
+            Vertex<V> v = vertexQueue.remove().second;
 
-            if(!isVisited.get(v))
+            if(!visited.contains(v))
             {
-                isVisited.set(v, true);
+                visited.add(v);
 
-                for(Pair<Integer, Double> e : wgraph.getWeightedNeighbours(v))
+                for(Edge<E, V> e : graph.getAdjacentEdges(v))
                 {
-                    Integer nb = e.first;
-                    Double wg = e.second;
+                    Vertex<V> neighbour = e.getNeighbour(v);
+                    double weight = e.property.getWeight();
 
-                    if(distances.get(v) + wg < distances.get(nb))
+                    if(distances.get(v) + weight < distances.get(neighbour))
                     {
-                        distances.set(nb, distances.get(v) + wg);
-                        vertexQueue.add(ComparablePair.of(distances.get(nb), nb));
+                        distances.put(neighbour, distances.get(v) + weight);
+                        vertexQueue.add(ComparablePair.of(distances.get(neighbour), neighbour));
                     }
                 }
             }
@@ -92,26 +102,28 @@ public final class Paths
     }
 
     /**
-     * Algorytm Floyda-Warshalla
-     * @param diwgraph skierowany graf ważony
-     * @return macierz odległości wierzchołków
+     * Floyd-Warshall algorithm
+     * @param graph directed graph with weighted edges
+     * @return map of distances between all pairs of vertices
      */
-    public static double[][] floydWarshall(DirectedWeightedGraph diwgraph)
+    public static <V, E extends Weighted> Map<Pair<Vertex<V>, Vertex<V>>, Double> floydWarshall(
+            DirectedGraph<V, E> graph)
     {
-        double[][] distances =
-                new double[diwgraph.getVerticesNumber()][diwgraph.getVerticesNumber()];
+        Map<Pair<Vertex<V>, Vertex<V>>, Double> distances = new HashMap<>();
 
-        for(int i = 0; i < distances.length; ++i)
-            for(int j = 0; j < distances[i].length; ++j)
-                distances[i][j] = i == j ? 0.0 : Graph.INF;
+        for(Vertex<V> v : graph.getVertices())
+            for(Vertex<V> u : graph.getVertices())
+                distances.put(Pair.of(v, u), v.equals(u) ? 0.0 : Weighted.INFINITY);
 
-        for(Triple<Integer, Integer, Double> e : diwgraph.getWeightedEdges())
-            distances[e.first][e.second] = e.third;
+        for(Edge<E, V> e : graph.getEdges())
+            distances.put(Pair.of(e.source, e.destination), e.property.getWeight());
 
-        for(Integer w : diwgraph.getVertices())
-            for(Integer v : diwgraph.getVertices())
-                for(Integer u : diwgraph.getVertices())
-                    distances[v][u] = Math.min(distances[v][u], distances[v][w] + distances[w][u]);
+        for(Vertex<V> w : graph.getVertices())
+            for(Vertex<V> v : graph.getVertices())
+                for(Vertex<V> u : graph.getVertices())
+                    distances.put(Pair.of(v, u), Math.min(distances.get(Pair.of(v, u)),
+                                                          distances.get(Pair.of(v, w))
+                                                                  + distances.get(Pair.of(w, u))));
 
         return distances;
     }

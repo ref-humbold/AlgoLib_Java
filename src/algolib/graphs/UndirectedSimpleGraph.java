@@ -1,89 +1,78 @@
 // Structure of undirected simple graph
 package algolib.graphs;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import algolib.tuples.ComparablePair;
-import algolib.tuples.Pair;
-
-public class UndirectedSimpleGraph
-        extends SimpleGraph
-        implements UndirectedGraph
+public class UndirectedSimpleGraph<V, E>
+        extends SimpleGraph<V, E>
+        implements UndirectedGraph<V, E>
 {
-    public UndirectedSimpleGraph(int n)
+    public UndirectedSimpleGraph()
     {
-        super(n);
+        super();
     }
 
-    public UndirectedSimpleGraph(int n, Iterable<Pair<Integer, Integer>> edges)
-            throws NoSuchVertexException
+    public UndirectedSimpleGraph(Collection<V> properties)
     {
-        super(n);
-
-        for(Pair<Integer, Integer> e : edges)
-            addEdge(e.first, e.second);
+        super(properties);
     }
 
-    @Override
-    public int getEdgesNumber()
+    public UndirectedSimpleGraph(Graph<V, E> graph)
     {
-        int edgesNumber = 0;
-
-        for(Integer v : getVertices())
-        {
-            edgesNumber += getOutdegree(v);
-
-            if(getNeighbours(v).contains(v))
-                ++edgesNumber;
-        }
-
-        return edgesNumber / 2;
+        super(graph);
     }
 
     @Override
-    public Collection<ComparablePair<Integer, Integer>> getEdges()
+    public int getEdgesCount()
     {
-        List<ComparablePair<Integer, Integer>> edges = new ArrayList<>();
-
-        for(Integer v : getVertices())
-            for(Integer u : getNeighbours(v))
-                if(u >= v)
-                    edges.add(ComparablePair.of(v, u));
-
-        return edges;
+        return representation.getEdges().distinct().mapToInt(edge -> 1).sum();
     }
 
     @Override
-    public void addEdge(Integer vertex1, Integer vertex2)
+    public List<Edge<E, V>> getEdges()
     {
-        if(vertex1 < 0 || vertex1 >= getVerticesNumber())
-            throw new NoSuchVertexException("No vertex " + vertex1);
-
-        if(vertex2 < 0 || vertex2 >= getVerticesNumber())
-            throw new NoSuchVertexException("No vertex " + vertex2);
-
-        graphrepr.get(vertex1).add(ComparablePair.of(vertex2, SimpleGraph.DEFAULT_WEIGHT));
-        graphrepr.get(vertex2).add(ComparablePair.of(vertex1, SimpleGraph.DEFAULT_WEIGHT));
+        return representation.getEdges().distinct().sorted().collect(Collectors.toList());
     }
 
     @Override
-    public int getIndegree(Integer vertex)
+    public int getOutputDegree(Vertex<V> vertex)
     {
-        return getOutdegree(vertex);
+        return representation.getAdjacentEdges(vertex).size();
     }
 
-    public DirectedSimpleGraph asDirected()
+    @Override
+    public int getInputDegree(Vertex<V> vertex)
     {
-        Collection<Pair<Integer, Integer>> diedges = new ArrayList<>();
+        return representation.getAdjacentEdges(vertex).size();
+    }
 
-        for(Pair<Integer, Integer> e : getEdges())
-        {
-            diedges.add(Pair.of(e.first, e.second));
-            diedges.add(Pair.of(e.second, e.first));
-        }
+    @Override
+    public Edge<E, V> addEdge(Vertex<V> source, Vertex<V> destination, E property)
+    {
+        Vertex<V> newSource = source.compareTo(destination) < 0 ? source : destination;
+        Vertex<V> newDestination = source.compareTo(destination) >= 0 ? source : destination;
+        Edge<E, V> edge = new Edge<>(newSource, newDestination, property);
 
-        return new DirectedSimpleGraph(getVerticesNumber(), diedges);
+        representation.addEdgeToSource(edge);
+        representation.addEdgeToDestination(edge);
+        return edge;
+    }
+
+    /**
+     * Converts this graph to a directed graph with same vertices.
+     * @return directed graph
+     */
+    public DirectedSimpleGraph<V, E> asDirected()
+    {
+        DirectedSimpleGraph<V, E> directedSimpleGraph = new DirectedSimpleGraph<>(this);
+
+        getEdges().forEach(edge -> {
+            directedSimpleGraph.addEdge(edge.source, edge.destination, edge.property);
+            directedSimpleGraph.addEdge(edge.destination, edge.source, edge.property);
+        });
+
+        return directedSimpleGraph;
     }
 }

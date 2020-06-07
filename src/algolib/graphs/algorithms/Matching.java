@@ -1,143 +1,113 @@
-// ALGORYTM HOPCROFTA-KARPA WYZNACZANIA SKOJARZEŃ W GRAFIE DWUDZIELNYM
+// Hopcroft-Karp algorithm for matching in bipartite graph
 package algolib.graphs.algorithms;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import algolib.graphs.MultipartiteGraph;
-import algolib.tuples.Pair;
+import algolib.graphs.Vertex;
 
-public class Matching
+public final class Matching
 {
     /**
-     * Wyznaczanie maksymalnego skojarzenia
-     * @param multipartiteGraph graf wielodzielny
-     * @return pary skojarzonych wierzchołków
+     * Finds maximal matching in given graph.
+     * @param graph a bipartite graph
+     * @return map of matched vertices
      */
-    public static List<Pair<Integer, Integer>> match(MultipartiteGraph multipartiteGraph)
+    public static <V, E> Map<Vertex<V>, Vertex<V>> match(MultipartiteGraph<V, E> graph)
     {
-        MatchAugmenter augmenter = new MatchAugmenter(multipartiteGraph);
+        MatchAugmenter<V, E> augmenter = new MatchAugmenter<>(graph);
+        boolean wasAugmented = true;
 
-        boolean hasAugmented = true;
+        while(wasAugmented)
+            wasAugmented = augmenter.augmentMatch();
 
-        while(hasAugmented)
-        {
-            hasAugmented = augmenter.augmentMatch();
-        }
-
-        List<Integer> matching = augmenter.getMatching();
-        List<Pair<Integer, Integer>> matchPairs = new ArrayList<>();
-
-        for(Integer v : multipartiteGraph.getVertices(1))
-            matchPairs.add(Pair.of(v, matching.get(v)));
-
-        return matchPairs;
+        return augmenter.getMatching();
     }
 
-    private static final class MatchAugmenter
+    private static final class MatchAugmenter<V, E>
     {
-        /** Graf dwudzielny */
-        private MultipartiteGraph graph;
+        private static final double INFINITY = Double.POSITIVE_INFINITY;
+        private final MultipartiteGraph<V, E> graph;
+        private final Map<Vertex<V>, Vertex<V>> matching = new HashMap<>();
 
-        /** Skojarzenia wierzchołków */
-        private List<Integer> matching;
-
-        /** Odległości wierzchołków */
-        private List<Double> distances;
-
-        /** Lista odwiedzonych wierzchołków */
-        private List<Boolean> isVisited;
-
-        private MatchAugmenter(MultipartiteGraph multipartiteGraph)
+        private MatchAugmenter(MultipartiteGraph<V, E> graph)
         {
-            if(multipartiteGraph.getGroupsNumber() != 2)
+            if(graph.getGroupsCount() != 2)
                 throw new IllegalArgumentException("Graph is not bipartite");
 
-            graph = multipartiteGraph;
-            matching = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), null));
+            this.graph = graph;
         }
 
-        /** @return skojarzenia wierzchołków */
-        private List<Integer> getMatching()
+        private Map<Vertex<V>, Vertex<V>> getMatching()
         {
-            return new ArrayList<>(matching);
+            return matching;
         }
 
-        /**
-         * Powiększanie skojarzenia przy pomocy scieżek poiększających
-         * @return czy powiększono skojarzenie
-         */
         private boolean augmentMatch()
         {
             boolean matchAdded = false;
+            Set<Vertex<V>> isVisited = new HashSet<>();
+            Map<Vertex<V>, Double> distances = graph.getVertices()
+                                                    .stream()
+                                                    .collect(Collectors.toMap(Function.identity(),
+                                                                              vertex -> INFINITY));
 
-            distances = new ArrayList<>(
-                    Collections.nCopies(graph.getVerticesNumber(), MultipartiteGraph.INF));
-            isVisited = new ArrayList<>(Collections.nCopies(graph.getVerticesNumber(), false));
+            bfs(distances);
 
-            bfs();
-
-            for(Integer v : graph.getVertices(1))
-                matchAdded = dfs(v) || matchAdded;
+            for(Vertex<V> vertex : graph.getVerticesFromGroup(1))
+                matchAdded = dfs(vertex, isVisited, distances) || matchAdded;
 
             return matchAdded;
         }
 
-        /** Algorytm BFS wyliczający odległości wierzchołków */
-        private void bfs()
+        private void bfs(Map<Vertex<V>, Double> distances)
         {
-            Deque<Integer> vertexDeque = new ArrayDeque<>();
+            Deque<Vertex<V>> vertexDeque = new ArrayDeque<>();
 
-            for(Integer v : graph.getVertices(1))
+            for(Vertex<V> vertex : graph.getVerticesFromGroup(1))
             {
-                distances.set(v, 0.0);
-                vertexDeque.addLast(v);
+                distances.put(vertex, 0.0);
+                vertexDeque.addLast(vertex);
             }
 
             while(!vertexDeque.isEmpty())
             {
-                Integer v = vertexDeque.removeFirst();
+                Vertex<V> vertex = vertexDeque.removeFirst();
 
-                for(Integer nb : graph.getNeighbours(v))
-                    if(matching.get(nb) != null && distances.get(matching.get(nb))
-                                                            .equals(MultipartiteGraph.INF))
+                for(Vertex<V> neighbour : graph.getNeighbours(vertex))
+                    if(!matching.containsKey(neighbour) && distances.get(matching.get(neighbour))
+                                                                    .equals(INFINITY))
                     {
-                        distances.set(matching.get(nb), distances.get(v) + 1);
-                        vertexDeque.addLast(matching.get(nb));
+                        distances.put(matching.get(neighbour), distances.get(vertex) + 1);
+                        vertexDeque.addLast(matching.get(neighbour));
                     }
             }
         }
 
-        /**
-         * Algorytm DFS powiększający skojarzenie za pomocą ścieżek powiekszających
-         * @param vertex wierzchołek
-         * @return czy powiększono skojarzenie
-         */
-        private boolean dfs(int vertex)
+        private boolean dfs(Vertex<V> vertex, Set<Vertex<V>> isVisited,
+                            Map<Vertex<V>, Double> distances)
         {
-            isVisited.set(vertex, true);
+            isVisited.add(vertex);
 
-            for(Integer neighbour : graph.getNeighbours(vertex))
+            for(Vertex<V> neighbour : graph.getNeighbours(vertex))
                 if(matching.get(neighbour) == null)
                 {
-                    matching.set(vertex, neighbour);
-                    matching.set(neighbour, vertex);
-
+                    matching.put(vertex, neighbour);
+                    matching.put(neighbour, vertex);
                     return true;
                 }
                 else
                 {
-                    Integer mtc = matching.get(neighbour);
+                    Vertex<V> mtc = matching.get(neighbour);
 
-                    if(distances.get(mtc).equals(distances.get(vertex) + 1) && !isVisited.get(mtc)
-                            && dfs(mtc))
+                    if(!isVisited.contains(mtc) && distances.get(mtc)
+                                                            .equals(distances.get(vertex) + 1)
+                            && dfs(mtc, isVisited, distances))
                     {
-                        matching.set(vertex, neighbour);
-                        matching.set(neighbour, vertex);
-
+                        matching.put(vertex, neighbour);
+                        matching.put(neighbour, vertex);
                         return true;
                     }
                 }

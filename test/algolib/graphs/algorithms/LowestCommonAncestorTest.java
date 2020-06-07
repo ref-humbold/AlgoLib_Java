@@ -1,25 +1,33 @@
 // Tests: Algorithm for lowest common ancestor
 package algolib.graphs.algorithms;
 
-import java.util.Arrays;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import algolib.graphs.TreeGraph;
-import algolib.tuples.Pair;
+import algolib.graphs.Vertex;
 
 public class LowestCommonAncestorTest
 {
-    private TreeGraph tree;
+    private TreeGraph<Void, Void> tree;
+    private Vertex<Void> root;
 
     @BeforeEach
     public void setUp()
     {
-        tree = new TreeGraph(10, Arrays.asList(Pair.of(0, 1), Pair.of(0, 2), Pair.of(1, 3),
-                                               Pair.of(1, 4), Pair.of(1, 5), Pair.of(2, 6),
-                                               Pair.of(4, 7), Pair.of(6, 8), Pair.of(6, 9)));
+        tree = new TreeGraph<>(null);
+        tree.addVertex(null, null, tree.getVertex(0));
+        tree.addVertex(null, null, tree.getVertex(0));
+        tree.addVertex(null, null, tree.getVertex(1));
+        tree.addVertex(null, null, tree.getVertex(1));
+        tree.addVertex(null, null, tree.getVertex(1));
+        tree.addVertex(null, null, tree.getVertex(2));
+        tree.addVertex(null, null, tree.getVertex(4));
+        tree.addVertex(null, null, tree.getVertex(6));
+        tree.addVertex(null, null, tree.getVertex(6));
+        root = tree.getVertex(0);
     }
 
     @AfterEach
@@ -32,63 +40,64 @@ public class LowestCommonAncestorTest
     public void findLCA_WhenSameVertex_ThenVertexIsLCA()
     {
         // given
-        int vertex = 6;
+        Vertex<Void> vertex = tree.getVertex(6);
         // when
-        int result = LowestCommonAncestor.findLCA(tree, vertex, vertex);
+        Vertex<Void> result = LowestCommonAncestor.findLCA(tree, vertex, vertex, root);
         // then
-        Assertions.assertThat(result).isEqualTo(vertex);
-    }
-
-    @Test
-    public void findLCA_WhenVerticesSwapped_ThenSameLCA()
-    {
-        // when
-        int result1 = LowestCommonAncestor.findLCA(tree, 5, 7);
-        int result2 = LowestCommonAncestor.findLCA(tree, 7, 5);
-        // then
-        Assertions.assertThat(result1).isEqualTo(1);
-        Assertions.assertThat(result2).isEqualTo(result1);
+        Assertions.assertThat(result).isSameAs(vertex);
     }
 
     @Test
     public void findLCA_WhenVerticesInDifferentSubtrees_ThenLCA()
     {
         // when
-        int result = LowestCommonAncestor.findLCA(tree, 5, 7);
+        Vertex<Void> result =
+                LowestCommonAncestor.findLCA(tree, tree.getVertex(5), tree.getVertex(7), root);
         // then
-        Assertions.assertThat(result).isEqualTo(1);
+        Assertions.assertThat(result).isSameAs(tree.getVertex(1));
+    }
+
+    @Test
+    public void findLCA_WhenVerticesSwapped_ThenSameLCA()
+    {
+        // when
+        Vertex<Void> result1 =
+                LowestCommonAncestor.findLCA(tree, tree.getVertex(5), tree.getVertex(7), root);
+        Vertex<Void> result2 =
+                LowestCommonAncestor.findLCA(tree, tree.getVertex(7), tree.getVertex(5), root);
+        // then
+        Assertions.assertThat(result1).isSameAs(tree.getVertex(1));
+        Assertions.assertThat(result2).isSameAs(result1);
     }
 
     @Test
     public void findLCA_WhenRootIsCommonAncestor_ThenLCAIsRoot()
     {
         // when
-        int result = LowestCommonAncestor.findLCA(tree, 3, 9);
+        Vertex<Void> result =
+                LowestCommonAncestor.findLCA(tree, tree.getVertex(3), tree.getVertex(9), root);
         // then
-        Assertions.assertThat(result).isEqualTo(0);
+        Assertions.assertThat(result).isSameAs(root);
     }
 
     @Test
     public void findLCA_WhenVerticesAreOnSamePathFromRoot_ThenLCAIsCloserToRoot()
     {
         //given
-        int vertex1 = 8;
-        int vertex2 = 2;
+        Vertex<Void> vertex1 = tree.getVertex(8);
+        Vertex<Void> vertex2 = tree.getVertex(2);
         // when
-        int result = LowestCommonAncestor.findLCA(tree, vertex1, vertex2);
+        Vertex<Void> result = LowestCommonAncestor.findLCA(tree, vertex1, vertex2, root);
         // then
-        Assertions.assertThat(result).isEqualTo(vertex2);
+        Assertions.assertThat(result).isSameAs(vertex2);
     }
 
     @Test
     public void findLCA_WhenRootIsOneOfVertices_ThenRoot()
     {
-        // given
-        int vertex1 = 4;
-        int vertex2 = 0;
         // when
-        int result = LowestCommonAncestor.findLCA(tree, vertex1, vertex2, vertex2);
+        Vertex<Void> result = LowestCommonAncestor.findLCA(tree, tree.getVertex(4), root, root);
         // then
-        Assertions.assertThat(result).isEqualTo(vertex2);
+        Assertions.assertThat(result).isSameAs(root);
     }
 }

@@ -1,119 +1,115 @@
 // Algorithms for strongly connected components
 package algolib.graphs.algorithms;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import algolib.graphs.DirectedGraph;
-import algolib.tuples.ComparablePair;
+import algolib.graphs.Vertex;
+import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class StronglyConnectedComponents
 {
     /**
-     * Algorytm wyznaczania silnie spójnych składowych grafu
-     * @param digraph graf skierowany
-     * @return numery silnie spójnych składowych dla wierzchołków
+     * Finds strongly connected components in given directed graph.
+     * @param graph a directed graph
+     * @return list of vertices in strongly connected components
      */
-    public static List<Set<Integer>> findSCC(DirectedGraph digraph)
+    public static <V, E> List<Set<Vertex<V>>> findSCC(DirectedGraph<V, E> graph)
     {
-        List<Integer> comps = new GraphComponents(digraph).findSCC();
-        List<Set<Integer>> components = new ArrayList<>();
+        PostOrderStrategy<V> postOrderStrategy = new PostOrderStrategy<>();
 
-        for(int i = 0; i <= Collections.max(comps); i++)
-            components.add(new HashSet<>());
+        Searching.dfsRecursive(graph, postOrderStrategy, graph.getVertices());
 
-        for(Integer v : digraph.getVertices())
-            components.get(comps.get(v)).add(v);
+        List<Vertex<V>> vertices = postOrderStrategy.postTimes.entrySet()
+                                                              .stream()
+                                                              .sorted(new ReversedPostOrderComparator<>())
+                                                              .map(Map.Entry::getKey)
+                                                              .collect(Collectors.toList());
+        DirectedGraph<V, E> reversedCopy = graph.reversedCopy();
+        SCCStrategy<V> sccStrategy = new SCCStrategy<>();
 
-        return components;
+        Searching.dfsRecursive(reversedCopy, sccStrategy, vertices);
+
+        return sccStrategy.components;
     }
 
-    private static class GraphComponents
+    private static class ReversedPostOrderComparator<V>
+            implements Comparator<Map.Entry<Vertex<V>, Integer>>
     {
-        /**
-         * Reprezentacja grafu skierowanego
-         */
-        private DirectedGraph digraph;
-        /**
-         * Numery silnie spójnych składowych dla wierzchołków
-         */
-        private List<Integer> components;
-        /**
-         * Czasy post-order wierzchołków
-         */
-        private List<ComparablePair<Integer, Integer>> postorder;
 
-        public GraphComponents(DirectedGraph digraph)
+        @Override
+        public int compare(Map.Entry<Vertex<V>, Integer> entry1,
+                           Map.Entry<Vertex<V>, Integer> entry2)
         {
-            this.digraph = digraph;
-            components = new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
-            postorder = new ArrayList<>(Collections.nCopies(digraph.getVerticesNumber(), null));
+            return entry2.getValue().compareTo(entry1.getValue());
+        }
+    }
+
+    private static class PostOrderStrategy<V>
+            implements DFSStrategy<V>
+    {
+        final Map<Vertex<V>, Integer> postTimes = new HashMap<>();
+        int timer = 0;
+
+        @Override
+        public void forRoot(Vertex<V> root)
+        {
         }
 
-        /**
-         * Algorytm wyznaczania silnie spójnych składowych grafu
-         * @return numery silnie spójnych składowych dla wierzchołków
-         */
-        public List<Integer> findSCC()
+        @Override
+        public void onEnter(Vertex<V> vertex)
         {
-            int timer = 0;
-            int component = 0;
-
-            for(Integer v : digraph.getVertices())
-                if(postorder.get(v) == null)
-                {
-                    timer = dfsOrder(v, timer);
-                    ++timer;
-                }
-
-            postorder.sort((p1, p2) -> -p1.compareTo(p2));
-            digraph.reverse();
-
-            for(ComparablePair<Integer, Integer> vt : postorder)
-                if(components.get(vt.second) == null)
-                {
-                    dfsSCC(vt.second, component);
-                    ++component;
-                }
-
-            return components;
         }
 
-        /**
-         * Algorytm DFS z licznikiem czasu wyznaczający porządek post-order wierzchołków
-         * @param vertex aktualny wierzchołek
-         * @param timer aktualny czas
-         * @return nowy czas po przetworzeniu wierzchołka
-         */
-        int dfsOrder(Integer vertex, int timer)
+        @Override
+        public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
         {
-            postorder.set(vertex, ComparablePair.of(null, vertex));
+        }
+
+        @Override
+        public void onExit(Vertex<V> vertex)
+        {
+            postTimes.put(vertex, timer);
             ++timer;
-
-            for(Integer neighbour : digraph.getNeighbours(vertex))
-                if(postorder.get(neighbour) == null)
-                    timer = dfsOrder(neighbour, timer);
-
-            postorder.set(vertex, ComparablePair.of(timer, vertex));
-
-            return timer + 1;
         }
 
-        /**
-         * Algorytm DFS wyznaczający silnie spójne składowe
-         * @param vertex aktualny wierzchołek
-         * @param component numer składowej
-         */
-        private void dfsSCC(Integer vertex, int component)
+        @Override
+        public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
         {
-            components.set(vertex, component);
+        }
+    }
 
-            for(Integer neighbour : digraph.getNeighbours(vertex))
-                if(components.get(neighbour) == null)
-                    dfsSCC(neighbour, component);
+    private static class SCCStrategy<V>
+            implements DFSStrategy<V>
+    {
+        final List<Set<Vertex<V>>> components = new ArrayList<>();
+
+        @Override
+        public void forRoot(Vertex<V> root)
+        {
+            components.add(new HashSet<>());
+        }
+
+        @Override
+        public void onEnter(Vertex<V> vertex)
+        {
+            components.get(components.size() - 1).add(vertex);
+        }
+
+        @Override
+        public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
+        {
+        }
+
+        @Override
+        public void onExit(Vertex<V> vertex)
+        {
+        }
+
+        @Override
+        public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
+        {
         }
     }
 }
