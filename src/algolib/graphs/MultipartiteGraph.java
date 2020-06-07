@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class MultipartiteGraph<V, E>
         implements UndirectedGraph<V, E>
@@ -16,9 +17,9 @@ public class MultipartiteGraph<V, E>
 
     public MultipartiteGraph(Collection<Collection<V>> properties)
     {
-        groupsCount = properties.size();
-
         int i = 0;
+
+        groupsCount = properties.size();
 
         for(Collection<V> groupProperties : properties)
         {
@@ -51,6 +52,11 @@ public class MultipartiteGraph<V, E>
     public List<Edge<E, V>> getEdges()
     {
         return graph.getEdges();
+    }
+
+    public int getGroupsCount()
+    {
+        return vertexGroupMap.values().stream().distinct().mapToInt(g -> 1).sum();
     }
 
     @Override
@@ -111,6 +117,16 @@ public class MultipartiteGraph<V, E>
     public boolean areInSameGroup(Vertex<V> vertex1, Vertex<V> vertex2)
     {
         return Objects.equals(vertexGroupMap.get(vertex1), vertexGroupMap.get(vertex2));
+    }
+
+    public List<Vertex<V>> getVerticesFromGroup(int groupNumber)
+    {
+        return vertexGroupMap.entrySet()
+                             .stream()
+                             .filter(entry -> entry.getValue() == groupNumber)
+                             .map(Map.Entry::getKey)
+                             .sorted()
+                             .collect(Collectors.toList());
     }
 
     private void validateGroup(int group)
