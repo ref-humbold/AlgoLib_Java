@@ -31,7 +31,6 @@ public final class Searching
         for(Vertex<V> root : roots)
             if(!reached.containsKey(root))
             {
-                strategy.forRoot(root);
                 vertexDeque.addLast(root);
                 reached.put(root, iteration);
 
@@ -75,36 +74,34 @@ public final class Searching
         int iteration = 1;
 
         for(Vertex<V> root : roots)
-            if(!reached.containsKey(root))
+        {
+            vertexDeque.addFirst(root);
+
+            while(!vertexDeque.isEmpty())
             {
-                strategy.forRoot(root);
-                vertexDeque.addFirst(root);
+                Vertex<V> vertex = vertexDeque.removeFirst();
 
-                while(!vertexDeque.isEmpty())
+                if(!reached.containsKey(vertex))
                 {
-                    Vertex<V> vertex = vertexDeque.removeFirst();
+                    reached.put(vertex, iteration);
+                    strategy.onEnter(vertex);
 
-                    if(!reached.containsKey(vertex))
-                    {
-                        reached.put(vertex, iteration);
-                        strategy.onEnter(vertex);
+                    for(Vertex<V> neighbour : graph.getNeighbours(vertex))
+                        if(!reached.containsKey(neighbour))
+                        {
+                            strategy.onNextVertex(vertex, neighbour);
+                            vertexDeque.addFirst(neighbour);
+                        }
+                        else if(reached.get(neighbour) == iteration)
+                            strategy.onEdgeToVisited(vertex, neighbour);
 
-                        for(Vertex<V> neighbour : graph.getNeighbours(vertex))
-                            if(!reached.containsKey(neighbour))
-                            {
-                                strategy.onNextVertex(vertex, neighbour);
-                                vertexDeque.addFirst(neighbour);
-                            }
-                            else if(reached.get(neighbour) == iteration)
-                                strategy.onEdgeToVisited(vertex, neighbour);
-
-                        strategy.onExit(vertex);
-                        reached.put(root, -iteration);
-                    }
+                    strategy.onExit(vertex);
+                    reached.put(root, -iteration);
                 }
-
-                ++iteration;
             }
+
+            ++iteration;
+        }
 
         return reached.keySet();
     }
@@ -125,7 +122,6 @@ public final class Searching
         for(Vertex<V> root : roots)
             if(!state.reached.containsKey(root))
             {
-                strategy.forRoot(root);
                 state.vertex = root;
                 dfsRecursiveStep(graph, strategy, state);
                 ++state.iteration;
