@@ -21,17 +21,6 @@ class GraphRepresentation<V, E>
         vertices.forEach(vertex -> graphMap.put(vertex, new HashSet<>()));
     }
 
-    GraphRepresentation(GraphRepresentation<V, E> representation)
-    {
-        representation.graphMap.entrySet().forEach(entry -> {
-            graphMap.put(entry.getKey(), new HashSet<>());
-            entry.getValue()
-                 .forEach(edge -> graphMap.get(entry.getKey())
-                                          .add(new Edge<>(edge.source, edge.destination,
-                                                          edge.property)));
-        });
-    }
-
     Stream<Vertex<V>> getVertices()
     {
         return graphMap.keySet().stream();
@@ -81,17 +70,17 @@ class GraphRepresentation<V, E>
     private void validateVertex(Vertex<V> vertex)
     {
         if(graphMap.keySet().stream().noneMatch(v -> v == vertex))
-            throw new IllegalArgumentException("Vertex object does not belong to graph");
+            throw new IllegalArgumentException("Vertex object does not belong to this graph");
     }
 
     private void validateEdge(Edge<E, V> edge)
     {
         if(graphMap.keySet().stream().noneMatch(v -> v == edge.source))
             throw new IllegalArgumentException(
-                    "Edge source or destination does not belong to graph");
+                    "Edge source or destination does not belong to this graph");
 
         if(graphMap.keySet().stream().noneMatch(v -> v == edge.destination))
             throw new IllegalArgumentException(
-                    "Edge source or destination does not belong to graph");
+                    "Edge source or destination does not belong to this graph");
     }
 }

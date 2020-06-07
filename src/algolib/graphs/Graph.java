@@ -21,6 +21,7 @@ public interface Graph<V, E>
     /**
      * @param index vertex index
      * @return vertex with the index
+     * @throws IndexOutOfBoundsException if no vertex found
      */
     Vertex<V> getVertex(int index);
 
