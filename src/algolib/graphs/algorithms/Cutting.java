@@ -44,6 +44,11 @@ public final class Cutting
         private int depth = 0;
 
         @Override
+        public void forRoot(Vertex<V> root)
+        {
+        }
+
+        @Override
         public void onEnter(Vertex<V> vertex)
         {
             dfsDepths.put(vertex, depth);

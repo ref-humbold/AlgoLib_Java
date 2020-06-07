@@ -5,6 +5,10 @@ import algolib.graphs.Vertex;
 public class EmptyStrategy<V>
         implements DFSStrategy<V>
 {
+    @Override
+    public void forRoot(Vertex<V> root)
+    {
+    }
 
     @Override
     public void onEnter(Vertex<V> vertex)

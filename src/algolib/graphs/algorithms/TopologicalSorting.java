@@ -81,6 +81,11 @@ public final class TopologicalSorting
         }
 
         @Override
+        public void forRoot(Vertex<V> root)
+        {
+        }
+
+        @Override
         public void onEnter(Vertex<V> vertex)
         {
         }
