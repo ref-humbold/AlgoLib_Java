@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import algolib.graphs.TreeGraph;
-import algolib.graphs.Vertex;
 
 public class LowestCommonAncestorTest
 {

@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import algolib.graphs.DirectedGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class StronglyConnectedComponents

@@ -4,7 +4,6 @@ package algolib.graphs.algorithms;
 import java.util.*;
 
 import algolib.graphs.Graph;
-import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.BFSStrategy;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 

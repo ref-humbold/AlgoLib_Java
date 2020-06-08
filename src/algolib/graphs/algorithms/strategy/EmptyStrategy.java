@@ -1,32 +1,30 @@
 package algolib.graphs.algorithms.strategy;
 
-import algolib.graphs.Vertex;
-
 public class EmptyStrategy<V>
         implements DFSStrategy<V>
 {
     @Override
-    public void forRoot(Vertex<V> root)
+    public void forRoot(V root)
     {
     }
 
     @Override
-    public void onEnter(Vertex<V> vertex)
+    public void onEnter(V vertex)
     {
     }
 
     @Override
-    public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
+    public void onNextVertex(V vertex, V neighbour)
     {
     }
 
     @Override
-    public void onExit(Vertex<V> vertex)
+    public void onExit(V vertex)
     {
     }
 
     @Override
-    public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
+    public void onEdgeToVisited(V vertex, V neighbour)
     {
     }
 }

@@ -2,57 +2,73 @@
 package algolib.graphs;
 
 import java.util.Collection;
-import java.util.List;
 
-public interface Graph<V, E>
+public interface Graph<V, VP, EP>
 {
     /** @return number of vertices */
     int getVerticesCount();
 
-    /** @return sorted list of vertices */
-    List<Vertex<V>> getVertices();
+    /** @return collection of graph vertices */
+    Collection<V> getVertices();
 
     /** @return number of edges */
     int getEdgesCount();
 
-    /** @return sorted list of edges */
-    List<Edge<E, V>> getEdges();
+    /** @return collection of graph edges */
+    Collection<Edge<V>> getEdges();
 
     /**
-     * @param index vertex index
-     * @return vertex with the index
-     * @throws IndexOutOfBoundsException if no vertex found
+     * @param vertex a vertex from this graph
+     * @return the property of the vertex
      */
-    Vertex<V> getVertex(int index);
+    VP getProperty(V vertex);
+
+    /**
+     * @param vertex a vertex from this graph
+     * @param property new property of given vertex
+     */
+    void setProperty(V vertex, VP property);
+
+    /**
+     * @param edge an edge from this graph
+     * @return the property of the vertex
+     */
+    EP getProperty(Edge<V> edge);
+
+    /**
+     * @param edge an edge from this graph
+     * @param property new property of given edge
+     */
+    void setProperty(Edge<V> edge, EP property);
 
     /**
      * @param source source vertex
      * @param destination destination vertex
      * @return edge between the vertices, or {@code null} of no edge
      */
-    Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination);
+    Edge<V> getEdge(V source, V destination);
 
     /**
      * @param vertex a vertex from this graph
-     * @return list of neighbouring vertices
+     * @return collection of neighbouring vertices
      */
-    Collection<Vertex<V>> getNeighbours(Vertex<V> vertex);
+    Collection<V> getNeighbours(V vertex);
 
     /**
      * @param vertex a vertex from this graph
-     * @return list of edges adjacent to this vertex
+     * @return collection of edges adjacent to this vertex
      */
-    Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex);
+    Collection<Edge<V>> getAdjacentEdges(V vertex);
 
     /**
      * @param vertex a vertex from this graph
      * @return the output degree of this vertex
      */
-    int getOutputDegree(Vertex<V> vertex);
+    int getOutputDegree(V vertex);
 
     /**
      * @param vertex a vertex from this graph
      * @return the input degree of this vertex
      */
-    int getInputDegree(Vertex<V> vertex);
+    int getInputDegree(V vertex);
 }

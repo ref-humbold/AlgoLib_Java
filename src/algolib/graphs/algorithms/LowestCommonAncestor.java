@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import algolib.graphs.TreeGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class LowestCommonAncestor

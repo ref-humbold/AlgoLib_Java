@@ -8,7 +8,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedSimpleGraph;
-import algolib.graphs.Vertex;
 
 public class StronglyConnectedComponentsTest
 {

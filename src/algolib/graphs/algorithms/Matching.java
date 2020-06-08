@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import algolib.graphs.MultipartiteGraph;
-import algolib.graphs.Vertex;
 
 public final class Matching
 {

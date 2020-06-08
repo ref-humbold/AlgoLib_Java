@@ -8,7 +8,6 @@ import java.util.Set;
 import algolib.graphs.Edge;
 import algolib.graphs.UndirectedGraph;
 import algolib.graphs.UndirectedSimpleGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.structures.DisjointSets;
 import algolib.tuples.Pair;

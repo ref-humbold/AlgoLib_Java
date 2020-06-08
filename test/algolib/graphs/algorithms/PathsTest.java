@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.Graph;
 import algolib.graphs.UndirectedSimpleGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 

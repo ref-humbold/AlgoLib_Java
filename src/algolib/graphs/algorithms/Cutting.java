@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import algolib.graphs.Edge;
 import algolib.graphs.UndirectedGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class Cutting

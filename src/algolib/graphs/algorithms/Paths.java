@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import algolib.graphs.DirectedGraph;
 import algolib.graphs.Edge;
 import algolib.graphs.Graph;
-import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;

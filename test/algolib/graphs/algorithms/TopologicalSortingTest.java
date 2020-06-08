@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedGraph;
 import algolib.graphs.DirectedSimpleGraph;
-import algolib.graphs.Vertex;
 
 public class TopologicalSortingTest
 {

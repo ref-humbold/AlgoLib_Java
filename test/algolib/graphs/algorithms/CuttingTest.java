@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.Edge;
 import algolib.graphs.UndirectedSimpleGraph;
-import algolib.graphs.Vertex;
 
 public class CuttingTest
 {

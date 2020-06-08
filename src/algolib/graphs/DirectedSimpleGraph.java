@@ -2,27 +2,21 @@
 package algolib.graphs;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class DirectedSimpleGraph<V, E>
-        extends SimpleGraph<V, E>
-        implements DirectedGraph<V, E>
+public class DirectedSimpleGraph<V, VP, EP>
+        extends SimpleGraph<V, VP, EP>
+        implements DirectedGraph<V, VP, EP>
 {
     public DirectedSimpleGraph()
     {
         super();
     }
 
-    public DirectedSimpleGraph(Collection<V> properties)
+    public DirectedSimpleGraph(Collection<V> vertices)
     {
-        super(properties);
-    }
-
-    public DirectedSimpleGraph(Graph<V, E> graph)
-    {
-        super(graph);
+        super(vertices);
     }
 
     @Override
@@ -32,19 +26,19 @@ public class DirectedSimpleGraph<V, E>
     }
 
     @Override
-    public List<Edge<E, V>> getEdges()
+    public Collection<Edge<V>> getEdges()
     {
         return representation.getEdges().sorted().collect(Collectors.toList());
     }
 
     @Override
-    public int getOutputDegree(Vertex<V> vertex)
+    public int getOutputDegree(V vertex)
     {
-        return representation.getAdjacentEdges(vertex).size();
+        return representation.getAdjacentEdges(vertex).mapToInt(edge -> 1).sum();
     }
 
     @Override
-    public int getInputDegree(Vertex<V> vertex)
+    public int getInputDegree(V vertex)
     {
         return representation.getEdgesSet()
                              .flatMap(edges -> edges.stream()
@@ -55,30 +49,36 @@ public class DirectedSimpleGraph<V, E>
     }
 
     @Override
-    public Edge<E, V> addEdge(Vertex<V> source, Vertex<V> destination, E property)
+    public Edge<V> addEdge(V source, V destination)
     {
-        Edge<E, V> edge = new Edge<>(source, destination, property);
+        Edge<V> existingEdge = getEdge(source, destination);
 
-        representation.addEdgeToSource(edge);
-        return edge;
+        if(existingEdge != null)
+            return existingEdge;
+
+        Edge<V> newEdge = new Edge<>(source, destination);
+
+        representation.addEdgeToSource(newEdge);
+        return newEdge;
     }
 
     @Override
     public void reverse()
     {
-        List<Edge<E, V>> edges = getEdges();
+        Collection<Edge<V>> edges = getEdges();
 
         representation = new GraphRepresentation<>(getVertices());
         edges.forEach(edge -> representation.addEdgeToSource(edge.reversed()));
     }
 
     @Override
-    public DirectedGraph<V, E> reversedCopy()
+    public DirectedGraph<V, VP, EP> reversedCopy()
     {
-        DirectedSimpleGraph<V, E> reversedGraph = new DirectedSimpleGraph<>(this);
+        DirectedSimpleGraph<V, VP, EP> reversedGraph = new DirectedSimpleGraph<>(getVertices());
 
+        getVertices().forEach(vertex -> reversedGraph.setProperty(vertex, getProperty(vertex)));
         getEdges().forEach(
-                edge -> reversedGraph.addEdge(edge.destination, edge.source, edge.property));
+                edge -> reversedGraph.addEdge(edge.destination, edge.source, getProperty(edge)));
         return reversedGraph;
     }
 }

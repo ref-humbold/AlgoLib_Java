@@ -2,28 +2,21 @@
 package algolib.graphs;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class SimpleGraph<V, E>
-        implements Graph<V, E>
+public abstract class SimpleGraph<V, VP, EP>
+        implements Graph<V, VP, EP>
 {
-    protected GraphRepresentation<V, E> representation;
+    protected GraphRepresentation<V, VP, EP> representation;
 
     public SimpleGraph()
     {
         representation = new GraphRepresentation<>();
     }
 
-    public SimpleGraph(Collection<V> properties)
+    public SimpleGraph(Collection<V> vertices)
     {
-        this();
-        properties.forEach(property -> addVertex(property));
-    }
-
-    public SimpleGraph(Graph<V, E> graph)
-    {
-        representation = new GraphRepresentation<>(graph.getVertices());
+        representation = new GraphRepresentation<>(vertices);
     }
 
     @Override
@@ -33,63 +26,98 @@ public abstract class SimpleGraph<V, E>
     }
 
     @Override
-    public List<Vertex<V>> getVertices()
+    public Collection<V> getVertices()
     {
-        return representation.getVertices().sorted().collect(Collectors.toList());
+        return representation.getVertices().collect(Collectors.toList());
     }
 
     @Override
-    public Vertex<V> getVertex(int index)
+    public VP getProperty(V vertex)
     {
-        return representation.getVertices()
-                             .filter(v -> index == v.index)
-                             .findFirst()
-                             .orElseThrow(() -> new IndexOutOfBoundsException(
-                                     String.format("No vertex with index %d in this graph",
-                                                   index)));
+        return representation.getProperty(vertex);
     }
 
     @Override
-    public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
+    public void setProperty(V vertex, VP property)
+    {
+        representation.setProperty(vertex, property);
+    }
+
+    @Override
+    public EP getProperty(Edge<V> edge)
+    {
+        return representation.getProperty(edge);
+    }
+
+    @Override
+    public void setProperty(Edge<V> edge, EP property)
+    {
+        representation.setProperty(edge, property);
+    }
+
+    @Override
+    public Collection<V> getNeighbours(V vertex)
     {
         return representation.getAdjacentEdges(vertex)
-                             .stream()
                              .map(edge -> edge.getNeighbour(vertex))
                              .collect(Collectors.toSet());
     }
 
     @Override
-    public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
+    public Collection<Edge<V>> getAdjacentEdges(V vertex)
     {
-        return representation.getAdjacentEdges(vertex);
+        return representation.getAdjacentEdges(vertex).collect(Collectors.toSet());
     }
 
     @Override
-    public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
+    public Edge<V> getEdge(V source, V destination)
     {
         return representation.getAdjacentEdges(source)
-                             .stream()
-                             .filter(edge -> edge.getNeighbour(source) == destination)
+                             .filter(edge -> edge.getNeighbour(source).equals(destination))
                              .findFirst()
                              .orElse(null);
     }
 
     /**
-     * Adds a new vertex with given property to this graph.
-     * @param property a vertex property
-     * @return the new vertex
+     * Adds a new vertex to this graph.
+     * @param vertex a new vertex
      */
-    public Vertex<V> addVertex(V property)
+    public void addVertex(V vertex)
     {
-        return representation.addVertex(property);
+        representation.addVertex(vertex);
     }
 
     /**
-     * Adds a new edge with given properties to this graph.
+     * Adds a new vertex with given property to this graph.
+     * @param vertex a new vertex
+     * @param property vertex property
+     */
+    public void addVertex(V vertex, VP property)
+    {
+        representation.addVertex(vertex);
+        representation.setProperty(vertex, property);
+    }
+
+    /**
+     * Adds a new edge to this graph.
      * @param source a source vertex
      * @param destination a destination vertex
-     * @param property an edge property
      * @return the new edge
      */
-    public abstract Edge<E, V> addEdge(Vertex<V> source, Vertex<V> destination, E property);
+    public abstract Edge<V> addEdge(V source, V destination);
+
+    /**
+     * Adds a new edge with given property to this graph.
+     * @param source a source vertex
+     * @param destination a destination vertex
+     * @param property edge property
+     * @return the new edge
+     */
+    public Edge<V> addEdge(V source, V destination, EP property)
+    {
+        Edge<V> edge = addEdge(source, destination);
+
+        representation.setProperty(edge, property);
+        return edge;
+    }
 }

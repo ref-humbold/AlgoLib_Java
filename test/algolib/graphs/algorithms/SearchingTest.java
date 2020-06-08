@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.UndirectedSimpleGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.EmptyStrategy;
 
 public class SearchingTest
