@@ -19,26 +19,24 @@ public final class MinimalSpanningTree
      * @param graph an undirected weighted graph
      * @return size of the minimal spanning tree
      */
-    public static <V, E extends Weighted> UndirectedGraph<V, E> kruskal(UndirectedGraph<V, E> graph)
+    public static <V, VP, EP extends Weighted> UndirectedGraph<V, VP, EP> kruskal(
+            UndirectedGraph<V, VP, EP> graph)
     {
-        UndirectedSimpleGraph<V, E> mst = new UndirectedSimpleGraph<>(graph);
-        DisjointSets<Vertex<V>> vertexSets = new DisjointSets<>(graph.getVertices());
-        PriorityQueue<Edge<E, V>> edgeQueue = new PriorityQueue<>((edge1, edge2) -> {
-            int compareWeights =
-                    Double.compare(edge1.property.getWeight(), edge2.property.getWeight());
+        UndirectedSimpleGraph<V, VP, EP> mst = new UndirectedSimpleGraph<>(graph.getVertices());
+        DisjointSets<V> vertexSets = new DisjointSets<>(graph.getVertices());
+        PriorityQueue<Edge<V>> edgeQueue = new PriorityQueue<>(
+                (edge1, edge2) -> Double.compare(graph.getProperty(edge1).getWeight(),
+                                                 graph.getProperty(edge2).getWeight()));
 
-            return compareWeights != 0 ? compareWeights : edge1.compareTo(edge2);
-        });
-
-        for(Vertex<V> vertex : graph.getVertices())
+        for(V vertex : graph.getVertices())
             edgeQueue.addAll(graph.getAdjacentEdges(vertex));
 
         while(vertexSets.size() > 1 && !edgeQueue.isEmpty())
         {
-            Edge<E, V> edge = edgeQueue.remove();
+            Edge<V> edge = edgeQueue.remove();
 
             if(!vertexSets.isSameSet(edge.source, edge.destination))
-                mst.addEdge(edge.source, edge.destination, edge.property);
+                mst.addEdge(edge.source, edge.destination, graph.getProperty(edge));
 
             vertexSets.unionSet(edge.source, edge.destination);
         }
@@ -52,23 +50,20 @@ public final class MinimalSpanningTree
      * @param source starting vertex
      * @return size of the minimal spanning tree
      */
-    public static <V, E extends Weighted> UndirectedGraph<V, E> prim(UndirectedGraph<V, E> graph,
-                                                                     Vertex<V> source)
+    public static <V, VP, EP extends Weighted> UndirectedGraph<V, VP, EP> prim(
+            UndirectedGraph<V, VP, EP> graph, V source)
     {
-        UndirectedSimpleGraph<V, E> mst = new UndirectedSimpleGraph<>(graph);
-        Set<Vertex<V>> visited = new HashSet<>();
-        PriorityQueue<Pair<Edge<E, V>, Vertex<V>>> queue = new PriorityQueue<>((pair1, pair2) -> {
-            int compareWeights = Double.compare(pair1.first.property.getWeight(),
-                                                pair2.first.property.getWeight());
-
-            return compareWeights != 0 ? compareWeights : pair1.second.compareTo(pair2.second);
-        });
+        UndirectedSimpleGraph<V, VP, EP> mst = new UndirectedSimpleGraph<>(graph.getVertices());
+        Set<V> visited = new HashSet<>();
+        PriorityQueue<Pair<Edge<V>, V>> queue = new PriorityQueue<>(
+                (pair1, pair2) -> Double.compare(graph.getProperty(pair1.first).getWeight(),
+                                                 graph.getProperty(pair2.first).getWeight()));
 
         visited.add(source);
 
-        for(Edge<E, V> adjacentEdges : graph.getAdjacentEdges(source))
+        for(Edge<V> adjacentEdges : graph.getAdjacentEdges(source))
         {
-            Vertex<V> neighbour = adjacentEdges.getNeighbour(source);
+            V neighbour = adjacentEdges.getNeighbour(source);
 
             if(!visited.contains(neighbour))
                 queue.add(Pair.of(adjacentEdges, neighbour));
@@ -76,19 +71,19 @@ public final class MinimalSpanningTree
 
         while(!queue.isEmpty())
         {
-            Edge<E, V> edge = queue.element().first;
-            Vertex<V> vertex = queue.element().second;
+            Edge<V> edge = queue.element().first;
+            V vertex = queue.element().second;
 
             queue.remove();
 
             if(!visited.contains(vertex))
             {
                 visited.add(vertex);
-                mst.addEdge(edge.source, edge.destination, edge.property);
+                mst.addEdge(edge.source, edge.destination, graph.getProperty(edge));
 
-                for(Edge<E, V> adjacentEdges : graph.getAdjacentEdges(vertex))
+                for(Edge<V> adjacentEdges : graph.getAdjacentEdges(vertex))
                 {
-                    Vertex<V> neighbour = adjacentEdges.getNeighbour(vertex);
+                    V neighbour = adjacentEdges.getNeighbour(vertex);
 
                     if(!visited.contains(neighbour))
                         queue.add(Pair.of(adjacentEdges, neighbour));
