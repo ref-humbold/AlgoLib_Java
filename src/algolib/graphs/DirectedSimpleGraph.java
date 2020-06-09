@@ -65,10 +65,17 @@ public class DirectedSimpleGraph<V, VP, EP>
     @Override
     public void reverse()
     {
-        Collection<Edge<V>> edges = getEdges();
+        GraphRepresentation<V, VP, EP> newRepresentation = new GraphRepresentation<>(getVertices());
+        representation.getVertices().forEach(vertex -> {
+            newRepresentation.setProperty(vertex, representation.getProperty(vertex));
+        });
+        representation.getEdges().forEach(edge -> {
+            Edge<V> newEdge = edge.reversed();
 
-        representation = new GraphRepresentation<>(getVertices());
-        edges.forEach(edge -> representation.addEdgeToSource(edge.reversed()));
+            newRepresentation.addEdgeToSource(newEdge);
+            newRepresentation.setProperty(newEdge, representation.getProperty(edge));
+        });
+        representation = newRepresentation;
     }
 
     @Override

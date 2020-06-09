@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class TreeGraphTest
 {
-    private TreeGraph<Integer, Void, Void> testObject;
+    private TreeGraph<Integer, String, String> testObject;
 
     @BeforeEach
     public void setUp()
@@ -29,6 +29,25 @@ public class TreeGraphTest
     public void tearDown()
     {
         testObject = null;
+    }
+
+    @Test
+    public void setProperty_getProperty_WhenSettingProperty_ThenProperty()
+    {
+        // given
+        String vertexProperty = "x";
+        String edgeProperty = "y";
+        Integer vertex = 2;
+        Edge<Integer> edge = testObject.getEdge(6, 2);
+        // when
+        testObject.setProperty(vertex, vertexProperty);
+        testObject.setProperty(edge, edgeProperty);
+
+        String resultVertex = testObject.getProperty(vertex);
+        String resultEdge = testObject.getProperty(edge);
+        // then
+        Assertions.assertThat(resultVertex).isEqualTo(vertexProperty);
+        Assertions.assertThat(resultEdge).isEqualTo(edgeProperty);
     }
 
     @Test
@@ -54,11 +73,15 @@ public class TreeGraphTest
     {
         // given
         int newVertex = 13;
+        String vertexProperty = "qwerty";
+        String edgeProperty = "asdfgh";
         // when
-        testObject.addVertex(newVertex, 0);
+        Edge<Integer> result = testObject.addVertex(newVertex, 0, vertexProperty, edgeProperty);
         // then
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(9);
         Assertions.assertThat(testObject.getNeighbours(newVertex)).containsOnly(0);
+        Assertions.assertThat(testObject.getProperty(newVertex)).isEqualTo(vertexProperty);
+        Assertions.assertThat(testObject.getProperty(result)).isEqualTo(edgeProperty);
     }
 
     @Test

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class UndirectedSimpleGraphTest
 {
-    private UndirectedSimpleGraph<Integer, Void, Void> testObject;
+    private UndirectedSimpleGraph<Integer, String, String> testObject;
 
     @BeforeEach
     public void setUp()
@@ -24,6 +24,38 @@ public class UndirectedSimpleGraphTest
     public void tearDown()
     {
         testObject = null;
+    }
+
+    @Test
+    public void setProperty_getProperty_WhenSettingProperty_ThenProperty()
+    {
+        // given
+        String vertexProperty = "x";
+        String edgeProperty = "y";
+        Integer vertex = 2;
+        Edge<Integer> edge = testObject.addEdge(0, 1);
+        // when
+        testObject.setProperty(vertex, vertexProperty);
+        testObject.setProperty(edge, edgeProperty);
+
+        String resultVertex = testObject.getProperty(vertex);
+        String resultEdge = testObject.getProperty(edge);
+        // then
+        Assertions.assertThat(resultVertex).isEqualTo(vertexProperty);
+        Assertions.assertThat(resultEdge).isEqualTo(edgeProperty);
+    }
+
+    @Test
+    public void getProperty_WhenNoProperty_ThenNull()
+    {
+        // given
+        Edge<Integer> edge = testObject.addEdge(6, 7);
+        // when
+        String resultVertex = testObject.getProperty(4);
+        String resultEdge = testObject.getProperty(edge);
+        // then
+        Assertions.assertThat(resultVertex).isNull();
+        Assertions.assertThat(resultEdge).isNull();
     }
 
     @Test
@@ -49,11 +81,13 @@ public class UndirectedSimpleGraphTest
     {
         // given
         int newVertex = 13;
+        String property = "qwerty";
         // when
-        testObject.addVertex(newVertex);
+        testObject.addVertex(newVertex, property);
         // then
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
         Assertions.assertThat(testObject.getNeighbours(newVertex)).isEmpty();
+        Assertions.assertThat(testObject.getProperty(newVertex)).isEqualTo(property);
     }
 
     @Test
@@ -136,12 +170,15 @@ public class UndirectedSimpleGraphTest
     @Test
     public void addEdge_ThenNewEdge()
     {
+        // given
+        String property = "asdfgh";
         // when
-        Edge<Integer> result = testObject.addEdge(1, 5);
+        Edge<Integer> result = testObject.addEdge(1, 5, property);
         testObject.addEdge(1, 1);
         // then
         Assertions.assertThat(result.source).isEqualTo(1);
         Assertions.assertThat(result.destination).isEqualTo(5);
+        Assertions.assertThat(testObject.getProperty(result)).isEqualTo(property);
         Assertions.assertThat(testObject.getNeighbours(1)).containsOnly(1, 5);
         Assertions.assertThat(testObject.getNeighbours(5)).containsOnly(1);
     }
@@ -249,16 +286,21 @@ public class UndirectedSimpleGraphTest
     public void asDirected_ThenDirectedGraph()
     {
         // given
+        Integer vertex = 5;
+        String vertexProperty = "123456";
+        String edgeProperty = "zxcvb";
+        Edge<Integer> edge = testObject.addEdge(1, 5);
         testObject.addEdge(7, 7);
-        testObject.addEdge(1, 5);
         testObject.addEdge(2, 4);
         testObject.addEdge(8, 0);
         testObject.addEdge(6, 3);
         testObject.addEdge(3, 6);
         testObject.addEdge(9, 3);
         testObject.addEdge(8, 0);
+        testObject.setProperty(vertex, vertexProperty);
+        testObject.setProperty(edge, edgeProperty);
         // when
-        DirectedSimpleGraph<Integer, Void, Void> result = testObject.asDirected();
+        DirectedSimpleGraph<Integer, String, String> result = testObject.asDirected();
         // then
         Assertions.assertThat(result.getVertices()).hasSameSizeAs(testObject.getVertices());
         Assertions.assertThat(result.getEdges())
@@ -266,5 +308,10 @@ public class UndirectedSimpleGraphTest
                                 new Edge<>(3, 6), new Edge<>(3, 9), new Edge<>(4, 2),
                                 new Edge<>(5, 1), new Edge<>(6, 3), new Edge<>(7, 7),
                                 new Edge<>(8, 0), new Edge<>(9, 3));
+        Assertions.assertThat(result.getProperty(vertex)).isEqualTo(vertexProperty);
+        Assertions.assertThat(result.getProperty(9)).isNull();
+        Assertions.assertThat(result.getProperty(result.getEdge(1, 5))).isEqualTo(edgeProperty);
+        Assertions.assertThat(result.getProperty(result.getEdge(5, 1))).isEqualTo(edgeProperty);
+        Assertions.assertThat(result.getProperty(result.getEdge(8, 0))).isNull();
     }
 }

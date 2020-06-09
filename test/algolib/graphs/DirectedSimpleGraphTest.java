@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class DirectedSimpleGraphTest
 {
-    private DirectedSimpleGraph<Integer, Void, Void> testObject;
+    private DirectedSimpleGraph<Integer, String, String> testObject;
 
     @BeforeEach
     public void setUp()
@@ -24,6 +24,38 @@ public class DirectedSimpleGraphTest
     public void tearDown()
     {
         testObject = null;
+    }
+
+    @Test
+    public void setProperty_getProperty_WhenSettingProperty_ThenProperty()
+    {
+        // given
+        String vertexProperty = "x";
+        String edgeProperty = "y";
+        Integer vertex = 2;
+        Edge<Integer> edge = testObject.addEdge(0, 1);
+        // when
+        testObject.setProperty(vertex, vertexProperty);
+        testObject.setProperty(edge, edgeProperty);
+
+        String resultVertex = testObject.getProperty(vertex);
+        String resultEdge = testObject.getProperty(edge);
+        // then
+        Assertions.assertThat(resultVertex).isEqualTo(vertexProperty);
+        Assertions.assertThat(resultEdge).isEqualTo(edgeProperty);
+    }
+
+    @Test
+    public void getProperty_WhenNoProperty_ThenNull()
+    {
+        // given
+        Edge<Integer> edge = testObject.addEdge(6, 7);
+        // when
+        String resultVertex = testObject.getProperty(4);
+        String resultEdge = testObject.getProperty(edge);
+        // then
+        Assertions.assertThat(resultVertex).isNull();
+        Assertions.assertThat(resultEdge).isNull();
     }
 
     @Test
@@ -49,11 +81,13 @@ public class DirectedSimpleGraphTest
     {
         // given
         int newVertex = 13;
+        String property = "qwerty";
         // when
-        testObject.addVertex(newVertex);
+        testObject.addVertex(newVertex, property);
         // then
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
         Assertions.assertThat(testObject.getNeighbours(newVertex)).isEmpty();
+        Assertions.assertThat(testObject.getProperty(newVertex)).isEqualTo(property);
     }
 
     @Test
@@ -136,12 +170,15 @@ public class DirectedSimpleGraphTest
     @Test
     public void addEdge_ThenNewEdge()
     {
+        // given
+        String property = "asdfgh";
         // when
-        Edge<Integer> result = testObject.addEdge(1, 5);
+        Edge<Integer> result = testObject.addEdge(1, 5, property);
         testObject.addEdge(1, 1);
         // then
         Assertions.assertThat(result.source).isEqualTo(1);
         Assertions.assertThat(result.destination).isEqualTo(5);
+        Assertions.assertThat(testObject.getProperty(result)).isEqualTo(property);
         Assertions.assertThat(testObject.getNeighbours(1)).containsOnly(1, 5);
         Assertions.assertThat(testObject.getNeighbours(5)).isEmpty();
     }
@@ -235,7 +272,10 @@ public class DirectedSimpleGraphTest
     public void reverse_ThenAllEdgesHaveReversedDirection()
     {
         // given
-        testObject.addEdge(1, 2);
+        Integer vertex = 5;
+        String vertexProperty = "123456";
+        String edgeProperty = "zxcvb";
+        Edge<Integer> edge = testObject.addEdge(1, 2);
         testObject.addEdge(3, 5);
         testObject.addEdge(4, 9);
         testObject.addEdge(5, 4);
@@ -245,6 +285,8 @@ public class DirectedSimpleGraphTest
         testObject.addEdge(7, 8);
         testObject.addEdge(9, 1);
         testObject.addEdge(9, 6);
+        testObject.setProperty(vertex, vertexProperty);
+        testObject.setProperty(edge, edgeProperty);
         // when
         testObject.reverse();
         // then
@@ -253,13 +295,21 @@ public class DirectedSimpleGraphTest
                                 new Edge<>(4, 5), new Edge<>(5, 3), new Edge<>(6, 6),
                                 new Edge<>(6, 9), new Edge<>(7, 5), new Edge<>(8, 7),
                                 new Edge<>(9, 4));
+        Assertions.assertThat(testObject.getProperty(vertex)).isEqualTo(vertexProperty);
+        Assertions.assertThat(testObject.getProperty(9)).isNull();
+        Assertions.assertThat(testObject.getProperty(testObject.getEdge(2, 1)))
+                  .isEqualTo(edgeProperty);
+        Assertions.assertThat(testObject.getProperty(testObject.getEdge(5, 3))).isNull();
     }
 
     @Test
     public void reversedCopy_ThenNewGraphWithReversedEdges()
     {
         // given
-        testObject.addEdge(1, 2);
+        Integer vertex = 5;
+        String vertexProperty = "123456";
+        String edgeProperty = "zxcvb";
+        Edge<Integer> edge = testObject.addEdge(1, 2);
         testObject.addEdge(3, 5);
         testObject.addEdge(4, 9);
         testObject.addEdge(5, 4);
@@ -269,8 +319,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdge(7, 8);
         testObject.addEdge(9, 1);
         testObject.addEdge(9, 6);
+        testObject.setProperty(vertex, vertexProperty);
+        testObject.setProperty(edge, edgeProperty);
         // when
-        DirectedGraph<Integer, Void, Void> result = testObject.reversedCopy();
+        DirectedGraph<Integer, String, String> result = testObject.reversedCopy();
         // then
         Assertions.assertThat(result.getVertices()).hasSameElementsAs(testObject.getVertices());
         Assertions.assertThat(result.getEdges())
@@ -278,5 +330,9 @@ public class DirectedSimpleGraphTest
                                 new Edge<>(4, 5), new Edge<>(5, 3), new Edge<>(6, 6),
                                 new Edge<>(6, 9), new Edge<>(7, 5), new Edge<>(8, 7),
                                 new Edge<>(9, 4));
+        Assertions.assertThat(result.getProperty(vertex)).isEqualTo(vertexProperty);
+        Assertions.assertThat(result.getProperty(9)).isNull();
+        Assertions.assertThat(result.getProperty(result.getEdge(2, 1))).isEqualTo(edgeProperty);
+        Assertions.assertThat(result.getProperty(result.getEdge(5, 3))).isNull();
     }
 }

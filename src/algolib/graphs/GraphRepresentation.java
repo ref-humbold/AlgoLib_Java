@@ -44,25 +44,25 @@ class GraphRepresentation<V, VP, EP>
 
     VP getProperty(V vertex)
     {
-        validateVertex(vertex);
+        validate(vertex);
         return vertexProperties.get(vertex);
     }
 
     void setProperty(V vertex, VP property)
     {
-        validateVertex(vertex);
+        validate(vertex);
         vertexProperties.put(vertex, property);
     }
 
     EP getProperty(Edge<V> edge)
     {
-        validateEdge(edge);
+        validate(edge);
         return edgeProperties.get(edge);
     }
 
     void setProperty(Edge<V> edge, EP property)
     {
-        validateEdge(edge);
+        validate(edge);
         edgeProperties.put(edge, property);
     }
 
@@ -73,7 +73,7 @@ class GraphRepresentation<V, VP, EP>
 
     Stream<Edge<V>> getAdjacentEdges(V vertex)
     {
-        validateVertex(vertex);
+        validate(vertex);
         return graphMap.get(vertex).stream();
     }
 
@@ -84,30 +84,26 @@ class GraphRepresentation<V, VP, EP>
 
     void addEdgeToSource(Edge<V> edge)
     {
-        validateEdge(edge);
+        validate(edge);
         graphMap.get(edge.source).add(edge);
     }
 
     void addEdgeToDestination(Edge<V> edge)
     {
-        validateEdge(edge);
+        validate(edge);
         graphMap.get(edge.destination).add(edge);
     }
 
-    private void validateVertex(V vertex)
+    private void validate(V vertex)
     {
         if(!graphMap.containsKey(vertex))
             throw new IllegalArgumentException(
                     String.format("Vertex %s does not belong to this graph", vertex.toString()));
     }
 
-    private void validateEdge(Edge<V> edge)
+    private void validate(Edge<V> edge)
     {
-        if(graphMap.keySet().stream().noneMatch(v -> v.equals(edge.source)))
-            throw new IllegalArgumentException(
-                    String.format("Edge %s does not belong to this graph", edge.toString()));
-
-        if(graphMap.keySet().stream().noneMatch(v -> v.equals(edge.destination)))
+        if(!graphMap.containsKey(edge.source) || !graphMap.containsKey((edge.destination)))
             throw new IllegalArgumentException(
                     String.format("Edge %s does not belong to this graph", edge.toString()));
     }
