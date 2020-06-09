@@ -28,7 +28,7 @@ public class DirectedSimpleGraph<V, VP, EP>
     @Override
     public Collection<Edge<V>> getEdges()
     {
-        return representation.getEdges().sorted().collect(Collectors.toList());
+        return representation.getEdges().collect(Collectors.toList());
     }
 
     @Override

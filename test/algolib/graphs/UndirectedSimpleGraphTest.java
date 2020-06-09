@@ -91,8 +91,7 @@ public class UndirectedSimpleGraphTest
         // then
         Assertions.assertThat(result)
                   .containsOnly(new Edge<>(7, 7), new Edge<>(1, 5), new Edge<>(2, 4),
-                                new Edge<>(8, 0), new Edge<>(6, 3), new Edge<>(3, 6),
-                                new Edge<>(9, 3), new Edge<>(8, 0));
+                                new Edge<>(8, 0), new Edge<>(6, 3), new Edge<>(9, 3));
     }
 
     @Test
@@ -207,8 +206,8 @@ public class UndirectedSimpleGraphTest
         // then
         Assertions.assertThat(result).hasSize(7);
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(1, 1), new Edge<>(1, 2), new Edge<>(1, 3),
-                                new Edge<>(1, 4), new Edge<>(1, 6), new Edge<>(1, 7),
+                  .containsOnly(new Edge<>(1, 1), new Edge<>(2, 1), new Edge<>(1, 3),
+                                new Edge<>(1, 4), new Edge<>(6, 1), new Edge<>(1, 7),
                                 new Edge<>(1, 9));
     }
 

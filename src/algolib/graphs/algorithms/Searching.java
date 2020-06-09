@@ -1,7 +1,11 @@
 // Algorithms for graph searching
 package algolib.graphs.algorithms;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 
 import algolib.graphs.Graph;
 import algolib.graphs.algorithms.strategy.BFSStrategy;
@@ -17,7 +21,7 @@ public final class Searching
      * @return list of visited vertices
      */
     public static <V, VP, EP> Collection<V> bfs(Graph<V, VP, EP> graph, BFSStrategy<V> strategy,
-                                                List<V> roots)
+                                                Collection<V> roots)
     {
         Map<V, Integer> reached = new HashMap<>();
         Deque<V> vertexDeque = new ArrayDeque<>();
@@ -62,7 +66,8 @@ public final class Searching
      * @return list of visited vertices
      */
     public static <V, VP, EP> Collection<V> dfsIterative(Graph<V, VP, EP> graph,
-                                                         DFSStrategy<V> strategy, List<V> roots)
+                                                         DFSStrategy<V> strategy,
+                                                         Collection<V> roots)
     {
         Map<V, Integer> reached = new HashMap<>();
         Deque<V> vertexDeque = new ArrayDeque<>();
@@ -111,7 +116,8 @@ public final class Searching
      * @return list of visited vertices
      */
     public static <V, VP, EP> Collection<V> dfsRecursive(Graph<V, VP, EP> graph,
-                                                         DFSStrategy<V> strategy, List<V> roots)
+                                                         DFSStrategy<V> strategy,
+                                                         Collection<V> roots)
     {
         DfsRecursiveState<V> state = new DfsRecursiveState<>();
 

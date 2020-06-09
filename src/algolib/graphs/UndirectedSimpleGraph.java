@@ -27,7 +27,7 @@ public class UndirectedSimpleGraph<V, VP, EP>
     @Override
     public Collection<Edge<V>> getEdges()
     {
-        return representation.getEdges().distinct().sorted().collect(Collectors.toList());
+        return representation.getEdges().distinct().collect(Collectors.toList());
     }
 
     @Override

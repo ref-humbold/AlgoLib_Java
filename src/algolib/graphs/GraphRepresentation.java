@@ -96,7 +96,7 @@ class GraphRepresentation<V, VP, EP>
 
     private void validateVertex(V vertex)
     {
-        if(graphMap.containsKey(vertex))
+        if(!graphMap.containsKey(vertex))
             throw new IllegalArgumentException(
                     String.format("Vertex %s does not belong to this graph", vertex.toString()));
     }

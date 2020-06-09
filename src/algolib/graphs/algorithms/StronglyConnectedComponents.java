@@ -14,18 +14,18 @@ public final class StronglyConnectedComponents
      * @param graph a directed graph
      * @return list of vertices in strongly connected components
      */
-    public static <V, E> List<Set<Vertex<V>>> findSCC(DirectedGraph<V, E> graph)
+    public static <V, VP, EP> List<Set<V>> findSCC(DirectedGraph<V, VP, EP> graph)
     {
         PostOrderStrategy<V> postOrderStrategy = new PostOrderStrategy<>();
 
         Searching.dfsRecursive(graph, postOrderStrategy, graph.getVertices());
 
-        List<Vertex<V>> vertices = postOrderStrategy.postTimes.entrySet()
-                                                              .stream()
-                                                              .sorted(new ReversedPostOrderComparator<>())
-                                                              .map(Map.Entry::getKey)
-                                                              .collect(Collectors.toList());
-        DirectedGraph<V, E> reversedCopy = graph.reversedCopy();
+        List<V> vertices = postOrderStrategy.postTimes.entrySet()
+                                                      .stream()
+                                                      .sorted(new ReversedPostOrderComparator<>())
+                                                      .map(Map.Entry::getKey)
+                                                      .collect(Collectors.toList());
+        DirectedGraph<V, VP, EP> reversedCopy = graph.reversedCopy();
         SCCStrategy<V> sccStrategy = new SCCStrategy<>();
 
         Searching.dfsRecursive(reversedCopy, sccStrategy, vertices);
@@ -34,12 +34,11 @@ public final class StronglyConnectedComponents
     }
 
     private static class ReversedPostOrderComparator<V>
-            implements Comparator<Map.Entry<Vertex<V>, Integer>>
+            implements Comparator<Map.Entry<V, Integer>>
     {
 
         @Override
-        public int compare(Map.Entry<Vertex<V>, Integer> entry1,
-                           Map.Entry<Vertex<V>, Integer> entry2)
+        public int compare(Map.Entry<V, Integer> entry1, Map.Entry<V, Integer> entry2)
         {
             return entry2.getValue().compareTo(entry1.getValue());
         }
@@ -48,33 +47,33 @@ public final class StronglyConnectedComponents
     private static class PostOrderStrategy<V>
             implements DFSStrategy<V>
     {
-        final Map<Vertex<V>, Integer> postTimes = new HashMap<>();
+        final Map<V, Integer> postTimes = new HashMap<>();
         int timer = 0;
 
         @Override
-        public void forRoot(Vertex<V> root)
+        public void forRoot(V root)
         {
         }
 
         @Override
-        public void onEnter(Vertex<V> vertex)
+        public void onEnter(V vertex)
         {
         }
 
         @Override
-        public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
+        public void onNextVertex(V vertex, V neighbour)
         {
         }
 
         @Override
-        public void onExit(Vertex<V> vertex)
+        public void onExit(V vertex)
         {
             postTimes.put(vertex, timer);
             ++timer;
         }
 
         @Override
-        public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
+        public void onEdgeToVisited(V vertex, V neighbour)
         {
         }
     }
@@ -82,32 +81,32 @@ public final class StronglyConnectedComponents
     private static class SCCStrategy<V>
             implements DFSStrategy<V>
     {
-        final List<Set<Vertex<V>>> components = new ArrayList<>();
+        final List<Set<V>> components = new ArrayList<>();
 
         @Override
-        public void forRoot(Vertex<V> root)
+        public void forRoot(V root)
         {
             components.add(new HashSet<>());
         }
 
         @Override
-        public void onEnter(Vertex<V> vertex)
+        public void onEnter(V vertex)
         {
             components.get(components.size() - 1).add(vertex);
         }
 
         @Override
-        public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
+        public void onNextVertex(V vertex, V neighbour)
         {
         }
 
         @Override
-        public void onExit(Vertex<V> vertex)
+        public void onExit(V vertex)
         {
         }
 
         @Override
-        public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
+        public void onEdgeToVisited(V vertex, V neighbour)
         {
         }
     }
