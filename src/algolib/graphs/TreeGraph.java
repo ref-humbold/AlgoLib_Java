@@ -68,12 +68,26 @@ public class TreeGraph<V, VP, EP>
         return graph.getEdge(source, destination);
     }
 
+    /**
+     * Adds a new vertex to this graph and creates an edge to an existing vertex.
+     * @param vertex a new vertex
+     * @param neighbour an existing vertex
+     * @return the edge between the vertices
+     */
     public Edge<V> addVertex(V vertex, V neighbour)
     {
         graph.addVertex(vertex);
         return graph.addEdge(vertex, neighbour);
     }
 
+    /**
+     * Adds a new vertex to this graph and creates an edge to an existing vertex.
+     * @param vertex a new vertex
+     * @param neighbour an existing vertex
+     * @param vertexProperty vertex property
+     * @param edgeProperty edge property
+     * @return the edge between the vertices
+     */
     public Edge<V> addVertex(V vertex, V neighbour, VP vertexProperty, EP edgeProperty)
     {
         graph.addVertex(vertex);

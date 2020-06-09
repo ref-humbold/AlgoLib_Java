@@ -83,8 +83,9 @@ public class UndirectedSimpleGraphTest
         int newVertex = 13;
         String property = "qwerty";
         // when
-        testObject.addVertex(newVertex, property);
+        boolean result = testObject.addVertex(newVertex, property);
         // then
+        Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
         Assertions.assertThat(testObject.getNeighbours(newVertex)).isEmpty();
         Assertions.assertThat(testObject.getProperty(newVertex)).isEqualTo(property);
@@ -99,8 +100,9 @@ public class UndirectedSimpleGraphTest
 
         testObject.setProperty(vertex, property);
         // when
-        testObject.addVertex(vertex, "abcdefg");
+        boolean result = testObject.addVertex(vertex, "abcdefg");
         // then
+        Assertions.assertThat(result).isFalse();
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
         Assertions.assertThat(testObject.getProperty(vertex)).isEqualTo(property);
     }

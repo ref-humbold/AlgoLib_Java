@@ -81,23 +81,27 @@ public abstract class SimpleGraph<V, VP, EP>
     /**
      * Adds a new vertex to this graph.
      * @param vertex a new vertex
+     * @return {@code true} if the vertex was added, otherwise {@code false}
      */
-    public void addVertex(V vertex)
+    public boolean addVertex(V vertex)
     {
-        representation.addVertex(vertex);
+        return representation.addVertex(vertex);
     }
 
     /**
      * Adds a new vertex with given property to this graph.
      * @param vertex a new vertex
      * @param property vertex property
+     * @return {@code true} if the vertex was added, otherwise {@code false}
      */
-    public void addVertex(V vertex, VP property)
+    public boolean addVertex(V vertex, VP property)
     {
         boolean wasAdded = representation.addVertex(vertex);
 
         if(wasAdded)
             representation.setProperty(vertex, property);
+
+        return wasAdded;
     }
 
     /**
