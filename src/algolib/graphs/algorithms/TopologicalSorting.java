@@ -4,7 +4,6 @@ package algolib.graphs.algorithms;
 import java.util.*;
 
 import algolib.graphs.DirectedGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class TopologicalSorting
@@ -14,28 +13,28 @@ public final class TopologicalSorting
      * @param graph a directed graph
      * @return topological order of vertices
      */
-    public static <V, E> List<Vertex<V>> sortTopological1(DirectedGraph<V, E> graph)
+    public static <V, VP, EP> List<V> sortTopological1(DirectedGraph<V, VP, EP> graph)
             throws DirectedCyclicGraphException
     {
-        List<Vertex<V>> order = new ArrayList<>();
-        Map<Vertex<V>, Integer> inputDegrees = new HashMap<>();
-        PriorityQueue<Vertex<V>> vertexQueue = new PriorityQueue<>();
+        List<V> order = new ArrayList<>();
+        Map<V, Integer> inputDegrees = new HashMap<>();
+        PriorityQueue<V> vertexQueue = new PriorityQueue<>();
 
-        for(Vertex<V> vertex : graph.getVertices())
+        for(V vertex : graph.getVertices())
             inputDegrees.put(vertex, graph.getInputDegree(vertex));
 
-        for(Vertex<V> vertex : graph.getVertices())
+        for(V vertex : graph.getVertices())
             if(Objects.equals(inputDegrees.get(vertex), 0))
                 vertexQueue.add(vertex);
 
         while(!vertexQueue.isEmpty())
         {
-            Vertex<V> vertex = vertexQueue.remove();
+            V vertex = vertexQueue.remove();
 
             order.add(vertex);
             inputDegrees.remove(vertex);
 
-            for(Vertex<V> neighbour : graph.getNeighbours(vertex))
+            for(V neighbour : graph.getNeighbours(vertex))
             {
                 inputDegrees.put(neighbour, inputDegrees.get(neighbour) - 1);
 
@@ -55,16 +54,16 @@ public final class TopologicalSorting
      * @param graph a directed graph
      * @return topological order of vertices
      */
-    public static <V, E> List<Vertex<V>> sortTopological2(DirectedGraph<V, E> graph)
+    public static <V, VP, EP> List<V> sortTopological2(DirectedGraph<V, VP, EP> graph)
             throws DirectedCyclicGraphException
     {
-        List<Vertex<V>> vertices = new ArrayList<>(graph.getVertices());
+        List<V> vertices = new ArrayList<>(graph.getVertices());
         TopologicalStrategy<V> strategy = new TopologicalStrategy<>();
 
         Collections.reverse(vertices);
         Searching.dfsRecursive(graph, strategy, vertices);
 
-        List<Vertex<V>> order = strategy.getOrder();
+        List<V> order = strategy.getOrder();
 
         Collections.reverse(order);
         return order;
@@ -73,36 +72,36 @@ public final class TopologicalSorting
     private static class TopologicalStrategy<V>
             implements DFSStrategy<V>
     {
-        private final List<Vertex<V>> order = new ArrayList<>();
+        private final List<V> order = new ArrayList<>();
 
-        public List<Vertex<V>> getOrder()
+        List<V> getOrder()
         {
             return order;
         }
 
         @Override
-        public void forRoot(Vertex<V> root)
+        public void forRoot(V root)
         {
         }
 
         @Override
-        public void onEnter(Vertex<V> vertex)
+        public void onEnter(V vertex)
         {
         }
 
         @Override
-        public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
+        public void onNextVertex(V vertex, V neighbour)
         {
         }
 
         @Override
-        public void onExit(Vertex<V> vertex)
+        public void onExit(V vertex)
         {
             order.add(vertex);
         }
 
         @Override
-        public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
+        public void onEdgeToVisited(V vertex, V neighbour)
         {
             throw new DirectedCyclicGraphException("Given graph contains a cycle.");
         }

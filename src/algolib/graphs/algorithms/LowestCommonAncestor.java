@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import algolib.graphs.TreeGraph;
-import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class LowestCommonAncestor
@@ -21,41 +20,40 @@ public final class LowestCommonAncestor
      * @param root a root of given tree
      * @return lowest common ancestor of given vertices
      */
-    public static <V, E> Vertex<V> findLCA(TreeGraph<V, E> graph, Vertex<V> vertex1,
-                                           Vertex<V> vertex2, Vertex<V> root)
+    public static <V, VP, EP> V findLCA(TreeGraph<V, VP, EP> graph, V vertex1, V vertex2, V root)
     {
         return new LCAFinder<>(graph).searchLCA(vertex1, vertex2, root);
     }
 
-    private static class LCAFinder<V, E>
+    private static class LCAFinder<V, VP, EP>
     {
-        private TreeGraph<V, E> graph;
-        private Map<Vertex<V>, List<Vertex<V>>> paths = new HashMap<>();
+        private TreeGraph<V, VP, EP> graph;
+        private Map<V, List<V>> paths = new HashMap<>();
         private LCAStrategy<V> strategy = new LCAStrategy<>();
 
-        public LCAFinder(TreeGraph<V, E> graph)
+        public LCAFinder(TreeGraph<V, VP, EP> graph)
         {
             this.graph = graph;
 
-            for(Vertex<V> vertex : graph.getVertices())
+            for(V vertex : graph.getVertices())
                 paths.put(vertex, new ArrayList<>());
         }
 
-        public Vertex<V> searchLCA(Vertex<V> vertex1, Vertex<V> vertex2, Vertex<V> root)
+        public V searchLCA(V vertex1, V vertex2, V root)
         {
             Searching.dfsRecursive(graph, strategy, List.of(root));
 
-            for(Vertex<V> vertex : graph.getVertices())
+            for(V vertex : graph.getVertices())
                 paths.get(vertex).add(strategy.getParent(vertex));
 
             for(int i = 0; i < Math.log(graph.getVerticesCount()) / Math.log(2) + 3; ++i)
-                for(Vertex<V> vertex : graph.getVertices())
+                for(V vertex : graph.getVertices())
                     paths.get(vertex).add(paths.get(paths.get(vertex).get(i)).get(i));
 
             return search(vertex1, vertex2);
         }
 
-        private Vertex<V> search(Vertex<V> vertex1, Vertex<V> vertex2)
+        private V search(V vertex1, V vertex2)
         {
             if(isOffspring(vertex1, vertex2))
                 return vertex2;
@@ -63,18 +61,18 @@ public final class LowestCommonAncestor
             if(isOffspring(vertex2, vertex1))
                 return vertex1;
 
-            List<Vertex<V>> candidates = new ArrayList<>(paths.get(vertex1));
+            List<V> candidates = new ArrayList<>(paths.get(vertex1));
 
             Collections.reverse(candidates);
 
-            for(Vertex<V> candidate : candidates)
+            for(V candidate : candidates)
                 if(!isOffspring(vertex2, candidate))
                     return search(candidate, vertex2);
 
             return search(paths.get(vertex1).get(0), vertex2);
         }
 
-        private boolean isOffspring(Vertex<V> vertex1, Vertex<V> vertex2)
+        private boolean isOffspring(V vertex1, V vertex2)
         {
             return strategy.getPreTime(vertex1) >= strategy.getPreTime(vertex2)
                     && strategy.getPostTime(vertex1) <= strategy.getPostTime(vertex2);
@@ -84,53 +82,53 @@ public final class LowestCommonAncestor
     private static class LCAStrategy<V>
             implements DFSStrategy<V>
     {
-        private final Map<Vertex<V>, Vertex<V>> parents = new HashMap<>();
-        private final Map<Vertex<V>, Integer> preTimes = new HashMap<>();
-        private final Map<Vertex<V>, Integer> postTimes = new HashMap<>();
+        private final Map<V, V> parents = new HashMap<>();
+        private final Map<V, Integer> preTimes = new HashMap<>();
+        private final Map<V, Integer> postTimes = new HashMap<>();
         private int timer = 0;
 
         @Override
-        public void forRoot(Vertex<V> root)
+        public void forRoot(V root)
         {
             parents.put(root, root);
         }
 
         @Override
-        public void onEnter(Vertex<V> vertex)
+        public void onEnter(V vertex)
         {
             preTimes.put(vertex, timer);
             ++timer;
         }
 
         @Override
-        public void onNextVertex(Vertex<V> vertex, Vertex<V> neighbour)
+        public void onNextVertex(V vertex, V neighbour)
         {
             parents.put(neighbour, vertex);
         }
 
         @Override
-        public void onExit(Vertex<V> vertex)
+        public void onExit(V vertex)
         {
             postTimes.put(vertex, timer);
             ++timer;
         }
 
         @Override
-        public void onEdgeToVisited(Vertex<V> vertex, Vertex<V> neighbour)
+        public void onEdgeToVisited(V vertex, V neighbour)
         {
         }
 
-        Vertex<V> getParent(Vertex<V> vertex)
+        V getParent(V vertex)
         {
             return parents.get(vertex);
         }
 
-        int getPreTime(Vertex<V> vertex)
+        int getPreTime(V vertex)
         {
             return preTimes.get(vertex);
         }
 
-        int getPostTime(Vertex<V> vertex)
+        int getPostTime(V vertex)
         {
             return postTimes.get(vertex);
         }

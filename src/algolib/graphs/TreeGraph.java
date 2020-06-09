@@ -3,16 +3,15 @@ package algolib.graphs;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
-public class TreeGraph<V, E>
-        implements UndirectedGraph<V, E>
+public class TreeGraph<V, VP, EP>
+        implements UndirectedGraph<V, VP, EP>
 {
-    private final UndirectedSimpleGraph<V, E> graph;
+    private final UndirectedSimpleGraph<V, VP, EP> graph;
 
-    public TreeGraph(V property)
+    public TreeGraph(V vertex)
     {
-        graph = new UndirectedSimpleGraph<>(Collections.singleton(property));
+        graph = new UndirectedSimpleGraph<>(Collections.singleton(vertex));
     }
 
     @Override
@@ -22,7 +21,7 @@ public class TreeGraph<V, E>
     }
 
     @Override
-    public List<Vertex<V>> getVertices()
+    public Collection<V> getVertices()
     {
         return graph.getVertices();
     }
@@ -34,51 +33,74 @@ public class TreeGraph<V, E>
     }
 
     @Override
-    public List<Edge<E, V>> getEdges()
+    public Collection<Edge<V>> getEdges()
     {
         return graph.getEdges();
     }
 
     @Override
-    public Vertex<V> getVertex(int index)
+    public VP getProperty(V vertex)
     {
-        return graph.getVertex(index);
+        return graph.getProperty(vertex);
     }
 
     @Override
-    public Edge<E, V> getEdge(Vertex<V> source, Vertex<V> destination)
+    public void setProperty(V vertex, VP property)
+    {
+        graph.setProperty(vertex, property);
+    }
+
+    @Override
+    public EP getProperty(Edge<V> edge)
+    {
+        return graph.getProperty(edge);
+    }
+
+    @Override
+    public void setProperty(Edge<V> edge, EP property)
+    {
+        graph.setProperty(edge, property);
+    }
+
+    @Override
+    public Edge<V> getEdge(V source, V destination)
     {
         return graph.getEdge(source, destination);
     }
 
-    public Vertex<V> addVertex(V vertexProperty, E edgeProperty, Vertex<V> neighbour)
+    public Edge<V> addVertex(V vertex, V neighbour)
     {
-        Vertex<V> vertex = graph.addVertex(vertexProperty);
+        graph.addVertex(vertex);
+        return graph.addEdge(vertex, neighbour);
+    }
 
-        graph.addEdge(vertex, neighbour, edgeProperty);
-        return vertex;
+    public Edge<V> addVertex(V vertex, V neighbour, VP vertexProperty, EP edgeProperty)
+    {
+        graph.addVertex(vertex);
+        graph.setProperty(vertex, vertexProperty);
+        return graph.addEdge(vertex, neighbour, edgeProperty);
     }
 
     @Override
-    public Collection<Vertex<V>> getNeighbours(Vertex<V> vertex)
+    public Collection<V> getNeighbours(V vertex)
     {
         return graph.getNeighbours(vertex);
     }
 
     @Override
-    public Collection<Edge<E, V>> getAdjacentEdges(Vertex<V> vertex)
+    public Collection<Edge<V>> getAdjacentEdges(V vertex)
     {
         return graph.getAdjacentEdges(vertex);
     }
 
     @Override
-    public int getOutputDegree(Vertex<V> vertex)
+    public int getOutputDegree(V vertex)
     {
         return graph.getOutputDegree(vertex);
     }
 
     @Override
-    public int getInputDegree(Vertex<V> vertex)
+    public int getInputDegree(V vertex)
     {
         return graph.getInputDegree(vertex);
     }
