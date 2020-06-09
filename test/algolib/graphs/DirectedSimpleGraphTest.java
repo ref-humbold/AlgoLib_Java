@@ -32,7 +32,7 @@ public class DirectedSimpleGraphTest
         // given
         String vertexProperty = "x";
         String edgeProperty = "y";
-        Integer vertex = 2;
+        int vertex = 2;
         Edge<Integer> edge = testObject.addEdge(0, 1);
         // when
         testObject.setProperty(vertex, vertexProperty);
@@ -77,7 +77,7 @@ public class DirectedSimpleGraphTest
     }
 
     @Test
-    public void addVertex_ThenNewVertex()
+    public void addVertex_WhenNewVertex_ThenVertexAdded()
     {
         // given
         int newVertex = 13;
@@ -88,6 +88,21 @@ public class DirectedSimpleGraphTest
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
         Assertions.assertThat(testObject.getNeighbours(newVertex)).isEmpty();
         Assertions.assertThat(testObject.getProperty(newVertex)).isEqualTo(property);
+    }
+
+    @Test
+    public void addVertex_WhenExistingVertex_ThenNoChanges()
+    {
+        // given
+        int vertex = 6;
+        String property = "qwerty";
+
+        testObject.setProperty(vertex, property);
+        // when
+        testObject.addVertex(vertex, "abcdefg");
+        // then
+        Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
+        Assertions.assertThat(testObject.getProperty(vertex)).isEqualTo(property);
     }
 
     @Test
@@ -133,23 +148,23 @@ public class DirectedSimpleGraphTest
     public void getEdge_WhenInDirection_ThenEdge()
     {
         // given
-        Integer source = 9;
-        Integer destination = 5;
+        int source = 9;
+        int destination = 5;
 
         testObject.addEdge(source, destination);
         // when
         Edge<Integer> result = testObject.getEdge(source, destination);
         // then
-        Assertions.assertThat(result.source).isSameAs(source);
-        Assertions.assertThat(result.destination).isSameAs(destination);
+        Assertions.assertThat(result.source).isEqualTo(source);
+        Assertions.assertThat(result.destination).isEqualTo(destination);
     }
 
     @Test
-    public void getEdge_WhenNotInDirection_ThenNull()
+    public void getEdge_WhenReversedDirection_ThenNull()
     {
         // given
-        Integer source = 9;
-        Integer destination = 5;
+        int source = 9;
+        int destination = 5;
 
         testObject.addEdge(source, destination);
         // when
@@ -168,7 +183,7 @@ public class DirectedSimpleGraphTest
     }
 
     @Test
-    public void addEdge_ThenNewEdge()
+    public void addEdge_WhenNewEdge_ThenCreatedEdge()
     {
         // given
         String property = "asdfgh";
@@ -184,7 +199,7 @@ public class DirectedSimpleGraphTest
     }
 
     @Test
-    public void addEdge_WhenDuplicated_ThenExistingEdge()
+    public void addEdge_WhenDuplicatedEdge_ThenExistingEdge()
     {
         // given
         int source = 3;
@@ -215,7 +230,7 @@ public class DirectedSimpleGraphTest
     }
 
     @Test
-    public void getAdjacentEdges_ThenDestinationVerticesOfOutgoingEdges()
+    public void getAdjacentEdges_ThenOutgoingEdges()
     {
         // given
         testObject.addEdge(1, 1);
@@ -248,7 +263,7 @@ public class DirectedSimpleGraphTest
         // when
         long result = testObject.getOutputDegree(1);
         // then
-        Assertions.assertThat(result).isEqualTo(5L);
+        Assertions.assertThat(result).isEqualTo(5);
     }
 
     @Test
@@ -265,14 +280,14 @@ public class DirectedSimpleGraphTest
         // when
         long result = testObject.getInputDegree(1);
         // then
-        Assertions.assertThat(result).isEqualTo(5L);
+        Assertions.assertThat(result).isEqualTo(5);
     }
 
     @Test
     public void reverse_ThenAllEdgesHaveReversedDirection()
     {
         // given
-        Integer vertex = 5;
+        int vertex = 5;
         String vertexProperty = "123456";
         String edgeProperty = "zxcvb";
         Edge<Integer> edge = testObject.addEdge(1, 2);
@@ -306,7 +321,7 @@ public class DirectedSimpleGraphTest
     public void reversedCopy_ThenNewGraphWithReversedEdges()
     {
         // given
-        Integer vertex = 5;
+        int vertex = 5;
         String vertexProperty = "123456";
         String edgeProperty = "zxcvb";
         Edge<Integer> edge = testObject.addEdge(1, 2);

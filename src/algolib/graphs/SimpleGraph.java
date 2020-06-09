@@ -94,8 +94,10 @@ public abstract class SimpleGraph<V, VP, EP>
      */
     public void addVertex(V vertex, VP property)
     {
-        representation.addVertex(vertex);
-        representation.setProperty(vertex, property);
+        boolean wasAdded = representation.addVertex(vertex);
+
+        if(wasAdded)
+            representation.setProperty(vertex, property);
     }
 
     /**

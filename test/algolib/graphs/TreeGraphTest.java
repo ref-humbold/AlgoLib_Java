@@ -37,7 +37,7 @@ public class TreeGraphTest
         // given
         String vertexProperty = "x";
         String edgeProperty = "y";
-        Integer vertex = 2;
+        int vertex = 2;
         Edge<Integer> edge = testObject.getEdge(6, 2);
         // when
         testObject.setProperty(vertex, vertexProperty);
@@ -109,8 +109,8 @@ public class TreeGraphTest
     public void getEdge_WhenExists_ThenEdge()
     {
         // given
-        Integer source = 5;
-        Integer destination = 1;
+        int source = 5;
+        int destination = 1;
         // when
         Edge<Integer> result = testObject.getEdge(source, destination);
         // then

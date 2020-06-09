@@ -77,9 +77,11 @@ class GraphRepresentation<V, VP, EP>
         return graphMap.get(vertex).stream();
     }
 
-    void addVertex(V vertex)
+    boolean addVertex(V vertex)
     {
-        graphMap.putIfAbsent(vertex, new HashSet<>());
+        Set<Edge<V>> value = graphMap.putIfAbsent(vertex, new HashSet<>());
+
+        return value == null;
     }
 
     void addEdgeToSource(Edge<V> edge)
