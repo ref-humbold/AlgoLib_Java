@@ -29,7 +29,7 @@ public class MultipartiteGraph<V, VP, EP>
         for(Collection<V> groupVertices : vertices)
         {
             for(V vertex : groupVertices)
-                addVertex(vertex, i);
+                addVertex(i, vertex);
 
             ++i;
         }
@@ -94,14 +94,14 @@ public class MultipartiteGraph<V, VP, EP>
         return graph.getEdge(source, destination);
     }
 
-    public void addVertex(V vertex, int group)
+    public void addVertex(int group, V vertex)
     {
         validateGroup(group);
         graph.addVertex(vertex);
         vertexGroupMap.put(vertex, group);
     }
 
-    public void addVertex(V vertex, VP property, int group)
+    public void addVertex(int group, V vertex, VP property)
     {
         validateGroup(group);
         graph.addVertex(vertex, property);

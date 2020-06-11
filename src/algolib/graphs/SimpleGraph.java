@@ -85,7 +85,7 @@ public abstract class SimpleGraph<V, VP, EP>
      */
     public boolean addVertex(V vertex)
     {
-        return representation.addVertex(vertex);
+        return addVertex(vertex, null);
     }
 
     /**
@@ -108,22 +108,19 @@ public abstract class SimpleGraph<V, VP, EP>
      * Adds a new edge to this graph.
      * @param source a source vertex
      * @param destination a destination vertex
-     * @return the new edge
+     * @return the new edge if added, or the existing edge
      */
-    public abstract Edge<V> addEdge(V source, V destination);
+    public Edge<V> addEdge(V source, V destination)
+    {
+        return addEdge(source, destination, null);
+    }
 
     /**
      * Adds a new edge with given property to this graph.
      * @param source a source vertex
      * @param destination a destination vertex
      * @param property edge property
-     * @return the new edge
+     * @return the new edge if added, or the existing edge
      */
-    public Edge<V> addEdge(V source, V destination, EP property)
-    {
-        Edge<V> edge = addEdge(source, destination);
-
-        representation.setProperty(edge, property);
-        return edge;
-    }
+    public abstract Edge<V> addEdge(V source, V destination, EP property);
 }

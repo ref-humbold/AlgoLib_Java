@@ -77,7 +77,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void addVertex_WhenNewVertex_ThenVertexAdded()
+    public void addVertex_WhenNewVertex_ThenTrue()
     {
         // given
         int newVertex = 13;
@@ -92,7 +92,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void addVertex_WhenExistingVertex_ThenNoChanges()
+    public void addVertex_WhenExistingVertex_ThenFalse()
     {
         // given
         int vertex = 6;

@@ -43,7 +43,7 @@ public class UndirectedSimpleGraph<V, VP, EP>
     }
 
     @Override
-    public Edge<V> addEdge(V source, V destination)
+    public Edge<V> addEdge(V source, V destination, EP property)
     {
         Edge<V> existingEdge = getEdge(source, destination);
 
@@ -54,6 +54,7 @@ public class UndirectedSimpleGraph<V, VP, EP>
 
         representation.addEdgeToSource(newEdge);
         representation.addEdgeToDestination(newEdge);
+        representation.setProperty(newEdge, property);
         return newEdge;
     }
 

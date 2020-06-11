@@ -56,7 +56,7 @@ public class TreeGraphTest
         // when
         long result = testObject.getVerticesCount();
         // then
-        Assertions.assertThat(result).isEqualTo(8L);
+        Assertions.assertThat(result).isEqualTo(8);
     }
 
     @Test
@@ -69,19 +69,39 @@ public class TreeGraphTest
     }
 
     @Test
-    public void addVertex_ThenNewVertex()
+    public void addVertex_WhenNewVertex_ThenCreatedEdge()
     {
         // given
         int newVertex = 13;
+        int neighbour = 5;
         String vertexProperty = "qwerty";
         String edgeProperty = "asdfgh";
         // when
-        Edge<Integer> result = testObject.addVertex(newVertex, 0, vertexProperty, edgeProperty);
+        Edge<Integer> result =
+                testObject.addVertex(newVertex, neighbour, vertexProperty, edgeProperty);
         // then
+        Assertions.assertThat(result.source).isEqualTo(newVertex);
+        Assertions.assertThat(result.destination).isEqualTo(neighbour);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(9);
-        Assertions.assertThat(testObject.getNeighbours(newVertex)).containsOnly(0);
+        Assertions.assertThat(testObject.getNeighbours(newVertex)).containsOnly(neighbour);
         Assertions.assertThat(testObject.getProperty(newVertex)).isEqualTo(vertexProperty);
         Assertions.assertThat(testObject.getProperty(result)).isEqualTo(edgeProperty);
+    }
+
+    @Test
+    public void addVertex_WhenExistingVertex_ThenNull()
+    {
+        // given
+        int vertex = 6;
+        String property = "qwerty";
+
+        testObject.setProperty(vertex, property);
+        // when
+        Edge<Integer> result = testObject.addVertex(vertex, 2, "abcdefg", "xyz");
+        // then
+        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(8);
+        Assertions.assertThat(testObject.getProperty(vertex)).isEqualTo(property);
     }
 
     @Test

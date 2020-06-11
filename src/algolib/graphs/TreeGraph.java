@@ -68,33 +68,6 @@ public class TreeGraph<V, VP, EP>
         return graph.getEdge(source, destination);
     }
 
-    /**
-     * Adds a new vertex to this graph and creates an edge to an existing vertex.
-     * @param vertex a new vertex
-     * @param neighbour an existing vertex
-     * @return the edge between the vertices
-     */
-    public Edge<V> addVertex(V vertex, V neighbour)
-    {
-        graph.addVertex(vertex);
-        return graph.addEdge(vertex, neighbour);
-    }
-
-    /**
-     * Adds a new vertex to this graph and creates an edge to an existing vertex.
-     * @param vertex a new vertex
-     * @param neighbour an existing vertex
-     * @param vertexProperty vertex property
-     * @param edgeProperty edge property
-     * @return the edge between the vertices
-     */
-    public Edge<V> addVertex(V vertex, V neighbour, VP vertexProperty, EP edgeProperty)
-    {
-        graph.addVertex(vertex);
-        graph.setProperty(vertex, vertexProperty);
-        return graph.addEdge(vertex, neighbour, edgeProperty);
-    }
-
     @Override
     public Collection<V> getNeighbours(V vertex)
     {
@@ -117,5 +90,36 @@ public class TreeGraph<V, VP, EP>
     public int getInputDegree(V vertex)
     {
         return graph.getInputDegree(vertex);
+    }
+
+    /**
+     * Adds a new vertex to this graph and creates an edge to an existing vertex.
+     * @param vertex a new vertex
+     * @param neighbour an existing vertex
+     * @return the edge between the vertices
+     */
+    public Edge<V> addVertex(V vertex, V neighbour)
+    {
+        boolean wasAdded = graph.addVertex(vertex);
+        return wasAdded ? graph.addEdge(vertex, neighbour) : null;
+    }
+
+    /**
+     * Adds a new vertex to this graph and creates an edge to an existing vertex.
+     * @param vertex a new vertex
+     * @param neighbour an existing vertex
+     * @param vertexProperty vertex property
+     * @param edgeProperty edge property
+     * @return the edge between the vertices, or {@code null} if vertex already exists
+     */
+    public Edge<V> addVertex(V vertex, V neighbour, VP vertexProperty, EP edgeProperty)
+    {
+        boolean isExisting = !graph.addVertex(vertex);
+
+        if(isExisting)
+            return null;
+
+        graph.setProperty(vertex, vertexProperty);
+        return graph.addEdge(vertex, neighbour, edgeProperty);
     }
 }

@@ -49,7 +49,7 @@ public class DirectedSimpleGraph<V, VP, EP>
     }
 
     @Override
-    public Edge<V> addEdge(V source, V destination)
+    public Edge<V> addEdge(V source, V destination, EP property)
     {
         Edge<V> existingEdge = getEdge(source, destination);
 
@@ -59,6 +59,7 @@ public class DirectedSimpleGraph<V, VP, EP>
         Edge<V> newEdge = new Edge<>(source, destination);
 
         representation.addEdgeToSource(newEdge);
+        representation.setProperty(newEdge, property);
         return newEdge;
     }
 
