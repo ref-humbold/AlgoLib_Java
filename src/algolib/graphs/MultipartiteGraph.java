@@ -94,27 +94,26 @@ public class MultipartiteGraph<V, VP, EP>
         return graph.getEdge(source, destination);
     }
 
-    public void addVertex(int group, V vertex)
+    public boolean addVertex(int group, V vertex)
     {
-        validateGroup(group);
-        graph.addVertex(vertex);
-        vertexGroupMap.put(vertex, group);
+        return addVertex(group, vertex, null);
     }
 
-    public void addVertex(int group, V vertex, VP property)
+    public boolean addVertex(int group, V vertex, VP property)
     {
         validateGroup(group);
-        graph.addVertex(vertex, property);
-        vertexGroupMap.put(vertex, group);
+
+        boolean wasAdded = graph.addVertex(vertex, property);
+
+        if(wasAdded)
+            vertexGroupMap.put(vertex, group);
+
+        return wasAdded;
     }
 
     public Edge<V> addEdge(V source, V destination)
     {
-        if(areInSameGroup(source, destination))
-            throw new GraphPartitionException(
-                    "Cannot create an edge between vertices in the same group");
-
-        return graph.addEdge(source, destination);
+        return addEdge(source, destination, null);
     }
 
     public Edge<V> addEdge(V source, V destination, EP property)
