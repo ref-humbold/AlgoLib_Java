@@ -1,11 +1,7 @@
 // Algorithms for graph searching
 package algolib.graphs.algorithms;
 
-import java.util.ArrayDeque;
-import java.util.Collection;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import algolib.graphs.Graph;
 import algolib.graphs.algorithms.strategy.BFSStrategy;
@@ -23,16 +19,15 @@ public final class Searching
     public static <V, VP, EP> Collection<V> bfs(Graph<V, VP, EP> graph, BFSStrategy<V> strategy,
                                                 Collection<V> roots)
     {
-        Map<V, Integer> reached = new HashMap<>();
+        Set<V> reached = new HashSet<>();
         Deque<V> vertexDeque = new ArrayDeque<>();
-        int iteration = 1;
 
         for(V root : roots)
-            if(!reached.containsKey(root))
+            if(!reached.contains(root))
             {
                 strategy.forRoot(root);
                 vertexDeque.addLast(root);
-                reached.put(root, iteration);
+                reached.add(root);
 
                 while(!vertexDeque.isEmpty())
                 {
@@ -41,25 +36,22 @@ public final class Searching
                     strategy.onEnter(vertex);
 
                     for(V neighbour : graph.getNeighbours(vertex))
-                        if(!reached.containsKey(neighbour))
+                        if(!reached.contains(neighbour))
                         {
                             strategy.onNextVertex(vertex, neighbour);
-                            reached.put(neighbour, iteration);
+                            reached.add(neighbour);
                             vertexDeque.addLast(neighbour);
                         }
 
                     strategy.onExit(vertex);
-                    reached.put(root, -iteration);
                 }
-
-                ++iteration;
             }
 
-        return reached.keySet();
+        return reached;
     }
 
     /**
-     * Iterative depth-first-search algorithm
+     * Iterative depth-first-search algorithm.
      * @param graph a graph
      * @param strategy a searching strategy
      * @param roots starting vertices
@@ -133,7 +125,7 @@ public final class Searching
         return state.reached.keySet();
     }
 
-    // Single step of the recursive DFS
+    // Single step of recursive DFS
     private static <V, VP, EP> void dfsRecursiveStep(Graph<V, VP, EP> graph,
                                                      DFSStrategy<V> strategy,
                                                      DfsRecursiveState<V> state)
