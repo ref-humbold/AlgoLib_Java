@@ -24,7 +24,6 @@ public class SearchingTest
     {
         directedGraph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
-
         directedGraph.addEdge(0, 1);
         directedGraph.addEdge(1, 3);
         directedGraph.addEdge(1, 7);
@@ -38,7 +37,6 @@ public class SearchingTest
 
         undirectedGraph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
-
         undirectedGraph.addEdge(0, 1);
         undirectedGraph.addEdge(0, 4);
         undirectedGraph.addEdge(1, 3);
@@ -152,8 +150,18 @@ public class SearchingTest
         Collection<Integer> result =
                 Searching.dfsIterative(directedGraph, new EmptyStrategy<>(), List.of(1));
         // then
-        Assertions.assertThat(result).isSubsetOf(directedGraph.getVertices());
-        Assertions.assertThat(result).doesNotContain(2);
+        Assertions.assertThat(result).hasSize(5);
+        Assertions.assertThat(result).containsOnly(0, 1, 3, 4, 7);
+    }
+
+    @Test
+    public void dfsIterative_WhenDirectedGraphAndMultipleRoots_ThenAllVertices()
+    {
+        // when
+        Collection<Integer> result =
+                Searching.dfsIterative(directedGraph, new EmptyStrategy<>(), List.of(8, 6));
+        // then
+        Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
     }
 
     // endregion
@@ -197,8 +205,18 @@ public class SearchingTest
         Collection<Integer> result =
                 Searching.dfsRecursive(directedGraph, new EmptyStrategy<>(), List.of(1));
         // then
-        Assertions.assertThat(result).isSubsetOf(directedGraph.getVertices());
-        Assertions.assertThat(result).doesNotContain(2);
+        Assertions.assertThat(result).hasSize(5);
+        Assertions.assertThat(result).containsOnly(0, 1, 3, 4, 7);
+    }
+
+    @Test
+    public void dfsRecursive_WhenDirectedGraphAndMultipleRoots_ThenAllVertices()
+    {
+        // when
+        Collection<Integer> result =
+                Searching.dfsRecursive(directedGraph, new EmptyStrategy<>(), List.of(8, 6));
+        // then
+        Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
     }
 
     // endregion
