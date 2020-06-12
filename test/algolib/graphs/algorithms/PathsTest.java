@@ -18,6 +18,7 @@ import algolib.tuples.Pair;
 
 public class PathsTest
 {
+    private static final double INF = Paths.INFINITY;
     private DirectedSimpleGraph<Integer, Void, Weight> directedGraph;
     private UndirectedSimpleGraph<Integer, Void, Weight> undirectedGraph;
 
@@ -26,7 +27,6 @@ public class PathsTest
     {
         directedGraph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
-
         directedGraph.addEdge(0, 1, new Weight(4.0));
         directedGraph.addEdge(1, 4, new Weight(7.0));
         directedGraph.addEdge(1, 7, new Weight(12.0));
@@ -46,7 +46,6 @@ public class PathsTest
 
         undirectedGraph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
-
         undirectedGraph.addEdge(0, 1, new Weight(4.0));
         undirectedGraph.addEdge(1, 4, new Weight(7.0));
         undirectedGraph.addEdge(1, 7, new Weight(12.0));
@@ -72,8 +71,8 @@ public class PathsTest
     public void bellmanFord_WhenDirectedGraph()
     {
         // given
-        Map<Integer, Double> expected = getExpected(
-                List.of(20.0, 0.0, Paths.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0));
+        List<Double> distances = List.of(20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0);
+        Map<Integer, Double> expected = fromList(distances);
 
         directedGraph.addEdge(2, 1, new Weight(-2.0));
         // when
@@ -87,9 +86,8 @@ public class PathsTest
     public void bellmanFord_WhenUndirectedGraph()
     {
         // given
-        Map<Integer, Double> expected = getExpected(
-                List.of(4.0, 0.0, Paths.INFINITY, 7.0, 7.0, 8.0, Paths.INFINITY, 10.0, 10.0,
-                        Paths.INFINITY));
+        List<Double> distances = List.of(4.0, 0.0, INF, 7.0, 7.0, 8.0, INF, 10.0, 10.0, INF);
+        Map<Integer, Double> expected = fromList(distances);
         // when
         Map<Integer, Double> result = Paths.bellmanFord(undirectedGraph.asDirected(), 1);
         // then
@@ -112,8 +110,8 @@ public class PathsTest
     public void dijkstra_WhenDirectedGraph()
     {
         // given
-        Map<Integer, Double> expected = getExpected(
-                List.of(20.0, 0.0, Paths.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0));
+        List<Double> distances = List.of(20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0);
+        Map<Integer, Double> expected = fromList(distances);
         // when
         Map<Integer, Double> result = Paths.dijkstra(directedGraph, 1);
         // then
@@ -125,9 +123,8 @@ public class PathsTest
     public void dijkstra_WhenUndirectedGraph()
     {
         // given
-        Map<Integer, Double> expected = getExpected(
-                List.of(4.0, 0.0, Paths.INFINITY, 7.0, 7.0, 8.0, Paths.INFINITY, 10.0, 10.0,
-                        Paths.INFINITY));
+        List<Double> distances = List.of(4.0, 0.0, INF, 7.0, 7.0, 8.0, INF, 10.0, 10.0, INF);
+        Map<Integer, Double> expected = fromList(distances);
         // when
         Map<Integer, Double> result = Paths.dijkstra(undirectedGraph, 1);
         // then
@@ -150,27 +147,17 @@ public class PathsTest
     public void floydWarshall_WhenDirectedGraph()
     {
         // given
-        Map<Pair<Integer, Integer>, Double> expected = new HashMap<>();
-        double[][] distances =
-                new double[][]{{0.0, 4.0, Paths.INFINITY, 21.0, 11.0, 12.0, 16.0, 16.0, 14.0, 24.0},
-                               {20.0, 0.0, Paths.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0},
-                               {18.0, -2.0, 0.0, 15.0, 5.0, 6.0, 8.0, 10.0, 8.0, 18.0},
-                               {3.0, 7.0, Paths.INFINITY, 0.0, 14.0, 7.0, 11.0, 5.0, 9.0, 19.0},
-                               {13.0, 17.0, Paths.INFINITY, 10.0, 0.0, 1.0, 5.0, 15.0, 3.0, 13.0},
-                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
-                                Paths.INFINITY, 0.0, 4.0, Paths.INFINITY, 2.0, 12.0},
-                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
-                                Paths.INFINITY, 7.0, 0, Paths.INFINITY, 9.0, 19.0},
-                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
-                                Paths.INFINITY, 2.0, 6.0, 0.0, 4.0, 14.0},
-                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
-                                Paths.INFINITY, 20.0, 13.0, Paths.INFINITY, 0.0, 10.0},
-                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
-                                Paths.INFINITY, 10.0, 3.0, Paths.INFINITY, 12.0, 0.0}};
-
-        for(int i = 0; i < distances.length; ++i)
-            for(int j = 0; j < distances[i].length; ++j)
-                expected.put(Pair.of(i, j), distances[i][j]);
+        double[][] distances = {{0.0, 4.0, INF, 21.0, 11.0, 12.0, 16.0, 16.0, 14.0, 24.0},
+                                {20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0},
+                                {18.0, -2.0, 0.0, 15.0, 5.0, 6.0, 8.0, 10.0, 8.0, 18.0},
+                                {3.0, 7.0, INF, 0.0, 14.0, 7.0, 11.0, 5.0, 9.0, 19.0},
+                                {13.0, 17.0, INF, 10.0, 0.0, 1.0, 5.0, 15.0, 3.0, 13.0},
+                                {INF, INF, INF, INF, INF, 0.0, 4.0, INF, 2.0, 12.0},
+                                {INF, INF, INF, INF, INF, 7.0, 0, INF, 9.0, 19.0},
+                                {INF, INF, INF, INF, INF, 2.0, 6.0, 0.0, 4.0, 14.0},
+                                {INF, INF, INF, INF, INF, 20.0, 13.0, INF, 0.0, 10.0},
+                                {INF, INF, INF, INF, INF, 10.0, 3.0, INF, 12.0, 0.0}};
+        Map<Pair<Integer, Integer>, Double> expected = fromMatrix(distances);
 
         directedGraph.addEdge(2, 1, new Weight(-2.0));
         // when
@@ -183,30 +170,17 @@ public class PathsTest
     public void floydWarshall_WhenUndirectedGraph()
     {
         // given
-        Map<Pair<Integer, Integer>, Double> expected = new HashMap<>();
-        double[][] distances = new double[][]{
-                {0.0, 4.0, Paths.INFINITY, 3.0, 11.0, 10.0, Paths.INFINITY, 8.0, 12.0,
-                 Paths.INFINITY},
-                {4.0, 0.0, Paths.INFINITY, 7.0, 7.0, 8.0, Paths.INFINITY, 10.0, 10.0,
-                 Paths.INFINITY},
-                {Paths.INFINITY, Paths.INFINITY, 0.0, Paths.INFINITY, Paths.INFINITY,
-                 Paths.INFINITY, 8.0, Paths.INFINITY, Paths.INFINITY, 11.0},
-                {3.0, 7.0, Paths.INFINITY, 0.0, 8.0, 7.0, Paths.INFINITY, 5.0, 9.0, Paths.INFINITY},
-                {11.0, 7.0, Paths.INFINITY, 8.0, 0.0, 1.0, Paths.INFINITY, 3.0, 3.0,
-                 Paths.INFINITY},
-                {10, 8, Paths.INFINITY, 7.0, 1.0, 0.0, Paths.INFINITY, 2.0, 2.0, Paths.INFINITY},
-                {Paths.INFINITY, Paths.INFINITY, 8.0, Paths.INFINITY, Paths.INFINITY,
-                 Paths.INFINITY, 0.0, Paths.INFINITY, Paths.INFINITY, 3.0},
-                {8.0, 10.0, Paths.INFINITY, 5.0, 3.0, 2.0, Paths.INFINITY, 0.0, 4.0,
-                 Paths.INFINITY},
-                {12.0, 10.0, Paths.INFINITY, 9.0, 3.0, 2.0, Paths.INFINITY, 4.0, 0.0,
-                 Paths.INFINITY},
-                {Paths.INFINITY, Paths.INFINITY, 11.0, Paths.INFINITY, Paths.INFINITY,
-                 Paths.INFINITY, 3.0, Paths.INFINITY, Paths.INFINITY, 0.0}};
-
-        for(int i = 0; i < distances.length; ++i)
-            for(int j = 0; j < distances[i].length; ++j)
-                expected.put(Pair.of(i, j), distances[i][j]);
+        double[][] distances = {{0.0, 4.0, INF, 3.0, 11.0, 10.0, INF, 8.0, 12.0, INF},
+                                {4.0, 0.0, INF, 7.0, 7.0, 8.0, INF, 10.0, 10.0, INF},
+                                {INF, INF, 0.0, INF, INF, INF, 8.0, INF, INF, 11.0},
+                                {3.0, 7.0, INF, 0.0, 8.0, 7.0, INF, 5.0, 9.0, INF},
+                                {11.0, 7.0, INF, 8.0, 0.0, 1.0, INF, 3.0, 3.0, INF},
+                                {10, 8, INF, 7.0, 1.0, 0.0, INF, 2.0, 2.0, INF},
+                                {INF, INF, 8.0, INF, INF, INF, 0.0, INF, INF, 3.0},
+                                {8.0, 10.0, INF, 5.0, 3.0, 2.0, INF, 0.0, 4.0, INF},
+                                {12.0, 10.0, INF, 9.0, 3.0, 2.0, INF, 4.0, 0.0, INF},
+                                {INF, INF, 11.0, INF, INF, INF, 3.0, INF, INF, 0.0}};
+        Map<Pair<Integer, Integer>, Double> expected = fromMatrix(distances);
 
         // when
         Map<Pair<Integer, Integer>, Double> result =
@@ -215,7 +189,7 @@ public class PathsTest
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
-    private Map<Integer, Double> getExpected(List<Double> distances)
+    private Map<Integer, Double> fromList(List<Double> distances)
     {
         Map<Integer, Double> map = new HashMap<>();
 
@@ -223,6 +197,17 @@ public class PathsTest
             map.put(i, distances.get(i));
 
         return map;
+    }
+
+    private Map<Pair<Integer, Integer>, Double> fromMatrix(double[][] distances)
+    {
+        Map<Pair<Integer, Integer>, Double> expected = new HashMap<>();
+
+        for(int i = 0; i < distances.length; ++i)
+            for(int j = 0; j < distances[i].length; ++j)
+                expected.put(Pair.of(i, j), distances[i][j]);
+
+        return expected;
     }
 
     private static final class Weight
