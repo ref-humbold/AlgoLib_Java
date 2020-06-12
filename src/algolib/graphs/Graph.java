@@ -44,7 +44,7 @@ public interface Graph<V, VP, EP>
     /**
      * @param source source vertex
      * @param destination destination vertex
-     * @return edge between the vertices, or {@code null} of no edge
+     * @return the edge between the vertices, or {@code null} if no edge
      */
     Edge<V> getEdge(V source, V destination);
 
