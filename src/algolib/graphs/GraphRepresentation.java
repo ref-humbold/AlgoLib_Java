@@ -105,7 +105,7 @@ class GraphRepresentation<V, VP, EP>
 
     private void validate(Edge<V> edge)
     {
-        if(!graphMap.containsKey(edge.source) || !graphMap.containsKey((edge.destination)))
+        if(!graphMap.containsKey(edge.source) || !graphMap.containsKey(edge.destination))
             throw new IllegalArgumentException(
                     String.format("Edge %s does not belong to this graph", edge.toString()));
     }
