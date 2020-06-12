@@ -73,7 +73,7 @@ public class PathsTest
     {
         // given
         Map<Integer, Double> expected = getExpected(
-                List.of(20.0, 0.0, Weighted.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0));
+                List.of(20.0, 0.0, Paths.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0));
 
         directedGraph.addEdge(2, 1, new Weight(-2.0));
         // when
@@ -88,8 +88,8 @@ public class PathsTest
     {
         // given
         Map<Integer, Double> expected = getExpected(
-                List.of(4.0, 0.0, Weighted.INFINITY, 7.0, 7.0, 8.0, Weighted.INFINITY, 10.0, 10.0,
-                        Weighted.INFINITY));
+                List.of(4.0, 0.0, Paths.INFINITY, 7.0, 7.0, 8.0, Paths.INFINITY, 10.0, 10.0,
+                        Paths.INFINITY));
         // when
         Map<Integer, Double> result = Paths.bellmanFord(undirectedGraph.asDirected(), 1);
         // then
@@ -113,7 +113,7 @@ public class PathsTest
     {
         // given
         Map<Integer, Double> expected = getExpected(
-                List.of(20.0, 0.0, Weighted.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0));
+                List.of(20.0, 0.0, Paths.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0));
         // when
         Map<Integer, Double> result = Paths.dijkstra(directedGraph, 1);
         // then
@@ -126,8 +126,8 @@ public class PathsTest
     {
         // given
         Map<Integer, Double> expected = getExpected(
-                List.of(4.0, 0.0, Weighted.INFINITY, 7.0, 7.0, 8.0, Weighted.INFINITY, 10.0, 10.0,
-                        Weighted.INFINITY));
+                List.of(4.0, 0.0, Paths.INFINITY, 7.0, 7.0, 8.0, Paths.INFINITY, 10.0, 10.0,
+                        Paths.INFINITY));
         // when
         Map<Integer, Double> result = Paths.dijkstra(undirectedGraph, 1);
         // then
@@ -151,22 +151,22 @@ public class PathsTest
     {
         // given
         Map<Pair<Integer, Integer>, Double> expected = new HashMap<>();
-        double[][] distances = new double[][]{
-                {0.0, 4.0, Weighted.INFINITY, 21.0, 11.0, 12.0, 16.0, 16.0, 14.0, 24.0},
-                {20.0, 0.0, Weighted.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0},
-                {18.0, -2.0, 0.0, 15.0, 5.0, 6.0, 8.0, 10.0, 8.0, 18.0},
-                {3.0, 7.0, Weighted.INFINITY, 0.0, 14.0, 7.0, 11.0, 5.0, 9.0, 19.0},
-                {13.0, 17.0, Weighted.INFINITY, 10.0, 0.0, 1.0, 5.0, 15.0, 3.0, 13.0},
-                {Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY,
-                 Weighted.INFINITY, 0.0, 4.0, Weighted.INFINITY, 2.0, 12.0},
-                {Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY,
-                 Weighted.INFINITY, 7.0, 0, Weighted.INFINITY, 9.0, 19.0},
-                {Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY,
-                 Weighted.INFINITY, 2.0, 6.0, 0.0, 4.0, 14.0},
-                {Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY,
-                 Weighted.INFINITY, 20.0, 13.0, Weighted.INFINITY, 0.0, 10.0},
-                {Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY, Weighted.INFINITY,
-                 Weighted.INFINITY, 10.0, 3.0, Weighted.INFINITY, 12.0, 0.0}};
+        double[][] distances =
+                new double[][]{{0.0, 4.0, Paths.INFINITY, 21.0, 11.0, 12.0, 16.0, 16.0, 14.0, 24.0},
+                               {20.0, 0.0, Paths.INFINITY, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0},
+                               {18.0, -2.0, 0.0, 15.0, 5.0, 6.0, 8.0, 10.0, 8.0, 18.0},
+                               {3.0, 7.0, Paths.INFINITY, 0.0, 14.0, 7.0, 11.0, 5.0, 9.0, 19.0},
+                               {13.0, 17.0, Paths.INFINITY, 10.0, 0.0, 1.0, 5.0, 15.0, 3.0, 13.0},
+                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
+                                Paths.INFINITY, 0.0, 4.0, Paths.INFINITY, 2.0, 12.0},
+                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
+                                Paths.INFINITY, 7.0, 0, Paths.INFINITY, 9.0, 19.0},
+                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
+                                Paths.INFINITY, 2.0, 6.0, 0.0, 4.0, 14.0},
+                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
+                                Paths.INFINITY, 20.0, 13.0, Paths.INFINITY, 0.0, 10.0},
+                               {Paths.INFINITY, Paths.INFINITY, Paths.INFINITY, Paths.INFINITY,
+                                Paths.INFINITY, 10.0, 3.0, Paths.INFINITY, 12.0, 0.0}};
 
         for(int i = 0; i < distances.length; ++i)
             for(int j = 0; j < distances[i].length; ++j)
@@ -185,26 +185,24 @@ public class PathsTest
         // given
         Map<Pair<Integer, Integer>, Double> expected = new HashMap<>();
         double[][] distances = new double[][]{
-                {0.0, 4.0, Weighted.INFINITY, 3.0, 11.0, 10.0, Weighted.INFINITY, 8.0, 12.0,
-                 Weighted.INFINITY},
-                {4.0, 0.0, Weighted.INFINITY, 7.0, 7.0, 8.0, Weighted.INFINITY, 10.0, 10.0,
-                 Weighted.INFINITY},
-                {Weighted.INFINITY, Weighted.INFINITY, 0.0, Weighted.INFINITY, Weighted.INFINITY,
-                 Weighted.INFINITY, 8.0, Weighted.INFINITY, Weighted.INFINITY, 11.0},
-                {3.0, 7.0, Weighted.INFINITY, 0.0, 8.0, 7.0, Weighted.INFINITY, 5.0, 9.0,
-                 Weighted.INFINITY},
-                {11.0, 7.0, Weighted.INFINITY, 8.0, 0.0, 1.0, Weighted.INFINITY, 3.0, 3.0,
-                 Weighted.INFINITY},
-                {10, 8, Weighted.INFINITY, 7.0, 1.0, 0.0, Weighted.INFINITY, 2.0, 2.0,
-                 Weighted.INFINITY},
-                {Weighted.INFINITY, Weighted.INFINITY, 8.0, Weighted.INFINITY, Weighted.INFINITY,
-                 Weighted.INFINITY, 0.0, Weighted.INFINITY, Weighted.INFINITY, 3.0},
-                {8.0, 10.0, Weighted.INFINITY, 5.0, 3.0, 2.0, Weighted.INFINITY, 0.0, 4.0,
-                 Weighted.INFINITY},
-                {12.0, 10.0, Weighted.INFINITY, 9.0, 3.0, 2.0, Weighted.INFINITY, 4.0, 0.0,
-                 Weighted.INFINITY},
-                {Weighted.INFINITY, Weighted.INFINITY, 11.0, Weighted.INFINITY, Weighted.INFINITY,
-                 Weighted.INFINITY, 3.0, Weighted.INFINITY, Weighted.INFINITY, 0.0}};
+                {0.0, 4.0, Paths.INFINITY, 3.0, 11.0, 10.0, Paths.INFINITY, 8.0, 12.0,
+                 Paths.INFINITY},
+                {4.0, 0.0, Paths.INFINITY, 7.0, 7.0, 8.0, Paths.INFINITY, 10.0, 10.0,
+                 Paths.INFINITY},
+                {Paths.INFINITY, Paths.INFINITY, 0.0, Paths.INFINITY, Paths.INFINITY,
+                 Paths.INFINITY, 8.0, Paths.INFINITY, Paths.INFINITY, 11.0},
+                {3.0, 7.0, Paths.INFINITY, 0.0, 8.0, 7.0, Paths.INFINITY, 5.0, 9.0, Paths.INFINITY},
+                {11.0, 7.0, Paths.INFINITY, 8.0, 0.0, 1.0, Paths.INFINITY, 3.0, 3.0,
+                 Paths.INFINITY},
+                {10, 8, Paths.INFINITY, 7.0, 1.0, 0.0, Paths.INFINITY, 2.0, 2.0, Paths.INFINITY},
+                {Paths.INFINITY, Paths.INFINITY, 8.0, Paths.INFINITY, Paths.INFINITY,
+                 Paths.INFINITY, 0.0, Paths.INFINITY, Paths.INFINITY, 3.0},
+                {8.0, 10.0, Paths.INFINITY, 5.0, 3.0, 2.0, Paths.INFINITY, 0.0, 4.0,
+                 Paths.INFINITY},
+                {12.0, 10.0, Paths.INFINITY, 9.0, 3.0, 2.0, Paths.INFINITY, 4.0, 0.0,
+                 Paths.INFINITY},
+                {Paths.INFINITY, Paths.INFINITY, 11.0, Paths.INFINITY, Paths.INFINITY,
+                 Paths.INFINITY, 3.0, Paths.INFINITY, Paths.INFINITY, 0.0}};
 
         for(int i = 0; i < distances.length; ++i)
             for(int j = 0; j < distances[i].length; ++j)
