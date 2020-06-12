@@ -6,6 +6,6 @@ public interface DirectedGraph<V, VP, EP>
     /** Reverses directions of edges in this graph. */
     void reverse();
 
-    /** Creates a copy of this graph with reversed directions of edges. */
+    /** @return the copy of this graph with reversed directions of edges */
     DirectedGraph<V, VP, EP> reversedCopy();
 }
