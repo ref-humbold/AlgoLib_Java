@@ -56,6 +56,15 @@ public abstract class SimpleGraph<V, VP, EP>
     }
 
     @Override
+    public Edge<V> getEdge(V source, V destination)
+    {
+        return representation.getAdjacentEdges(source)
+                             .filter(edge -> edge.getNeighbour(source).equals(destination))
+                             .findFirst()
+                             .orElse(null);
+    }
+
+    @Override
     public Collection<V> getNeighbours(V vertex)
     {
         return representation.getAdjacentEdges(vertex)
@@ -67,15 +76,6 @@ public abstract class SimpleGraph<V, VP, EP>
     public Collection<Edge<V>> getAdjacentEdges(V vertex)
     {
         return representation.getAdjacentEdges(vertex).collect(Collectors.toSet());
-    }
-
-    @Override
-    public Edge<V> getEdge(V source, V destination)
-    {
-        return representation.getAdjacentEdges(source)
-                             .filter(edge -> edge.getNeighbour(source).equals(destination))
-                             .findFirst()
-                             .orElse(null);
     }
 
     /**
