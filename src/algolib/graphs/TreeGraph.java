@@ -108,18 +108,14 @@ public class TreeGraph<V, VP, EP>
      * Adds a new vertex to this graph and creates an edge to an existing vertex.
      * @param vertex a new vertex
      * @param neighbour an existing vertex
-     * @param vertexProperty vertex property
-     * @param edgeProperty edge property
+     * @param vertexProperty a vertex property
+     * @param edgeProperty an edge property
      * @return the edge between the vertices, or {@code null} if vertex already exists
      */
     public Edge<V> addVertex(V vertex, V neighbour, VP vertexProperty, EP edgeProperty)
     {
-        boolean isExisting = !graph.addVertex(vertex);
+        boolean wasAdded = graph.addVertex(vertex, vertexProperty);
 
-        if(isExisting)
-            return null;
-
-        graph.setProperty(vertex, vertexProperty);
-        return graph.addEdge(vertex, neighbour, edgeProperty);
+        return wasAdded ? graph.addEdge(vertex, neighbour, edgeProperty) : null;
     }
 }
