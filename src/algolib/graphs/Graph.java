@@ -8,11 +8,11 @@ public interface Graph<V, VP, EP>
     /** @return number of vertices */
     int getVerticesCount();
 
-    /** @return collection of graph vertices */
-    Collection<V> getVertices();
-
     /** @return number of edges */
     int getEdgesCount();
+
+    /** @return collection of graph vertices */
+    Collection<V> getVertices();
 
     /** @return collection of graph edges */
     Collection<Edge<V>> getEdges();
@@ -56,19 +56,19 @@ public interface Graph<V, VP, EP>
 
     /**
      * @param vertex a vertex from this graph
-     * @return collection of edges adjacent to this vertex
+     * @return collection of edges adjacent to the vertex
      */
     Collection<Edge<V>> getAdjacentEdges(V vertex);
 
     /**
      * @param vertex a vertex from this graph
-     * @return the output degree of this vertex
+     * @return the output degree of the vertex
      */
     int getOutputDegree(V vertex);
 
     /**
      * @param vertex a vertex from this graph
-     * @return the input degree of this vertex
+     * @return the input degree of the vertex
      */
     int getInputDegree(V vertex);
 }
