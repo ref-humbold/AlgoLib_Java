@@ -14,7 +14,7 @@ public final class Searching
      * @param graph a graph
      * @param strategy a searching strategy
      * @param roots starting vertices
-     * @return list of visited vertices
+     * @return collection of visited vertices
      */
     public static <V, VP, EP> Collection<V> bfs(Graph<V, VP, EP> graph, BFSStrategy<V> strategy,
                                                 Collection<V> roots)
@@ -55,7 +55,7 @@ public final class Searching
      * @param graph a graph
      * @param strategy a searching strategy
      * @param roots starting vertices
-     * @return list of visited vertices
+     * @return collection of visited vertices
      */
     public static <V, VP, EP> Collection<V> dfsIterative(Graph<V, VP, EP> graph,
                                                          DFSStrategy<V> strategy,
@@ -105,7 +105,7 @@ public final class Searching
      * @param graph a graph
      * @param strategy a searching strategy
      * @param roots starting vertices
-     * @return list of visited vertices
+     * @return collection of visited vertices
      */
     public static <V, VP, EP> Collection<V> dfsRecursive(Graph<V, VP, EP> graph,
                                                          DFSStrategy<V> strategy,
@@ -125,7 +125,7 @@ public final class Searching
         return state.reached.keySet();
     }
 
-    // Single step of recursive DFS
+    // Single step of recursive DFS.
     private static <V, VP, EP> void dfsRecursiveStep(Graph<V, VP, EP> graph,
                                                      DFSStrategy<V> strategy,
                                                      DfsRecursiveState<V> state)
