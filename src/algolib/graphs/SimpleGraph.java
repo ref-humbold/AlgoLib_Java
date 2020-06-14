@@ -112,7 +112,7 @@ public abstract class SimpleGraph<V, VP, EP>
      */
     public Edge<V> addEdge(V source, V destination)
     {
-        return addEdge(source, destination, null);
+        return addEdge(new Edge<>(source, destination), null);
     }
 
     /**
@@ -122,5 +122,26 @@ public abstract class SimpleGraph<V, VP, EP>
      * @param property edge property
      * @return the new edge if added, or the existing edge
      */
-    public abstract Edge<V> addEdge(V source, V destination, EP property);
+    public Edge<V> addEdge(V source, V destination, EP property)
+    {
+        return addEdge(new Edge<>(source, destination), property);
+    }
+
+    /**
+     * Adds a new edge to this graph.
+     * @param edge a new edge
+     * @return the new edge if added, or the existing edge
+     */
+    public Edge<V> addEdge(Edge<V> edge)
+    {
+        return addEdge(edge, null);
+    }
+
+    /**
+     * Adds a new edge with given property to this graph.
+     * @param edge a new edge
+     * @param property edge property
+     * @return the new edge if added, or the existing edge
+     */
+    public abstract Edge<V> addEdge(Edge<V> edge, EP property);
 }

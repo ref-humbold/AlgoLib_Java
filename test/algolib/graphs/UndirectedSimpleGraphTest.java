@@ -59,6 +59,16 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
+    public void getProperty_WhenNotExistingEdge_ThenIllegalArgumentException()
+    {
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.getProperty(new Edge<>(2, 8)));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     public void getVerticesCount_ThenNumberOfVertices()
     {
         // when

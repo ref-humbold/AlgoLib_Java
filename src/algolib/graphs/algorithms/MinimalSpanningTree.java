@@ -15,9 +15,9 @@ import algolib.tuples.Pair;
 public final class MinimalSpanningTree
 {
     /**
-     * Kruskal algorithm counting the size of MST
+     * Kruskal algorithm.
      * @param graph an undirected weighted graph
-     * @return size of the minimal spanning tree
+     * @return the minimal spanning tree
      */
     public static <V, VP, EP extends Weighted> UndirectedGraph<V, VP, EP> kruskal(
             UndirectedGraph<V, VP, EP> graph)
@@ -45,10 +45,10 @@ public final class MinimalSpanningTree
     }
 
     /**
-     * Prim algorithm counting the size of MST
+     * Prim algorithm.
      * @param graph an undirected weighted graph
      * @param source starting vertex
-     * @return size of the minimal spanning tree
+     * @return the minimal spanning tree
      */
     public static <V, VP, EP extends Weighted> UndirectedGraph<V, VP, EP> prim(
             UndirectedGraph<V, VP, EP> graph, V source)
@@ -61,12 +61,12 @@ public final class MinimalSpanningTree
 
         visited.add(source);
 
-        for(Edge<V> adjacentEdges : graph.getAdjacentEdges(source))
+        for(Edge<V> adjacentEdge : graph.getAdjacentEdges(source))
         {
-            V neighbour = adjacentEdges.getNeighbour(source);
+            V neighbour = adjacentEdge.getNeighbour(source);
 
-            if(!visited.contains(neighbour))
-                queue.add(Pair.of(adjacentEdges, neighbour));
+            if(neighbour != source)
+                queue.add(Pair.of(adjacentEdge, neighbour));
         }
 
         while(!queue.isEmpty())
@@ -81,12 +81,12 @@ public final class MinimalSpanningTree
                 visited.add(vertex);
                 mst.addEdge(edge.source, edge.destination, graph.getProperty(edge));
 
-                for(Edge<V> adjacentEdges : graph.getAdjacentEdges(vertex))
+                for(Edge<V> adjacentEdge : graph.getAdjacentEdges(vertex))
                 {
-                    V neighbour = adjacentEdges.getNeighbour(vertex);
+                    V neighbour = adjacentEdge.getNeighbour(vertex);
 
                     if(!visited.contains(neighbour))
-                        queue.add(Pair.of(adjacentEdges, neighbour));
+                        queue.add(Pair.of(adjacentEdge, neighbour));
                 }
             }
         }

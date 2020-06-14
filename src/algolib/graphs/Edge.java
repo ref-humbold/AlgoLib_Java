@@ -8,7 +8,7 @@ public class Edge<V>
     public final V source;
     public final V destination;
 
-    Edge(V source, V destination)
+    public Edge(V source, V destination)
     {
         this.source = source;
         this.destination = destination;

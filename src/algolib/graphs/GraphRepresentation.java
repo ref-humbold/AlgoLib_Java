@@ -56,13 +56,13 @@ class GraphRepresentation<V, VP, EP>
 
     EP getProperty(Edge<V> edge)
     {
-        validate(edge);
+        validate(edge, true);
         return edgeProperties.get(edge);
     }
 
     void setProperty(Edge<V> edge, EP property)
     {
-        validate(edge);
+        validate(edge, true);
         edgeProperties.put(edge, property);
     }
 
@@ -86,13 +86,13 @@ class GraphRepresentation<V, VP, EP>
 
     void addEdgeToSource(Edge<V> edge)
     {
-        validate(edge);
+        validate(edge, false);
         graphMap.get(edge.source).add(edge);
     }
 
     void addEdgeToDestination(Edge<V> edge)
     {
-        validate(edge);
+        validate(edge, false);
         graphMap.get(edge.destination).add(edge);
     }
 
@@ -103,9 +103,14 @@ class GraphRepresentation<V, VP, EP>
                     String.format("Vertex %s does not belong to this graph", vertex.toString()));
     }
 
-    private void validate(Edge<V> edge)
+    private void validate(Edge<V> edge, boolean existing)
     {
         if(!graphMap.containsKey(edge.source) || !graphMap.containsKey(edge.destination))
+            throw new IllegalArgumentException(
+                    String.format("Edge %s does not belong to this graph", edge.toString()));
+
+        if(existing && !graphMap.get(edge.source).contains(edge) && !graphMap.get(edge.destination)
+                                                                             .contains(edge))
             throw new IllegalArgumentException(
                     String.format("Edge %s does not belong to this graph", edge.toString()));
     }
