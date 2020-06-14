@@ -36,7 +36,7 @@ public final class MinimalSpanningTree
             Edge<V> edge = edgeQueue.remove();
 
             if(!vertexSets.isSameSet(edge.source, edge.destination))
-                mst.addEdge(edge.source, edge.destination, graph.getProperty(edge));
+                mst.addEdge(edge, graph.getProperty(edge));
 
             vertexSets.unionSet(edge.source, edge.destination);
         }
@@ -79,7 +79,7 @@ public final class MinimalSpanningTree
             if(!visited.contains(vertex))
             {
                 visited.add(vertex);
-                mst.addEdge(edge.source, edge.destination, graph.getProperty(edge));
+                mst.addEdge(edge, graph.getProperty(edge));
 
                 for(Edge<V> adjacentEdge : graph.getAdjacentEdges(vertex))
                 {

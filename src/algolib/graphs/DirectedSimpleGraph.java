@@ -83,8 +83,7 @@ public class DirectedSimpleGraph<V, VP, EP>
         DirectedSimpleGraph<V, VP, EP> reversedGraph = new DirectedSimpleGraph<>(getVertices());
 
         getVertices().forEach(vertex -> reversedGraph.setProperty(vertex, getProperty(vertex)));
-        getEdges().forEach(
-                edge -> reversedGraph.addEdge(edge.destination, edge.source, getProperty(edge)));
+        getEdges().forEach(edge -> reversedGraph.addEdge(edge.reversed(), getProperty(edge)));
         return reversedGraph;
     }
 }

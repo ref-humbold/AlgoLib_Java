@@ -57,7 +57,7 @@ public class UndirectedSimpleGraph<V, VP, EP>
     }
 
     /**
-     * Converts this graph to a directed graph with same vertices.
+     * Converts this graph to a directed graph with the same vertices.
      * @return directed graph
      */
     public DirectedSimpleGraph<V, VP, EP> asDirected()
@@ -68,8 +68,8 @@ public class UndirectedSimpleGraph<V, VP, EP>
         getVertices().forEach(
                 vertex -> directedSimpleGraph.setProperty(vertex, getProperty(vertex)));
         getEdges().forEach(edge -> {
-            directedSimpleGraph.addEdge(edge.source, edge.destination, getProperty(edge));
-            directedSimpleGraph.addEdge(edge.destination, edge.source, getProperty(edge));
+            directedSimpleGraph.addEdge(edge, getProperty(edge));
+            directedSimpleGraph.addEdge(edge.reversed(), getProperty(edge));
         });
 
         return directedSimpleGraph;
