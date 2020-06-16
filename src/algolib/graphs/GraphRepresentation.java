@@ -9,13 +9,8 @@ import java.util.stream.Stream;
 
 class GraphRepresentation<V, VP, EP>
 {
-    // Adjacency list
     private final Map<V, Set<Edge<V>>> graphMap = new HashMap<>();
-
-    // Vertex properties
     private final Map<V, VP> vertexProperties = new HashMap<>();
-
-    // Edge properties
     private final Map<Edge<V>, EP> edgeProperties = new HashMap<>();
 
     GraphRepresentation()

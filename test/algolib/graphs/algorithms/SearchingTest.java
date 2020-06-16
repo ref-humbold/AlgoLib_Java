@@ -2,6 +2,7 @@
 package algolib.graphs.algorithms;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.UndirectedSimpleGraph;
+import algolib.graphs.algorithms.strategy.DFSStrategy;
 import algolib.graphs.algorithms.strategy.EmptyStrategy;
 
 public class SearchingTest
@@ -71,11 +73,14 @@ public class SearchingTest
     @Test
     public void bfs_WhenUndirectedGraphAndManyRoots_ThenAllVertices()
     {
+        // given
+        TestingStrategy<Integer> strategy = new TestingStrategy<>();
         // when
-        Collection<Integer> result =
-                Searching.bfs(undirectedGraph, new EmptyStrategy<>(), List.of(0, 6));
+        Collection<Integer> result = Searching.bfs(undirectedGraph, strategy, List.of(0, 6));
         // then
         Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.exits).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     @Test
@@ -102,11 +107,14 @@ public class SearchingTest
     @Test
     public void bfs_WhenDirectedGraphAndMultipleRoots_ThenAllVertices()
     {
+        // given
+        TestingStrategy<Integer> strategy = new TestingStrategy<>();
         // when
-        Collection<Integer> result =
-                Searching.bfs(directedGraph, new EmptyStrategy<>(), List.of(8, 6));
+        Collection<Integer> result = Searching.bfs(directedGraph, strategy, List.of(8, 6));
         // then
         Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
+        Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.exits).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     // endregion
@@ -126,11 +134,15 @@ public class SearchingTest
     @Test
     public void dfsIterative_WhenUndirectedGraphAndManyRoots_ThenAllVertices()
     {
+        // given
+        TestingStrategy<Integer> strategy = new TestingStrategy<>();
         // when
         Collection<Integer> result =
-                Searching.dfsIterative(undirectedGraph, new EmptyStrategy<>(), List.of(0, 6));
+                Searching.dfsIterative(undirectedGraph, strategy, List.of(0, 6));
         // then
         Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.exits).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     @Test
@@ -157,11 +169,14 @@ public class SearchingTest
     @Test
     public void dfsIterative_WhenDirectedGraphAndMultipleRoots_ThenAllVertices()
     {
+        // given
+        TestingStrategy<Integer> strategy = new TestingStrategy<>();
         // when
-        Collection<Integer> result =
-                Searching.dfsIterative(directedGraph, new EmptyStrategy<>(), List.of(8, 6));
+        Collection<Integer> result = Searching.dfsIterative(directedGraph, strategy, List.of(8, 6));
         // then
         Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
+        Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.exits).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     // endregion
@@ -181,11 +196,15 @@ public class SearchingTest
     @Test
     public void dfsRecursive_WhenUndirectedGraphAndManyRoots_ThenAllVertices()
     {
+        // given
+        TestingStrategy<Integer> strategy = new TestingStrategy<>();
         // when
         Collection<Integer> result =
-                Searching.dfsRecursive(undirectedGraph, new EmptyStrategy<>(), List.of(0, 6));
+                Searching.dfsRecursive(undirectedGraph, strategy, List.of(0, 6));
         // then
         Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.exits).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     @Test
@@ -212,12 +231,49 @@ public class SearchingTest
     @Test
     public void dfsRecursive_WhenDirectedGraphAndMultipleRoots_ThenAllVertices()
     {
+        // given
+        TestingStrategy<Integer> strategy = new TestingStrategy<>();
         // when
-        Collection<Integer> result =
-                Searching.dfsRecursive(directedGraph, new EmptyStrategy<>(), List.of(8, 6));
+        Collection<Integer> result = Searching.dfsRecursive(directedGraph, strategy, List.of(8, 6));
         // then
         Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
+        Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
+        Assertions.assertThat(strategy.exits).hasSameElementsAs(undirectedGraph.getVertices());
     }
 
     // endregion
+
+    private static class TestingStrategy<V>
+            implements DFSStrategy<V>
+    {
+        HashSet<V> entries = new HashSet<>();
+        HashSet<V> exits = new HashSet<>();
+
+        @Override
+        public void forRoot(V root)
+        {
+        }
+
+        @Override
+        public void onEnter(V vertex)
+        {
+            entries.add(vertex);
+        }
+
+        @Override
+        public void onNextVertex(V vertex, V neighbour)
+        {
+        }
+
+        @Override
+        public void onExit(V vertex)
+        {
+            exits.add(vertex);
+        }
+
+        @Override
+        public void onEdgeToVisited(Object vertex, Object neighbour)
+        {
+        }
+    }
 }

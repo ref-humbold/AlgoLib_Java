@@ -12,10 +12,14 @@ public final class TopologicalSorting
      * Topological sorting algorithm using predecessors counting.
      * @param graph a directed graph
      * @return topological order of vertices
+     * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
     public static <V, VP, EP> List<V> sortTopological1(DirectedGraph<V, VP, EP> graph)
             throws DirectedCyclicGraphException
     {
+        if(graph.getEdgesCount() == 0)
+            return new ArrayList<>(graph.getVertices());
+
         List<V> order = new ArrayList<>();
         Map<V, Integer> inputDegrees = new HashMap<>();
         PriorityQueue<V> vertexQueue = new PriorityQueue<>();
@@ -44,7 +48,7 @@ public final class TopologicalSorting
         }
 
         if(order.size() != graph.getVerticesCount())
-            throw new DirectedCyclicGraphException("Given graph contains a cycle.");
+            throw new DirectedCyclicGraphException("Given graph contains a cycle");
 
         return order;
     }
@@ -53,15 +57,16 @@ public final class TopologicalSorting
      * Topological sorting algorithm using DFS.
      * @param graph a directed graph
      * @return topological order of vertices
+     * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
     public static <V, VP, EP> List<V> sortTopological2(DirectedGraph<V, VP, EP> graph)
             throws DirectedCyclicGraphException
     {
-        List<V> vertices = new ArrayList<>(graph.getVertices());
-        TopologicalStrategy<V> strategy = new TopologicalStrategy<>();
+        if(graph.getEdgesCount() == 0)
+            return new ArrayList<>(graph.getVertices());
 
-        Collections.reverse(vertices);
-        Searching.dfsRecursive(graph, strategy, vertices);
+        TopologicalStrategy<V> strategy = new TopologicalStrategy<>();
+        Searching.dfsRecursive(graph, strategy, graph.getVertices());
 
         List<V> order = strategy.getOrder();
 
@@ -103,7 +108,7 @@ public final class TopologicalSorting
         @Override
         public void onEdgeToVisited(V vertex, V neighbour)
         {
-            throw new DirectedCyclicGraphException("Given graph contains a cycle.");
+            throw new DirectedCyclicGraphException("Given graph contains a cycle");
         }
     }
 }

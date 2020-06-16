@@ -65,17 +65,17 @@ public abstract class SimpleGraph<V, VP, EP>
     }
 
     @Override
+    public Collection<Edge<V>> getAdjacentEdges(V vertex)
+    {
+        return representation.getAdjacentEdges(vertex).collect(Collectors.toSet());
+    }
+
+    @Override
     public Collection<V> getNeighbours(V vertex)
     {
         return representation.getAdjacentEdges(vertex)
                              .map(edge -> edge.getNeighbour(vertex))
                              .collect(Collectors.toSet());
-    }
-
-    @Override
-    public Collection<Edge<V>> getAdjacentEdges(V vertex)
-    {
-        return representation.getAdjacentEdges(vertex).collect(Collectors.toSet());
     }
 
     /**

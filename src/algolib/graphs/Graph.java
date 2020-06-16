@@ -50,15 +50,15 @@ public interface Graph<V, VP, EP>
 
     /**
      * @param vertex a vertex from this graph
-     * @return collection of neighbouring vertices
-     */
-    Collection<V> getNeighbours(V vertex);
-
-    /**
-     * @param vertex a vertex from this graph
      * @return collection of edges adjacent to the vertex
      */
     Collection<Edge<V>> getAdjacentEdges(V vertex);
+
+    /**
+     * @param vertex a vertex from this graph
+     * @return collection of neighbouring vertices
+     */
+    Collection<V> getNeighbours(V vertex);
 
     /**
      * @param vertex a vertex from this graph
