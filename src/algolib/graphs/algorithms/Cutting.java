@@ -20,7 +20,14 @@ public final class Cutting
      */
     public static <V, VP, EP> List<Edge<V>> findEdgeCut(UndirectedGraph<V, VP, EP> graph)
     {
-        return new GraphCutting<>(graph).edgeCut();
+        CuttingStrategy<V> strategy = new CuttingStrategy<>();
+
+        Searching.dfsRecursive(graph, strategy, graph.getVertices());
+        return graph.getVertices()
+                    .stream()
+                    .filter(vertex -> strategy.hasBridge(vertex))
+                    .map(vertex -> graph.getEdge(vertex, strategy.dfsParents.get(vertex)))
+                    .collect(Collectors.toList());
     }
 
     /**
@@ -30,7 +37,13 @@ public final class Cutting
      */
     public static <V, VP, EP> List<V> findVertexCut(UndirectedGraph<V, VP, EP> graph)
     {
-        return new GraphCutting<>(graph).vertexCut();
+        CuttingStrategy<V> strategy = new CuttingStrategy<>();
+
+        Searching.dfsRecursive(graph, strategy, graph.getVertices());
+        return graph.getVertices()
+                    .stream()
+                    .filter(vertex -> strategy.isSeparator(vertex))
+                    .collect(Collectors.toList());
     }
 
     private static class CuttingStrategy<V>
@@ -82,61 +95,25 @@ public final class Cutting
             if(!neighbour.equals(dfsParents.get(vertex)))
                 lowValues.put(vertex, Math.min(lowValues.get(vertex), dfsDepths.get(neighbour)));
         }
-    }
 
-    private static class GraphCutting<V, VP, EP>
-    {
-        private final UndirectedGraph<V, VP, EP> graph;
-
-        GraphCutting(UndirectedGraph<V, VP, EP> graph)
+        boolean hasBridge(V vertex)
         {
-            this.graph = graph;
+            return !isDFSRoot(vertex) && lowValues.get(vertex).equals(dfsDepths.get(vertex));
         }
 
-        List<Edge<V>> edgeCut()
+        boolean isSeparator(V vertex)
         {
-            CuttingStrategy<V> strategy = new CuttingStrategy<>();
+            if(isDFSRoot(vertex))
+                return dfsChildren.get(vertex).size() > 1;
 
-            Searching.dfsRecursive(graph, strategy, graph.getVertices());
-            return graph.getVertices()
-                        .stream()
-                        .filter(vertex -> hasBridge(vertex, strategy))
-                        .map(vertex -> graph.getEdge(vertex, strategy.dfsParents.get(vertex)))
-                        .collect(Collectors.toList());
+            return dfsChildren.get(vertex)
+                              .stream()
+                              .anyMatch(child -> lowValues.get(child) >= dfsDepths.get(vertex));
         }
 
-        List<V> vertexCut()
+        private boolean isDFSRoot(V vertex)
         {
-            CuttingStrategy<V> strategy = new CuttingStrategy<>();
-
-            Searching.dfsRecursive(graph, strategy, graph.getVertices());
-            return graph.getVertices()
-                        .stream()
-                        .filter(vertex -> isSeparator(vertex, strategy))
-                        .collect(Collectors.toList());
-        }
-
-        private boolean hasBridge(V vertex, CuttingStrategy<V> strategy)
-        {
-            return !isDFSRoot(vertex, strategy) && strategy.lowValues.get(vertex)
-                                                                     .equals(strategy.dfsDepths.get(
-                                                                             vertex));
-        }
-
-        private boolean isSeparator(V vertex, CuttingStrategy<V> strategy)
-        {
-            if(isDFSRoot(vertex, strategy))
-                return strategy.dfsChildren.get(vertex).size() > 1;
-
-            return strategy.dfsChildren.get(vertex)
-                                       .stream()
-                                       .anyMatch(child -> strategy.lowValues.get(child)
-                                               >= strategy.dfsDepths.get(vertex));
-        }
-
-        private boolean isDFSRoot(V vertex, CuttingStrategy<V> strategy)
-        {
-            return strategy.dfsDepths.get(vertex) == 0;
+            return dfsDepths.get(vertex) == 0;
         }
     }
 }
