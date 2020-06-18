@@ -10,81 +10,74 @@ import java.util.Map;
 import algolib.graphs.TreeGraph;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
-public final class LowestCommonAncestor
+public final class LowestCommonAncestor<V, VP, EP>
 {
-    /**
-     * Finds a lowest common ancestor of two vertices in a rooted tree.
-     * @param graph a tree graph
-     * @param vertex1 first vertex
-     * @param vertex2 second vertex
-     * @param root a root of given tree
-     * @return lowest common ancestor of given vertices
-     */
-    public static <V, VP, EP> V findLCA(TreeGraph<V, VP, EP> graph, V vertex1, V vertex2, V root)
+    public final TreeGraph<V, VP, EP> graph;
+    public final V root;
+    private Map<V, List<V>> paths = new HashMap<>();
+    private LCAStrategy<V> strategy = new LCAStrategy<>();
+
+    public LowestCommonAncestor(TreeGraph<V, VP, EP> graph, V root)
     {
-        return new LCAFinder<>(graph).searchLCA(vertex1, vertex2, root);
+        this.graph = graph;
+        this.root = root;
+        initialize();
     }
 
-    private static class LCAFinder<V, VP, EP>
+    /**
+     * Finds a lowest common ancestor of two vertices in a rooted tree.
+     * @param vertex1 first vertex
+     * @param vertex2 second vertex
+     * @return lowest common ancestor of given vertices
+     */
+    public V find(V vertex1, V vertex2)
     {
-        private TreeGraph<V, VP, EP> graph;
-        private Map<V, List<V>> paths = new HashMap<>();
-        private LCAStrategy<V> strategy = new LCAStrategy<>();
+        if(isOffspring(vertex1, vertex2))
+            return vertex2;
 
-        public LCAFinder(TreeGraph<V, VP, EP> graph)
+        if(isOffspring(vertex2, vertex1))
+            return vertex1;
+
+        List<V> candidates = new ArrayList<>(paths.get(vertex1));
+
+        Collections.reverse(candidates);
+
+        for(V candidate : candidates)
+            if(!isOffspring(vertex2, candidate))
+                return find(candidate, vertex2);
+
+        return find(paths.get(vertex1).get(0), vertex2);
+    }
+
+    private void initialize()
+    {
+        Searching.dfsRecursive(graph, strategy, List.of(root));
+
+        for(V vertex : graph.getVertices())
         {
-            this.graph = graph;
+            List<V> initialPath = new ArrayList<>();
 
+            initialPath.add(strategy.parents.get(vertex));
+            paths.put(vertex, initialPath);
+        }
+
+        for(int i = 0; i < Math.log(graph.getVerticesCount()) / Math.log(2) + 3; ++i)
             for(V vertex : graph.getVertices())
-                paths.put(vertex, new ArrayList<>());
-        }
+                paths.get(vertex).add(paths.get(paths.get(vertex).get(i)).get(i));
+    }
 
-        public V searchLCA(V vertex1, V vertex2, V root)
-        {
-            Searching.dfsRecursive(graph, strategy, List.of(root));
-
-            for(V vertex : graph.getVertices())
-                paths.get(vertex).add(strategy.getParent(vertex));
-
-            for(int i = 0; i < Math.log(graph.getVerticesCount()) / Math.log(2) + 3; ++i)
-                for(V vertex : graph.getVertices())
-                    paths.get(vertex).add(paths.get(paths.get(vertex).get(i)).get(i));
-
-            return search(vertex1, vertex2);
-        }
-
-        private V search(V vertex1, V vertex2)
-        {
-            if(isOffspring(vertex1, vertex2))
-                return vertex2;
-
-            if(isOffspring(vertex2, vertex1))
-                return vertex1;
-
-            List<V> candidates = new ArrayList<>(paths.get(vertex1));
-
-            Collections.reverse(candidates);
-
-            for(V candidate : candidates)
-                if(!isOffspring(vertex2, candidate))
-                    return search(candidate, vertex2);
-
-            return search(paths.get(vertex1).get(0), vertex2);
-        }
-
-        private boolean isOffspring(V vertex1, V vertex2)
-        {
-            return strategy.getPreTime(vertex1) >= strategy.getPreTime(vertex2)
-                    && strategy.getPostTime(vertex1) <= strategy.getPostTime(vertex2);
-        }
+    private boolean isOffspring(V vertex1, V vertex2)
+    {
+        return strategy.preTimes.get(vertex1) >= strategy.preTimes.get(vertex2)
+                && strategy.postTimes.get(vertex1) <= strategy.postTimes.get(vertex2);
     }
 
     private static class LCAStrategy<V>
             implements DFSStrategy<V>
     {
-        private final Map<V, V> parents = new HashMap<>();
-        private final Map<V, Integer> preTimes = new HashMap<>();
-        private final Map<V, Integer> postTimes = new HashMap<>();
+        final Map<V, V> parents = new HashMap<>();
+        final Map<V, Integer> preTimes = new HashMap<>();
+        final Map<V, Integer> postTimes = new HashMap<>();
         private int timer = 0;
 
         @Override
@@ -116,21 +109,6 @@ public final class LowestCommonAncestor
         @Override
         public void onEdgeToVisited(V vertex, V neighbour)
         {
-        }
-
-        V getParent(V vertex)
-        {
-            return parents.get(vertex);
-        }
-
-        int getPreTime(V vertex)
-        {
-            return preTimes.get(vertex);
-        }
-
-        int getPostTime(V vertex)
-        {
-            return postTimes.get(vertex);
         }
     }
 }

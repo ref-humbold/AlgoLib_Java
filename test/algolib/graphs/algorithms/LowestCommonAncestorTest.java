@@ -10,13 +10,12 @@ import algolib.graphs.TreeGraph;
 
 public class LowestCommonAncestorTest
 {
-    private TreeGraph<Integer, Void, Void> tree;
-    private Integer root;
+    private LowestCommonAncestor<Integer, Void, Void> testObject;
 
     @BeforeEach
     public void setUp()
     {
-        tree = new TreeGraph<>(0);
+        TreeGraph<Integer, Void, Void> tree = new TreeGraph<>(0);
         tree.addVertex(1, 0);
         tree.addVertex(2, 0);
         tree.addVertex(3, 1);
@@ -26,73 +25,74 @@ public class LowestCommonAncestorTest
         tree.addVertex(7, 4);
         tree.addVertex(8, 6);
         tree.addVertex(9, 6);
-        root = 0;
+
+        testObject = new LowestCommonAncestor<>(tree, 0);
     }
 
     @AfterEach
     public void tearDown()
     {
-        tree = null;
+        testObject = null;
     }
 
     @Test
-    public void findLCA_WhenSameVertex_ThenVertexIsLCA()
+    public void find_WhenSameVertex_ThenVertexIsLCA()
     {
         // given
         Integer vertex = 6;
         // when
-        Integer result = LowestCommonAncestor.findLCA(tree, vertex, vertex, root);
+        Integer result = testObject.find(vertex, vertex);
         // then
-        Assertions.assertThat(result).isSameAs(vertex);
+        Assertions.assertThat(result).isEqualTo(vertex);
     }
 
     @Test
-    public void findLCA_WhenVerticesInDifferentSubtrees_ThenLCA()
+    public void find_WhenVerticesInDifferentSubtrees_ThenLCA()
     {
         // when
-        Integer result = LowestCommonAncestor.findLCA(tree, 5, 7, root);
+        Integer result = testObject.find(5, 7);
         // then
-        Assertions.assertThat(result).isSameAs(1);
+        Assertions.assertThat(result).isEqualTo(1);
     }
 
     @Test
-    public void findLCA_WhenVerticesSwapped_ThenSameLCA()
+    public void find_WhenVerticesSwapped_ThenSameLCA()
     {
         // when
-        Integer result1 = LowestCommonAncestor.findLCA(tree, 5, 7, root);
-        Integer result2 = LowestCommonAncestor.findLCA(tree, 7, 5, root);
+        Integer result1 = testObject.find(5, 7);
+        Integer result2 = testObject.find(7, 5);
         // then
-        Assertions.assertThat(result1).isSameAs(1);
-        Assertions.assertThat(result2).isSameAs(result1);
+        Assertions.assertThat(result1).isEqualTo(1);
+        Assertions.assertThat(result2).isEqualTo(result1);
     }
 
     @Test
-    public void findLCA_WhenRootIsCommonAncestor_ThenLCAIsRoot()
+    public void find_WhenRootIsCommonAncestor_ThenRoot()
     {
         // when
-        Integer result = LowestCommonAncestor.findLCA(tree, 3, 9, root);
+        Integer result = testObject.find(3, 9);
         // then
-        Assertions.assertThat(result).isSameAs(root);
+        Assertions.assertThat(result).isEqualTo(testObject.root);
     }
 
     @Test
-    public void findLCA_WhenVerticesAreOnSamePathFromRoot_ThenLCAIsCloserToRoot()
+    public void find_WhenVerticesAreOnSamePathFromRoot_ThenLCAIsCloserToRoot()
     {
         //given
         Integer vertex1 = 8;
         Integer vertex2 = 2;
         // when
-        Integer result = LowestCommonAncestor.findLCA(tree, vertex1, vertex2, root);
+        Integer result = testObject.find(vertex1, vertex2);
         // then
-        Assertions.assertThat(result).isSameAs(vertex2);
+        Assertions.assertThat(result).isEqualTo(vertex2);
     }
 
     @Test
-    public void findLCA_WhenRootIsOneOfVertices_ThenRoot()
+    public void find_WhenRootIsOneOfVertices_ThenRoot()
     {
         // when
-        Integer result = LowestCommonAncestor.findLCA(tree, 4, root, root);
+        Integer result = testObject.find(4, testObject.root);
         // then
-        Assertions.assertThat(result).isSameAs(root);
+        Assertions.assertThat(result).isEqualTo(testObject.root);
     }
 }
