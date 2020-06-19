@@ -1,3 +1,4 @@
+// Structure of undirected graph
 package algolib.graphs;
 
 public interface UndirectedGraph<V, VP, EP>

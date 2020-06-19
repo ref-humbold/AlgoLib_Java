@@ -65,6 +65,7 @@ public class DirectedSimpleGraph<V, VP, EP>
     public void reverse()
     {
         GraphRepresentation<V, VP, EP> newRepresentation = new GraphRepresentation<>(getVertices());
+
         representation.getVertices().forEach(vertex -> {
             newRepresentation.setProperty(vertex, representation.getProperty(vertex));
         });

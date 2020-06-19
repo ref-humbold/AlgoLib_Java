@@ -1,3 +1,4 @@
+// Structure of directed graph
 package algolib.graphs;
 
 public interface DirectedGraph<V, VP, EP>
