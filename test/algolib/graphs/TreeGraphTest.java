@@ -110,7 +110,7 @@ public class TreeGraphTest
         // when
         long result = testObject.getEdgesCount();
         // then
-        Assertions.assertThat(result).isEqualTo(7L);
+        Assertions.assertThat(result).isEqualTo(7);
     }
 
     @Test
