@@ -134,8 +134,8 @@ public class TreeGraphTest
         // when
         Edge<Integer> result = testObject.getEdge(source, destination);
         // then
-        Assertions.assertThat(result.source).isSameAs(source);
-        Assertions.assertThat(result.destination).isSameAs(destination);
+        Assertions.assertThat(result.source).isEqualTo(source);
+        Assertions.assertThat(result.destination).isEqualTo(destination);
     }
 
     @Test
