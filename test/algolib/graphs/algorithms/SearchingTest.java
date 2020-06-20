@@ -272,7 +272,7 @@ public class SearchingTest
         }
 
         @Override
-        public void onEdgeToVisited(Object vertex, Object neighbour)
+        public void onEdgeToVisited(V vertex, V neighbour)
         {
         }
     }
