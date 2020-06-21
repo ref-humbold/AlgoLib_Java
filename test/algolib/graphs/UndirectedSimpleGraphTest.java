@@ -72,7 +72,7 @@ public class UndirectedSimpleGraphTest
     public void getVerticesCount_ThenNumberOfVertices()
     {
         // when
-        long result = testObject.getVerticesCount();
+        int result = testObject.getVerticesCount();
         // then
         Assertions.assertThat(result).isEqualTo(10);
     }
@@ -130,7 +130,7 @@ public class UndirectedSimpleGraphTest
         testObject.addEdge(9, 3);
         testObject.addEdge(8, 0);
         // when
-        long result = testObject.getEdgesCount();
+        int result = testObject.getEdgesCount();
         // then
         Assertions.assertThat(result).isEqualTo(6);
     }
@@ -198,16 +198,18 @@ public class UndirectedSimpleGraphTest
     public void addEdge_WhenNewEdge_ThenCreatedEdge()
     {
         // given
+        int vertex1 = 1;
+        int vertex2 = 5;
         String property = "asdfgh";
         // when
-        Edge<Integer> result = testObject.addEdge(1, 5, property);
-        testObject.addEdge(1, 1);
+        Edge<Integer> result = testObject.addEdge(vertex1, vertex2, property);
+        testObject.addEdge(vertex1, vertex1);
         // then
-        Assertions.assertThat(result.source).isEqualTo(1);
-        Assertions.assertThat(result.destination).isEqualTo(5);
+        Assertions.assertThat(result.source).isEqualTo(vertex1);
+        Assertions.assertThat(result.destination).isEqualTo(vertex2);
         Assertions.assertThat(testObject.getProperty(result)).isEqualTo(property);
-        Assertions.assertThat(testObject.getNeighbours(1)).containsOnly(1, 5);
-        Assertions.assertThat(testObject.getNeighbours(5)).containsOnly(1);
+        Assertions.assertThat(testObject.getNeighbours(vertex1)).containsOnly(vertex1, vertex2);
+        Assertions.assertThat(testObject.getNeighbours(vertex2)).containsOnly(vertex1);
     }
 
     @Test
@@ -287,7 +289,7 @@ public class UndirectedSimpleGraphTest
         testObject.addEdge(2, 1);
         testObject.addEdge(6, 1);
         // when
-        long result = testObject.getOutputDegree(1);
+        int result = testObject.getOutputDegree(1);
         // then
         Assertions.assertThat(result).isEqualTo(7);
     }
@@ -304,7 +306,7 @@ public class UndirectedSimpleGraphTest
         testObject.addEdge(1, 2);
         testObject.addEdge(1, 6);
         // when
-        long result = testObject.getInputDegree(1);
+        int result = testObject.getInputDegree(1);
         // then
         Assertions.assertThat(result).isEqualTo(7);
     }

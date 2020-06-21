@@ -3,7 +3,6 @@ package algolib.graphs;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -11,7 +10,7 @@ import java.util.stream.Collectors;
 public class MultipartiteGraph<V, VP, EP>
         implements UndirectedGraph<V, VP, EP>
 {
-    private final int groupsCount;
+    public final int groupsCount;
     private final UndirectedSimpleGraph<V, VP, EP> graph = new UndirectedSimpleGraph<>();
     private final Map<V, Integer> vertexGroupMap = new HashMap<>();
 
@@ -20,11 +19,14 @@ public class MultipartiteGraph<V, VP, EP>
         this.groupsCount = groupsCount;
     }
 
-    public MultipartiteGraph(Collection<Collection<V>> vertices)
+    public MultipartiteGraph(int groupsCount, Collection<Collection<V>> vertices)
     {
-        int i = 0;
+        this(groupsCount);
 
-        groupsCount = vertices.size();
+        if(vertices.size() > groupsCount)
+            throw new IllegalArgumentException("");
+
+        int i = 0;
 
         for(Collection<V> groupVertices : vertices)
         {
@@ -59,11 +61,6 @@ public class MultipartiteGraph<V, VP, EP>
         return graph.getEdges();
     }
 
-    public int getGroupsCount()
-    {
-        return vertexGroupMap.values().stream().distinct().mapToInt(g -> 1).sum();
-    }
-
     @Override
     public VP getProperty(V vertex)
     {
@@ -94,37 +91,6 @@ public class MultipartiteGraph<V, VP, EP>
         return graph.getEdge(source, destination);
     }
 
-    public boolean addVertex(int group, V vertex)
-    {
-        return addVertex(group, vertex, null);
-    }
-
-    public boolean addVertex(int group, V vertex, VP property)
-    {
-        validateGroup(group);
-
-        boolean wasAdded = graph.addVertex(vertex, property);
-
-        if(wasAdded)
-            vertexGroupMap.put(vertex, group);
-
-        return wasAdded;
-    }
-
-    public Edge<V> addEdge(V source, V destination)
-    {
-        return addEdge(source, destination, null);
-    }
-
-    public Edge<V> addEdge(V source, V destination, EP property)
-    {
-        if(areInSameGroup(source, destination))
-            throw new GraphPartitionException(
-                    "Cannot create an edge between vertices in the same group");
-
-        return graph.addEdge(source, destination, property);
-    }
-
     @Override
     public Collection<V> getNeighbours(V vertex)
     {
@@ -149,24 +115,66 @@ public class MultipartiteGraph<V, VP, EP>
         return graph.getInputDegree(vertex);
     }
 
-    public boolean areInSameGroup(V vertex1, V vertex2)
+    public Collection<V> getVerticesFromGroup(int groupNumber)
     {
-        return Objects.equals(vertexGroupMap.get(vertex1), vertexGroupMap.get(vertex2));
-    }
-
-    public List<V> getVerticesFromGroup(int groupNumber)
-    {
+        validateGroup(groupNumber);
         return vertexGroupMap.entrySet()
                              .stream()
                              .filter(entry -> entry.getValue() == groupNumber)
                              .map(Map.Entry::getKey)
-                             .sorted()
                              .collect(Collectors.toList());
+    }
+
+    public boolean addVertex(int group, V vertex)
+    {
+        return addVertex(group, vertex, null);
+    }
+
+    public boolean addVertex(int group, V vertex, VP property)
+    {
+        validateGroup(group);
+
+        boolean wasAdded = graph.addVertex(vertex, property);
+
+        if(wasAdded)
+            vertexGroupMap.put(vertex, group);
+
+        return wasAdded;
+    }
+
+    public Edge<V> addEdge(V source, V destination)
+    {
+        return addEdge(new Edge<>(source, destination), null);
+    }
+
+    public Edge<V> addEdge(V source, V destination, EP property)
+    {
+
+        return addEdge(new Edge<>(source, destination), property);
+    }
+
+    public Edge<V> addEdge(Edge<V> edge)
+    {
+        return addEdge(edge, null);
+    }
+
+    public Edge<V> addEdge(Edge<V> edge, EP property)
+    {
+        if(areInSameGroup(edge.source, edge.destination))
+            throw new GraphPartitionException(
+                    "Cannot create an edge between vertices in the same group");
+
+        return graph.addEdge(edge, property);
+    }
+
+    private boolean areInSameGroup(V vertex1, V vertex2)
+    {
+        return Objects.equals(vertexGroupMap.get(vertex1), vertexGroupMap.get(vertex2));
     }
 
     private void validateGroup(int group)
     {
-        if(group < 0 || group > groupsCount)
+        if(group < 0 || group >= groupsCount)
             throw new IndexOutOfBoundsException(
                     String.format("Invalid group number %d, graph contains only %d groups", group,
                                   groupsCount));

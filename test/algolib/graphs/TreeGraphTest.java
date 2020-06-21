@@ -54,7 +54,7 @@ public class TreeGraphTest
     public void getVerticesCount_ThenNumberOfVertices()
     {
         // when
-        long result = testObject.getVerticesCount();
+        int result = testObject.getVerticesCount();
         // then
         Assertions.assertThat(result).isEqualTo(8);
     }
@@ -108,7 +108,7 @@ public class TreeGraphTest
     public void getEdgesCount_ThenNumberOfEdges()
     {
         // when
-        long result = testObject.getEdgesCount();
+        int result = testObject.getEdgesCount();
         // then
         Assertions.assertThat(result).isEqualTo(7);
     }
@@ -163,7 +163,7 @@ public class TreeGraphTest
     public void getOutputDegree_ThenNumberOfOutgoingEdges()
     {
         // when
-        long result = testObject.getOutputDegree(1);
+        int result = testObject.getOutputDegree(1);
         // then
         Assertions.assertThat(result).isEqualTo(3);
     }
@@ -172,7 +172,7 @@ public class TreeGraphTest
     public void getInputDegree_ThenNumberOfIncomingEdges()
     {
         // when
-        long result = testObject.getInputDegree(1);
+        int result = testObject.getInputDegree(1);
         // then
         Assertions.assertThat(result).isEqualTo(3);
     }

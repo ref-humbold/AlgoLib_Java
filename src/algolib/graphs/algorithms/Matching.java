@@ -33,7 +33,7 @@ public final class Matching
 
         private MatchAugmenter(MultipartiteGraph<V, VP, EP> graph)
         {
-            if(graph.getGroupsCount() != 2)
+            if(graph.groupsCount != 2)
                 throw new IllegalArgumentException("Graph is not bipartite");
 
             this.graph = graph;
