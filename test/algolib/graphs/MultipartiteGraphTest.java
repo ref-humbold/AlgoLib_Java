@@ -15,8 +15,7 @@ public class MultipartiteGraphTest
     public void setUp()
     {
         testObject = new MultipartiteGraph<>(5, List.of(List.of(0, 1, 2), List.of(3, 4),
-                                                        List.of(5, 6, 7, 8), List.of(),
-                                                        List.of(9)));
+                                                        List.of(5, 6, 7, 8), List.of(9)));
         testObject.addEdge(0, 3);
         testObject.addEdge(1, 5);
         testObject.addEdge(2, 9);
@@ -92,7 +91,7 @@ public class MultipartiteGraphTest
         int newVertex = 13;
         String property = "qwerty";
         // when
-        boolean result = testObject.addVertex(3, newVertex, property);
+        boolean result = testObject.addVertex(4, newVertex, property);
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);

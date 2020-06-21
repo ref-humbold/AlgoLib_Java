@@ -125,19 +125,19 @@ public class MultipartiteGraph<V, VP, EP>
                              .collect(Collectors.toList());
     }
 
-    public boolean addVertex(int group, V vertex)
+    public boolean addVertex(int groupNumber, V vertex)
     {
-        return addVertex(group, vertex, null);
+        return addVertex(groupNumber, vertex, null);
     }
 
-    public boolean addVertex(int group, V vertex, VP property)
+    public boolean addVertex(int groupNumber, V vertex, VP property)
     {
-        validateGroup(group);
+        validateGroup(groupNumber);
 
         boolean wasAdded = graph.addVertex(vertex, property);
 
         if(wasAdded)
-            vertexGroupMap.put(vertex, group);
+            vertexGroupMap.put(vertex, groupNumber);
 
         return wasAdded;
     }
@@ -172,11 +172,11 @@ public class MultipartiteGraph<V, VP, EP>
         return Objects.equals(vertexGroupMap.get(vertex1), vertexGroupMap.get(vertex2));
     }
 
-    private void validateGroup(int group)
+    private void validateGroup(int groupNumber)
     {
-        if(group < 0 || group >= groupsCount)
+        if(groupNumber < 0 || groupNumber >= groupsCount)
             throw new IndexOutOfBoundsException(
-                    String.format("Invalid group number %d, graph contains only %d groups", group,
-                                  groupsCount));
+                    String.format("Invalid group number %d, graph contains only %d groups",
+                                  groupNumber, groupsCount));
     }
 }
