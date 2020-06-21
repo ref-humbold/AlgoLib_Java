@@ -25,10 +25,10 @@ public final class StronglyConnectedComponents
                                                       .sorted(new ReversedPostOrderComparator<>())
                                                       .map(Map.Entry::getKey)
                                                       .collect(Collectors.toList());
-        DirectedGraph<V, VP, EP> reversedCopy = graph.reversedCopy();
+        DirectedGraph<V, VP, EP> reversedGraph = graph.reversedCopy();
         SCCStrategy<V> sccStrategy = new SCCStrategy<>();
 
-        Searching.dfsRecursive(reversedCopy, sccStrategy, vertices);
+        Searching.dfsRecursive(reversedGraph, sccStrategy, vertices);
 
         return sccStrategy.components;
     }

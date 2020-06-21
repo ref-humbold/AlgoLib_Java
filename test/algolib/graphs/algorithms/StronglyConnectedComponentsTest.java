@@ -1,6 +1,7 @@
 // Tests: Algorithms for strongly connected components
 package algolib.graphs.algorithms;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,7 +14,7 @@ import algolib.graphs.DirectedSimpleGraph;
 public class StronglyConnectedComponentsTest
 {
     @Test
-    public void findSCC_ThenStronglyConnectedComponents()
+    public void findSCC_WhenManyComponents_ThenAllListed()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
@@ -36,7 +37,41 @@ public class StronglyConnectedComponentsTest
         // when
         List<Set<Integer>> result = StronglyConnectedComponents.findSCC(graph);
         // then
+        Assertions.assertThat(result).hasSize(4);
         Assertions.assertThat(result)
                   .containsOnly(Set.of(0, 1, 3, 4), Set.of(2), Set.of(5), Set.of(6, 7, 8, 9));
+    }
+
+    @Test
+    public void findSCC_WhenSingeleComponent_ThenAllVertices()
+    {
+        // given
+        DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
+                IntStream.range(0, 7).boxed().collect(Collectors.toList()));
+
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 4);
+        graph.addEdge(4, 5);
+        graph.addEdge(5, 6);
+        graph.addEdge(6, 0);
+        // when
+        List<Set<Integer>> result = StronglyConnectedComponents.findSCC(graph);
+        // then
+        Assertions.assertThat(result).containsExactly(new HashSet<>(graph.getVertices()));
+    }
+
+    @Test
+    public void findSCC_WhenEmptyGraph_ThenEachVertexIsComponent()
+    {
+        // given
+        DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
+                IntStream.range(0, 4).boxed().collect(Collectors.toList()));
+        // when
+        List<Set<Integer>> result = StronglyConnectedComponents.findSCC(graph);
+        // then
+        Assertions.assertThat(result).hasSize(4);
+        Assertions.assertThat(result).containsOnly(Set.of(0), Set.of(1), Set.of(2), Set.of(3));
     }
 }
