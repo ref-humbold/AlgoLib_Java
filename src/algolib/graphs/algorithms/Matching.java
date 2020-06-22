@@ -50,39 +50,44 @@ public final class Matching
 
             bfs(distances);
 
-            for(V vertex : graph.getVerticesFromGroup(1))
-                if(!isMatched(vertex))
-                    wasAdded = dfs(vertex, visited, distances) || wasAdded;
+            for(V vertex : unmatchedVertices())
+                wasAdded = dfs(vertex, visited, distances) || wasAdded;
 
             return wasAdded;
         }
 
-        private boolean isMatched(V vertex)
+        private Collection<V> unmatchedVertices()
         {
-            return matching.containsKey(vertex);
+            return graph.getVerticesFromGroup(1)
+                        .stream()
+                        .filter(v -> !matching.containsKey(v))
+                        .collect(Collectors.toSet());
         }
 
         private void bfs(Map<V, Double> distances)
         {
             Deque<V> vertexDeque = new ArrayDeque<>();
 
-            for(V vertex : graph.getVerticesFromGroup(1))
-                if(!isMatched(vertex))
-                {
-                    distances.put(vertex, 0.0);
-                    vertexDeque.addLast(vertex);
-                }
+            for(V vertex : unmatchedVertices())
+            {
+                distances.put(vertex, 0.0);
+                vertexDeque.addLast(vertex);
+            }
 
             while(!vertexDeque.isEmpty())
             {
                 V vertex = vertexDeque.removeFirst();
 
                 for(V neighbour : graph.getNeighbours(vertex))
-                    if(isMatched(neighbour) && distances.get(matching.get(neighbour)) == INFINITY)
+                {
+                    V matched = matching.get(neighbour);
+
+                    if(matched != null && distances.get(matched) == INFINITY)
                     {
-                        distances.put(matching.get(neighbour), distances.get(vertex) + 1);
-                        vertexDeque.addLast(matching.get(neighbour));
+                        distances.put(matched, distances.get(vertex) + 1);
+                        vertexDeque.addLast(matched);
                     }
+                }
             }
         }
 
@@ -91,15 +96,16 @@ public final class Matching
             visited.add(vertex);
 
             for(V neighbour : graph.getNeighbours(vertex))
+
             {
-                if(!isMatched(neighbour))
+                V matched = matching.get(neighbour);
+
+                if(matched == null)
                 {
                     matching.put(vertex, neighbour);
                     matching.put(neighbour, vertex);
                     return true;
                 }
-
-                V matched = matching.get(neighbour);
 
                 if(!visited.contains(matched) && distances.get(matched) == distances.get(vertex) + 1
                         && dfs(matched, visited, distances))
