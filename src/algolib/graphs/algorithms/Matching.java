@@ -10,7 +10,7 @@ import algolib.graphs.MultipartiteGraph;
 public final class Matching
 {
     /**
-     * Finds maximal matching in given graph.
+     * Finds maximal matching in given bipartite graph.
      * @param graph a bipartite graph
      * @return map of matched vertices
      */
@@ -22,14 +22,14 @@ public final class Matching
         while(wasAugmented)
             wasAugmented = augmenter.augmentMatch();
 
-        return augmenter.getMatching();
+        return augmenter.matching;
     }
 
     private static final class MatchAugmenter<V, VP, EP>
     {
         private static final double INFINITY = Double.POSITIVE_INFINITY;
+        final Map<V, V> matching = new HashMap<>();
         private final MultipartiteGraph<V, VP, EP> graph;
-        private final Map<V, V> matching = new HashMap<>();
 
         private MatchAugmenter(MultipartiteGraph<V, VP, EP> graph)
         {
@@ -39,15 +39,10 @@ public final class Matching
             this.graph = graph;
         }
 
-        private Map<V, V> getMatching()
+        boolean augmentMatch()
         {
-            return matching;
-        }
-
-        private boolean augmentMatch()
-        {
-            boolean matchAdded = false;
-            Set<V> isVisited = new HashSet<>();
+            boolean wasAdded = false;
+            Set<V> visited = new HashSet<>();
             Map<V, Double> distances = graph.getVertices()
                                             .stream()
                                             .collect(Collectors.toMap(Function.identity(),
@@ -56,9 +51,15 @@ public final class Matching
             bfs(distances);
 
             for(V vertex : graph.getVerticesFromGroup(1))
-                matchAdded = dfs(vertex, isVisited, distances) || matchAdded;
+                if(!isMatched(vertex))
+                    wasAdded = dfs(vertex, visited, distances) || wasAdded;
 
-            return matchAdded;
+            return wasAdded;
+        }
+
+        private boolean isMatched(V vertex)
+        {
+            return matching.containsKey(vertex);
         }
 
         private void bfs(Map<V, Double> distances)
@@ -66,18 +67,18 @@ public final class Matching
             Deque<V> vertexDeque = new ArrayDeque<>();
 
             for(V vertex : graph.getVerticesFromGroup(1))
-            {
-                distances.put(vertex, 0.0);
-                vertexDeque.addLast(vertex);
-            }
+                if(!isMatched(vertex))
+                {
+                    distances.put(vertex, 0.0);
+                    vertexDeque.addLast(vertex);
+                }
 
             while(!vertexDeque.isEmpty())
             {
                 V vertex = vertexDeque.removeFirst();
 
                 for(V neighbour : graph.getNeighbours(vertex))
-                    if(!matching.containsKey(neighbour) && distances.get(matching.get(neighbour))
-                                                                    .equals(INFINITY))
+                    if(isMatched(neighbour) && distances.get(matching.get(neighbour)) == INFINITY)
                     {
                         distances.put(matching.get(neighbour), distances.get(vertex) + 1);
                         vertexDeque.addLast(matching.get(neighbour));
@@ -85,30 +86,29 @@ public final class Matching
             }
         }
 
-        private boolean dfs(V vertex, Set<V> isVisited, Map<V, Double> distances)
+        private boolean dfs(V vertex, Set<V> visited, Map<V, Double> distances)
         {
-            isVisited.add(vertex);
+            visited.add(vertex);
 
             for(V neighbour : graph.getNeighbours(vertex))
-                if(matching.get(neighbour) == null)
+            {
+                if(!isMatched(neighbour))
                 {
                     matching.put(vertex, neighbour);
                     matching.put(neighbour, vertex);
                     return true;
                 }
-                else
-                {
-                    V mtc = matching.get(neighbour);
 
-                    if(!isVisited.contains(mtc) && distances.get(mtc)
-                                                            .equals(distances.get(vertex) + 1)
-                            && dfs(mtc, isVisited, distances))
-                    {
-                        matching.put(vertex, neighbour);
-                        matching.put(neighbour, vertex);
-                        return true;
-                    }
+                V matched = matching.get(neighbour);
+
+                if(!visited.contains(matched) && distances.get(matched) == distances.get(vertex) + 1
+                        && dfs(matched, visited, distances))
+                {
+                    matching.put(vertex, neighbour);
+                    matching.put(neighbour, vertex);
+                    return true;
                 }
+            }
 
             return false;
         }
