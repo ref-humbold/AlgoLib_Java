@@ -19,12 +19,12 @@ public class MatchingTest
         // given
         MultipartiteGraph<Integer, Void, Void> graph =
                 new MultipartiteGraph<>(2, List.of(List.of(0, 2, 4, 6), List.of(1, 3, 5, 7)));
-        graph.addEdge(0, 3);
-        graph.addEdge(0, 5);
-        graph.addEdge(1, 2);
-        graph.addEdge(3, 4);
-        graph.addEdge(3, 6);
-        graph.addEdge(6, 7);
+        graph.addEdgeBetween(0, 3);
+        graph.addEdgeBetween(0, 5);
+        graph.addEdgeBetween(1, 2);
+        graph.addEdgeBetween(3, 4);
+        graph.addEdgeBetween(3, 6);
+        graph.addEdgeBetween(6, 7);
 
         int[] matches = new int[]{5, 2, 1, 4, 3, 0, 7, 6};
         Map<Integer, Integer> expected = IntStream.range(0, matches.length)

@@ -16,11 +16,11 @@ public class MultipartiteGraphTest
     {
         testObject = new MultipartiteGraph<>(5, List.of(List.of(0, 1, 2), List.of(3, 4),
                                                         List.of(5, 6, 7, 8), List.of(9)));
-        testObject.addEdge(0, 3);
-        testObject.addEdge(1, 5);
-        testObject.addEdge(2, 9);
-        testObject.addEdge(4, 6);
-        testObject.addEdge(7, 9);
+        testObject.addEdgeBetween(0, 3);
+        testObject.addEdgeBetween(1, 5);
+        testObject.addEdgeBetween(2, 9);
+        testObject.addEdgeBetween(4, 6);
+        testObject.addEdgeBetween(7, 9);
     }
 
     @AfterEach
@@ -165,7 +165,7 @@ public class MultipartiteGraphTest
         int vertex2 = 8;
         String property = "asdfgh";
         // when
-        Edge<Integer> result = testObject.addEdge(vertex1, vertex2, property);
+        Edge<Integer> result = testObject.addEdgeBetween(vertex1, vertex2, property);
         // then
         Assertions.assertThat(result.source).isEqualTo(vertex1);
         Assertions.assertThat(result.destination).isEqualTo(vertex2);
@@ -179,9 +179,9 @@ public class MultipartiteGraphTest
         // given
         int source = 8;
         int destination = 3;
-        Edge<Integer> expected = testObject.addEdge(source, destination);
+        Edge<Integer> expected = testObject.addEdgeBetween(source, destination);
         // when
-        Edge<Integer> result = testObject.addEdge(source, destination);
+        Edge<Integer> result = testObject.addEdgeBetween(source, destination);
         // then
         Assertions.assertThat(result).isSameAs(expected);
     }
@@ -190,7 +190,7 @@ public class MultipartiteGraphTest
     public void addEdge_WhenSameGroup_ThenGraphPartitionException()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.addEdge(5, 8));
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.addEdgeBetween(5, 8));
         // then
         Assertions.assertThat(throwable).isInstanceOf(GraphPartitionException.class);
     }

@@ -20,22 +20,22 @@ public class CuttingTest
         // given
         graph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 12).boxed().collect(Collectors.toList()));
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(0, 7);
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(1, 4);
-        graph.addEdge(3, 5);
-        graph.addEdge(4, 5);
-        graph.addEdge(5, 6);
-        graph.addEdge(7, 8);
-        graph.addEdge(7, 9);
-        graph.addEdge(7, 11);
-        graph.addEdge(8, 9);
-        graph.addEdge(9, 10);
-        graph.addEdge(9, 11);
-        graph.addEdge(10, 11);
+        graph.addEdgeBetween(0, 1);
+        graph.addEdgeBetween(0, 2);
+        graph.addEdgeBetween(0, 7);
+        graph.addEdgeBetween(1, 2);
+        graph.addEdgeBetween(1, 3);
+        graph.addEdgeBetween(1, 4);
+        graph.addEdgeBetween(3, 5);
+        graph.addEdgeBetween(4, 5);
+        graph.addEdgeBetween(5, 6);
+        graph.addEdgeBetween(7, 8);
+        graph.addEdgeBetween(7, 9);
+        graph.addEdgeBetween(7, 11);
+        graph.addEdgeBetween(8, 9);
+        graph.addEdgeBetween(9, 10);
+        graph.addEdgeBetween(9, 11);
+        graph.addEdgeBetween(10, 11);
         // when
         List<Edge<Integer>> result = Cutting.findEdgeCut(graph);
         // then
@@ -48,13 +48,13 @@ public class CuttingTest
         // given
         graph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(1, 4);
-        graph.addEdge(3, 5);
-        graph.addEdge(4, 5);
+        graph.addEdgeBetween(0, 1);
+        graph.addEdgeBetween(0, 2);
+        graph.addEdgeBetween(1, 2);
+        graph.addEdgeBetween(1, 3);
+        graph.addEdgeBetween(1, 4);
+        graph.addEdgeBetween(3, 5);
+        graph.addEdgeBetween(4, 5);
         // when
         List<Edge<Integer>> result = Cutting.findEdgeCut(graph);
         // then
@@ -67,22 +67,22 @@ public class CuttingTest
         // given
         graph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 12).boxed().collect(Collectors.toList()));
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(0, 7);
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(1, 4);
-        graph.addEdge(3, 5);
-        graph.addEdge(4, 5);
-        graph.addEdge(5, 6);
-        graph.addEdge(7, 8);
-        graph.addEdge(7, 9);
-        graph.addEdge(7, 11);
-        graph.addEdge(8, 9);
-        graph.addEdge(9, 10);
-        graph.addEdge(9, 11);
-        graph.addEdge(10, 11);
+        graph.addEdgeBetween(0, 1);
+        graph.addEdgeBetween(0, 2);
+        graph.addEdgeBetween(0, 7);
+        graph.addEdgeBetween(1, 2);
+        graph.addEdgeBetween(1, 3);
+        graph.addEdgeBetween(1, 4);
+        graph.addEdgeBetween(3, 5);
+        graph.addEdgeBetween(4, 5);
+        graph.addEdgeBetween(5, 6);
+        graph.addEdgeBetween(7, 8);
+        graph.addEdgeBetween(7, 9);
+        graph.addEdgeBetween(7, 11);
+        graph.addEdgeBetween(8, 9);
+        graph.addEdgeBetween(9, 10);
+        graph.addEdgeBetween(9, 11);
+        graph.addEdgeBetween(10, 11);
         // when
         List<Integer> result = Cutting.findVertexCut(graph);
         // then
@@ -95,14 +95,14 @@ public class CuttingTest
         // given
         graph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(1, 4);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 5);
-        graph.addEdge(4, 5);
+        graph.addEdgeBetween(0, 1);
+        graph.addEdgeBetween(0, 2);
+        graph.addEdgeBetween(1, 2);
+        graph.addEdgeBetween(1, 3);
+        graph.addEdgeBetween(1, 4);
+        graph.addEdgeBetween(2, 3);
+        graph.addEdgeBetween(3, 5);
+        graph.addEdgeBetween(4, 5);
         // when
         List<Integer> result = Cutting.findVertexCut(graph);
         // then

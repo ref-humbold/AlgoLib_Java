@@ -22,31 +22,31 @@ public class TopologicalSortingTest
         acyclicGraph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
 
-        acyclicGraph.addEdge(0, 2);
-        acyclicGraph.addEdge(0, 4);
-        acyclicGraph.addEdge(1, 0);
-        acyclicGraph.addEdge(1, 4);
-        acyclicGraph.addEdge(3, 1);
-        acyclicGraph.addEdge(3, 0);
-        acyclicGraph.addEdge(3, 2);
-        acyclicGraph.addEdge(5, 1);
-        acyclicGraph.addEdge(5, 2);
-        acyclicGraph.addEdge(5, 4);
+        acyclicGraph.addEdgeBetween(0, 2);
+        acyclicGraph.addEdgeBetween(0, 4);
+        acyclicGraph.addEdgeBetween(1, 0);
+        acyclicGraph.addEdgeBetween(1, 4);
+        acyclicGraph.addEdgeBetween(3, 1);
+        acyclicGraph.addEdgeBetween(3, 0);
+        acyclicGraph.addEdgeBetween(3, 2);
+        acyclicGraph.addEdgeBetween(5, 1);
+        acyclicGraph.addEdgeBetween(5, 2);
+        acyclicGraph.addEdgeBetween(5, 4);
 
         cyclicGraph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
 
-        cyclicGraph.addEdge(0, 2);
-        cyclicGraph.addEdge(0, 4);
-        cyclicGraph.addEdge(1, 0);
-        cyclicGraph.addEdge(1, 4);
-        cyclicGraph.addEdge(2, 1);
-        cyclicGraph.addEdge(3, 1);
-        cyclicGraph.addEdge(3, 0);
-        cyclicGraph.addEdge(3, 2);
-        cyclicGraph.addEdge(5, 1);
-        cyclicGraph.addEdge(5, 2);
-        cyclicGraph.addEdge(5, 4);
+        cyclicGraph.addEdgeBetween(0, 2);
+        cyclicGraph.addEdgeBetween(0, 4);
+        cyclicGraph.addEdgeBetween(1, 0);
+        cyclicGraph.addEdgeBetween(1, 4);
+        cyclicGraph.addEdgeBetween(2, 1);
+        cyclicGraph.addEdgeBetween(3, 1);
+        cyclicGraph.addEdgeBetween(3, 0);
+        cyclicGraph.addEdgeBetween(3, 2);
+        cyclicGraph.addEdgeBetween(5, 1);
+        cyclicGraph.addEdgeBetween(5, 2);
+        cyclicGraph.addEdgeBetween(5, 4);
     }
 
     @AfterEach

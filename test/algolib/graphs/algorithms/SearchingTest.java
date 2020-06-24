@@ -26,28 +26,28 @@ public class SearchingTest
     {
         directedGraph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
-        directedGraph.addEdge(0, 1);
-        directedGraph.addEdge(1, 3);
-        directedGraph.addEdge(1, 7);
-        directedGraph.addEdge(3, 4);
-        directedGraph.addEdge(4, 0);
-        directedGraph.addEdge(5, 4);
-        directedGraph.addEdge(5, 8);
-        directedGraph.addEdge(6, 2);
-        directedGraph.addEdge(6, 9);
-        directedGraph.addEdge(8, 5);
+        directedGraph.addEdgeBetween(0, 1);
+        directedGraph.addEdgeBetween(1, 3);
+        directedGraph.addEdgeBetween(1, 7);
+        directedGraph.addEdgeBetween(3, 4);
+        directedGraph.addEdgeBetween(4, 0);
+        directedGraph.addEdgeBetween(5, 4);
+        directedGraph.addEdgeBetween(5, 8);
+        directedGraph.addEdgeBetween(6, 2);
+        directedGraph.addEdgeBetween(6, 9);
+        directedGraph.addEdgeBetween(8, 5);
 
         undirectedGraph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
-        undirectedGraph.addEdge(0, 1);
-        undirectedGraph.addEdge(0, 4);
-        undirectedGraph.addEdge(1, 3);
-        undirectedGraph.addEdge(1, 7);
-        undirectedGraph.addEdge(2, 6);
-        undirectedGraph.addEdge(3, 4);
-        undirectedGraph.addEdge(4, 5);
-        undirectedGraph.addEdge(5, 8);
-        undirectedGraph.addEdge(6, 9);
+        undirectedGraph.addEdgeBetween(0, 1);
+        undirectedGraph.addEdgeBetween(0, 4);
+        undirectedGraph.addEdgeBetween(1, 3);
+        undirectedGraph.addEdgeBetween(1, 7);
+        undirectedGraph.addEdgeBetween(2, 6);
+        undirectedGraph.addEdgeBetween(3, 4);
+        undirectedGraph.addEdgeBetween(4, 5);
+        undirectedGraph.addEdgeBetween(5, 8);
+        undirectedGraph.addEdgeBetween(6, 9);
     }
 
     @AfterEach

@@ -101,7 +101,7 @@ public class TreeGraph<V, VP, EP>
     public Edge<V> addVertex(V vertex, V neighbour)
     {
         boolean wasAdded = graph.addVertex(vertex);
-        return wasAdded ? graph.addEdge(vertex, neighbour) : null;
+        return wasAdded ? graph.addEdgeBetween(vertex, neighbour) : null;
     }
 
     /**
@@ -116,6 +116,6 @@ public class TreeGraph<V, VP, EP>
     {
         boolean wasAdded = graph.addVertex(vertex, vertexProperty);
 
-        return wasAdded ? graph.addEdge(vertex, neighbour, edgeProperty) : null;
+        return wasAdded ? graph.addEdgeBetween(vertex, neighbour, edgeProperty) : null;
     }
 }

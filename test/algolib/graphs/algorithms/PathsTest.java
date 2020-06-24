@@ -27,37 +27,37 @@ public class PathsTest
     {
         directedGraph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
-        directedGraph.addEdge(0, 1, new Weight(4.0));
-        directedGraph.addEdge(1, 4, new Weight(7.0));
-        directedGraph.addEdge(1, 7, new Weight(12.0));
-        directedGraph.addEdge(2, 4, new Weight(6.0));
-        directedGraph.addEdge(2, 6, new Weight(8.0));
-        directedGraph.addEdge(3, 0, new Weight(3.0));
-        directedGraph.addEdge(3, 7, new Weight(5.0));
-        directedGraph.addEdge(4, 5, new Weight(1.0));
-        directedGraph.addEdge(4, 3, new Weight(10.0));
-        directedGraph.addEdge(5, 6, new Weight(4.0));
-        directedGraph.addEdge(5, 8, new Weight(2.0));
-        directedGraph.addEdge(6, 5, new Weight(7.0));
-        directedGraph.addEdge(7, 5, new Weight(2.0));
-        directedGraph.addEdge(7, 8, new Weight(6.0));
-        directedGraph.addEdge(8, 9, new Weight(10.0));
-        directedGraph.addEdge(9, 6, new Weight(3.0));
+        directedGraph.addEdgeBetween(0, 1, new Weight(4.0));
+        directedGraph.addEdgeBetween(1, 4, new Weight(7.0));
+        directedGraph.addEdgeBetween(1, 7, new Weight(12.0));
+        directedGraph.addEdgeBetween(2, 4, new Weight(6.0));
+        directedGraph.addEdgeBetween(2, 6, new Weight(8.0));
+        directedGraph.addEdgeBetween(3, 0, new Weight(3.0));
+        directedGraph.addEdgeBetween(3, 7, new Weight(5.0));
+        directedGraph.addEdgeBetween(4, 5, new Weight(1.0));
+        directedGraph.addEdgeBetween(4, 3, new Weight(10.0));
+        directedGraph.addEdgeBetween(5, 6, new Weight(4.0));
+        directedGraph.addEdgeBetween(5, 8, new Weight(2.0));
+        directedGraph.addEdgeBetween(6, 5, new Weight(7.0));
+        directedGraph.addEdgeBetween(7, 5, new Weight(2.0));
+        directedGraph.addEdgeBetween(7, 8, new Weight(6.0));
+        directedGraph.addEdgeBetween(8, 9, new Weight(10.0));
+        directedGraph.addEdgeBetween(9, 6, new Weight(3.0));
 
         undirectedGraph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
-        undirectedGraph.addEdge(0, 1, new Weight(4.0));
-        undirectedGraph.addEdge(1, 4, new Weight(7.0));
-        undirectedGraph.addEdge(1, 7, new Weight(12.0));
-        undirectedGraph.addEdge(2, 6, new Weight(8.0));
-        undirectedGraph.addEdge(3, 0, new Weight(3.0));
-        undirectedGraph.addEdge(3, 7, new Weight(5.0));
-        undirectedGraph.addEdge(4, 5, new Weight(1.0));
-        undirectedGraph.addEdge(4, 3, new Weight(10.0));
-        undirectedGraph.addEdge(5, 8, new Weight(2.0));
-        undirectedGraph.addEdge(7, 5, new Weight(2.0));
-        undirectedGraph.addEdge(7, 8, new Weight(6.0));
-        undirectedGraph.addEdge(9, 6, new Weight(3.0));
+        undirectedGraph.addEdgeBetween(0, 1, new Weight(4.0));
+        undirectedGraph.addEdgeBetween(1, 4, new Weight(7.0));
+        undirectedGraph.addEdgeBetween(1, 7, new Weight(12.0));
+        undirectedGraph.addEdgeBetween(2, 6, new Weight(8.0));
+        undirectedGraph.addEdgeBetween(3, 0, new Weight(3.0));
+        undirectedGraph.addEdgeBetween(3, 7, new Weight(5.0));
+        undirectedGraph.addEdgeBetween(4, 5, new Weight(1.0));
+        undirectedGraph.addEdgeBetween(4, 3, new Weight(10.0));
+        undirectedGraph.addEdgeBetween(5, 8, new Weight(2.0));
+        undirectedGraph.addEdgeBetween(7, 5, new Weight(2.0));
+        undirectedGraph.addEdgeBetween(7, 8, new Weight(6.0));
+        undirectedGraph.addEdgeBetween(9, 6, new Weight(3.0));
     }
 
     @AfterEach
@@ -74,7 +74,7 @@ public class PathsTest
         List<Double> distances = List.of(20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0);
         Map<Integer, Double> expected = fromList(distances);
 
-        directedGraph.addEdge(2, 1, new Weight(-2.0));
+        directedGraph.addEdgeBetween(2, 1, new Weight(-2.0));
         // when
         Map<Integer, Double> result = Paths.bellmanFord(directedGraph, 1);
         // then
@@ -99,7 +99,7 @@ public class PathsTest
     public void bellmanFord_WhenNegativeCycle_ThenIllegalStateException()
     {
         // given
-        directedGraph.addEdge(8, 3, new Weight(-20.0));
+        directedGraph.addEdgeBetween(8, 3, new Weight(-20.0));
         // when
         Throwable throwable = Assertions.catchThrowable(() -> Paths.bellmanFord(directedGraph, 1));
         // then
@@ -136,7 +136,7 @@ public class PathsTest
     public void dijkstra_WhenNegativeEdge_ThenIllegalStateException()
     {
         // given
-        directedGraph.addEdge(2, 1, new Weight(-2.0));
+        directedGraph.addEdgeBetween(2, 1, new Weight(-2.0));
         // when
         Throwable throwable = Assertions.catchThrowable(() -> Paths.dijkstra(directedGraph, 1));
         // then
@@ -159,7 +159,7 @@ public class PathsTest
                                 {INF, INF, INF, INF, INF, 10.0, 3.0, INF, 12.0, 0.0}};
         Map<Pair<Integer, Integer>, Double> expected = fromMatrix(distances);
 
-        directedGraph.addEdge(2, 1, new Weight(-2.0));
+        directedGraph.addEdgeBetween(2, 1, new Weight(-2.0));
         // when
         Map<Pair<Integer, Integer>, Double> result = Paths.floydWarshall(directedGraph);
         // then

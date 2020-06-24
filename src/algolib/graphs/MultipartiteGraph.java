@@ -142,12 +142,12 @@ public class MultipartiteGraph<V, VP, EP>
         return wasAdded;
     }
 
-    public Edge<V> addEdge(V source, V destination)
+    public Edge<V> addEdgeBetween(V source, V destination)
     {
-        return addEdge(new Edge<>(source, destination), null);
+        return addEdge(new Edge<>(source, destination));
     }
 
-    public Edge<V> addEdge(V source, V destination, EP property)
+    public Edge<V> addEdgeBetween(V source, V destination, EP property)
     {
 
         return addEdge(new Edge<>(source, destination), property);

@@ -23,13 +23,13 @@ public class MinimalSpanningTreeTest
         graph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 5).boxed().collect(Collectors.toList()));
 
-        graph.addEdge(0, 1, new Weight(-1.0));
-        graph.addEdge(0, 2, new Weight(4.0));
-        graph.addEdge(1, 2, new Weight(9.0));
-        graph.addEdge(1, 3, new Weight(7.0));
-        graph.addEdge(1, 4, new Weight(12.0));
-        graph.addEdge(2, 4, new Weight(6.0));
-        graph.addEdge(3, 4, new Weight(3.0));
+        graph.addEdgeBetween(0, 1, new Weight(-1.0));
+        graph.addEdgeBetween(0, 2, new Weight(4.0));
+        graph.addEdgeBetween(1, 2, new Weight(9.0));
+        graph.addEdgeBetween(1, 3, new Weight(7.0));
+        graph.addEdgeBetween(1, 4, new Weight(12.0));
+        graph.addEdgeBetween(2, 4, new Weight(6.0));
+        graph.addEdgeBetween(3, 4, new Weight(3.0));
     }
 
     @AfterEach

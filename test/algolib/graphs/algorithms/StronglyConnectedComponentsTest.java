@@ -20,20 +20,20 @@ public class StronglyConnectedComponentsTest
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
 
-        graph.addEdge(0, 4);
-        graph.addEdge(0, 5);
-        graph.addEdge(1, 0);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 1);
-        graph.addEdge(4, 1);
-        graph.addEdge(4, 3);
-        graph.addEdge(6, 5);
-        graph.addEdge(6, 9);
-        graph.addEdge(7, 4);
-        graph.addEdge(7, 6);
-        graph.addEdge(8, 3);
-        graph.addEdge(8, 7);
-        graph.addEdge(9, 8);
+        graph.addEdgeBetween(0, 4);
+        graph.addEdgeBetween(0, 5);
+        graph.addEdgeBetween(1, 0);
+        graph.addEdgeBetween(2, 3);
+        graph.addEdgeBetween(3, 1);
+        graph.addEdgeBetween(4, 1);
+        graph.addEdgeBetween(4, 3);
+        graph.addEdgeBetween(6, 5);
+        graph.addEdgeBetween(6, 9);
+        graph.addEdgeBetween(7, 4);
+        graph.addEdgeBetween(7, 6);
+        graph.addEdgeBetween(8, 3);
+        graph.addEdgeBetween(8, 7);
+        graph.addEdgeBetween(9, 8);
         // when
         List<Set<Integer>> result = StronglyConnectedComponents.findSCC(graph);
         // then
@@ -49,13 +49,13 @@ public class StronglyConnectedComponentsTest
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 7).boxed().collect(Collectors.toList()));
 
-        graph.addEdge(0, 1);
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 4);
-        graph.addEdge(4, 5);
-        graph.addEdge(5, 6);
-        graph.addEdge(6, 0);
+        graph.addEdgeBetween(0, 1);
+        graph.addEdgeBetween(1, 2);
+        graph.addEdgeBetween(2, 3);
+        graph.addEdgeBetween(3, 4);
+        graph.addEdgeBetween(4, 5);
+        graph.addEdgeBetween(5, 6);
+        graph.addEdgeBetween(6, 0);
         // when
         List<Set<Integer>> result = StronglyConnectedComponents.findSCC(graph);
         // then
