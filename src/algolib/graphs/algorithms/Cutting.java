@@ -61,7 +61,7 @@ public final class Cutting
         }
 
         @Override
-        public void onEnter(V vertex)
+        public void onEntry(V vertex)
         {
             dfsDepths.put(vertex, depth);
             lowValues.put(vertex, depth);

@@ -21,15 +21,15 @@ public class TreeGraph<V, VP, EP>
     }
 
     @Override
-    public Collection<V> getVertices()
-    {
-        return graph.getVertices();
-    }
-
-    @Override
     public int getEdgesCount()
     {
         return graph.getEdgesCount();
+    }
+
+    @Override
+    public Collection<V> getVertices()
+    {
+        return graph.getVertices();
     }
 
     @Override
@@ -90,6 +90,11 @@ public class TreeGraph<V, VP, EP>
     public int getInputDegree(V vertex)
     {
         return graph.getInputDegree(vertex);
+    }
+
+    public DirectedSimpleGraph<V, VP, EP> asDirected()
+    {
+        return graph.asDirected();
     }
 
     /**

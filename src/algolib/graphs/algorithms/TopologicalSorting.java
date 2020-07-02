@@ -90,7 +90,7 @@ public final class TopologicalSorting
         }
 
         @Override
-        public void onEnter(V vertex)
+        public void onEntry(V vertex)
         {
         }
 

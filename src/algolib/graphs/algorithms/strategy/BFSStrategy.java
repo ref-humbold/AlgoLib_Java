@@ -4,7 +4,7 @@ public interface BFSStrategy<V>
 {
     void forRoot(V root);
 
-    void onEnter(V vertex);
+    void onEntry(V vertex);
 
     void onNextVertex(V vertex, V neighbour);
 

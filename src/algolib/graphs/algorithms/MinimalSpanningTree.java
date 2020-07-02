@@ -28,8 +28,7 @@ public final class MinimalSpanningTree
                 (edge1, edge2) -> Double.compare(graph.getProperty(edge1).getWeight(),
                                                  graph.getProperty(edge2).getWeight()));
 
-        for(V vertex : graph.getVertices())
-            edgeQueue.addAll(graph.getAdjacentEdges(vertex));
+        edgeQueue.addAll(graph.getEdges());
 
         while(vertexSets.size() > 1 && !edgeQueue.isEmpty())
         {

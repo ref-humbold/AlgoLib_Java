@@ -87,7 +87,7 @@ public final class LowestCommonAncestor<V, VP, EP>
         }
 
         @Override
-        public void onEnter(V vertex)
+        public void onEntry(V vertex)
         {
             preTimes.put(vertex, timer);
             ++timer;

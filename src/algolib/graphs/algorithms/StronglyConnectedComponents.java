@@ -56,7 +56,7 @@ public final class StronglyConnectedComponents
         }
 
         @Override
-        public void onEnter(V vertex)
+        public void onEntry(V vertex)
         {
         }
 
@@ -90,7 +90,7 @@ public final class StronglyConnectedComponents
         }
 
         @Override
-        public void onEnter(V vertex)
+        public void onEntry(V vertex)
         {
             components.get(components.size() - 1).add(vertex);
         }

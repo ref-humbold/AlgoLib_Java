@@ -255,7 +255,7 @@ public class SearchingTest
         }
 
         @Override
-        public void onEnter(V vertex)
+        public void onEntry(V vertex)
         {
             entries.add(vertex);
         }

@@ -16,6 +16,9 @@ public class MultipartiteGraph<V, VP, EP>
 
     public MultipartiteGraph(int groupsCount)
     {
+        if(groupsCount < 0)
+            throw new IllegalArgumentException("Number of groups cannot be negative");
+
         this.groupsCount = groupsCount;
     }
 
@@ -23,8 +26,10 @@ public class MultipartiteGraph<V, VP, EP>
     {
         this(groupsCount);
 
-        if(vertices.size() > groupsCount)
-            throw new IllegalArgumentException("");
+        if(vertices.size() > this.groupsCount)
+            throw new IllegalArgumentException(
+                    String.format("Cannot add vertices to group %d, graph contains only %d groups",
+                                  vertices.size(), this.groupsCount));
 
         int i = 0;
 
@@ -44,15 +49,15 @@ public class MultipartiteGraph<V, VP, EP>
     }
 
     @Override
-    public Collection<V> getVertices()
-    {
-        return graph.getVertices();
-    }
-
-    @Override
     public int getEdgesCount()
     {
         return graph.getEdgesCount();
+    }
+
+    @Override
+    public Collection<V> getVertices()
+    {
+        return graph.getVertices();
     }
 
     @Override
@@ -113,6 +118,11 @@ public class MultipartiteGraph<V, VP, EP>
     public int getInputDegree(V vertex)
     {
         return graph.getInputDegree(vertex);
+    }
+
+    public DirectedSimpleGraph<V, VP, EP> asDirected()
+    {
+        return graph.asDirected();
     }
 
     public Collection<V> getVerticesFromGroup(int groupNumber)

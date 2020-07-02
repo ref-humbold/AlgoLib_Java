@@ -10,7 +10,7 @@ import algolib.graphs.algorithms.strategy.DFSStrategy;
 public final class Searching
 {
     /**
-     * Breadth-first-search algorithm.
+     * Breadth-first search algorithm.
      * @param graph a graph
      * @param strategy a searching strategy
      * @param roots starting vertices
@@ -33,7 +33,7 @@ public final class Searching
                 {
                     V vertex = vertexDeque.removeFirst();
 
-                    strategy.onEnter(vertex);
+                    strategy.onEntry(vertex);
 
                     for(V neighbour : graph.getNeighbours(vertex))
                         if(!reached.contains(neighbour))
@@ -51,7 +51,7 @@ public final class Searching
     }
 
     /**
-     * Iterative depth-first-search algorithm.
+     * Iterative depth-first search algorithm.
      * @param graph a graph
      * @param strategy a searching strategy
      * @param roots starting vertices
@@ -78,7 +78,7 @@ public final class Searching
                     if(!reached.containsKey(vertex))
                     {
                         reached.put(vertex, iteration);
-                        strategy.onEnter(vertex);
+                        strategy.onEntry(vertex);
 
                         for(V neighbour : graph.getNeighbours(vertex))
                             if(!reached.containsKey(neighbour))
@@ -101,7 +101,7 @@ public final class Searching
     }
 
     /**
-     * Recursive depth-first-search algorithm
+     * Recursive depth-first search algorithm
      * @param graph a graph
      * @param strategy a searching strategy
      * @param roots starting vertices
@@ -133,7 +133,7 @@ public final class Searching
         V vertex = state.vertex;
 
         state.onEntry(vertex);
-        strategy.onEnter(vertex);
+        strategy.onEntry(vertex);
 
         for(V neighbour : graph.getNeighbours(vertex))
             if(!state.reached.containsKey(neighbour))
@@ -155,14 +155,14 @@ public final class Searching
         int iteration = 1;
         Map<V, Integer> reached = new HashMap<>();
 
-        void onEntry(V vertex)
+        void onEntry(V vertex_)
         {
-            reached.put(vertex, iteration);
+            reached.put(vertex_, iteration);
         }
 
-        void onExit(V vertex)
+        void onExit(V vertex_)
         {
-            reached.put(vertex, -iteration);
+            reached.put(vertex_, -iteration);
         }
     }
 }

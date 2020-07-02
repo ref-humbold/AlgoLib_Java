@@ -9,7 +9,7 @@ public class EmptyStrategy<V>
     }
 
     @Override
-    public void onEnter(V vertex)
+    public void onEntry(V vertex)
     {
     }
 
