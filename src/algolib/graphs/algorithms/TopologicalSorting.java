@@ -25,11 +25,14 @@ public final class TopologicalSorting
         PriorityQueue<V> vertexQueue = new PriorityQueue<>();
 
         for(V vertex : graph.getVertices())
-            inputDegrees.put(vertex, graph.getInputDegree(vertex));
+        {
+            int degree = graph.getInputDegree(vertex);
 
-        for(V vertex : graph.getVertices())
-            if(Objects.equals(inputDegrees.get(vertex), 0))
+            inputDegrees.put(vertex, degree);
+
+            if(degree == 0)
                 vertexQueue.add(vertex);
+        }
 
         while(!vertexQueue.isEmpty())
         {
@@ -42,7 +45,7 @@ public final class TopologicalSorting
             {
                 inputDegrees.put(neighbour, inputDegrees.get(neighbour) - 1);
 
-                if(Objects.equals(inputDegrees.get(neighbour), 0))
+                if(inputDegrees.get(neighbour) == 0)
                     vertexQueue.add(neighbour);
             }
         }
@@ -68,21 +71,14 @@ public final class TopologicalSorting
         TopologicalStrategy<V> strategy = new TopologicalStrategy<>();
         Searching.dfsRecursive(graph, strategy, graph.getVertices());
 
-        List<V> order = strategy.getOrder();
-
-        Collections.reverse(order);
-        return order;
+        Collections.reverse(strategy.order);
+        return strategy.order;
     }
 
     private static class TopologicalStrategy<V>
             implements DFSStrategy<V>
     {
-        private final List<V> order = new ArrayList<>();
-
-        List<V> getOrder()
-        {
-            return order;
-        }
+        final List<V> order = new ArrayList<>();
 
         @Override
         public void forRoot(V root)

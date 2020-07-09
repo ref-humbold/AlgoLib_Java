@@ -2,6 +2,7 @@
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +17,9 @@ public final class Cutting
     /**
      * Finds an edge cut of given graph.
      * @param graph an undirected graph
-     * @return list of edges in the edge cut
+     * @return collection of edges in the edge cut
      */
-    public static <V, VP, EP> List<Edge<V>> findEdgeCut(UndirectedGraph<V, VP, EP> graph)
+    public static <V, VP, EP> Collection<Edge<V>> findEdgeCut(UndirectedGraph<V, VP, EP> graph)
     {
         CuttingStrategy<V> strategy = new CuttingStrategy<>();
 
@@ -33,9 +34,9 @@ public final class Cutting
     /**
      * Finds a vertex cut of given graph.
      * @param graph an undirected graph
-     * @return list of vertices in the vertex cut
+     * @return collection of vertices in the vertex cut
      */
-    public static <V, VP, EP> List<V> findVertexCut(UndirectedGraph<V, VP, EP> graph)
+    public static <V, VP, EP> Collection<V> findVertexCut(UndirectedGraph<V, VP, EP> graph)
     {
         CuttingStrategy<V> strategy = new CuttingStrategy<>();
 
@@ -49,11 +50,11 @@ public final class Cutting
     private static class CuttingStrategy<V>
             implements DFSStrategy<V>
     {
-        private final Map<V, V> dfsParents = new HashMap<>();
-        private final Map<V, List<V>> dfsChildren = new HashMap<>();
-        private final Map<V, Integer> dfsDepths = new HashMap<>();
-        private final Map<V, Integer> lowValues = new HashMap<>();
-        private int depth = 0;
+        final Map<V, V> dfsParents = new HashMap<>();
+        final Map<V, List<V>> dfsChildren = new HashMap<>();
+        final Map<V, Integer> dfsDepths = new HashMap<>();
+        final Map<V, Integer> lowValues = new HashMap<>();
+        int depth = 0;
 
         @Override
         public void forRoot(V root)
@@ -111,7 +112,7 @@ public final class Cutting
                               .anyMatch(child -> lowValues.get(child) >= dfsDepths.get(vertex));
         }
 
-        private boolean isDFSRoot(V vertex)
+        boolean isDFSRoot(V vertex)
         {
             return dfsDepths.get(vertex) == 0;
         }

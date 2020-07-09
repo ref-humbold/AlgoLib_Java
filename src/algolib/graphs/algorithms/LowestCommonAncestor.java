@@ -14,14 +14,14 @@ public final class LowestCommonAncestor<V, VP, EP>
 {
     public final TreeGraph<V, VP, EP> graph;
     public final V root;
-    private Map<V, List<V>> paths = new HashMap<>();
-    private LCAStrategy<V> strategy = new LCAStrategy<>();
+    private final Map<V, List<V>> paths = new HashMap<>();
+    private final LCAStrategy<V> strategy = new LCAStrategy<>();
+    private boolean empty = true;
 
     public LowestCommonAncestor(TreeGraph<V, VP, EP> graph, V root)
     {
         this.graph = graph;
         this.root = root;
-        initialize();
     }
 
     /**
@@ -31,6 +31,14 @@ public final class LowestCommonAncestor<V, VP, EP>
      * @return lowest common ancestor of given vertices
      */
     public V find(V vertex1, V vertex2)
+    {
+        if(empty)
+            initialize();
+
+        return doFind(vertex1, vertex2);
+    }
+
+    private V doFind(V vertex1, V vertex2)
     {
         if(isOffspring(vertex1, vertex2))
             return vertex2;
@@ -42,11 +50,12 @@ public final class LowestCommonAncestor<V, VP, EP>
 
         Collections.reverse(candidates);
 
-        for(V candidate : candidates)
-            if(!isOffspring(vertex2, candidate))
-                return find(candidate, vertex2);
+        V nextVertex = candidates.stream()
+                                 .filter(candidate -> !isOffspring(vertex2, candidate))
+                                 .findFirst()
+                                 .orElse(paths.get(vertex1).get(0));
 
-        return find(paths.get(vertex1).get(0), vertex2);
+        return doFind(nextVertex, vertex2);
     }
 
     private void initialize()
@@ -54,16 +63,13 @@ public final class LowestCommonAncestor<V, VP, EP>
         Searching.dfsRecursive(graph, strategy, List.of(root));
 
         for(V vertex : graph.getVertices())
-        {
-            List<V> initialPath = new ArrayList<>();
-
-            initialPath.add(strategy.parents.get(vertex));
-            paths.put(vertex, initialPath);
-        }
+            paths.put(vertex, new ArrayList<>(List.of(strategy.parents.get(vertex))));
 
         for(int i = 0; i < Math.log(graph.getVerticesCount()) / Math.log(2) + 3; ++i)
             for(V vertex : graph.getVertices())
                 paths.get(vertex).add(paths.get(paths.get(vertex).get(i)).get(i));
+
+        empty = false;
     }
 
     private boolean isOffspring(V vertex1, V vertex2)
