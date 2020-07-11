@@ -14,7 +14,7 @@ public final class TopologicalSorting
      * @return topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
-    public static <V, VP, EP> List<V> sortTopological1(DirectedGraph<V, VP, EP> graph)
+    public static <V, VP, EP> List<V> sortUsingInputs(DirectedGraph<V, VP, EP> graph)
             throws DirectedCyclicGraphException
     {
         if(graph.getEdgesCount() == 0)
@@ -62,7 +62,7 @@ public final class TopologicalSorting
      * @return topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
-    public static <V, VP, EP> List<V> sortTopological2(DirectedGraph<V, VP, EP> graph)
+    public static <V, VP, EP> List<V> sortUsingDFS(DirectedGraph<V, VP, EP> graph)
             throws DirectedCyclicGraphException
     {
         if(graph.getEdgesCount() == 0)

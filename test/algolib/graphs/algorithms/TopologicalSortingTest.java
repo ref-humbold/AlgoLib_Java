@@ -12,7 +12,7 @@ import algolib.graphs.DirectedSimpleGraph;
 public class TopologicalSortingTest
 {
     @Test
-    public void sortTopological1_WhenAcyclicGraph_ThenTopologicalOrder()
+    public void sortUsingInputs_WhenAcyclicGraph_ThenTopologicalOrder()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
@@ -29,13 +29,13 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(5, 2);
         graph.addEdgeBetween(5, 4);
         // when
-        List<Integer> result = TopologicalSorting.sortTopological1(graph);
+        List<Integer> result = TopologicalSorting.sortUsingInputs(graph);
         // then
         Assertions.assertThat(result).containsExactly(3, 5, 1, 0, 2, 4);
     }
 
     @Test
-    public void sortTopological1_WhenCyclicGraph_ThenDirectedCyclicGraphException()
+    public void sortUsingInputs_WhenCyclicGraph_ThenDirectedCyclicGraphException()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
@@ -54,25 +54,25 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(5, 4);
         // when
         Throwable throwable =
-                Assertions.catchThrowable(() -> TopologicalSorting.sortTopological1(graph));
+                Assertions.catchThrowable(() -> TopologicalSorting.sortUsingInputs(graph));
         // then
         Assertions.assertThat(throwable).isInstanceOf(DirectedCyclicGraphException.class);
     }
 
     @Test
-    public void sortTopological1_WhenEmptyGraph_ThenNaturalOrder()
+    public void sortUsingInputs_WhenEmptyGraph_ThenNaturalOrder()
     {
         // given
         DirectedGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
         // when
-        List<Integer> result = TopologicalSorting.sortTopological1(graph);
+        List<Integer> result = TopologicalSorting.sortUsingInputs(graph);
         // then
         Assertions.assertThat(result).isEqualTo(graph.getVertices());
     }
 
     @Test
-    public void sortTopological2_WhenAcyclicGraph_ThenTopologicalOrder()
+    public void sortUsingDFS_WhenAcyclicGraph_ThenTopologicalOrder()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
@@ -89,7 +89,7 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(5, 2);
         graph.addEdgeBetween(5, 4);
         // when
-        List<Integer> result = TopologicalSorting.sortTopological2(graph);
+        List<Integer> result = TopologicalSorting.sortUsingDFS(graph);
         // then
         Assertions.assertThat(result)
                   .isIn(List.of(3, 5, 1, 0, 2, 4), List.of(5, 3, 1, 0, 2, 4),
@@ -97,7 +97,7 @@ public class TopologicalSortingTest
     }
 
     @Test
-    public void sortTopological2_WhenCyclicGraph_ThenDirectedCyclicGraphException()
+    public void sortUsingDFS_WhenCyclicGraph_ThenDirectedCyclicGraphException()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
@@ -116,19 +116,19 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(5, 4);
         // when
         Throwable throwable =
-                Assertions.catchThrowable(() -> TopologicalSorting.sortTopological2(graph));
+                Assertions.catchThrowable(() -> TopologicalSorting.sortUsingDFS(graph));
         // then
         Assertions.assertThat(throwable).isInstanceOf(DirectedCyclicGraphException.class);
     }
 
     @Test
-    public void sortTopological2_WhenEmptyGraph_ThenNaturalOrder()
+    public void sortUsingDFS_WhenEmptyGraph_ThenNaturalOrder()
     {
         // given
         DirectedGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
         // when
-        List<Integer> result = TopologicalSorting.sortTopological2(graph);
+        List<Integer> result = TopologicalSorting.sortUsingDFS(graph);
         // then
         Assertions.assertThat(result).isEqualTo(graph.getVertices());
     }
