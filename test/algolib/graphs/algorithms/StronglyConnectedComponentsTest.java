@@ -1,4 +1,4 @@
-// Tests: Algorithms for strongly connected components
+// Tests: Algorithm for strongly connected components
 package algolib.graphs.algorithms;
 
 import java.util.HashSet;

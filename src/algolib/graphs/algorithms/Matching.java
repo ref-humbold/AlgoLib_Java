@@ -41,7 +41,6 @@ public final class Matching
 
         boolean augmentMatch()
         {
-            boolean wasAdded = false;
             Set<V> visited = new HashSet<>();
             Map<V, Double> distances = graph.getVertices()
                                             .stream()
@@ -50,10 +49,9 @@ public final class Matching
 
             bfs(distances);
 
-            for(V vertex : unmatchedVertices())
-                wasAdded = dfs(vertex, visited, distances) || wasAdded;
-
-            return wasAdded;
+            return unmatchedVertices().stream()
+                                      .reduce(false, (acc, v) -> dfs(v, visited, distances) || acc,
+                                              Boolean::logicalOr);
         }
 
         private Collection<V> unmatchedVertices()

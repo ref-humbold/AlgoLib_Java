@@ -60,7 +60,7 @@ public class TopologicalSortingTest
     }
 
     @Test
-    public void sortUsingInputs_WhenEmptyGraph_ThenNaturalOrder()
+    public void sortUsingInputs_WhenEmptyGraph_ThenVertices()
     {
         // given
         DirectedGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
@@ -122,7 +122,7 @@ public class TopologicalSortingTest
     }
 
     @Test
-    public void sortUsingDFS_WhenEmptyGraph_ThenNaturalOrder()
+    public void sortUsingDFS_WhenEmptyGraph_ThenVertices()
     {
         // given
         DirectedGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(

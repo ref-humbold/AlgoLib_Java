@@ -1,4 +1,4 @@
-// Algorithms for strongly connected components
+// Algorithm for strongly connected components
 package algolib.graphs.algorithms;
 
 import java.util.*;
