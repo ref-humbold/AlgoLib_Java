@@ -1,10 +1,10 @@
-// Algorithm for convex hull on a plane (monotone chain)
 package algolib.geometry;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/** Algorithm for convex hull on a plane (monotone chain) */
 public final class ConvexHull
 {
     /**

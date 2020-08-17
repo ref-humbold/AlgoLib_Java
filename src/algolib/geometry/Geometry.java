@@ -1,6 +1,6 @@
-// Basic geometrical operations
 package algolib.geometry;
 
+/** Basic geometric operations */
 public final class Geometry
 {
     public Point2D translate(Point2D p, Vector2D v)

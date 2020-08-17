@@ -1,4 +1,3 @@
-// Algorithm for pair of closest points on a plane
 package algolib.geometry;
 
 import java.util.ArrayList;
@@ -6,6 +5,7 @@ import java.util.List;
 
 import algolib.tuples.Pair;
 
+/** Algorithm for pair of closest points on a plane */
 public final class ClosestPoints
 {
     /**

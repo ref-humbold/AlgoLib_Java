@@ -1,8 +1,8 @@
-// Structure of point in a space
 package algolib.geometry;
 
 import java.util.Objects;
 
+/** Structure of point in a space */
 public final class Point3D
 {
     public final double x;

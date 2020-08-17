@@ -1,8 +1,8 @@
-// Structure of vector in a space
 package algolib.geometry;
 
 import java.util.Objects;
 
+/** Structure of vector in a space */
 public final class Vector3D
 {
     public final double x;
