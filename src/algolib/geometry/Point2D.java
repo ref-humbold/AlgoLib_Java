@@ -4,7 +4,6 @@ package algolib.geometry;
 import java.util.Objects;
 
 public final class Point2D
-        implements Comparable<Point2D>
 {
     public final double x;
     public final double y;
@@ -37,19 +36,13 @@ public final class Point2D
     @Override
     public int hashCode()
     {
-        return Objects.hash(x, y);
-    }
-
-    @Override
-    public int compareTo(Point2D p)
-    {
-        return x == p.x ? Double.compare(y, p.y) : Double.compare(x, p.x);
+        return Objects.hash(x, y, 0x933ff53);
     }
 
     @Override
     public String toString()
     {
-        return String.format("(%s, %s)", x, y);
+        return String.format("(%f, %f)", x, y);
     }
 
     public double angle()

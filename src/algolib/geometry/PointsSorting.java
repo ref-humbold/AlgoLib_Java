@@ -3,7 +3,7 @@ package algolib.geometry;
 import java.util.List;
 import java.util.Objects;
 
-public class PointsSorting
+public final class PointsSorting
 {
     /**
      * Mutably sorts points by their cartesian coordinates.
@@ -14,7 +14,8 @@ public class PointsSorting
     {
         Objects.requireNonNull(points, "List of points is null");
 
-        points.sort((pt1, pt2) -> pt1.compareTo(pt2));
+        points.sort((pt1, pt2) -> pt1.x == pt2.x ? Double.compare(pt1.y, pt2.y)
+                                                 : Double.compare(pt1.x, pt2.x));
     }
 
     /**
