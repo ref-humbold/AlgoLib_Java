@@ -17,10 +17,8 @@ import algolib.tuples.Pair;
 
 public final class Paths
 {
-    public static double INFINITY = Double.POSITIVE_INFINITY;
-
     /**
-     * Bellman-Ford algorithm
+     * Bellman-Ford algorithm.
      * @param graph a directed graph with weighted edges
      * @param source source vertex
      * @return map of vertices' distances
@@ -32,7 +30,7 @@ public final class Paths
         Map<V, Double> distances = graph.getVertices()
                                         .stream()
                                         .collect(Collectors.toMap(Function.identity(),
-                                                                  v -> INFINITY));
+                                                                  v -> Weighted.INFINITY));
 
         distances.put(source, 0.0);
 
@@ -46,7 +44,7 @@ public final class Paths
 
         for(V vertex : graph.getVertices())
             for(Edge<V> edge : graph.getAdjacentEdges(vertex))
-                if(distances.get(vertex) < INFINITY
+                if(distances.get(vertex) < Weighted.INFINITY
                         && distances.get(vertex) + graph.getProperty(edge).getWeight()
                         < distances.get(edge.destination))
                     throw new IllegalStateException("Graph contains a negative cycle.");
@@ -55,7 +53,7 @@ public final class Paths
     }
 
     /**
-     * Dijkstra algorithm
+     * Dijkstra algorithm.
      * @param graph a graph with weighted edges (weights are not negative)
      * @param source source vertex
      * @return map of vertices' distances
@@ -71,7 +69,7 @@ public final class Paths
         Map<V, Double> distances = graph.getVertices()
                                         .stream()
                                         .collect(Collectors.toMap(Function.identity(),
-                                                                  v -> INFINITY));
+                                                                  v -> Weighted.INFINITY));
         Set<V> visited = new HashSet<>();
         PriorityQueue<Pair<Double, V>> vertexQueue =
                 new PriorityQueue<>((pair1, pair2) -> Double.compare(pair1.first, pair2.first));
@@ -81,20 +79,20 @@ public final class Paths
 
         while(!vertexQueue.isEmpty())
         {
-            V v = vertexQueue.remove().second;
+            V vertex = vertexQueue.remove().second;
 
-            if(!visited.contains(v))
+            if(!visited.contains(vertex))
             {
-                visited.add(v);
+                visited.add(vertex);
 
-                for(Edge<V> e : graph.getAdjacentEdges(v))
+                for(Edge<V> edge : graph.getAdjacentEdges(vertex))
                 {
-                    V neighbour = e.getNeighbour(v);
-                    double weight = graph.getProperty(e).getWeight();
+                    V neighbour = edge.getNeighbour(vertex);
+                    double weight = graph.getProperty(edge).getWeight();
 
-                    if(distances.get(v) + weight < distances.get(neighbour))
+                    if(distances.get(vertex) + weight < distances.get(neighbour))
                     {
-                        distances.put(neighbour, distances.get(v) + weight);
+                        distances.put(neighbour, distances.get(vertex) + weight);
                         vertexQueue.add(Pair.of(distances.get(neighbour), neighbour));
                     }
                 }
@@ -105,7 +103,7 @@ public final class Paths
     }
 
     /**
-     * Floyd-Warshall algorithm
+     * Floyd-Warshall algorithm.
      * @param graph a directed graph with weighted edges
      * @return map of distances between all pairs of vertices
      */
@@ -116,7 +114,7 @@ public final class Paths
 
         for(V v : graph.getVertices())
             for(V u : graph.getVertices())
-                distances.put(Pair.of(v, u), v.equals(u) ? 0.0 : INFINITY);
+                distances.put(Pair.of(v, u), v.equals(u) ? 0.0 : Weighted.INFINITY);
 
         for(Edge<V> e : graph.getEdges())
             distances.put(Pair.of(e.source, e.destination), graph.getProperty(e).getWeight());

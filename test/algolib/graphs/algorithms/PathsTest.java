@@ -18,7 +18,7 @@ import algolib.tuples.Pair;
 
 public class PathsTest
 {
-    private static final double INF = Paths.INFINITY;
+    private static final double INF = Weighted.INFINITY;
     private DirectedSimpleGraph<Integer, Void, Weight> directedGraph;
     private UndirectedSimpleGraph<Integer, Void, Weight> undirectedGraph;
 
