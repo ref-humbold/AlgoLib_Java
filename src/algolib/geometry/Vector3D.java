@@ -1,4 +1,4 @@
-// Structure of point in a space
+// Structure of vector in a space
 package algolib.geometry;
 
 import java.util.Objects;
