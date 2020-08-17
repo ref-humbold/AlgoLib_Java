@@ -41,10 +41,10 @@ public final class PointsSorting
         Objects.requireNonNull(points, "List of points is null");
 
         points.sort((pt1, pt2) -> {
-            if(pt1.angle() == pt2.angle())
+            if(pt1.angleDeg() == pt2.angleDeg())
                 return Double.compare(pt1.radius(), pt2.radius());
             else
-                return Double.compare(pt1.angle(), pt2.angle());
+                return Double.compare(pt1.angleDeg(), pt2.angleDeg());
         });
     }
 }

@@ -45,15 +45,20 @@ public final class Point2D
         return String.format("(%f, %f)", x, y);
     }
 
-    public double angle()
+    public double angleRad()
     {
-        double ang = Math.atan2(y, x) * 90.0 / (Math.PI / 2.0);
+        return Math.atan2(y, x);
+    }
+
+    public double angleDeg()
+    {
+        double ang = Math.atan2(y, x) * 180.0 / Math.PI;
 
         return y >= 0.0 ? ang : ang + 360.0;
     }
 
     public double radius()
     {
-        return x * x + y * y;
+        return Math.sqrt(x * x + y * y);
     }
 }

@@ -19,6 +19,11 @@ public final class Vector2D
         return new Vector2D(x, y);
     }
 
+    public static double area(Vector2D v1, Vector2D v2)
+    {
+        return v1.x * v2.y - v1.y * v2.x;
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -76,10 +81,5 @@ public final class Vector2D
     public double dot(Vector2D v)
     {
         return x * v.x + y * v.y;
-    }
-
-    public double area(Vector2D v)
-    {
-        return x * v.y - y * v.x;
     }
 }
