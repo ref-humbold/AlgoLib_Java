@@ -2,9 +2,10 @@ package algolib.geometry;
 
 import java.util.Objects;
 
-/** Structure of point on a plane */
+/** Structure of vector on a plane */
 public final class Vector2D
 {
+    public static final Vector2D ZERO = new Vector2D(0.0, 0.0);
     public final double x;
     public final double y;
 

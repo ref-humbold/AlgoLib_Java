@@ -5,6 +5,7 @@ import java.util.Objects;
 /** Structure of vector in a space */
 public final class Vector3D
 {
+    public static final Vector3D ZERO = new Vector3D(0.0, 0.0, 0.0);
     public final double x;
     public final double y;
     public final double z;

@@ -5,6 +5,7 @@ import java.util.Objects;
 /** Structure of point on a plane */
 public final class Point2D
 {
+    public static final Point2D ZERO = new Point2D(0.0, 0.0);
     public final double x;
     public final double y;
 

@@ -5,6 +5,7 @@ import java.util.Objects;
 /** Structure of point in a space */
 public final class Point3D
 {
+    public static final Point3D ZERO = new Point3D(0.0, 0.0, 0.0);
     public final double x;
     public final double y;
     public final double z;
