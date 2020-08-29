@@ -19,7 +19,7 @@ public final class Vector3D
 
     public Vector3D(Vector2D v)
     {
-        this(v.x, v.y, 0);
+        this(v.x, v.y, 0.0);
     }
 
     public static Vector3D of(double x, double y, double z)

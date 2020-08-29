@@ -19,7 +19,7 @@ public final class Point3D
 
     public Point3D(Point2D p)
     {
-        this(p.x, p.y, 0);
+        this(p.x, p.y, 0.0);
     }
 
     public static Point3D of(double x, double y, double z)

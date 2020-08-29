@@ -3,12 +3,12 @@ package algolib.geometry;
 /** Basic geometric operations */
 public final class Geometry
 {
-    public static Vector2D vector(Point2D begin, Point2D end)
+    public static Vector2D makeVector(Point2D begin, Point2D end)
     {
         return new Vector2D(end.x - begin.x, end.y - begin.y);
     }
 
-    public static Vector3D vector(Point3D begin, Point3D end)
+    public static Vector3D makeVector(Point3D begin, Point3D end)
     {
         return new Vector3D(end.x - begin.x, end.y - begin.y, end.z - begin.z);
     }
