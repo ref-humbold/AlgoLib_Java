@@ -14,6 +14,9 @@ public final class ConvexHull
      */
     public static List<Point2D> find(List<Point2D> points)
     {
+        if(points.size() < 3)
+            return List.of();
+
         List<Point2D> sorted = new ArrayList<>(points);
 
         PointsSorting.sortByX(sorted);

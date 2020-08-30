@@ -16,14 +16,14 @@ public class ConvexHullTest
     }
 
     @Test
-    public void find_WhenTwoPoints_ThenThesePointsInConvexHull()
+    public void find_WhenTwoPoints_ThenEmptyConvexHull()
     {
         // given
         List<Point2D> points = List.of(new Point2D(2.0, 3.0), new Point2D(3.0, 2.0));
         // when
         List<Point2D> result = ConvexHull.find(points);
         // then
-        Assertions.assertThat(result).isEqualTo(points);
+        Assertions.assertThat(result).isEmpty();
     }
 
     @Test
@@ -52,8 +52,9 @@ public class ConvexHullTest
         List<Point2D> result = ConvexHull.find(points);
         // then
         Assertions.assertThat(result)
-                  .containsExactly(points.get(3), points.get(6), points.get(9), points.get(15),
-                                   points.get(12), points.get(5), points.get(7), points.get(14));
+                  .containsExactly(new Point2D(-8, -7), new Point2D(-1, -8), new Point2D(3, -6),
+                                   new Point2D(6, -4), new Point2D(10, 2), new Point2D(5, 9),
+                                   new Point2D(-5, 10), new Point2D(-7, 7));
     }
 
     @Test
@@ -67,6 +68,7 @@ public class ConvexHullTest
         // when
         List<Point2D> result = ConvexHull.find(points);
         // then
-        Assertions.assertThat(result).containsExactly(points.get(1), points.get(6), points.get(4));
+        Assertions.assertThat(result)
+                  .containsExactly(new Point2D(-3, -3), new Point2D(7, -3), new Point2D(-3, 5));
     }
 }
