@@ -6,37 +6,60 @@ import java.util.Objects;
 public final class PointsSorting
 {
     /**
-     * Mutably sorts points by their cartesian coordinates.
-     * First sorts by X coordinate, then by Y coordinate.
+     * Mutably sorts points by their X coordinate. Sorting is guaranteed to be stable.
      * @param points a list of points
      */
-    public static void sortByX(List<Point2D> points)
+    public static void sort2DByX(List<Point2D> points)
     {
         Objects.requireNonNull(points, "List of points is null");
-
-        points.sort((pt1, pt2) -> pt1.x == pt2.x ? Double.compare(pt1.y, pt2.y)
-                                                 : Double.compare(pt1.x, pt2.x));
+        points.sort((pt1, pt2) -> Double.compare(pt1.x, pt2.x));
     }
 
     /**
-     * Mutably sorts points by their cartesian coordinates.
-     * First sorts by Y coordinate, then by X coordinate.
+     * Mutably sorts points by their X coordinate. Sorting is guaranteed to be stable.
      * @param points a list of points
      */
-    public static void sortByY(List<Point2D> points)
+    public static void sort3DByX(List<Point3D> points)
     {
         Objects.requireNonNull(points, "List of points is null");
-
-        points.sort((pt1, pt2) -> pt1.y == pt2.y ? Double.compare(pt1.x, pt2.x)
-                                                 : Double.compare(pt1.y, pt2.y));
+        points.sort((pt1, pt2) -> Double.compare(pt1.x, pt2.x));
     }
 
     /**
-     * Mutably sorts points by their polar coordinates.
-     * First sorts by angle, then by radius.
+     * Mutably sorts points by their Y coordinate. Sorting is guaranteed to be stable.
      * @param points a list of points
      */
-    public static void sortByAngle(List<Point2D> points)
+    public static void sort2DByY(List<Point2D> points)
+    {
+        Objects.requireNonNull(points, "List of points is null");
+        points.sort((pt1, pt2) -> Double.compare(pt1.y, pt2.y));
+    }
+
+    /**
+     * Mutably sorts points by their Y coordinate. Sorting is guaranteed to be stable.
+     * @param points a list of points
+     */
+    public static void sort3DByY(List<Point3D> points)
+    {
+        Objects.requireNonNull(points, "List of points is null");
+        points.sort((pt1, pt2) -> Double.compare(pt1.y, pt2.y));
+    }
+
+    /**
+     * Mutably sorts points by their Z coordinate. Sorting is guaranteed to be stable.
+     * @param points a list of points
+     */
+    public static void sort3DByZ(List<Point3D> points)
+    {
+        Objects.requireNonNull(points, "List of points is null");
+        points.sort((pt1, pt2) -> Double.compare(pt1.z, pt2.z));
+    }
+
+    /**
+     * Mutably sorts points by their polar coordinates. First sorts by angle, then by radius.
+     * @param points a list of points
+     */
+    public static void sort2DByAngle(List<Point2D> points)
     {
         Objects.requireNonNull(points, "List of points is null");
 

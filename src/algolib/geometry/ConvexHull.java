@@ -19,7 +19,7 @@ public final class ConvexHull
 
         List<Point2D> sorted = new ArrayList<>(points);
 
-        PointsSorting.sortByX(sorted);
+        PointsSorting.sort2DByX(sorted);
 
         List<Point2D> lowerHull = createHalfHull(sorted);
 
@@ -30,7 +30,6 @@ public final class ConvexHull
         lowerHull.remove(lowerHull.size() - 1);
         upperHull.remove(upperHull.size() - 1);
         lowerHull.addAll(upperHull);
-
         return lowerHull;
     }
 
@@ -53,6 +52,6 @@ public final class ConvexHull
 
     private static double crossProduct(Point2D pt1, Point2D pt2, Point2D pt3)
     {
-        return (pt1.x - pt2.x) * (pt3.y - pt2.y) - (pt3.x - pt2.x) * (pt1.y - pt2.y);
+        return Vector2D.area(Geometry.makeVector(pt2, pt1), Geometry.makeVector(pt2, pt3));
     }
 }

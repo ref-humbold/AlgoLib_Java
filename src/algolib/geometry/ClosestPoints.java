@@ -18,8 +18,8 @@ public final class ClosestPoints
         List<Point2D> pointsX = new ArrayList<>(points);
         List<Point2D> pointsY = new ArrayList<>(points);
 
-        PointsSorting.sortByX(pointsX);
-        PointsSorting.sortByY(pointsY);
+        PointsSorting.sort2DByX(pointsX);
+        PointsSorting.sort2DByY(pointsY);
 
         return searchClosest(pointsX, pointsY, 0, -1);
     }

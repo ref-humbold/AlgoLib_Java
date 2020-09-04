@@ -10,7 +10,7 @@ public class ConvexHullTest
     public void find_WhenOnePoint_ThenEmptyConvexHull()
     {
         // when
-        List<Point2D> result = ConvexHull.find(List.of(new Point2D(3.0, 2.0)));
+        List<Point2D> result = ConvexHull.find(List.of(Point2D.of(3.0, 2.0)));
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -18,10 +18,8 @@ public class ConvexHullTest
     @Test
     public void find_WhenTwoPoints_ThenEmptyConvexHull()
     {
-        // given
-        List<Point2D> points = List.of(new Point2D(2.0, 3.0), new Point2D(3.0, 2.0));
         // when
-        List<Point2D> result = ConvexHull.find(points);
+        List<Point2D> result = ConvexHull.find(List.of(Point2D.of(2.0, 3.0), Point2D.of(3.0, 2.0)));
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -31,7 +29,7 @@ public class ConvexHullTest
     {
         // given
         List<Point2D> points =
-                List.of(new Point2D(1.0, -1.0), new Point2D(5.0, 1.0), new Point2D(3.0, 4.0));
+                List.of(Point2D.of(1.0, -1.0), Point2D.of(5.0, 1.0), Point2D.of(3.0, 4.0));
         // when
         List<Point2D> result = ConvexHull.find(points);
         // then
@@ -41,34 +39,30 @@ public class ConvexHullTest
     @Test
     public void find_ThenPointsInConvexHull()
     {
-        // given
-        List<Point2D> points = List.of(new Point2D(1, -3), new Point2D(-4, 6), new Point2D(-5, -7),
-                                       new Point2D(-8, -7), new Point2D(-3, -4), new Point2D(5, 9),
-                                       new Point2D(-1, -8), new Point2D(-5, 10), new Point2D(8, 0),
-                                       new Point2D(3, -6), new Point2D(-2, 1), new Point2D(-2, 8),
-                                       new Point2D(10, 2), new Point2D(6, 3), new Point2D(-7, 7),
-                                       new Point2D(6, -4));
         // when
-        List<Point2D> result = ConvexHull.find(points);
+        List<Point2D> result = ConvexHull.find(
+                List.of(Point2D.of(1, -3), Point2D.of(-4, 6), Point2D.of(-5, -7),
+                        Point2D.of(-8, -7), Point2D.of(-3, -4), Point2D.of(5, 9),
+                        Point2D.of(-1, -8), Point2D.of(-5, 10), Point2D.of(8, 0), Point2D.of(3, -6),
+                        Point2D.of(-2, 1), Point2D.of(-2, 8), Point2D.of(10, 2), Point2D.of(6, 3),
+                        Point2D.of(-7, 7), Point2D.of(6, -4)));
         // then
         Assertions.assertThat(result)
-                  .containsExactly(new Point2D(-8, -7), new Point2D(-1, -8), new Point2D(3, -6),
-                                   new Point2D(6, -4), new Point2D(10, 2), new Point2D(5, 9),
-                                   new Point2D(-5, 10), new Point2D(-7, 7));
+                  .containsExactly(Point2D.of(-8, -7), Point2D.of(-1, -8), Point2D.of(3, -6),
+                                   Point2D.of(6, -4), Point2D.of(10, 2), Point2D.of(5, 9),
+                                   Point2D.of(-5, 10), Point2D.of(-7, 7));
     }
 
     @Test
     public void find_WhenMultiplePointsAreCollinear_ThenConvexHullOmitsInnerPoints()
     {
-        // given
-        List<Point2D> points =
-                List.of(new Point2D(-1, -3), new Point2D(-3, -3), new Point2D(-3, -1),
-                        new Point2D(2, -3), new Point2D(-3, 5), new Point2D(0, -3),
-                        new Point2D(7, -3), new Point2D(-3, -2));
         // when
-        List<Point2D> result = ConvexHull.find(points);
+        List<Point2D> result = ConvexHull.find(
+                List.of(Point2D.of(-1, -3), Point2D.of(-3, -3), Point2D.of(-3, -1),
+                        Point2D.of(2, -3), Point2D.of(-3, 5), Point2D.of(0, -3), Point2D.of(7, -3),
+                        Point2D.of(-3, -2)));
         // then
         Assertions.assertThat(result)
-                  .containsExactly(new Point2D(-3, -3), new Point2D(7, -3), new Point2D(-3, 5));
+                  .containsExactly(Point2D.of(-3, -3), Point2D.of(7, -3), Point2D.of(-3, 5));
     }
 }
