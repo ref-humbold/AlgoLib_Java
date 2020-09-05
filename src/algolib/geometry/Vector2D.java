@@ -5,7 +5,6 @@ import java.util.Objects;
 /** Structure of vector on a plane */
 public final class Vector2D
 {
-    public static final Vector2D ZERO = new Vector2D(0.0, 0.0);
     public final double x;
     public final double y;
 
@@ -20,9 +19,9 @@ public final class Vector2D
         return new Vector2D(x, y);
     }
 
-    public static double area(Vector2D v1, Vector2D v2)
+    public static Vector2D between(Point2D begin, Point2D end)
     {
-        return v1.x * v2.y - v1.y * v2.x;
+        return new Vector2D(end.x - begin.x, end.y - begin.y);
     }
 
     public static Vector2D fromVector(Vector p)
@@ -33,9 +32,9 @@ public final class Vector2D
         return new Vector2D(p.dim(1), p.dim(2));
     }
 
-    public Vector toVector()
+    public static double area(Vector2D v1, Vector2D v2)
     {
-        return new Vector(x, y);
+        return v1.x * v2.y - v1.y * v2.x;
     }
 
     @Override
@@ -62,6 +61,11 @@ public final class Vector2D
     public String toString()
     {
         return String.format("[%f, %f]", x, y);
+    }
+
+    public Vector toVector()
+    {
+        return new Vector(x, y);
     }
 
     public double length()

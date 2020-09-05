@@ -5,7 +5,6 @@ import java.util.Objects;
 /** Structure of point on a plane */
 public final class Point2D
 {
-    public static final Point2D ZERO = new Point2D(0.0, 0.0);
     public final double x;
     public final double y;
 
@@ -26,11 +25,6 @@ public final class Point2D
             throw new IllegalArgumentException("Point should have exactly 2 dimensions");
 
         return new Point2D(p.dim(1), p.dim(2));
-    }
-
-    public Point toPoint()
-    {
-        return new Point(x, y);
     }
 
     @Override
@@ -57,6 +51,11 @@ public final class Point2D
     public String toString()
     {
         return String.format("(%f, %f)", x, y);
+    }
+
+    public Point toPoint()
+    {
+        return new Point(x, y);
     }
 
     public double radius()

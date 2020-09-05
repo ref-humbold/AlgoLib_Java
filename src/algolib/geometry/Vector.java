@@ -18,6 +18,17 @@ public class Vector
         this.coordinates = coordinates;
     }
 
+    public static Vector between(Point begin, Point end)
+    {
+        int vectorDims = Math.max(begin.dims(), end.dims());
+        Point newBegin = begin.project(vectorDims);
+        Point newEnd = end.project(vectorDims);
+
+        return new Vector(IntStream.rangeClosed(1, vectorDims)
+                                   .mapToDouble(i -> newEnd.dim(i) - newBegin.dim(i))
+                                   .toArray());
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -29,17 +40,13 @@ public class Vector
 
         Vector other = (Vector)obj;
 
-        if(coordinates.length != other.coordinates.length)
-            return false;
-
-        return IntStream.range(0, coordinates.length)
-                        .allMatch(i -> coordinates[i] == other.coordinates[i]);
+        return Arrays.equals(coordinates, other.coordinates);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(coordinates, 0x935fe66);
+        return Objects.hash(coordinates, 0x995ee33);
     }
 
     @Override
@@ -75,29 +82,28 @@ public class Vector
         if(dimensions <= 0)
             throw new IllegalArgumentException("Dimensions count has to be positive");
 
-        return dimensions == coordinates.length ? this : new Vector(
-                Arrays.copyOf(coordinates, dimensions));
+        return dimensions == coordinates.length ? this : new Vector(projectCoordinates(dimensions));
     }
 
     public Vector add(Vector v)
     {
         int newDims = Math.max(coordinates.length, v.coordinates.length);
-        Vector v1 = project(newDims);
-        Vector v2 = v.project(newDims);
+        double[] coordinates1 = projectCoordinates(newDims);
+        double[] coordinates2 = v.projectCoordinates(newDims);
 
         return new Vector(IntStream.range(0, newDims)
-                                   .mapToDouble(i -> v1.coordinates[i] + v2.coordinates[i])
+                                   .mapToDouble(i -> coordinates1[i] + coordinates2[i])
                                    .toArray());
     }
 
     public Vector subtract(Vector v)
     {
         int newDims = Math.max(coordinates.length, v.coordinates.length);
-        Vector v1 = project(newDims);
-        Vector v2 = v.project(newDims);
+        double[] coordinates1 = projectCoordinates(newDims);
+        double[] coordinates2 = v.projectCoordinates(newDims);
 
         return new Vector(IntStream.range(0, newDims)
-                                   .mapToDouble(i -> v1.coordinates[i] - v2.coordinates[i])
+                                   .mapToDouble(i -> coordinates1[i] - coordinates2[i])
                                    .toArray());
     }
 
@@ -117,12 +123,18 @@ public class Vector
     public double dot(Vector v)
     {
         int newDims = Math.max(coordinates.length, v.coordinates.length);
-        Vector v1 = project(newDims);
-        Vector v2 = v.project(newDims);
+        double[] coordinates1 = projectCoordinates(newDims);
+        double[] coordinates2 = v.projectCoordinates(newDims);
 
         return IntStream.range(0, newDims)
-                        .mapToDouble(i -> v1.coordinates[i] * v2.coordinates[i])
+                        .mapToDouble(i -> coordinates1[i] * coordinates2[i])
                         .sum();
+    }
+
+    private double[] projectCoordinates(int dimensions)
+    {
+        return dimensions == coordinates.length ? coordinates
+                                                : Arrays.copyOf(coordinates, dimensions);
     }
 }
 

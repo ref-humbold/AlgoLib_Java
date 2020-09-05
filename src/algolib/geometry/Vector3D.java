@@ -5,7 +5,6 @@ import java.util.Objects;
 /** Structure of vector in a space */
 public final class Vector3D
 {
-    public static final Vector3D ZERO = new Vector3D(0.0, 0.0, 0.0);
     public final double x;
     public final double y;
     public final double z;
@@ -22,6 +21,19 @@ public final class Vector3D
         return new Vector3D(x, y, z);
     }
 
+    public static Vector3D between(Point3D begin, Point3D end)
+    {
+        return new Vector3D(end.x - begin.x, end.y - begin.y, end.z - begin.z);
+    }
+
+    public static Vector3D fromVector(Vector p)
+    {
+        if(p.dims() != 3)
+            throw new IllegalArgumentException("Point should have exactly 3 dimensions");
+
+        return new Vector3D(p.dim(1), p.dim(2), p.dim(3));
+    }
+
     public static double area(Vector3D v1, Vector3D v2)
     {
         return v1.cross(v2).length();
@@ -30,24 +42,6 @@ public final class Vector3D
     public static double volume(Vector3D v1, Vector3D v2, Vector3D v3)
     {
         return v1.dot(v2.cross(v3));
-    }
-
-    public static Vector3D fromVector(Vector2D v)
-    {
-        return new Vector3D(v.x, v.y, 0.0);
-    }
-
-    public static Vector3D fromPoint(Vector p)
-    {
-        if(p.dims() != 3)
-            throw new IllegalArgumentException("Point should have exactly 3 dimensions");
-
-        return new Vector3D(p.dim(1), p.dim(2), p.dim(3));
-    }
-
-    public Vector toVector()
-    {
-        return new Vector(x, y, z);
     }
 
     @Override
@@ -74,6 +68,11 @@ public final class Vector3D
     public String toString()
     {
         return String.format("[%f, %f, %f]", x, y, z);
+    }
+
+    public Vector toVector()
+    {
+        return new Vector(x, y, z);
     }
 
     public double length()

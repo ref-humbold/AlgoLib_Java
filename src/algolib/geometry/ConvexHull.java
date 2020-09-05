@@ -52,6 +52,6 @@ public final class ConvexHull
 
     private static double crossProduct(Point2D pt1, Point2D pt2, Point2D pt3)
     {
-        return Vector2D.area(Geometry.makeVector(pt2, pt1), Geometry.makeVector(pt2, pt3));
+        return Vector2D.area(Vector2D.between(pt2, pt1), Vector2D.between(pt2, pt3));
     }
 }

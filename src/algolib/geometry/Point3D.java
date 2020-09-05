@@ -5,7 +5,6 @@ import java.util.Objects;
 /** Structure of point in a space */
 public final class Point3D
 {
-    public static final Point3D ZERO = new Point3D(0.0, 0.0, 0.0);
     public final double x;
     public final double y;
     public final double z;
@@ -22,22 +21,12 @@ public final class Point3D
         return new Point3D(x, y, z);
     }
 
-    public static Point3D fromPoint(Point2D p)
-    {
-        return new Point3D(p.x, p.y, 0.0);
-    }
-
     public static Point3D fromPoint(Point p)
     {
         if(p.dims() != 3)
             throw new IllegalArgumentException("Point should have exactly 3 dimensions");
 
         return new Point3D(p.dim(1), p.dim(2), p.dim(3));
-    }
-
-    public Point toPoint()
-    {
-        return new Point(x, y, z);
     }
 
     @Override
@@ -64,6 +53,11 @@ public final class Point3D
     public String toString()
     {
         return String.format("(%f, %f, %f)", x, y, z);
+    }
+
+    public Point toPoint()
+    {
+        return new Point(x, y, z);
     }
 
     public double radius()

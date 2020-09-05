@@ -5,27 +5,6 @@ import java.util.stream.IntStream;
 /** Basic geometric operations */
 public final class Geometry
 {
-    public static Vector makeVector(Point begin, Point end)
-    {
-        int vectorDims = Math.max(begin.dims(), end.dims());
-        Point newBegin = begin.project(vectorDims);
-        Point newEnd = end.project(vectorDims);
-
-        return new Vector(IntStream.rangeClosed(1, vectorDims)
-                                   .mapToDouble(i -> newEnd.dim(i) - newBegin.dim(i))
-                                   .toArray());
-    }
-
-    public static Vector2D makeVector(Point2D begin, Point2D end)
-    {
-        return new Vector2D(end.x - begin.x, end.y - begin.y);
-    }
-
-    public static Vector3D makeVector(Point3D begin, Point3D end)
-    {
-        return new Vector3D(end.x - begin.x, end.y - begin.y, end.z - begin.z);
-    }
-
     public static double distance(Point p1, Point p2)
     {
         int dims = Math.max(p1.dims(), p2.dims());

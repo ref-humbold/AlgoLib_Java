@@ -1,6 +1,8 @@
 package algolib.geometry;
 
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /** Structure of geometric point */
 public class Point
@@ -13,6 +15,34 @@ public class Point
             throw new IllegalArgumentException("Empty coordinates array");
 
         this.coordinates = coordinates;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(this == obj)
+            return true;
+
+        if(!(obj instanceof Point))
+            return false;
+
+        Point other = (Point)obj;
+
+        return Arrays.equals(coordinates, other.coordinates);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(coordinates, 0x9e3779b9);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "[" + Arrays.stream(coordinates)
+                           .mapToObj(Double::toString)
+                           .collect(Collectors.joining(", ")) + "]";
     }
 
     public int dims()
