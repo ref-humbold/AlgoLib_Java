@@ -20,6 +20,19 @@ public final class Point2D
         return new Point2D(x, y);
     }
 
+    public static Point2D fromPoint(Point p)
+    {
+        if(p.dims() != 2)
+            throw new IllegalArgumentException("Point should have exactly 2 dimensions");
+
+        return new Point2D(p.dim(1), p.dim(2));
+    }
+
+    public Point toPoint()
+    {
+        return new Point(x, y);
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -31,7 +44,7 @@ public final class Point2D
 
         Point2D other = (Point2D)obj;
 
-        return Objects.equals(x, other.x) && Objects.equals(y, other.y);
+        return x == other.x && y == other.y;
     }
 
     @Override
@@ -46,6 +59,11 @@ public final class Point2D
         return String.format("(%f, %f)", x, y);
     }
 
+    public double radius()
+    {
+        return Math.sqrt(x * x + y * y);
+    }
+
     public double angleRad()
     {
         return Math.atan2(y, x);
@@ -53,13 +71,8 @@ public final class Point2D
 
     public double angleDeg()
     {
-        double ang = Math.atan2(y, x) * 180.0 / Math.PI;
+        double ang = angleRad() * 180.0 / Math.PI;
 
         return y >= 0.0 ? ang : ang + 360.0;
-    }
-
-    public double radius()
-    {
-        return Math.sqrt(x * x + y * y);
     }
 }

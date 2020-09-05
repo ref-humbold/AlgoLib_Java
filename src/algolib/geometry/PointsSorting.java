@@ -1,17 +1,25 @@
 package algolib.geometry;
 
 import java.util.List;
-import java.util.Objects;
 
 public final class PointsSorting
 {
+    /**
+     * Mutably sorts points by given coordinate index. Sorting is guaranteed to be stable.
+     * @param i coordinate index
+     * @param points a list of points
+     */
+    public static void sortByDim(int i, List<Point> points)
+    {
+        points.sort((pt1, pt2) -> Double.compare(pt1.dim(i), pt2.dim(i)));
+    }
+
     /**
      * Mutably sorts points by their X coordinate. Sorting is guaranteed to be stable.
      * @param points a list of points
      */
     public static void sort2DByX(List<Point2D> points)
     {
-        Objects.requireNonNull(points, "List of points is null");
         points.sort((pt1, pt2) -> Double.compare(pt1.x, pt2.x));
     }
 
@@ -21,7 +29,6 @@ public final class PointsSorting
      */
     public static void sort3DByX(List<Point3D> points)
     {
-        Objects.requireNonNull(points, "List of points is null");
         points.sort((pt1, pt2) -> Double.compare(pt1.x, pt2.x));
     }
 
@@ -31,7 +38,6 @@ public final class PointsSorting
      */
     public static void sort2DByY(List<Point2D> points)
     {
-        Objects.requireNonNull(points, "List of points is null");
         points.sort((pt1, pt2) -> Double.compare(pt1.y, pt2.y));
     }
 
@@ -41,7 +47,6 @@ public final class PointsSorting
      */
     public static void sort3DByY(List<Point3D> points)
     {
-        Objects.requireNonNull(points, "List of points is null");
         points.sort((pt1, pt2) -> Double.compare(pt1.y, pt2.y));
     }
 
@@ -51,7 +56,6 @@ public final class PointsSorting
      */
     public static void sort3DByZ(List<Point3D> points)
     {
-        Objects.requireNonNull(points, "List of points is null");
         points.sort((pt1, pt2) -> Double.compare(pt1.z, pt2.z));
     }
 
@@ -61,8 +65,6 @@ public final class PointsSorting
      */
     public static void sort2DByAngle(List<Point2D> points)
     {
-        Objects.requireNonNull(points, "List of points is null");
-
         points.sort((pt1, pt2) -> {
             if(pt1.angleDeg() == pt2.angleDeg())
                 return Double.compare(pt1.radius(), pt2.radius());

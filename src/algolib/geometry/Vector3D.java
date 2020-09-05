@@ -17,11 +17,6 @@ public final class Vector3D
         this.z = z;
     }
 
-    public Vector3D(Vector2D v)
-    {
-        this(v.x, v.y, 0.0);
-    }
-
     public static Vector3D of(double x, double y, double z)
     {
         return new Vector3D(x, y, z);
@@ -37,6 +32,24 @@ public final class Vector3D
         return v1.dot(v2.cross(v3));
     }
 
+    public static Vector3D fromVector(Vector2D v)
+    {
+        return new Vector3D(v.x, v.y, 0.0);
+    }
+
+    public static Vector3D fromPoint(Vector p)
+    {
+        if(p.dims() != 3)
+            throw new IllegalArgumentException("Point should have exactly 3 dimensions");
+
+        return new Vector3D(p.dim(1), p.dim(2), p.dim(3));
+    }
+
+    public Vector toVector()
+    {
+        return new Vector(x, y, z);
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -48,8 +61,7 @@ public final class Vector3D
 
         Vector3D other = (Vector3D)obj;
 
-        return Objects.equals(x, other.x) && Objects.equals(y, other.y) && Objects.equals(z,
-                                                                                          other.z);
+        return x == other.x && y == other.y && z == other.z;
     }
 
     @Override

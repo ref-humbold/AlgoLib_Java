@@ -25,6 +25,19 @@ public final class Vector2D
         return v1.x * v2.y - v1.y * v2.x;
     }
 
+    public static Vector2D fromVector(Vector p)
+    {
+        if(p.dims() != 2)
+            throw new IllegalArgumentException("Vector should have exactly 2 dimensions");
+
+        return new Vector2D(p.dim(1), p.dim(2));
+    }
+
+    public Vector toVector()
+    {
+        return new Vector(x, y);
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -36,7 +49,7 @@ public final class Vector2D
 
         Vector2D other = (Vector2D)obj;
 
-        return Objects.equals(x, other.x) && Objects.equals(y, other.y);
+        return x == other.x && y == other.y;
     }
 
     @Override

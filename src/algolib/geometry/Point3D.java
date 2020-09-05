@@ -17,14 +17,27 @@ public final class Point3D
         this.z = z;
     }
 
-    public Point3D(Point2D p)
-    {
-        this(p.x, p.y, 0.0);
-    }
-
     public static Point3D of(double x, double y, double z)
     {
         return new Point3D(x, y, z);
+    }
+
+    public static Point3D fromPoint(Point2D p)
+    {
+        return new Point3D(p.x, p.y, 0.0);
+    }
+
+    public static Point3D fromPoint(Point p)
+    {
+        if(p.dims() != 3)
+            throw new IllegalArgumentException("Point should have exactly 3 dimensions");
+
+        return new Point3D(p.dim(1), p.dim(2), p.dim(3));
+    }
+
+    public Point toPoint()
+    {
+        return new Point(x, y, z);
     }
 
     @Override
@@ -38,8 +51,7 @@ public final class Point3D
 
         Point3D other = (Point3D)obj;
 
-        return Objects.equals(x, other.x) && Objects.equals(y, other.y) && Objects.equals(z,
-                                                                                          other.z);
+        return x == other.x && y == other.y && z == other.z;
     }
 
     @Override
