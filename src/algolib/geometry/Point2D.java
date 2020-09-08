@@ -1,10 +1,9 @@
-// Structure of point on a plane
 package algolib.geometry;
 
 import java.util.Objects;
 
+/** Structure of point on a plane */
 public final class Point2D
-        implements Comparable<Point2D>
 {
     public final double x;
     public final double y;
@@ -20,6 +19,14 @@ public final class Point2D
         return new Point2D(x, y);
     }
 
+    public static Point2D fromPoint(Point p)
+    {
+        if(p.dims() != 2)
+            throw new IllegalArgumentException("Point should have exactly 2 dimensions");
+
+        return new Point2D(p.dim(1), p.dim(2));
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -31,36 +38,40 @@ public final class Point2D
 
         Point2D other = (Point2D)obj;
 
-        return Objects.equals(x, other.x) && Objects.equals(y, other.y);
+        return x == other.x && y == other.y;
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(x, y);
-    }
-
-    @Override
-    public int compareTo(Point2D p)
-    {
-        return x == p.x ? Double.compare(y, p.y) : Double.compare(x, p.x);
+        return Objects.hash(x, y, 0x933ff53);
     }
 
     @Override
     public String toString()
     {
-        return String.format("(%s, %s)", x, y);
+        return String.format("(%f, %f)", x, y);
     }
 
-    public double angle()
+    public Point toPoint()
     {
-        double ang = Math.atan2(y, x) * 90.0 / (Math.PI / 2.0);
-
-        return y >= 0.0 ? ang : ang + 360.0;
+        return new Point(x, y);
     }
 
     public double radius()
     {
-        return x * x + y * y;
+        return Math.sqrt(x * x + y * y);
+    }
+
+    public double angleRad()
+    {
+        return Math.atan2(y, x);
+    }
+
+    public double angleDeg()
+    {
+        double ang = angleRad() * 180.0 / Math.PI;
+
+        return y >= 0.0 ? ang : ang + 360.0;
     }
 }

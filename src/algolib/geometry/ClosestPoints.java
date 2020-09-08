@@ -1,4 +1,3 @@
-// Algorithm for pair of closest points on a plane
 package algolib.geometry;
 
 import java.util.ArrayList;
@@ -6,6 +5,7 @@ import java.util.List;
 
 import algolib.tuples.Pair;
 
+/** Algorithm for pair of closest points on a plane */
 public final class ClosestPoints
 {
     /**
@@ -18,18 +18,10 @@ public final class ClosestPoints
         List<Point2D> pointsX = new ArrayList<>(points);
         List<Point2D> pointsY = new ArrayList<>(points);
 
-        PointsSorting.sortByX(pointsX);
-        PointsSorting.sortByY(pointsY);
+        PointsSorting.sort2DByX(pointsX);
+        PointsSorting.sort2DByY(pointsY);
 
         return searchClosest(pointsX, pointsY, 0, -1);
-    }
-
-    private double distance(Point2D pt1, Point2D pt2)
-    {
-        double dx = pt1.x - pt2.x;
-        double dy = pt1.y - pt2.y;
-
-        return dx * dx + dy * dy;
     }
 
     // Finds closest pair of points among three of them.
@@ -37,9 +29,9 @@ public final class ClosestPoints
                                                int index_end)
     {
         int index_middle = index_begin + 1;
-        double distance12 = distance(pointsX.get(index_begin), pointsX.get(index_middle));
-        double distance23 = distance(pointsX.get(index_middle), pointsX.get(index_end));
-        double distance31 = distance(pointsX.get(index_begin), pointsX.get(index_end));
+        double distance12 = Geometry.distance(pointsX.get(index_begin), pointsX.get(index_middle));
+        double distance23 = Geometry.distance(pointsX.get(index_middle), pointsX.get(index_end));
+        double distance31 = Geometry.distance(pointsX.get(index_begin), pointsX.get(index_end));
 
         if(distance12 <= distance23 && distance12 <= distance31)
             return Pair.of(pointsX.get(index_begin), pointsX.get(index_middle));
@@ -56,8 +48,8 @@ public final class ClosestPoints
                                              double beltWidth)
     {
         Pair<Point2D, Point2D> closestPoints = null;
-        double minDistance = beltWidth;
         List<Integer> beltPoints = new ArrayList<>();
+        double minDistance = beltWidth;
 
         for(int i = 0; i < pointsY.size(); ++i)
             if(pointsY.get(i).x >= middleX - beltWidth && pointsY.get(i).x <= middleX + beltWidth)
@@ -74,7 +66,7 @@ public final class ClosestPoints
 
                 if((pt1.x <= middleX && pt2.x > middleX) || (pt1.x > middleX && pt2.x <= middleX))
                 {
-                    double actual_distance = distance(pt1, pt2);
+                    double actual_distance = Geometry.distance(pt1, pt2);
 
                     if(actual_distance < minDistance)
                     {
@@ -117,11 +109,11 @@ public final class ClosestPoints
         Pair<Point2D, Point2D> closestR =
                 searchClosest(pointsX, pointsYR, index_middle + 1, index_end);
         Pair<Point2D, Point2D> closestPoints =
-                distance(closestL.first, closestL.second) <= distance(closestR.first,
-                                                                      closestR.second) ? closestL
-                                                                                       : closestR;
-        Pair<Point2D, Point2D> beltPoints =
-                checkBelt(pointsY, middleX, distance(closestPoints.first, closestPoints.second));
+                Geometry.distance(closestL.first, closestL.second) <= Geometry.distance(
+                        closestR.first, closestR.second) ? closestL : closestR;
+        Pair<Point2D, Point2D> beltPoints = checkBelt(pointsY, middleX,
+                                                      Geometry.distance(closestPoints.first,
+                                                                        closestPoints.second));
 
         return beltPoints != null ? beltPoints : closestPoints;
     }
