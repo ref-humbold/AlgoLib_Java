@@ -38,7 +38,7 @@ public final class Sorting
      * Mutably sorts given sequence using a top-down merge-sort algorithm.
      * @param sequence a sequence of elements
      */
-    public static <T extends Comparable<T>> void mergedownSort(List<T> sequence)
+    public static <T extends Comparable<T>> void topDownMergeSort(List<T> sequence)
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
         Sorting.doMergeSort(sequence, 0, sequence.size());
@@ -48,7 +48,7 @@ public final class Sorting
      * Mutably sorts given sequence using a bottom-up merge-sort algorithm.
      * @param sequence a sequence of elements
      */
-    public static <T extends Comparable<T>> void mergeupSort(List<T> sequence)
+    public static <T extends Comparable<T>> void bottomUpMergeSort(List<T> sequence)
     {
         Objects.requireNonNull(sequence, "Sequence is null.");
 
