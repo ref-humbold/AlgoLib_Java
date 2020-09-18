@@ -29,6 +29,17 @@ public class Vector
                                    .toArray());
     }
 
+    public static double dot(Vector v1, Vector v2)
+    {
+        int newDims = Math.max(v1.coordinates.length, v2.coordinates.length);
+        double[] coordinates1 = v1.projectCoordinates(newDims);
+        double[] coordinates2 = v2.projectCoordinates(newDims);
+
+        return IntStream.range(0, newDims)
+                        .mapToDouble(i -> coordinates1[i] * coordinates2[i])
+                        .sum();
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -118,17 +129,6 @@ public class Vector
             throw new ArithmeticException("Division by zero");
 
         return new Vector(Arrays.stream(coordinates).map(coord -> coord / c).toArray());
-    }
-
-    public double dot(Vector v)
-    {
-        int newDims = Math.max(coordinates.length, v.coordinates.length);
-        double[] coordinates1 = projectCoordinates(newDims);
-        double[] coordinates2 = v.projectCoordinates(newDims);
-
-        return IntStream.range(0, newDims)
-                        .mapToDouble(i -> coordinates1[i] * coordinates2[i])
-                        .sum();
     }
 
     private double[] projectCoordinates(int dimensions)

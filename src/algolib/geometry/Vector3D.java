@@ -34,14 +34,25 @@ public final class Vector3D
         return new Vector3D(p.dim(1), p.dim(2), p.dim(3));
     }
 
+    public static double dot(Vector3D v1, Vector3D v2)
+    {
+        return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+    }
+
+    public static Vector3D cross(Vector3D v1, Vector3D v2)
+    {
+        return new Vector3D(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z,
+                            v1.x * v2.y - v1.y * v2.x);
+    }
+
     public static double area(Vector3D v1, Vector3D v2)
     {
-        return v1.cross(v2).length();
+        return cross(v1, v2).length();
     }
 
     public static double volume(Vector3D v1, Vector3D v2, Vector3D v3)
     {
-        return v1.dot(v2.cross(v3));
+        return dot(v1, cross(v2, v3));
     }
 
     @Override
@@ -101,15 +112,5 @@ public final class Vector3D
             throw new ArithmeticException("Division by zero");
 
         return new Vector3D(x / c, y / c, z / c);
-    }
-
-    public double dot(Vector3D v)
-    {
-        return x * v.x + y * v.y + z * v.z;
-    }
-
-    public Vector3D cross(Vector3D v)
-    {
-        return new Vector3D(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
     }
 }

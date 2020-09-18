@@ -32,6 +32,11 @@ public final class Vector2D
         return new Vector2D(p.dim(1), p.dim(2));
     }
 
+    public static double dot(Vector2D v1, Vector2D v2)
+    {
+        return v1.x * v2.x + v1.y * v2.y;
+    }
+
     public static double area(Vector2D v1, Vector2D v2)
     {
         return v1.x * v2.y - v1.y * v2.x;
@@ -94,10 +99,5 @@ public final class Vector2D
             throw new ArithmeticException("Division by zero");
 
         return new Vector2D(x / c, y / c);
-    }
-
-    public double dot(Vector2D v)
-    {
-        return x * v.x + y * v.y;
     }
 }
