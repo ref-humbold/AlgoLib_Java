@@ -10,12 +10,12 @@ public class PrimesTest
     //region testFindPrimes
 
     @Test
-    public void findPrimes_WhenTwoArgsDescending()
+    public void findPrimes_WhenTwoArgsDescending_ThenEmpty()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> Primes.find(100, 30));
+        Collection<Integer> result = Primes.find(100, 30);
         // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThat(result).isEmpty();
     }
 
     @Test
@@ -47,14 +47,14 @@ public class PrimesTest
         // then
         Assertions.assertThat(result)
                   .containsExactly(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
-                                   61, 67);
+                                   61);
     }
 
     @Test
-    public void findPrimesOneArg_WhenLessThanTwo()
+    public void findPrimesOneArg_WhenAtMostTwo()
     {
         // when
-        Collection<Integer> result = Primes.find(1);
+        Collection<Integer> result = Primes.find(2);
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -92,7 +92,7 @@ public class PrimesTest
         Assertions.assertThat(result)
                   .containsExactly(137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
                                    199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271,
-                                   277, 281, 283, 293, 307, 311, 313, 317);
+                                   277, 281, 283, 293, 307, 311, 313);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class PrimesTest
         // when
         Collection<Integer> result = Primes.find(41, 41);
         // then
-        Assertions.assertThat(result).containsExactly(41);
+        Assertions.assertThat(result).isEmpty();
     }
 
     @Test

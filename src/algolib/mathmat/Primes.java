@@ -4,6 +4,7 @@ package algolib.mathmat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public final class Primes
@@ -15,18 +16,23 @@ public final class Primes
         return Primes.find(0, maxNumber);
     }
 
+    /**
+     * Finds prime numbers inside a range of integers.
+     * @param minNumber minimal number in range, inclusive
+     * @param maxNumber maximal number in range, exclusive
+     * @return collection of prime numbers
+     */
     public static Collection<Integer> find(int minNumber, int maxNumber)
     {
-        if(maxNumber < minNumber)
-            throw new IllegalArgumentException(
-                    "Second argument must be grater or equal to the first argument.");
+        if(maxNumber <= minNumber || maxNumber <= 2)
+            return List.of();
 
         ArrayList<Integer> primes = new ArrayList<>();
         ArrayList<Boolean> is_prime = new ArrayList<>();
         ArrayList<Boolean> base_primes =
                 new ArrayList<>(Collections.nCopies((int)(Math.sqrt(maxNumber) / 2), true));
 
-        for(int i = minNumber; i <= maxNumber; ++i)
+        for(int i = minNumber; i < maxNumber; ++i)
             is_prime.add(i == 2 || (i > 2 && i % 2 != 0));
 
         for(int i = 0; i < base_primes.size(); ++i)
