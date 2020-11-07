@@ -1,6 +1,6 @@
-// Algorithms for basic mathematical computations
 package algolib.mathmat;
 
+/** Algorithms for basic mathematical computations */
 public final class Maths
 {
     /**
@@ -46,7 +46,7 @@ public final class Maths
      * @param modulo a modulo value
      * @return multiplication result with modulo taken
      */
-    public static long multMod(long factor1, long factor2, long modulo)
+    public static long multiplyMod(long factor1, long factor2, long modulo)
     {
         long result = 0;
 
@@ -54,13 +54,13 @@ public final class Maths
             throw new ArithmeticException("Negative modulo");
 
         if(factor1 < 0 && factor2 < 0)
-            return Maths.multMod(-factor1, -factor2, modulo);
+            return Maths.multiplyMod(-factor1, -factor2, modulo);
 
         if(factor1 < 0)
-            return modulo - Maths.multMod(-factor1, factor2, modulo);
+            return modulo - Maths.multiplyMod(-factor1, factor2, modulo);
 
         if(factor2 < 0)
-            return modulo - Maths.multMod(factor1, -factor2, modulo);
+            return modulo - Maths.multiplyMod(factor1, -factor2, modulo);
 
         while(factor2 > 0)
         {
@@ -97,9 +97,9 @@ public final class Maths
         while(exponent > 0)
         {
             if(exponent % 2 == 1)
-                result = Maths.multMod(result, base, modulo);
+                result = Maths.multiplyMod(result, base, modulo);
 
-            base = Maths.multMod(base, base, modulo);
+            base = Maths.multiplyMod(base, base, modulo);
             exponent >>= 1;
         }
 

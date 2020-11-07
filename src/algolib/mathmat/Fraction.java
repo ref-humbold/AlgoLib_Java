@@ -1,8 +1,8 @@
-// Structure of fraction
 package algolib.mathmat;
 
 import java.util.Objects;
 
+/** Structure of fraction */
 public final class Fraction
         extends Number
         implements Comparable<Number>

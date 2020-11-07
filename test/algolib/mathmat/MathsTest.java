@@ -196,7 +196,7 @@ public class MathsTest
     public void multMod_WhenFactor1IsZero()
     {
         // when
-        long result = Maths.multMod(0, 14, 0);
+        long result = Maths.multiplyMod(0, 14, 0);
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -205,7 +205,7 @@ public class MathsTest
     public void multMod_WhenFactor2IsZero()
     {
         // when
-        long result = Maths.multMod(14, 0, 0);
+        long result = Maths.multiplyMod(14, 0, 0);
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -214,7 +214,7 @@ public class MathsTest
     public void multMod_WhenFactorsAreZero()
     {
         // when
-        long result = Maths.multMod(0, 0, 0);
+        long result = Maths.multiplyMod(0, 0, 0);
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -223,7 +223,7 @@ public class MathsTest
     public void multMod_WhenFactor1IsNegativeAndFactor2IsPositive()
     {
         // when
-        long result = Maths.multMod(-3, 10, 0);
+        long result = Maths.multiplyMod(-3, 10, 0);
         // then
         Assertions.assertThat(result).isEqualTo(-30);
     }
@@ -232,7 +232,7 @@ public class MathsTest
     public void multMod_WhenFactor1IsPositiveAndFactor2IsNegative()
     {
         // when
-        long result = Maths.multMod(3, -10, 0);
+        long result = Maths.multiplyMod(3, -10, 0);
         // then
         Assertions.assertThat(result).isEqualTo(-30);
     }
@@ -241,7 +241,7 @@ public class MathsTest
     public void multMod_WhenFactorsAreNegative()
     {
         // when
-        long result = Maths.multMod(-3, -10, 0);
+        long result = Maths.multiplyMod(-3, -10, 0);
         // then
         Assertions.assertThat(result).isEqualTo(30);
     }
@@ -250,7 +250,7 @@ public class MathsTest
     public void multMod_WhenModuloAndFactorsArePositive()
     {
         // when
-        long result = Maths.multMod(547, 312, 10000);
+        long result = Maths.multiplyMod(547, 312, 10000);
         // then
         Assertions.assertThat(result).isEqualTo(664);
     }
@@ -259,7 +259,7 @@ public class MathsTest
     public void multMod_WhenModuloIsPositiveAndFactor1IsNegative()
     {
         // when
-        long result = Maths.multMod(-547, 312, 10000);
+        long result = Maths.multiplyMod(-547, 312, 10000);
         // then
         Assertions.assertThat(result).isEqualTo(9336);
     }
@@ -268,7 +268,7 @@ public class MathsTest
     public void multMod_WhenModuloIsPositiveAndFactor2IsNegative()
     {
         // when
-        long result = Maths.multMod(547, -312, 10000);
+        long result = Maths.multiplyMod(547, -312, 10000);
         // then
         Assertions.assertThat(result).isEqualTo(9336);
     }
@@ -277,7 +277,7 @@ public class MathsTest
     public void multMod_WhenModuloIsPositiveAndFactorsAreNegative()
     {
         // when
-        long result = Maths.multMod(-547, -312, 10000);
+        long result = Maths.multiplyMod(-547, -312, 10000);
         // then
         Assertions.assertThat(result).isEqualTo(664);
     }
@@ -286,7 +286,7 @@ public class MathsTest
     public void multMod_WhenModuloIsNegative_ThenArithmeticException()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.multMod(547, 312, -10000));
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.multiplyMod(547, 312, -10000));
         // then
         Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }

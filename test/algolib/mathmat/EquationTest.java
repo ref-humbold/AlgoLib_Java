@@ -1,5 +1,6 @@
 package algolib.mathmat;
 
+import java.util.stream.IntStream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,8 +28,8 @@ class EquationTest
         // when
         testObject.multiply(2);
         // then
-        Assertions.assertThat(testObject.coefficients).containsExactly(4, 6, 0, -4);
-        Assertions.assertThat(testObject.free).isEqualTo(30);
+        Assertions.assertThat(allCoefficients(testObject)).containsExactly(4, 6, 0, -4);
+        Assertions.assertThat(testObject.getFree()).isEqualTo(30);
     }
 
     @Test
@@ -46,8 +47,8 @@ class EquationTest
         // when
         testObject.combine(new Equation(new double[]{1, -1, 4, 10}, 5), -2);
         // then
-        Assertions.assertThat(testObject.coefficients).containsExactly(0, 5, -8, -22);
-        Assertions.assertThat(testObject.free).isEqualTo(5);
+        Assertions.assertThat(allCoefficients(testObject)).containsExactly(0, 5, -8, -22);
+        Assertions.assertThat(testObject.getFree()).isEqualTo(5);
     }
 
     @Test
@@ -56,8 +57,8 @@ class EquationTest
         // when
         testObject.combine(new Equation(new double[]{1, -1, 4, 10}, 5));
         // then
-        Assertions.assertThat(testObject.coefficients).containsExactly(3, 2, 4, 8);
-        Assertions.assertThat(testObject.free).isEqualTo(20);
+        Assertions.assertThat(allCoefficients(testObject)).containsExactly(3, 2, 4, 8);
+        Assertions.assertThat(testObject.getFree()).isEqualTo(20);
     }
 
     @Test
@@ -68,5 +69,10 @@ class EquationTest
                 () -> testObject.combine(new Equation(new double[]{1, -1, 10, 7}, 5), 0));
         // then
         Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+    }
+
+    private double[] allCoefficients(Equation equation)
+    {
+        return IntStream.range(0, equation.size()).mapToDouble(equation::getCoefficient).toArray();
     }
 }

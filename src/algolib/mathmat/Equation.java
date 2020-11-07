@@ -1,28 +1,32 @@
-// Structure of linear equation
 package algolib.mathmat;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
+/** Structure of linear equation */
 public class Equation
 {
-    public double[] coefficients;
-    public double free;
+    private final double[] coefficients;
+    private double free;
 
     public Equation(double[] coefficients, double free)
     {
-        this.coefficients = Arrays.copyOf(coefficients, coefficients.length);
+        this.coefficients = coefficients;
         this.free = free;
+    }
+
+    public double getFree()
+    {
+        return free;
+    }
+
+    public double getCoefficient(int i)
+    {
+        return coefficients[i];
     }
 
     public int size()
     {
         return coefficients.length;
-    }
-
-    public double get(int i)
-    {
-        return coefficients[i];
     }
 
     /**

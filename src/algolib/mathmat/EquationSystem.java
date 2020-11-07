@@ -1,11 +1,11 @@
-// Structure of linear equation system with Gauss elimination algorithm
 package algolib.mathmat;
 
 import java.util.Arrays;
 
+/** Structure of linear equation system with Gauss elimination algorithm */
 public class EquationSystem
 {
-    private Equation[] equations;
+    private final Equation[] equations;
 
     public EquationSystem(Equation[] equations)
     {
@@ -15,14 +15,14 @@ public class EquationSystem
             throw new IllegalArgumentException("Incorrect number of variables in one of equations");
     }
 
+    public Equation getEquation(int i)
+    {
+        return equations[i];
+    }
+
     public int size()
     {
         return equations.length;
-    }
-
-    public Equation get(int i)
-    {
-        return equations[i];
     }
 
     /**
@@ -36,28 +36,28 @@ public class EquationSystem
     {
         gaussianReduce();
 
-        if(equations[equations.length - 1].get(equations.length - 1) == 0
-                && equations[equations.length - 1].free == 0)
+        if(equations[equations.length - 1].getCoefficient(equations.length - 1) == 0
+                && equations[equations.length - 1].getFree() == 0)
             throw new InfiniteSolutionsException();
 
-        if(equations[equations.length - 1].get(equations.length - 1) == 0
-                && equations[equations.length - 1].free != 0)
+        if(equations[equations.length - 1].getCoefficient(equations.length - 1) == 0
+                && equations[equations.length - 1].getFree() != 0)
             throw new NoSolutionException();
 
         double[] solution = new double[equations.length];
 
         solution[equations.length - 1] =
-                equations[equations.length - 1].free / equations[equations.length - 1].get(
-                        equations.length - 1);
+                equations[equations.length - 1].getFree() / equations[equations.length
+                        - 1].getCoefficient(equations.length - 1);
 
         for(int i = equations.length - 2; i >= 0; --i)
         {
-            double value = equations[i].free;
+            double value = equations[i].getFree();
 
             for(int j = equations.length - 1; j > i; --j)
-                value -= equations[i].get(j) * solution[j];
+                value -= equations[i].getCoefficient(j) * solution[j];
 
-            solution[i] = value / equations[i].get(i);
+            solution[i] = value / equations[i].getCoefficient(i);
         }
 
         return solution;
@@ -72,20 +72,20 @@ public class EquationSystem
 
             for(int j = i + 1; j < equations.length; ++j)
             {
-                double minCoef = equations[indexMin].get(i);
-                double actCoef = equations[j].get(i);
+                double minCoef = equations[indexMin].getCoefficient(i);
+                double actCoef = equations[j].getCoefficient(i);
 
                 if(actCoef != 0 && (minCoef == 0 || Math.abs(actCoef) < Math.abs(minCoef)))
                     indexMin = j;
             }
 
-            if(equations[indexMin].get(i) != 0)
+            if(equations[indexMin].getCoefficient(i) != 0)
             {
                 swap(indexMin, i);
 
                 for(int j = i + 1; j < equations.length; ++j)
                 {
-                    double param = equations[j].get(i) / equations[i].get(i);
+                    double param = equations[j].getCoefficient(i) / equations[i].getCoefficient(i);
 
                     if(param != 0)
                         equations[j].combine(equations[i], -param);

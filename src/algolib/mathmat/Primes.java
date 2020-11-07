@@ -1,4 +1,3 @@
-// Algorithms for prime numbers
 package algolib.mathmat;
 
 import java.util.ArrayList;
@@ -7,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/** Algorithms for prime numbers */
 public final class Primes
 {
     private static final int ATTEMPTS = 16;
@@ -29,8 +29,8 @@ public final class Primes
 
         ArrayList<Integer> primes = new ArrayList<>();
         ArrayList<Boolean> is_prime = new ArrayList<>();
-        ArrayList<Boolean> base_primes =
-                new ArrayList<>(Collections.nCopies((int)(Math.sqrt(maxNumber) / 2), true));
+        ArrayList<Boolean> base_primes = new ArrayList<>(
+                Collections.nCopies(Double.valueOf(Math.sqrt(maxNumber) / 2.0).intValue(), true));
 
         for(int i = minNumber; i < maxNumber; ++i)
             is_prime.add(i == 2 || (i > 2 && i % 2 != 0));
