@@ -150,17 +150,21 @@ public class AVLTree<E>
     @Override
     public String toString()
     {
-        StringBuilder returnBuilder = new StringBuilder("{|");
+        StringBuilder builder = new StringBuilder();
+        Iterator<E> it = iterator();
 
-        for(E elem : this)
+        builder.append("{|");
+
+        while(it.hasNext())
         {
-            returnBuilder.append(elem);
-            returnBuilder.append(", ");
+            builder.append(it.next());
+
+            if(it.hasNext())
+                builder.append(", ");
         }
 
-        String returnString = returnBuilder.toString();
-
-        return returnString.substring(0, returnString.length() - 2) + "|}";
+        builder.append("|}");
+        return builder.toString();
     }
 
     private boolean isLeftSon(AVLNode<E> node)
