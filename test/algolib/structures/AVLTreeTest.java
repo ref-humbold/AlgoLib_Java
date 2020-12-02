@@ -168,7 +168,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void removeRoot_WhenTwoElements1()
+    public void remove_WhenRootAndTwoElements1()
     {
         // given
         int root = 27;
@@ -184,7 +184,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void removeRoot_WhenTwoElements2()
+    public void remove_WhenRootAndTwoElements2()
     {
         // given
         int root = 11;
@@ -200,7 +200,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void removeRoot_WhenOneElement()
+    public void remove_WhenRootAndOneElement()
     {
         // given
         int root = 0;
@@ -237,6 +237,42 @@ public class AVLTreeTest
             Assertions.assertThat(result).isFalse();
             Assertions.assertThat(testObject).doesNotContain(i);
         }
+    }
+
+    @Test
+    public void removeAll_WhenPresentElements_ThenTrue()
+    {
+        // given
+        List<Integer> elements = List.of(14, 24, 30, 45);
+        // when
+        boolean result = testObject.removeAll(elements);
+        // then
+        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
+    }
+
+    @Test
+    public void removeAll_WhenPresentAndAbsentElements_ThenTrue()
+    {
+        // given
+        List<Integer> elements = List.of(14, 162, 30, 195);
+        // when
+        boolean result = testObject.removeAll(elements);
+        // then
+        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
+    }
+
+    @Test
+    public void removeAll_WhenAbsentElements_ThenFalse()
+    {
+        // given
+        List<Integer> elements = List.of(111, 140, 187);
+        // when
+        boolean result = testObject.removeAll(elements);
+        // then
+        Assertions.assertThat(result).isFalse();
+        Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
     }
 
     @Test

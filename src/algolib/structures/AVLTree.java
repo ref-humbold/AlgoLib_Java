@@ -87,9 +87,9 @@ public class AVLTree<E>
     }
 
     @Override
-    public boolean add(E element)
+    public boolean add(E e)
     {
-        AVLNode<E> nodeParent = findNode(element, (node, obj) -> {
+        AVLNode<E> nodeParent = findNode(e, (node, obj) -> {
             AVLNode<E> child = search(node, obj);
 
             return child == null || Objects.equals(obj, child.getElement());
@@ -97,19 +97,19 @@ public class AVLTree<E>
 
         if(nodeParent == null)
         {
-            AVLNode<E> newNode = new AVLNode<>(element);
+            AVLNode<E> newNode = new AVLNode<>(e);
             setRoot(newNode);
             ++count;
             return true;
         }
 
-        AVLNode<E> theNode = search(nodeParent, element);
+        AVLNode<E> theNode = search(nodeParent, e);
 
         if(theNode == null)
         {
-            AVLNode<E> newNode = new AVLNode<>(element);
+            AVLNode<E> newNode = new AVLNode<>(e);
 
-            if(compare(element, nodeParent.getElement()) < 0)
+            if(compare(e, nodeParent.getElement()) < 0)
                 nodeParent.setLeft(newNode);
             else
                 nodeParent.setRight(newNode);
@@ -137,7 +137,7 @@ public class AVLTree<E>
     @Override
     public boolean removeAll(Collection<?> objects)
     {
-        return objects.stream().reduce(false, (acc, obj) -> remove(obj) | acc, (b1, b2) -> b1 | b2);
+        return objects.stream().reduce(false, (acc, obj) -> remove(obj) || acc, Boolean::logicalOr);
     }
 
     @Override
@@ -430,7 +430,7 @@ public class AVLTree<E>
         public E next()
         {
             if(!hasNext())
-                throw new NoSuchElementException("No more elements in iterator.");
+                throw new NoSuchElementException("No more elements in iterator");
 
             E returnValue = currentNode.getElement();
 
@@ -469,7 +469,7 @@ public class AVLTree<E>
         public E next()
         {
             if(!hasNext())
-                throw new NoSuchElementException("No more elements in iterator.");
+                throw new NoSuchElementException("No more elements in iterator");
 
             E returnValue = currentNode.getElement();
 
