@@ -70,7 +70,7 @@ public class AVLTree<E>
 
     public Iterator<E> descendingIterator()
     {
-        return new AVLDescendingIterator(tree.maximum());
+        return new AVLDescendingIterator(tree != null ? tree.maximum() : null);
     }
 
     @Override

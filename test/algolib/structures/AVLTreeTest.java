@@ -114,6 +114,17 @@ public class AVLTreeTest
     }
 
     @Test
+    public void iterator_WhenEmpty_ThenNoElements()
+    {
+        // given
+        testObject = new AVLTree<>();
+        // when
+        List<Integer> result = new ArrayList<>(testObject);
+        // then
+        Assertions.assertThat(result).isEmpty();
+    }
+
+    @Test
     public void descendingIterator_WhenNotEmpty_ThenReverseSortedElements()
     {
         // given
@@ -126,6 +137,21 @@ public class AVLTreeTest
         // then
         Assertions.assertThat(result).isSortedAccordingTo((n, m) -> m.compareTo(n));
         Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
+    }
+
+    @Test
+    public void descendingIterator_WhenEmpty_ThenNoElements()
+    {
+        // given
+        testObject = new AVLTree<>();
+        Iterator<Integer> iterator = testObject.descendingIterator();
+        // when
+        List<Integer> result = new ArrayList<>();
+
+        while(iterator.hasNext())
+            result.add(iterator.next());
+        // then
+        Assertions.assertThat(result).isEmpty();
     }
 
     @Test
