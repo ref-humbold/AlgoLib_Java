@@ -1,0 +1,120 @@
+// Structure of base words map using Karp-Miller-Rosenberg algorithm
+package algolib.text;
+
+import java.util.*;
+import java.util.function.BiFunction;
+
+import algolib.tuples.Pair;
+
+public class BaseWordsMap
+{
+    private final String text;
+    private final Map<Pair<Integer, Integer>, Integer> factors = new HashMap<>();
+
+    public BaseWordsMap(String text)
+    {
+        this.text = text;
+        create();
+    }
+
+    public String getText()
+    {
+        return text;
+    }
+
+    public Pair<Integer, Integer> getCode(int startIndex, int endIndex)
+    {
+        if(endIndex <= startIndex)
+            return Pair.of(0, 0);
+
+        Integer code = factors.get(Pair.of(startIndex, endIndex));
+
+        if(code != null)
+            return Pair.of(code, 0);
+
+        int n = getMaxLength(endIndex - startIndex);
+        return Pair.of(factors.get(Pair.of(startIndex, startIndex + n)),
+                       factors.get(Pair.of(endIndex - n, endIndex)));
+    }
+
+    // Builds a base words map using Karp-Miller-Rosenberg algorithm
+    private void create()
+    {
+        int codeValue = extend(1, 0, this::fromSingle);
+        int length = 2;
+
+        while(length <= text.length())
+        {
+            codeValue = extend(length, codeValue, this::fromShorter);
+            length *= 2;
+        }
+    }
+
+    // Encodes substring of specified length using already counted factors
+    private int extend(int length, int codeValue, BiFunction<Integer, Integer, int[]> func)
+    {
+        Pair<Integer, Integer> previousCode = Pair.of(0, 0);
+        List<int[]> codes = new ArrayList<>();
+
+        for(int i = 0; i <= text.length() - length; ++i)
+            codes.add(func.apply(i, length));
+
+        Collections.sort(codes, new CodesComparator());
+
+        for(int[] code : codes)
+        {
+            if(code[0] != previousCode.first || code[1] != previousCode.second)
+            {
+                codeValue++;
+                previousCode = Pair.of(code[0], code[1]);
+            }
+
+            factors.put(Pair.of(code[2], code[3]), codeValue);
+        }
+
+        return codeValue;
+    }
+
+    private int[] fromSingle(int i, int length)
+    {
+        return new int[]{text.charAt(i), 1 + text.charAt(i), i, i + length};
+    }
+
+    private int[] fromShorter(int i, int length)
+    {
+        return new int[]{factors.get(Pair.of(i, i + length / 2)),
+                         factors.get(Pair.of(i + length / 2, i + length)), i, i + length};
+    }
+
+    private int getMaxLength(int n)
+    {
+        int prev = 0;
+        int power = 1;
+
+        while(power < n)
+        {
+            prev = power;
+            power *= 2;
+        }
+
+        return prev;
+    }
+
+    private static class CodesComparator
+            implements Comparator<int[]>
+    {
+        @Override
+        public int compare(int[] a1, int[] a2)
+        {
+            for(int i = 0; i < Math.min(a1.length, a2.length); ++i)
+            {
+                int compareInts = Integer.compare(a1[i], a2[i]);
+
+                if(compareInts != 0)
+                    return compareInts;
+            }
+
+            return 0;
+        }
+    }
+}
