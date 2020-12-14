@@ -7,7 +7,8 @@ addons:
       - ant-optional
 
 language: java
-jdk: openjdk11
+jdk:
+  - openjdk11
 
 before_install: ./ci/install_ant_junit5.sh
 install: ant rebuild

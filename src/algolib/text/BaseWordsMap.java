@@ -24,6 +24,12 @@ public class BaseWordsMap
 
     public Pair<Integer, Integer> getCode(int startIndex, int endIndex)
     {
+        if(startIndex < 0 || startIndex >= text.length())
+            throw new IndexOutOfBoundsException(String.format("Index out of range %d", startIndex));
+
+        if(endIndex < 0 || endIndex > text.length())
+            throw new IndexOutOfBoundsException(String.format("Index out of range %d", endIndex));
+
         if(endIndex <= startIndex)
             return Pair.of(0, 0);
 
