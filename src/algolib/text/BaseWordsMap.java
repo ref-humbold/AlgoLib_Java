@@ -22,6 +22,11 @@ public class BaseWordsMap
         return text;
     }
 
+    public Pair<Integer, Integer> getCode(int startIndex)
+    {
+        return getCode(startIndex, text.length());
+    }
+
     public Pair<Integer, Integer> getCode(int startIndex, int endIndex)
     {
         if(startIndex < 0 || startIndex >= text.length())
