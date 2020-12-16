@@ -26,6 +26,15 @@ public class BaseWordsMapTest
     }
 
     @Test
+    public void getCode_WhenInvalidStartIndexGreaterThanEndIndex_ThenZeroAndZero()
+    {
+        // when
+        Pair<Integer, Integer> result = testObject.getCode(6, 2);
+        // then
+        Assertions.assertThat(result).isEqualTo(Pair.of(0, 0));
+    }
+
+    @Test
     public void getCode_WhenSingleCharacter_ThenCodeAndZero()
     {
         // when
@@ -64,5 +73,23 @@ public class BaseWordsMapTest
         Pair<Integer, Integer> result1 = testObject.getCode(0, 3);  // mis
         // then
         Assertions.assertThat(result1).isEqualTo(Pair.of(7, 6));
+    }
+
+    @Test
+    public void getCode_WhenInvalidStartIndex_ThenIndexOutOfRangeException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.getCode(-1));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+    }
+
+    @Test
+    public void getCode_WhenInvalidEndIndex_ThenIndexOutOfRangeException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.getCode(5, 15));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
     }
 }
