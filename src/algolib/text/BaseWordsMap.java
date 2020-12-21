@@ -51,13 +51,18 @@ public class BaseWordsMap
     // Builds a base words map using Karp-Miller-Rosenberg algorithm
     private void create()
     {
-        int codeValue = extend(1, 0, this::fromSingle);
-        int length = 2;
+        int currentLength = 2;
+        int codeValue = extend(1, 0, (i, length) -> new int[]{text.charAt(i), 1 + text.charAt(i), i,
+                                                              i + length});
 
-        while(length <= text.length())
+        while(currentLength <= text.length())
         {
-            codeValue = extend(length, codeValue, this::fromShorter);
-            length *= 2;
+            codeValue = extend(currentLength, codeValue,
+                               (i, length) -> new int[]{factors.get(Pair.of(i, i + length / 2)),
+                                                        factors.get(Pair.of(i + length / 2,
+                                                                            i + length)), i,
+                                                        i + length});
+            currentLength *= 2;
         }
     }
 
@@ -84,17 +89,6 @@ public class BaseWordsMap
         }
 
         return codeValue;
-    }
-
-    private int[] fromSingle(int i, int length)
-    {
-        return new int[]{text.charAt(i), 1 + text.charAt(i), i, i + length};
-    }
-
-    private int[] fromShorter(int i, int length)
-    {
-        return new int[]{factors.get(Pair.of(i, i + length / 2)),
-                         factors.get(Pair.of(i + length / 2, i + length)), i, i + length};
     }
 
     private int getMaxLength(int n)
