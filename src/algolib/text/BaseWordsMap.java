@@ -4,6 +4,7 @@ package algolib.text;
 import java.util.*;
 import java.util.function.BiFunction;
 
+import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
 
 public class BaseWordsMap
@@ -69,7 +70,7 @@ public class BaseWordsMap
     // Encodes substring of specified length using already counted factors
     private int extend(int length, int codeValue, BiFunction<Integer, Integer, int[]> func)
     {
-        Pair<Integer, Integer> previousCode = Pair.of(0, 0);
+        ComparablePair<Integer, Integer> previousCode = ComparablePair.of(0, 0);
         List<int[]> codes = new ArrayList<>();
 
         for(int i = 0; i <= text.length() - length; ++i)
@@ -79,10 +80,12 @@ public class BaseWordsMap
 
         for(int[] code : codes)
         {
-            if(code[0] != previousCode.first || code[1] != previousCode.second)
+            ComparablePair<Integer, Integer> codePair = ComparablePair.of(code[0], code[1]);
+
+            if(!Objects.equals(previousCode, codePair))
             {
                 codeValue++;
-                previousCode = Pair.of(code[0], code[1]);
+                previousCode = codePair;
             }
 
             factors.put(Pair.of(code[2], code[3]), codeValue);
