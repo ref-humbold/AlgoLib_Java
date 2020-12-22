@@ -1,11 +1,11 @@
-// Karp-Miller-Rosenberg algorithm
+// Knuth-Morris-Pratt algorithm
 package algolib.text;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class KMP
+public final class KMP
 {
     public static List<Integer> kmp(String text, String pattern)
     {
