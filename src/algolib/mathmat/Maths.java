@@ -68,7 +68,7 @@ public final class Maths
                 result = modulo == 0 ? result + factor1 : (result + factor1) % modulo;
 
             factor1 = modulo == 0 ? factor1 + factor1 : (factor1 + factor1) % modulo;
-            factor2 >>= 1;
+            factor2 /= 2;
         }
 
         return result;
@@ -100,7 +100,7 @@ public final class Maths
                 result = Maths.multiplyMod(result, base, modulo);
 
             base = Maths.multiplyMod(base, base, modulo);
-            exponent >>= 1;
+            exponent /= 2;
         }
 
         return result;

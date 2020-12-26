@@ -91,7 +91,7 @@ public class Subsequences
         int size = 1;
 
         while(size < 2 * sequence.size())
-            size <<= 1;
+            size *= 2;
 
         List<Double> intervalSums = new ArrayList<>(Collections.nCopies(size, 0.0));
         List<Double> prefixSums = new ArrayList<>(Collections.nCopies(size, 0.0));
