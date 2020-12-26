@@ -84,18 +84,18 @@ public final class Primes
         if(number < 2 || number % 2 == 0 || number % 3 == 0)
             return false;
 
-        long multiplier = number - 1;
+        long multiplicand = number - 1;
 
-        while(multiplier % 2 == 0)
-            multiplier /= 2;
+        while(multiplicand % 2 == 0)
+            multiplicand /= 2;
 
         for(int i = 0; i < ATTEMPTS; ++i)
         {
             long witness = 1L + Math.abs(random.nextLong()) % (number - 1);
 
-            if(Maths.powerMod(witness, multiplier, number) != 1)
+            if(Maths.powerMod(witness, multiplicand, number) != 1)
             {
-                if(LongStream.iterate(multiplier, d -> d <= number / 2, d -> d * 2)
+                if(LongStream.iterate(multiplicand, d -> d <= number / 2, d -> d * 2)
                              .boxed()
                              .allMatch(d -> Maths.powerMod(witness, d, number) != number - 1))
                     return false;
