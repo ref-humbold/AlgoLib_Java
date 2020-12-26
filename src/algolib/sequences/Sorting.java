@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public final class Sorting
 {
+    private static final Random random = new Random();
+
     /**
      * Mutably sorts given sequence using a heap.
      * @param sequence a sequence of elements
      */
     public static <T extends Comparable<T>> void heapSort(List<T> sequence)
     {
-        Objects.requireNonNull(sequence, "Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null");
 
         int heapSize = sequence.size();
 
@@ -40,7 +43,7 @@ public final class Sorting
      */
     public static <T extends Comparable<T>> void topDownMergeSort(List<T> sequence)
     {
-        Objects.requireNonNull(sequence, "Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null");
         Sorting.doMergeSort(sequence, 0, sequence.size());
     }
 
@@ -50,7 +53,7 @@ public final class Sorting
      */
     public static <T extends Comparable<T>> void bottomUpMergeSort(List<T> sequence)
     {
-        Objects.requireNonNull(sequence, "Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null");
 
         if(sequence.size() <= 1)
             return;
@@ -67,7 +70,7 @@ public final class Sorting
      */
     public static <T extends Comparable<T>> void quickSort(List<T> sequence)
     {
-        Objects.requireNonNull(sequence, "Sequence is null.");
+        Objects.requireNonNull(sequence, "Sequence is null");
         doQuickSort(sequence, 0, sequence.size());
     }
 
@@ -173,20 +176,11 @@ public final class Sorting
     // Randomly chooses pivot for quick-sort algorithm.
     private static int choosePivot(int size)
     {
-        Random random = new Random();
-        int candidate1 = random.nextInt(size);
-        int candidate2 = random.nextInt(size);
-        int candidate3 = random.nextInt(size);
-
-        if(Math.min(candidate2, candidate3) <= candidate1 && candidate1 <= Math.max(candidate2,
-                                                                                    candidate3))
-            return candidate2;
-
-        if(Math.min(candidate1, candidate3) <= candidate2 && candidate2 <= Math.max(candidate1,
-                                                                                    candidate3))
-            return candidate2;
-
-        return candidate3;
+        return Stream.of(random.nextInt(size), random.nextInt(size), random.nextInt(size))
+                     .sorted()
+                     .skip(1)
+                     .findFirst()
+                     .orElse(0);
     }
 
     // Swaps two elements in given sequence.

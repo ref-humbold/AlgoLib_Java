@@ -67,7 +67,7 @@ public class BaseWordsMap
         }
     }
 
-    // Encodes substring of specified length using already counted factors
+    // Encodes substring of given length using already counted factors
     private int extend(int length, int codeValue, BiFunction<Integer, Integer, int[]> func)
     {
         ComparablePair<Integer, Integer> previousCode = ComparablePair.of(0, 0);
