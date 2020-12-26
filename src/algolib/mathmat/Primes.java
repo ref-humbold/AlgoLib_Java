@@ -5,11 +5,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.LongStream;
 
 /** Algorithms for prime numbers */
 public final class Primes
 {
-    private static final int ATTEMPTS = 16;
+    private static final int ATTEMPTS = 17;
+    private static final Random random = new Random();
 
     public static Collection<Integer> find(int maxNumber)
     {
@@ -63,13 +65,11 @@ public final class Primes
         if(number < 2 || number % 2 == 0 || number % 3 == 0)
             return false;
 
-        Random rd = new Random();
-
         for(int i = 0; i < ATTEMPTS; ++i)
         {
-            long rdv = 1L + Math.abs(rd.nextLong()) % (number - 1);
+            long witness = 2L + Math.abs(random.nextLong()) % (number - 2);
 
-            if(Maths.gcd(rdv, number) > 1 || Maths.powerMod(rdv, number - 1, number) != 1)
+            if(Maths.gcd(witness, number) > 1 || Maths.powerMod(witness, number - 1, number) != 1)
                 return false;
         }
 
@@ -87,26 +87,17 @@ public final class Primes
         long multip = number - 1;
 
         while(multip % 2 == 0)
-            multip >>= 1;
-
-        Random rd = new Random();
+            multip /= 2;
 
         for(int i = 0; i < ATTEMPTS; ++i)
         {
-            long rdv = 1L + Math.abs(rd.nextLong()) % (number - 1);
+            long witness = 1L + Math.abs(random.nextLong()) % (number - 1);
 
-            if(Maths.powerMod(rdv, multip, number) != 1)
+            if(Maths.powerMod(witness, multip, number) != 1)
             {
-                boolean isComposite = true;
-
-                for(long d = multip; d <= number / 2; d <<= 1)
-                {
-                    long pwm = Maths.powerMod(rdv, d, number);
-
-                    isComposite = isComposite && pwm != number - 1;
-                }
-
-                if(isComposite)
+                if(LongStream.iterate(multip, d -> d <= number / 2, d -> d * 2)
+                             .boxed()
+                             .allMatch(d -> Maths.powerMod(witness, d, number) != number - 1))
                     return false;
             }
         }
