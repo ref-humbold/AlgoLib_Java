@@ -1,8 +1,14 @@
 // Structure of base words map using Karp-Miller-Rosenberg algorithm
 package algolib.text;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
@@ -52,31 +58,25 @@ public class BaseWordsMap
     // Builds a base words map using Karp-Miller-Rosenberg algorithm
     private void create()
     {
-        int currentLength = 2;
         int codeValue = extend(1, 0, (i, length) -> new int[]{text.charAt(i), 1 + text.charAt(i), i,
                                                               i + length});
 
-        while(currentLength <= text.length())
-        {
+        for(int currentLength = 2; currentLength <= text.length(); currentLength *= 2)
             codeValue = extend(currentLength, codeValue,
                                (i, length) -> new int[]{factors.get(Pair.of(i, i + length / 2)),
                                                         factors.get(Pair.of(i + length / 2,
                                                                             i + length)), i,
                                                         i + length});
-            currentLength *= 2;
-        }
     }
 
     // Encodes substring of given length using already counted factors
     private int extend(int length, int codeValue, BiFunction<Integer, Integer, int[]> func)
     {
         ComparablePair<Integer, Integer> previousCode = ComparablePair.of(0, 0);
-        List<int[]> codes = new ArrayList<>();
-
-        for(int i = 0; i <= text.length() - length; ++i)
-            codes.add(func.apply(i, length));
-
-        Collections.sort(codes, new CodesComparator());
+        List<int[]> codes = IntStream.range(0, text.length() - length + 1)
+                                     .mapToObj(i -> func.apply(i, length))
+                                     .sorted(new CodesComparator())
+                                     .collect(Collectors.toList());
 
         for(int[] code : codes)
         {
@@ -84,7 +84,7 @@ public class BaseWordsMap
 
             if(!Objects.equals(previousCode, codePair))
             {
-                codeValue++;
+                ++codeValue;
                 previousCode = codePair;
             }
 
