@@ -1,11 +1,11 @@
-// Structure of comparable triple
 package algolib.tuples;
 
+/** Structure of comparable triple */
 public final class ComparableTriple<F extends Comparable<? super F>, S extends Comparable<? super S>, T extends Comparable<? super T>>
         extends Triple<F, S, T>
         implements Comparable<Triple<F, S, T>>
 {
-    public ComparableTriple(F first, S second, T third)
+    private ComparableTriple(F first, S second, T third)
     {
         super(first, second, third);
     }

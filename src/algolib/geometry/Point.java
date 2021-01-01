@@ -1,20 +1,24 @@
 package algolib.geometry;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /** Structure of geometric point */
-public class Point
+public final class Point
 {
     private final double[] coordinates;
 
-    public Point(double... coordinates)
+    private Point(double[] coordinates)
     {
         if(coordinates.length == 0)
             throw new IllegalArgumentException("Empty coordinates array");
 
         this.coordinates = coordinates;
+    }
+
+    public static Point of(double... coordinates)
+    {
+        return new Point(coordinates);
     }
 
     @Override
@@ -34,15 +38,15 @@ public class Point
     @Override
     public int hashCode()
     {
-        return Objects.hash(coordinates, 0x9e3779b9);
+        return Arrays.hashCode(coordinates);
     }
 
     @Override
     public String toString()
     {
-        return "[" + Arrays.stream(coordinates)
-                           .mapToObj(Double::toString)
-                           .collect(Collectors.joining(", ")) + "]";
+        return Arrays.stream(coordinates)
+                     .mapToObj(Double::toString)
+                     .collect(Collectors.joining(", ", "[", "]"));
     }
 
     public int dims()
@@ -71,6 +75,6 @@ public class Point
             throw new IllegalArgumentException("Dimensions count has to be positive");
 
         return dimensions == coordinates.length ? this
-                                                : new Point(Arrays.copyOf(coordinates, dimensions));
+                                                : Point.of(Arrays.copyOf(coordinates, dimensions));
     }
 }

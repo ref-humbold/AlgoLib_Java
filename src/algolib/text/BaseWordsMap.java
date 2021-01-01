@@ -1,4 +1,3 @@
-// Structure of base words map using Karp-Miller-Rosenberg algorithm
 package algolib.text;
 
 import java.util.Comparator;
@@ -13,20 +12,46 @@ import java.util.stream.IntStream;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
 
-public class BaseWordsMap
+/** Structure of base words map using Karp-Miller-Rosenberg algorithm */
+public final class BaseWordsMap
 {
     private final String text;
     private final Map<Pair<Integer, Integer>, Integer> factors = new HashMap<>();
 
-    public BaseWordsMap(String text)
+    private BaseWordsMap(String text)
     {
         this.text = text;
         create();
     }
 
+    public static BaseWordsMap build(String text)
+    {
+        return new BaseWordsMap(text);
+    }
+
     public String getText()
     {
         return text;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(this == obj)
+            return true;
+
+        if(obj == null || getClass() != obj.getClass())
+            return false;
+
+        BaseWordsMap other = (BaseWordsMap)obj;
+
+        return Objects.equals(text, other.text) && Objects.equals(factors, other.factors);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(text, factors);
     }
 
     public Pair<Integer, Integer> getCode(int startIndex)

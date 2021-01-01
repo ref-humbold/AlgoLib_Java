@@ -35,18 +35,18 @@ public final class Geometry
         Point newPoint = p.project(dims);
         Vector newVector = v.project(dims);
 
-        return new Point(IntStream.rangeClosed(1, dims)
-                                  .mapToDouble(i -> newPoint.dim(i) + newVector.dim(i))
-                                  .toArray());
+        return Point.of(IntStream.rangeClosed(1, dims)
+                                 .mapToDouble(i -> newPoint.dim(i) + newVector.dim(i))
+                                 .toArray());
     }
 
     public Point2D translate(Point2D p, Vector2D v)
     {
-        return new Point2D(p.x + v.x, p.y + v.y);
+        return Point2D.of(p.x + v.x, p.y + v.y);
     }
 
     public Point3D translate(Point3D p, Vector3D v)
     {
-        return new Point3D(p.x + v.x, p.y + v.y, p.z + v.z);
+        return Point3D.of(p.x + v.x, p.y + v.y, p.z + v.z);
     }
 }

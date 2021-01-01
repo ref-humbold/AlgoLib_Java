@@ -1,21 +1,25 @@
 package algolib.geometry;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /** Structure of geometric vector */
-public class Vector
+public final class Vector
 {
     private final double[] coordinates;
 
-    public Vector(double... coordinates)
+    private Vector(double[] coordinates)
     {
         if(coordinates.length == 0)
             throw new IllegalArgumentException("Empty coordinates array");
 
         this.coordinates = coordinates;
+    }
+
+    public static Vector of(double... coordinates)
+    {
+        return new Vector(coordinates);
     }
 
     public static Vector between(Point begin, Point end)
@@ -24,9 +28,9 @@ public class Vector
         Point newBegin = begin.project(vectorDims);
         Point newEnd = end.project(vectorDims);
 
-        return new Vector(IntStream.rangeClosed(1, vectorDims)
-                                   .mapToDouble(i -> newEnd.dim(i) - newBegin.dim(i))
-                                   .toArray());
+        return Vector.of(IntStream.rangeClosed(1, vectorDims)
+                                  .mapToDouble(i -> newEnd.dim(i) - newBegin.dim(i))
+                                  .toArray());
     }
 
     public static double dot(Vector v1, Vector v2)
@@ -57,7 +61,7 @@ public class Vector
     @Override
     public int hashCode()
     {
-        return Objects.hash(coordinates, 0x995ee33);
+        return Arrays.hashCode(coordinates);
     }
 
     @Override
@@ -93,7 +97,7 @@ public class Vector
         if(dimensions <= 0)
             throw new IllegalArgumentException("Dimensions count has to be positive");
 
-        return dimensions == coordinates.length ? this : new Vector(projectCoordinates(dimensions));
+        return dimensions == coordinates.length ? this : Vector.of(projectCoordinates(dimensions));
     }
 
     public Vector add(Vector v)
@@ -102,9 +106,9 @@ public class Vector
         double[] coordinates1 = projectCoordinates(newDims);
         double[] coordinates2 = v.projectCoordinates(newDims);
 
-        return new Vector(IntStream.range(0, newDims)
-                                   .mapToDouble(i -> coordinates1[i] + coordinates2[i])
-                                   .toArray());
+        return Vector.of(IntStream.range(0, newDims)
+                                  .mapToDouble(i -> coordinates1[i] + coordinates2[i])
+                                  .toArray());
     }
 
     public Vector subtract(Vector v)
@@ -113,14 +117,14 @@ public class Vector
         double[] coordinates1 = projectCoordinates(newDims);
         double[] coordinates2 = v.projectCoordinates(newDims);
 
-        return new Vector(IntStream.range(0, newDims)
-                                   .mapToDouble(i -> coordinates1[i] - coordinates2[i])
-                                   .toArray());
+        return Vector.of(IntStream.range(0, newDims)
+                                  .mapToDouble(i -> coordinates1[i] - coordinates2[i])
+                                  .toArray());
     }
 
     public Vector multiply(double c)
     {
-        return new Vector(Arrays.stream(coordinates).map(coord -> coord * c).toArray());
+        return Vector.of(Arrays.stream(coordinates).map(coord -> coord * c).toArray());
     }
 
     public Vector divide(double c)
@@ -128,7 +132,7 @@ public class Vector
         if(c == 0)
             throw new ArithmeticException("Division by zero");
 
-        return new Vector(Arrays.stream(coordinates).map(coord -> coord / c).toArray());
+        return Vector.of(Arrays.stream(coordinates).map(coord -> coord / c).toArray());
     }
 
     private double[] projectCoordinates(int dimensions)

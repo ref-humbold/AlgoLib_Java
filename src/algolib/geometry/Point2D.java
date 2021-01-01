@@ -8,7 +8,7 @@ public final class Point2D
     public final double x;
     public final double y;
 
-    public Point2D(double x, double y)
+    private Point2D(double x, double y)
     {
         this.x = x;
         this.y = y;
@@ -24,7 +24,7 @@ public final class Point2D
         if(p.dims() != 2)
             throw new IllegalArgumentException("Point should have exactly 2 dimensions");
 
-        return new Point2D(p.dim(1), p.dim(2));
+        return Point2D.of(p.dim(1), p.dim(2));
     }
 
     @Override
@@ -44,7 +44,7 @@ public final class Point2D
     @Override
     public int hashCode()
     {
-        return Objects.hash(x, y, 0x933ff53);
+        return Objects.hash(x, y);
     }
 
     @Override
@@ -55,7 +55,7 @@ public final class Point2D
 
     public Point toPoint()
     {
-        return new Point(x, y);
+        return Point.of(x, y);
     }
 
     public double radius()

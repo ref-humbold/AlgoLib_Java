@@ -11,12 +11,7 @@ public final class Fraction
     private final long numerator;
     private final long denominator;
 
-    public Fraction(long numerator)
-    {
-        this(numerator, 1);
-    }
-
-    public Fraction(long numerator, long denominator)
+    private Fraction(long numerator, long denominator)
     {
         super();
 
@@ -31,11 +26,23 @@ public final class Fraction
 
         long gcd = Maths.gcd(numerator, denominator);
 
-        numerator /= gcd;
-        denominator /= gcd;
+        this.numerator = numerator / gcd;
+        this.denominator = denominator / gcd;
+    }
 
-        this.numerator = numerator;
-        this.denominator = denominator;
+    public static Fraction of(long numerator)
+    {
+        return new Fraction(numerator, 1);
+    }
+
+    public static Fraction of(long numerator, long denominator)
+    {
+        return new Fraction(numerator, denominator);
+    }
+
+    public static Fraction zero()
+    {
+        return new Fraction(0, 1);
     }
 
     public static Fraction fromInt(int value)
@@ -45,12 +52,7 @@ public final class Fraction
 
     public static Fraction fromLong(long value)
     {
-        return new Fraction(value);
-    }
-
-    public static Fraction of(long numerator, long denominator)
-    {
-        return new Fraction(numerator, denominator);
+        return Fraction.of(value);
     }
 
     @Override

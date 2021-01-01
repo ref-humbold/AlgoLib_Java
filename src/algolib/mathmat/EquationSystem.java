@@ -3,16 +3,41 @@ package algolib.mathmat;
 import java.util.Arrays;
 
 /** Structure of linear equation system with Gauss elimination algorithm */
-public class EquationSystem
+public final class EquationSystem
 {
     private final Equation[] equations;
 
-    public EquationSystem(Equation[] equations)
+    private EquationSystem(Equation[] equations)
     {
         this.equations = equations;
 
         if(Arrays.stream(this.equations).anyMatch(eq -> eq.size() != this.equations[0].size()))
             throw new IllegalArgumentException("Incorrect number of variables in one of equations");
+    }
+
+    public static EquationSystem of(Equation... equations)
+    {
+        return new EquationSystem(equations);
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(this == obj)
+            return true;
+
+        if(obj == null || getClass() != obj.getClass())
+            return false;
+
+        EquationSystem other = (EquationSystem)obj;
+
+        return Arrays.equals(equations, other.equations);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Arrays.hashCode(equations);
     }
 
     public Equation getEquation(int i)

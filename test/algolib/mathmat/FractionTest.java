@@ -6,57 +6,57 @@ import org.junit.jupiter.api.Test;
 public class FractionTest
 {
     @Test
-    public void constructor_WhenNumeratorAndDenominatorAreDivisible_ThenNormalized()
+    public void of_WhenNumeratorAndDenominatorAreDivisible_ThenNormalized()
     {
         // when
-        Fraction result = new Fraction(32, 104);
+        Fraction result = Fraction.of(32, 104);
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(4, 13));
     }
 
     @Test
-    public void constructor_WhenOnlyNumerator_ThenDenominatorEqualsOne()
+    public void of_WhenOnlyNumerator_ThenDenominatorEqualsOne()
     {
         // given
         int value = 29;
         // when
-        Fraction result = new Fraction(value);
+        Fraction result = Fraction.of(value);
         // then
         Assertions.assertThat(result.compareTo(value)).isEqualTo(0);
     }
 
     @Test
-    public void constructor_WhenDenominatorIsZero_ThenArithmeticException()
+    public void of_WhenDenominatorIsZero_ThenArithmeticException()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> new Fraction(1, 0));
+        Throwable throwable = Assertions.catchThrowable(() -> Fraction.of(1, 0));
         // then
         Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
 
     @Test
-    public void constructor_WhenNumeratorIsNegative_ThenNegativeFraction()
+    public void of_WhenNumeratorIsNegative_ThenNegativeFraction()
     {
         // when
-        Fraction result = new Fraction(-4, 11);
+        Fraction result = Fraction.of(-4, 11);
         // then
         Assertions.assertThat(result.compareTo(0L)).isEqualTo(-1);
     }
 
     @Test
-    public void constructor_WhenDenominatorIsNegative_ThenNegativeFraction()
+    public void of_WhenDenominatorIsNegative_ThenNegativeFraction()
     {
         // when
-        Fraction result = new Fraction(4, -11);
+        Fraction result = Fraction.of(4, -11);
         // then
         Assertions.assertThat(result.compareTo(0L)).isEqualTo(-1);
     }
 
     @Test
-    public void constructor_WhenNumeratorAndDenominatorAreNegative_ThenPositiveFraction()
+    public void of_WhenNumeratorAndDenominatorAreNegative_ThenPositiveFraction()
     {
         // when
-        Fraction result = new Fraction(-4, -11);
+        Fraction result = Fraction.of(-4, -11);
         // then
         Assertions.assertThat(result.compareTo(0L)).isEqualTo(1);
     }
@@ -120,9 +120,9 @@ public class FractionTest
     public void invert_WhenZero_ThenArithmeticException()
     {
         // given
-        Fraction fraction = new Fraction(0);
+        Fraction fraction = Fraction.zero();
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> fraction.invert());
+        Throwable throwable = Assertions.catchThrowable(fraction::invert);
         // then
         Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }

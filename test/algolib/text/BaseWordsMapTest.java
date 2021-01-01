@@ -13,7 +13,7 @@ public class BaseWordsMapTest
     @BeforeEach
     public void setUp()
     {
-        testObject = new BaseWordsMap("mississippi");
+        testObject = BaseWordsMap.build("mississippi");
     }
 
     @Test
@@ -26,7 +26,7 @@ public class BaseWordsMapTest
     }
 
     @Test
-    public void getCode_WhenInvalidStartIndexGreaterThanEndIndex_ThenZeroAndZero()
+    public void getCode_WhenStartIndexGreaterThanEndIndex_ThenZeroAndZero()
     {
         // when
         Pair<Integer, Integer> result = testObject.getCode(6, 2);

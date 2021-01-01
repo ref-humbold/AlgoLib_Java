@@ -13,7 +13,7 @@ class EquationTest
     @BeforeEach
     public void setUp()
     {
-        testObject = new Equation(new double[]{2, 3, 0, -2}, 15);
+        testObject = Equation.of(new double[]{2, 3, 0, -2}, 15);
     }
 
     @AfterEach
@@ -45,7 +45,7 @@ class EquationTest
     public void combine_WhenConstantIsNonZero_ThenCombined()
     {
         // when
-        testObject.combine(new Equation(new double[]{1, -1, 4, 10}, 5), -2);
+        testObject.combine(Equation.of(new double[]{1, -1, 4, 10}, 5), -2);
         // then
         Assertions.assertThat(allCoefficients(testObject)).containsExactly(0, 5, -8, -22);
         Assertions.assertThat(testObject.getFree()).isEqualTo(5);
@@ -55,7 +55,7 @@ class EquationTest
     public void combine_WhenNoConstant_ThenAddEquation()
     {
         // when
-        testObject.combine(new Equation(new double[]{1, -1, 4, 10}, 5));
+        testObject.combine(Equation.of(new double[]{1, -1, 4, 10}, 5));
         // then
         Assertions.assertThat(allCoefficients(testObject)).containsExactly(3, 2, 4, 8);
         Assertions.assertThat(testObject.getFree()).isEqualTo(20);
@@ -66,7 +66,7 @@ class EquationTest
     {
         // when
         Throwable throwable = Assertions.catchThrowable(
-                () -> testObject.combine(new Equation(new double[]{1, -1, 10, 7}, 5), 0));
+                () -> testObject.combine(Equation.of(new double[]{1, -1, 10, 7}, 5), 0));
         // then
         Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }

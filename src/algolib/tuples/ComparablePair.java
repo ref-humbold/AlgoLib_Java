@@ -1,11 +1,11 @@
-// Structure of comparable pair
 package algolib.tuples;
 
+/** Structure of comparable pair */
 public final class ComparablePair<F extends Comparable<? super F>, S extends Comparable<? super S>>
         extends Pair<F, S>
         implements Comparable<Pair<F, S>>
 {
-    public ComparablePair(F first, S second)
+    private ComparablePair(F first, S second)
     {
         super(first, second);
     }

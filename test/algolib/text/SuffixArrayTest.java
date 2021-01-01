@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 
 public class SuffixArrayTest
 {
-    private static String TEXT = "mississippi";
+    private static final String TEXT = "mississippi";
     private SuffixArray testObject;
 
     @BeforeEach
     public void setUp()
     {
-        testObject = new SuffixArray(TEXT);
+        testObject = SuffixArray.build(TEXT);
     }
 
     @AfterEach

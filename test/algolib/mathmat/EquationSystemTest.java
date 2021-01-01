@@ -1,31 +1,17 @@
 package algolib.mathmat;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class EquationSystemTest
 {
-    private EquationSystem testObject;
-
-    @BeforeEach
-    public void setUp()
-    {
-        testObject = new EquationSystem(new Equation[]{new Equation(new double[]{2, 3, -2}, 15),
-                                                       new Equation(new double[]{7, -1, 0}, 4),
-                                                       new Equation(new double[]{-1, 6, 4}, 9)});
-    }
-
-    @AfterEach
-    public void tearDown()
-    {
-        testObject = null;
-    }
-
     @Test
     public void solve_WhenSingleSolution_ThenSolution()
     {
+        // given
+        EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
+                                                      Equation.of(new double[]{7, -1, 0}, 4),
+                                                      Equation.of(new double[]{-1, 6, 4}, 9));
         // when
         double[] result = new double[0];
 
@@ -49,10 +35,9 @@ class EquationSystemTest
     public void solve_WhenNoSolution_ThenNoSolutionException()
     {
         // given
-        testObject = new EquationSystem(new Equation[]{new Equation(new double[]{2, 3, -2}, 15),
-                                                       new Equation(new double[]{7, -1, 0}, 4),
-                                                       new Equation(new double[]{-1, -1.5, 1},
-                                                                    -1)});
+        EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
+                                                      Equation.of(new double[]{7, -1, 0}, 4),
+                                                      Equation.of(new double[]{-1, -1.5, 1}, -1));
 
         // when
         Throwable throwable = Assertions.catchThrowable(() -> testObject.solve());
@@ -66,9 +51,9 @@ class EquationSystemTest
     public void solve_WhenInfiniteSolutions_ThenInfiniteSolutionsException()
     {
         // given
-        testObject = new EquationSystem(new Equation[]{new Equation(new double[]{2, 3, -2}, 15),
-                                                       new Equation(new double[]{7, -1, 0}, 4),
-                                                       new Equation(new double[]{4, 6, -4}, 30)});
+        EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
+                                                      Equation.of(new double[]{7, -1, 0}, 4),
+                                                      Equation.of(new double[]{4, 6, -4}, 30));
 
         // when
         Throwable throwable = Assertions.catchThrowable(() -> testObject.solve());

@@ -9,7 +9,7 @@ public final class Point3D
     public final double y;
     public final double z;
 
-    public Point3D(double x, double y, double z)
+    private Point3D(double x, double y, double z)
     {
         this.x = x;
         this.y = y;
@@ -46,7 +46,7 @@ public final class Point3D
     @Override
     public int hashCode()
     {
-        return Objects.hash(x, y, z, 0x933ff53);
+        return Objects.hash(x, y, z);
     }
 
     @Override
@@ -57,7 +57,7 @@ public final class Point3D
 
     public Point toPoint()
     {
-        return new Point(x, y, z);
+        return Point.of(x, y, z);
     }
 
     public double radius()

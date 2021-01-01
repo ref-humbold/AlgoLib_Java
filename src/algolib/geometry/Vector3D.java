@@ -9,7 +9,7 @@ public final class Vector3D
     public final double y;
     public final double z;
 
-    public Vector3D(double x, double y, double z)
+    private Vector3D(double x, double y, double z)
     {
         this.x = x;
         this.y = y;
@@ -23,7 +23,7 @@ public final class Vector3D
 
     public static Vector3D between(Point3D begin, Point3D end)
     {
-        return new Vector3D(end.x - begin.x, end.y - begin.y, end.z - begin.z);
+        return Vector3D.of(end.x - begin.x, end.y - begin.y, end.z - begin.z);
     }
 
     public static Vector3D fromVector(Vector p)
@@ -31,7 +31,7 @@ public final class Vector3D
         if(p.dims() != 3)
             throw new IllegalArgumentException("Point should have exactly 3 dimensions");
 
-        return new Vector3D(p.dim(1), p.dim(2), p.dim(3));
+        return Vector3D.of(p.dim(1), p.dim(2), p.dim(3));
     }
 
     public static double dot(Vector3D v1, Vector3D v2)
@@ -41,8 +41,8 @@ public final class Vector3D
 
     public static Vector3D cross(Vector3D v1, Vector3D v2)
     {
-        return new Vector3D(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z,
-                            v1.x * v2.y - v1.y * v2.x);
+        return Vector3D.of(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z,
+                           v1.x * v2.y - v1.y * v2.x);
     }
 
     public static double area(Vector3D v1, Vector3D v2)
@@ -72,7 +72,7 @@ public final class Vector3D
     @Override
     public int hashCode()
     {
-        return Objects.hash(x, y, z, 0x935fe66);
+        return Objects.hash(x, y, z);
     }
 
     @Override
@@ -83,7 +83,7 @@ public final class Vector3D
 
     public Vector toVector()
     {
-        return new Vector(x, y, z);
+        return Vector.of(x, y, z);
     }
 
     public double length()
@@ -93,17 +93,17 @@ public final class Vector3D
 
     public Vector3D add(Vector3D v)
     {
-        return new Vector3D(x + v.x, y + v.y, z + v.z);
+        return Vector3D.of(x + v.x, y + v.y, z + v.z);
     }
 
     public Vector3D subtract(Vector3D v)
     {
-        return new Vector3D(x - v.x, y - v.y, z - v.z);
+        return Vector3D.of(x - v.x, y - v.y, z - v.z);
     }
 
     public Vector3D multiply(double c)
     {
-        return new Vector3D(x * c, y * c, z * c);
+        return Vector3D.of(x * c, y * c, z * c);
     }
 
     public Vector3D divide(double c)
@@ -111,6 +111,6 @@ public final class Vector3D
         if(c == 0)
             throw new ArithmeticException("Division by zero");
 
-        return new Vector3D(x / c, y / c, z / c);
+        return Vector3D.of(x / c, y / c, z / c);
     }
 }

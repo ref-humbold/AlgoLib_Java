@@ -1,29 +1,56 @@
-// Structure of suffix array
 package algolib.text;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SuffixArray
+/** Structure of suffix array */
+public final class SuffixArray
 {
-    private int length;
-    private String text;
-    private List<Integer> suffixArray = new ArrayList<>();
-    private List<Integer> inverseArray = new ArrayList<>();
-    private List<Integer> lcpArray = new ArrayList<>();
+    private final int length;
+    private final String text;
+    private final List<Integer> suffixArray;
+    private final List<Integer> inverseArray = new ArrayList<>();
+    private final List<Integer> lcpArray = new ArrayList<>();
 
-    public SuffixArray(String text)
+    private SuffixArray(String text)
     {
         this.text = text;
         length = text.length();
-        initSuffixArray();
+        suffixArray = createArray(this.text.chars().boxed().collect(Collectors.toList()));
         initInverseArray();
         initLcpArray();
+    }
+
+    public static SuffixArray build(String text)
+    {
+        return new SuffixArray(text);
     }
 
     public String getText()
     {
         return text;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(this == obj)
+            return true;
+
+        if(obj == null || getClass() != obj.getClass())
+            return false;
+
+        SuffixArray other = (SuffixArray)obj;
+
+        return length == other.length && Objects.equals(text, other.text) && Objects.equals(
+                suffixArray, other.suffixArray) && Objects.equals(inverseArray, other.inverseArray)
+                && Objects.equals(lcpArray, other.lcpArray);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(length, text, suffixArray, inverseArray, lcpArray);
     }
 
     public int size()
@@ -86,13 +113,6 @@ public class SuffixArray
         return res;
     }
 
-    private void initSuffixArray()
-    {
-        List<Integer> t = text.chars().boxed().collect(Collectors.toList());
-
-        suffixArray = createArray(t);
-    }
-
     private void initInverseArray()
     {
         inverseArray.addAll(Collections.nCopies(length, 0));
@@ -150,12 +170,13 @@ public class SuffixArray
 
         for(int i : t12)
         {
-            if(getElem(t, i) != last0 || getElem(t, i + 1) != last1 || getElem(t, i + 2) != last2)
+            if(getElement(t, i) != last0 || getElement(t, i + 1) != last1
+                    || getElement(t, i + 2) != last2)
             {
                 ++ix;
-                last0 = getElem(t, i);
-                last1 = getElem(t, i + 1);
-                last2 = getElem(t, i + 2);
+                last0 = getElement(t, i);
+                last1 = getElement(t, i + 1);
+                last2 = getElement(t, i + 2);
             }
 
             if(i % 3 == 1)
@@ -205,13 +226,13 @@ public class SuffixArray
             int pos12 = sa12.get(i12) < n2 ? sa12.get(i12) * 3 + 1 : (sa12.get(i12) - n2) * 3 + 2;
             int pos0 = sa0.get(i0);
 
-            if(sa12.get(i12) < n2 ? lessOrEqual(getElem(t0, pos12), getElem(t0, pos0),
-                                                getElem(t12, sa12.get(i12) + n2),
-                                                getElem(t12, pos0 / 3))
-                                  : lessOrEqual(getElem(t0, pos12), getElem(t0, pos0),
-                                                getElem(t0, pos12 + 1), getElem(t0, pos0 + 1),
-                                                getElem(t12, sa12.get(i12) - n2 + 1),
-                                                getElem(t12, pos0 / 3 + n2)))
+            if(sa12.get(i12) < n2 ? lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
+                                                getElement(t12, sa12.get(i12) + n2),
+                                                getElement(t12, pos0 / 3))
+                                  : lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
+                                                getElement(t0, pos12 + 1), getElement(t0, pos0 + 1),
+                                                getElement(t12, sa12.get(i12) - n2 + 1),
+                                                getElement(t12, pos0 / 3 + n2)))
             {
                 sa.add(pos12);
                 ++i12;
@@ -245,7 +266,7 @@ public class SuffixArray
 
         for(int i : v)
         {
-            int k = getElem(keys, i + shift);
+            int k = getElement(keys, i + shift);
 
             buckets.putIfAbsent(k, new ArrayDeque<>());
             buckets.get(k).add(i);
@@ -259,17 +280,17 @@ public class SuffixArray
             }
     }
 
-    private int getElem(List<Integer> v, int i)
+    private int getElement(List<Integer> v, int i)
     {
         return i < v.size() ? v.get(i) : 0;
     }
 
-    private boolean lessOrEqual(int... elems)
+    private boolean lessOrEqual(int... elements)
     {
-        for(int i = 0; i < elems.length; i += 2)
-            if(elems[i] < elems[i + 1])
+        for(int i = 0; i < elements.length; i += 2)
+            if(elements[i] < elements[i + 1])
                 return true;
-            else if(elems[i] > elems[i + 1])
+            else if(elements[i] > elements[i + 1])
                 return false;
 
         return true;

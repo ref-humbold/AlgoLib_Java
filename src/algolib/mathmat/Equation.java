@@ -1,22 +1,50 @@
 package algolib.mathmat;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 /** Structure of linear equation */
-public class Equation
+public final class Equation
 {
     private final double[] coefficients;
     private double free;
 
-    public Equation(double[] coefficients, double free)
+    private Equation(double[] coefficients, double free)
     {
         this.coefficients = coefficients;
         this.free = free;
     }
 
+    public static Equation of(double[] coefficients, double free)
+    {
+        return new Equation(coefficients, free);
+    }
+
     public double getFree()
     {
         return free;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(this == obj)
+            return true;
+
+        if(obj == null || getClass() != obj.getClass())
+            return false;
+
+        Equation other = (Equation)obj;
+
+        return Double.compare(other.free, free) == 0 && Arrays.equals(coefficients,
+                                                                      other.coefficients);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(free, Arrays.hashCode(coefficients));
     }
 
     public double getCoefficient(int i)
