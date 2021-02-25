@@ -13,7 +13,7 @@ public final class ClosestPoints
      * @param points a list of points
      * @return pair of closest points
      */
-    public Pair<Point2D, Point2D> find(List<Point2D> points)
+    public static Pair<Point2D, Point2D> find(List<Point2D> points)
     {
         List<Point2D> pointsX = new ArrayList<>(points);
         List<Point2D> pointsY = new ArrayList<>(points);
@@ -25,8 +25,8 @@ public final class ClosestPoints
     }
 
     // Finds closest pair of points among three of them.
-    private Pair<Point2D, Point2D> searchThree(List<Point2D> pointsX, int index_begin,
-                                               int index_end)
+    private static Pair<Point2D, Point2D> searchThree(List<Point2D> pointsX, int index_begin,
+                                                      int index_end)
     {
         int index_middle = index_begin + 1;
         double distance12 = Geometry.distance(pointsX.get(index_begin), pointsX.get(index_middle));
@@ -44,8 +44,8 @@ public final class ClosestPoints
 
     // Finds closest pair inside a belt of given width.
     // The resulting distance should not be less than belt width.
-    private Pair<Point2D, Point2D> checkBelt(List<Point2D> pointsY, double middleX,
-                                             double beltWidth)
+    private static Pair<Point2D, Point2D> checkBelt(List<Point2D> pointsY, double middleX,
+                                                    double beltWidth)
     {
         Pair<Point2D, Point2D> closestPoints = null;
         List<Integer> beltPoints = new ArrayList<>();
@@ -81,13 +81,15 @@ public final class ClosestPoints
 
     // Searches for a pair of closest points in given sublist of points.
     // Points are given sorted by X coordinate and by Y coordinate.
-    private Pair<Point2D, Point2D> searchClosest(List<Point2D> pointsX, List<Point2D> pointsY,
-                                                 int index_begin, int index_end)
+    // (index_begin & index_end inclusive)
+    private static Pair<Point2D, Point2D> searchClosest(List<Point2D> pointsX,
+                                                        List<Point2D> pointsY, int index_begin,
+                                                        int index_end)
     {
         index_begin = (index_begin + pointsX.size()) % pointsX.size();
         index_end = (index_end + pointsX.size()) % pointsX.size();
 
-        if(index_end - index_begin == 1)
+        if(index_end - index_begin <= 1)
             return Pair.of(pointsX.get(index_begin), pointsX.get(index_end));
 
         if(index_end - index_begin == 2)
