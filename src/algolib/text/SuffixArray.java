@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 /** Structure of suffix array */
 public final class SuffixArray
 {
-    private final int length;
+    private final int size_;
     private final String text;
     private final List<Integer> suffixArray;
     private final List<Integer> inverseArray = new ArrayList<>();
@@ -15,7 +15,7 @@ public final class SuffixArray
     private SuffixArray(String text)
     {
         this.text = text;
-        length = text.length();
+        size_ = text.length();
         suffixArray = createArray(this.text.chars().boxed().collect(Collectors.toList()));
         initInverseArray();
         initLcpArray();
@@ -42,7 +42,7 @@ public final class SuffixArray
 
         SuffixArray other = (SuffixArray)obj;
 
-        return length == other.length && Objects.equals(text, other.text) && Objects.equals(
+        return size_ == other.size_ && Objects.equals(text, other.text) && Objects.equals(
                 suffixArray, other.suffixArray) && Objects.equals(inverseArray, other.inverseArray)
                 && Objects.equals(lcpArray, other.lcpArray);
     }
@@ -50,17 +50,17 @@ public final class SuffixArray
     @Override
     public int hashCode()
     {
-        return Objects.hash(length, text, suffixArray, inverseArray, lcpArray);
+        return Objects.hash(size_, text, suffixArray, inverseArray, lcpArray);
     }
 
     public int size()
     {
-        return length;
+        return size_;
     }
 
     public String get(int i)
     {
-        if(i < 0 || i >= length)
+        if(i < 0 || i >= size_)
             throw new IndexOutOfBoundsException("Suffix array index out of range");
 
         return text.substring(suffixArray.get(i));
@@ -72,7 +72,7 @@ public final class SuffixArray
      */
     public int indexAt(int i)
     {
-        if(i < 0 || i >= length)
+        if(i < 0 || i >= size_)
             throw new IndexOutOfBoundsException("Suffix array index out of range");
 
         return suffixArray.get(i);
@@ -84,7 +84,7 @@ public final class SuffixArray
      */
     public int indexOf(int suf)
     {
-        if(suf < 0 || suf >= length)
+        if(suf < 0 || suf >= size_)
             throw new IndexOutOfBoundsException("Text index out of range");
 
         return inverseArray.get(suf);
@@ -97,11 +97,11 @@ public final class SuffixArray
      */
     public int countLCP(int suf1, int suf2)
     {
-        if(suf1 < 0 || suf1 >= length || suf2 < 0 || suf2 >= length)
+        if(suf1 < 0 || suf1 >= size_ || suf2 < 0 || suf2 >= size_)
             throw new IndexOutOfBoundsException("Text index out of range");
 
         if(suf1 == suf2)
-            return length - suf1;
+            return size_ - suf1;
 
         int i1 = Math.min(inverseArray.get(suf1), inverseArray.get(suf2));
         int i2 = Math.max(inverseArray.get(suf1), inverseArray.get(suf2));
@@ -115,23 +115,23 @@ public final class SuffixArray
 
     private void initInverseArray()
     {
-        inverseArray.addAll(Collections.nCopies(length, 0));
+        inverseArray.addAll(Collections.nCopies(size_, 0));
 
-        for(int i = 0; i < length; ++i)
+        for(int i = 0; i < size_; ++i)
             inverseArray.set(suffixArray.get(i), i);
     }
 
     private void initLcpArray()
     {
-        lcpArray.addAll(Collections.nCopies(length, 0));
+        lcpArray.addAll(Collections.nCopies(size_, 0));
 
-        for(int i = 0, len = 0; i < length; ++i)
+        for(int i = 0, len = 0; i < size_; ++i)
         {
             if(inverseArray.get(i) >= 1)
             {
                 int j = suffixArray.get(inverseArray.get(i) - 1);
 
-                while(i + len < length && j + len < length && text.charAt(i + len) == text.charAt(
+                while(i + len < size_ && j + len < size_ && text.charAt(i + len) == text.charAt(
                         j + len))
                     ++len;
 

@@ -9,7 +9,7 @@ public class AVLTree<E>
 {
     private final Comparator<? super E> theComparator;
     private AVLNode<E> tree = null;
-    private int count = 0;
+    private int size_ = 0;
 
     public AVLTree()
     {
@@ -48,7 +48,7 @@ public class AVLTree<E>
 
         AVLTree<?> other = (AVLTree<?>)obj;
 
-        return count == other.count && containsAll(other);
+        return size_ == other.size_ && containsAll(other);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AVLTree<E>
     @Override
     public int size()
     {
-        return count;
+        return size_;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class AVLTree<E>
         {
             AVLNode<E> newNode = new AVLNode<>(e);
             setRoot(newNode);
-            ++count;
+            ++size_;
             return true;
         }
 
@@ -115,7 +115,7 @@ public class AVLTree<E>
                 nodeParent.setRight(newNode);
 
             balance(newNode);
-            ++count;
+            ++size_;
             return true;
         }
 
@@ -144,7 +144,7 @@ public class AVLTree<E>
     public void clear()
     {
         setRoot(null);
-        count = 0;
+        size_ = 0;
     }
 
     @Override
@@ -245,7 +245,7 @@ public class AVLTree<E>
             {
                 setRoot(child);
             }
-            --count;
+            --size_;
         }
     }
 
