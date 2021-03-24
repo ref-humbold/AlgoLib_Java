@@ -7,14 +7,14 @@ import java.util.function.BiFunction;
 public class AVLTree<E>
         extends AbstractSet<E>
 {
-    private final Comparator<? super E> theComparator;
+    private final Comparator<? super E> comparator_;
     private AVLNode<E> tree = null;
     private int size_ = 0;
 
     public AVLTree()
     {
         super();
-        theComparator = null;
+        comparator_ = null;
     }
 
     public AVLTree(Collection<E> collection)
@@ -26,7 +26,7 @@ public class AVLTree<E>
     public AVLTree(Comparator<? super E> comparator)
     {
         super();
-        theComparator = comparator;
+        comparator_ = comparator;
     }
 
     private void setRoot(AVLNode<E> node)
@@ -59,7 +59,7 @@ public class AVLTree<E>
 
     public Comparator<? super E> comparator()
     {
-        return theComparator;
+        return comparator_;
     }
 
     @Override
@@ -103,9 +103,7 @@ public class AVLTree<E>
             return true;
         }
 
-        AVLNode<E> theNode = search(nodeParent, e);
-
-        if(theNode == null)
+        if(search(nodeParent, e) == null)
         {
             AVLNode<E> newNode = new AVLNode<>(e);
 
@@ -181,10 +179,10 @@ public class AVLTree<E>
     @SuppressWarnings("unchecked")
     private int compare(Object obj1, Object obj2)
     {
-        if(theComparator == null)
+        if(comparator_ == null)
             return ((Comparable<Object>)obj1).compareTo(obj2);
 
-        return ((Comparator<Object>)theComparator).compare(obj1, obj2);
+        return ((Comparator<Object>)comparator_).compare(obj1, obj2);
     }
 
     // Determines the subtree where given value might be present:

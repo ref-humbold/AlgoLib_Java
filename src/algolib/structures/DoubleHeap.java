@@ -8,13 +8,13 @@ public class DoubleHeap<E>
 {
     private static final int INDEX_MIN = 0;
     private static final int INDEX_MAX = 1;
-    private final Comparator<? super E> theComparator;
+    private final Comparator<? super E> comparator_;
     private final List<E> heap = new ArrayList<>();
 
     public DoubleHeap()
     {
         super();
-        theComparator = null;
+        comparator_ = null;
     }
 
     public DoubleHeap(Collection<E> collection)
@@ -26,7 +26,7 @@ public class DoubleHeap<E>
     public DoubleHeap(Comparator<? super E> comparator)
     {
         super();
-        theComparator = comparator;
+        comparator_ = comparator;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class DoubleHeap<E>
 
     public Comparator<? super E> comparator()
     {
-        return theComparator;
+        return comparator_;
     }
 
     @Override
@@ -247,10 +247,10 @@ public class DoubleHeap<E>
     @SuppressWarnings("unchecked")
     private int compare(int index1, int index2)
     {
-        if(theComparator == null)
+        if(comparator_ == null)
             return ((Comparable<E>)heap.get(index1)).compareTo(heap.get(index2));
 
-        return theComparator.compare(heap.get(index1), heap.get(index2));
+        return comparator_.compare(heap.get(index1), heap.get(index2));
     }
 
     private void moveToMin(int index)
