@@ -1,5 +1,6 @@
 package algolib.text;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,16 @@ public class Trie
     private final TrieNode tree = new TrieNode();
     private int size_;
 
-    boolean isEmpty()
+    public Trie()
+    {
+    }
+
+    public Trie(Collection<String> texts)
+    {
+        addAll(texts);
+    }
+
+    public boolean isEmpty()
     {
         return tree.isEmpty();
     }
@@ -18,7 +28,7 @@ public class Trie
         return size_;
     }
 
-    boolean find(String text)
+    public boolean find(String text)
     {
         TrieNode node = tree;
 
@@ -33,7 +43,7 @@ public class Trie
         return node.terminus;
     }
 
-    void add(String text)
+    public void add(String text)
     {
         TrieNode node = tree;
 
@@ -50,7 +60,13 @@ public class Trie
         }
     }
 
-    void remove(String text)
+    public void addAll(Collection<String> texts)
+    {
+        for(String text : texts)
+            add(text);
+    }
+
+    public void remove(String text)
     {
         if(text.length() > 0)
             removeNode(text, tree, 0);
