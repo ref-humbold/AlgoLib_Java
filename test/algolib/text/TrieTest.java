@@ -57,28 +57,28 @@ public class TrieTest
     }
 
     @Test
-    public void find_WhenPresent_ThenTrue()
+    public void contains_WhenPresent_ThenTrue()
     {
         // when
-        boolean result = testObject.find("abcd");
+        boolean result = testObject.contains("abcd");
         // then
         Assertions.assertThat(result).isTrue();
     }
 
     @Test
-    public void find_WhenAbsent_ThenFalse()
+    public void contains_WhenAbsent_ThenFalse()
     {
         // when
-        boolean result = testObject.find("abxx");
+        boolean result = testObject.contains("abxx");
         // then
         Assertions.assertThat(result).isFalse();
     }
 
     @Test
-    public void find_WhenAbsentPrefix_ThenFalse()
+    public void contains_WhenAbsentPrefix_ThenFalse()
     {
         // when
-        boolean result = testObject.find("xy");
+        boolean result = testObject.contains("xy");
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -91,7 +91,7 @@ public class TrieTest
         // when
         testObject.add(text);
         // then
-        Assertions.assertThat(testObject.find(text)).isTrue();
+        Assertions.assertThat(testObject.contains(text)).isTrue();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size());
     }
 
@@ -103,7 +103,7 @@ public class TrieTest
         // when
         testObject.add(text);
         // then
-        Assertions.assertThat(testObject.find(text)).isTrue();
+        Assertions.assertThat(testObject.contains(text)).isTrue();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size() + 1);
     }
 
@@ -115,7 +115,7 @@ public class TrieTest
         // when
         testObject.add(text);
         // then
-        Assertions.assertThat(testObject.find(text)).isTrue();
+        Assertions.assertThat(testObject.contains(text)).isTrue();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size() + 1);
     }
 
@@ -128,7 +128,7 @@ public class TrieTest
         testObject.addAll(textsToAdd);
         // then
         for(String text : textsToAdd)
-            Assertions.assertThat(testObject.find(text)).isTrue();
+            Assertions.assertThat(testObject.contains(text)).isTrue();
 
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size() + textsToAdd.size() - 1);
     }
@@ -141,7 +141,7 @@ public class TrieTest
         // when
         testObject.remove(text);
         // then
-        Assertions.assertThat(testObject.find(text)).isFalse();
+        Assertions.assertThat(testObject.contains(text)).isFalse();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size() - 1);
     }
 
@@ -153,7 +153,7 @@ public class TrieTest
         // when
         testObject.remove(text);
         // then
-        Assertions.assertThat(testObject.find(text)).isFalse();
+        Assertions.assertThat(testObject.contains(text)).isFalse();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size());
     }
 
@@ -165,8 +165,18 @@ public class TrieTest
         // when
         testObject.remove(text);
         // then
-        Assertions.assertThat(testObject.find("xyz")).isTrue();
-        Assertions.assertThat(testObject.find(text)).isFalse();
+        Assertions.assertThat(testObject.contains("xyz")).isTrue();
+        Assertions.assertThat(testObject.contains(text)).isFalse();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size());
+    }
+
+    @Test
+    public void clear_WhenNotEmpty_ThenEmpty()
+    {
+        // when
+        testObject.clear();
+        // then
+        Assertions.assertThat(testObject.isEmpty()).isTrue();
+        Assertions.assertThat(testObject.size()).isEqualTo(0);
     }
 }

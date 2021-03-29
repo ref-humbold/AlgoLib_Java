@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class Trie
 {
-    private final TrieNode tree = new TrieNode();
-    private int size_;
+    private TrieNode tree = new TrieNode();
+    private int size_ = 0;
 
     public Trie()
     {
@@ -28,7 +28,7 @@ public class Trie
         return size_;
     }
 
-    public boolean find(String text)
+    public boolean contains(String text)
     {
         TrieNode node = tree;
 
@@ -70,6 +70,12 @@ public class Trie
     {
         if(text.length() > 0)
             removeNode(text, tree, 0);
+    }
+
+    public void clear()
+    {
+        tree = new TrieNode();
+        size_ = 0;
     }
 
     private boolean removeNode(String text, TrieNode node, int i)

@@ -302,7 +302,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void clear_ThenEmpty()
+    public void clear_WhenNotEmpty_ThenEmpty()
     {
         // when
         testObject.clear();
