@@ -55,7 +55,7 @@ class EquationTest
     public void combine_WhenNoConstant_ThenAddEquation()
     {
         // when
-        testObject.combine(Equation.of(new double[]{1, -1, 4, 10}, 5));
+        testObject.add(Equation.of(new double[]{1, -1, 4, 10}, 5));
         // then
         Assertions.assertThat(allCoefficients(testObject)).containsExactly(3, 2, 4, 8);
         Assertions.assertThat(testObject.getFree()).isEqualTo(20);
