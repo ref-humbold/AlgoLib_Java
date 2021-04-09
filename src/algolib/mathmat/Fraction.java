@@ -7,6 +7,8 @@ public final class Fraction
         extends Number
         implements Comparable<Number>
 {
+    public static final Fraction ZERO = Fraction.of(0);
+    public static final Fraction ONE = Fraction.of(1);
     private static final long serialVersionUID = 330776497365163091L;
     private final long numerator;
     private final long denominator;
@@ -32,17 +34,12 @@ public final class Fraction
 
     public static Fraction of(long numerator)
     {
-        return new Fraction(numerator, 1);
+        return Fraction.of(numerator, 1);
     }
 
     public static Fraction of(long numerator, long denominator)
     {
         return new Fraction(numerator, denominator);
-    }
-
-    public static Fraction zero()
-    {
-        return new Fraction(0, 1);
     }
 
     public static Fraction fromInt(int value)
@@ -84,8 +81,8 @@ public final class Fraction
 
     public Fraction add(Fraction f)
     {
-        return new Fraction(numerator * f.denominator + f.numerator * denominator,
-                            denominator * f.denominator);
+        return Fraction.of(numerator * f.denominator + f.numerator * denominator,
+                           denominator * f.denominator);
     }
 
     public Fraction add(long d)
@@ -95,8 +92,8 @@ public final class Fraction
 
     public Fraction subtract(Fraction f)
     {
-        return new Fraction(numerator * f.denominator - f.numerator * denominator,
-                            denominator * f.denominator);
+        return Fraction.of(numerator * f.denominator - f.numerator * denominator,
+                           denominator * f.denominator);
     }
 
     public Fraction subtract(long d)
@@ -106,7 +103,7 @@ public final class Fraction
 
     public Fraction multiply(Fraction f)
     {
-        return new Fraction(numerator * f.numerator, denominator * f.denominator);
+        return Fraction.of(numerator * f.numerator, denominator * f.denominator);
     }
 
     public Fraction multiply(long d)
@@ -119,7 +116,7 @@ public final class Fraction
         if(f.numerator == 0)
             throw new ArithmeticException("Division by zero");
 
-        return new Fraction(numerator * f.denominator, denominator * f.numerator);
+        return Fraction.of(numerator * f.denominator, denominator * f.numerator);
     }
 
     public Fraction divide(long d)
