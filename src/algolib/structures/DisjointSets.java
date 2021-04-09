@@ -9,7 +9,7 @@ import java.util.Objects;
 public class DisjointSets<E>
 {
     private final Map<E, E> represents = new HashMap<>();
-    private int count = 0;
+    private int size_ = 0;
 
     public DisjointSets()
     {
@@ -20,20 +20,20 @@ public class DisjointSets<E>
         for(E e : universe)
         {
             represents.put(e, e);
-            ++count;
+            ++size_;
         }
     }
 
     /** @return {@code true} if structure is empty, otherwise {@code false} */
     public boolean isEmpty()
     {
-        return count == 0;
+        return size_ == 0;
     }
 
     /** @return number of sets */
     public int size()
     {
-        return count;
+        return size_;
     }
 
     /**
@@ -58,7 +58,7 @@ public class DisjointSets<E>
             throw new IllegalArgumentException("Value " + element.toString() + "already present.");
 
         represents.put(element, element);
-        ++count;
+        ++size_;
 
         return this;
     }
@@ -78,7 +78,7 @@ public class DisjointSets<E>
         for(E elem : elements)
         {
             represents.put(elem, elem);
-            ++count;
+            ++size_;
         }
 
         return this;
@@ -131,7 +131,7 @@ public class DisjointSets<E>
         if(!isSameSet(element1, element2))
         {
             represents.put(findSet(element1), findSet(element2));
-            --count;
+            --size_;
         }
 
         return this;

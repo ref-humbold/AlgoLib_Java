@@ -20,6 +20,11 @@ public final class EquationSystem
         return new EquationSystem(equations);
     }
 
+    public Equation getEquation(int i)
+    {
+        return equations[i];
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -38,11 +43,6 @@ public final class EquationSystem
     public int hashCode()
     {
         return Arrays.hashCode(equations);
-    }
-
-    public Equation getEquation(int i)
-    {
-        return equations[i];
     }
 
     public int size()

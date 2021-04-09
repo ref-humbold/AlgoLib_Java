@@ -2,6 +2,7 @@ package algolib.mathmat;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /** Structure of linear equation */
@@ -26,6 +27,11 @@ public final class Equation
         return free;
     }
 
+    public double getCoefficient(int i)
+    {
+        return coefficients[i];
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -47,14 +53,50 @@ public final class Equation
         return Objects.hash(free, Arrays.hashCode(coefficients));
     }
 
-    public double getCoefficient(int i)
+    @Override
+    public String toString()
     {
-        return coefficients[i];
+        return IntStream.range(0, coefficients.length)
+                        .filter(i -> coefficients[i] != 0)
+                        .mapToObj(i -> String.format("%f x_%d", coefficients[i], i))
+                        .collect(Collectors.joining(" + ", "", String.format(" = %f", free)));
     }
 
     public int size()
     {
         return coefficients.length;
+    }
+
+    /**
+     * Adds another equation.
+     * @param equation equation to be added
+     * @throws IllegalArgumentException if equations sizes differ
+     */
+    public void add(Equation equation)
+    {
+        if(equation.size() != coefficients.length)
+            throw new IllegalArgumentException("Equation has different number of variables");
+
+        for(int i = 0; i < coefficients.length; ++i)
+            coefficients[i] += equation.coefficients[i];
+
+        free += equation.free;
+    }
+
+    /**
+     * Subtracts another equation.
+     * @param equation equation to be subtracted
+     * @throws IllegalArgumentException if equations sizes differ
+     */
+    public void subtract(Equation equation)
+    {
+        if(equation.size() != coefficients.length)
+            throw new IllegalArgumentException("Equation has different number of variables");
+
+        for(int i = 0; i < coefficients.length; ++i)
+            coefficients[i] -= equation.coefficients[i];
+
+        free -= equation.free;
     }
 
     /**
@@ -71,6 +113,22 @@ public final class Equation
             coefficients[i] *= constant;
 
         free *= constant;
+    }
+
+    /**
+     * Divides equation by a constant.
+     * @param constant constant
+     * @throws ArithmeticException if constant is zero
+     */
+    public void divide(double constant)
+    {
+        if(constant == 0)
+            throw new ArithmeticException("Constant cannot be zero");
+
+        for(int i = 0; i < coefficients.length; ++i)
+            coefficients[i] /= constant;
+
+        free /= constant;
     }
 
     /**
@@ -92,16 +150,6 @@ public final class Equation
             coefficients[i] += constant * equation.coefficients[i];
 
         free += constant * equation.free;
-    }
-
-    /**
-     * Transforms equation by adding another equation.
-     * @param equation equation
-     * @throws IllegalArgumentException if equations sizes differ
-     */
-    public void combine(Equation equation)
-    {
-        combine(equation, 1);
     }
 
     /**

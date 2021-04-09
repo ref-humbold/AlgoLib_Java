@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class ConvexHullTest
 {
     @Test
-    public void find_WhenOnePoint_ThenEmptyConvexHull()
+    public void find_WhenOnePoint_ThenEmpty()
     {
         // when
         List<Point2D> result = ConvexHull.find(List.of(Point2D.of(3.0, 2.0)));
@@ -16,7 +16,7 @@ public class ConvexHullTest
     }
 
     @Test
-    public void find_WhenTwoPoints_ThenEmptyConvexHull()
+    public void find_WhenTwoPoints_ThenEmpty()
     {
         // when
         List<Point2D> result = ConvexHull.find(List.of(Point2D.of(2.0, 3.0), Point2D.of(3.0, 2.0)));
@@ -25,7 +25,7 @@ public class ConvexHullTest
     }
 
     @Test
-    public void find_WhenThreePoints_ThenThesePointsInConvexHull()
+    public void find_WhenThreePoints_ThenThesePointsInHull()
     {
         // given
         List<Point2D> points =
@@ -37,7 +37,7 @@ public class ConvexHullTest
     }
 
     @Test
-    public void find_ThenPointsInConvexHull()
+    public void find_ThenPointsInHull()
     {
         // when
         List<Point2D> result = ConvexHull.find(
@@ -54,7 +54,7 @@ public class ConvexHullTest
     }
 
     @Test
-    public void find_WhenMultiplePointsAreCollinear_ThenConvexHullOmitsInnerPoints()
+    public void find_WhenMultiplePointsAreCollinear_ThenInnerPointsOmitted()
     {
         // when
         List<Point2D> result = ConvexHull.find(
