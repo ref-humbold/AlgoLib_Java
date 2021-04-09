@@ -28,6 +28,8 @@ jobs:
       - run:
           name: Test
           command: ant -lib ./lib test
+      - store_test_results:
+          path: ./junit/result
 
 workflows:
   main:
