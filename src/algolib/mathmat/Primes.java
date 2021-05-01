@@ -13,6 +13,11 @@ public final class Primes
     private static final int ATTEMPTS = 17;
     private static final Random random = new Random();
 
+    /**
+     * Finds prime numbers inside a range of integers starting from 0.
+     * @param maxNumber maximal number in range, exclusive
+     * @return collection of prime numbers
+     */
     public static Collection<Integer> find(int maxNumber)
     {
         return Primes.find(0, maxNumber);
@@ -57,6 +62,11 @@ public final class Primes
         return primes;
     }
 
+    /**
+     * Checks whether specified number is prime running Fermat's prime test.
+     * @param number number to check
+     * @return {@code true} if the number is probably prime, otherwise {@code false}
+     */
     public static boolean testFermat(long number)
     {
         if(number == 2 || number == 3)
@@ -76,6 +86,11 @@ public final class Primes
         return true;
     }
 
+    /**
+     * Checks whether specified number is prime running Miller-Rabin's prime test.
+     * @param number number to check
+     * @return {@code true} if the number is probably prime, otherwise {@code false}
+     */
     public static boolean testMiller(long number)
     {
         if(number == 2 || number == 3)
