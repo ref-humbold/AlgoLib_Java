@@ -7,9 +7,8 @@ public final class Fraction
         extends Number
         implements Comparable<Number>
 {
-    public static final Fraction ZERO = Fraction.of(0);
-    public static final Fraction ONE = Fraction.of(1);
     private static final long serialVersionUID = 330776497365163091L;
+
     private final long numerator;
     private final long denominator;
 
@@ -18,7 +17,7 @@ public final class Fraction
         super();
 
         if(denominator == 0)
-            throw new ArithmeticException("Denominator cannot be equal to zero");
+            throw new ArithmeticException("Denominator is zero");
 
         if(denominator < 0)
         {
@@ -85,30 +84,15 @@ public final class Fraction
                            denominator * f.denominator);
     }
 
-    public Fraction add(long d)
-    {
-        return add(Fraction.fromLong(d));
-    }
-
     public Fraction subtract(Fraction f)
     {
         return Fraction.of(numerator * f.denominator - f.numerator * denominator,
                            denominator * f.denominator);
     }
 
-    public Fraction subtract(long d)
-    {
-        return subtract(Fraction.fromLong(d));
-    }
-
     public Fraction multiply(Fraction f)
     {
         return Fraction.of(numerator * f.numerator, denominator * f.denominator);
-    }
-
-    public Fraction multiply(long d)
-    {
-        return multiply(Fraction.fromLong(d));
     }
 
     public Fraction divide(Fraction f)
@@ -117,11 +101,6 @@ public final class Fraction
             throw new ArithmeticException("Division by zero");
 
         return Fraction.of(numerator * f.denominator, denominator * f.numerator);
-    }
-
-    public Fraction divide(long d)
-    {
-        return divide(Fraction.fromLong(d));
     }
 
     public Fraction invert()
@@ -167,10 +146,10 @@ public final class Fraction
 
     private int compare(Fraction f)
     {
-        long lcm = Maths.lcm(denominator, f.denominator);
+        long commonDenominator = Maths.lcm(denominator, f.denominator);
 
-        long thisNumerator = lcm / denominator * numerator;
-        long otherNumerator = lcm / f.denominator * f.numerator;
+        long thisNumerator = commonDenominator / denominator * numerator;
+        long otherNumerator = commonDenominator / f.denominator * f.numerator;
 
         return Long.compare(thisNumerator, otherNumerator);
     }
