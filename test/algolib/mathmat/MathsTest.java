@@ -9,7 +9,7 @@ public class MathsTest
     //region gcd
 
     @Test
-    public void gcd_WhenNumbersAreComposite()
+    public void gcd_WhenNumbersAreComposite_ThenGCD()
     {
         // when
         long result = Maths.gcd(161L, 46L);
@@ -18,7 +18,7 @@ public class MathsTest
     }
 
     @Test
-    public void gcd_WhenNumbersArePrime()
+    public void gcd_WhenNumbersArePrime_ThenOne()
     {
         // when
         int result = Maths.gcd(127, 41);
@@ -27,7 +27,7 @@ public class MathsTest
     }
 
     @Test
-    public void gcd_WhenNumbersAreMutuallyPrime()
+    public void gcd_WhenNumbersAreMutuallyPrime_ThenOne()
     {
         // when
         int result = Maths.gcd(119, 57);
@@ -36,7 +36,7 @@ public class MathsTest
     }
 
     @Test
-    public void gcd_WhenOneOfNumbersIsMultipleOfAnother()
+    public void gcd_WhenOneOfNumbersIsMultipleOfAnother_ThenLessNumber()
     {
         // given
         int number = 34;
@@ -47,7 +47,7 @@ public class MathsTest
     }
 
     @Test
-    public void gcd_WhenOneOfNumbersIsZero()
+    public void gcd_WhenOneOfNumbersIsZero_ThenZero()
     {
         // given
         int number = 96;
@@ -61,7 +61,7 @@ public class MathsTest
     // region lcm
 
     @Test
-    public void lcm_WhenNumbersAreComposite()
+    public void lcm_WhenNumbersAreComposite_ThenLCM()
     {
         // when
         long result = Maths.lcm(161L, 46L);
@@ -70,7 +70,7 @@ public class MathsTest
     }
 
     @Test
-    public void lcm_WhenNumbersArePrime()
+    public void lcm_WhenNumbersArePrime_ThenProduct()
     {
         // when
         int result = Maths.lcm(127, 41);
@@ -79,7 +79,7 @@ public class MathsTest
     }
 
     @Test
-    public void lcm_WhenNumbersAreMutuallyPrime()
+    public void lcm_WhenNumbersAreMutuallyPrime_ThenProduct()
     {
         // when
         int result = Maths.lcm(119, 57);
@@ -88,7 +88,7 @@ public class MathsTest
     }
 
     @Test
-    public void lcm_WhenOneOfNumbersIsMultipleOfAnother()
+    public void lcm_WhenOneOfNumbersIsMultipleOfAnother_ThenGreaterNumber()
     {
         // given
         int number = 34;
@@ -135,6 +135,15 @@ public class MathsTest
         int result = Maths.multiply(0, 0);
         // then
         Assertions.assertThat(result).isZero();
+    }
+
+    @Test
+    public void multiply_WhenFactorsArePositive_ThenResultIsPositive()
+    {
+        // when
+        long result = Maths.multiply(3, 10);
+        // then
+        Assertions.assertThat(result).isEqualTo(30);
     }
 
     @Test

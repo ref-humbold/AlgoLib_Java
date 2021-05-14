@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 /** Algorithms for prime numbers */
@@ -67,6 +68,30 @@ public final class Primes
      * @param number number to check
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
+    public static boolean testFermat(int number)
+    {
+        if(number == 2 || number == 3)
+            return true;
+
+        if(number < 2 || number % 2 == 0 || number % 3 == 0)
+            return false;
+
+        for(int i = 0; i < ATTEMPTS; ++i)
+        {
+            int witness = 2 + Math.abs(random.nextInt()) % (number - 2);
+
+            if(Maths.gcd(witness, number) > 1 || Maths.power(witness, number - 1, number) != 1)
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks whether specified number is prime running Fermat's prime test.
+     * @param number number to check
+     * @return {@code true} if the number is probably prime, otherwise {@code false}
+     */
     public static boolean testFermat(long number)
     {
         if(number == 2 || number == 3)
@@ -81,6 +106,40 @@ public final class Primes
 
             if(Maths.gcd(witness, number) > 1 || Maths.power(witness, number - 1, number) != 1)
                 return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks whether specified number is prime running Miller-Rabin's prime test.
+     * @param number number to check
+     * @return {@code true} if the number is probably prime, otherwise {@code false}
+     */
+    public static boolean testMiller(int number)
+    {
+        if(number == 2 || number == 3)
+            return true;
+
+        if(number < 2 || number % 2 == 0 || number % 3 == 0)
+            return false;
+
+        int multiplicand = number - 1;
+
+        while(multiplicand % 2 == 0)
+            multiplicand /= 2;
+
+        for(int i = 0; i < ATTEMPTS; ++i)
+        {
+            int witness = 1 + Math.abs(random.nextInt()) % (number - 1);
+
+            if(Maths.power(witness, multiplicand, number) != 1)
+            {
+                if(IntStream.iterate(multiplicand, d -> d <= number / 2, d -> d * 2)
+                            .boxed()
+                            .allMatch(d -> Maths.power(witness, d, number) != number - 1))
+                    return false;
+            }
         }
 
         return true;
