@@ -79,7 +79,7 @@ public final class Primes
         {
             long witness = 2L + Math.abs(random.nextLong()) % (number - 2);
 
-            if(Maths.gcd(witness, number) > 1 || Maths.powerMod(witness, number - 1, number) != 1)
+            if(Maths.gcd(witness, number) > 1 || Maths.power(witness, number - 1, number) != 1)
                 return false;
         }
 
@@ -108,11 +108,11 @@ public final class Primes
         {
             long witness = 1L + Math.abs(random.nextLong()) % (number - 1);
 
-            if(Maths.powerMod(witness, multiplicand, number) != 1)
+            if(Maths.power(witness, multiplicand, number) != 1)
             {
                 if(LongStream.iterate(multiplicand, d -> d <= number / 2, d -> d * 2)
                              .boxed()
-                             .allMatch(d -> Maths.powerMod(witness, d, number) != number - 1))
+                             .allMatch(d -> Maths.power(witness, d, number) != number - 1))
                     return false;
             }
         }
