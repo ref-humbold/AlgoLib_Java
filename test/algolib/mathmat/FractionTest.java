@@ -120,7 +120,7 @@ public class FractionTest
     public void invert_WhenZero_ThenArithmeticException()
     {
         // given
-        Fraction fraction = Fraction.ZERO;
+        Fraction fraction = Fraction.of(0);
         // when
         Throwable throwable = Assertions.catchThrowable(fraction::invert);
         // then

@@ -114,7 +114,7 @@ public class PrimesTest
     }
 
     //endregion
-    //region testTestFermat
+    //region testFermat
 
     @Test
     public void testFermat_WhenZero_ThenFalse()
@@ -156,7 +156,7 @@ public class PrimesTest
     public void testFermat_WhenComposite_ThenFalse()
     {
         // when
-        boolean result = Primes.testFermat(1001);
+        boolean result = Primes.testFermat(1001L);
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -171,7 +171,7 @@ public class PrimesTest
     }
 
     //endregion
-    //region testTestMiller
+    //region testMiller
 
     @Test
     public void testMiller_WhenZero_ThenFalse()
@@ -213,7 +213,7 @@ public class PrimesTest
     public void testMiller_WhenComposite1_ThenFalse()
     {
         // when
-        boolean result = Primes.testMiller(1001);
+        boolean result = Primes.testMiller(1001L);
         // then
         Assertions.assertThat(result).isFalse();
     }

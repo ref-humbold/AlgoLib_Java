@@ -6,89 +6,94 @@ import org.junit.jupiter.api.Test;
 
 public class MathsTest
 {
+    //region gcd
+
     @Test
-    public void gcd_WhenNumbersAreComposite()
+    public void gcd_WhenNumbersAreComposite_ThenGCD()
     {
         // when
-        long result = Maths.gcd(161, 46);
+        long result = Maths.gcd(161L, 46L);
         // then
-        Assertions.assertThat(result).isEqualTo(23);
+        Assertions.assertThat(result).isEqualTo(23L);
     }
 
     @Test
-    public void gcd_WhenNumbersArePrime()
+    public void gcd_WhenNumbersArePrime_ThenOne()
     {
         // when
-        long result = Maths.gcd(127, 41);
-        // then
-        Assertions.assertThat(result).isOne();
-    }
-
-    @Test
-    public void gcd_WhenNumbersAreMutuallyPrime()
-    {
-        // when
-        long result = Maths.gcd(119, 57);
+        int result = Maths.gcd(127, 41);
         // then
         Assertions.assertThat(result).isOne();
     }
 
     @Test
-    public void gcd_WhenOneOfNumbersIsMultipleOfAnother()
+    public void gcd_WhenNumbersAreMutuallyPrime_ThenOne()
+    {
+        // when
+        int result = Maths.gcd(119, 57);
+        // then
+        Assertions.assertThat(result).isOne();
+    }
+
+    @Test
+    public void gcd_WhenOneOfNumbersIsMultipleOfAnother_ThenLessNumber()
     {
         // given
-        long number = 34;
+        int number = 34;
         // when
-        long result = Maths.gcd(number, number * 6);
+        int result = Maths.gcd(number, number * 6);
         // then
         Assertions.assertThat(result).isEqualTo(number);
     }
 
     @Test
-    public void gcd_WhenOneOfNumbersIsZero()
+    public void gcd_WhenOneOfNumbersIsZero_ThenZero()
     {
         // given
-        long number = 96;
+        int number = 96;
         // when
-        long result = Maths.gcd(number, 0);
+        int result = Maths.gcd(number, 0);
         // then
         Assertions.assertThat(result).isEqualTo(number);
     }
 
+    // endregion
+    // region lcm
+
     @Test
-    public void lcm_WhenNumbersAreComposite()
+    public void lcm_WhenNumbersAreComposite_ThenLCM()
     {
         // when
-        long result = Maths.lcm(161, 46);
+        long result = Maths.lcm(161L, 46L);
         // then
-        Assertions.assertThat(result).isEqualTo(322);
+        Assertions.assertThat(result).isEqualTo(322L);
     }
 
     @Test
-    public void lcm_WhenNumbersArePrime()
+    public void lcm_WhenNumbersArePrime_ThenProduct()
     {
         // when
-        long result = Maths.lcm(127, 41);
+        int result = Maths.lcm(127, 41);
         // then
         Assertions.assertThat(result).isEqualTo(5207);
     }
 
     @Test
-    public void lcm_WhenNumbersAreMutuallyPrime()
+    public void lcm_WhenNumbersAreMutuallyPrime_ThenProduct()
     {
         // when
-        long result = Maths.lcm(119, 57);
+        int result = Maths.lcm(119, 57);
         // then
         Assertions.assertThat(result).isEqualTo(6783);
     }
 
     @Test
-    public void lcm_WhenOneOfNumbersIsMultipleOfAnother()
+    public void lcm_WhenOneOfNumbersIsMultipleOfAnother_ThenGreaterNumber()
     {
         // given
-        long number = 34;
+        int number = 34;
         // when
-        long result = Maths.lcm(number, number * 6);
+        int result = Maths.lcm(number, number * 6);
         // then
         Assertions.assertThat(result).isEqualTo(number * 6);
     }
@@ -97,197 +102,223 @@ public class MathsTest
     public void lcm_WhenOneOfNumbersIsZero_ThenZero()
     {
         // when
-        long result = Maths.lcm(96, 0);
+        int result = Maths.lcm(96, 0);
+        // then
+        Assertions.assertThat(result).isZero();
+    }
+
+    // endregion
+    // region multiply
+
+    @Test
+    public void multiply_WhenFirstFactorIsZero_ThenZero()
+    {
+        // when
+        int result = Maths.multiply(0, 14);
         // then
         Assertions.assertThat(result).isZero();
     }
 
     @Test
-    public void powerMod_WhenBaseIsZero_ThenZero()
+    public void multiply_WhenSecondFactorIsZero_ThenZero()
     {
         // when
-        long result = Maths.powerMod(0, 14, 0);
+        int result = Maths.multiply(14, 0);
         // then
         Assertions.assertThat(result).isZero();
     }
 
     @Test
-    public void powerMod_WhenExponentIsZero_ThenOne()
+    public void multiply_WhenFactorsAreZero_ThenZero()
     {
         // when
-        long result = Maths.powerMod(14, 0, 0);
-        // then
-        Assertions.assertThat(result).isOne();
-    }
-
-    @Test
-    public void powerMod_WhenBaseAndExponentAreZero_ThenArithmeticException()
-    {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.powerMod(0, 0, 0));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
-    }
-
-    @Test
-    public void powerMod_WhenBaseAndExponentArePositive()
-    {
-        // when
-        long result = Maths.powerMod(3, 10, 0);
-        // then
-        Assertions.assertThat(result).isEqualTo(59049);
-    }
-
-    @Test
-    public void powerMod_WhenBaseIsNegativeAndExponentIsEven()
-    {
-        // when
-        long result = Maths.powerMod(-3, 10, 0);
-        // then
-        Assertions.assertThat(result).isEqualTo(59049);
-    }
-
-    @Test
-    public void powerMod_WhenBaseIsNegativeAndExponentIsOdd()
-    {
-        // when
-        long result = Maths.powerMod(-3, 9, 0);
-        // then
-        Assertions.assertThat(result).isEqualTo(-19683);
-    }
-
-    @Test
-    public void powerMod_WhenExponentIsNegative_ThenArithmeticException()
-    {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.powerMod(3, -10, 0));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
-    }
-
-    @Test
-    public void powerMod_WhenModuloAndBaseArePositive()
-    {
-        // when
-        long result = Maths.powerMod(5, 11, 10000);
-        // then
-        Assertions.assertThat(result).isEqualTo(8125);
-    }
-
-    @Test
-    public void powerMod_WhenModuloIsPositiveAndBaseIsNegative()
-    {
-        // when
-        long result = Maths.powerMod(-5, 11, 10000);
-        // then
-        Assertions.assertThat(result).isEqualTo(1875);
-    }
-
-    @Test
-    public void powerMod_WhenModuloIsNegative_ThenArithmeticException()
-    {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.powerMod(5, 11, -10000));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
-    }
-
-    @Test
-    public void multMod_WhenFactor1IsZero()
-    {
-        // when
-        long result = Maths.multiplyMod(0, 14, 0);
+        int result = Maths.multiply(0, 0);
         // then
         Assertions.assertThat(result).isZero();
     }
 
     @Test
-    public void multMod_WhenFactor2IsZero()
+    public void multiply_WhenFactorsArePositive_ThenResultIsPositive()
     {
         // when
-        long result = Maths.multiplyMod(14, 0, 0);
-        // then
-        Assertions.assertThat(result).isZero();
-    }
-
-    @Test
-    public void multMod_WhenFactorsAreZero()
-    {
-        // when
-        long result = Maths.multiplyMod(0, 0, 0);
-        // then
-        Assertions.assertThat(result).isZero();
-    }
-
-    @Test
-    public void multMod_WhenFactor1IsNegativeAndFactor2IsPositive()
-    {
-        // when
-        long result = Maths.multiplyMod(-3, 10, 0);
-        // then
-        Assertions.assertThat(result).isEqualTo(-30);
-    }
-
-    @Test
-    public void multMod_WhenFactor1IsPositiveAndFactor2IsNegative()
-    {
-        // when
-        long result = Maths.multiplyMod(3, -10, 0);
-        // then
-        Assertions.assertThat(result).isEqualTo(-30);
-    }
-
-    @Test
-    public void multMod_WhenFactorsAreNegative()
-    {
-        // when
-        long result = Maths.multiplyMod(-3, -10, 0);
+        long result = Maths.multiply(3, 10);
         // then
         Assertions.assertThat(result).isEqualTo(30);
     }
 
     @Test
-    public void multMod_WhenModuloAndFactorsArePositive()
+    public void multiply_WhenFirstFactorIsNegativeAndSecondFactorIsPositive_ThenResultIsNegative()
     {
         // when
-        long result = Maths.multiplyMod(547, 312, 10000);
+        int result = Maths.multiply(-3, 10);
+        // then
+        Assertions.assertThat(result).isEqualTo(-30);
+    }
+
+    @Test
+    public void multiply_WhenFirstFactorIsPositiveAndSecondFactorIsNegative_ThenResultIsNegative()
+    {
+        // when
+        int result = Maths.multiply(3, -10);
+        // then
+        Assertions.assertThat(result).isEqualTo(-30);
+    }
+
+    @Test
+    public void multiply_WhenFactorsAreNegative_ThenResultIsPositive()
+    {
+        // when
+        long result = Maths.multiply(-3L, -10L);
+        // then
+        Assertions.assertThat(result).isEqualTo(30L);
+    }
+
+    @Test
+    public void multiply_WhenModuloAndFactorsArePositive()
+    {
+        // when
+        int result = Maths.multiply(547, 312, 10000);
         // then
         Assertions.assertThat(result).isEqualTo(664);
     }
 
     @Test
-    public void multMod_WhenModuloIsPositiveAndFactor1IsNegative()
+    public void multiply_WhenModuloIsPositiveAndFirstFactorIsNegative()
     {
         // when
-        long result = Maths.multiplyMod(-547, 312, 10000);
+        int result = Maths.multiply(-547, 312, 10000);
         // then
         Assertions.assertThat(result).isEqualTo(9336);
     }
 
     @Test
-    public void multMod_WhenModuloIsPositiveAndFactor2IsNegative()
+    public void multiply_WhenModuloIsPositiveAndSecondFactorIsNegative()
     {
         // when
-        long result = Maths.multiplyMod(547, -312, 10000);
+        int result = Maths.multiply(547, -312, 10000);
         // then
         Assertions.assertThat(result).isEqualTo(9336);
     }
 
     @Test
-    public void multMod_WhenModuloIsPositiveAndFactorsAreNegative()
+    public void multiply_WhenModuloIsPositiveAndFactorsAreNegative()
     {
         // when
-        long result = Maths.multiplyMod(-547, -312, 10000);
+        long result = Maths.multiply(-547L, -312L, 10000L);
         // then
-        Assertions.assertThat(result).isEqualTo(664);
+        Assertions.assertThat(result).isEqualTo(664L);
     }
 
     @Test
-    public void multMod_WhenModuloIsNegative_ThenArithmeticException()
+    public void multiply_WhenModuloIsNegative_ThenArithmeticException()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.multiplyMod(547, 312, -10000));
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.multiply(547, 312, -10000));
         // then
         Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
+
+    // endregion
+    // region power
+
+    @Test
+    public void power_WhenBaseIsZero_ThenZero()
+    {
+        // when
+        int result = Maths.power(0, 14);
+        // then
+        Assertions.assertThat(result).isZero();
+    }
+
+    @Test
+    public void power_WhenExponentIsZero_ThenOne()
+    {
+        // when
+        int result = Maths.power(14, 0);
+        // then
+        Assertions.assertThat(result).isOne();
+    }
+
+    @Test
+    public void power_WhenBaseAndExponentAreZero_ThenArithmeticException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.power(0, 0));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+    }
+
+    @Test
+    public void power_WhenBaseAndExponentArePositive_ThenResultIsPositive()
+    {
+        // when
+        int result = Maths.power(3, 10);
+        // then
+        Assertions.assertThat(result).isEqualTo(59049);
+    }
+
+    @Test
+    public void power_WhenBaseIsNegativeAndExponentIsEven_ThenResultIsPositive()
+    {
+        // when
+        int result = Maths.power(-3, 10);
+        // then
+        Assertions.assertThat(result).isEqualTo(59049);
+    }
+
+    @Test
+    public void power_WhenBaseIsNegativeAndExponentIsOdd_ThenResultIsNegative()
+    {
+        // when
+        long result = Maths.power(-3L, 9L);
+        // then
+        Assertions.assertThat(result).isEqualTo(-19683L);
+    }
+
+    @Test
+    public void power_WhenExponentIsNegative_ThenArithmeticException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.power(3, -10));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+    }
+
+    @Test
+    public void power_WhenModuloAndBaseArePositive()
+    {
+        // when
+        int result = Maths.power(5, 11, 10000);
+        // then
+        Assertions.assertThat(result).isEqualTo(8125);
+    }
+
+    @Test
+    public void power_WhenModuloIsPositiveAndBaseIsNegativeAndExponentIsOdd()
+    {
+        // when
+        int result = Maths.power(-5, 11, 10000);
+        // then
+        Assertions.assertThat(result).isEqualTo(1875);
+    }
+
+    @Test
+    public void power_WhenModuloIsPositiveAndBaseIsNegativeAndExponentIsEven()
+    {
+        // when
+        long result = Maths.power(-5L, 12L, 10000L);
+        // then
+        Assertions.assertThat(result).isEqualTo(625L);
+    }
+
+    @Test
+    public void power_WhenModuloIsNegative_ThenArithmeticException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> Maths.power(5, 11, -10000));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+    }
+
+    // endregion
 }

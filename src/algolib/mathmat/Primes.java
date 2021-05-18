@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 /** Algorithms for prime numbers */
@@ -13,6 +14,11 @@ public final class Primes
     private static final int ATTEMPTS = 17;
     private static final Random random = new Random();
 
+    /**
+     * Finds prime numbers inside a range of integers starting from 0.
+     * @param maxNumber maximal number in range, exclusive
+     * @return collection of prime numbers
+     */
     public static Collection<Integer> find(int maxNumber)
     {
         return Primes.find(0, maxNumber);
@@ -57,6 +63,35 @@ public final class Primes
         return primes;
     }
 
+    /**
+     * Checks whether specified number is prime running Fermat's prime test.
+     * @param number number to check
+     * @return {@code true} if the number is probably prime, otherwise {@code false}
+     */
+    public static boolean testFermat(int number)
+    {
+        if(number == 2 || number == 3)
+            return true;
+
+        if(number < 2 || number % 2 == 0 || number % 3 == 0)
+            return false;
+
+        for(int i = 0; i < ATTEMPTS; ++i)
+        {
+            int witness = 2 + Math.abs(random.nextInt()) % (number - 2);
+
+            if(Maths.gcd(witness, number) > 1 || Maths.power(witness, number - 1, number) != 1)
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks whether specified number is prime running Fermat's prime test.
+     * @param number number to check
+     * @return {@code true} if the number is probably prime, otherwise {@code false}
+     */
     public static boolean testFermat(long number)
     {
         if(number == 2 || number == 3)
@@ -69,13 +104,52 @@ public final class Primes
         {
             long witness = 2L + Math.abs(random.nextLong()) % (number - 2);
 
-            if(Maths.gcd(witness, number) > 1 || Maths.powerMod(witness, number - 1, number) != 1)
+            if(Maths.gcd(witness, number) > 1 || Maths.power(witness, number - 1, number) != 1)
                 return false;
         }
 
         return true;
     }
 
+    /**
+     * Checks whether specified number is prime running Miller-Rabin's prime test.
+     * @param number number to check
+     * @return {@code true} if the number is probably prime, otherwise {@code false}
+     */
+    public static boolean testMiller(int number)
+    {
+        if(number == 2 || number == 3)
+            return true;
+
+        if(number < 2 || number % 2 == 0 || number % 3 == 0)
+            return false;
+
+        int multiplicand = number - 1;
+
+        while(multiplicand % 2 == 0)
+            multiplicand /= 2;
+
+        for(int i = 0; i < ATTEMPTS; ++i)
+        {
+            int witness = 1 + Math.abs(random.nextInt()) % (number - 1);
+
+            if(Maths.power(witness, multiplicand, number) != 1)
+            {
+                if(IntStream.iterate(multiplicand, d -> d <= number / 2, d -> d * 2)
+                            .boxed()
+                            .allMatch(d -> Maths.power(witness, d, number) != number - 1))
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks whether specified number is prime running Miller-Rabin's prime test.
+     * @param number number to check
+     * @return {@code true} if the number is probably prime, otherwise {@code false}
+     */
     public static boolean testMiller(long number)
     {
         if(number == 2 || number == 3)
@@ -93,11 +167,11 @@ public final class Primes
         {
             long witness = 1L + Math.abs(random.nextLong()) % (number - 1);
 
-            if(Maths.powerMod(witness, multiplicand, number) != 1)
+            if(Maths.power(witness, multiplicand, number) != 1)
             {
                 if(LongStream.iterate(multiplicand, d -> d <= number / 2, d -> d * 2)
                              .boxed()
-                             .allMatch(d -> Maths.powerMod(witness, d, number) != number - 1))
+                             .allMatch(d -> Maths.power(witness, d, number) != number - 1))
                     return false;
             }
         }

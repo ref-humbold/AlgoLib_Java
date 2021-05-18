@@ -3,6 +3,30 @@ package algolib.mathmat;
 /** Algorithms for basic mathematical computations */
 public final class Maths
 {
+    // region gcd
+
+    /**
+     * Counts a greatest common divisor of two numbers.
+     * @param number1 a first number
+     * @param number2 a second number
+     * @return greatest common divisor
+     */
+    public static int gcd(int number1, int number2)
+    {
+        int min_number = Math.min(Math.abs(number1), Math.abs(number2));
+        int max_number = Math.max(Math.abs(number1), Math.abs(number2));
+
+        while(min_number > 0)
+        {
+            int rem = max_number % min_number;
+
+            max_number = min_number;
+            min_number = rem;
+        }
+
+        return max_number;
+    }
+
     /**
      * Counts a greatest common divisor of two numbers.
      * @param number1 a first number
@@ -25,6 +49,23 @@ public final class Maths
         return max_number;
     }
 
+    // endregion
+    // region lcm
+
+    /**
+     * Counts a lowest common multiple of two numbers.
+     * @param number1 a first number
+     * @param number2 a second number
+     * @return lowest common multiple
+     */
+    public static int lcm(int number1, int number2)
+    {
+        int min_number = Math.min(Math.abs(number1), Math.abs(number2));
+        int max_number = Math.max(Math.abs(number1), Math.abs(number2));
+
+        return max_number / Maths.gcd(number1, number2) * min_number;
+    }
+
     /**
      * Counts a lowest common multiple of two numbers.
      * @param number1 a first number
@@ -39,6 +80,40 @@ public final class Maths
         return max_number / Maths.gcd(number1, number2) * min_number;
     }
 
+    // endregion
+    // region multiply
+
+    /**
+     * Performs a fast multiplication of two numbers.
+     * @param factor1 a first factor
+     * @param factor2 a second factor
+     * @return multiplication result
+     */
+    public static long multiply(long factor1, long factor2)
+    {
+        long result = 0;
+
+        if(factor1 < 0 && factor2 < 0)
+            return Maths.multiply(-factor1, -factor2);
+
+        if(factor1 < 0)
+            return -Maths.multiply(-factor1, factor2);
+
+        if(factor2 < 0)
+            return -Maths.multiply(factor1, -factor2);
+
+        while(factor2 > 0)
+        {
+            if(factor2 % 2 == 1)
+                result = result + factor1;
+
+            factor1 = factor1 + factor1;
+            factor2 /= 2;
+        }
+
+        return result;
+    }
+
     /**
      * Performs a fast multiplication of two numbers with modulo taken.
      * @param factor1 a first factor
@@ -46,29 +121,154 @@ public final class Maths
      * @param modulo a modulo value
      * @return multiplication result with modulo taken
      */
-    public static long multiplyMod(long factor1, long factor2, long modulo)
+    public static int multiply(int factor1, int factor2, int modulo)
     {
-        long result = 0;
+        int result = 0;
 
-        if(modulo < 0)
-            throw new ArithmeticException("Negative modulo");
+        if(modulo <= 0)
+            throw new ArithmeticException("Non-positive modulo");
 
         if(factor1 < 0 && factor2 < 0)
-            return Maths.multiplyMod(-factor1, -factor2, modulo);
+            return Maths.multiply(-factor1, -factor2, modulo);
 
         if(factor1 < 0)
-            return modulo - Maths.multiplyMod(-factor1, factor2, modulo);
+            return modulo - Maths.multiply(-factor1, factor2, modulo);
 
         if(factor2 < 0)
-            return modulo - Maths.multiplyMod(factor1, -factor2, modulo);
+            return modulo - Maths.multiply(factor1, -factor2, modulo);
 
         while(factor2 > 0)
         {
             if(factor2 % 2 == 1)
-                result = modulo == 0 ? result + factor1 : (result + factor1) % modulo;
+                result = (result + factor1) % modulo;
 
-            factor1 = modulo == 0 ? factor1 + factor1 : (factor1 + factor1) % modulo;
+            factor1 = (factor1 + factor1) % modulo;
             factor2 /= 2;
+        }
+
+        return result;
+    }
+
+    /**
+     * Performs a fast multiplication of two numbers.
+     * @param factor1 a first factor
+     * @param factor2 a second factor
+     * @return multiplication result
+     */
+    public static int multiply(int factor1, int factor2)
+    {
+        int result = 0;
+
+        if(factor1 < 0 && factor2 < 0)
+            return Maths.multiply(-factor1, -factor2);
+
+        if(factor1 < 0)
+            return -Maths.multiply(-factor1, factor2);
+
+        if(factor2 < 0)
+            return -Maths.multiply(factor1, -factor2);
+
+        while(factor2 > 0)
+        {
+            if(factor2 % 2 == 1)
+                result = result + factor1;
+
+            factor1 = factor1 + factor1;
+            factor2 /= 2;
+        }
+
+        return result;
+    }
+
+    /**
+     * Performs a fast multiplication of two numbers with modulo taken.
+     * @param factor1 a first factor
+     * @param factor2 a second factor
+     * @param modulo a modulo value
+     * @return multiplication result with modulo taken
+     */
+    public static long multiply(long factor1, long factor2, long modulo)
+    {
+        long result = 0;
+
+        if(modulo <= 0)
+            throw new ArithmeticException("Non-positive modulo");
+
+        if(factor1 < 0 && factor2 < 0)
+            return Maths.multiply(-factor1, -factor2, modulo);
+
+        if(factor1 < 0)
+            return modulo - Maths.multiply(-factor1, factor2, modulo);
+
+        if(factor2 < 0)
+            return modulo - Maths.multiply(factor1, -factor2, modulo);
+
+        while(factor2 > 0)
+        {
+            if(factor2 % 2 == 1)
+                result = (result + factor1) % modulo;
+
+            factor1 = (factor1 + factor1) % modulo;
+            factor2 /= 2;
+        }
+
+        return result;
+    }
+
+    // endregion
+    // region power
+
+    /**
+     * Performs a fast exponentiation of two numbers.
+     * @param base a base value
+     * @param exponent an exponent value
+     * @return exponentiation result
+     */
+    public static int power(int base, int exponent)
+    {
+        int result = 1;
+
+        if(exponent < 0)
+            throw new ArithmeticException("Negative exponent");
+
+        if(base == 0 && exponent == 0)
+            throw new ArithmeticException("Not a number");
+
+        while(exponent > 0)
+        {
+            if(exponent % 2 == 1)
+                result = Maths.multiply(result, base);
+
+            base = Maths.multiply(base, base);
+            exponent /= 2;
+        }
+
+        return result;
+    }
+
+    /**
+     * Performs a fast exponentiation of two numbers.
+     * @param base a base value
+     * @param exponent an exponent value
+     * @return exponentiation result
+     */
+    public static long power(long base, long exponent)
+    {
+        long result = 1;
+
+        if(exponent < 0)
+            throw new ArithmeticException("Negative exponent");
+
+        if(base == 0 && exponent == 0)
+            throw new ArithmeticException("Not a number");
+
+        while(exponent > 0)
+        {
+            if(exponent % 2 == 1)
+                result = Maths.multiply(result, base);
+
+            base = Maths.multiply(base, base);
+            exponent /= 2;
         }
 
         return result;
@@ -81,12 +281,12 @@ public final class Maths
      * @param modulo a modulo value
      * @return exponentiation result with modulo taken
      */
-    public static long powerMod(long base, long exponent, long modulo)
+    public static int power(int base, int exponent, int modulo)
     {
-        long result = 1;
+        int result = 1;
 
         if(modulo < 0)
-            throw new ArithmeticException("Negative modulo");
+            throw new ArithmeticException("Non-positive modulo");
 
         if(exponent < 0)
             throw new ArithmeticException("Negative exponent");
@@ -97,12 +297,46 @@ public final class Maths
         while(exponent > 0)
         {
             if(exponent % 2 == 1)
-                result = Maths.multiplyMod(result, base, modulo);
+                result = Maths.multiply(result, base, modulo);
 
-            base = Maths.multiplyMod(base, base, modulo);
+            base = Maths.multiply(base, base, modulo);
             exponent /= 2;
         }
 
         return result;
     }
+
+    /**
+     * Performs a fast exponentiation of two numbers with modulo taken.
+     * @param base a base value
+     * @param exponent an exponent value
+     * @param modulo a modulo value
+     * @return exponentiation result with modulo taken
+     */
+    public static long power(long base, long exponent, long modulo)
+    {
+        long result = 1;
+
+        if(modulo < 0)
+            throw new ArithmeticException("Non-positive modulo");
+
+        if(exponent < 0)
+            throw new ArithmeticException("Negative exponent");
+
+        if(base == 0 && exponent == 0)
+            throw new ArithmeticException("Not a number");
+
+        while(exponent > 0)
+        {
+            if(exponent % 2 == 1)
+                result = Maths.multiply(result, base, modulo);
+
+            base = Maths.multiply(base, base, modulo);
+            exponent /= 2;
+        }
+
+        return result;
+    }
+
+    //endregion
 }
