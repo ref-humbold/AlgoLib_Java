@@ -1,4 +1,4 @@
-package algolib.geometry;
+package algolib.geometry.space;
 
 import java.util.Objects;
 
@@ -19,14 +19,6 @@ public final class Point3D
     public static Point3D of(double x, double y, double z)
     {
         return new Point3D(x, y, z);
-    }
-
-    public static Point3D fromPoint(Point p)
-    {
-        if(p.dims() != 3)
-            throw new IllegalArgumentException("Point should have exactly 3 dimensions");
-
-        return new Point3D(p.dim(1), p.dim(2), p.dim(3));
     }
 
     @Override
@@ -53,11 +45,6 @@ public final class Point3D
     public String toString()
     {
         return String.format("(%f, %f, %f)", x, y, z);
-    }
-
-    public Point toPoint()
-    {
-        return Point.of(x, y, z);
     }
 
     public double radius()

@@ -1,4 +1,4 @@
-package algolib.geometry;
+package algolib.geometry.space;
 
 import java.util.Objects;
 
@@ -24,14 +24,6 @@ public final class Vector3D
     public static Vector3D between(Point3D begin, Point3D end)
     {
         return Vector3D.of(end.x - begin.x, end.y - begin.y, end.z - begin.z);
-    }
-
-    public static Vector3D fromVector(Vector p)
-    {
-        if(p.dims() != 3)
-            throw new IllegalArgumentException("Point should have exactly 3 dimensions");
-
-        return Vector3D.of(p.dim(1), p.dim(2), p.dim(3));
     }
 
     public static double dot(Vector3D v1, Vector3D v2)
@@ -79,11 +71,6 @@ public final class Vector3D
     public String toString()
     {
         return String.format("[%f, %f, %f]", x, y, z);
-    }
-
-    public Vector toVector()
-    {
-        return Vector.of(x, y, z);
     }
 
     public double length()

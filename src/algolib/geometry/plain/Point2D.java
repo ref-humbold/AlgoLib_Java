@@ -1,4 +1,4 @@
-package algolib.geometry;
+package algolib.geometry.plain;
 
 import java.util.Objects;
 
@@ -17,14 +17,6 @@ public final class Point2D
     public static Point2D of(double x, double y)
     {
         return new Point2D(x, y);
-    }
-
-    public static Point2D fromPoint(Point p)
-    {
-        if(p.dims() != 2)
-            throw new IllegalArgumentException("Point should have exactly 2 dimensions");
-
-        return Point2D.of(p.dim(1), p.dim(2));
     }
 
     @Override
@@ -51,11 +43,6 @@ public final class Point2D
     public String toString()
     {
         return String.format("(%f, %f)", x, y);
-    }
-
-    public Point toPoint()
-    {
-        return Point.of(x, y);
     }
 
     public double radius()

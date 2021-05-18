@@ -1,4 +1,4 @@
-package algolib.geometry;
+package algolib.geometry.plain;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +19,7 @@ public final class ConvexHull
 
         List<Point2D> sorted = new ArrayList<>(points);
 
-        PointsSorting.sort2DByX(sorted);
+        Geometry2D.sortByX(sorted);
 
         List<Point2D> lowerHull = createHalfHull(sorted);
 

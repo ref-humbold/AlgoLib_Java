@@ -1,4 +1,4 @@
-package algolib.geometry;
+package algolib.geometry.plain;
 
 import java.util.Objects;
 
@@ -22,14 +22,6 @@ public final class Vector2D
     public static Vector2D between(Point2D begin, Point2D end)
     {
         return Vector2D.of(end.x - begin.x, end.y - begin.y);
-    }
-
-    public static Vector2D fromVector(Vector p)
-    {
-        if(p.dims() != 2)
-            throw new IllegalArgumentException("Vector should have exactly 2 dimensions");
-
-        return Vector2D.of(p.dim(1), p.dim(2));
     }
 
     public static double dot(Vector2D v1, Vector2D v2)
@@ -66,11 +58,6 @@ public final class Vector2D
     public String toString()
     {
         return String.format("[%f, %f]", x, y);
-    }
-
-    public Vector toVector()
-    {
-        return Vector.of(x, y);
     }
 
     public double length()

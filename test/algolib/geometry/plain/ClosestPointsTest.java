@@ -1,4 +1,4 @@
-package algolib.geometry;
+package algolib.geometry.plain;
 
 import java.util.List;
 import org.assertj.core.api.Assertions;
