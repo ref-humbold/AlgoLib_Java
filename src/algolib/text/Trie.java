@@ -43,6 +43,11 @@ public class Trie
         return node.terminus;
     }
 
+    public boolean containsAll(Collection<String> texts)
+    {
+        return texts.stream().allMatch(this::contains);
+    }
+
     public void add(String text)
     {
         TrieNode node = tree;
@@ -70,6 +75,12 @@ public class Trie
     {
         if(text.length() > 0)
             removeNode(text, tree, 0);
+    }
+
+    public void removeAll(Collection<String> texts)
+    {
+        for(String text : texts)
+            remove(text);
     }
 
     public void clear()

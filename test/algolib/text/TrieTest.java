@@ -1,6 +1,7 @@
 package algolib.text;
 
 import java.util.List;
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,6 +85,26 @@ public class TrieTest
     }
 
     @Test
+    public void containsAll_WhenPresentAndAbsent_ThenFalse()
+    {
+        // given
+        List<String> textsToCheck = List.of("abxx", "x", "abcdef", "xyz");
+        // when
+        boolean result = testObject.containsAll(textsToCheck);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void containsAll_WhenAllPresent_ThenTrue()
+    {
+        // when
+        boolean result = testObject.containsAll(texts);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
     public void add_WhenPresent_ThenNothingChanged()
     {
         // given
@@ -130,7 +151,8 @@ public class TrieTest
         for(String text : textsToAdd)
             Assertions.assertThat(testObject.contains(text)).isTrue();
 
-        Assertions.assertThat(testObject.size()).isEqualTo(texts.size() + textsToAdd.size() - 1);
+        Assertions.assertThat(testObject.size())
+                  .isEqualTo(Stream.concat(texts.stream(), textsToAdd.stream()).distinct().count());
     }
 
     @Test
@@ -168,6 +190,21 @@ public class TrieTest
         Assertions.assertThat(testObject.contains("xyz")).isTrue();
         Assertions.assertThat(testObject.contains(text)).isFalse();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size());
+    }
+
+    @Test
+    public void removeAll_WhenPresentAndAbsent_ThenPresentRemoved()
+    {
+        // given
+        List<String> textsToRemove = List.of("abxx", "x", "abcdef", "xyz");
+        // when
+        testObject.removeAll(textsToRemove);
+        // then
+        for(String text : textsToRemove)
+            Assertions.assertThat(testObject.contains(text)).isFalse();
+
+        Assertions.assertThat(testObject.size())
+                  .isEqualTo(texts.stream().filter(t -> !textsToRemove.contains(t)).count());
     }
 
     @Test
