@@ -1,54 +1,55 @@
-// Algorithms for subsequences
 package algolib.sequences;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.function.BiPredicate;
+import java.util.*;
 
 import algolib.tuples.Pair;
 
-public class Subsequences
+/** Algorithms for subsequences */
+public final class Subsequences
 {
     /**
-     * Constructs longest ordered subsequence
+     * Constructs longest increasing subsequence.
      * @param sequence sequence of elements
-     * @param order order function of elements in subsequence
-     * @return least lexicographically longest ordered subsequence
+     * @param comparator comparator function of elements in subsequence
+     * @return least lexicographically longest increasing subsequence
      */
-    public static <T> Collection<T> longestOrdered(List<T> sequence, BiPredicate<T, T> order)
+    public static <T> Collection<T> longestIncreasing(List<T> sequence, Comparator<T> comparator)
     {
-        List<Integer> previousElem = new ArrayList<>(Collections.nCopies(sequence.size(), null));
-        List<Integer> subseqLast = new ArrayList<>();
+        List<Optional<Integer>> previousElem = new ArrayList<>();
+        List<Integer> subsequence = new ArrayList<>();
 
-        subseqLast.add(0);
+        previousElem.add(Optional.empty());
+        subsequence.add(0);
 
         for(int i = 1; i < sequence.size(); ++i)
         {
             T elem = sequence.get(i);
+            Integer subseqEnd = subsequence.get(subsequence.size() - 1);
 
-            if(order.test(elem, sequence.get(subseqLast.get(subseqLast.size() - 1))))
+            if(comparator.compare(elem, sequence.get(subseqEnd)) > 0)
             {
-                previousElem.set(i, subseqLast.get(subseqLast.size() - 1));
-                subseqLast.add(i);
+                previousElem.add(Optional.of(subseqEnd));
+                subsequence.add(i);
             }
             else
             {
-                int index = searchOrd(order, sequence, subseqLast, 0, subseqLast.size() - 1, i);
+                int index =
+                        searchIndex(comparator, sequence, subsequence, 0, subsequence.size() - 1,
+                                    i);
 
-                subseqLast.set(index, i);
-                previousElem.set(i, index > 0 ? subseqLast.get(index - 1) : null);
+                subsequence.set(index, i);
+                previousElem.add(
+                        Optional.of(index).filter(ix -> ix > 0).map(ix -> subsequence.get(ix - 1)));
             }
         }
 
         List<T> longestSubseq = new ArrayList<>();
-        Integer j = subseqLast.get(subseqLast.size() - 1);
+        Optional<Integer> j = Optional.of(subsequence.get(subsequence.size() - 1));
 
-        while(j != null)
+        while(j.isPresent())
         {
-            longestSubseq.add(sequence.get(j));
-            j = previousElem.get(j);
+            longestSubseq.add(sequence.get(j.get()));
+            j = previousElem.get(j.get());
         }
 
         Collections.reverse(longestSubseq);
@@ -57,7 +58,7 @@ public class Subsequences
     }
 
     /**
-     * Dynamically constructs coherent subarray with maximal sum
+     * Dynamically constructs coherent subarray with maximal sum.
      * @param sequence sequence of numbers
      * @return maximum subarray
      */
@@ -82,7 +83,7 @@ public class Subsequences
     }
 
     /**
-     * Counts maximal sum from all coherent subarrays using interval tree
+     * Calculates maximal sum from all coherent subarrays using interval tree.
      * @param sequence sequence of numbers
      * @return the sum of maximum subarray
      */
@@ -133,28 +134,21 @@ public class Subsequences
         return intervalSums.get(1);
     }
 
-    /**
-     * Searches for place of element in list of subsequences
-     * @param order order function of elements in subsequence
-     * @param sequence input sequence
-     * @param subseqLast last elements of subsequences
-     * @param indexBegin index of beginning
-     * @param indexEnd index of end
-     * @param indexElem index of current element
-     * @return index in list of subsequences
-     */
-    private static <T> int searchOrd(BiPredicate<T, T> order, List<T> sequence,
-                                     List<Integer> subseqLast, int indexBegin, int indexEnd,
-                                     int indexElem)
+    // Searches for place of element in list of subsequences.
+    private static <T> int searchIndex(Comparator<T> comparator, List<T> sequence,
+                                       List<Integer> subsequence, int indexBegin, int indexEnd,
+                                       int indexElem)
     {
         if(indexBegin == indexEnd)
             return indexBegin;
 
         int indexMiddle = (indexBegin + indexEnd) / 2;
+        T middleElem = sequence.get(subsequence.get(indexMiddle));
 
-        if(order.test(sequence.get(indexElem), sequence.get(subseqLast.get(indexMiddle))))
-            return searchOrd(order, sequence, subseqLast, indexMiddle + 1, indexEnd, indexElem);
-        else
-            return searchOrd(order, sequence, subseqLast, indexBegin, indexMiddle, indexElem);
+        if(comparator.compare(sequence.get(indexElem), middleElem) > 0)
+            return searchIndex(comparator, sequence, subsequence, indexMiddle + 1, indexEnd,
+                               indexElem);
+
+        return searchIndex(comparator, sequence, subsequence, indexBegin, indexMiddle, indexElem);
     }
 }

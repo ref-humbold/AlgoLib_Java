@@ -64,7 +64,7 @@ public final class Primes
     }
 
     /**
-     * Checks whether specified number is prime running Fermat's prime test.
+     * Checks whether given number is prime using Fermat's prime test.
      * @param number number to check
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
@@ -88,7 +88,7 @@ public final class Primes
     }
 
     /**
-     * Checks whether specified number is prime running Fermat's prime test.
+     * Checks whether given number is prime using Fermat's prime test.
      * @param number number to check
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
@@ -112,7 +112,7 @@ public final class Primes
     }
 
     /**
-     * Checks whether specified number is prime running Miller-Rabin's prime test.
+     * Checks whether given number is prime using Miller-Rabin's prime test.
      * @param number number to check
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
@@ -146,7 +146,7 @@ public final class Primes
     }
 
     /**
-     * Checks whether specified number is prime running Miller-Rabin's prime test.
+     * Checks whether given number is prime using Miller-Rabin's prime test.
      * @param number number to check
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */

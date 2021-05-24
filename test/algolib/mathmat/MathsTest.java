@@ -1,4 +1,4 @@
-// Tests: Algorithms for basic mathematical computations
+// Tests: Algorithms for basic mathematical calculations
 package algolib.mathmat;
 
 import org.assertj.core.api.Assertions;
