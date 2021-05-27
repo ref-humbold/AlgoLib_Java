@@ -57,6 +57,26 @@ public class AVLTree<E>
         return Objects.hash(toArray());
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        Iterator<E> it = iterator();
+
+        builder.append("{|");
+
+        while(it.hasNext())
+        {
+            builder.append(it.next());
+
+            if(it.hasNext())
+                builder.append(", ");
+        }
+
+        builder.append("|}");
+        return builder.toString();
+    }
+
     public Comparator<? super E> comparator()
     {
         return comparator_;
@@ -143,26 +163,6 @@ public class AVLTree<E>
     {
         setRoot(null);
         size_ = 0;
-    }
-
-    @Override
-    public String toString()
-    {
-        StringBuilder builder = new StringBuilder();
-        Iterator<E> it = iterator();
-
-        builder.append("{|");
-
-        while(it.hasNext())
-        {
-            builder.append(it.next());
-
-            if(it.hasNext())
-                builder.append(", ");
-        }
-
-        builder.append("|}");
-        return builder.toString();
     }
 
     private boolean isLeftSon(AVLNode<E> node)

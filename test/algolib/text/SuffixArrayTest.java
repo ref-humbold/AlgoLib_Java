@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Tests: Structure of suffix array (with longest common prefix)
 public class SuffixArrayTest
 {
     private static final String TEXT = "mississippi";
@@ -13,7 +14,7 @@ public class SuffixArrayTest
     @BeforeEach
     public void setUp()
     {
-        testObject = SuffixArray.build(TEXT);
+        testObject = new SuffixArray(TEXT);
     }
 
     @AfterEach
