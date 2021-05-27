@@ -3,8 +3,8 @@ package algolib.text;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/** Structure of suffix array */
-public final class SuffixArray
+/** Structure of suffix array (with longest common prefix) */
+public class SuffixArray
 {
     private final int size_;
     private final String text;
@@ -12,18 +12,13 @@ public final class SuffixArray
     private final List<Integer> inverseArray = new ArrayList<>();
     private final List<Integer> lcpArray = new ArrayList<>();
 
-    private SuffixArray(String text)
+    public SuffixArray(String text)
     {
         this.text = text;
         size_ = text.length();
         suffixArray = createArray(this.text.chars().boxed().collect(Collectors.toList()));
         initInverseArray();
         initLcpArray();
-    }
-
-    public static SuffixArray build(String text)
-    {
-        return new SuffixArray(text);
     }
 
     public String getText()
@@ -37,20 +32,19 @@ public final class SuffixArray
         if(this == obj)
             return true;
 
-        if(obj == null || getClass() != obj.getClass())
+        if(!(obj instanceof SuffixArray))
             return false;
 
         SuffixArray other = (SuffixArray)obj;
 
         return size_ == other.size_ && Objects.equals(text, other.text) && Objects.equals(
-                suffixArray, other.suffixArray) && Objects.equals(inverseArray, other.inverseArray)
-                && Objects.equals(lcpArray, other.lcpArray);
+                suffixArray, other.suffixArray);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(size_, text, suffixArray, inverseArray, lcpArray);
+        return Objects.hash(size_, text, suffixArray);
     }
 
     public int size()
@@ -58,6 +52,10 @@ public final class SuffixArray
         return size_;
     }
 
+    /**
+     * @param i index in suffix array
+     * @return suffix from i-th index
+     */
     public String get(int i)
     {
         if(i < 0 || i >= size_)
@@ -261,7 +259,7 @@ public final class SuffixArray
 
     private void sortByKeys(List<Integer> v, List<Integer> keys, int shift)
     {
-        TreeMap<Integer, Queue<Integer>> buckets = new TreeMap<>();
+        SortedMap<Integer, Queue<Integer>> buckets = new TreeMap<>();
         int j = 0;
 
         for(int i : v)

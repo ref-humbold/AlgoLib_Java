@@ -1,4 +1,3 @@
-// Tests: Algorithm for lowest common ancestor
 package algolib.graphs.algorithms;
 
 import org.assertj.core.api.Assertions;
@@ -8,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.TreeGraph;
 
+// Tests: Algorithm for lowest common ancestor
 public class LowestCommonAncestorTest
 {
     private LowestCommonAncestor<Integer, Void, Void> testObject;

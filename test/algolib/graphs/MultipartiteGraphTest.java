@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Tests: Structure of multipartite graph
 public class MultipartiteGraphTest
 {
     MultipartiteGraph<Integer, String, String> testObject;

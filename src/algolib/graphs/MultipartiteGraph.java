@@ -1,4 +1,3 @@
-// Structure of multipartite graph
 package algolib.graphs;
 
 import java.util.Collection;
@@ -7,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/** Structure of multipartite graph */
 public class MultipartiteGraph<V, VP, EP>
         implements UndirectedGraph<V, VP, EP>
 {

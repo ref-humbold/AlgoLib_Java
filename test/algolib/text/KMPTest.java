@@ -1,10 +1,10 @@
-// Tests: Knuth-Morris-Pratt algorithm
 package algolib.text;
 
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+// Tests: Knuth-Morris-Pratt algorithm
 public class KMPTest
 {
     @Test

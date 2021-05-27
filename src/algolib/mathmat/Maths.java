@@ -1,14 +1,14 @@
 package algolib.mathmat;
 
-/** Algorithms for basic mathematical computations */
+/** Algorithms for basic mathematical calculations */
 public final class Maths
 {
     // region gcd
 
     /**
-     * Counts a greatest common divisor of two numbers.
-     * @param number1 a first number
-     * @param number2 a second number
+     * Calculates greatest common divisor of two numbers.
+     * @param number1 first number
+     * @param number2 second number
      * @return greatest common divisor
      */
     public static int gcd(int number1, int number2)
@@ -28,9 +28,9 @@ public final class Maths
     }
 
     /**
-     * Counts a greatest common divisor of two numbers.
-     * @param number1 a first number
-     * @param number2 a second number
+     * Calculates greatest common divisor of two numbers.
+     * @param number1 first number
+     * @param number2 second number
      * @return greatest common divisor
      */
     public static long gcd(long number1, long number2)
@@ -53,9 +53,9 @@ public final class Maths
     // region lcm
 
     /**
-     * Counts a lowest common multiple of two numbers.
-     * @param number1 a first number
-     * @param number2 a second number
+     * Calculates lowest common multiple of two numbers.
+     * @param number1 first number
+     * @param number2 second number
      * @return lowest common multiple
      */
     public static int lcm(int number1, int number2)
@@ -67,9 +67,9 @@ public final class Maths
     }
 
     /**
-     * Counts a lowest common multiple of two numbers.
-     * @param number1 a first number
-     * @param number2 a second number
+     * Calculates lowest common multiple of two numbers.
+     * @param number1 first number
+     * @param number2 second number
      * @return lowest common multiple
      */
     public static long lcm(long number1, long number2)
@@ -84,9 +84,40 @@ public final class Maths
     // region multiply
 
     /**
-     * Performs a fast multiplication of two numbers.
-     * @param factor1 a first factor
-     * @param factor2 a second factor
+     * Performs fast multiplication of two numbers.
+     * @param factor1 first factor
+     * @param factor2 second factor
+     * @return multiplication result
+     */
+    public static int multiply(int factor1, int factor2)
+    {
+        int result = 0;
+
+        if(factor1 < 0 && factor2 < 0)
+            return Maths.multiply(-factor1, -factor2);
+
+        if(factor1 < 0)
+            return -Maths.multiply(-factor1, factor2);
+
+        if(factor2 < 0)
+            return -Maths.multiply(factor1, -factor2);
+
+        while(factor2 > 0)
+        {
+            if(factor2 % 2 == 1)
+                result = result + factor1;
+
+            factor1 = factor1 + factor1;
+            factor2 /= 2;
+        }
+
+        return result;
+    }
+
+    /**
+     * Performs fast multiplication of two numbers.
+     * @param factor1 first factor
+     * @param factor2 second factor
      * @return multiplication result
      */
     public static long multiply(long factor1, long factor2)
@@ -115,10 +146,10 @@ public final class Maths
     }
 
     /**
-     * Performs a fast multiplication of two numbers with modulo taken.
-     * @param factor1 a first factor
-     * @param factor2 a second factor
-     * @param modulo a modulo value
+     * Performs fast multiplication of two numbers with modulo taken.
+     * @param factor1 first factor
+     * @param factor2 second factor
+     * @param modulo modulo
      * @return multiplication result with modulo taken
      */
     public static int multiply(int factor1, int factor2, int modulo)
@@ -150,41 +181,10 @@ public final class Maths
     }
 
     /**
-     * Performs a fast multiplication of two numbers.
-     * @param factor1 a first factor
-     * @param factor2 a second factor
-     * @return multiplication result
-     */
-    public static int multiply(int factor1, int factor2)
-    {
-        int result = 0;
-
-        if(factor1 < 0 && factor2 < 0)
-            return Maths.multiply(-factor1, -factor2);
-
-        if(factor1 < 0)
-            return -Maths.multiply(-factor1, factor2);
-
-        if(factor2 < 0)
-            return -Maths.multiply(factor1, -factor2);
-
-        while(factor2 > 0)
-        {
-            if(factor2 % 2 == 1)
-                result = result + factor1;
-
-            factor1 = factor1 + factor1;
-            factor2 /= 2;
-        }
-
-        return result;
-    }
-
-    /**
-     * Performs a fast multiplication of two numbers with modulo taken.
-     * @param factor1 a first factor
-     * @param factor2 a second factor
-     * @param modulo a modulo value
+     * Performs fast multiplication of two numbers with modulo taken.
+     * @param factor1 first factor
+     * @param factor2 second factor
+     * @param modulo modulo
      * @return multiplication result with modulo taken
      */
     public static long multiply(long factor1, long factor2, long modulo)
@@ -219,9 +219,9 @@ public final class Maths
     // region power
 
     /**
-     * Performs a fast exponentiation of two numbers.
-     * @param base a base value
-     * @param exponent an exponent value
+     * Performs fast exponentiation of two numbers.
+     * @param base base
+     * @param exponent exponent
      * @return exponentiation result
      */
     public static int power(int base, int exponent)
@@ -247,9 +247,9 @@ public final class Maths
     }
 
     /**
-     * Performs a fast exponentiation of two numbers.
-     * @param base a base value
-     * @param exponent an exponent value
+     * Performs fast exponentiation of two numbers.
+     * @param base base
+     * @param exponent exponent
      * @return exponentiation result
      */
     public static long power(long base, long exponent)
@@ -275,10 +275,10 @@ public final class Maths
     }
 
     /**
-     * Performs a fast exponentiation of two numbers with modulo taken.
-     * @param base a base value
-     * @param exponent an exponent value
-     * @param modulo a modulo value
+     * Performs fast exponentiation of two numbers with modulo taken.
+     * @param base base
+     * @param exponent exponent
+     * @param modulo modulo
      * @return exponentiation result with modulo taken
      */
     public static int power(int base, int exponent, int modulo)
@@ -307,10 +307,10 @@ public final class Maths
     }
 
     /**
-     * Performs a fast exponentiation of two numbers with modulo taken.
-     * @param base a base value
-     * @param exponent an exponent value
-     * @param modulo a modulo value
+     * Performs fast exponentiation of two numbers with modulo taken.
+     * @param base base
+     * @param exponent exponent
+     * @param modulo modulo
      * @return exponentiation result with modulo taken
      */
     public static long power(long base, long exponent, long modulo)

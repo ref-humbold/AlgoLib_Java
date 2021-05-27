@@ -1,4 +1,3 @@
-// Tests: Algorithms for shortest paths in graph
 package algolib.graphs.algorithms;
 
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
+// Tests: Algorithms for shortest paths in graph
 public class PathsTest
 {
     private static final double INF = Weighted.INFINITY;

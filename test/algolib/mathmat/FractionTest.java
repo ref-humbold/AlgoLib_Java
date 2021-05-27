@@ -3,6 +3,7 @@ package algolib.mathmat;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+// Tests: Structure of fraction
 public class FractionTest
 {
     @Test

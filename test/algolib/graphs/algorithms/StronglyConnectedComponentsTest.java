@@ -1,4 +1,3 @@
-// Tests: Algorithm for strongly connected components
 package algolib.graphs.algorithms;
 
 import java.util.HashSet;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedSimpleGraph;
 
+// Tests: Algorithm for strongly connected components
 public class StronglyConnectedComponentsTest
 {
     @Test

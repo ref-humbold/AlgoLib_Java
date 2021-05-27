@@ -1,4 +1,3 @@
-// Tests: Structure of AVL tree
 package algolib.structures;
 
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Tests: Structure of AVL tree
 public class AVLTreeTest
 {
     private final Integer[] numbers =
@@ -302,7 +302,7 @@ public class AVLTreeTest
     }
 
     @Test
-    public void clear_ThenEmpty()
+    public void clear_WhenNotEmpty_ThenEmpty()
     {
         // when
         testObject.clear();
