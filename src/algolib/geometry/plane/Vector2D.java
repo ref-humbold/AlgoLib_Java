@@ -1,8 +1,8 @@
-package algolib.geometry.plain;
+package algolib.geometry.plane;
 
 import java.util.Objects;
 
-/** Structure of vector on a plane */
+/** Structure of vector in 2 dimensions */
 public final class Vector2D
 {
     public final double x;

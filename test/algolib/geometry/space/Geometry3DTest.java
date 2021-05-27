@@ -5,6 +5,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+// Tests: Basic geometric operations in 3 dimensions
 public class Geometry3DTest
 {
     @Test

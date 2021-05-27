@@ -1,8 +1,8 @@
-package algolib.geometry.plain;
+package algolib.geometry.plane;
 
 import java.util.Objects;
 
-/** Structure of point on a plane */
+/** Structure of point in 2 dimensions */
 public final class Point2D
 {
     public final double x;

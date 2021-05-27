@@ -1,10 +1,10 @@
-package algolib.geometry.plain;
+package algolib.geometry.plane;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Algorithm for convex hull on a plane (monotone chain) */
+/** Algorithm for convex hull (monotone chain) */
 public final class ConvexHull
 {
     /**

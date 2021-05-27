@@ -1,4 +1,4 @@
-package algolib.geometry.plain;
+package algolib.geometry.plane;
 
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.tuples.Pair;
 
+// Tests: Algorithm for pair of closest points
 public class ClosestPointsTest
 {
     @Test

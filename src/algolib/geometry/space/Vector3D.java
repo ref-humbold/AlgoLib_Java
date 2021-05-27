@@ -2,7 +2,7 @@ package algolib.geometry.space;
 
 import java.util.Objects;
 
-/** Structure of vector in a space */
+/** Structure of vector in 3 dimensions */
 public final class Vector3D
 {
     public final double x;

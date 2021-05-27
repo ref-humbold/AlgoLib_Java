@@ -2,7 +2,7 @@ package algolib.geometry.space;
 
 import java.util.Objects;
 
-/** Structure of point in a space */
+/** Structure of point in 3 dimensions */
 public final class Point3D
 {
     public final double x;

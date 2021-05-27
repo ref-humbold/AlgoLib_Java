@@ -1,8 +1,8 @@
-package algolib.geometry.plain;
+package algolib.geometry.plane;
 
 import java.util.List;
 
-/** Basic geometric operations */
+/** Basic geometric operations in 2 dimensions */
 public final class Geometry2D
 {
     /**
