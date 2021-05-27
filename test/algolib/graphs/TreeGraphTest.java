@@ -1,4 +1,3 @@
-// Tests: Structure of tree graph
 package algolib.graphs;
 
 import java.util.Collection;
@@ -7,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Tests: Structure of tree graph
 public class TreeGraphTest
 {
     private TreeGraph<Integer, String, String> testObject;

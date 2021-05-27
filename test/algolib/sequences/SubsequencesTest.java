@@ -1,4 +1,3 @@
-// Tests: Algorithms for subsequences
 package algolib.sequences;
 
 import java.util.Collection;
@@ -7,6 +6,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 
+// Tests: Algorithms for subsequences
 public class SubsequencesTest
 {
     // region longestIncreasing

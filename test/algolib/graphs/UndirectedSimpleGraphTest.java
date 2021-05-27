@@ -1,4 +1,3 @@
-// Tests: Structure of undirected graph
 package algolib.graphs;
 
 import java.util.Collection;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Tests: Structure of undirected graph
 public class UndirectedSimpleGraphTest
 {
     private UndirectedSimpleGraph<Integer, String, String> testObject;

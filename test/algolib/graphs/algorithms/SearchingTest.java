@@ -1,4 +1,3 @@
-// Tests: Algorithms for graph searching
 package algolib.graphs.algorithms;
 
 import java.util.Collection;
@@ -16,6 +15,7 @@ import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 import algolib.graphs.algorithms.strategy.EmptyStrategy;
 
+// Tests: Algorithms for graph searching
 public class SearchingTest
 {
     private DirectedSimpleGraph<Integer, Void, Void> directedGraph;

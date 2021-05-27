@@ -1,4 +1,3 @@
-// Tests: Algorithms for sequence sorting
 package algolib.sequences;
 
 import java.util.Arrays;
@@ -6,6 +5,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+// Tests: Algorithms for sequence sorting
 public class SortingTest
 {
     @Test

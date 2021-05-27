@@ -1,4 +1,3 @@
-// Tests: Algorithms for minimal spanning tree
 package algolib.graphs.algorithms;
 
 import java.util.stream.Collectors;
@@ -13,6 +12,7 @@ import algolib.graphs.UndirectedGraph;
 import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.properties.Weighted;
 
+// Tests: Algorithms for minimal spanning tree
 public class MinimalSpanningTreeTest
 {
     private UndirectedSimpleGraph<Integer, Void, Weight> graph;

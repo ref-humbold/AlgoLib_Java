@@ -1,4 +1,3 @@
-// Tests: Disjoint sets structure (union-find)
 package algolib.structures;
 
 import java.util.List;
@@ -8,6 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Tests: Disjoint sets structure (union-find)
 public class DisjointSetsTest
 {
     private DisjointSets<Integer> testObject;

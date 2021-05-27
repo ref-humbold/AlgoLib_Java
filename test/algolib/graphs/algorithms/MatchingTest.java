@@ -1,4 +1,3 @@
-// Tests: Hopcroft-Karp algorithm for matching in bipartite graph
 package algolib.graphs.algorithms;
 
 import java.util.List;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.MultipartiteGraph;
 
+// Tests: Hopcroft-Karp algorithm for matching in bipartite graph
 public class MatchingTest
 {
     @Test

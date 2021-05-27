@@ -3,7 +3,8 @@ package algolib.mathmat;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class EquationSystemTest
+// Tests: Structure of linear equation system (with Gauss elimination algorithm)
+public class EquationSystemTest
 {
     @Test
     public void solve_WhenSingleSolution_ThenSolution()

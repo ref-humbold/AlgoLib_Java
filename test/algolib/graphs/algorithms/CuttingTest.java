@@ -1,4 +1,3 @@
-// Tests: Algorithms for graph cutting (edge cut and vertex cut)
 package algolib.graphs.algorithms;
 
 import java.util.Collection;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.Edge;
 import algolib.graphs.UndirectedSimpleGraph;
 
+// Tests: Algorithms for graph cutting (edge cut and vertex cut)
 public class CuttingTest
 {
     @Test

@@ -2,7 +2,7 @@ package algolib.mathmat;
 
 import java.util.Arrays;
 
-/** Structure of linear equation system with Gauss elimination algorithm */
+/** Structure of linear equation system (with Gauss elimination algorithm) */
 public final class EquationSystem
 {
     private final Equation[] equations;

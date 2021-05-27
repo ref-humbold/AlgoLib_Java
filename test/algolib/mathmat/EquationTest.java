@@ -6,7 +6,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class EquationTest
+// Tests: Structure of linear equation
+public class EquationTest
 {
     private Equation testObject;
 
