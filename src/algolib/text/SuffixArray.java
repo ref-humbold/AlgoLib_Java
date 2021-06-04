@@ -2,6 +2,7 @@ package algolib.text;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /** Structure of suffix array (with longest common prefix) */
 public class SuffixArray
@@ -141,139 +142,144 @@ public class SuffixArray
         }
     }
 
-    private List<Integer> createArray(List<Integer> t)
+    private List<Integer> createArray(List<Integer> txt)
     {
-        if(t.size() < 2)
+        if(txt.size() < 2)
             return Collections.singletonList(0);
 
-        int n2 = (t.size() + 2) / 3;
-        int n1 = (t.size() + 1) / 3;
-        int n0 = t.size() / 3;
-        int n02 = n0 + n2;
-        List<Integer> t12 = new ArrayList<>();
+        int length2 = (txt.size() + 2) / 3;
+        int length1 = (txt.size() + 1) / 3;
+        int length0 = txt.size() / 3;
+        int length02 = length0 + length2;
+        List<Integer> indices12 = IntStream.range(0, txt.size() + length2 - length1)
+                                           .filter(i -> i % 3 != 0)
+                                           .boxed()
+                                           .collect(Collectors.toList());
 
-        for(int i = 0; i < t.size() + n2 - n1; ++i)
-            if(i % 3 != 0)
-                t12.add(i);
+        sortIndices(indices12, txt, 2);
+        sortIndices(indices12, txt, 1);
+        sortIndices(indices12, txt, 0);
 
-        sortByKeys(t12, t, 2);
-        sortByKeys(t12, t, 1);
-        sortByKeys(t12, t, 0);
-
-        int ix = 0;
+        int code = 0;
         int last0 = Integer.MAX_VALUE;
         int last1 = Integer.MAX_VALUE;
         int last2 = Integer.MAX_VALUE;
-        List<Integer> tn12 = new ArrayList<>(Collections.nCopies(n02, 0));
+        List<Integer> t12 = new ArrayList<>(Collections.nCopies(length02, 0));
 
-        for(int i : t12)
+        for(int i : indices12)
         {
-            if(getElement(t, i) != last0 || getElement(t, i + 1) != last1
-                    || getElement(t, i + 2) != last2)
+            if(getElement(txt, i) != last0 || getElement(txt, i + 1) != last1
+                    || getElement(txt, i + 2) != last2)
             {
-                ++ix;
-                last0 = getElement(t, i);
-                last1 = getElement(t, i + 1);
-                last2 = getElement(t, i + 2);
+                ++code;
+                last0 = getElement(txt, i);
+                last1 = getElement(txt, i + 1);
+                last2 = getElement(txt, i + 2);
             }
 
             if(i % 3 == 1)
-                tn12.set(i / 3, ix);
+                t12.set(i / 3, code);
             else
-                tn12.set(i / 3 + n2, ix);
+                t12.set(i / 3 + length2, code);
         }
 
         List<Integer> sa0 = new ArrayList<>();
         List<Integer> sa12;
 
-        if(ix < n02)
+        if(code < length02)
         {
-            sa12 = createArray(tn12);
+            sa12 = createArray(t12);
 
             for(int i = 0; i < sa12.size(); ++i)
-                tn12.set(sa12.get(i), i + 1);
+                t12.set(sa12.get(i), i + 1);
         }
         else
         {
-            sa12 = new ArrayList<>(Collections.nCopies(n02, 0));
+            sa12 = new ArrayList<>(Collections.nCopies(length02, 0));
 
-            for(int i = 0; i < tn12.size(); ++i)
-                sa12.set(tn12.get(i) - 1, i);
+            for(int i = 0; i < t12.size(); ++i)
+                sa12.set(t12.get(i) - 1, i);
         }
 
         for(int i : sa12)
-            if(i < n2)
+            if(i < length2)
                 sa0.add(3 * i);
 
-        sortByKeys(sa0, t, 0);
-
-        return merge(t, sa0, tn12, sa12);
+        sortIndices(sa0, txt, 0);
+        return merge(txt, sa0, t12, sa12);
     }
 
     private List<Integer> merge(List<Integer> t0, List<Integer> sa0, List<Integer> t12,
                                 List<Integer> sa12)
     {
-        List<Integer> sa = new ArrayList<>();
-        int n2 = (t0.size() + 2) / 3;
-        int n1 = (t0.size() + 1) / 3;
-        int i0 = 0;
-        int i12 = n2 - n1;
+        List<Integer> saMerged = new ArrayList<>();
+        int length2 = (t0.size() + 2) / 3;
+        int length1 = (t0.size() + 1) / 3;
+        int index0 = 0;
+        int index12 = length2 - length1;
 
-        while(i0 < sa0.size() && i12 < sa12.size())
+        while(index0 < sa0.size() && index12 < sa12.size())
         {
-            int pos12 = sa12.get(i12) < n2 ? sa12.get(i12) * 3 + 1 : (sa12.get(i12) - n2) * 3 + 2;
-            int pos0 = sa0.get(i0);
+            int pos12 = sa12.get(index12) < length2 ? sa12.get(index12) * 3 + 1
+                                                    : (sa12.get(index12) - length2) * 3 + 2;
+            int pos0 = sa0.get(index0);
+            boolean cond;
 
-            if(sa12.get(i12) < n2 ? lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
-                                                getElement(t12, sa12.get(i12) + n2),
-                                                getElement(t12, pos0 / 3))
-                                  : lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
-                                                getElement(t0, pos12 + 1), getElement(t0, pos0 + 1),
-                                                getElement(t12, sa12.get(i12) - n2 + 1),
-                                                getElement(t12, pos0 / 3 + n2)))
+            if(sa12.get(index12) < length2)
+                cond = lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
+                                   getElement(t12, sa12.get(index12) + length2),
+                                   getElement(t12, pos0 / 3));
+            else
+                cond = lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
+                                   getElement(t0, pos12 + 1), getElement(t0, pos0 + 1),
+                                   getElement(t12, sa12.get(index12) - length2 + 1),
+                                   getElement(t12, pos0 / 3 + length2));
+
+            if(cond)
             {
-                sa.add(pos12);
-                ++i12;
+                saMerged.add(pos12);
+                ++index12;
             }
             else
             {
-                sa.add(pos0);
-                ++i0;
+                saMerged.add(pos0);
+                ++index0;
             }
         }
 
-        while(i12 < sa12.size())
+        while(index12 < sa12.size())
         {
-            sa.add(sa12.get(i12) < n2 ? sa12.get(i12) * 3 + 1 : (sa12.get(i12) - n2) * 3 + 2);
-            ++i12;
+            saMerged.add(sa12.get(index12) < length2 ? sa12.get(index12) * 3 + 1
+                                                     : (sa12.get(index12) - length2) * 3 + 2);
+            ++index12;
         }
 
-        while(i0 < sa0.size())
+        while(index0 < sa0.size())
         {
-            sa.add(sa0.get(i0));
-            ++i0;
+            saMerged.add(sa0.get(index0));
+            ++index0;
         }
 
-        return sa;
+        return saMerged;
     }
 
-    private void sortByKeys(List<Integer> v, List<Integer> keys, int shift)
+    private void sortIndices(List<Integer> indices, List<Integer> values, int shift)
     {
         SortedMap<Integer, Queue<Integer>> buckets = new TreeMap<>();
         int j = 0;
 
-        for(int i : v)
+        for(int i : indices)
         {
-            int k = getElement(keys, i + shift);
+            int v = getElement(values, i + shift);
 
-            buckets.putIfAbsent(k, new ArrayDeque<>());
-            buckets.get(k).add(i);
+            buckets.putIfAbsent(v, new ArrayDeque<>());
+            buckets.get(v).add(i);
         }
 
         for(Queue<Integer> q : buckets.values())
             while(!q.isEmpty())
             {
-                v.set(j, q.remove());
+                indices.set(j, q.remove());
                 ++j;
             }
     }
@@ -286,10 +292,13 @@ public class SuffixArray
     private boolean lessOrEqual(int... elements)
     {
         for(int i = 0; i < elements.length; i += 2)
+        {
             if(elements[i] < elements[i + 1])
                 return true;
-            else if(elements[i] > elements[i + 1])
+
+            if(elements[i] > elements[i + 1])
                 return false;
+        }
 
         return true;
     }

@@ -61,7 +61,7 @@ public class Trie
 
         if(!node.terminus)
         {
-            size_++;
+            ++size_;
             node.terminus = true;
         }
     }
@@ -94,7 +94,7 @@ public class Trie
     {
         if(i == text.length() && node.terminus)
         {
-            size_--;
+            --size_;
             node.terminus = false;
         }
         else if(i < text.length())
