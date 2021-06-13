@@ -37,12 +37,24 @@ public final class Geometry2D
         });
     }
 
+    /**
+     * Counts the distance between given points.
+     * @param p1 first point
+     * @param p2 second point
+     * @return distance between the points
+     */
     public static double distance(Point2D p1, Point2D p2)
     {
         return Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
     }
 
-    public Point2D translate(Point2D p, Vector2D v)
+    /**
+     * Translates given point by given vector.
+     * @param p a point
+     * @param v a translation vector
+     * @return result of translation
+     */
+    public static Point2D translate(Point2D p, Vector2D v)
     {
         return Point2D.of(p.x + v.x, p.y + v.y);
     }

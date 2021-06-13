@@ -63,4 +63,44 @@ public class Geometry2DTest
                                    Point2D.of(-3.0, -2.0), Point2D.of(-2.0, -3.0),
                                    Point2D.of(2.0, -3.0), Point2D.of(3.0, -2.0));
     }
+
+    @Test
+    public void distance_WhenDifferentPoints_ThenDistance()
+    {
+        // when
+        double result = Geometry2D.distance(Point2D.of(4.0, 5.0), Point2D.of(-2.0, -3.0));
+        // then
+        Assertions.assertThat(result).isEqualTo(10.0);
+    }
+
+    @Test
+    public void distance_WhenSamePoint_ThenZero()
+    {
+        // given
+        Point2D point = Point2D.of(13.5, 6.5);
+        // when
+        double result = Geometry2D.distance(point, point);
+        // then
+        Assertions.assertThat(result).isEqualTo(0.0);
+    }
+
+    @Test
+    public void translate_ThenPointTranslated()
+    {
+        // when
+        Point2D result = Geometry2D.translate(Point2D.of(13.7, 6.5), Vector2D.of(-10.4, 3.3));
+        // then
+        Assertions.assertThat(result).isEqualTo(Point2D.of(3.3, 9.8));
+    }
+
+    @Test
+    public void translate_WhenZeroVector_ThenSamePoint()
+    {
+        // given
+        Point2D point = Point2D.of(13.5, 6.5);
+        // when
+        Point2D result = Geometry2D.translate(point, Vector2D.of(0.0, 0.0));
+        // then
+        Assertions.assertThat(result).isEqualTo(point);
+    }
 }
