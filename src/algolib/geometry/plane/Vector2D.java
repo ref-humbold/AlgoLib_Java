@@ -2,7 +2,7 @@ package algolib.geometry.plane;
 
 import java.util.Objects;
 
-import algolib.geometry.DoublesUtils;
+import algolib.mathmat.DoubleUtils;
 
 /** Structure of vector in 2 dimensions */
 public final class Vector2D
@@ -47,7 +47,7 @@ public final class Vector2D
 
         Vector2D other = (Vector2D)obj;
 
-        return DoublesUtils.equal(x, other.x) && DoublesUtils.equal(y, other.y);
+        return DoubleUtils.equal(x, other.x) && DoubleUtils.equal(y, other.y);
     }
 
     @Override

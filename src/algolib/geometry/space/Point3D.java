@@ -2,7 +2,7 @@ package algolib.geometry.space;
 
 import java.util.Objects;
 
-import algolib.geometry.DoublesUtils;
+import algolib.mathmat.DoubleUtils;
 
 /** Structure of point in 3 dimensions */
 public final class Point3D
@@ -34,8 +34,8 @@ public final class Point3D
 
         Point3D other = (Point3D)obj;
 
-        return DoublesUtils.equal(x, other.x) && DoublesUtils.equal(y, other.y)
-                && DoublesUtils.equal(z, other.z);
+        return DoubleUtils.equal(x, other.x) && DoubleUtils.equal(y, other.y) && DoubleUtils.equal(
+                z, other.z);
     }
 
     @Override
