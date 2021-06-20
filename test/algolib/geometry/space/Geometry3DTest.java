@@ -28,7 +28,7 @@ public class Geometry3DTest
     }
 
     @Test
-    public void sort3DByY_ThenSortedStablyAscendingByYCoordinate()
+    public void sortByY_ThenSortedStablyAscendingByYCoordinate()
     {
         // given
         List<Point3D> sequence =
@@ -47,7 +47,7 @@ public class Geometry3DTest
     }
 
     @Test
-    public void sort3DByZ_ThenSortedStablyAscendingByZCoordinate()
+    public void sortByZ_ThenSortedStablyAscendingByZCoordinate()
     {
         // given
         List<Point3D> sequence =

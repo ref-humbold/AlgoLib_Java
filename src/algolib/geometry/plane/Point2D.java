@@ -1,8 +1,8 @@
 package algolib.geometry.plane;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Objects;
+
+import algolib.geometry.DoublesUtils;
 
 /** Structure of point in 2 dimensions */
 public final class Point2D
@@ -12,8 +12,8 @@ public final class Point2D
 
     private Point2D(double x, double y)
     {
-        this.x = BigDecimal.valueOf(x).setScale(6, RoundingMode.HALF_UP).doubleValue();
-        this.y = BigDecimal.valueOf(y).setScale(6, RoundingMode.HALF_UP).doubleValue();
+        this.x = x;
+        this.y = y;
     }
 
     public static Point2D of(double x, double y)
@@ -32,7 +32,7 @@ public final class Point2D
 
         Point2D other = (Point2D)obj;
 
-        return x == other.x && y == other.y;
+        return DoublesUtils.equal(x, other.x) && DoublesUtils.equal(y, other.y);
     }
 
     @Override

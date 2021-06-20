@@ -1,8 +1,8 @@
 package algolib.geometry.plane;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Objects;
+
+import algolib.geometry.DoublesUtils;
 
 /** Structure of vector in 2 dimensions */
 public final class Vector2D
@@ -12,8 +12,8 @@ public final class Vector2D
 
     private Vector2D(double x, double y)
     {
-        this.x = BigDecimal.valueOf(x).setScale(6, RoundingMode.HALF_UP).doubleValue();
-        this.y = BigDecimal.valueOf(y).setScale(6, RoundingMode.HALF_UP).doubleValue();
+        this.x = x;
+        this.y = y;
     }
 
     public static Vector2D of(double x, double y)
@@ -47,7 +47,7 @@ public final class Vector2D
 
         Vector2D other = (Vector2D)obj;
 
-        return x == other.x && y == other.y;
+        return DoublesUtils.equal(x, other.x) && DoublesUtils.equal(y, other.y);
     }
 
     @Override
