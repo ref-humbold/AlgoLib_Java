@@ -2,16 +2,18 @@ package algolib.geometry.plane;
 
 import java.util.Objects;
 
-import algolib.mathmat.DoubleUtils;
+import algolib.geometry.GeometryObject;
 
 /** Structure of vector in 2 dimensions */
 public final class Vector2D
+        extends GeometryObject
 {
     public final double x;
     public final double y;
 
     private Vector2D(double x, double y)
     {
+        super();
         this.x = x;
         this.y = y;
     }
@@ -47,7 +49,7 @@ public final class Vector2D
 
         Vector2D other = (Vector2D)obj;
 
-        return DoubleUtils.equal(x, other.x) && DoubleUtils.equal(y, other.y);
+        return areEqual(x, other.x) && areEqual(y, other.y);
     }
 
     @Override

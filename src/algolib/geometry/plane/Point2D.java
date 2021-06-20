@@ -2,16 +2,18 @@ package algolib.geometry.plane;
 
 import java.util.Objects;
 
-import algolib.mathmat.DoubleUtils;
+import algolib.geometry.GeometryObject;
 
 /** Structure of point in 2 dimensions */
 public final class Point2D
+        extends GeometryObject
 {
     public final double x;
     public final double y;
 
     private Point2D(double x, double y)
     {
+        super();
         this.x = x;
         this.y = y;
     }
@@ -32,7 +34,7 @@ public final class Point2D
 
         Point2D other = (Point2D)obj;
 
-        return DoubleUtils.equal(x, other.x) && DoubleUtils.equal(y, other.y);
+        return areEqual(x, other.x) && areEqual(y, other.y);
     }
 
     @Override

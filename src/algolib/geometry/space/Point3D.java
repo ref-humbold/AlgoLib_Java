@@ -2,10 +2,11 @@ package algolib.geometry.space;
 
 import java.util.Objects;
 
-import algolib.mathmat.DoubleUtils;
+import algolib.geometry.GeometryObject;
 
 /** Structure of point in 3 dimensions */
 public final class Point3D
+        extends GeometryObject
 {
     public final double x;
     public final double y;
@@ -13,6 +14,7 @@ public final class Point3D
 
     private Point3D(double x, double y, double z)
     {
+        super();
         this.x = x;
         this.y = y;
         this.z = z;
@@ -34,8 +36,7 @@ public final class Point3D
 
         Point3D other = (Point3D)obj;
 
-        return DoubleUtils.equal(x, other.x) && DoubleUtils.equal(y, other.y) && DoubleUtils.equal(
-                z, other.z);
+        return areEqual(x, other.x) && areEqual(y, other.y) && areEqual(z, other.z);
     }
 
     @Override
