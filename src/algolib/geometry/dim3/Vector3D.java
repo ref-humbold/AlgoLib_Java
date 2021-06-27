@@ -1,4 +1,4 @@
-package algolib.geometry._3d;
+package algolib.geometry.dim3;
 
 import java.util.Objects;
 

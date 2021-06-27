@@ -1,4 +1,4 @@
-package algolib.geometry._2d;
+package algolib.geometry.dim2;
 
 import java.util.Arrays;
 import java.util.List;
