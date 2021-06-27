@@ -8,8 +8,8 @@ public abstract class GeometryObject
     {
     }
 
-    protected boolean areEqual(double d1, double d2)
+    protected static boolean areEqual(double d1, double d2)
     {
-        return Math.abs(d1 - d2) <= EPSILON;
+        return Math.abs(d1 - d2) < EPSILON;
     }
 }

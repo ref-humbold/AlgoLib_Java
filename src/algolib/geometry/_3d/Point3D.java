@@ -1,4 +1,4 @@
-package algolib.geometry.space;
+package algolib.geometry._3d;
 
 import java.util.Objects;
 
