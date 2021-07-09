@@ -52,6 +52,12 @@ public final class Vector3D
     }
 
     @Override
+    public double[] getCoordinates()
+    {
+        return new double[]{x, y, z};
+    }
+
+    @Override
     public boolean equals(Object obj)
     {
         if(this == obj)

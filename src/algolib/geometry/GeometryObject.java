@@ -12,4 +12,6 @@ public abstract class GeometryObject
     {
         return Math.abs(d1 - d2) < EPSILON;
     }
+
+    public abstract double[] getCoordinates();
 }

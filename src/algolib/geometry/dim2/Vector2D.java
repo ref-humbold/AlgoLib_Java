@@ -39,6 +39,12 @@ public final class Vector2D
     }
 
     @Override
+    public double[] getCoordinates()
+    {
+        return new double[]{x, y};
+    }
+
+    @Override
     public boolean equals(Object obj)
     {
         if(this == obj)
