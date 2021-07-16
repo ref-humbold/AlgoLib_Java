@@ -72,7 +72,7 @@ public final class Vector2D
 
     public double length()
     {
-        return x * x + y * y;
+        return Math.sqrt(x * x + y * y);
     }
 
     public Vector2D add(Vector2D v)

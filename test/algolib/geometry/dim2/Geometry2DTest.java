@@ -65,6 +65,21 @@ public class Geometry2DTest
     }
 
     @Test
+    public void sortByAngle_WhenEqualAngles_ThenCompareRadius()
+    {
+        // given
+        List<Point2D> sequence =
+                Arrays.asList(Point2D.of(0.0, 0.0), Point2D.of(1.0, 1.0), Point2D.of(-2.0, -2.0),
+                              Point2D.of(-3.0, -3.0), Point2D.of(4.0, 4.0));
+        // when
+        Geometry2D.sortByAngle(sequence);
+        // then
+        Assertions.assertThat(sequence)
+                  .containsExactly(Point2D.of(0.0, 0.0), Point2D.of(1.0, 1.0), Point2D.of(4.0, 4.0),
+                                   Point2D.of(-2.0, -2.0), Point2D.of(-3.0, -3.0));
+    }
+
+    @Test
     public void distance_WhenDifferentPoints_ThenDistance()
     {
         // when

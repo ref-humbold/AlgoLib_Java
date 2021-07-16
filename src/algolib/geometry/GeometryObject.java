@@ -2,7 +2,7 @@ package algolib.geometry;
 
 public abstract class GeometryObject
 {
-    private static final double EPSILON = 1e-15;
+    public static final double EPSILON = 1e-12;
 
     protected GeometryObject()
     {
