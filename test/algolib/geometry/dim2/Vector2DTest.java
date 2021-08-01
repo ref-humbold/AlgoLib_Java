@@ -32,7 +32,7 @@ public class Vector2DTest
     public void dot_ThenScalarProduct()
     {
         // when
-        double result = Vector2D.dot(Vector2D.of(1.5, -4.0), (Vector2D.of(9.0, -2.5)));
+        double result = Vector2D.dot(Vector2D.of(1.5, -4.0), Vector2D.of(9.0, -2.5));
         // then
         Assertions.assertThat(result).isCloseTo(23.5, OFFSET);
     }
@@ -41,7 +41,7 @@ public class Vector2DTest
     public void dot_WhenOrthogonal_ThenZero()
     {
         // when
-        double result = Vector2D.dot(Vector2D.of(1.0, 0.0), (Vector2D.of(0.0, -2.0)));
+        double result = Vector2D.dot(Vector2D.of(1.0, 0.0), Vector2D.of(0.0, -2.0));
         // then
         Assertions.assertThat(result).isCloseTo(0.0, OFFSET);
     }
@@ -50,7 +50,7 @@ public class Vector2DTest
     public void area_ThenLengthOfCrossProduct()
     {
         // when
-        double result = Vector2D.area(Vector2D.of(1.5, -4.0), (Vector2D.of(9.0, -2.5)));
+        double result = Vector2D.area(Vector2D.of(1.5, -4.0), Vector2D.of(9.0, -2.5));
         // then
         Assertions.assertThat(result).isCloseTo(32.25, OFFSET);
     }
@@ -59,7 +59,7 @@ public class Vector2DTest
     public void area_WhenParallel_ThenZero()
     {
         // when
-        double result = Vector2D.area(Vector2D.of(3.0, 3.0), (Vector2D.of(-8.0, -8.0)));
+        double result = Vector2D.area(Vector2D.of(3.0, 3.0), Vector2D.of(-8.0, -8.0));
         // then
         Assertions.assertThat(result).isCloseTo(0.0, OFFSET);
     }
