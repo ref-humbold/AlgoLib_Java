@@ -78,6 +78,11 @@ public final class Fraction
         return String.format("%d/%d", numerator, denominator);
     }
 
+    public Fraction negate()
+    {
+        return Fraction.of(-numerator, denominator);
+    }
+
     public Fraction add(Fraction f)
     {
         return Fraction.of(numerator * f.denominator + f.numerator * denominator,

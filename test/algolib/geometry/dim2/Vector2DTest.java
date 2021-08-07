@@ -74,6 +74,15 @@ public class Vector2DTest
     }
 
     @Test
+    public void negate_ThenNegateEachCoordinate()
+    {
+        // when
+        Vector2D result = Vector2D.of(5.4, 9.0).negate();
+        // then
+        Assertions.assertThat(result).isEqualTo(Vector2D.of(-5.4, -9.0));
+    }
+
+    @Test
     public void add_ThenAddEachCoordinate()
     {
         // when

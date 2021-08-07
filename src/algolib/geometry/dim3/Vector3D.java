@@ -88,6 +88,11 @@ public final class Vector3D
         return Math.sqrt(x * x + y * y + z * z);
     }
 
+    public Vector3D negate()
+    {
+        return Vector3D.of(-x, -y, -z);
+    }
+
     public Vector3D add(Vector3D v)
     {
         return Vector3D.of(x + v.x, y + v.y, z + v.z);

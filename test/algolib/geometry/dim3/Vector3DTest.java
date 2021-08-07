@@ -123,6 +123,15 @@ public class Vector3DTest
     }
 
     @Test
+    public void negate_ThenNegateEachCoordinate()
+    {
+        // when
+        Vector3D result = Vector3D.of(5.4, 9.0, -12.3).negate();
+        // then
+        Assertions.assertThat(result).isEqualTo(Vector3D.of(-5.4, -9.0, 12.3));
+    }
+
+    @Test
     public void add_ThenAddEachCoordinate()
     {
         // when

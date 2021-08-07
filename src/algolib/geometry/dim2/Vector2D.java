@@ -75,6 +75,11 @@ public final class Vector2D
         return Math.sqrt(x * x + y * y);
     }
 
+    public Vector2D negate()
+    {
+        return Vector2D.of(-x, -y);
+    }
+
     public Vector2D add(Vector2D v)
     {
         return Vector2D.of(x + v.x, y + v.y);
