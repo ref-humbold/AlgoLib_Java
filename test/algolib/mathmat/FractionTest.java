@@ -72,6 +72,24 @@ public class FractionTest
     }
 
     @Test
+    public void invert_ThenInverted()
+    {
+        // when
+        Fraction result = Fraction.of(23, 18).invert();
+        // then
+        Assertions.assertThat(result).isEqualTo(Fraction.of(18, 23));
+    }
+
+    @Test
+    public void invert_WhenZero_ThenArithmeticException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(Fraction.of(0)::invert);
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+    }
+
+    @Test
     public void add_ThenDenominatorEqualsLCM()
     {
         // when
@@ -108,19 +126,11 @@ public class FractionTest
     }
 
     @Test
-    public void invert_WhenProperFraction_ThenInverted()
+    public void divide_WhenZero_ThenArithmeticException()
     {
         // when
-        Fraction result = Fraction.of(23, 18).invert();
-        // then
-        Assertions.assertThat(result).isEqualTo(Fraction.of(18, 23));
-    }
-
-    @Test
-    public void invert_WhenZero_ThenArithmeticException()
-    {
-        // when
-        Throwable throwable = Assertions.catchThrowable(Fraction.of(0)::invert);
+        Throwable throwable =
+                Assertions.catchThrowable(() -> Fraction.of(9, 14).divide(Fraction.of(0)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
