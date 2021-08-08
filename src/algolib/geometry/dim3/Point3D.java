@@ -1,9 +1,12 @@
-package algolib.geometry;
+package algolib.geometry.dim3;
 
 import java.util.Objects;
 
-/** Structure of point in a space */
+import algolib.geometry.GeometryObject;
+
+/** Structure of point in 3 dimensions */
 public final class Point3D
+        extends GeometryObject
 {
     public final double x;
     public final double y;
@@ -11,6 +14,7 @@ public final class Point3D
 
     private Point3D(double x, double y, double z)
     {
+        super();
         this.x = x;
         this.y = y;
         this.z = z;
@@ -21,12 +25,10 @@ public final class Point3D
         return new Point3D(x, y, z);
     }
 
-    public static Point3D fromPoint(Point p)
+    @Override
+    public double[] getCoordinates()
     {
-        if(p.dims() != 3)
-            throw new IllegalArgumentException("Point should have exactly 3 dimensions");
-
-        return new Point3D(p.dim(1), p.dim(2), p.dim(3));
+        return new double[]{x, y, z};
     }
 
     @Override
@@ -40,7 +42,7 @@ public final class Point3D
 
         Point3D other = (Point3D)obj;
 
-        return x == other.x && y == other.y && z == other.z;
+        return areEqual(x, other.x) && areEqual(y, other.y) && areEqual(z, other.z);
     }
 
     @Override
@@ -53,11 +55,6 @@ public final class Point3D
     public String toString()
     {
         return String.format("(%f, %f, %f)", x, y, z);
-    }
-
-    public Point toPoint()
-    {
-        return Point.of(x, y, z);
     }
 
     public double radius()

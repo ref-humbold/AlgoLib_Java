@@ -1,10 +1,10 @@
-package algolib.geometry;
+package algolib.geometry.dim2;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Algorithm for convex hull on a plane (monotone chain) */
+/** Algorithm for convex hull (monotone chain) */
 public final class ConvexHull
 {
     /**
@@ -19,7 +19,7 @@ public final class ConvexHull
 
         List<Point2D> sorted = new ArrayList<>(points);
 
-        PointsSorting.sort2DByX(sorted);
+        Geometry2D.sortByX(sorted);
 
         List<Point2D> lowerHull = createHalfHull(sorted);
 

@@ -78,6 +78,19 @@ public final class Fraction
         return String.format("%d/%d", numerator, denominator);
     }
 
+    public Fraction negate()
+    {
+        return Fraction.of(-numerator, denominator);
+    }
+
+    public Fraction invert()
+    {
+        if(numerator == 0)
+            throw new ArithmeticException("Value of zero cannot be inverted");
+
+        return Fraction.of(denominator, numerator);
+    }
+
     public Fraction add(Fraction f)
     {
         return Fraction.of(numerator * f.denominator + f.numerator * denominator,
@@ -101,14 +114,6 @@ public final class Fraction
             throw new ArithmeticException("Division by zero");
 
         return Fraction.of(numerator * f.denominator, denominator * f.numerator);
-    }
-
-    public Fraction invert()
-    {
-        if(numerator == 0)
-            throw new ArithmeticException("Value of zero cannot be inverted");
-
-        return Fraction.of(denominator, numerator);
     }
 
     @Override

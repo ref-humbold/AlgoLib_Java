@@ -1,15 +1,19 @@
-package algolib.geometry;
+package algolib.geometry.dim2;
 
 import java.util.Objects;
 
-/** Structure of vector on a plane */
+import algolib.geometry.GeometryObject;
+
+/** Structure of vector in 2 dimensions */
 public final class Vector2D
+        extends GeometryObject
 {
     public final double x;
     public final double y;
 
     private Vector2D(double x, double y)
     {
+        super();
         this.x = x;
         this.y = y;
     }
@@ -24,14 +28,6 @@ public final class Vector2D
         return Vector2D.of(end.x - begin.x, end.y - begin.y);
     }
 
-    public static Vector2D fromVector(Vector p)
-    {
-        if(p.dims() != 2)
-            throw new IllegalArgumentException("Vector should have exactly 2 dimensions");
-
-        return Vector2D.of(p.dim(1), p.dim(2));
-    }
-
     public static double dot(Vector2D v1, Vector2D v2)
     {
         return v1.x * v2.x + v1.y * v2.y;
@@ -40,6 +36,12 @@ public final class Vector2D
     public static double area(Vector2D v1, Vector2D v2)
     {
         return v1.x * v2.y - v1.y * v2.x;
+    }
+
+    @Override
+    public double[] getCoordinates()
+    {
+        return new double[]{x, y};
     }
 
     @Override
@@ -53,7 +55,7 @@ public final class Vector2D
 
         Vector2D other = (Vector2D)obj;
 
-        return x == other.x && y == other.y;
+        return areEqual(x, other.x) && areEqual(y, other.y);
     }
 
     @Override
@@ -68,14 +70,14 @@ public final class Vector2D
         return String.format("[%f, %f]", x, y);
     }
 
-    public Vector toVector()
-    {
-        return Vector.of(x, y);
-    }
-
     public double length()
     {
-        return x * x + y * y;
+        return Math.sqrt(x * x + y * y);
+    }
+
+    public Vector2D negate()
+    {
+        return Vector2D.of(-x, -y);
     }
 
     public Vector2D add(Vector2D v)

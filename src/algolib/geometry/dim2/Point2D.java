@@ -1,15 +1,19 @@
-package algolib.geometry;
+package algolib.geometry.dim2;
 
 import java.util.Objects;
 
-/** Structure of point on a plane */
+import algolib.geometry.GeometryObject;
+
+/** Structure of point in 2 dimensions */
 public final class Point2D
+        extends GeometryObject
 {
     public final double x;
     public final double y;
 
     private Point2D(double x, double y)
     {
+        super();
         this.x = x;
         this.y = y;
     }
@@ -19,12 +23,10 @@ public final class Point2D
         return new Point2D(x, y);
     }
 
-    public static Point2D fromPoint(Point p)
+    @Override
+    public double[] getCoordinates()
     {
-        if(p.dims() != 2)
-            throw new IllegalArgumentException("Point should have exactly 2 dimensions");
-
-        return Point2D.of(p.dim(1), p.dim(2));
+        return new double[]{x, y};
     }
 
     @Override
@@ -38,7 +40,7 @@ public final class Point2D
 
         Point2D other = (Point2D)obj;
 
-        return x == other.x && y == other.y;
+        return areEqual(x, other.x) && areEqual(y, other.y);
     }
 
     @Override
@@ -51,11 +53,6 @@ public final class Point2D
     public String toString()
     {
         return String.format("(%f, %f)", x, y);
-    }
-
-    public Point toPoint()
-    {
-        return Point.of(x, y);
     }
 
     public double radius()

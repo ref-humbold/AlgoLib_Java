@@ -1,9 +1,12 @@
-package algolib.geometry;
+package algolib.geometry.dim3;
 
 import java.util.Objects;
 
-/** Structure of vector in a space */
+import algolib.geometry.GeometryObject;
+
+/** Structure of vector in 3 dimensions */
 public final class Vector3D
+        extends GeometryObject
 {
     public final double x;
     public final double y;
@@ -11,6 +14,7 @@ public final class Vector3D
 
     private Vector3D(double x, double y, double z)
     {
+        super();
         this.x = x;
         this.y = y;
         this.z = z;
@@ -24,14 +28,6 @@ public final class Vector3D
     public static Vector3D between(Point3D begin, Point3D end)
     {
         return Vector3D.of(end.x - begin.x, end.y - begin.y, end.z - begin.z);
-    }
-
-    public static Vector3D fromVector(Vector p)
-    {
-        if(p.dims() != 3)
-            throw new IllegalArgumentException("Point should have exactly 3 dimensions");
-
-        return Vector3D.of(p.dim(1), p.dim(2), p.dim(3));
     }
 
     public static double dot(Vector3D v1, Vector3D v2)
@@ -56,6 +52,12 @@ public final class Vector3D
     }
 
     @Override
+    public double[] getCoordinates()
+    {
+        return new double[]{x, y, z};
+    }
+
+    @Override
     public boolean equals(Object obj)
     {
         if(this == obj)
@@ -66,7 +68,7 @@ public final class Vector3D
 
         Vector3D other = (Vector3D)obj;
 
-        return x == other.x && y == other.y && z == other.z;
+        return areEqual(x, other.x) && areEqual(y, other.y) && areEqual(z, other.z);
     }
 
     @Override
@@ -81,14 +83,14 @@ public final class Vector3D
         return String.format("[%f, %f, %f]", x, y, z);
     }
 
-    public Vector toVector()
-    {
-        return Vector.of(x, y, z);
-    }
-
     public double length()
     {
         return Math.sqrt(x * x + y * y + z * z);
+    }
+
+    public Vector3D negate()
+    {
+        return Vector3D.of(-x, -y, -z);
     }
 
     public Vector3D add(Vector3D v)

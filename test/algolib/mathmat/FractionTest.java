@@ -63,56 +63,19 @@ public class FractionTest
     }
 
     @Test
-    public void add_WhenFraction_ThenDenominatorEqualsLCM()
+    public void negate_ThenNumeratorNegated()
     {
-        // given
-        Fraction fraction = Fraction.of(1, 2);
         // when
-        Fraction result = fraction.add(Fraction.of(5, 7));
+        Fraction result = Fraction.of(3, 10).negate();
         // then
-        Assertions.assertThat(result).isEqualTo(Fraction.of(17, 14));
+        Assertions.assertThat(result).isEqualTo(Fraction.of(-3, 10));
     }
 
     @Test
-    public void subtract_WhenFraction_ThenNormalized()
+    public void invert_ThenInverted()
     {
-        // given
-        Fraction fraction = Fraction.of(1, 2);
         // when
-        Fraction result = fraction.subtract(Fraction.of(3, 10));
-        // then
-        Assertions.assertThat(result).isEqualTo(Fraction.of(1, 5));
-    }
-
-    @Test
-    public void multiply_WhenFraction_ThenNormalized()
-    {
-        // given
-        Fraction fraction = Fraction.of(3, 7);
-        // when
-        Fraction result = fraction.multiply(Fraction.of(5, 12));
-        // then
-        Assertions.assertThat(result).isEqualTo(Fraction.of(5, 28));
-    }
-
-    @Test
-    public void divide_WhenFraction_ThenNormalized()
-    {
-        // given
-        Fraction fraction = Fraction.of(9, 14);
-        // when
-        Fraction result = fraction.divide(Fraction.of(2, 5));
-        // then
-        Assertions.assertThat(result).isEqualTo(Fraction.of(45, 28));
-    }
-
-    @Test
-    public void invert_WhenProperFraction_ThenInverted()
-    {
-        // given
-        Fraction fraction = Fraction.of(23, 18);
-        // when
-        Fraction result = fraction.invert();
+        Fraction result = Fraction.of(23, 18).invert();
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(18, 23));
     }
@@ -120,10 +83,54 @@ public class FractionTest
     @Test
     public void invert_WhenZero_ThenArithmeticException()
     {
-        // given
-        Fraction fraction = Fraction.of(0);
         // when
-        Throwable throwable = Assertions.catchThrowable(fraction::invert);
+        Throwable throwable = Assertions.catchThrowable(Fraction.of(0)::invert);
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+    }
+
+    @Test
+    public void add_ThenDenominatorEqualsLCM()
+    {
+        // when
+        Fraction result = Fraction.of(1, 2).add(Fraction.of(5, 7));
+        // then
+        Assertions.assertThat(result).isEqualTo(Fraction.of(17, 14));
+    }
+
+    @Test
+    public void subtract_ThenNormalized()
+    {
+        // when
+        Fraction result = Fraction.of(1, 2).subtract(Fraction.of(3, 10));
+        // then
+        Assertions.assertThat(result).isEqualTo(Fraction.of(1, 5));
+    }
+
+    @Test
+    public void multiply_ThenNormalized()
+    {
+        // when
+        Fraction result = Fraction.of(3, 7).multiply(Fraction.of(5, 12));
+        // then
+        Assertions.assertThat(result).isEqualTo(Fraction.of(5, 28));
+    }
+
+    @Test
+    public void divide_ThenNormalized()
+    {
+        // when
+        Fraction result = Fraction.of(9, 14).divide(Fraction.of(2, 5));
+        // then
+        Assertions.assertThat(result).isEqualTo(Fraction.of(45, 28));
+    }
+
+    @Test
+    public void divide_WhenZero_ThenArithmeticException()
+    {
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> Fraction.of(9, 14).divide(Fraction.of(0)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
     }
