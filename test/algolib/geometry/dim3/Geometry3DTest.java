@@ -5,11 +5,11 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// Tests: Basic geometric operations in 3 dimensions
+// Tests: Algorithms for basic geometrical computations in 3D
 public class Geometry3DTest
 {
     @Test
-    public void sortByX_ThenSortedStablyAscendingByXCoordinate()
+    public void sortByX_ThenSortedStablyAscending()
     {
         // given
         List<Point3D> sequence =
@@ -28,7 +28,7 @@ public class Geometry3DTest
     }
 
     @Test
-    public void sortByY_ThenSortedStablyAscendingByYCoordinate()
+    public void sortByY_ThenSortedStablyAscending()
     {
         // given
         List<Point3D> sequence =
@@ -47,7 +47,7 @@ public class Geometry3DTest
     }
 
     @Test
-    public void sortByZ_ThenSortedStablyAscendingByZCoordinate()
+    public void sortByZ_ThenSortedStablyAscending()
     {
         // given
         List<Point3D> sequence =
