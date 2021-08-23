@@ -105,4 +105,34 @@ public class Geometry3DTest
         // then
         Assertions.assertThat(result).isEqualTo(point);
     }
+
+    @Test
+    public void reflect_ThenPointReflected()
+    {
+        // when
+        Point3D result =
+                Geometry3D.reflect(Point3D.of(13.5, 6.5, -4.2), Point3D.of(2.0, -1.0, -3.0));
+        // then
+        Assertions.assertThat(result).isEqualTo(Point3D.of(-9.5, -8.5, -1.8));
+    }
+
+    @Test
+    public void reflect_WhenZeroPoint_ThenPointReflected()
+    {
+        // when
+        Point3D result = Geometry3D.reflect(Point3D.of(13.5, 6.5, -4.2), Point3D.of(0.0, 0.0, 0.0));
+        // then
+        Assertions.assertThat(result).isEqualTo(Point3D.of(-13.5, -6.5, 4.2));
+    }
+
+    @Test
+    public void reflect_WhenSamePoint_ThenSamePoint()
+    {
+        // given
+        Point3D point = Point3D.of(13.5, 6.5, -4.2);
+        // when
+        Point3D result = Geometry3D.reflect(point, point);
+        // then
+        Assertions.assertThat(result).isEqualTo(point);
+    }
 }

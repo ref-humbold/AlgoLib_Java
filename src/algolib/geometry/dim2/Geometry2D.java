@@ -25,6 +25,7 @@ public final class Geometry2D
 
     /**
      * Mutably sorts points by their polar coordinates. First sorts by angle, then by radius.
+     * Sorting is guaranteed to be stable.
      * @param points a list of points
      */
     public static void sortByAngle(List<Point2D> points)
@@ -39,23 +40,36 @@ public final class Geometry2D
 
     /**
      * Counts the distance between given points.
-     * @param p1 first point
-     * @param p2 second point
+     * @param point1 first point
+     * @param point2 second point
      * @return distance between the points
      */
-    public static double distance(Point2D p1, Point2D p2)
+    public static double distance(Point2D point1, Point2D point2)
     {
-        return Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+        return Math.sqrt(
+                (point2.x - point1.x) * (point2.x - point1.x) + (point2.y - point1.y) * (point2.y
+                        - point1.y));
     }
 
     /**
      * Translates given point by given vector.
-     * @param p a point
-     * @param v a translation vector
-     * @return result of translation
+     * @param point a point
+     * @param vector a translation vector
+     * @return the translated point
      */
-    public static Point2D translate(Point2D p, Vector2D v)
+    public static Point2D translate(Point2D point, Vector2D vector)
     {
-        return Point2D.of(p.x + v.x, p.y + v.y);
+        return Point2D.of(point.x + vector.x, point.y + vector.y);
+    }
+
+    /**
+     * Reflects given point in another point.
+     * @param point a point to be reflected
+     * @param centre a reflection point
+     * @return the reflected point
+     */
+    public static Point2D reflect(Point2D point, Point2D centre)
+    {
+        return Point2D.of(-point.x + 2 * centre.x, -point.y + 2 * centre.y);
     }
 }
