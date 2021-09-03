@@ -8,10 +8,10 @@ import algolib.tuples.Pair;
 public final class Subsequences
 {
     /**
-     * Constructs longest increasing subsequence.
-     * @param sequence sequence of elements
+     * Constructs the longest increasing subsequence.
+     * @param sequence a sequence of elements
      * @param comparator comparator function of elements in subsequence
-     * @return least lexicographically longest increasing subsequence
+     * @return the longest increasing subsequence (least lexicographically)
      */
     public static <T> Collection<T> longestIncreasing(List<T> sequence, Comparator<T> comparator)
     {
@@ -23,10 +23,9 @@ public final class Subsequences
 
         for(int i = 1; i < sequence.size(); ++i)
         {
-            T elem = sequence.get(i);
             Integer subseqEnd = subsequence.get(subsequence.size() - 1);
 
-            if(comparator.compare(elem, sequence.get(subseqEnd)) > 0)
+            if(comparator.compare(sequence.get(i), sequence.get(subseqEnd)) > 0)
             {
                 previousElem.add(Optional.of(subseqEnd));
                 subsequence.add(i);
@@ -34,7 +33,7 @@ public final class Subsequences
             else
             {
                 int index =
-                        searchIndex(comparator, sequence, subsequence, 0, subsequence.size() - 1,
+                        searchIndex(sequence, comparator, subsequence, 0, subsequence.size() - 1,
                                     i);
 
                 subsequence.set(index, i);
@@ -60,7 +59,7 @@ public final class Subsequences
     /**
      * Dynamically constructs coherent subarray with maximal sum.
      * @param sequence sequence of numbers
-     * @return maximum subarray
+     * @return the maximum subarray
      */
     public static List<Double> maximumSubarray(Iterable<Double> sequence)
     {
@@ -84,7 +83,7 @@ public final class Subsequences
 
     /**
      * Calculates maximal sum from all coherent subarrays using interval tree.
-     * @param sequence sequence of numbers
+     * @param sequence a sequence of numbers
      * @return the sum of maximum subarray
      */
     public static double maximalSubsum(Collection<Double> sequence)
@@ -135,7 +134,7 @@ public final class Subsequences
     }
 
     // Searches for place of element in list of subsequences.
-    private static <T> int searchIndex(Comparator<T> comparator, List<T> sequence,
+    private static <T> int searchIndex(List<T> sequence, Comparator<T> comparator,
                                        List<Integer> subsequence, int indexBegin, int indexEnd,
                                        int indexElem)
     {
@@ -146,9 +145,9 @@ public final class Subsequences
         T middleElem = sequence.get(subsequence.get(indexMiddle));
 
         if(comparator.compare(sequence.get(indexElem), middleElem) > 0)
-            return searchIndex(comparator, sequence, subsequence, indexMiddle + 1, indexEnd,
+            return searchIndex(sequence, comparator, subsequence, indexMiddle + 1, indexEnd,
                                indexElem);
 
-        return searchIndex(comparator, sequence, subsequence, indexBegin, indexMiddle, indexElem);
+        return searchIndex(sequence, comparator, subsequence, indexBegin, indexMiddle, indexElem);
     }
 }

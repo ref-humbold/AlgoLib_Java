@@ -30,7 +30,7 @@ public class SubsequencesTest
         // when
         Collection<Integer> result = Subsequences.longestIncreasing(sequence, Integer::compareTo);
         // then
-        Assertions.assertThat(result).containsExactly(sequence.get(sequence.size() - 1));
+        Assertions.assertThat(result).containsExactly(2);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class SubsequencesTest
         Collection<Integer> result =
                 Subsequences.longestIncreasing(sequence, (i1, i2) -> i2.compareTo(i1));
         // then
-        Assertions.assertThat(result).containsExactly(sequence.get(sequence.size() - 1));
+        Assertions.assertThat(result).containsExactly(15);
     }
 
     @Test

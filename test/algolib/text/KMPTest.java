@@ -8,13 +8,10 @@ import org.junit.jupiter.api.Test;
 public class KMPTest
 {
     @Test
-    public void kmp_WhenPatternFoundOnce_ThenSingleOccurrences()
+    public void kmp_WhenPatternFoundOnce_ThenSingleOccurrence()
     {
-        // given
-        String text = "abcde";
-        String pattern = "a";
         // when
-        List<Integer> result = KMP.kmp(text, pattern);
+        List<Integer> result = KMP.kmp("abcde", "a");
         // then
         Assertions.assertThat(result).containsExactly(0);
     }
@@ -22,10 +19,8 @@ public class KMPTest
     @Test
     public void kmp_WhenPatternFoundTwice_ThenBothOccurrences()
     {
-        String text = "abcdae";
-        String pattern = "a";
         // when
-        List<Integer> result = KMP.kmp(text, pattern);
+        List<Integer> result = KMP.kmp("abcdae", "a");
         // then
         Assertions.assertThat(result).containsExactly(0, 4);
     }
@@ -33,10 +28,8 @@ public class KMPTest
     @Test
     public void kmp_WhenPatternFoundTwiceAndIntersects_ThenBothOccurrences()
     {
-        String text = "aaabcde";
-        String pattern = "aa";
         // when
-        List<Integer> result = KMP.kmp(text, pattern);
+        List<Integer> result = KMP.kmp("aaabcde", "aa");
         // then
         Assertions.assertThat(result).containsExactly(0, 1);
     }
@@ -44,10 +37,8 @@ public class KMPTest
     @Test
     public void kmp_WhenPatternNotFound_ThenEmpty()
     {
-        String text = "abcde";
-        String pattern = "x";
         // when
-        List<Integer> result = KMP.kmp(text, pattern);
+        List<Integer> result = KMP.kmp("abcde", "x");
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -55,10 +46,8 @@ public class KMPTest
     @Test
     public void kmp_WhenPatternIsEmptyString_ThenEmpty()
     {
-        String text = "abcde";
-        String pattern = "";
         // when
-        List<Integer> result = KMP.kmp(text, pattern);
+        List<Integer> result = KMP.kmp("abcde", "");
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -66,10 +55,8 @@ public class KMPTest
     @Test
     public void kmp_WhenPatternIsNull_ThenNullPointerException()
     {
-        String text = "abcde";
-        String pattern = null;
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> KMP.kmp(text, pattern));
+        Throwable throwable = Assertions.catchThrowable(() -> KMP.kmp("abcde", null));
         // then
         Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }
@@ -77,10 +64,8 @@ public class KMPTest
     @Test
     public void kmp_WhenTextIsEmptyString_ThenEmpty()
     {
-        String text = "";
-        String pattern = "a";
         // when
-        List<Integer> result = KMP.kmp(text, pattern);
+        List<Integer> result = KMP.kmp("", "a");
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -88,10 +73,8 @@ public class KMPTest
     @Test
     public void kmp_WhenTextIsNull_ThenNullPointerException()
     {
-        String text = null;
-        String pattern = "a";
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> KMP.kmp(text, pattern));
+        Throwable throwable = Assertions.catchThrowable(() -> KMP.kmp(null, "a"));
         // then
         Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }
