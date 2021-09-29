@@ -1,7 +1,7 @@
-// Structure of undirected graph
 package algolib.graphs;
 
-public interface UndirectedGraph<V, VP, EP>
-        extends Graph<V, VP, EP>
+/** Structure of undirected graph */
+public interface UndirectedGraph<VertexId, VertexProperty, EdgeProperty>
+        extends Graph<VertexId, VertexProperty, EdgeProperty>
 {
 }

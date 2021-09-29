@@ -3,18 +3,18 @@ package algolib.graphs;
 
 import java.util.Objects;
 
-public class Edge<V>
+public class Edge<VertexId>
 {
-    public final V source;
-    public final V destination;
+    public final Vertex<VertexId> source;
+    public final Vertex<VertexId> destination;
 
-    public Edge(V source, V destination)
+    public Edge(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
         this.source = source;
         this.destination = destination;
     }
 
-    public V getNeighbour(V vertex)
+    public Vertex<VertexId> getNeighbour(Vertex<VertexId> vertex)
     {
         if(source.equals(vertex))
             return destination;
@@ -23,11 +23,10 @@ public class Edge<V>
             return source;
 
         throw new IllegalArgumentException(
-                String.format("Edge %s is not adjacent to given vertex %s", toString(),
-                              vertex.toString()));
+                String.format("Edge %s is not adjacent to given vertex %s", this, vertex));
     }
 
-    public Edge<V> reversed()
+    public Edge<VertexId> reversed()
     {
         return new Edge<>(destination, source);
     }

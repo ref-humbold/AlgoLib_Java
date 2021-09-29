@@ -4,19 +4,51 @@ package algolib.graphs;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public abstract class SimpleGraph<V, VP, EP>
-        implements Graph<V, VP, EP>
+public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
+        implements Graph<VertexId, VertexProperty, EdgeProperty>
 {
-    protected GraphRepresentation<V, VP, EP> representation;
+    protected GraphRepresentation<VertexId, VertexProperty, EdgeProperty> representation;
+    private final Properties<VertexId, VertexProperty, EdgeProperty> properties = new Properties<>()
+    {
+        @Override
+        public VertexProperty get(Vertex<VertexId> vertex)
+        {
+            return representation.getProperty(vertex);
+        }
+
+        @Override
+        public void set(Vertex<VertexId> vertex, VertexProperty property)
+        {
+            representation.setProperty(vertex, property);
+        }
+
+        @Override
+        public EdgeProperty get(Edge<VertexId> edge)
+        {
+            return representation.getProperty(edge);
+        }
+
+        @Override
+        public void set(Edge<VertexId> edge, EdgeProperty property)
+        {
+            representation.setProperty(edge, property);
+        }
+    };
 
     public SimpleGraph()
     {
         representation = new GraphRepresentation<>();
     }
 
-    public SimpleGraph(Collection<V> vertices)
+    public SimpleGraph(Collection<VertexId> vertexIds)
     {
-        representation = new GraphRepresentation<>(vertices);
+        representation = new GraphRepresentation<>(vertexIds);
+    }
+
+    @Override
+    public Properties<VertexId, VertexProperty, EdgeProperty> getProperties()
+    {
+        return properties;
     }
 
     @Override
@@ -26,52 +58,28 @@ public abstract class SimpleGraph<V, VP, EP>
     }
 
     @Override
-    public Collection<V> getVertices()
+    public Collection<Vertex<VertexId>> getVertices()
     {
         return representation.getVertices().collect(Collectors.toList());
     }
 
     @Override
-    public VP getProperty(V vertex)
+    public Edge<VertexId> getEdge(VertexId sourceId, VertexId destinationId)
     {
-        return representation.getProperty(vertex);
-    }
-
-    @Override
-    public void setProperty(V vertex, VP property)
-    {
-        representation.setProperty(vertex, property);
-    }
-
-    @Override
-    public EP getProperty(Edge<V> edge)
-    {
-        return representation.getProperty(edge);
-    }
-
-    @Override
-    public void setProperty(Edge<V> edge, EP property)
-    {
-        representation.setProperty(edge, property);
-    }
-
-    @Override
-    public Edge<V> getEdge(V source, V destination)
-    {
-        return representation.getAdjacentEdges(source)
-                             .filter(edge -> edge.getNeighbour(source).equals(destination))
+        return representation.getAdjacentEdges(sourceId)
+                             .filter(edge -> edge.getNeighbour(sourceId).equals(destinationId))
                              .findFirst()
                              .orElse(null);
     }
 
     @Override
-    public Collection<Edge<V>> getAdjacentEdges(V vertex)
+    public Collection<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex)
     {
         return representation.getAdjacentEdges(vertex).collect(Collectors.toSet());
     }
 
     @Override
-    public Collection<V> getNeighbours(V vertex)
+    public Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex)
     {
         return representation.getAdjacentEdges(vertex)
                              .map(edge -> edge.getNeighbour(vertex))
@@ -79,69 +87,70 @@ public abstract class SimpleGraph<V, VP, EP>
     }
 
     /**
-     * Adds a new vertex to this graph.
-     * @param vertex a new vertex
-     * @return {@code true} if the vertex was added, otherwise {@code false}
+     * Adds new vertex to this graph.
+     * @param vertexId new vertex identifier
+     * @return new vertex
      */
-    public boolean addVertex(V vertex)
+    public Vertex<VertexId> addVertex(VertexId vertexId)
     {
-        return addVertex(vertex, null);
+        return addVertex(vertexId, null);
     }
 
     /**
-     * Adds a new vertex with given property to this graph.
-     * @param vertex a new vertex
+     * Adds new vertex with given property to this graph.
+     * @param vertexId new vertex identifier
      * @param property vertex property
-     * @return {@code true} if the vertex was added, otherwise {@code false}
+     * @return new vertex
      */
-    public boolean addVertex(V vertex, VP property)
+    public Vertex<VertexId> addVertex(VertexId vertexId, VertexProperty property)
     {
-        boolean wasAdded = representation.addVertex(vertex);
+        Vertex<VertexId> vertex = representation.addVertex(vertexId);
 
-        if(wasAdded)
+        if(vertex != null)
             representation.setProperty(vertex, property);
 
-        return wasAdded;
+        return vertex;
     }
 
     /**
      * Adds a new edge to this graph.
-     * @param source a source vertex
-     * @param destination a destination vertex
-     * @return the new edge if added, or the existing edge
+     * @param source source vertex
+     * @param destination destination vertex
+     * @return new edge if added, or the existing edge
      */
-    public Edge<V> addEdgeBetween(V source, V destination)
+    public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
         return addEdge(new Edge<>(source, destination));
     }
 
     /**
-     * Adds a new edge with given property to this graph.
-     * @param source a source vertex
-     * @param destination a destination vertex
+     * Adds new edge with given property to this graph.
+     * @param source source vertex
+     * @param destination destination vertex
      * @param property edge property
-     * @return the new edge if added, or the existing edge
+     * @return new edge if added, or the existing edge
      */
-    public Edge<V> addEdgeBetween(V source, V destination, EP property)
+    public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination,
+                                         EdgeProperty property)
     {
         return addEdge(new Edge<>(source, destination), property);
     }
 
     /**
-     * Adds a new edge to this graph.
-     * @param edge a new edge
-     * @return the new edge if added, or the existing edge
+     * Adds new edge to this graph.
+     * @param edge new edge
+     * @return new edge if added, or the existing edge
      */
-    public Edge<V> addEdge(Edge<V> edge)
+    public Edge<VertexId> addEdge(Edge<VertexId> edge)
     {
         return addEdge(edge, null);
     }
 
     /**
-     * Adds a new edge with given property to this graph.
-     * @param edge a new edge
+     * Adds new edge with given property to this graph.
+     * @param edge new edge
      * @param property edge property
-     * @return the new edge if added, or the existing edge
+     * @return new edge if added, or the existing edge
      */
-    public abstract Edge<V> addEdge(Edge<V> edge, EP property);
+    public abstract Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property);
 }
