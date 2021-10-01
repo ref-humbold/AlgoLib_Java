@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import algolib.graphs.TreeGraph;
+import algolib.graphs.Vertex;
 
 // Tests: Algorithm for lowest common ancestor
 public class LowestCommonAncestorTest
@@ -16,17 +17,17 @@ public class LowestCommonAncestorTest
     public void setUp()
     {
         TreeGraph<Integer, Void, Void> tree = new TreeGraph<>(0);
-        tree.addVertex(1, 0);
-        tree.addVertex(2, 0);
-        tree.addVertex(3, 1);
-        tree.addVertex(4, 1);
-        tree.addVertex(5, 1);
-        tree.addVertex(6, 2);
-        tree.addVertex(7, 4);
-        tree.addVertex(8, 6);
-        tree.addVertex(9, 6);
+        tree.addVertex(1, tree.getVertex(0));
+        tree.addVertex(2, tree.getVertex(0));
+        tree.addVertex(3, tree.getVertex(1));
+        tree.addVertex(4, tree.getVertex(1));
+        tree.addVertex(5, tree.getVertex(1));
+        tree.addVertex(6, tree.getVertex(2));
+        tree.addVertex(7, tree.getVertex(4));
+        tree.addVertex(8, tree.getVertex(6));
+        tree.addVertex(9, tree.getVertex(6));
 
-        testObject = new LowestCommonAncestor<>(tree, 0);
+        testObject = new LowestCommonAncestor<>(tree, tree.getVertex(0));
     }
 
     @AfterEach
@@ -39,9 +40,9 @@ public class LowestCommonAncestorTest
     public void find_WhenSameVertex_ThenVertexIsLCA()
     {
         // given
-        Integer vertex = 6;
+        Vertex<Integer> vertex = testObject.graph.getVertex(6);
         // when
-        Integer result = testObject.find(vertex, vertex);
+        Vertex<Integer> result = testObject.find(vertex, vertex);
         // then
         Assertions.assertThat(result).isEqualTo(vertex);
     }
@@ -50,19 +51,23 @@ public class LowestCommonAncestorTest
     public void find_WhenVerticesInDifferentSubtrees_ThenLCA()
     {
         // when
-        Integer result = testObject.find(5, 7);
+        Vertex<Integer> result =
+                testObject.find(testObject.graph.getVertex(5), testObject.graph.getVertex(7));
         // then
-        Assertions.assertThat(result).isEqualTo(1);
+        Assertions.assertThat(result).isEqualTo(testObject.graph.getVertex(1));
     }
 
     @Test
     public void find_WhenVerticesSwapped_ThenSameLCA()
     {
+        // given
+        Vertex<Integer> vertex1 = testObject.graph.getVertex(5);
+        Vertex<Integer> vertex2 = testObject.graph.getVertex(7);
         // when
-        Integer result1 = testObject.find(5, 7);
-        Integer result2 = testObject.find(7, 5);
+        Vertex<Integer> result1 = testObject.find(vertex1, vertex2);
+        Vertex<Integer> result2 = testObject.find(vertex2, vertex1);
         // then
-        Assertions.assertThat(result1).isEqualTo(1);
+        Assertions.assertThat(result1).isEqualTo(testObject.graph.getVertex(1));
         Assertions.assertThat(result2).isEqualTo(result1);
     }
 
@@ -70,7 +75,8 @@ public class LowestCommonAncestorTest
     public void find_WhenRootIsCommonAncestor_ThenRoot()
     {
         // when
-        Integer result = testObject.find(3, 9);
+        Vertex<Integer> result =
+                testObject.find(testObject.graph.getVertex(3), testObject.graph.getVertex(9));
         // then
         Assertions.assertThat(result).isEqualTo(testObject.root);
     }
@@ -79,10 +85,10 @@ public class LowestCommonAncestorTest
     public void find_WhenVerticesAreOnSamePathFromRoot_ThenLCAIsCloserToRoot()
     {
         //given
-        Integer vertex1 = 8;
-        Integer vertex2 = 2;
+        Vertex<Integer> vertex1 = testObject.graph.getVertex(8);
+        Vertex<Integer> vertex2 = testObject.graph.getVertex(2);
         // when
-        Integer result = testObject.find(vertex1, vertex2);
+        Vertex<Integer> result = testObject.find(vertex1, vertex2);
         // then
         Assertions.assertThat(result).isEqualTo(vertex2);
     }
@@ -91,7 +97,7 @@ public class LowestCommonAncestorTest
     public void find_WhenRootIsOneOfVertices_ThenRoot()
     {
         // when
-        Integer result = testObject.find(4, testObject.root);
+        Vertex<Integer> result = testObject.find(testObject.graph.getVertex(4), testObject.root);
         // then
         Assertions.assertThat(result).isEqualTo(testObject.root);
     }

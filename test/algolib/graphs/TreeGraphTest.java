@@ -16,13 +16,13 @@ public class TreeGraphTest
     {
         testObject = new TreeGraph<>(0);
 
-        testObject.addVertex(1, 0);
-        testObject.addVertex(2, 0);
-        testObject.addVertex(3, 0);
-        testObject.addVertex(4, 1);
-        testObject.addVertex(5, 1);
-        testObject.addVertex(6, 2);
-        testObject.addVertex(7, 2);
+        testObject.addVertex(1, new Vertex<>(0));
+        testObject.addVertex(2, new Vertex<>(0));
+        testObject.addVertex(3, new Vertex<>(0));
+        testObject.addVertex(4, new Vertex<>(1));
+        testObject.addVertex(5, new Vertex<>(1));
+        testObject.addVertex(6, new Vertex<>(2));
+        testObject.addVertex(7, new Vertex<>(2));
     }
 
     @AfterEach
@@ -32,19 +32,19 @@ public class TreeGraphTest
     }
 
     @Test
-    public void setProperty_getProperty_WhenSettingProperty_ThenProperty()
+    public void getProperties_set_get_WhenSettingProperty_ThenProperty()
     {
         // given
         String vertexProperty = "x";
         String edgeProperty = "y";
-        int vertex = 2;
+        Vertex<Integer> vertex = new Vertex<>(2);
         Edge<Integer> edge = testObject.getEdge(6, 2);
         // when
-        testObject.setProperty(vertex, vertexProperty);
-        testObject.setProperty(edge, edgeProperty);
+        testObject.getProperties().set(vertex, vertexProperty);
+        testObject.getProperties().set(edge, edgeProperty);
 
-        String resultVertex = testObject.getProperty(vertex);
-        String resultEdge = testObject.getProperty(edge);
+        String resultVertex = testObject.getProperties().get(vertex);
+        String resultEdge = testObject.getProperties().get(edge);
         // then
         Assertions.assertThat(resultVertex).isEqualTo(vertexProperty);
         Assertions.assertThat(resultEdge).isEqualTo(edgeProperty);
@@ -63,9 +63,11 @@ public class TreeGraphTest
     public void getVertices_ThenAllVertices()
     {
         // when
-        Collection<Integer> result = testObject.getVertices();
+        Collection<Vertex<Integer>> result = testObject.getVertices();
         // then
-        Assertions.assertThat(result).containsOnly(0, 1, 2, 3, 4, 5, 6, 7);
+        Assertions.assertThat(result)
+                  .containsOnly(new Vertex<>(0), new Vertex<>(1), new Vertex<>(2), new Vertex<>(3),
+                                new Vertex<>(4), new Vertex<>(5), new Vertex<>(6), new Vertex<>(7));
     }
 
     @Test
@@ -73,35 +75,36 @@ public class TreeGraphTest
     {
         // given
         int newVertex = 13;
-        int neighbour = 5;
+        Vertex<Integer> neighbour = new Vertex<>(5);
         String vertexProperty = "qwerty";
         String edgeProperty = "asdfgh";
         // when
         Edge<Integer> result =
                 testObject.addVertex(newVertex, neighbour, vertexProperty, edgeProperty);
         // then
-        Assertions.assertThat(result.source).isEqualTo(newVertex);
+        Assertions.assertThat(result.source).isEqualTo(new Vertex<>(newVertex));
         Assertions.assertThat(result.destination).isEqualTo(neighbour);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(9);
-        Assertions.assertThat(testObject.getNeighbours(newVertex)).containsOnly(neighbour);
-        Assertions.assertThat(testObject.getProperty(newVertex)).isEqualTo(vertexProperty);
-        Assertions.assertThat(testObject.getProperty(result)).isEqualTo(edgeProperty);
+        Assertions.assertThat(testObject.getNeighbours(result.source)).containsOnly(neighbour);
+        Assertions.assertThat(testObject.getProperties().get(result.source))
+                  .isEqualTo(vertexProperty);
+        Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(edgeProperty);
     }
 
     @Test
     public void addVertex_WhenExistingVertex_ThenNull()
     {
         // given
-        int vertex = 6;
+        Vertex<Integer> vertex = new Vertex<>(6);
         String property = "qwerty";
 
-        testObject.setProperty(vertex, property);
+        testObject.getProperties().set(vertex, property);
         // when
-        Edge<Integer> result = testObject.addVertex(vertex, 2, "abcdefg", "xyz");
+        Edge<Integer> result = testObject.addVertex(vertex, new Vertex<>(2), "abcdefg", "xyz");
         // then
         Assertions.assertThat(result).isNull();
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(8);
-        Assertions.assertThat(testObject.getProperty(vertex)).isEqualTo(property);
+        Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
     }
 
     @Test
@@ -120,17 +123,21 @@ public class TreeGraphTest
         Collection<Edge<Integer>> result = testObject.getEdges();
         // then
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(1, 0), new Edge<>(2, 0), new Edge<>(3, 0),
-                                new Edge<>(4, 1), new Edge<>(5, 1), new Edge<>(6, 2),
-                                new Edge<>(7, 2));
+                  .containsOnly(new Edge<>(new Vertex<>(1), new Vertex<>(0)),
+                                new Edge<>(new Vertex<>(2), new Vertex<>(0)),
+                                new Edge<>(new Vertex<>(3), new Vertex<>(0)),
+                                new Edge<>(new Vertex<>(4), new Vertex<>(1)),
+                                new Edge<>(new Vertex<>(5), new Vertex<>(1)),
+                                new Edge<>(new Vertex<>(6), new Vertex<>(2)),
+                                new Edge<>(new Vertex<>(7), new Vertex<>(2)));
     }
 
     @Test
     public void getEdge_WhenExists_ThenEdge()
     {
         // given
-        int source = 5;
-        int destination = 1;
+        Vertex<Integer> source = new Vertex<>(5);
+        Vertex<Integer> destination = new Vertex<>(1);
         // when
         Edge<Integer> result = testObject.getEdge(source, destination);
         // then
@@ -142,28 +149,31 @@ public class TreeGraphTest
     public void getNeighbours_ThenDestinationVerticesOfOutgoingEdges()
     {
         // when
-        Collection<Integer> result = testObject.getNeighbours(1);
+        Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(1));
         // then
         Assertions.assertThat(result).hasSize(3);
-        Assertions.assertThat(result).containsOnly(0, 4, 5);
+        Assertions.assertThat(result)
+                  .containsOnly(new Vertex<>(0), new Vertex<>(4), new Vertex<>(5));
     }
 
     @Test
     public void getAdjacentEdges_ThenDestinationVerticesOfOutgoingEdges()
     {
         // when
-        Collection<Edge<Integer>> result = testObject.getAdjacentEdges(1);
+        Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(1));
         // then
         Assertions.assertThat(result).hasSize(3);
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(1, 0), new Edge<>(4, 1), new Edge<>(5, 1));
+                  .containsOnly(new Edge<>(new Vertex<>(1), new Vertex<>(0)),
+                                new Edge<>(new Vertex<>(4), new Vertex<>(1)),
+                                new Edge<>(new Vertex<>(5), new Vertex<>(1)));
     }
 
     @Test
     public void getOutputDegree_ThenNumberOfOutgoingEdges()
     {
         // when
-        int result = testObject.getOutputDegree(1);
+        int result = testObject.getOutputDegree(new Vertex<>(1));
         // then
         Assertions.assertThat(result).isEqualTo(3);
     }
@@ -172,7 +182,7 @@ public class TreeGraphTest
     public void getInputDegree_ThenNumberOfIncomingEdges()
     {
         // when
-        int result = testObject.getInputDegree(1);
+        int result = testObject.getInputDegree(new Vertex<>(1));
         // then
         Assertions.assertThat(result).isEqualTo(3);
     }

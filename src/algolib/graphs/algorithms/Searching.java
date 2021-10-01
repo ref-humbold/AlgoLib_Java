@@ -4,6 +4,7 @@ package algolib.graphs.algorithms;
 import java.util.*;
 
 import algolib.graphs.Graph;
+import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.BFSStrategy;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
@@ -16,13 +17,14 @@ public final class Searching
      * @param roots starting vertices
      * @return collection of visited vertices
      */
-    public static <V, VP, EP> Collection<V> bfs(Graph<V, VP, EP> graph, BFSStrategy<V> strategy,
-                                                Collection<V> roots)
+    public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> bfs(
+            Graph<VertexId, VertexProperty, EdgeProperty> graph, BFSStrategy<VertexId> strategy,
+            Collection<Vertex<VertexId>> roots)
     {
-        Set<V> reached = new HashSet<>();
-        Deque<V> vertexDeque = new ArrayDeque<>();
+        Set<Vertex<VertexId>> reached = new HashSet<>();
+        Deque<Vertex<VertexId>> vertexDeque = new ArrayDeque<>();
 
-        for(V root : roots)
+        for(Vertex<VertexId> root : roots)
             if(!reached.contains(root))
             {
                 strategy.forRoot(root);
@@ -31,11 +33,11 @@ public final class Searching
 
                 while(!vertexDeque.isEmpty())
                 {
-                    V vertex = vertexDeque.removeFirst();
+                    Vertex<VertexId> vertex = vertexDeque.removeFirst();
 
                     strategy.onEntry(vertex);
 
-                    for(V neighbour : graph.getNeighbours(vertex))
+                    for(Vertex<VertexId> neighbour : graph.getNeighbours(vertex))
                         if(!reached.contains(neighbour))
                         {
                             strategy.onNextVertex(vertex, neighbour);
@@ -57,15 +59,15 @@ public final class Searching
      * @param roots starting vertices
      * @return collection of visited vertices
      */
-    public static <V, VP, EP> Collection<V> dfsIterative(Graph<V, VP, EP> graph,
-                                                         DFSStrategy<V> strategy,
-                                                         Collection<V> roots)
+    public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> dfsIterative(
+            Graph<VertexId, VertexProperty, EdgeProperty> graph, DFSStrategy<VertexId> strategy,
+            Collection<Vertex<VertexId>> roots)
     {
-        Map<V, Integer> reached = new HashMap<>();
-        Deque<V> vertexDeque = new ArrayDeque<>();
+        Map<Vertex<VertexId>, Integer> reached = new HashMap<>();
+        Deque<Vertex<VertexId>> vertexDeque = new ArrayDeque<>();
         int iteration = 1;
 
-        for(V root : roots)
+        for(Vertex<VertexId> root : roots)
             if(!reached.containsKey(root))
             {
                 strategy.forRoot(root);
@@ -73,14 +75,14 @@ public final class Searching
 
                 while(!vertexDeque.isEmpty())
                 {
-                    V vertex = vertexDeque.removeFirst();
+                    Vertex<VertexId> vertex = vertexDeque.removeFirst();
 
                     if(!reached.containsKey(vertex))
                     {
                         reached.put(vertex, iteration);
                         strategy.onEntry(vertex);
 
-                        for(V neighbour : graph.getNeighbours(vertex))
+                        for(Vertex<VertexId> neighbour : graph.getNeighbours(vertex))
                             if(!reached.containsKey(neighbour))
                             {
                                 strategy.onNextVertex(vertex, neighbour);
@@ -107,13 +109,13 @@ public final class Searching
      * @param roots starting vertices
      * @return collection of visited vertices
      */
-    public static <V, VP, EP> Collection<V> dfsRecursive(Graph<V, VP, EP> graph,
-                                                         DFSStrategy<V> strategy,
-                                                         Collection<V> roots)
+    public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> dfsRecursive(
+            Graph<VertexId, VertexProperty, EdgeProperty> graph, DFSStrategy<VertexId> strategy,
+            Collection<Vertex<VertexId>> roots)
     {
-        DfsRecursiveState<V> state = new DfsRecursiveState<>();
+        DfsRecursiveState<VertexId> state = new DfsRecursiveState<>();
 
-        for(V root : roots)
+        for(Vertex<VertexId> root : roots)
             if(!state.reached.containsKey(root))
             {
                 strategy.forRoot(root);
@@ -126,16 +128,16 @@ public final class Searching
     }
 
     // Single step of recursive DFS.
-    private static <V, VP, EP> void dfsRecursiveStep(Graph<V, VP, EP> graph,
-                                                     DFSStrategy<V> strategy,
-                                                     DfsRecursiveState<V> state)
+    private static <VertexId, VertexProperty, EdgeProperty> void dfsRecursiveStep(
+            Graph<VertexId, VertexProperty, EdgeProperty> graph, DFSStrategy<VertexId> strategy,
+            DfsRecursiveState<VertexId> state)
     {
-        V vertex = state.vertex;
+        Vertex<VertexId> vertex = state.vertex;
 
         state.onEntry(vertex);
         strategy.onEntry(vertex);
 
-        for(V neighbour : graph.getNeighbours(vertex))
+        for(Vertex<VertexId> neighbour : graph.getNeighbours(vertex))
             if(!state.reached.containsKey(neighbour))
             {
                 strategy.onNextVertex(vertex, neighbour);
@@ -149,18 +151,18 @@ public final class Searching
         state.onExit(vertex);
     }
 
-    private static class DfsRecursiveState<V>
+    private static class DfsRecursiveState<VertexId>
     {
-        V vertex;
+        Vertex<VertexId> vertex;
         int iteration = 1;
-        Map<V, Integer> reached = new HashMap<>();
+        Map<Vertex<VertexId>, Integer> reached = new HashMap<>();
 
-        void onEntry(V vertex_)
+        void onEntry(Vertex<VertexId> vertex_)
         {
             reached.put(vertex_, iteration);
         }
 
-        void onExit(V vertex_)
+        void onExit(Vertex<VertexId> vertex_)
         {
             reached.put(vertex_, -iteration);
         }

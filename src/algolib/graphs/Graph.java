@@ -20,16 +20,22 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
     Collection<Edge<VertexId>> getEdges();
 
     /**
+     * @param vertexId vertex indentifier
+     * @return vertex with the identifier, or {@code null} if no vertex
+     */
+    Vertex<VertexId> getVertex(VertexId vertexId);
+
+    /**
      * @param sourceId source vertex identifier
      * @param destinationId destination vertex identifier
-     * @return the edge between the vertices, or {@code null} if no edge
+     * @return edge between the vertices, or {@code null} if no edge
      */
     Edge<VertexId> getEdge(VertexId sourceId, VertexId destinationId);
 
     /**
      * @param source source vertex
      * @param destination destination vertex
-     * @return the edge between the vertices, or {@code null} if no edge
+     * @return edge between the vertices, or {@code null} if no edge
      */
     default Edge<VertexId> getEdge(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
@@ -37,7 +43,7 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
     }
 
     /**
-     * @param vertex a vertex from this graph
+     * @param vertex vertex from this graph
      * @return collection of edges adjacent to the vertex
      */
     Collection<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex);
@@ -49,39 +55,39 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
     Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex);
 
     /**
-     * @param vertex a vertex from this graph
-     * @return the output degree of the vertex
+     * @param vertex vertex from this graph
+     * @return output degree of the vertex
      */
     int getOutputDegree(Vertex<VertexId> vertex);
 
     /**
-     * @param vertex a vertex from this graph
-     * @return the input degree of the vertex
+     * @param vertex vertex from this graph
+     * @return input degree of the vertex
      */
     int getInputDegree(Vertex<VertexId> vertex);
 
     interface Properties<VertexId, VertexProperty, EdgeProperty>
     {
         /**
-         * @param vertex a vertex from this graph
-         * @return the property of the vertex
+         * @param vertex vertex from this graph
+         * @return property of the vertex
          */
         VertexProperty get(Vertex<VertexId> vertex);
 
         /**
-         * @param vertex a vertex from this graph
+         * @param vertex vertex from this graph
          * @param property new property of given vertex
          */
         void set(Vertex<VertexId> vertex, VertexProperty property);
 
         /**
-         * @param edge an edge from this graph
-         * @return the property of the vertex
+         * @param edge edge from this graph
+         * @return property of the vertex
          */
         EdgeProperty get(Edge<VertexId> edge);
 
         /**
-         * @param edge an edge from this graph
+         * @param edge edge from this graph
          * @param property new property of given edge
          */
         void set(Edge<VertexId> edge, EdgeProperty property);

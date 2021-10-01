@@ -45,10 +45,8 @@ public class UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     @Override
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {
-        Edge<VertexId> existingEdge = getEdge(edge.source, edge.destination);
-
-        if(existingEdge != null)
-            return existingEdge;
+        if(getEdge(edge.source, edge.destination) != null)
+            return null;
 
         representation.addEdgeToSource(edge);
         representation.addEdgeToDestination(edge);

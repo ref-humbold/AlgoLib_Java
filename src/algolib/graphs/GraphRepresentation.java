@@ -37,6 +37,31 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
         return graphMap.values().stream();
     }
 
+    Vertex<VertexId> getVertex(VertexId vertexId)
+    {
+
+        return graphMap.keySet()
+                       .stream()
+                       .filter(v -> v.id.equals(vertexId))
+                       .findFirst()
+                       .orElse(null);
+    }
+
+    Edge<VertexId> getEdge(VertexId sourceId, VertexId destinationId)
+    {
+
+        return graphMap.entrySet()
+                       .stream()
+                       .filter(entry -> entry.getKey().id.equals(sourceId))
+                       .findFirst()
+                       .flatMap(entry -> entry.getValue()
+                                              .stream()
+                                              .filter(edge -> edge.getNeighbour(
+                                                      entry.getKey()).id.equals(destinationId))
+                                              .findFirst())
+                       .orElse(null);
+    }
+
     VertexProperty getProperty(Vertex<VertexId> vertex)
     {
         validate(vertex);
@@ -72,12 +97,11 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
         return graphMap.get(vertex).stream();
     }
 
-    Vertex<VertexId> addVertex(VertexId vertexId)
+    boolean addVertex(Vertex<VertexId> vertex)
     {
-        Vertex<VertexId> vertex = new Vertex<>(vertexId);
-        Set<Edge<VertexId>> value = graphMap.putIfAbsent(vertex, new HashSet<>());
+        Set<Edge<VertexId>> edges = graphMap.putIfAbsent(vertex, new HashSet<>());
 
-        return value != null ? vertex : null;
+        return edges == null;
     }
 
     void addEdgeToSource(Edge<VertexId> edge)

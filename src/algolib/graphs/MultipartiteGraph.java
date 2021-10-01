@@ -74,6 +74,12 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
     }
 
     @Override
+    public Vertex<VertexId> getVertex(VertexId vertexId)
+    {
+        return graph.getVertex(vertexId);
+    }
+
+    @Override
     public Edge<VertexId> getEdge(VertexId sourceId, VertexId destinationId)
     {
         return graph.getEdge(sourceId, destinationId);
@@ -120,19 +126,30 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     public Vertex<VertexId> addVertex(int groupNumber, VertexId vertexId)
     {
-        return addVertex(groupNumber, vertexId, null);
+        return addVertex(groupNumber, new Vertex<>(vertexId));
     }
 
     public Vertex<VertexId> addVertex(int groupNumber, VertexId vertexId, VertexProperty property)
     {
+        return addVertex(groupNumber, new Vertex<>(vertexId), property);
+    }
+
+    public Vertex<VertexId> addVertex(int groupNumber, Vertex<VertexId> vertex)
+    {
+        return addVertex(groupNumber, vertex, null);
+    }
+
+    public Vertex<VertexId> addVertex(int groupNumber, Vertex<VertexId> vertex,
+                                      VertexProperty property)
+    {
         validateGroup(groupNumber);
 
-        Vertex<VertexId> vertex = graph.addVertex(vertexId, property);
+        Vertex<VertexId> newVertex = graph.addVertex(vertex, property);
 
-        if(vertex != null)
+        if(newVertex != null)
             vertexGroupMap.put(vertex, groupNumber);
 
-        return vertex;
+        return newVertex;
     }
 
     public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination)

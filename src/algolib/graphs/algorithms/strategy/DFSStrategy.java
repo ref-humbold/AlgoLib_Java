@@ -1,7 +1,9 @@
 package algolib.graphs.algorithms.strategy;
 
-public interface DFSStrategy<V>
-        extends BFSStrategy<V>
+import algolib.graphs.Vertex;
+
+public interface DFSStrategy<VertexId>
+        extends BFSStrategy<VertexId>
 {
-    void onEdgeToVisited(V vertex, V neighbour);
+    void onEdgeToVisited(Vertex<VertexId> vertex, Vertex<VertexId> neighbour);
 }

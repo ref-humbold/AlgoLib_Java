@@ -6,7 +6,7 @@ public class Vertex<VertexId>
 {
     public final VertexId id;
 
-    public Vertex(VertexId id)
+    Vertex(VertexId id)
     {
         this.id = id;
     }

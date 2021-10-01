@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import algolib.graphs.Edge;
 import algolib.graphs.UndirectedGraph;
+import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class Cutting
@@ -19,9 +20,10 @@ public final class Cutting
      * @param graph an undirected graph
      * @return collection of edges in the edge cut
      */
-    public static <V, VP, EP> Collection<Edge<V>> findEdgeCut(UndirectedGraph<V, VP, EP> graph)
+    public static <VertexId, VertexProperty, EdgeProperty> Collection<Edge<VertexId>> findEdgeCut(
+            UndirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
     {
-        CuttingStrategy<V> strategy = new CuttingStrategy<>();
+        CuttingStrategy<VertexId> strategy = new CuttingStrategy<>();
 
         Searching.dfsRecursive(graph, strategy, graph.getVertices());
         return graph.getVertices()
@@ -36,9 +38,10 @@ public final class Cutting
      * @param graph an undirected graph
      * @return collection of vertices in the vertex cut
      */
-    public static <V, VP, EP> Collection<V> findVertexCut(UndirectedGraph<V, VP, EP> graph)
+    public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> findVertexCut(
+            UndirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
     {
-        CuttingStrategy<V> strategy = new CuttingStrategy<>();
+        CuttingStrategy<VertexId> strategy = new CuttingStrategy<>();
 
         Searching.dfsRecursive(graph, strategy, graph.getVertices());
         return graph.getVertices()
@@ -47,22 +50,22 @@ public final class Cutting
                     .collect(Collectors.toList());
     }
 
-    private static class CuttingStrategy<V>
-            implements DFSStrategy<V>
+    private static class CuttingStrategy<VertexId>
+            implements DFSStrategy<VertexId>
     {
-        final Map<V, V> dfsParents = new HashMap<>();
-        final Map<V, List<V>> dfsChildren = new HashMap<>();
-        final Map<V, Integer> dfsDepths = new HashMap<>();
-        final Map<V, Integer> lowValues = new HashMap<>();
+        final Map<Vertex<VertexId>, Vertex<VertexId>> dfsParents = new HashMap<>();
+        final Map<Vertex<VertexId>, List<Vertex<VertexId>>> dfsChildren = new HashMap<>();
+        final Map<Vertex<VertexId>, Integer> dfsDepths = new HashMap<>();
+        final Map<Vertex<VertexId>, Integer> lowValues = new HashMap<>();
         int depth = 0;
 
         @Override
-        public void forRoot(V root)
+        public void forRoot(Vertex<VertexId> root)
         {
         }
 
         @Override
-        public void onEntry(V vertex)
+        public void onEntry(Vertex<VertexId> vertex)
         {
             dfsDepths.put(vertex, depth);
             lowValues.put(vertex, depth);
@@ -71,14 +74,14 @@ public final class Cutting
         }
 
         @Override
-        public void onNextVertex(V vertex, V neighbour)
+        public void onNextVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour)
         {
             dfsParents.put(neighbour, vertex);
             dfsChildren.get(vertex).add(neighbour);
         }
 
         @Override
-        public void onExit(V vertex)
+        public void onExit(Vertex<VertexId> vertex)
         {
             int minimalLowValue = dfsChildren.get(vertex)
                                              .stream()
@@ -91,18 +94,18 @@ public final class Cutting
         }
 
         @Override
-        public void onEdgeToVisited(V vertex, V neighbour)
+        public void onEdgeToVisited(Vertex<VertexId> vertex, Vertex<VertexId> neighbour)
         {
             if(!neighbour.equals(dfsParents.get(vertex)))
                 lowValues.put(vertex, Math.min(lowValues.get(vertex), dfsDepths.get(neighbour)));
         }
 
-        boolean hasBridge(V vertex)
+        boolean hasBridge(Vertex<VertexId> vertex)
         {
             return !isDFSRoot(vertex) && lowValues.get(vertex).equals(dfsDepths.get(vertex));
         }
 
-        boolean isSeparator(V vertex)
+        boolean isSeparator(Vertex<VertexId> vertex)
         {
             if(isDFSRoot(vertex))
                 return dfsChildren.get(vertex).size() > 1;
@@ -112,7 +115,7 @@ public final class Cutting
                               .anyMatch(child -> lowValues.get(child) >= dfsDepths.get(vertex));
         }
 
-        boolean isDFSRoot(V vertex)
+        boolean isDFSRoot(Vertex<VertexId> vertex)
         {
             return dfsDepths.get(vertex) == 0;
         }

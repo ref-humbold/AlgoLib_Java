@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedGraph;
 import algolib.graphs.DirectedSimpleGraph;
+import algolib.graphs.Vertex;
 
 public class TopologicalSortingTest
 {
@@ -18,20 +19,22 @@ public class TopologicalSortingTest
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
 
-        graph.addEdgeBetween(0, 2);
-        graph.addEdgeBetween(0, 4);
-        graph.addEdgeBetween(1, 0);
-        graph.addEdgeBetween(1, 4);
-        graph.addEdgeBetween(3, 1);
-        graph.addEdgeBetween(3, 0);
-        graph.addEdgeBetween(3, 2);
-        graph.addEdgeBetween(5, 1);
-        graph.addEdgeBetween(5, 2);
-        graph.addEdgeBetween(5, 4);
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
         // when
-        List<Integer> result = TopologicalSorting.sortUsingInputs(graph);
+        List<Vertex<Integer>> result = TopologicalSorting.sortUsingInputs(graph);
         // then
-        Assertions.assertThat(result).containsExactly(3, 5, 1, 0, 2, 4);
+        Assertions.assertThat(result)
+                  .containsExactly(graph.getVertex(3), graph.getVertex(5), graph.getVertex(1),
+                                   graph.getVertex(0), graph.getVertex(2), graph.getVertex(4));
     }
 
     @Test
@@ -41,17 +44,17 @@ public class TopologicalSortingTest
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
 
-        graph.addEdgeBetween(0, 2);
-        graph.addEdgeBetween(0, 4);
-        graph.addEdgeBetween(1, 0);
-        graph.addEdgeBetween(1, 4);
-        graph.addEdgeBetween(2, 1);
-        graph.addEdgeBetween(3, 1);
-        graph.addEdgeBetween(3, 0);
-        graph.addEdgeBetween(3, 2);
-        graph.addEdgeBetween(5, 1);
-        graph.addEdgeBetween(5, 2);
-        graph.addEdgeBetween(5, 4);
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(2), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
         // when
         Throwable throwable =
                 Assertions.catchThrowable(() -> TopologicalSorting.sortUsingInputs(graph));
@@ -66,7 +69,7 @@ public class TopologicalSortingTest
         DirectedGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
         // when
-        List<Integer> result = TopologicalSorting.sortUsingInputs(graph);
+        List<Vertex<Integer>> result = TopologicalSorting.sortUsingInputs(graph);
         // then
         Assertions.assertThat(result).isEqualTo(graph.getVertices());
     }
@@ -78,22 +81,28 @@ public class TopologicalSortingTest
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
 
-        graph.addEdgeBetween(0, 2);
-        graph.addEdgeBetween(0, 4);
-        graph.addEdgeBetween(1, 0);
-        graph.addEdgeBetween(1, 4);
-        graph.addEdgeBetween(3, 1);
-        graph.addEdgeBetween(3, 0);
-        graph.addEdgeBetween(3, 2);
-        graph.addEdgeBetween(5, 1);
-        graph.addEdgeBetween(5, 2);
-        graph.addEdgeBetween(5, 4);
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
         // when
-        List<Integer> result = TopologicalSorting.sortUsingDFS(graph);
+        List<Vertex<Integer>> result = TopologicalSorting.sortUsingDFS(graph);
         // then
         Assertions.assertThat(result)
-                  .isIn(List.of(3, 5, 1, 0, 2, 4), List.of(5, 3, 1, 0, 2, 4),
-                        List.of(3, 5, 1, 0, 4, 2), List.of(5, 3, 1, 0, 4, 2));
+                  .isIn(List.of(graph.getVertex(3), graph.getVertex(5), graph.getVertex(1),
+                                graph.getVertex(0), graph.getVertex(2), graph.getVertex(4)),
+                        List.of(graph.getVertex(5), graph.getVertex(3), graph.getVertex(1),
+                                graph.getVertex(0), graph.getVertex(2), graph.getVertex(4)),
+                        List.of(graph.getVertex(3), graph.getVertex(5), graph.getVertex(1),
+                                graph.getVertex(0), graph.getVertex(4), graph.getVertex(2)),
+                        List.of(graph.getVertex(5), graph.getVertex(3), graph.getVertex(1),
+                                graph.getVertex(0), graph.getVertex(4), graph.getVertex(2)));
     }
 
     @Test
@@ -103,17 +112,17 @@ public class TopologicalSortingTest
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
 
-        graph.addEdgeBetween(0, 2);
-        graph.addEdgeBetween(0, 4);
-        graph.addEdgeBetween(1, 0);
-        graph.addEdgeBetween(1, 4);
-        graph.addEdgeBetween(2, 1);
-        graph.addEdgeBetween(3, 1);
-        graph.addEdgeBetween(3, 0);
-        graph.addEdgeBetween(3, 2);
-        graph.addEdgeBetween(5, 1);
-        graph.addEdgeBetween(5, 2);
-        graph.addEdgeBetween(5, 4);
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(2), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
         // when
         Throwable throwable =
                 Assertions.catchThrowable(() -> TopologicalSorting.sortUsingDFS(graph));
@@ -128,7 +137,7 @@ public class TopologicalSortingTest
         DirectedGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
         // when
-        List<Integer> result = TopologicalSorting.sortUsingDFS(graph);
+        List<Vertex<Integer>> result = TopologicalSorting.sortUsingDFS(graph);
         // then
         Assertions.assertThat(result).isEqualTo(graph.getVertices());
     }

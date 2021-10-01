@@ -9,6 +9,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import algolib.graphs.DirectedSimpleGraph;
+import algolib.graphs.Vertex;
 
 // Tests: Algorithm for strongly connected components
 public class StronglyConnectedComponentsTest
@@ -20,44 +21,48 @@ public class StronglyConnectedComponentsTest
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 10).boxed().collect(Collectors.toList()));
 
-        graph.addEdgeBetween(0, 4);
-        graph.addEdgeBetween(0, 5);
-        graph.addEdgeBetween(1, 0);
-        graph.addEdgeBetween(2, 3);
-        graph.addEdgeBetween(3, 1);
-        graph.addEdgeBetween(4, 1);
-        graph.addEdgeBetween(4, 3);
-        graph.addEdgeBetween(6, 5);
-        graph.addEdgeBetween(6, 9);
-        graph.addEdgeBetween(7, 4);
-        graph.addEdgeBetween(7, 6);
-        graph.addEdgeBetween(8, 3);
-        graph.addEdgeBetween(8, 7);
-        graph.addEdgeBetween(9, 8);
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(5));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(0));
+        graph.addEdgeBetween(graph.getVertex(2), graph.getVertex(3));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(4), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(4), graph.getVertex(3));
+        graph.addEdgeBetween(graph.getVertex(6), graph.getVertex(5));
+        graph.addEdgeBetween(graph.getVertex(6), graph.getVertex(9));
+        graph.addEdgeBetween(graph.getVertex(7), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(7), graph.getVertex(6));
+        graph.addEdgeBetween(graph.getVertex(8), graph.getVertex(3));
+        graph.addEdgeBetween(graph.getVertex(8), graph.getVertex(7));
+        graph.addEdgeBetween(graph.getVertex(9), graph.getVertex(8));
         // when
-        List<Set<Integer>> result = StronglyConnectedComponents.findSCC(graph);
+        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findSCC(graph);
         // then
         Assertions.assertThat(result).hasSize(4);
         Assertions.assertThat(result)
-                  .containsOnly(Set.of(0, 1, 3, 4), Set.of(2), Set.of(5), Set.of(6, 7, 8, 9));
+                  .containsOnly(Set.of(graph.getVertex(0), graph.getVertex(1), graph.getVertex(3),
+                                       graph.getVertex(4)), Set.of(graph.getVertex(2)),
+                                Set.of(graph.getVertex(5)),
+                                Set.of(graph.getVertex(6), graph.getVertex(7), graph.getVertex(8),
+                                       graph.getVertex(9)));
     }
 
     @Test
-    public void findSCC_WhenSingeleComponent_ThenAllVertices()
+    public void findSCC_WhenSingleComponent_ThenAllVertices()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 7).boxed().collect(Collectors.toList()));
 
-        graph.addEdgeBetween(0, 1);
-        graph.addEdgeBetween(1, 2);
-        graph.addEdgeBetween(2, 3);
-        graph.addEdgeBetween(3, 4);
-        graph.addEdgeBetween(4, 5);
-        graph.addEdgeBetween(5, 6);
-        graph.addEdgeBetween(6, 0);
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(1));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(2));
+        graph.addEdgeBetween(graph.getVertex(2), graph.getVertex(3));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(4));
+        graph.addEdgeBetween(graph.getVertex(4), graph.getVertex(5));
+        graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(6));
+        graph.addEdgeBetween(graph.getVertex(6), graph.getVertex(0));
         // when
-        List<Set<Integer>> result = StronglyConnectedComponents.findSCC(graph);
+        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findSCC(graph);
         // then
         Assertions.assertThat(result).containsExactly(new HashSet<>(graph.getVertices()));
     }
@@ -69,9 +74,11 @@ public class StronglyConnectedComponentsTest
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 4).boxed().collect(Collectors.toList()));
         // when
-        List<Set<Integer>> result = StronglyConnectedComponents.findSCC(graph);
+        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findSCC(graph);
         // then
         Assertions.assertThat(result).hasSize(4);
-        Assertions.assertThat(result).containsOnly(Set.of(0), Set.of(1), Set.of(2), Set.of(3));
+        Assertions.assertThat(result)
+                  .containsOnly(Set.of(graph.getVertex(0)), Set.of(graph.getVertex(1)),
+                                Set.of(graph.getVertex(2)), Set.of(graph.getVertex(3)));
     }
 }
