@@ -15,7 +15,7 @@ public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
     }
 
     @Override
-    public Properties<VertexId, VertexProperty, EdgeProperty> getProperties()
+    public GraphProperties<VertexId, VertexProperty, EdgeProperty> getProperties()
     {
         return graph.getProperties();
     }

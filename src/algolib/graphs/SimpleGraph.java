@@ -8,32 +8,33 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
         implements Graph<VertexId, VertexProperty, EdgeProperty>
 {
     protected GraphRepresentation<VertexId, VertexProperty, EdgeProperty> representation;
-    private final Properties<VertexId, VertexProperty, EdgeProperty> properties = new Properties<>()
-    {
-        @Override
-        public VertexProperty get(Vertex<VertexId> vertex)
-        {
-            return representation.getProperty(vertex);
-        }
+    private final GraphProperties<VertexId, VertexProperty, EdgeProperty> properties =
+            new GraphProperties<>()
+            {
+                @Override
+                public VertexProperty get(Vertex<VertexId> vertex)
+                {
+                    return representation.getProperty(vertex);
+                }
 
-        @Override
-        public void set(Vertex<VertexId> vertex, VertexProperty property)
-        {
-            representation.setProperty(vertex, property);
-        }
+                @Override
+                public void set(Vertex<VertexId> vertex, VertexProperty property)
+                {
+                    representation.setProperty(vertex, property);
+                }
 
-        @Override
-        public EdgeProperty get(Edge<VertexId> edge)
-        {
-            return representation.getProperty(edge);
-        }
+                @Override
+                public EdgeProperty get(Edge<VertexId> edge)
+                {
+                    return representation.getProperty(edge);
+                }
 
-        @Override
-        public void set(Edge<VertexId> edge, EdgeProperty property)
-        {
-            representation.setProperty(edge, property);
-        }
-    };
+                @Override
+                public void set(Edge<VertexId> edge, EdgeProperty property)
+                {
+                    representation.setProperty(edge, property);
+                }
+            };
 
     public SimpleGraph()
     {
@@ -46,7 +47,7 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
     }
 
     @Override
-    public Properties<VertexId, VertexProperty, EdgeProperty> getProperties()
+    public GraphProperties<VertexId, VertexProperty, EdgeProperty> getProperties()
     {
         return properties;
     }

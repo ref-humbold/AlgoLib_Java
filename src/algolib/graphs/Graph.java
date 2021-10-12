@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public interface Graph<VertexId, VertexProperty, EdgeProperty>
 {
-    Properties<VertexId, VertexProperty, EdgeProperty> getProperties();
+    GraphProperties<VertexId, VertexProperty, EdgeProperty> getProperties();
 
     /** @return number of vertices */
     int getVerticesCount();
@@ -66,7 +66,7 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
      */
     int getInputDegree(Vertex<VertexId> vertex);
 
-    interface Properties<VertexId, VertexProperty, EdgeProperty>
+    interface GraphProperties<VertexId, VertexProperty, EdgeProperty>
     {
         /**
          * @param vertex vertex from this graph

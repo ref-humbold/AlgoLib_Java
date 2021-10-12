@@ -3,14 +3,13 @@ package algolib.graphs;
 import java.util.Collection;
 import java.util.List;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // Tests: Structure of multipartite graph
 public class MultipartiteGraphTest
 {
-    MultipartiteGraph<Integer, String, String> testObject;
+    private MultipartiteGraph<Integer, String, String> testObject;
 
     @BeforeEach
     public void setUp()
@@ -24,20 +23,14 @@ public class MultipartiteGraphTest
         testObject.addEdgeBetween(new Vertex<>(7), new Vertex<>(9));
     }
 
-    @AfterEach
-    public void tearDown()
-    {
-        testObject = null;
-    }
-
     @Test
     public void getProperties_set_get_WhenSettingProperty_ThenProperty()
     {
         // given
-        String vertexProperty = "x";
-        String edgeProperty = "y";
         Vertex<Integer> vertex = new Vertex<>(2);
         Edge<Integer> edge = testObject.getEdge(new Vertex<>(0), new Vertex<>(3));
+        String vertexProperty = "x";
+        String edgeProperty = "y";
         // when
         testObject.getProperties().set(vertex, vertexProperty);
         testObject.getProperties().set(edge, edgeProperty);
@@ -68,6 +61,94 @@ public class MultipartiteGraphTest
                   .containsOnly(new Vertex<>(0), new Vertex<>(1), new Vertex<>(2), new Vertex<>(3),
                                 new Vertex<>(4), new Vertex<>(5), new Vertex<>(6), new Vertex<>(7),
                                 new Vertex<>(8), new Vertex<>(9));
+    }
+
+    @Test
+    public void getEdgesCount_ThenNumberOfEdges()
+    {
+        // when
+        int result = testObject.getEdgesCount();
+        // then
+        Assertions.assertThat(result).isEqualTo(5);
+    }
+
+    @Test
+    public void getEdges_ThenAllEdges()
+    {
+        // when
+        Collection<Edge<Integer>> result = testObject.getEdges();
+        // then
+        Assertions.assertThat(result)
+                  .containsOnly(new Edge<>(new Vertex<>(0), new Vertex<>(3)),
+                                new Edge<>(new Vertex<>(1), new Vertex<>(5)),
+                                new Edge<>(new Vertex<>(2), new Vertex<>(9)),
+                                new Edge<>(new Vertex<>(4), new Vertex<>(6)),
+                                new Edge<>(new Vertex<>(7), new Vertex<>(9)));
+    }
+
+    @Test
+    public void getVertex_WhenExists_ThenVertex()
+    {
+        // given
+        int vertexId = 5;
+        // when
+        Vertex<Integer> result = testObject.getVertex(vertexId);
+        // then
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.id).isEqualTo(vertexId);
+    }
+
+    @Test
+    public void getEdge_WhenExists_ThenEdge()
+    {
+        // given
+        Vertex<Integer> source = new Vertex<>(2);
+        Vertex<Integer> destination = new Vertex<>(9);
+        // when
+        Edge<Integer> result = testObject.getEdge(source, destination);
+        // then
+        Assertions.assertThat(result.source).isEqualTo(source);
+        Assertions.assertThat(result.destination).isEqualTo(destination);
+    }
+
+    @Test
+    public void getNeighbours_ThenDestinationVerticesOfOutgoingEdges()
+    {
+        // when
+        Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(9));
+        // then
+        Assertions.assertThat(result).hasSize(2);
+        Assertions.assertThat(result).containsOnly(new Vertex<>(2), new Vertex<>(7));
+    }
+
+    @Test
+    public void getAdjacentEdges_ThenDestinationVerticesOfOutgoingEdges()
+    {
+        // when
+        Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(9));
+        // then
+        Assertions.assertThat(result).hasSize(2);
+        Assertions.assertThat(result)
+                  .containsOnly(new Edge<>(new Vertex<>(2), new Vertex<>(9)),
+                                new Edge<>(new Vertex<>(7), new Vertex<>(9)));
+    }
+
+    @Test
+    public void getOutputDegree_ThenNumberOfOutgoingEdges()
+    {
+        // when
+        int result = testObject.getOutputDegree(new Vertex<>(9));
+        // then
+        Assertions.assertThat(result).isEqualTo(2);
+    }
+
+    @Test
+    public void getInputDegree_ThenNumberOfIncomingEdges()
+    {
+        // when
+        int result = testObject.getInputDegree(new Vertex<>(9));
+        // then
+        Assertions.assertThat(result).isEqualTo(2);
     }
 
     @Test
@@ -130,42 +211,6 @@ public class MultipartiteGraphTest
     }
 
     @Test
-    public void getEdgesCount_ThenNumberOfEdges()
-    {
-        // when
-        int result = testObject.getEdgesCount();
-        // then
-        Assertions.assertThat(result).isEqualTo(5);
-    }
-
-    @Test
-    public void getEdges_ThenAllEdges()
-    {
-        // when
-        Collection<Edge<Integer>> result = testObject.getEdges();
-        // then
-        Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(new Vertex<>(0), new Vertex<>(3)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(5)),
-                                new Edge<>(new Vertex<>(2), new Vertex<>(9)),
-                                new Edge<>(new Vertex<>(4), new Vertex<>(6)),
-                                new Edge<>(new Vertex<>(7), new Vertex<>(9)));
-    }
-
-    @Test
-    public void getEdge_WhenExists_ThenEdge()
-    {
-        // given
-        Vertex<Integer> source = new Vertex<>(2);
-        Vertex<Integer> destination = new Vertex<>(9);
-        // when
-        Edge<Integer> result = testObject.getEdge(source, destination);
-        // then
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
-    }
-
-    @Test
     public void addEdge_WhenNewEdge_ThenCreatedEdge()
     {
         // given
@@ -203,45 +248,5 @@ public class MultipartiteGraphTest
                 () -> testObject.addEdgeBetween(new Vertex<>(5), new Vertex<>(8)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(GraphPartitionException.class);
-    }
-
-    @Test
-    public void getNeighbours_ThenDestinationVerticesOfOutgoingEdges()
-    {
-        // when
-        Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(9));
-        // then
-        Assertions.assertThat(result).hasSize(2);
-        Assertions.assertThat(result).containsOnly(new Vertex<>(2), new Vertex<>(7));
-    }
-
-    @Test
-    public void getAdjacentEdges_ThenDestinationVerticesOfOutgoingEdges()
-    {
-        // when
-        Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(9));
-        // then
-        Assertions.assertThat(result).hasSize(2);
-        Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(new Vertex<>(2), new Vertex<>(9)),
-                                new Edge<>(new Vertex<>(7), new Vertex<>(9)));
-    }
-
-    @Test
-    public void getOutputDegree_ThenNumberOfOutgoingEdges()
-    {
-        // when
-        int result = testObject.getOutputDegree(new Vertex<>(9));
-        // then
-        Assertions.assertThat(result).isEqualTo(2);
-    }
-
-    @Test
-    public void getInputDegree_ThenNumberOfIncomingEdges()
-    {
-        // when
-        int result = testObject.getInputDegree(new Vertex<>(9));
-        // then
-        Assertions.assertThat(result).isEqualTo(2);
     }
 }

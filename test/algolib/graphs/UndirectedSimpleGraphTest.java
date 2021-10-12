@@ -23,10 +23,10 @@ public class UndirectedSimpleGraphTest
     public void getProperties_set_get_WhenSettingProperty_ThenProperty()
     {
         // given
-        String vertexProperty = "x";
-        String edgeProperty = "y";
         Vertex<Integer> vertex = new Vertex<>(2);
         Edge<Integer> edge = testObject.addEdgeBetween(new Vertex<>(0), new Vertex<>(1));
+        String vertexProperty = "x";
+        String edgeProperty = "y";
         // when
         testObject.getProperties().set(vertex, vertexProperty);
         testObject.getProperties().set(edge, edgeProperty);
@@ -42,9 +42,10 @@ public class UndirectedSimpleGraphTest
     public void getProperties_get_WhenNoProperty_ThenNull()
     {
         // given
+        Vertex<Integer> vertex = new Vertex<>(4);
         Edge<Integer> edge = testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(7));
         // when
-        String resultVertex = testObject.getProperties().get(new Vertex<>(4));
+        String resultVertex = testObject.getProperties().get(vertex);
         String resultEdge = testObject.getProperties().get(edge);
         // then
         Assertions.assertThat(resultVertex).isNull();
@@ -93,37 +94,6 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void addVertex_WhenNewVertex_ThenCreatedVertex()
-    {
-        // given
-        int newVertex = 13;
-        String property = "qwerty";
-        // when
-        Vertex<Integer> result = testObject.addVertex(newVertex, property);
-        // then
-        Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
-        Assertions.assertThat(testObject.getNeighbours(result)).isEmpty();
-        Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
-    }
-
-    @Test
-    public void addVertex_WhenExistingVertex_ThenNull()
-    {
-        // given
-        Vertex<Integer> vertex = new Vertex<>(6);
-        String property = "qwerty";
-
-        testObject.getProperties().set(vertex, property);
-        // when
-        Vertex<Integer> result = testObject.addVertex(vertex, "abcdefg");
-        // then
-        Assertions.assertThat(result).isNull();
-        Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
-        Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
-    }
-
-    @Test
     public void getEdgesCount_ThenNumberOfEdges()
     {
         // given
@@ -132,9 +102,7 @@ public class UndirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(2), new Vertex<>(4));
         testObject.addEdgeBetween(new Vertex<>(8), new Vertex<>(0));
         testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(3));
-        testObject.addEdgeBetween(new Vertex<>(3), new Vertex<>(6));
         testObject.addEdgeBetween(new Vertex<>(9), new Vertex<>(3));
-        testObject.addEdgeBetween(new Vertex<>(8), new Vertex<>(0));
         // when
         int result = testObject.getEdgesCount();
         // then
@@ -150,9 +118,7 @@ public class UndirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(2), new Vertex<>(4));
         testObject.addEdgeBetween(new Vertex<>(8), new Vertex<>(0));
         testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(3));
-        testObject.addEdgeBetween(new Vertex<>(3), new Vertex<>(6));
         testObject.addEdgeBetween(new Vertex<>(9), new Vertex<>(3));
-        testObject.addEdgeBetween(new Vertex<>(8), new Vertex<>(0));
         // when
         Collection<Edge<Integer>> result = testObject.getEdges();
         // then
@@ -163,6 +129,27 @@ public class UndirectedSimpleGraphTest
                                 new Edge<>(new Vertex<>(8), new Vertex<>(0)),
                                 new Edge<>(new Vertex<>(6), new Vertex<>(3)),
                                 new Edge<>(new Vertex<>(9), new Vertex<>(3)));
+    }
+
+    @Test
+    public void getVertex_WhenExists_ThenVertex()
+    {
+        // given
+        int vertexId = 4;
+        // when
+        Vertex<Integer> result = testObject.getVertex(vertexId);
+        // then
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.id).isEqualTo(vertexId);
+    }
+
+    @Test
+    public void getVertex_WhenNotExists_ThenNull()
+    {
+        // when
+        Vertex<Integer> result = testObject.getVertex(16);
+        // then
+        Assertions.assertThat(result).isNull();
     }
 
     @Test
@@ -200,53 +187,6 @@ public class UndirectedSimpleGraphTest
     {
         // when
         Edge<Integer> result = testObject.getEdge(1, 2);
-        // then
-        Assertions.assertThat(result).isNull();
-    }
-
-    @Test
-    public void addEdgeBetween_WhenNewEdge_ThenCreatedEdge()
-    {
-        // given
-        Vertex<Integer> source = new Vertex<>(1);
-        Vertex<Integer> destination = new Vertex<>(5);
-        String property = "asdfgh";
-        // when
-        Edge<Integer> result = testObject.addEdgeBetween(source, destination, property);
-        testObject.addEdgeBetween(source, source);
-        // then
-        Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
-        Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
-        Assertions.assertThat(testObject.getNeighbours(source)).containsOnly(source, destination);
-        Assertions.assertThat(testObject.getNeighbours(destination)).containsOnly(source);
-    }
-
-    @Test
-    public void addEdgeBetween_WhenExistingEdge_ThenNull()
-    {
-        // given
-        Vertex<Integer> source = new Vertex<>(3);
-        Vertex<Integer> destination = new Vertex<>(7);
-
-        testObject.addEdgeBetween(source, destination);
-        // when
-        Edge<Integer> result = testObject.addEdgeBetween(source, destination);
-        // then
-        Assertions.assertThat(result).isNull();
-    }
-
-    @Test
-    public void addEdgeBetween_WhenReversedEdge_ThenNull()
-    {
-        // given
-        Vertex<Integer> source = new Vertex<>(3);
-        Vertex<Integer> destination = new Vertex<>(7);
-
-        testObject.addEdgeBetween(source, destination);
-        // when
-        Edge<Integer> result = testObject.addEdgeBetween(destination, source);
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -331,6 +271,85 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
+    public void addVertex_WhenNewVertex_ThenCreatedVertex()
+    {
+        // given
+        int newVertexId = 13;
+        String property = "qwerty";
+        // when
+        Vertex<Integer> result = testObject.addVertex(newVertexId, property);
+        // then
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.id).isEqualTo(newVertexId);
+        Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
+        Assertions.assertThat(testObject.getNeighbours(result)).isEmpty();
+        Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
+    }
+
+    @Test
+    public void addVertex_WhenExistingVertex_ThenNull()
+    {
+        // given
+        Vertex<Integer> vertex = new Vertex<>(6);
+        String property = "qwerty";
+
+        testObject.getProperties().set(vertex, property);
+        // when
+        Vertex<Integer> result = testObject.addVertex(vertex, "abcdefg");
+        // then
+        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
+        Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
+    }
+
+    @Test
+    public void addEdgeBetween_WhenNewEdge_ThenCreatedEdge()
+    {
+        // given
+        Vertex<Integer> source = new Vertex<>(1);
+        Vertex<Integer> destination = new Vertex<>(5);
+        String property = "asdfgh";
+        // when
+        Edge<Integer> result = testObject.addEdgeBetween(source, destination, property);
+        testObject.addEdgeBetween(source, source);
+        // then
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.source).isEqualTo(source);
+        Assertions.assertThat(result.destination).isEqualTo(destination);
+        Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
+        Assertions.assertThat(testObject.getNeighbours(source)).containsOnly(source, destination);
+        Assertions.assertThat(testObject.getNeighbours(destination)).containsOnly(source);
+    }
+
+    @Test
+    public void addEdgeBetween_WhenExistingEdge_ThenNull()
+    {
+        // given
+        Vertex<Integer> source = new Vertex<>(3);
+        Vertex<Integer> destination = new Vertex<>(7);
+
+        testObject.addEdgeBetween(source, destination);
+        // when
+        Edge<Integer> result = testObject.addEdgeBetween(source, destination);
+        // then
+        Assertions.assertThat(result).isNull();
+    }
+
+    @Test
+    public void addEdgeBetween_WhenReversedEdge_ThenNull()
+    {
+        // given
+        Vertex<Integer> source = new Vertex<>(3);
+        Vertex<Integer> destination = new Vertex<>(7);
+
+        testObject.addEdgeBetween(source, destination);
+        // when
+        Edge<Integer> result = testObject.addEdgeBetween(destination, source);
+        // then
+        Assertions.assertThat(result).isNull();
+    }
+
+    @Test
     public void asDirected_ThenDirectedGraph()
     {
         // given
@@ -342,9 +361,7 @@ public class UndirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(2), new Vertex<>(4));
         testObject.addEdgeBetween(new Vertex<>(8), new Vertex<>(0));
         testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(3));
-        testObject.addEdgeBetween(new Vertex<>(3), new Vertex<>(6));
         testObject.addEdgeBetween(new Vertex<>(9), new Vertex<>(3));
-        testObject.addEdgeBetween(new Vertex<>(8), new Vertex<>(0));
         testObject.getProperties().set(vertex, vertexProperty);
         testObject.getProperties().set(edge, edgeProperty);
         // when

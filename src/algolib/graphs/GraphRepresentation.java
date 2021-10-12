@@ -37,6 +37,11 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
         return graphMap.values().stream();
     }
 
+    int size()
+    {
+        return graphMap.size();
+    }
+
     Vertex<VertexId> getVertex(VertexId vertexId)
     {
 
@@ -62,6 +67,12 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
                        .orElse(null);
     }
 
+    Stream<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex)
+    {
+        validate(vertex);
+        return graphMap.get(vertex).stream();
+    }
+
     VertexProperty getProperty(Vertex<VertexId> vertex)
     {
         validate(vertex);
@@ -84,17 +95,6 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
     {
         validate(edge, true);
         edgeProperties.put(edge, property);
-    }
-
-    int size()
-    {
-        return graphMap.size();
-    }
-
-    Stream<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex)
-    {
-        validate(vertex);
-        return graphMap.get(vertex).stream();
     }
 
     boolean addVertex(Vertex<VertexId> vertex)
