@@ -52,6 +52,15 @@ public class TreeGraphTest
     }
 
     @Test
+    public void getEdgesCount_ThenNumberOfEdges()
+    {
+        // when
+        int result = testObject.getEdgesCount();
+        // then
+        Assertions.assertThat(result).isEqualTo(7);
+    }
+
+    @Test
     public void getVertices_ThenAllVertices()
     {
         // when
@@ -60,15 +69,6 @@ public class TreeGraphTest
         Assertions.assertThat(result)
                   .containsOnly(new Vertex<>(0), new Vertex<>(1), new Vertex<>(2), new Vertex<>(3),
                                 new Vertex<>(4), new Vertex<>(5), new Vertex<>(6), new Vertex<>(7));
-    }
-
-    @Test
-    public void getEdgesCount_ThenNumberOfEdges()
-    {
-        // when
-        int result = testObject.getEdgesCount();
-        // then
-        Assertions.assertThat(result).isEqualTo(7);
     }
 
     @Test

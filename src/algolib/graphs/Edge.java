@@ -8,7 +8,7 @@ public class Edge<VertexId>
     public final Vertex<VertexId> source;
     public final Vertex<VertexId> destination;
 
-    Edge(Vertex<VertexId> source, Vertex<VertexId> destination)
+    public Edge(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
         this.source = source;
         this.destination = destination;

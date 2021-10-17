@@ -52,6 +52,15 @@ public class MultipartiteGraphTest
     }
 
     @Test
+    public void getEdgesCount_ThenNumberOfEdges()
+    {
+        // when
+        int result = testObject.getEdgesCount();
+        // then
+        Assertions.assertThat(result).isEqualTo(5);
+    }
+
+    @Test
     public void getVertices_ThenAllVertices()
     {
         // when
@@ -61,15 +70,6 @@ public class MultipartiteGraphTest
                   .containsOnly(new Vertex<>(0), new Vertex<>(1), new Vertex<>(2), new Vertex<>(3),
                                 new Vertex<>(4), new Vertex<>(5), new Vertex<>(6), new Vertex<>(7),
                                 new Vertex<>(8), new Vertex<>(9));
-    }
-
-    @Test
-    public void getEdgesCount_ThenNumberOfEdges()
-    {
-        // when
-        int result = testObject.getEdgesCount();
-        // then
-        Assertions.assertThat(result).isEqualTo(5);
     }
 
     @Test
