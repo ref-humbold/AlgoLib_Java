@@ -7,12 +7,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /** Structure of multipartite graph */
-public class MultipartiteGraph<V, VP, EP>
-        implements UndirectedGraph<V, VP, EP>
+public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
+        implements UndirectedGraph<VertexId, VertexProperty, EdgeProperty>
 {
     public final int groupsCount;
-    private final UndirectedSimpleGraph<V, VP, EP> graph = new UndirectedSimpleGraph<>();
-    private final Map<V, Integer> vertexGroupMap = new HashMap<>();
+    private final UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> graph =
+            new UndirectedSimpleGraph<>();
+    private final Map<Vertex<VertexId>, Integer> vertexGroupMap = new HashMap<>();
 
     public MultipartiteGraph(int groupsCount)
     {
@@ -22,7 +23,7 @@ public class MultipartiteGraph<V, VP, EP>
         this.groupsCount = groupsCount;
     }
 
-    public MultipartiteGraph(int groupsCount, Collection<Collection<V>> vertices)
+    public MultipartiteGraph(int groupsCount, Collection<Collection<VertexId>> vertices)
     {
         this(groupsCount);
 
@@ -33,13 +34,19 @@ public class MultipartiteGraph<V, VP, EP>
 
         int i = 0;
 
-        for(Collection<V> groupVertices : vertices)
+        for(Collection<VertexId> groupVertices : vertices)
         {
-            for(V vertex : groupVertices)
+            for(VertexId vertex : groupVertices)
                 addVertex(i, vertex);
 
             ++i;
         }
+    }
+
+    @Override
+    public GraphProperties<VertexId, VertexProperty, EdgeProperty> getProperties()
+    {
+        return graph.getProperties();
     }
 
     @Override
@@ -55,77 +62,59 @@ public class MultipartiteGraph<V, VP, EP>
     }
 
     @Override
-    public Collection<V> getVertices()
+    public Collection<Vertex<VertexId>> getVertices()
     {
         return graph.getVertices();
     }
 
     @Override
-    public Collection<Edge<V>> getEdges()
+    public Collection<Edge<VertexId>> getEdges()
     {
         return graph.getEdges();
     }
 
     @Override
-    public VP getProperty(V vertex)
+    public Vertex<VertexId> getVertex(VertexId vertexId)
     {
-        return graph.getProperty(vertex);
+        return graph.getVertex(vertexId);
     }
 
     @Override
-    public void setProperty(V vertex, VP property)
+    public Edge<VertexId> getEdge(VertexId sourceId, VertexId destinationId)
     {
-        graph.setProperty(vertex, property);
+        return graph.getEdge(sourceId, destinationId);
     }
 
     @Override
-    public EP getProperty(Edge<V> edge)
-    {
-        return graph.getProperty(edge);
-    }
-
-    @Override
-    public void setProperty(Edge<V> edge, EP property)
-    {
-        graph.setProperty(edge, property);
-    }
-
-    @Override
-    public Edge<V> getEdge(V source, V destination)
-    {
-        return graph.getEdge(source, destination);
-    }
-
-    @Override
-    public Collection<V> getNeighbours(V vertex)
+    public Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex)
     {
         return graph.getNeighbours(vertex);
     }
 
     @Override
-    public Collection<Edge<V>> getAdjacentEdges(V vertex)
+    public Collection<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex)
     {
         return graph.getAdjacentEdges(vertex);
     }
 
     @Override
-    public int getOutputDegree(V vertex)
+    public int getOutputDegree(Vertex<VertexId> vertex)
     {
         return graph.getOutputDegree(vertex);
     }
 
     @Override
-    public int getInputDegree(V vertex)
+    public int getInputDegree(Vertex<VertexId> vertex)
     {
         return graph.getInputDegree(vertex);
     }
 
-    public DirectedSimpleGraph<V, VP, EP> asDirected()
+    public DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> asDirected()
     {
         return graph.asDirected();
     }
 
-    public Collection<V> getVerticesFromGroup(int groupNumber)
+    public Collection<Vertex<VertexId>> getVerticesFromGroup(int groupNumber)
     {
         validateGroup(groupNumber);
         return vertexGroupMap.entrySet()
@@ -135,40 +124,52 @@ public class MultipartiteGraph<V, VP, EP>
                              .collect(Collectors.toList());
     }
 
-    public boolean addVertex(int groupNumber, V vertex)
+    public Vertex<VertexId> addVertex(int groupNumber, VertexId vertexId)
+    {
+        return addVertex(groupNumber, new Vertex<>(vertexId));
+    }
+
+    public Vertex<VertexId> addVertex(int groupNumber, VertexId vertexId, VertexProperty property)
+    {
+        return addVertex(groupNumber, new Vertex<>(vertexId), property);
+    }
+
+    public Vertex<VertexId> addVertex(int groupNumber, Vertex<VertexId> vertex)
     {
         return addVertex(groupNumber, vertex, null);
     }
 
-    public boolean addVertex(int groupNumber, V vertex, VP property)
+    public Vertex<VertexId> addVertex(int groupNumber, Vertex<VertexId> vertex,
+                                      VertexProperty property)
     {
         validateGroup(groupNumber);
 
-        boolean wasAdded = graph.addVertex(vertex, property);
+        Vertex<VertexId> newVertex = graph.addVertex(vertex, property);
 
-        if(wasAdded)
+        if(newVertex != null)
             vertexGroupMap.put(vertex, groupNumber);
 
-        return wasAdded;
+        return newVertex;
     }
 
-    public Edge<V> addEdgeBetween(V source, V destination)
+    public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
         return addEdge(new Edge<>(source, destination));
     }
 
-    public Edge<V> addEdgeBetween(V source, V destination, EP property)
+    public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination,
+                                         EdgeProperty property)
     {
 
         return addEdge(new Edge<>(source, destination), property);
     }
 
-    public Edge<V> addEdge(Edge<V> edge)
+    public Edge<VertexId> addEdge(Edge<VertexId> edge)
     {
         return addEdge(edge, null);
     }
 
-    public Edge<V> addEdge(Edge<V> edge, EP property)
+    public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {
         if(areInSameGroup(edge.source, edge.destination))
             throw new GraphPartitionException(
@@ -177,7 +178,7 @@ public class MultipartiteGraph<V, VP, EP>
         return graph.addEdge(edge, property);
     }
 
-    private boolean areInSameGroup(V vertex1, V vertex2)
+    private boolean areInSameGroup(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
     {
         return Objects.equals(vertexGroupMap.get(vertex1), vertexGroupMap.get(vertex2));
     }

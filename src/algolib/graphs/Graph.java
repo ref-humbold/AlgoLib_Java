@@ -3,8 +3,10 @@ package algolib.graphs;
 
 import java.util.Collection;
 
-public interface Graph<V, VP, EP>
+public interface Graph<VertexId, VertexProperty, EdgeProperty>
 {
+    GraphProperties<VertexId, VertexProperty, EdgeProperty> getProperties();
+
     /** @return number of vertices */
     int getVerticesCount();
 
@@ -12,63 +14,82 @@ public interface Graph<V, VP, EP>
     int getEdgesCount();
 
     /** @return collection of graph vertices */
-    Collection<V> getVertices();
+    Collection<Vertex<VertexId>> getVertices();
 
     /** @return collection of graph edges */
-    Collection<Edge<V>> getEdges();
+    Collection<Edge<VertexId>> getEdges();
 
     /**
-     * @param vertex a vertex from this graph
-     * @return the property of the vertex
+     * @param vertexId vertex indentifier
+     * @return vertex with the identifier, or {@code null} if no vertex
      */
-    VP getProperty(V vertex);
+    Vertex<VertexId> getVertex(VertexId vertexId);
 
     /**
-     * @param vertex a vertex from this graph
-     * @param property new property of given vertex
+     * @param sourceId source vertex identifier
+     * @param destinationId destination vertex identifier
+     * @return edge between the vertices, or {@code null} if no edge
      */
-    void setProperty(V vertex, VP property);
-
-    /**
-     * @param edge an edge from this graph
-     * @return the property of the vertex
-     */
-    EP getProperty(Edge<V> edge);
-
-    /**
-     * @param edge an edge from this graph
-     * @param property new property of given edge
-     */
-    void setProperty(Edge<V> edge, EP property);
+    Edge<VertexId> getEdge(VertexId sourceId, VertexId destinationId);
 
     /**
      * @param source source vertex
      * @param destination destination vertex
-     * @return the edge between the vertices, or {@code null} if no edge
+     * @return edge between the vertices, or {@code null} if no edge
      */
-    Edge<V> getEdge(V source, V destination);
+    default Edge<VertexId> getEdge(Vertex<VertexId> source, Vertex<VertexId> destination)
+    {
+        return getEdge(source.id, destination.id);
+    }
 
     /**
-     * @param vertex a vertex from this graph
+     * @param vertex vertex from this graph
      * @return collection of edges adjacent to the vertex
      */
-    Collection<Edge<V>> getAdjacentEdges(V vertex);
+    Collection<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex);
 
     /**
      * @param vertex a vertex from this graph
      * @return collection of neighbouring vertices
      */
-    Collection<V> getNeighbours(V vertex);
+    Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex);
 
     /**
-     * @param vertex a vertex from this graph
-     * @return the output degree of the vertex
+     * @param vertex vertex from this graph
+     * @return output degree of the vertex
      */
-    int getOutputDegree(V vertex);
+    int getOutputDegree(Vertex<VertexId> vertex);
 
     /**
-     * @param vertex a vertex from this graph
-     * @return the input degree of the vertex
+     * @param vertex vertex from this graph
+     * @return input degree of the vertex
      */
-    int getInputDegree(V vertex);
+    int getInputDegree(Vertex<VertexId> vertex);
+
+    interface GraphProperties<VertexId, VertexProperty, EdgeProperty>
+    {
+        /**
+         * @param vertex vertex from this graph
+         * @return property of the vertex
+         */
+        VertexProperty get(Vertex<VertexId> vertex);
+
+        /**
+         * @param vertex vertex from this graph
+         * @param property new property of given vertex
+         */
+        void set(Vertex<VertexId> vertex, VertexProperty property);
+
+        /**
+         * @param edge edge from this graph
+         * @return property of the vertex
+         */
+        EdgeProperty get(Edge<VertexId> edge);
+
+        /**
+         * @param edge edge from this graph
+         * @param property new property of given edge
+         */
+        void set(Edge<VertexId> edge, EdgeProperty property);
+    }
 }

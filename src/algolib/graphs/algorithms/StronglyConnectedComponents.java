@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import algolib.graphs.DirectedGraph;
+import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
 public final class StronglyConnectedComponents
@@ -14,99 +15,100 @@ public final class StronglyConnectedComponents
      * @param graph a directed graph
      * @return list of vertices in strongly connected components
      */
-    public static <V, VP, EP> List<Set<V>> findSCC(DirectedGraph<V, VP, EP> graph)
+    public static <VertexId, VertexProperty, EdgeProperty> List<Set<Vertex<VertexId>>> findSCC(
+            DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
     {
-        PostOrderStrategy<V> postOrderStrategy = new PostOrderStrategy<>();
+        PostOrderStrategy<VertexId> postOrderStrategy = new PostOrderStrategy<>();
 
         Searching.dfsRecursive(graph, postOrderStrategy, graph.getVertices());
 
-        List<V> vertices = postOrderStrategy.postTimes.entrySet()
-                                                      .stream()
-                                                      .sorted(new ReversedPostOrderComparator<>())
-                                                      .map(Map.Entry::getKey)
-                                                      .collect(Collectors.toList());
-        DirectedGraph<V, VP, EP> reversedGraph = graph.reversedCopy();
-        SCCStrategy<V> sccStrategy = new SCCStrategy<>();
+        List<Vertex<VertexId>> vertices = postOrderStrategy.postTimes.entrySet()
+                                                                     .stream()
+                                                                     .sorted(new ReversedPostOrderComparator<>())
+                                                                     .map(Map.Entry::getKey)
+                                                                     .collect(Collectors.toList());
+        DirectedGraph<VertexId, VertexProperty, EdgeProperty> reversedGraph = graph.reversedCopy();
+        SCCStrategy<VertexId> sccStrategy = new SCCStrategy<>();
 
         Searching.dfsRecursive(reversedGraph, sccStrategy, vertices);
 
         return sccStrategy.components;
     }
 
-    private static class ReversedPostOrderComparator<V>
-            implements Comparator<Map.Entry<V, Integer>>
+    private static class ReversedPostOrderComparator<VertexId>
+            implements Comparator<Map.Entry<VertexId, Integer>>
     {
 
         @Override
-        public int compare(Map.Entry<V, Integer> entry1, Map.Entry<V, Integer> entry2)
+        public int compare(Map.Entry<VertexId, Integer> entry1, Map.Entry<VertexId, Integer> entry2)
         {
             return entry2.getValue().compareTo(entry1.getValue());
         }
     }
 
-    private static class PostOrderStrategy<V>
-            implements DFSStrategy<V>
+    private static class PostOrderStrategy<VertexId>
+            implements DFSStrategy<VertexId>
     {
-        final Map<V, Integer> postTimes = new HashMap<>();
+        final Map<Vertex<VertexId>, Integer> postTimes = new HashMap<>();
         int timer = 0;
 
         @Override
-        public void forRoot(V root)
+        public void forRoot(Vertex<VertexId> root)
         {
         }
 
         @Override
-        public void onEntry(V vertex)
+        public void onEntry(Vertex<VertexId> vertex)
         {
         }
 
         @Override
-        public void onNextVertex(V vertex, V neighbour)
+        public void onNextVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour)
         {
         }
 
         @Override
-        public void onExit(V vertex)
+        public void onExit(Vertex<VertexId> vertex)
         {
             postTimes.put(vertex, timer);
             ++timer;
         }
 
         @Override
-        public void onEdgeToVisited(V vertex, V neighbour)
+        public void onEdgeToVisited(Vertex<VertexId> vertex, Vertex<VertexId> neighbour)
         {
         }
     }
 
-    private static class SCCStrategy<V>
-            implements DFSStrategy<V>
+    private static class SCCStrategy<VertexId>
+            implements DFSStrategy<VertexId>
     {
-        final List<Set<V>> components = new ArrayList<>();
+        final List<Set<Vertex<VertexId>>> components = new ArrayList<>();
 
         @Override
-        public void forRoot(V root)
+        public void forRoot(Vertex<VertexId> root)
         {
             components.add(new HashSet<>());
         }
 
         @Override
-        public void onEntry(V vertex)
+        public void onEntry(Vertex<VertexId> vertex)
         {
             components.get(components.size() - 1).add(vertex);
         }
 
         @Override
-        public void onNextVertex(V vertex, V neighbour)
+        public void onNextVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour)
         {
         }
 
         @Override
-        public void onExit(V vertex)
+        public void onExit(Vertex<VertexId> vertex)
         {
         }
 
         @Override
-        public void onEdgeToVisited(V vertex, V neighbour)
+        public void onEdgeToVisited(Vertex<VertexId> vertex, Vertex<VertexId> neighbour)
         {
         }
     }

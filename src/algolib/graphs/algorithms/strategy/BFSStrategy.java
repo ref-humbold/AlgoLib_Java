@@ -1,12 +1,14 @@
 package algolib.graphs.algorithms.strategy;
 
-public interface BFSStrategy<V>
+import algolib.graphs.Vertex;
+
+public interface BFSStrategy<VertexId>
 {
-    void forRoot(V root);
+    void forRoot(Vertex<VertexId> root);
 
-    void onEntry(V vertex);
+    void onEntry(Vertex<VertexId> vertex);
 
-    void onNextVertex(V vertex, V neighbour);
+    void onNextVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour);
 
-    void onExit(V vertex);
+    void onExit(Vertex<VertexId> vertex);
 }

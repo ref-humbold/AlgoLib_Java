@@ -23,13 +23,13 @@ public class MinimalSpanningTreeTest
         graph = new UndirectedSimpleGraph<>(
                 IntStream.range(0, 5).boxed().collect(Collectors.toList()));
 
-        graph.addEdgeBetween(0, 1, new Weight(-1.0));
-        graph.addEdgeBetween(0, 2, new Weight(4.0));
-        graph.addEdgeBetween(1, 2, new Weight(9.0));
-        graph.addEdgeBetween(1, 3, new Weight(7.0));
-        graph.addEdgeBetween(1, 4, new Weight(12.0));
-        graph.addEdgeBetween(2, 4, new Weight(6.0));
-        graph.addEdgeBetween(3, 4, new Weight(3.0));
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(1), new Weight(-1.0));
+        graph.addEdgeBetween(graph.getVertex(0), graph.getVertex(2), new Weight(4.0));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(2), new Weight(9.0));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(3), new Weight(7.0));
+        graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(4), new Weight(12.0));
+        graph.addEdgeBetween(graph.getVertex(2), graph.getVertex(4), new Weight(6.0));
+        graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(4), new Weight(3.0));
     }
 
     @AfterEach
@@ -46,7 +46,7 @@ public class MinimalSpanningTreeTest
         // then
         double mstSize = result.getEdges()
                                .stream()
-                               .mapToDouble(edge -> result.getProperty(edge).getWeight())
+                               .mapToDouble(edge -> result.getProperties().get(edge).getWeight())
                                .sum();
 
         Assertions.assertThat(result.getVerticesCount()).isEqualTo(graph.getVerticesCount());
@@ -62,11 +62,12 @@ public class MinimalSpanningTreeTest
     public void prim_ThenMST()
     {
         // when
-        UndirectedGraph<Integer, Void, Weight> result = MinimalSpanningTree.prim(graph, 0);
+        UndirectedGraph<Integer, Void, Weight> result =
+                MinimalSpanningTree.prim(graph, graph.getVertex(0));
         // then
         double mstSize = result.getEdges()
                                .stream()
-                               .mapToDouble(edge -> result.getProperty(edge).getWeight())
+                               .mapToDouble(edge -> result.getProperties().get(edge).getWeight())
                                .sum();
 
         Assertions.assertThat(result.getVerticesCount()).isEqualTo(graph.getVerticesCount());
@@ -82,8 +83,10 @@ public class MinimalSpanningTreeTest
     public void prim_WhenDifferentSources_ThenSameMST()
     {
         // when
-        UndirectedGraph<Integer, Void, Weight> result1 = MinimalSpanningTree.prim(graph, 1);
-        UndirectedGraph<Integer, Void, Weight> result4 = MinimalSpanningTree.prim(graph, 4);
+        UndirectedGraph<Integer, Void, Weight> result1 =
+                MinimalSpanningTree.prim(graph, graph.getVertex(1));
+        UndirectedGraph<Integer, Void, Weight> result4 =
+                MinimalSpanningTree.prim(graph, graph.getVertex(4));
         // then
         Assertions.assertThat(result1.getEdgesCount()).isEqualTo(result4.getEdgesCount());
         Assertions.assertThat(result1.getEdges()).hasSameElementsAs(result4.getEdges());

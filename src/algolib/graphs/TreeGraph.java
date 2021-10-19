@@ -4,14 +4,20 @@ package algolib.graphs;
 import java.util.Collection;
 import java.util.Collections;
 
-public class TreeGraph<V, VP, EP>
-        implements UndirectedGraph<V, VP, EP>
+public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
+        implements UndirectedGraph<VertexId, VertexProperty, EdgeProperty>
 {
-    private final UndirectedSimpleGraph<V, VP, EP> graph;
+    private final UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> graph;
 
-    public TreeGraph(V vertex)
+    public TreeGraph(VertexId vertexId)
     {
-        graph = new UndirectedSimpleGraph<>(Collections.singleton(vertex));
+        graph = new UndirectedSimpleGraph<>(Collections.singleton(vertexId));
+    }
+
+    @Override
+    public GraphProperties<VertexId, VertexProperty, EdgeProperty> getProperties()
+    {
+        return graph.getProperties();
     }
 
     @Override
@@ -27,100 +33,107 @@ public class TreeGraph<V, VP, EP>
     }
 
     @Override
-    public Collection<V> getVertices()
+    public Collection<Vertex<VertexId>> getVertices()
     {
         return graph.getVertices();
     }
 
     @Override
-    public Collection<Edge<V>> getEdges()
+    public Collection<Edge<VertexId>> getEdges()
     {
         return graph.getEdges();
     }
 
     @Override
-    public VP getProperty(V vertex)
+    public Vertex<VertexId> getVertex(VertexId vertexId)
     {
-        return graph.getProperty(vertex);
+        return graph.getVertex(vertexId);
     }
 
     @Override
-    public void setProperty(V vertex, VP property)
+    public Edge<VertexId> getEdge(VertexId sourceId, VertexId destinationId)
     {
-        graph.setProperty(vertex, property);
+        return graph.getEdge(sourceId, destinationId);
     }
 
     @Override
-    public EP getProperty(Edge<V> edge)
-    {
-        return graph.getProperty(edge);
-    }
-
-    @Override
-    public void setProperty(Edge<V> edge, EP property)
-    {
-        graph.setProperty(edge, property);
-    }
-
-    @Override
-    public Edge<V> getEdge(V source, V destination)
-    {
-        return graph.getEdge(source, destination);
-    }
-
-    @Override
-    public Collection<V> getNeighbours(V vertex)
+    public Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex)
     {
         return graph.getNeighbours(vertex);
     }
 
     @Override
-    public Collection<Edge<V>> getAdjacentEdges(V vertex)
+    public Collection<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex)
     {
         return graph.getAdjacentEdges(vertex);
     }
 
     @Override
-    public int getOutputDegree(V vertex)
+    public int getOutputDegree(Vertex<VertexId> vertex)
     {
         return graph.getOutputDegree(vertex);
     }
 
     @Override
-    public int getInputDegree(V vertex)
+    public int getInputDegree(Vertex<VertexId> vertex)
     {
         return graph.getInputDegree(vertex);
     }
 
-    public DirectedSimpleGraph<V, VP, EP> asDirected()
+    public DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> asDirected()
     {
         return graph.asDirected();
     }
 
     /**
-     * Adds a new vertex to this graph and creates an edge to an existing vertex.
-     * @param vertex a new vertex
-     * @param neighbour an existing vertex
-     * @return the edge between the vertices
+     * Adds new vertex to this graph and creates an edge to given existing vertex.
+     * @param vertexId new vertex identifier
+     * @param neighbour existing vertex
+     * @return new edge between the vertices, or {@code null} if vertex already exists
      */
-    public Edge<V> addVertex(V vertex, V neighbour)
+    public Edge<VertexId> addVertex(VertexId vertexId, Vertex<VertexId> neighbour)
     {
-        boolean wasAdded = graph.addVertex(vertex);
-        return wasAdded ? graph.addEdgeBetween(vertex, neighbour) : null;
+        return addVertex(new Vertex<>(vertexId), neighbour);
     }
 
     /**
-     * Adds a new vertex to this graph and creates an edge to an existing vertex.
-     * @param vertex a new vertex
-     * @param neighbour an existing vertex
-     * @param vertexProperty a vertex property
-     * @param edgeProperty an edge property
-     * @return the edge between the vertices, or {@code null} if vertex already exists
+     * Adds new vertex to this graph and creates an edge to given existing vertex.
+     * @param vertexId new vertex identifier
+     * @param neighbour existing vertex
+     * @param vertexProperty vertex property
+     * @param edgeProperty edge property
+     * @return new edge between the vertices, or {@code null} if vertex already exists
      */
-    public Edge<V> addVertex(V vertex, V neighbour, VP vertexProperty, EP edgeProperty)
+    public Edge<VertexId> addVertex(VertexId vertexId, Vertex<VertexId> neighbour,
+                                    VertexProperty vertexProperty, EdgeProperty edgeProperty)
     {
-        boolean wasAdded = graph.addVertex(vertex, vertexProperty);
+        return addVertex(new Vertex<>(vertexId), neighbour, vertexProperty, edgeProperty);
+    }
 
-        return wasAdded ? graph.addEdgeBetween(vertex, neighbour, edgeProperty) : null;
+    /**
+     * Adds new vertex to this graph and creates an edge to given existing vertex.
+     * @param vertex new vertex
+     * @param neighbour existing vertex
+     * @return new edge between the vertices, or {@code null} if vertex already exists
+     */
+    public Edge<VertexId> addVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour)
+    {
+        return addVertex(vertex, neighbour, null, null);
+    }
+
+    /**
+     * Adds new vertex to this graph and creates an edge to given existing vertex.
+     * @param vertex new vertex
+     * @param neighbour existing vertex
+     * @param vertexProperty vertex property
+     * @param edgeProperty edge property
+     * @return new edge between the vertices, or {@code null} if vertex already exists
+     */
+    public Edge<VertexId> addVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour,
+                                    VertexProperty vertexProperty, EdgeProperty edgeProperty)
+    {
+        Vertex<VertexId> newVertex = graph.addVertex(vertex, vertexProperty);
+
+        return newVertex != null ? graph.addEdgeBetween(newVertex, neighbour, edgeProperty) : null;
     }
 }

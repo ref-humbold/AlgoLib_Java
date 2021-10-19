@@ -17,7 +17,7 @@ public class KMPTest
     }
 
     @Test
-    public void kmp_WhenPatternFoundTwice_ThenBothOccurrences()
+    public void kmp_WhenPatternFoundTwice_ThenTwoOccurrences()
     {
         // when
         List<Integer> result = KMP.kmp("abcdae", "a");
@@ -26,7 +26,7 @@ public class KMPTest
     }
 
     @Test
-    public void kmp_WhenPatternFoundTwiceAndIntersects_ThenBothOccurrences()
+    public void kmp_WhenPatternFoundTwiceAndIntersects_ThenTwoOccurrences()
     {
         // when
         List<Integer> result = KMP.kmp("aaabcde", "aa");
@@ -53,15 +53,6 @@ public class KMPTest
     }
 
     @Test
-    public void kmp_WhenPatternIsNull_ThenNullPointerException()
-    {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> KMP.kmp("abcde", null));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
-    }
-
-    @Test
     public void kmp_WhenTextIsEmptyString_ThenEmpty()
     {
         // when
@@ -75,6 +66,15 @@ public class KMPTest
     {
         // when
         Throwable throwable = Assertions.catchThrowable(() -> KMP.kmp(null, "a"));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    public void kmp_WhenPatternIsNull_ThenNullPointerException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(() -> KMP.kmp("abcde", null));
         // then
         Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }

@@ -1,21 +1,21 @@
-// Structure of undirected simple graph
 package algolib.graphs;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class UndirectedSimpleGraph<V, VP, EP>
-        extends SimpleGraph<V, VP, EP>
-        implements UndirectedGraph<V, VP, EP>
+/** Structure of undirected simple graph */
+public class UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
+        extends SimpleGraph<VertexId, VertexProperty, EdgeProperty>
+        implements UndirectedGraph<VertexId, VertexProperty, EdgeProperty>
 {
     public UndirectedSimpleGraph()
     {
         super();
     }
 
-    public UndirectedSimpleGraph(Collection<V> vertices)
+    public UndirectedSimpleGraph(Collection<VertexId> vertexIds)
     {
-        super(vertices);
+        super(vertexIds);
     }
 
     @Override
@@ -25,30 +25,28 @@ public class UndirectedSimpleGraph<V, VP, EP>
     }
 
     @Override
-    public Collection<Edge<V>> getEdges()
+    public Collection<Edge<VertexId>> getEdges()
     {
         return representation.getEdges().distinct().collect(Collectors.toList());
     }
 
     @Override
-    public int getOutputDegree(V vertex)
+    public int getOutputDegree(Vertex<VertexId> vertex)
     {
         return representation.getAdjacentEdges(vertex).mapToInt(edge -> 1).sum();
     }
 
     @Override
-    public int getInputDegree(V vertex)
+    public int getInputDegree(Vertex<VertexId> vertex)
     {
         return representation.getAdjacentEdges(vertex).mapToInt(edge -> 1).sum();
     }
 
     @Override
-    public Edge<V> addEdge(Edge<V> edge, EP property)
+    public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {
-        Edge<V> existingEdge = getEdge(edge.source, edge.destination);
-
-        if(existingEdge != null)
-            return existingEdge;
+        if(getEdge(edge.source, edge.destination) != null)
+            return null;
 
         representation.addEdgeToSource(edge);
         representation.addEdgeToDestination(edge);
@@ -60,16 +58,18 @@ public class UndirectedSimpleGraph<V, VP, EP>
      * Converts this graph to a directed graph with the same vertices.
      * @return directed graph
      */
-    public DirectedSimpleGraph<V, VP, EP> asDirected()
+    public DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> asDirected()
     {
-        DirectedSimpleGraph<V, VP, EP> directedSimpleGraph =
-                new DirectedSimpleGraph<>(getVertices());
+        DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> directedSimpleGraph =
+                new DirectedSimpleGraph<>(
+                        getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
 
-        getVertices().forEach(
-                vertex -> directedSimpleGraph.setProperty(vertex, getProperty(vertex)));
+        getVertices().forEach(vertex -> directedSimpleGraph.getProperties()
+                                                           .set(vertex,
+                                                                getProperties().get(vertex)));
         getEdges().forEach(edge -> {
-            directedSimpleGraph.addEdge(edge, getProperty(edge));
-            directedSimpleGraph.addEdge(edge.reversed(), getProperty(edge));
+            directedSimpleGraph.addEdge(edge, getProperties().get(edge));
+            directedSimpleGraph.addEdge(edge.reversed(), getProperties().get(edge));
         });
 
         return directedSimpleGraph;
