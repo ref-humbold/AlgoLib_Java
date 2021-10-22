@@ -3,6 +3,7 @@ package algolib.graphs;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
         implements UndirectedGraph<VertexId, VertexProperty, EdgeProperty>
@@ -132,8 +133,8 @@ public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
     public Edge<VertexId> addVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour,
                                     VertexProperty vertexProperty, EdgeProperty edgeProperty)
     {
-        Vertex<VertexId> newVertex = graph.addVertex(vertex, vertexProperty);
-
-        return newVertex != null ? graph.addEdgeBetween(newVertex, neighbour, edgeProperty) : null;
+        return Optional.ofNullable(graph.addVertex(vertex, vertexProperty))
+                       .map(newVertex -> graph.addEdgeBetween(newVertex, neighbour, edgeProperty))
+                       .orElse(null);
     }
 }

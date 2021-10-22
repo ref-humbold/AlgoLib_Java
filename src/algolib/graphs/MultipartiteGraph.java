@@ -23,21 +23,21 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
         this.groupsCount = groupsCount;
     }
 
-    public MultipartiteGraph(int groupsCount, Collection<Collection<VertexId>> vertices)
+    public MultipartiteGraph(int groupsCount, Collection<Collection<VertexId>> vertexIds)
     {
         this(groupsCount);
 
-        if(vertices.size() > this.groupsCount)
+        if(vertexIds.size() > this.groupsCount)
             throw new IllegalArgumentException(
                     String.format("Cannot add vertices to group %d, graph contains only %d groups",
-                                  vertices.size(), this.groupsCount));
+                                  vertexIds.size(), this.groupsCount));
 
         int i = 0;
 
-        for(Collection<VertexId> groupVertices : vertices)
+        for(Collection<VertexId> groupVertexIds : vertexIds)
         {
-            for(VertexId vertex : groupVertices)
-                addVertex(i, vertex);
+            for(VertexId vertexId : groupVertexIds)
+                addVertex(i, vertexId);
 
             ++i;
         }

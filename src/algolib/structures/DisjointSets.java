@@ -15,7 +15,7 @@ public class DisjointSets<E>
     {
     }
 
-    public DisjointSets(Iterable<E> universe)
+    public DisjointSets(Iterable<? extends E> universe)
     {
         for(E e : universe)
         {

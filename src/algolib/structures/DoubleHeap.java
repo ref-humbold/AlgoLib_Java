@@ -17,9 +17,24 @@ public class DoubleHeap<E>
         comparator_ = null;
     }
 
-    public DoubleHeap(Collection<E> collection)
+    @SuppressWarnings("unchecked")
+    public DoubleHeap(Collection<? extends E> collection)
     {
-        this();
+        super();
+
+        if(collection instanceof DoubleHeap)
+        {
+            DoubleHeap<? extends E> doubleHeap = ((DoubleHeap<? extends E>)collection);
+            comparator_ = (Comparator<? super E>)doubleHeap.comparator();
+        }
+        else if(collection instanceof PriorityQueue)
+        {
+            PriorityQueue<? extends E> priorityQueue = (PriorityQueue<E>)collection;
+            comparator_ = (Comparator<? super E>)priorityQueue.comparator();
+        }
+        else
+            comparator_ = null;
+
         addAll(collection);
     }
 
@@ -58,7 +73,7 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Adds a new value to this double heap.
+     * Adds new value to this double heap.
      * @param element value to be added
      * @return {@code true} if the value was added successfully, otherwise {@code false}
      */
@@ -99,15 +114,63 @@ public class DoubleHeap<E>
     }
 
     @Override
-    public E poll()
-    {
-        return pollMin();
-    }
-
-    @Override
     public E peek()
     {
         return peekMin();
+    }
+
+    /**
+     * Retrieves minimal element from this double heap.
+     * @return minimal element
+     */
+    public E peekMin()
+    {
+        return isEmpty() ? null : heap.get(INDEX_MIN);
+    }
+
+    /**
+     * Retrieves maximal element from this double heap.
+     * @return maximal element
+     */
+    public E peekMax()
+    {
+        switch(size())
+        {
+            case 0:
+                return null;
+
+            case 1:
+                return heap.get(INDEX_MIN);
+
+            default:
+                return heap.get(INDEX_MAX);
+        }
+    }
+
+    /**
+     * Retrieves minimal element from this double heap.
+     * @return minimal element
+     * @throws NoSuchElementException if double heap is empty
+     */
+    public E elementMin()
+    {
+        return Optional.ofNullable(peekMin()).orElseThrow(NoSuchElementException::new);
+    }
+
+    /**
+     * Retrieves maximal element from this double heap.
+     * @return maximal element
+     * @throws NoSuchElementException if double heap is empty
+     */
+    public E elementMax()
+    {
+        return Optional.ofNullable(peekMax()).orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public E poll()
+    {
+        return pollMin();
     }
 
     /**
@@ -126,45 +189,6 @@ public class DoubleHeap<E>
         }
 
         return minimal;
-    }
-
-    /**
-     * Retrieves minimal element from this double heap.
-     * @return minimal element
-     */
-    public E peekMin()
-    {
-        return isEmpty() ? null : heap.get(INDEX_MIN);
-    }
-
-    /**
-     * Retrieves and removes minimal element from this double heap.
-     * @return removed minimal element
-     * @throws NoSuchElementException if double heap is empty
-     */
-    public E removeMin()
-    {
-        E element = pollMin();
-
-        if(element == null)
-            throw new NoSuchElementException();
-
-        return element;
-    }
-
-    /**
-     * Retrieves minimal element from this double heap.
-     * @return minimal element
-     * @throws NoSuchElementException if double heap is empty
-     */
-    public E elementMin()
-    {
-        E element = peekMin();
-
-        if(element == null)
-            throw new NoSuchElementException();
-
-        return element;
     }
 
     /**
@@ -189,22 +213,13 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves maximal element from this double heap.
-     * @return maximal element
+     * Retrieves and removes minimal element from this double heap.
+     * @return removed minimal element
+     * @throws NoSuchElementException if double heap is empty
      */
-    public E peekMax()
+    public E removeMin()
     {
-        switch(size())
-        {
-            case 0:
-                return null;
-
-            case 1:
-                return heap.get(INDEX_MIN);
-
-            default:
-                return heap.get(INDEX_MAX);
-        }
+        return Optional.ofNullable(pollMin()).orElseThrow(NoSuchElementException::new);
     }
 
     /**
@@ -214,27 +229,7 @@ public class DoubleHeap<E>
      */
     public E removeMax()
     {
-        E element = pollMax();
-
-        if(element == null)
-            throw new NoSuchElementException();
-
-        return element;
-    }
-
-    /**
-     * Retrieves maximal element from this double heap.
-     * @return maximal element
-     * @throws NoSuchElementException if double heap is empty
-     */
-    public E elementMax()
-    {
-        E element = peekMax();
-
-        if(element == null)
-            throw new NoSuchElementException();
-
-        return element;
+        return Optional.ofNullable(pollMax()).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
@@ -329,7 +324,7 @@ public class DoubleHeap<E>
         heap.set(index2, temp);
     }
 
-    private static abstract class AbstractHeapIterator<E>
+    private abstract static class AbstractHeapIterator<E>
             implements Iterator<E>
     {
         final List<E> orderList = new ArrayList<>();

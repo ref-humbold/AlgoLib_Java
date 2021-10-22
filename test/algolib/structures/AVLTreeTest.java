@@ -1,12 +1,7 @@
 package algolib.structures;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +18,18 @@ public class AVLTreeTest
         testObject = new AVLTree<>(Arrays.asList(numbers));
     }
 
-    @AfterEach
-    public void tearDown()
+    @Test
+    public void constructor_WhenFromAVLTree_ThenCopied()
     {
-        testObject = null;
+        // given
+        testObject = new AVLTree<>(Comparator.comparing(i -> -i));
+        testObject.addAll(Arrays.asList(numbers));
+        // when
+        AVLTree<Number> result = new AVLTree<>(testObject);
+        // then
+        Assertions.assertThat(result.comparator()).isEqualTo(testObject.comparator());
+        Assertions.assertThat(result.size()).isEqualTo(testObject.size());
+        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(testObject);
     }
 
     @Test

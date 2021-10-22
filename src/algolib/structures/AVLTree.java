@@ -17,9 +17,29 @@ public class AVLTree<E>
         comparator_ = null;
     }
 
-    public AVLTree(Collection<E> collection)
+    @SuppressWarnings("unchecked")
+    public AVLTree(Collection<? extends E> collection)
     {
-        this();
+        super();
+
+        if(collection instanceof AVLTree)
+        {
+            AVLTree<? extends E> avlTree = (AVLTree<? extends E>)collection;
+            comparator_ = (Comparator<? super E>)avlTree.comparator();
+        }
+        else if(collection instanceof SortedSet)
+        {
+            SortedSet<? extends E> sortedSet = (SortedSet<? extends E>)collection;
+            comparator_ = (Comparator<? super E>)sortedSet.comparator();
+        }
+        else if(collection instanceof PriorityQueue)
+        {
+            PriorityQueue<? extends E> priorityQueue = (PriorityQueue<? extends E>)collection;
+            comparator_ = (Comparator<? super E>)priorityQueue.comparator();
+        }
+        else
+            comparator_ = null;
+
         addAll(collection);
     }
 
@@ -143,13 +163,12 @@ public class AVLTree<E>
     @Override
     public boolean remove(Object object)
     {
-        AVLNode<E> node = findNode(object, (n, obj) -> Objects.equals(n.getElement(), obj));
-
-        if(node == null)
-            return false;
-
-        deleteNode(node);
-        return true;
+        return Optional.ofNullable(
+                               findNode(object, (n, obj) -> Objects.equals(n.getElement(), obj)))
+                       .stream()
+                       .peek(this::deleteNode)
+                       .findFirst()
+                       .isPresent();
     }
 
     @Override
@@ -313,8 +332,8 @@ public class AVLTree<E>
 
     private int countBalance(AVLNode<E> node)
     {
-        int leftHeight = node.getLeft() == null ? 0 : node.getLeft().getHeight();
-        int rightHeight = node.getRight() == null ? 0 : node.getRight().getHeight();
+        int leftHeight = Optional.ofNullable(node.getLeft()).map(AVLNode::getHeight).orElse(0);
+        int rightHeight = Optional.ofNullable(node.getRight()).map(AVLNode::getHeight).orElse(0);
 
         return leftHeight - rightHeight;
     }
@@ -391,20 +410,20 @@ public class AVLTree<E>
 
         void countHeight()
         {
-            int leftHeight = left == null ? 0 : left.getHeight();
-            int rightHeight = right == null ? 0 : right.getHeight();
+            int leftHeight = Optional.ofNullable(left).map(AVLNode::getHeight).orElse(0);
+            int rightHeight = Optional.ofNullable(right).map(AVLNode::getHeight).orElse(0);
 
             height = Math.max(leftHeight, rightHeight) + 1;
         }
 
         AVLNode<T> minimum()
         {
-            return left == null ? this : left.minimum();
+            return Optional.ofNullable(left).map(AVLNode::minimum).orElse(this);
         }
 
         AVLNode<T> maximum()
         {
-            return right == null ? this : right.maximum();
+            return Optional.ofNullable(right).map(AVLNode::maximum).orElse(this);
         }
     }
 

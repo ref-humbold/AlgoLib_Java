@@ -40,12 +40,9 @@ public class DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     @Override
     public int getInputDegree(Vertex<VertexId> vertex)
     {
-        return representation.getEdgesSet()
-                             .flatMap(edges -> edges.stream()
-                                                    .filter(edge -> edge.destination.equals(
-                                                            vertex)))
-                             .mapToInt(edge -> 1)
-                             .sum();
+        return representation.getEdgesSet().flatMap(edges -> edges.stream().filter(edge -> {
+            return edge.destination.equals(vertex);
+        })).mapToInt(edge -> 1).sum();
     }
 
     @Override
