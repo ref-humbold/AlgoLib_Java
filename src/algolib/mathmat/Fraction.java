@@ -97,15 +97,45 @@ public final class Fraction
                            denominator * f.denominator);
     }
 
+    public Fraction add(int i)
+    {
+        return add(fromInt(i));
+    }
+
+    public Fraction add(long i)
+    {
+        return add(fromLong(i));
+    }
+
     public Fraction subtract(Fraction f)
     {
         return Fraction.of(numerator * f.denominator - f.numerator * denominator,
                            denominator * f.denominator);
     }
 
+    public Fraction subtract(int i)
+    {
+        return subtract(fromInt(i));
+    }
+
+    public Fraction subtract(long i)
+    {
+        return subtract(fromLong(i));
+    }
+
     public Fraction multiply(Fraction f)
     {
         return Fraction.of(numerator * f.numerator, denominator * f.denominator);
+    }
+
+    public Fraction multiply(int i)
+    {
+        return multiply(fromInt(i));
+    }
+
+    public Fraction multiply(long i)
+    {
+        return multiply(fromLong(i));
     }
 
     public Fraction divide(Fraction f)
@@ -114,6 +144,16 @@ public final class Fraction
             throw new ArithmeticException("Division by zero");
 
         return Fraction.of(numerator * f.denominator, denominator * f.numerator);
+    }
+
+    public Fraction divide(int i)
+    {
+        return divide(fromInt(i));
+    }
+
+    public Fraction divide(long i)
+    {
+        return divide(fromLong(i));
     }
 
     @Override

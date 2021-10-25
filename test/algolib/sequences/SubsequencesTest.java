@@ -72,7 +72,7 @@ public class SubsequencesTest
     // region maximumSubarray
 
     @Test
-    public void maximumSubarray1()
+    public void maximumSubarray_WhenNegativeIsLessThanSubsum_ThenIncludeNegative()
     {
         // given
         List<Double> sequence = List.of(3.5, 4.8, -1.6, 7.7, 2.1, -9.3, 0.8);
@@ -83,7 +83,7 @@ public class SubsequencesTest
     }
 
     @Test
-    public void maximumSubarray2()
+    public void maximumSubarray_WhenNegativeIsGreaterThanSubsum_ThenExcludeNegative()
     {
         // given
         List<Double> sequence = List.of(-9.3, -1.2, 3.5, 4.8, -10.6, 7.7, 2.1, 0.8, 4.0);
@@ -108,7 +108,7 @@ public class SubsequencesTest
     // region maximalSubsum
 
     @Test
-    public void maximalSubsum1()
+    public void maximalSubsum_WhenNegativeIsLessThanSubsum_ThenIncludeNegative()
     {
         // given
         List<Double> sequence = List.of(3.5, 4.8, -1.6, 7.7, 2.1, -9.3, 0.8);
@@ -119,7 +119,7 @@ public class SubsequencesTest
     }
 
     @Test
-    public void maximalSubsum2()
+    public void maximalSubsum_WhenNegativeIsGreaterThanSubsum_ThenExcludeNegative()
     {
         // given
         List<Double> sequence = List.of(-9.3, -1.2, 3.5, 4.8, -10.6, 7.7, 2.1, 0.8, 4.0);
@@ -130,7 +130,7 @@ public class SubsequencesTest
     }
 
     @Test
-    public void maximumalSubsum_WhenAllElementsAreNegative_ThenZero()
+    public void maximalSubsum_WhenAllElementsAreNegative_ThenZero()
     {
         // given
         List<Double> sequence = List.of(-9.0, -2.4, -3.07, -1.93, -12.67);

@@ -1,6 +1,8 @@
 package algolib.sequences;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import algolib.tuples.Pair;
 
@@ -15,26 +17,23 @@ public final class Subsequences
      */
     public static <T> Collection<T> longestIncreasing(List<T> sequence, Comparator<T> comparator)
     {
-        List<Optional<Integer>> previousElem = new ArrayList<>();
-        List<Integer> subsequence = new ArrayList<>();
-
-        previousElem.add(Optional.empty());
-        subsequence.add(0);
+        List<Optional<Integer>> previousElem =
+                Stream.of(Optional.<Integer>empty()).collect(Collectors.toList());
+        List<Integer> subsequence = Stream.of(0).collect(Collectors.toList());
 
         for(int i = 1; i < sequence.size(); ++i)
         {
-            Integer subseqEnd = subsequence.get(subsequence.size() - 1);
+            Integer subsequenceEnd = subsequence.get(subsequence.size() - 1);
 
-            if(comparator.compare(sequence.get(i), sequence.get(subseqEnd)) > 0)
+            if(comparator.compare(sequence.get(i), sequence.get(subsequenceEnd)) > 0)
             {
-                previousElem.add(Optional.of(subseqEnd));
+                previousElem.add(Optional.of(subsequenceEnd));
                 subsequence.add(i);
             }
             else
             {
                 int index =
-                        searchIndex(sequence, comparator, subsequence, 0, subsequence.size() - 1,
-                                    i);
+                        searchIndex(sequence, comparator, subsequence, 0, subsequence.size(), i);
 
                 subsequence.set(index, i);
                 previousElem.add(
@@ -42,18 +41,18 @@ public final class Subsequences
             }
         }
 
-        List<T> longestSubseq = new ArrayList<>();
-        Optional<Integer> j = Optional.of(subsequence.get(subsequence.size() - 1));
+        List<T> longestSubsequence = new ArrayList<>();
+        Optional<Integer> subsequenceIndex = Optional.of(subsequence.get(subsequence.size() - 1));
 
-        while(j.isPresent())
+        while(subsequenceIndex.isPresent())
         {
-            longestSubseq.add(sequence.get(j.get()));
-            j = previousElem.get(j.get());
+            longestSubsequence.add(sequence.get(subsequenceIndex.get()));
+            subsequenceIndex = previousElem.get(subsequenceIndex.get());
         }
 
-        Collections.reverse(longestSubseq);
+        Collections.reverse(longestSubsequence);
 
-        return longestSubseq;
+        return longestSubsequence;
     }
 
     /**
@@ -134,20 +133,22 @@ public final class Subsequences
     }
 
     // Searches for place of element in list of subsequences.
+    // (indexBegin inclusive, indexEnd exclusive)
     private static <T> int searchIndex(List<T> sequence, Comparator<T> comparator,
                                        List<Integer> subsequence, int indexBegin, int indexEnd,
                                        int indexElem)
     {
-        if(indexBegin == indexEnd)
+        if(indexEnd - indexBegin <= 1)
             return indexBegin;
 
-        int indexMiddle = (indexBegin + indexEnd) / 2;
+        int indexMiddle = (indexBegin + indexEnd - 1) / 2;
         T middleElem = sequence.get(subsequence.get(indexMiddle));
 
         if(comparator.compare(sequence.get(indexElem), middleElem) > 0)
             return searchIndex(sequence, comparator, subsequence, indexMiddle + 1, indexEnd,
                                indexElem);
 
-        return searchIndex(sequence, comparator, subsequence, indexBegin, indexMiddle, indexElem);
+        return searchIndex(sequence, comparator, subsequence, indexBegin, indexMiddle + 1,
+                           indexElem);
     }
 }
