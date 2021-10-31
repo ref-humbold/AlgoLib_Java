@@ -14,6 +14,11 @@ public class Edge<VertexId>
         this.destination = destination;
     }
 
+    /**
+     * @param vertex vertex adjacent to this edge
+     * @return neighbour of the vertex in this edge
+     * @throws IllegalArgumentException if  the vertex is not adjacent to this edge
+     */
     public Vertex<VertexId> getNeighbour(Vertex<VertexId> vertex)
     {
         if(source.equals(vertex))
@@ -26,6 +31,7 @@ public class Edge<VertexId>
                 String.format("Edge %s is not adjacent to given vertex %s", this, vertex));
     }
 
+    /** @return edge with reversed direction */
     public Edge<VertexId> reversed()
     {
         return new Edge<>(destination, source);

@@ -49,7 +49,7 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
     Collection<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex);
 
     /**
-     * @param vertex a vertex from this graph
+     * @param vertex vertex from this graph
      * @return collection of neighbouring vertices
      */
     Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex);

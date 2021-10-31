@@ -211,7 +211,7 @@ public class MultipartiteGraphTest
     }
 
     @Test
-    public void addEdge_WhenNewEdge_ThenCreatedEdge()
+    public void addEdgeBetween_WhenNewEdge_ThenCreatedEdge()
     {
         // given
         Vertex<Integer> source = new Vertex<>(2);
@@ -227,7 +227,7 @@ public class MultipartiteGraphTest
     }
 
     @Test
-    public void addEdge_WhenExistingEdge_ThenNull()
+    public void addEdgeBetween_WhenExistingEdge_ThenNull()
     {
         // given
         Vertex<Integer> source = new Vertex<>(8);
@@ -241,12 +241,22 @@ public class MultipartiteGraphTest
     }
 
     @Test
-    public void addEdge_WhenSameGroup_ThenGraphPartitionException()
+    public void addEdgeBetween_WhenSameGroup_ThenGraphPartitionException()
     {
         // when
         Throwable throwable = Assertions.catchThrowable(
                 () -> testObject.addEdgeBetween(new Vertex<>(5), new Vertex<>(8)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(GraphPartitionException.class);
+    }
+
+    @Test
+    public void addEdgeBetween_WhenInvalidVertex_ThenIllegalArgumentException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(
+                () -> testObject.addEdgeBetween(new Vertex<>(5), new Vertex<>(18)));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }
 }

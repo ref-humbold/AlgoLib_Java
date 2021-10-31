@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /** Structure of multipartite graph */
@@ -109,11 +110,16 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
         return graph.getInputDegree(vertex);
     }
 
-    public DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> asDirected()
+    @Override
+    public DirectedGraph<VertexId, VertexProperty, EdgeProperty> asDirected()
     {
         return graph.asDirected();
     }
 
+    /**
+     * @param groupNumber group number
+     * @return vertices that belong to the group
+     */
     public Collection<Vertex<VertexId>> getVerticesFromGroup(int groupNumber)
     {
         validateGroup(groupNumber);
@@ -124,51 +130,101 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
                              .collect(Collectors.toList());
     }
 
+    /**
+     * Adds new vertex to given group in this graph.
+     * @param groupNumber group number
+     * @param vertexId identifier of new vertex
+     * @return new vertex, or {@code null} if vertex already exists
+     */
     public Vertex<VertexId> addVertex(int groupNumber, VertexId vertexId)
     {
         return addVertex(groupNumber, new Vertex<>(vertexId));
     }
 
+    /**
+     * Adds new vertex with given property to given group in this graph.
+     * @param groupNumber group number
+     * @param vertexId identifier of new vertex
+     * @param property vertex property
+     * @return new vertex, or {@code null} if vertex already exists
+     */
     public Vertex<VertexId> addVertex(int groupNumber, VertexId vertexId, VertexProperty property)
     {
         return addVertex(groupNumber, new Vertex<>(vertexId), property);
     }
 
+    /**
+     * Adds new vertex to given group in this graph.
+     * @param groupNumber group number
+     * @param vertex new vertex
+     * @return new vertex, or {@code null} if vertex already exists
+     */
     public Vertex<VertexId> addVertex(int groupNumber, Vertex<VertexId> vertex)
     {
         return addVertex(groupNumber, vertex, null);
     }
 
+    /**
+     * Adds new vertex with given property to given group in this graph.
+     * @param groupNumber group number
+     * @param vertex new vertex
+     * @param property vertex property
+     * @return new vertex, or {@code null} if vertex already exists
+     */
     public Vertex<VertexId> addVertex(int groupNumber, Vertex<VertexId> vertex,
                                       VertexProperty property)
     {
         validateGroup(groupNumber);
-
-        Vertex<VertexId> newVertex = graph.addVertex(vertex, property);
-
-        if(newVertex != null)
+        return Optional.ofNullable(graph.addVertex(vertex, property)).map(newVertex -> {
             vertexGroupMap.put(newVertex, groupNumber);
-
-        return newVertex;
+            return newVertex;
+        }).orElse(null);
     }
 
+    /**
+     * Adds new edge between given vertices to this graph.
+     * @param source source vertex
+     * @param destination destination vertex
+     * @return new edge, or {@code null} if edge already exists
+     * @throws GraphPartitionException if vertices belong to same group
+     */
     public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
         return addEdge(new Edge<>(source, destination));
     }
 
+    /**
+     * Adds new edge between given vertices with given property to this graph.
+     * @param source source vertex
+     * @param destination destination vertex
+     * @param property edge property
+     * @return new edge, or {@code null} if edge already exists
+     * @throws GraphPartitionException if vertices belong to same group
+     */
     public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination,
                                          EdgeProperty property)
     {
-
         return addEdge(new Edge<>(source, destination), property);
     }
 
+    /**
+     * Adds new edge to this graph.
+     * @param edge new edge
+     * @return new edge, or {@code null} if edge already exists
+     * @throws GraphPartitionException if vertices belong to same group
+     */
     public Edge<VertexId> addEdge(Edge<VertexId> edge)
     {
         return addEdge(edge, null);
     }
 
+    /**
+     * Adds new edge with given property to this graph.
+     * @param edge new edge
+     * @param property edge property
+     * @return new edge, or {@code null} if edge already exists
+     * @throws GraphPartitionException if vertices belong to same group
+     */
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {
         if(areInSameGroup(edge.source, edge.destination))

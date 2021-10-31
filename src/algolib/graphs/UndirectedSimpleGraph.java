@@ -54,10 +54,7 @@ public class UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
         return edge;
     }
 
-    /**
-     * Converts this graph to a directed graph with the same vertices.
-     * @return directed graph
-     */
+    @Override
     public DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> asDirected()
     {
         DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> directedSimpleGraph =

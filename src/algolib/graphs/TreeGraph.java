@@ -81,14 +81,15 @@ public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
         return graph.getInputDegree(vertex);
     }
 
-    public DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> asDirected()
+    @Override
+    public DirectedGraph<VertexId, VertexProperty, EdgeProperty> asDirected()
     {
         return graph.asDirected();
     }
 
     /**
      * Adds new vertex to this graph and creates an edge to given existing vertex.
-     * @param vertexId new vertex identifier
+     * @param vertexId identifier of new vertex
      * @param neighbour existing vertex
      * @return new edge between the vertices, or {@code null} if vertex already exists
      */
@@ -99,7 +100,7 @@ public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex to this graph and creates an edge to given existing vertex.
-     * @param vertexId new vertex identifier
+     * @param vertexId identifier of new vertex
      * @param neighbour existing vertex
      * @param vertexProperty vertex property
      * @param edgeProperty edge property
