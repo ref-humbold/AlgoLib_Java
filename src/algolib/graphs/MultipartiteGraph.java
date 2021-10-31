@@ -17,8 +17,8 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     public MultipartiteGraph(int groupsCount)
     {
-        if(groupsCount < 0)
-            throw new IllegalArgumentException("Number of groups cannot be negative");
+        if(groupsCount <= 0)
+            throw new IllegalArgumentException("Number of groups cannot be negative nor zero");
 
         this.groupsCount = groupsCount;
     }
@@ -86,15 +86,15 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
     }
 
     @Override
-    public Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex)
-    {
-        return graph.getNeighbours(vertex);
-    }
-
-    @Override
     public Collection<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex)
     {
         return graph.getAdjacentEdges(vertex);
+    }
+
+    @Override
+    public Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex)
+    {
+        return graph.getNeighbours(vertex);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
         Vertex<VertexId> newVertex = graph.addVertex(vertex, property);
 
         if(newVertex != null)
-            vertexGroupMap.put(vertex, groupNumber);
+            vertexGroupMap.put(newVertex, groupNumber);
 
         return newVertex;
     }
