@@ -20,7 +20,7 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
     Collection<Edge<VertexId>> getEdges();
 
     /**
-     * @param vertexId vertex indentifier
+     * @param vertexId vertex identifier
      * @return vertex with the identifier, or {@code null} if no vertex
      */
     Vertex<VertexId> getVertex(VertexId vertexId);
@@ -69,24 +69,28 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
     interface GraphProperties<VertexId, VertexProperty, EdgeProperty>
     {
         /**
+         * Extracts property of given vertex.
          * @param vertex vertex from this graph
-         * @return property of the vertex
+         * @return property of the vertex, or {@code null} if no property
          */
         VertexProperty get(Vertex<VertexId> vertex);
 
         /**
+         * Assigns new property for given vertex.
          * @param vertex vertex from this graph
          * @param property new property of given vertex
          */
         void set(Vertex<VertexId> vertex, VertexProperty property);
 
         /**
+         * Extracts property of given edge.
          * @param edge edge from this graph
-         * @return property of the vertex
+         * @return property of the vertex, or {@code null} if no property
          */
         EdgeProperty get(Edge<VertexId> edge);
 
         /**
+         * Assigns new property for given edge.
          * @param edge edge from this graph
          * @param property new property of given edge
          */

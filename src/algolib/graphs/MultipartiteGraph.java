@@ -199,7 +199,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @param destination destination vertex
      * @param property edge property
      * @return new edge, or {@code null} if edge already exists
-     * @throws GraphPartitionException if vertices belong to same group
+     * @throws GraphPartitionException if the edge connects vertices that belong to same group
      */
     public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination,
                                          EdgeProperty property)
@@ -211,7 +211,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * Adds new edge to this graph.
      * @param edge new edge
      * @return new edge, or {@code null} if edge already exists
-     * @throws GraphPartitionException if vertices belong to same group
+     * @throws GraphPartitionException if the edge connects vertices that belong to same group
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge)
     {
