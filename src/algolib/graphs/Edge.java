@@ -16,8 +16,8 @@ public class Edge<VertexId>
 
     /**
      * @param vertex vertex adjacent to this edge
-     * @return neighbour of the vertex in this edge
-     * @throws IllegalArgumentException if  the vertex is not adjacent to this edge
+     * @return neighbour of the vertex along this edge
+     * @throws IllegalArgumentException if the vertex is not adjacent to this edge
      */
     public Vertex<VertexId> getNeighbour(Vertex<VertexId> vertex)
     {

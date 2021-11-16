@@ -255,7 +255,7 @@ public class MultipartiteGraphTest
     {
         // when
         Throwable throwable = Assertions.catchThrowable(
-                () -> testObject.addEdgeBetween(new Vertex<>(5), new Vertex<>(18)));
+                () -> testObject.addEdgeBetween(new Vertex<>(15), new Vertex<>(18)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }

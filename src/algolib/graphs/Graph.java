@@ -7,35 +7,35 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
 {
     GraphProperties<VertexId, VertexProperty, EdgeProperty> getProperties();
 
-    /** @return number of vertices */
+    /** @return number of vertices in this graph */
     int getVerticesCount();
 
-    /** @return number of edges */
+    /** @return number of edges in this graph */
     int getEdgesCount();
 
-    /** @return collection of graph vertices */
+    /** @return collection of vertices in this graph */
     Collection<Vertex<VertexId>> getVertices();
 
-    /** @return collection of graph edges */
+    /** @return collection of edges in this graph */
     Collection<Edge<VertexId>> getEdges();
 
     /**
      * @param vertexId vertex indentifier
-     * @return vertex with the identifier, or {@code null} if no vertex
+     * @return vertex with the identifier, or {@code null} if no such vertex
      */
     Vertex<VertexId> getVertex(VertexId vertexId);
 
     /**
      * @param sourceId source vertex identifier
      * @param destinationId destination vertex identifier
-     * @return edge between the vertices, or {@code null} if no edge
+     * @return edge between the vertices, or {@code null} if no such edge
      */
     Edge<VertexId> getEdge(VertexId sourceId, VertexId destinationId);
 
     /**
      * @param source source vertex
      * @param destination destination vertex
-     * @return edge between the vertices, or {@code null} if no edge
+     * @return edge between the vertices, or {@code null} if no such edge
      */
     default Edge<VertexId> getEdge(Vertex<VertexId> source, Vertex<VertexId> destination)
     {

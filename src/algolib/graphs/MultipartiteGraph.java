@@ -236,7 +236,10 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     private boolean areInSameGroup(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
     {
-        return Objects.equals(vertexGroupMap.get(vertex1), vertexGroupMap.get(vertex2));
+        Integer group1 = vertexGroupMap.get(vertex1);
+        Integer group2 = vertexGroupMap.get(vertex2);
+
+        return group1 != null && group1.equals(group2);
     }
 
     private void validateGroup(int groupNumber)
