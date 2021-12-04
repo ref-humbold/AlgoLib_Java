@@ -32,8 +32,7 @@ public final class Subsequences
             }
             else
             {
-                int index =
-                        searchIndex(sequence, comparator, subsequence, 0, subsequence.size(), i);
+                int index = searchIndex(sequence, comparator, subsequence, i, 0, subsequence.size());
 
                 subsequence.set(index, i);
                 previousElem.add(
