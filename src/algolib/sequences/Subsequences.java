@@ -135,8 +135,8 @@ public final class Subsequences
     // Searches for place of element in list of subsequences.
     // (indexBegin inclusive, indexEnd exclusive)
     private static <T> int searchIndex(List<T> sequence, Comparator<T> comparator,
-                                       List<Integer> subsequence, int indexBegin, int indexEnd,
-                                       int indexElem)
+                                       List<Integer> subsequence, int indexElem, int indexBegin,
+                                       int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
             return indexBegin;
@@ -145,10 +145,8 @@ public final class Subsequences
         T middleElem = sequence.get(subsequence.get(indexMiddle));
 
         if(comparator.compare(sequence.get(indexElem), middleElem) > 0)
-            return searchIndex(sequence, comparator, subsequence, indexMiddle + 1, indexEnd,
-                               indexElem);
+            return searchIndex(sequence, comparator, subsequence,indexElem, indexMiddle + 1, indexEnd);
 
-        return searchIndex(sequence, comparator, subsequence, indexBegin, indexMiddle + 1,
-                           indexElem);
+        return searchIndex(sequence, comparator, subsequence,indexElem, indexBegin, indexMiddle + 1);
     }
 }

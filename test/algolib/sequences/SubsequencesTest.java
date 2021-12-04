@@ -45,6 +45,17 @@ public class SubsequencesTest
     }
 
     @Test
+    public void longestIncreasing_WhenSearchInMiddle_ThenLeastLexicographically()
+    {
+        // given
+        List<Integer> sequence = List.of(0, 2, 4, 6, 8, 3, 5, 7, 8);
+        // when
+        Collection<Integer> result = Subsequences.longestIncreasing(sequence, Integer::compareTo);
+        // then
+        Assertions.assertThat(result).containsExactly(0, 2, 3, 5, 7, 8);
+    }
+
+    @Test
     public void longestIncreasing_WhenIncreasingAndReversedComparator_ThenLastElementOnly()
     {
         // given
