@@ -10,7 +10,7 @@ import algolib.tuples.Pair;
 public class ClosestPointsTest
 {
     @Test
-    public void findClosestPoints_WhenOnePoint_ThenThisPoint()
+    public void find_WhenOnePoint_ThenThisPoint()
     {
         // when
         Pair<Point2D, Point2D> result = ClosestPoints.find(List.of(Point2D.of(2, 2)));
@@ -19,7 +19,7 @@ public class ClosestPointsTest
     }
 
     @Test
-    public void findClosestPoints_WhenTwoPoints_ThenThesePoints()
+    public void find_WhenTwoPoints_ThenThesePoints()
     {
         // when
         Pair<Point2D, Point2D> result =
@@ -29,7 +29,7 @@ public class ClosestPointsTest
     }
 
     @Test
-    public void findClosestPoints_WhenThreePoints_ThenPairOfClosestPoints()
+    public void find_WhenThreePoints_ThenPairOfClosestPoints()
     {
         // when
         Pair<Point2D, Point2D> result =
@@ -39,7 +39,7 @@ public class ClosestPointsTest
     }
 
     @Test
-    public void findClosestPoints_WhenMultiplePoints_ThenPairOfClosestPoints()
+    public void find_WhenMultiplePoints_ThenPairOfClosestPoints()
     {
         // when
         Pair<Point2D, Point2D> result = ClosestPoints.find(
