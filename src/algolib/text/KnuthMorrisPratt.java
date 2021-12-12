@@ -1,12 +1,18 @@
-// Knuth-Morris-Pratt algorithm
 package algolib.text;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public final class KMP
+/** Knuth-Morris-Pratt algorithm for pattern searching */
+public final class KnuthMorrisPratt
 {
+    /**
+     * Searches for pattern occurrences in given text using Knuth-Morris-Pratt algorithm.
+     * @param text a text
+     * @param pattern a pattern
+     * @return list of indices with pattern occurrences
+     */
     public static List<Integer> kmp(String text, String pattern)
     {
         Objects.requireNonNull(text, "Text is null.");
@@ -16,7 +22,7 @@ public final class KMP
             return new ArrayList<>();
 
         List<Integer> places = new ArrayList<>();
-        List<Integer> pi = KMP.prefixes(pattern);
+        List<Integer> pi = KnuthMorrisPratt.prefixes(pattern);
         int pos = 0;
 
         for(int i = 0; i < text.length(); ++i)
@@ -37,6 +43,7 @@ public final class KMP
         return places;
     }
 
+    // Computes Knuth's PI prefix function values for specified pattern.
     private static List<Integer> prefixes(String pattern)
     {
         List<Integer> pi = new ArrayList<>();
