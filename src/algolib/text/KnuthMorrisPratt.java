@@ -13,7 +13,7 @@ public final class KnuthMorrisPratt
      * @param pattern a pattern
      * @return list of indices with pattern occurrences
      */
-    public static List<Integer> kmp(String text, String pattern)
+    public static List<Integer> kmpSearch(String text, String pattern)
     {
         Objects.requireNonNull(text, "Text is null.");
         Objects.requireNonNull(pattern, "Pattern is null.");

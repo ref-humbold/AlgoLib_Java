@@ -6,15 +6,15 @@ import java.util.Optional;
 
 import algolib.tuples.Pair;
 
-/** Algorithm for pair of closest points */
+/** Algorithm for searching closest points */
 public final class ClosestPoints
 {
     /**
-     * Searches for a pair closest of points among given points.
-     * @param points a list of points
-     * @return pair of closest points
+     * Searches for closest of points among given points.
+     * @param points list of points
+     * @return pair of the closest points
      */
-    public static Pair<Point2D, Point2D> find(List<Point2D> points)
+    public static Pair<Point2D, Point2D> findClosestPoints(List<Point2D> points)
     {
         List<Point2D> pointsX = new ArrayList<>(points);
         List<Point2D> pointsY = new ArrayList<>(points);

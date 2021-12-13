@@ -8,11 +8,11 @@ import java.util.List;
 public final class ConvexHull
 {
     /**
-     * Constructs a convex hull of given points.
-     * @param points a list of points
+     * Constructs convex hull of given points.
+     * @param points list of points
      * @return list of hull points
      */
-    public static List<Point2D> find(List<Point2D> points)
+    public static List<Point2D> findConvexHull(List<Point2D> points)
     {
         if(points.size() < 3)
             return List.of();

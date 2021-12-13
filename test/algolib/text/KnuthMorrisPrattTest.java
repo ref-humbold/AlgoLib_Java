@@ -8,73 +8,75 @@ import org.junit.jupiter.api.Test;
 public class KnuthMorrisPrattTest
 {
     @Test
-    public void kmp_WhenPatternFoundOnce_ThenSingleOccurrence()
+    public void kmpSearch_WhenPatternFoundOnce_ThenSingleOccurrence()
     {
         // when
-        List<Integer> result = KnuthMorrisPratt.kmp("abcde", "a");
+        List<Integer> result = KnuthMorrisPratt.kmpSearch("abcde", "a");
         // then
         Assertions.assertThat(result).containsExactly(0);
     }
 
     @Test
-    public void kmp_WhenPatternFoundTwice_ThenTwoOccurrences()
+    public void kmpSearch_WhenPatternFoundTwice_ThenTwoOccurrences()
     {
         // when
-        List<Integer> result = KnuthMorrisPratt.kmp("abcdae", "a");
+        List<Integer> result = KnuthMorrisPratt.kmpSearch("abcdae", "a");
         // then
         Assertions.assertThat(result).containsExactly(0, 4);
     }
 
     @Test
-    public void kmp_WhenPatternFoundTwiceAndOverlaps_ThenTwoOccurrences()
+    public void kmpSearch_WhenPatternFoundTwiceAndOverlaps_ThenTwoOccurrences()
     {
         // when
-        List<Integer> result = KnuthMorrisPratt.kmp("aaabcde", "aa");
+        List<Integer> result = KnuthMorrisPratt.kmpSearch("aaabcde", "aa");
         // then
         Assertions.assertThat(result).containsExactly(0, 1);
     }
 
     @Test
-    public void kmp_WhenPatternNotFound_ThenEmpty()
+    public void kmpSearch_WhenPatternNotFound_ThenEmpty()
     {
         // when
-        List<Integer> result = KnuthMorrisPratt.kmp("abcde", "x");
+        List<Integer> result = KnuthMorrisPratt.kmpSearch("abcde", "x");
         // then
         Assertions.assertThat(result).isEmpty();
     }
 
     @Test
-    public void kmp_WhenPatternIsEmptyString_ThenEmpty()
+    public void kmpSearch_WhenPatternIsEmptyString_ThenEmpty()
     {
         // when
-        List<Integer> result = KnuthMorrisPratt.kmp("abcde", "");
+        List<Integer> result = KnuthMorrisPratt.kmpSearch("abcde", "");
         // then
         Assertions.assertThat(result).isEmpty();
     }
 
     @Test
-    public void kmp_WhenTextIsEmptyString_ThenEmpty()
+    public void kmpSearch_WhenTextIsEmptyString_ThenEmpty()
     {
         // when
-        List<Integer> result = KnuthMorrisPratt.kmp("", "a");
+        List<Integer> result = KnuthMorrisPratt.kmpSearch("", "a");
         // then
         Assertions.assertThat(result).isEmpty();
     }
 
     @Test
-    public void kmp_WhenTextIsNull_ThenNullPointerException()
+    public void kmpSearch_WhenTextIsNull_ThenNullPointerException()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> KnuthMorrisPratt.kmp(null, "a"));
+        Throwable throwable =
+                Assertions.catchThrowable(() -> KnuthMorrisPratt.kmpSearch(null, "a"));
         // then
         Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }
 
     @Test
-    public void kmp_WhenPatternIsNull_ThenNullPointerException()
+    public void kmpSearch_WhenPatternIsNull_ThenNullPointerException()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> KnuthMorrisPratt.kmp("abcde", null));
+        Throwable throwable =
+                Assertions.catchThrowable(() -> KnuthMorrisPratt.kmpSearch("abcde", null));
         // then
         Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
     }

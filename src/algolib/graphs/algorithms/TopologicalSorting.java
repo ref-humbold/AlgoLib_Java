@@ -15,11 +15,11 @@ public final class TopologicalSorting
      * @return topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
-    public static <VertexId extends Comparable<VertexId>, VertexProperty, EdgeProperty> List<Vertex<VertexId>> sortUsingInputs(
+    public static <VertexId extends Comparable<VertexId>, VertexProperty, EdgeProperty> List<Vertex<VertexId>> inputsTopologicalSort(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
             throws DirectedCyclicGraphException
     {
-        return sortUsingInputs(graph, VertexId::compareTo);
+        return inputsTopologicalSort(graph, VertexId::compareTo);
     }
 
     /**
@@ -29,7 +29,7 @@ public final class TopologicalSorting
      * @return topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
-    public static <VertexId, VertexProperty, EdgeProperty> List<Vertex<VertexId>> sortUsingInputs(
+    public static <VertexId, VertexProperty, EdgeProperty> List<Vertex<VertexId>> inputsTopologicalSort(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph,
             Comparator<VertexId> vertexIdComparator)
             throws DirectedCyclicGraphException
@@ -80,7 +80,7 @@ public final class TopologicalSorting
      * @return topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
-    public static <VertexId, VertexProperty, EdgeProperty> List<Vertex<VertexId>> sortUsingDFS(
+    public static <VertexId, VertexProperty, EdgeProperty> List<Vertex<VertexId>> dfsTopologicalSort(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
             throws DirectedCyclicGraphException
     {

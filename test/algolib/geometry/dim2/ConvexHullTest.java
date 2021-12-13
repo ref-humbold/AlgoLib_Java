@@ -8,40 +8,41 @@ import org.junit.jupiter.api.Test;
 public class ConvexHullTest
 {
     @Test
-    public void find_WhenOnePoint_ThenEmpty()
+    public void findConvexHull_WhenOnePoint_ThenEmpty()
     {
         // when
-        List<Point2D> result = ConvexHull.find(List.of(Point2D.of(3.0, 2.0)));
+        List<Point2D> result = ConvexHull.findConvexHull(List.of(Point2D.of(3.0, 2.0)));
         // then
         Assertions.assertThat(result).isEmpty();
     }
 
     @Test
-    public void find_WhenTwoPoints_ThenEmpty()
+    public void findConvexHull_WhenTwoPoints_ThenEmpty()
     {
         // when
-        List<Point2D> result = ConvexHull.find(List.of(Point2D.of(2.0, 3.0), Point2D.of(3.0, 2.0)));
+        List<Point2D> result =
+                ConvexHull.findConvexHull(List.of(Point2D.of(2.0, 3.0), Point2D.of(3.0, 2.0)));
         // then
         Assertions.assertThat(result).isEmpty();
     }
 
     @Test
-    public void find_WhenThreePoints_ThenThesePointsInHull()
+    public void findConvexHull_WhenThreePoints_ThenThesePointsInHull()
     {
         // given
         List<Point2D> points =
                 List.of(Point2D.of(1.0, -1.0), Point2D.of(5.0, 1.0), Point2D.of(3.0, 4.0));
         // when
-        List<Point2D> result = ConvexHull.find(points);
+        List<Point2D> result = ConvexHull.findConvexHull(points);
         // then
         Assertions.assertThat(result).isEqualTo(points);
     }
 
     @Test
-    public void find_ThenPointsInHull()
+    public void findConvexHull_ThenPointsInHull()
     {
         // when
-        List<Point2D> result = ConvexHull.find(
+        List<Point2D> result = ConvexHull.findConvexHull(
                 List.of(Point2D.of(1, -3), Point2D.of(-4, 6), Point2D.of(-5, -7),
                         Point2D.of(-8, -7), Point2D.of(-3, -4), Point2D.of(5, 9),
                         Point2D.of(-1, -8), Point2D.of(-5, 10), Point2D.of(8, 0), Point2D.of(3, -6),
@@ -55,10 +56,10 @@ public class ConvexHullTest
     }
 
     @Test
-    public void find_WhenMultiplePointsAreCollinear_ThenInnerPointsOmitted()
+    public void findConvexHull_WhenMultiplePointsAreCollinear_ThenInnerPointsOmitted()
     {
         // when
-        List<Point2D> result = ConvexHull.find(
+        List<Point2D> result = ConvexHull.findConvexHull(
                 List.of(Point2D.of(-1, -3), Point2D.of(-3, -3), Point2D.of(-3, -1),
                         Point2D.of(2, -3), Point2D.of(-3, 5), Point2D.of(0, -3), Point2D.of(7, -3),
                         Point2D.of(-3, -2)));

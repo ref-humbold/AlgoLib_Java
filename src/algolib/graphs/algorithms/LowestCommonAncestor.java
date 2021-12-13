@@ -27,20 +27,20 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
     }
 
     /**
-     * Finds a lowest common ancestor of two vertices in a rooted tree.
+     * Finds the lowest common ancestor of two vertices in a rooted tree.
      * @param vertex1 first vertex
      * @param vertex2 second vertex
      * @return lowest common ancestor of given vertices
      */
-    public Vertex<VertexId> find(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
+    public Vertex<VertexId> findLCA(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
     {
         if(empty)
             initialize();
 
-        return doFind(vertex1, vertex2);
+        return find(vertex1, vertex2);
     }
 
-    private Vertex<VertexId> doFind(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
+    private Vertex<VertexId> find(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
     {
         if(isOffspring(vertex1, vertex2))
             return vertex2;
@@ -58,7 +58,7 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
                                                 .findFirst()
                                                 .orElse(paths.get(vertex1).get(0));
 
-        return doFind(nextVertex, vertex2);
+        return find(nextVertex, vertex2);
     }
 
     private void initialize()
