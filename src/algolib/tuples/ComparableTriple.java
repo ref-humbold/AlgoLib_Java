@@ -1,5 +1,8 @@
 package algolib.tuples;
 
+import java.util.Comparator;
+import java.util.Objects;
+
 /** Structure of comparable triple */
 public final class ComparableTriple<F extends Comparable<? super F>, S extends Comparable<? super S>, T extends Comparable<? super T>>
         extends Triple<F, S, T>
@@ -25,26 +28,19 @@ public final class ComparableTriple<F extends Comparable<? super F>, S extends C
     @Override
     public int compareTo(Triple<F, S, T> t)
     {
-        if(first == null)
-            return t.first == null ? 0 : -1;
-
-        int comparedFirst = first.compareTo(t.first);
+        int comparedFirst =
+                Objects.compare(first, t.first, Comparator.nullsFirst(Comparator.naturalOrder()));
 
         if(comparedFirst != 0)
             return comparedFirst;
 
-        if(second == null)
-            return t.second == null ? 0 : -1;
-
-        int comparedSecond = second.compareTo(t.second);
+        int comparedSecond =
+                Objects.compare(second, t.second, Comparator.nullsFirst(Comparator.naturalOrder()));
 
         if(comparedSecond != 0)
             return comparedSecond;
 
-        if(third == null)
-            return t.third == null ? 0 : -1;
-
-        return third.compareTo(t.third);
+        return Objects.compare(third, t.third, Comparator.nullsFirst(Comparator.naturalOrder()));
     }
 
     @Override

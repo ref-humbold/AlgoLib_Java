@@ -1,5 +1,8 @@
 package algolib.tuples;
 
+import java.util.Comparator;
+import java.util.Objects;
+
 /** Structure of comparable pair */
 public final class ComparablePair<F extends Comparable<? super F>, S extends Comparable<? super S>>
         extends Pair<F, S>
@@ -25,18 +28,13 @@ public final class ComparablePair<F extends Comparable<? super F>, S extends Com
     @Override
     public int compareTo(Pair<F, S> p)
     {
-        if(first == null)
-            return p.first == null ? 0 : -1;
-
-        int comparedFirst = first.compareTo(p.first);
+        int comparedFirst =
+                Objects.compare(first, p.first, Comparator.nullsFirst(Comparator.naturalOrder()));
 
         if(comparedFirst != 0)
             return comparedFirst;
 
-        if(second == null)
-            return p.second == null ? 0 : -1;
-
-        return second.compareTo(p.second);
+        return Objects.compare(second, p.second, Comparator.nullsFirst(Comparator.naturalOrder()));
     }
 
     @Override
