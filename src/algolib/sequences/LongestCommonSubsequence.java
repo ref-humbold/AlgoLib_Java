@@ -1,8 +1,7 @@
 package algolib.sequences;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /** Algorithm for longest common subsequence */
 public final class LongestCommonSubsequence
@@ -12,21 +11,21 @@ public final class LongestCommonSubsequence
         List<T> shortList = sequence1.size() <= sequence2.size() ? sequence1 : sequence2;
         List<T> longList = sequence1.size() > sequence2.size() ? sequence1 : sequence2;
 
-        List<Integer> previousLCS = new ArrayList<>(Collections.nCopies(shortList.size() + 1, 0));
+        int[] lcs = IntStream.range(0, shortList.size() + 1).map(i -> 0).toArray();
+        int previousAbove = lcs[0];
 
         for(T element : longList)
-        {
-            List<Integer> nextLCS = new ArrayList<>(List.of(0));
-
             for(int i = 0; i < shortList.size(); ++i)
-                nextLCS.add(element.equals(shortList.get(i))
-                            ? previousLCS.get(i) + 1
-                            : Math.max(previousLCS.get(i + 1), nextLCS.get(i)));
+            {
+                int previousDiagonal = previousAbove;
 
-            previousLCS = nextLCS;
-        }
+                previousAbove = lcs[i + 1];
+                lcs[i + 1] = element.equals(shortList.get(i))
+                             ? previousDiagonal + 1
+                             : Math.max(previousAbove, lcs[i]);
+            }
 
-        return previousLCS.get(previousLCS.size() - 1);
+        return lcs[lcs.length - 1];
     }
 
     public static int countLCSLength(String text1, String text2)
@@ -34,20 +33,20 @@ public final class LongestCommonSubsequence
         String shortText = text1.length() <= text2.length() ? text1 : text2;
         String longText = text1.length() > text2.length() ? text1 : text2;
 
-        List<Integer> previousLCS = new ArrayList<>(Collections.nCopies(shortText.length() + 1, 0));
+        int[] lcs = IntStream.range(0, shortText.length() + 1).map(i -> 0).toArray();
+        int previousAbove = lcs[0];
 
         for(char element : longText.toCharArray())
-        {
-            List<Integer> nextLCS = new ArrayList<>(List.of(0));
-
             for(int i = 0; i < shortText.length(); ++i)
-                nextLCS.add(element == shortText.charAt(i)
-                            ? previousLCS.get(i) + 1
-                            : Math.max(previousLCS.get(i + 1), nextLCS.get(i)));
+            {
+                int previousDiagonal = previousAbove;
 
-            previousLCS = nextLCS;
-        }
+                previousAbove = lcs[i + 1];
+                lcs[i + 1] = element == shortText.charAt(i)
+                             ? previousDiagonal + 1
+                             : Math.max(previousAbove, lcs[i]);
+            }
 
-        return previousLCS.get(previousLCS.size() - 1);
+        return lcs[lcs.length - 1];
     }
 }
