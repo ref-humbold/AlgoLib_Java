@@ -1,7 +1,9 @@
 package algolib.sequences;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +26,17 @@ public class LongestCommonSubsequenceTest
         int result = LongestCommonSubsequence.countLCSLength("abcde", "eeee");
         // then
         Assertions.assertThat(result).isEqualTo(1);
+    }
+
+    @Test
+    public void countLcsLength_WhenSameCharacterText_ThenShorterLength()
+    {
+        // given
+        String text = "xxxx";
+        // when
+        int result = LongestCommonSubsequence.countLCSLength(text + text, text);
+        // then
+        Assertions.assertThat(result).isEqualTo(text.length());
     }
 
     @Test
@@ -62,6 +75,20 @@ public class LongestCommonSubsequenceTest
         int result = LongestCommonSubsequence.countLCSLength("qwertyuiop", "zxrtyasdfuiopcvb");
         // then
         Assertions.assertThat(result).isEqualTo("rtyuiop".length());
+    }
+
+    @Test
+    public void countLcsLength_WhenSameElementSequence_ThenShorterLength()
+    {
+        // given
+        List<Integer> sequence = Collections.nCopies(25, 11);
+        // when
+        int result = LongestCommonSubsequence.countLCSLength(sequence,
+                                                             Stream.concat(sequence.stream(),
+                                                                           sequence.stream())
+                                                                   .collect(Collectors.toList()));
+        // then
+        Assertions.assertThat(result).isEqualTo(sequence.size());
     }
 
     @Test

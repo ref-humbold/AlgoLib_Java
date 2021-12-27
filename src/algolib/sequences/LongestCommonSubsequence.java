@@ -12,9 +12,11 @@ public final class LongestCommonSubsequence
         List<T> longList = sequence1.size() > sequence2.size() ? sequence1 : sequence2;
 
         int[] lcs = IntStream.range(0, shortList.size() + 1).map(i -> 0).toArray();
-        int previousAbove = lcs[0];
 
         for(T element : longList)
+        {
+            int previousAbove = lcs[0];
+
             for(int i = 0; i < shortList.size(); ++i)
             {
                 int previousDiagonal = previousAbove;
@@ -24,6 +26,7 @@ public final class LongestCommonSubsequence
                              ? previousDiagonal + 1
                              : Math.max(previousAbove, lcs[i]);
             }
+        }
 
         return lcs[lcs.length - 1];
     }
@@ -34,9 +37,11 @@ public final class LongestCommonSubsequence
         String longText = text1.length() > text2.length() ? text1 : text2;
 
         int[] lcs = IntStream.range(0, shortText.length() + 1).map(i -> 0).toArray();
-        int previousAbove = lcs[0];
 
         for(char element : longText.toCharArray())
+        {
+            int previousAbove = lcs[0];
+
             for(int i = 0; i < shortText.length(); ++i)
             {
                 int previousDiagonal = previousAbove;
@@ -46,6 +51,7 @@ public final class LongestCommonSubsequence
                              ? previousDiagonal + 1
                              : Math.max(previousAbove, lcs[i]);
             }
+        }
 
         return lcs[lcs.length - 1];
     }
