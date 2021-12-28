@@ -15,6 +15,7 @@ import algolib.graphs.properties.Weighted;
 // Tests: Algorithms for minimal spanning tree
 public class MinimalSpanningTreeTest
 {
+    private static final Offset<Double> OFFSET = Offset.offset(1e-6);
     private UndirectedSimpleGraph<Integer, Void, Weight> graph;
 
     @BeforeEach
@@ -55,7 +56,7 @@ public class MinimalSpanningTreeTest
         Assertions.assertThat(result.getEdges())
                   .containsOnly(graph.getEdge(0, 1), graph.getEdge(0, 2), graph.getEdge(2, 4),
                                 graph.getEdge(3, 4));
-        Assertions.assertThat(mstSize).isCloseTo(12.0, Offset.offset(0.000001));
+        Assertions.assertThat(mstSize).isCloseTo(12.0, OFFSET);
     }
 
     @Test
