@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/** Tests{ Algorithm for longest common subsequence */
+/** Tests: Algorithm for longest common subsequence */
 public class LongestCommonSubsequenceTest
 {
     @Test

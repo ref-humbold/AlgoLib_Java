@@ -1,6 +1,8 @@
 package algolib.sequences;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /** Algorithm for longest common subsequence */
@@ -29,6 +31,11 @@ public final class LongestCommonSubsequence
         }
 
         return lcs[lcs.length - 1];
+    }
+    public static <T> int countLCSLength(T[] sequence1, T[] sequence2)
+    {
+        return countLCSLength(Arrays.stream(sequence1).collect(Collectors.toList()),
+                              Arrays.stream(sequence2).collect(Collectors.toList()));
     }
 
     public static int countLCSLength(String text1, String text2)
