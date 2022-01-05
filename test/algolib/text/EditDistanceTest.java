@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 
+// Tests: Algorithms for edit distance
 public class EditDistanceTest
 {
     private static final Offset<Double> OFFSET = Offset.offset(1e-6);
@@ -43,6 +44,64 @@ public class EditDistanceTest
         double result = EditDistance.countLevenshtein(text, "", 1.0, deletionCost, 1.0);
         // then
         Assertions.assertThat(result).isCloseTo(text.length() * deletionCost, OFFSET);
+    }
+
+    @Test
+    public void countLevenshtein_WhenNegativeCost_ThenIllegalArgumentException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(
+                () -> EditDistance.countLevenshtein("a", "b", 1.0, 1.0, -1.0));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    // endregion
+    // region countLCS
+
+    @Test
+    public void countLCS_WhenSameText_ThenZero()
+    {
+        // given
+        String text = "qwertyuiop";
+        // when
+        double result = EditDistance.countLCS(text, text);
+        // then
+        Assertions.assertThat(result).isZero();
+    }
+
+    @Test
+    public void countLCS_WhenEmptySource_ThenSumOfInsertions()
+    {
+        // given
+        String text = "qwertyuiop";
+        double insertionCost = 2.0;
+        // when
+        double result = EditDistance.countLCS("", text, insertionCost, 1.0);
+        // then
+        Assertions.assertThat(result).isCloseTo(text.length() * insertionCost, OFFSET);
+    }
+
+    @Test
+    public void countLCS_WhenEmptyDestination_ThenSumOfDeletions()
+    {
+        // given
+        String text = "qwertyuiop";
+        double deletionCost = 2.0;
+        // when
+        double result = EditDistance.countLCS(text, "", 1.0, deletionCost);
+        // then
+        Assertions.assertThat(result).isCloseTo(text.length() * deletionCost, OFFSET);
+    }
+
+    @Test
+    public void countLCS_WhenNegativeCost_ThenIllegalArgumentException()
+    {
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> EditDistance.countLCS("a", "b", 1.0, -1.0));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }
 
     // endregion
