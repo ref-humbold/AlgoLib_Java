@@ -105,4 +105,47 @@ public class EditDistanceTest
     }
 
     // endregion
+    // region countHamming
+
+    @Test
+    public void countHamming_WhenEmpty_ThenZero()
+    {
+        // when
+        double result = EditDistance.countHamming("", "");
+        // then
+        Assertions.assertThat(result).isZero();
+    }
+
+    @Test
+    public void countHamming_WhenSameText_ThenZero()
+    {
+        // given
+        String text = "qwertyuiop";
+        // when
+        double result = EditDistance.countHamming(text, text);
+        // then
+        Assertions.assertThat(result).isZero();
+    }
+
+    @Test
+    public void countHamming_WhenDifferentLength_ThenIllegalArgumentException()
+    {
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> EditDistance.countHamming("qwerty", "asdf"));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void countHamming_WhenNegativeCost_ThenIllegalArgumentException()
+    {
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> EditDistance.countHamming("a", "b", -1.0));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    // endregion
 }

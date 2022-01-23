@@ -106,4 +106,23 @@ public final class EditDistance
 
         return distance[distance.length - 1];
     }
+
+    public static double countHamming(String source, String destination)
+    {
+        return countHamming(source, destination, 1.0);
+    }
+
+    public static double countHamming(String source, String destination, double substitutionCost)
+    {
+        if(substitutionCost < 0)
+            throw new IllegalArgumentException("Cost cannot be negative");
+
+        if(source.length() != destination.length())
+            throw new IllegalArgumentException("Texts should have equal length");
+
+        return IntStream.range(0, source.length())
+                        .filter(i -> source.charAt(i) != destination.charAt(i))
+                        .mapToDouble(i -> substitutionCost)
+                        .sum();
+    }
 }
