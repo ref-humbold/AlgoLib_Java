@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +17,7 @@ import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
 // Tests: Algorithms for shortest paths in graph
-public class PathsTest
+public class ShortestPathsTest
 {
     private static final double INF = Weighted.INFINITY;
     private DirectedSimpleGraph<Integer, Void, Weight> directedGraph;
@@ -90,39 +89,49 @@ public class PathsTest
                                        new Weight(3.0));
     }
 
-    @AfterEach
-    public void tearDown()
-    {
-        directedGraph = null;
-        undirectedGraph = null;
-    }
+    // region bellmanFord
 
     @Test
-    public void bellmanFord_WhenDirectedGraph()
+    public void bellmanFord_WhenDirectedGraph_ThenShortestPathsLengths()
     {
         // given
         List<Double> distances = List.of(20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0);
         Map<Vertex<Integer>, Double> expected = fromList(directedGraph, distances);
-
-        directedGraph.addEdgeBetween(directedGraph.getVertex(2), directedGraph.getVertex(1),
-                                     new Weight(-2.0));
         // when
         Map<Vertex<Integer>, Double> result =
-                Paths.bellmanFord(directedGraph, directedGraph.getVertex(1));
+                ShortestPaths.bellmanFord(directedGraph, directedGraph.getVertex(1));
         // then
         Assertions.assertThat(result).containsOnlyKeys(directedGraph.getVertices());
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
     @Test
-    public void bellmanFord_WhenUndirectedGraph()
+    public void bellmanFord_WhenNegativeEdge_ThenEdgeIncluded()
+    {
+        // given
+        List<Double> distances = List.of(8.0, 0.0, INF, 5.0, 7.0, 8.0, 12.0, 10.0, 10.0, 20.0);
+        Map<Vertex<Integer>, Double> expected = fromList(directedGraph, distances);
+
+        directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
+                                     new Weight(-5.0));
+        // when
+        Map<Vertex<Integer>, Double> result =
+                ShortestPaths.bellmanFord(directedGraph, directedGraph.getVertex(1));
+        // then
+        Assertions.assertThat(result).containsOnlyKeys(directedGraph.getVertices());
+        Assertions.assertThat(result).containsAllEntriesOf(expected);
+    }
+
+    @Test
+    public void bellmanFord_WhenUndirectedGraph_ThenShortestPathsLengths()
     {
         // given
         List<Double> distances = List.of(4.0, 0.0, INF, 7.0, 7.0, 8.0, INF, 10.0, 10.0, INF);
         Map<Vertex<Integer>, Double> expected = fromList(undirectedGraph, distances);
         // when
         Map<Vertex<Integer>, Double> result =
-                Paths.bellmanFord(undirectedGraph.asDirected(), undirectedGraph.getVertex(1));
+                ShortestPaths.bellmanFord(undirectedGraph.asDirected(),
+                                          undirectedGraph.getVertex(1));
         // then
         Assertions.assertThat(result).containsOnlyKeys(undirectedGraph.getVertices());
         Assertions.assertThat(result).containsAllEntriesOf(expected);
@@ -136,34 +145,37 @@ public class PathsTest
                                      new Weight(-20.0));
         // when
         Throwable throwable = Assertions.catchThrowable(
-                () -> Paths.bellmanFord(directedGraph, directedGraph.getVertex(1)));
+                () -> ShortestPaths.bellmanFord(directedGraph, directedGraph.getVertex(1)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalStateException.class);
     }
 
+    // endregion
+    // region dijkstra
+
     @Test
-    public void dijkstra_WhenDirectedGraph()
+    public void dijkstra_WhenDirectedGraph_ThenShortestPathsLengths()
     {
         // given
         List<Double> distances = List.of(20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0);
         Map<Vertex<Integer>, Double> expected = fromList(directedGraph, distances);
         // when
         Map<Vertex<Integer>, Double> result =
-                Paths.dijkstra(directedGraph, directedGraph.getVertex(1));
+                ShortestPaths.dijkstra(directedGraph, directedGraph.getVertex(1));
         // then
         Assertions.assertThat(result).containsOnlyKeys(directedGraph.getVertices());
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
     @Test
-    public void dijkstra_WhenUndirectedGraph()
+    public void dijkstra_WhenUndirectedGraph_ThenShortestPathsLengths()
     {
         // given
         List<Double> distances = List.of(4.0, 0.0, INF, 7.0, 7.0, 8.0, INF, 10.0, 10.0, INF);
         Map<Vertex<Integer>, Double> expected = fromList(undirectedGraph, distances);
         // when
         Map<Vertex<Integer>, Double> result =
-                Paths.dijkstra(undirectedGraph, undirectedGraph.getVertex(1));
+                ShortestPaths.dijkstra(undirectedGraph, undirectedGraph.getVertex(1));
         // then
         Assertions.assertThat(result).containsOnlyKeys(undirectedGraph.getVertices());
         Assertions.assertThat(result).containsAllEntriesOf(expected);
@@ -173,43 +185,69 @@ public class PathsTest
     public void dijkstra_WhenNegativeEdge_ThenIllegalStateException()
     {
         // given
-        directedGraph.addEdgeBetween(directedGraph.getVertex(2), directedGraph.getVertex(1),
-                                     new Weight(-2.0));
+        directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
+                                     new Weight(-5.0));
         // when
         Throwable throwable = Assertions.catchThrowable(
-                () -> Paths.dijkstra(directedGraph, directedGraph.getVertex(1)));
+                () -> ShortestPaths.dijkstra(directedGraph, directedGraph.getVertex(1)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalStateException.class);
     }
 
+    // endregion
+    // region floydWarshall
+
     @Test
-    public void floydWarshall_WhenDirectedGraph()
+    public void floydWarshall_WhenDirectedGraph_ThenAllShortestPathsLengths()
     {
         // given
         double[][] distances = {{0.0, 4.0, INF, 21.0, 11.0, 12.0, 16.0, 16.0, 14.0, 24.0},
                                 {20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0},
-                                {18.0, -2.0, 0.0, 15.0, 5.0, 6.0, 8.0, 10.0, 8.0, 18.0},
+                                {19.0, 23.0, 0.0, 16.0, 6.0, 7.0, 8.0, 21.0, 9.0, 19.0},
                                 {3.0, 7.0, INF, 0.0, 14.0, 7.0, 11.0, 5.0, 9.0, 19.0},
                                 {13.0, 17.0, INF, 10.0, 0.0, 1.0, 5.0, 15.0, 3.0, 13.0},
                                 {INF, INF, INF, INF, INF, 0.0, 4.0, INF, 2.0, 12.0},
-                                {INF, INF, INF, INF, INF, 7.0, 0, INF, 9.0, 19.0},
+                                {INF, INF, INF, INF, INF, 7.0, 0.0, INF, 9.0, 19.0},
                                 {INF, INF, INF, INF, INF, 2.0, 6.0, 0.0, 4.0, 14.0},
                                 {INF, INF, INF, INF, INF, 20.0, 13.0, INF, 0.0, 10.0},
                                 {INF, INF, INF, INF, INF, 10.0, 3.0, INF, 12.0, 0.0}};
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> expected =
                 fromMatrix(undirectedGraph, distances);
-
-        directedGraph.addEdgeBetween(directedGraph.getVertex(2), directedGraph.getVertex(1),
-                                     new Weight(-2.0));
         // when
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
-                Paths.floydWarshall(directedGraph);
+                ShortestPaths.floydWarshall(directedGraph);
         // then
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
 
     @Test
-    public void floydWarshall_WhenUndirectedGraph()
+    public void floydWarshall_WhenNegativeEdge_ThenEdgeIncluded()
+    {
+        // given
+        double[][] distances = {{0.0, 4.0, INF, 9.0, 11.0, 12.0, 16.0, 14.0, 14.0, 24.0},
+                                {8.0, 0.0, INF, 5.0, 7.0, 8.0, 12.0, 10.0, 10.0, 20.0},
+                                {7.0, 11.0, 0.0, 4.0, 6.0, 7.0, 8.0, 9.0, 9.0, 19.0},
+                                {3.0, 7.0, INF, 0.0, 14.0, 7.0, 11.0, 5.0, 9.0, 19.0},
+                                {1.0, 5.0, INF, -2.0, 0.0, 1.0, 5.0, 3.0, 3.0, 13.0},
+                                {0.0, 4.0, INF, -3.0, 11.0, 0.0, 4.0, 2.0, 2.0, 12.0},
+                                {7.0, 11.0, INF, 4.0, 18.0, 7.0, 0.0, 9.0, 9.0, 19.0},
+                                {2.0, 6.0, INF, -1.0, 13.0, 2.0, 6.0, 0.0, 4.0, 14.0},
+                                {-2.0, 2.0, INF, -5.0, 9.0, 2.0, 6.0, 0.0, 0.0, 10.0},
+                                {10.0, 14.0, INF, 7.0, 21.0, 10.0, 3.0, 12.0, 12.0, 0.0}};
+        Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> expected =
+                fromMatrix(undirectedGraph, distances);
+
+        directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
+                                     new Weight(-5.0));
+        // when
+        Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
+                ShortestPaths.floydWarshall(directedGraph);
+        // then
+        Assertions.assertThat(result).containsAllEntriesOf(expected);
+    }
+
+    @Test
+    public void floydWarshall_WhenUndirectedGraph_ThenAllShortestPathsLengths()
     {
         // given
         double[][] distances = {{0.0, 4.0, INF, 3.0, 11.0, 10.0, INF, 8.0, 12.0, INF},
@@ -227,10 +265,12 @@ public class PathsTest
 
         // when
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
-                Paths.floydWarshall(undirectedGraph.asDirected());
+                ShortestPaths.floydWarshall(undirectedGraph.asDirected());
         // then
         Assertions.assertThat(result).containsAllEntriesOf(expected);
     }
+
+    // endregion
 
     private Map<Vertex<Integer>, Double> fromList(Graph<Integer, Void, Weight> graph,
                                                   List<Double> distances)

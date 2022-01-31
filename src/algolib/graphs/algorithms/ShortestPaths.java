@@ -16,7 +16,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
-public final class Paths
+public final class ShortestPaths
 {
     /**
      * Bellman-Ford algorithm.
@@ -24,7 +24,8 @@ public final class Paths
      * @param source source vertex
      * @return map of vertices' distances
      */
-    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Vertex<VertexId>, Double> bellmanFord(
+    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Vertex<VertexId>,
+                                                                                       Double> bellmanFord(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph, Vertex<VertexId> source)
             throws IllegalStateException
     {
@@ -48,8 +49,8 @@ public final class Paths
         for(Vertex<VertexId> vertex : graph.getVertices())
             for(Edge<VertexId> edge : graph.getAdjacentEdges(vertex))
                 if(distances.get(vertex) < Weighted.INFINITY
-                        && distances.get(vertex) + graph.getProperties().get(edge).getWeight()
-                        < distances.get(edge.destination))
+                           && distances.get(vertex) + graph.getProperties().get(edge).getWeight()
+                                      < distances.get(edge.destination))
                     throw new IllegalStateException("Graph contains a negative cycle.");
 
         return distances;
@@ -61,7 +62,8 @@ public final class Paths
      * @param source source vertex
      * @return map of vertices' distances
      */
-    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Vertex<VertexId>, Double> dijkstra(
+    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Vertex<VertexId>,
+                                                                                       Double> dijkstra(
             Graph<VertexId, VertexProperty, EdgeProperty> graph, Vertex<VertexId> source)
             throws IllegalStateException
     {
