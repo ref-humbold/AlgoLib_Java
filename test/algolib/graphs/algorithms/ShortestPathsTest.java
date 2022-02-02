@@ -101,8 +101,7 @@ public class ShortestPathsTest
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.bellmanFord(directedGraph, directedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(directedGraph.getVertices());
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -118,8 +117,7 @@ public class ShortestPathsTest
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.bellmanFord(directedGraph, directedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(directedGraph.getVertices());
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -133,8 +131,7 @@ public class ShortestPathsTest
                 ShortestPaths.bellmanFord(undirectedGraph.asDirected(),
                                           undirectedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(undirectedGraph.getVertices());
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -163,8 +160,7 @@ public class ShortestPathsTest
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.dijkstra(directedGraph, directedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(directedGraph.getVertices());
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -177,8 +173,7 @@ public class ShortestPathsTest
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.dijkstra(undirectedGraph, undirectedGraph.getVertex(1));
         // then
-        Assertions.assertThat(result).containsOnlyKeys(undirectedGraph.getVertices());
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -217,7 +212,7 @@ public class ShortestPathsTest
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
                 ShortestPaths.floydWarshall(directedGraph);
         // then
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -243,7 +238,7 @@ public class ShortestPathsTest
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
                 ShortestPaths.floydWarshall(directedGraph);
         // then
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -267,7 +262,7 @@ public class ShortestPathsTest
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
                 ShortestPaths.floydWarshall(undirectedGraph.asDirected());
         // then
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     // endregion
