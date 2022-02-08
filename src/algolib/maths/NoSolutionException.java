@@ -1,4 +1,4 @@
-package algolib.mathmat;
+package algolib.maths;
 
 public class NoSolutionException
         extends Exception

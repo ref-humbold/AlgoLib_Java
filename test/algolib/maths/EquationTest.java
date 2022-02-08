@@ -1,4 +1,4 @@
-package algolib.mathmat;
+package algolib.maths;
 
 import java.util.stream.IntStream;
 import org.assertj.core.api.Assertions;

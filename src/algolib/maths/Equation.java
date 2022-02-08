@@ -1,4 +1,4 @@
-package algolib.mathmat;
+package algolib.maths;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -161,7 +161,7 @@ public final class Equation
     {
         return solution.length == coefficients.length && IntStream.range(0, coefficients.length)
                                                                   .mapToDouble(i -> solution[i]
-                                                                          * coefficients[i])
+                                                                                            * coefficients[i])
                                                                   .sum() == free;
     }
 }

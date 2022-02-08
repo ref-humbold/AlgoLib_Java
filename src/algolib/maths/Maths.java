@@ -1,4 +1,4 @@
-package algolib.mathmat;
+package algolib.maths;
 
 /** Algorithms for basic mathematical calculations */
 public final class Maths

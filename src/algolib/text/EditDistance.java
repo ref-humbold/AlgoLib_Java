@@ -107,11 +107,24 @@ public final class EditDistance
         return distance[distance.length - 1];
     }
 
+    /**
+     * Computes cost of Hamming edit distance between given texts of equal length.
+     * @param source initial text
+     * @param destination final text
+     * @return cost of edit distance
+     */
     public static double countHamming(String source, String destination)
     {
         return countHamming(source, destination, 1.0);
     }
 
+    /**
+     * Computes cost of Hamming edit distance between given texts of equal length.
+     * @param source initial text
+     * @param destination final text
+     * @param substitutionCost cost of substitution operation
+     * @return cost of edit distance
+     */
     public static double countHamming(String source, String destination, double substitutionCost)
     {
         if(substitutionCost < 0)

@@ -1,4 +1,4 @@
-package algolib.mathmat;
+package algolib.maths;
 
 import java.util.Arrays;
 
@@ -62,18 +62,19 @@ public final class EquationSystem
         gaussianReduce();
 
         if(equations[equations.length - 1].getCoefficient(equations.length - 1) == 0
-                && equations[equations.length - 1].getFree() == 0)
+                   && equations[equations.length - 1].getFree() == 0)
             throw new InfiniteSolutionsException();
 
         if(equations[equations.length - 1].getCoefficient(equations.length - 1) == 0
-                && equations[equations.length - 1].getFree() != 0)
+                   && equations[equations.length - 1].getFree() != 0)
             throw new NoSolutionException();
 
         double[] solution = new double[equations.length];
 
         solution[equations.length - 1] =
                 equations[equations.length - 1].getFree() / equations[equations.length
-                        - 1].getCoefficient(equations.length - 1);
+                                                                              - 1].getCoefficient(
+                        equations.length - 1);
 
         for(int i = equations.length - 2; i >= 0; --i)
         {
