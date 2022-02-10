@@ -6,8 +6,14 @@ import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
+/** Algorithm for counting diameter of a tree */
 public final class TreeDiameter
 {
+    /**
+     * Computes length of diameter of given tree.
+     * @param tree a tree graph
+     * @return diameter length
+     */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> double findDiameter(
             TreeGraph<VertexId, VertexProperty, EdgeProperty> tree)
     {

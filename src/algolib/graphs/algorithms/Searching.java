@@ -1,4 +1,3 @@
-// Algorithms for graph searching
 package algolib.graphs.algorithms;
 
 import java.util.*;
@@ -8,6 +7,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.BFSStrategy;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
+/** Algorithms for graph searching */
 public final class Searching
 {
     /**

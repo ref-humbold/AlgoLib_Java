@@ -1,8 +1,8 @@
-// Structure of edge in graph
 package algolib.graphs;
 
 import java.util.Objects;
 
+/** Structure of edge in graph */
 public class Edge<VertexId>
 {
     public final Vertex<VertexId> source;

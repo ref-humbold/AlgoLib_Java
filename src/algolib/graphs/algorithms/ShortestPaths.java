@@ -1,4 +1,3 @@
-// Algorithms for shortest paths in graph
 package algolib.graphs.algorithms;
 
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
+/** Algorithms for shortest paths in graph */
 public final class ShortestPaths
 {
     /**

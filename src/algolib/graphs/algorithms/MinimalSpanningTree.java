@@ -1,4 +1,3 @@
-// Algorithms for minimal spanning tree
 package algolib.graphs.algorithms;
 
 import java.util.HashSet;
@@ -14,6 +13,7 @@ import algolib.graphs.properties.Weighted;
 import algolib.structures.DisjointSets;
 import algolib.tuples.Pair;
 
+/** Algorithms for minimal spanning tree */
 public final class MinimalSpanningTree
 {
     /**

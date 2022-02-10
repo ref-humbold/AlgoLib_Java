@@ -1,4 +1,3 @@
-// Algorithms for topological sorting of a directed graph
 package algolib.graphs.algorithms;
 
 import java.util.*;
@@ -7,6 +6,7 @@ import algolib.graphs.DirectedGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
+/** Algorithms for topological sorting of a directed graph */
 public final class TopologicalSorting
 {
     /**

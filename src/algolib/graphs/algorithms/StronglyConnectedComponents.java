@@ -1,4 +1,3 @@
-// Algorithm for strongly connected components
 package algolib.graphs.algorithms;
 
 import java.util.*;
@@ -8,6 +7,7 @@ import algolib.graphs.DirectedGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
+/** Algorithm for strongly connected components */
 public final class StronglyConnectedComponents
 {
     /**

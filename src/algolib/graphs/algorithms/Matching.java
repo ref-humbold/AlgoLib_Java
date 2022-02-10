@@ -1,4 +1,3 @@
-// Hopcroft-Karp algorithm for matching in bipartite graph
 package algolib.graphs.algorithms;
 
 import java.util.*;
@@ -8,6 +7,7 @@ import java.util.stream.Collectors;
 import algolib.graphs.MultipartiteGraph;
 import algolib.graphs.Vertex;
 
+/** Hopcroft-Karp algorithm for matching in bipartite graph */
 public final class Matching
 {
     /**
@@ -15,7 +15,8 @@ public final class Matching
      * @param graph a bipartite graph
      * @return map of matched vertices
      */
-    public static <VertexId, VertexProperty, EdgeProperty> Map<Vertex<VertexId>, Vertex<VertexId>> match(
+    public static <VertexId, VertexProperty, EdgeProperty> Map<Vertex<VertexId>,
+                                                                      Vertex<VertexId>> match(
             MultipartiteGraph<VertexId, VertexProperty, EdgeProperty> graph)
     {
         MatchAugmenter<VertexId, VertexProperty, EdgeProperty> augmenter =
@@ -109,7 +110,7 @@ public final class Matching
                 }
 
                 if(!visited.contains(matched) && distances.get(matched) == distances.get(vertex) + 1
-                        && dfs(matched, visited, distances))
+                           && dfs(matched, visited, distances))
                 {
                     matching.put(vertex, neighbour);
                     matching.put(neighbour, vertex);

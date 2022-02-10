@@ -1,3 +1,4 @@
+// Tests: Algorithm for counting diameter of a tree
 package algolib.graphs.algorithms;
 
 import org.assertj.core.api.Assertions;

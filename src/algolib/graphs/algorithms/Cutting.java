@@ -1,4 +1,3 @@
-// Algorithms for graph cutting (edge cut and vertex cut)
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import algolib.graphs.UndirectedGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
+/** Algorithms for graph cutting (edge cut and vertex cut) */
 public final class Cutting
 {
     /**

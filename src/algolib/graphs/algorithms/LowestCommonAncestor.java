@@ -1,4 +1,3 @@
-// Algorithm for lowest common ancestor
 package algolib.graphs.algorithms;
 
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import algolib.graphs.TreeGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DFSStrategy;
 
+/** Algorithm for lowest common ancestor */
 public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
 {
     public final TreeGraph<VertexId, VertexProperty, EdgeProperty> graph;
@@ -78,7 +78,7 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
     private boolean isOffspring(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
     {
         return strategy.preTimes.get(vertex1) >= strategy.preTimes.get(vertex2)
-                && strategy.postTimes.get(vertex1) <= strategy.postTimes.get(vertex2);
+                       && strategy.postTimes.get(vertex1) <= strategy.postTimes.get(vertex2);
     }
 
     private static class LCAStrategy<VertexId>

@@ -1,9 +1,9 @@
-// Structure of simple graph
 package algolib.graphs;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+/** Structure of simple graph */
 public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
         implements Graph<VertexId, VertexProperty, EdgeProperty>
 {
