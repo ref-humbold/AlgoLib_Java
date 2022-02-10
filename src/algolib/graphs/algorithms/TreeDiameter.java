@@ -1,0 +1,53 @@
+package algolib.graphs.algorithms;
+
+import algolib.graphs.Edge;
+import algolib.graphs.TreeGraph;
+import algolib.graphs.Vertex;
+import algolib.graphs.properties.Weighted;
+import algolib.tuples.Pair;
+
+public final class TreeDiameter
+{
+    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> double findDiameter(
+            TreeGraph<VertexId, VertexProperty, EdgeProperty> tree)
+    {
+        return tree.getVertices()
+                   .stream()
+                   .max((v1, v2) -> Integer.compare(tree.getOutputDegree(v1),
+                                                    tree.getOutputDegree(v2)))
+                   .map(root -> dfs(tree, root, root).second)
+                   .orElse(0.0);
+    }
+
+    private static <VertexId, VertexProperty, EdgeProperty extends Weighted> Pair<Double, Double> dfs(
+            TreeGraph<VertexId, VertexProperty, EdgeProperty> tree, Vertex<VertexId> vertex,
+            Vertex<VertexId> parent)
+    {
+        double pathFrom = 0.0;
+        double pathSubtree = 0.0;
+        double pathThrough = 0.0;
+
+        for(Edge<VertexId> edge : tree.getAdjacentEdges(vertex))
+        {
+            Vertex<VertexId> neighbour = edge.getNeighbour(vertex);
+
+            if(!neighbour.equals(parent))
+            {
+                double weight = tree.getProperties().get(edge).getWeight();
+                Pair<Double, Double> result = dfs(tree, neighbour, vertex);
+
+                if(result.first + weight > pathFrom)
+                {
+                    pathThrough = pathFrom + result.first + weight;
+                    pathFrom = result.first + weight;
+                }
+                else
+                    pathThrough = Math.max(pathThrough, pathFrom + result.first + weight);
+
+                pathSubtree = Math.max(pathSubtree, result.second);
+            }
+        }
+
+        return Pair.of(pathFrom, Math.max(pathThrough, pathSubtree));
+    }
+}
