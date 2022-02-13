@@ -12,8 +12,8 @@ public final class Searching
 {
     /**
      * Breadth-first search algorithm.
-     * @param graph a graph
-     * @param strategy a searching strategy
+     * @param graph the graph
+     * @param strategy the searching strategy
      * @param roots starting vertices
      * @return collection of visited vertices
      */
@@ -54,8 +54,8 @@ public final class Searching
 
     /**
      * Iterative depth-first search algorithm.
-     * @param graph a graph
-     * @param strategy a searching strategy
+     * @param graph the graph
+     * @param strategy the searching strategy
      * @param roots starting vertices
      * @return collection of visited vertices
      */
@@ -104,8 +104,8 @@ public final class Searching
 
     /**
      * Recursive depth-first search algorithm
-     * @param graph a graph
-     * @param strategy a searching strategy
+     * @param graph the graph
+     * @param strategy the searching strategy
      * @param roots starting vertices
      * @return collection of visited vertices
      */

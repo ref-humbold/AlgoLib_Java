@@ -7,7 +7,7 @@ public final class Geometry3D
 {
     /**
      * Mutably sorts points by their X coordinate. Sorting is guaranteed to be stable.
-     * @param points a list of points
+     * @param points the list of points
      */
     public static void sortByX(List<Point3D> points)
     {
@@ -16,7 +16,7 @@ public final class Geometry3D
 
     /**
      * Mutably sorts points by their Y coordinate. Sorting is guaranteed to be stable.
-     * @param points a list of points
+     * @param points the list of points
      */
     public static void sortByY(List<Point3D> points)
     {
@@ -25,7 +25,7 @@ public final class Geometry3D
 
     /**
      * Mutably sorts points by their Z coordinate. Sorting is guaranteed to be stable.
-     * @param points a list of points
+     * @param points the list of points
      */
     public static void sortByZ(List<Point3D> points)
     {
@@ -33,22 +33,23 @@ public final class Geometry3D
     }
 
     /**
-     * Counts the distance between given points.
-     * @param point1 first point
-     * @param point2 second point
+     * Calculates distance between given points.
+     * @param point1 the first point
+     * @param point2 the second point
      * @return distance between the points
      */
     public static double distance(Point3D point1, Point3D point2)
     {
         return Math.sqrt(
                 (point2.x - point1.x) * (point2.x - point1.x) + (point2.y - point1.y) * (point2.y
-                        - point1.y) + (point2.z - point1.z) * (point2.z - point1.z));
+                                                                                                 - point1.y)
+                        + (point2.z - point1.z) * (point2.z - point1.z));
     }
 
     /**
      * Translates given point by given vector.
-     * @param point a point
-     * @param vector a translation vector
+     * @param point the point
+     * @param vector the translation vector
      * @return the translated point
      */
     public static Point3D translate(Point3D point, Vector3D vector)
@@ -58,8 +59,8 @@ public final class Geometry3D
 
     /**
      * Reflects given point in another point.
-     * @param point a point to be reflected
-     * @param centre a reflection point
+     * @param point the point to be reflected
+     * @param centre the reflection point
      * @return the reflected point
      */
     public static Point3D reflect(Point3D point, Point3D centre)

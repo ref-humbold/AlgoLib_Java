@@ -7,9 +7,9 @@ public final class EditDistance
 {
     /**
      * Computes cost of Levenshtein edit distance between given texts.
-     * @param source initial text
-     * @param destination final text
-     * @return cost of edit distance
+     * @param source the initial text
+     * @param destination the final text
+     * @return the cost of edit distance
      */
     public static double countLevenshtein(String source, String destination)
     {
@@ -18,12 +18,12 @@ public final class EditDistance
 
     /**
      * Computes cost of Levenshtein edit distance between given texts.
-     * @param source initial text
-     * @param destination final text
-     * @param insertionCost cost of insertion operation
-     * @param deletionCost cost of deletion operation
-     * @param substitutionCost cost of substitution operation
-     * @return cost of edit distance
+     * @param source the initial text
+     * @param destination the final text
+     * @param insertionCost the cost of insertion operation
+     * @param deletionCost the cost of deletion operation
+     * @param substitutionCost the cost of substitution operation
+     * @return the cost of edit distance
      */
     public static double countLevenshtein(String source, String destination, double insertionCost,
                                           double deletionCost, double substitutionCost)
@@ -59,9 +59,9 @@ public final class EditDistance
 
     /**
      * Computes cost of LCS edit distance between given texts.
-     * @param source initial text
-     * @param destination final text
-     * @return cost of edit distance
+     * @param source the initial text
+     * @param destination the final text
+     * @return the cost of edit distance
      */
     public static double countLCS(String source, String destination)
     {
@@ -70,11 +70,11 @@ public final class EditDistance
 
     /**
      * Computes cost of LCS edit distance between given texts.
-     * @param source initial text
-     * @param destination final text
-     * @param insertionCost cost of insertion operation
-     * @param deletionCost cost of deletion operation
-     * @return cost of edit distance
+     * @param source the initial text
+     * @param destination the final text
+     * @param insertionCost the cost of insertion operation
+     * @param deletionCost the cost of deletion operation
+     * @return the cost of edit distance
      */
     public static double countLCS(String source, String destination, double insertionCost,
                                   double deletionCost)
@@ -109,9 +109,9 @@ public final class EditDistance
 
     /**
      * Computes cost of Hamming edit distance between given texts of equal length.
-     * @param source initial text
-     * @param destination final text
-     * @return cost of edit distance
+     * @param source the initial text
+     * @param destination the final text
+     * @return the cost of edit distance
      */
     public static double countHamming(String source, String destination)
     {
@@ -120,10 +120,10 @@ public final class EditDistance
 
     /**
      * Computes cost of Hamming edit distance between given texts of equal length.
-     * @param source initial text
-     * @param destination final text
-     * @param substitutionCost cost of substitution operation
-     * @return cost of edit distance
+     * @param source the initial text
+     * @param destination the final text
+     * @param substitutionCost the cost of substitution operation
+     * @return the cost of edit distance
      */
     public static double countHamming(String source, String destination, double substitutionCost)
     {

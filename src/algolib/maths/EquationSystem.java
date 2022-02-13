@@ -51,8 +51,8 @@ public final class EquationSystem
     }
 
     /**
-     * Computes the solution of this equation system.
-     * @return solution vector
+     * Computes solution of this equation system.
+     * @return the solution
      * @throws NoSolutionException if there is no solution
      * @throws InfiniteSolutionsException if there are infinitely many solutions
      */
@@ -122,8 +122,8 @@ public final class EquationSystem
 
     /**
      * Swaps two equations.
-     * @param i index of first equation
-     * @param j index of second equation
+     * @param i index of the first equation
+     * @param j index of the second equation
      */
     public void swap(int i, int j)
     {
@@ -133,6 +133,11 @@ public final class EquationSystem
         equations[j] = temp;
     }
 
+    /**
+     * Checks whether given values solve this equation system.
+     * @param solution the values
+     * @return {@code true} if the solution is correct, otherwise {@code false}
+     */
     public boolean isSolution(double[] solution)
     {
         return Arrays.stream(equations).allMatch(eq -> eq.isSolution(solution));

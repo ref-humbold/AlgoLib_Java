@@ -54,17 +54,22 @@ public final class BaseWordsMap
         return Objects.hash(text, factors);
     }
 
+    /**
+     * Retrieves code of substring starting at given index.
+     * @param startIndex starting index, inclusive
+     * @return the code of the substring
+     */
     public Pair<Integer, Integer> getCode(int startIndex)
     {
         return getCode(startIndex, text.length());
     }
 
     /**
-    * Retrieves code of substring denoted by given range indices.
-    * @param startIndex starting index, inclusive
-    * @param endIndex ending index, exclusive
-    * @return code of the substring
-    */
+     * Retrieves code of substring denoted by given range indices.
+     * @param startIndex starting index, inclusive
+     * @param endIndex ending index, exclusive
+     * @return the code of the substring
+     */
     public Pair<Integer, Integer> getCode(int startIndex, int endIndex)
     {
         if(startIndex < 0 || startIndex >= text.length())

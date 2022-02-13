@@ -11,7 +11,7 @@ public final class TopologicalSorting
 {
     /**
      * Topological sorting algorithm using predecessors counting.
-     * @param graph a directed graph
+     * @param graph the directed graph
      * @return topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
@@ -24,7 +24,7 @@ public final class TopologicalSorting
 
     /**
      * Topological sorting algorithm using predecessors counting.
-     * @param graph a directed graph
+     * @param graph the directed graph
      * @param vertexIdComparator comparator of vertex indices
      * @return topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
@@ -76,7 +76,7 @@ public final class TopologicalSorting
 
     /**
      * Topological sorting algorithm using DFS.
-     * @param graph a directed graph
+     * @param graph the directed graph
      * @return topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */

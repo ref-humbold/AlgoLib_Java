@@ -11,7 +11,7 @@ public final class TreeDiameter
 {
     /**
      * Computes length of diameter of given tree.
-     * @param tree a tree graph
+     * @param tree the tree graph
      * @return diameter length
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> double findDiameter(

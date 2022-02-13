@@ -13,7 +13,7 @@ public final class Sorting
 
     /**
      * Mutably sorts given sequence using a heap.
-     * @param sequence a sequence of elements
+     * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void heapSort(List<T> sequence)
     {
@@ -39,7 +39,7 @@ public final class Sorting
 
     /**
      * Mutably sorts given sequence using a top-down merge-sort algorithm.
-     * @param sequence a sequence of elements
+     * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void topDownMergeSort(List<T> sequence)
     {
@@ -49,7 +49,7 @@ public final class Sorting
 
     /**
      * Mutably sorts given sequence using a bottom-up merge-sort algorithm.
-     * @param sequence a sequence of elements
+     * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void bottomUpMergeSort(List<T> sequence)
     {
@@ -66,7 +66,7 @@ public final class Sorting
 
     /**
      * Mutably sorts given sequence using a quick-sort algorithm.
-     * @param sequence a sequence of elements
+     * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void quickSort(List<T> sequence)
     {

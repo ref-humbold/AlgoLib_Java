@@ -73,8 +73,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Adds new value to this double heap.
-     * @param element value to be added
+     * Adds given new value to this double heap.
+     * @param element the value
      * @return {@code true} if the value was added successfully, otherwise {@code false}
      */
     @Override

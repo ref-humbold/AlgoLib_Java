@@ -30,7 +30,7 @@ public class DisjointSets<E>
         return size_ == 0;
     }
 
-    /** @return number of sets */
+    /** @return the number of sets */
     public int size()
     {
         return size_;
@@ -38,7 +38,7 @@ public class DisjointSets<E>
 
     /**
      * Checks if given element belongs to any set.
-     * @param element element to be found
+     * @param element the element
      * @return {@code true} if the element is included in one of sets, otherwise {@code false}
      */
     public boolean contains(E element)
@@ -47,8 +47,8 @@ public class DisjointSets<E>
     }
 
     /**
-     * Adds a new value as singleton set.
-     * @param element value to be added
+     * Adds given new value as singleton set.
+     * @param element the value
      * @return {@code this} for method chaining
      * @throws IllegalArgumentException if the element is already in this structure
      */
@@ -64,8 +64,8 @@ public class DisjointSets<E>
     }
 
     /**
-     * Adds new values as singleton sets.
-     * @param elements values to be added
+     * Adds given new values as singleton sets.
+     * @param elements the values
      * @return {@code this} for method chaining
      * @throws IllegalArgumentException if any of the elements is already in this structure
      */
@@ -85,8 +85,8 @@ public class DisjointSets<E>
     }
 
     /**
-     * Finds a represent of an element.
-     * @param element an element
+     * Finds represent of given element.
+     * @param element the element
      * @return the represent of the element
      * @throws NoSuchElementException if element is not in this structure
      */
@@ -102,9 +102,9 @@ public class DisjointSets<E>
     }
 
     /**
-     * Finds a represent of an element.
-     * @param element an element
-     * @param defaultValue a value to return if the element not inside
+     * Finds represent of given element, or returns given default value.
+     * @param element the element
+     * @param defaultValue the value to return if element not inside
      * @return the represent of the element
      */
     public E findSetOrDefault(E element, E defaultValue)
@@ -121,8 +121,8 @@ public class DisjointSets<E>
 
     /**
      * Joins two sets together.
-     * @param element1 element from the first set
-     * @param element2 element from the second set
+     * @param element1 the element from the first set
+     * @param element2 the element from the second set
      * @return {@code this} for method chaining
      * @throws NoSuchElementException if either element is not in this structure
      */
@@ -138,9 +138,9 @@ public class DisjointSets<E>
     }
 
     /**
-     * Checks whether two elements belong to the same set.
-     * @param element1 element from the first set
-     * @param element2 element from the second set
+     * Checks whether given elements belong to the same set.
+     * @param element1 the element from the first set
+     * @param element2 the element from the second set
      * @return {@code true} if both elements are in the same set, otherwise {@code false}
      * @throws NoSuchElementException if either element is not in this structure
      */

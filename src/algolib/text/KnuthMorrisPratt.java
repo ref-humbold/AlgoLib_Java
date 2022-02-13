@@ -9,8 +9,8 @@ public final class KnuthMorrisPratt
 {
     /**
      * Searches for pattern occurrences in given text using Knuth-Morris-Pratt algorithm.
-     * @param text a text
-     * @param pattern a pattern
+     * @param text the text
+     * @param pattern the pattern
      * @return list of indices with pattern occurrences
      */
     public static List<Integer> kmpSearch(String text, String pattern)

@@ -20,7 +20,7 @@ public final class ShortestPaths
 {
     /**
      * Bellman-Ford algorithm.
-     * @param graph a directed graph with weighted edges
+     * @param graph the directed graph with weighted edges
      * @param source source vertex
      * @return map of vertices' distances
      */
@@ -58,7 +58,7 @@ public final class ShortestPaths
 
     /**
      * Dijkstra algorithm.
-     * @param graph a graph with weighted edges (weights are not negative)
+     * @param graph the graph with weighted edges (weights are not negative)
      * @param source source vertex
      * @return map of vertices' distances
      */
@@ -110,7 +110,7 @@ public final class ShortestPaths
 
     /**
      * Floyd-Warshall algorithm.
-     * @param graph a directed graph with weighted edges
+     * @param graph the directed graph with weighted edges
      * @return map of distances between all pairs of vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Pair<Vertex<VertexId>, Vertex<VertexId>>, Double> floydWarshall(

@@ -9,7 +9,7 @@ public final class ConvexHull
 {
     /**
      * Constructs convex hull of given points.
-     * @param points list of points
+     * @param points the list of points
      * @return list of points in the convex hull
      */
     public static List<Point2D> findConvexHull(List<Point2D> points)
@@ -41,7 +41,8 @@ public final class ConvexHull
         for(Point2D pt : points)
         {
             while(hull.size() > 1
-                    && crossProduct(hull.get(hull.size() - 2), hull.get(hull.size() - 1), pt) >= 0)
+                          && crossProduct(hull.get(hull.size() - 2), hull.get(hull.size() - 1), pt)
+                                     >= 0)
                 hull.remove(hull.size() - 1);
 
             hull.add(pt);

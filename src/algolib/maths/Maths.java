@@ -7,9 +7,9 @@ public final class Maths
 
     /**
      * Calculates greatest common divisor of two numbers.
-     * @param number1 first number
-     * @param number2 second number
-     * @return greatest common divisor
+     * @param number1 the first number
+     * @param number2 the second number
+     * @return the greatest common divisor
      */
     public static int gcd(int number1, int number2)
     {
@@ -29,9 +29,9 @@ public final class Maths
 
     /**
      * Calculates greatest common divisor of two numbers.
-     * @param number1 first number
-     * @param number2 second number
-     * @return greatest common divisor
+     * @param number1 the first number
+     * @param number2 the second number
+     * @return the greatest common divisor
      */
     public static long gcd(long number1, long number2)
     {
@@ -54,9 +54,9 @@ public final class Maths
 
     /**
      * Calculates lowest common multiple of two numbers.
-     * @param number1 first number
-     * @param number2 second number
-     * @return lowest common multiple
+     * @param number1 the first number
+     * @param number2 the second number
+     * @return the lowest common multiple
      */
     public static int lcm(int number1, int number2)
     {
@@ -68,9 +68,9 @@ public final class Maths
 
     /**
      * Calculates lowest common multiple of two numbers.
-     * @param number1 first number
-     * @param number2 second number
-     * @return lowest common multiple
+     * @param number1 the first number
+     * @param number2 the second number
+     * @return the lowest common multiple
      */
     public static long lcm(long number1, long number2)
     {
@@ -85,9 +85,9 @@ public final class Maths
 
     /**
      * Performs fast multiplication of two numbers.
-     * @param factor1 first factor
-     * @param factor2 second factor
-     * @return multiplication result
+     * @param factor1 the first factor
+     * @param factor2 the second factor
+     * @return the multiplication result
      */
     public static int multiply(int factor1, int factor2)
     {
@@ -116,9 +116,9 @@ public final class Maths
 
     /**
      * Performs fast multiplication of two numbers.
-     * @param factor1 first factor
-     * @param factor2 second factor
-     * @return multiplication result
+     * @param factor1 the first factor
+     * @param factor2 the second factor
+     * @return the multiplication result
      */
     public static long multiply(long factor1, long factor2)
     {
@@ -147,10 +147,10 @@ public final class Maths
 
     /**
      * Performs fast multiplication of two numbers with modulo taken.
-     * @param factor1 first factor
-     * @param factor2 second factor
-     * @param modulo a modulo
-     * @return multiplication result with modulo taken
+     * @param factor1 the first factor
+     * @param factor2 the second factor
+     * @param modulo the modulo
+     * @return the multiplication result with modulo taken
      */
     public static int multiply(int factor1, int factor2, int modulo)
     {
@@ -182,10 +182,10 @@ public final class Maths
 
     /**
      * Performs fast multiplication of two numbers with modulo taken.
-     * @param factor1 first factor
-     * @param factor2 second factor
-     * @param modulo a modulo
-     * @return multiplication result with modulo taken
+     * @param factor1 the first factor
+     * @param factor2 the second factor
+     * @param modulo the modulo
+     * @return the multiplication result with modulo taken
      */
     public static long multiply(long factor1, long factor2, long modulo)
     {
@@ -220,9 +220,9 @@ public final class Maths
 
     /**
      * Performs fast exponentiation of two numbers.
-     * @param base a base
-     * @param exponent an exponent
-     * @return exponentiation result
+     * @param base the base
+     * @param exponent the exponent
+     * @return the exponentiation result
      */
     public static int power(int base, int exponent)
     {
@@ -248,9 +248,9 @@ public final class Maths
 
     /**
      * Performs fast exponentiation of two numbers.
-     * @param base a base
-     * @param exponent an exponent
-     * @return exponentiation result
+     * @param base the base
+     * @param exponent the exponent
+     * @return the exponentiation result
      */
     public static long power(long base, long exponent)
     {
@@ -276,10 +276,10 @@ public final class Maths
 
     /**
      * Performs fast exponentiation of two numbers with modulo taken.
-     * @param base a base
-     * @param exponent an exponent
-     * @param modulo a modulo
-     * @return exponentiation result with modulo taken
+     * @param base the base
+     * @param exponent the exponent
+     * @param modulo the modulo
+     * @return the exponentiation result with modulo taken
      */
     public static int power(int base, int exponent, int modulo)
     {
@@ -308,10 +308,10 @@ public final class Maths
 
     /**
      * Performs fast exponentiation of two numbers with modulo taken.
-     * @param base a base
-     * @param exponent an exponent
-     * @param modulo a modulo
-     * @return exponentiation result with modulo taken
+     * @param base the base
+     * @param exponent the exponent
+     * @param modulo the modulo
+     * @return the exponentiation result with modulo taken
      */
     public static long power(long base, long exponent, long modulo)
     {

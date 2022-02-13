@@ -28,8 +28,8 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Finds the lowest common ancestor of two vertices in a rooted tree.
-     * @param vertex1 first vertex
-     * @param vertex2 second vertex
+     * @param vertex1 the first vertex
+     * @param vertex2 the second vertex
      * @return lowest common ancestor of given vertices
      */
     public Vertex<VertexId> findLCA(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)

@@ -54,65 +54,64 @@ public class SuffixArray
     }
 
     /**
-     * @param i index in suffix array
+     * @param index index in suffix array
      * @return text suffix at the index
      */
-    public String get(int i)
+    public String get(int index)
     {
-        if(i < 0 || i >= size_)
+        if(index < 0 || index >= size_)
             throw new IndexOutOfBoundsException("Suffix array index out of range");
 
-        return text.substring(suffixArray.get(i));
+        return text.substring(suffixArray.get(index));
     }
 
     /**
      * Finds suffix in text for given index in this suffix array.
-     * @param i index in suffix array
+     * @param index index in suffix array
      * @return index in text where suffix begins
      */
-    public int indexAt(int i)
+    public int indexAt(int index)
     {
-        if(i < 0 || i >= size_)
+        if(index < 0 || index >= size_)
             throw new IndexOutOfBoundsException("Suffix array index out of range");
 
-        return suffixArray.get(i);
+        return suffixArray.get(index);
     }
 
     /**
      * Finds index in this suffix array for given text suffix.
-     * @param suf index in text where suffix begins
+     * @param index index in text where suffix begins
      * @return index of suffix in suffix array
      */
-    public int indexOf(int suf)
+    public int indexOf(int index)
     {
-        if(suf < 0 || suf >= size_)
+        if(index < 0 || index >= size_)
             throw new IndexOutOfBoundsException("Text index out of range");
 
-        return inverseArray.get(suf);
+        return inverseArray.get(index);
     }
 
     /**
-     * Counts length of the longest common prefix of given suffixes.
-     * @param suf1 index in text where first suffix begins
-     * @param suf2 index in text where second suffix begins
+     * Calculates length of the longest common prefix of given suffixes.
+     * @param index1 index in text where first suffix begins
+     * @param index2 index in text where second suffix begins
      * @return length of the longest common prefix
      */
-    public int countLCP(int suf1, int suf2)
+    public int countLCP(int index1, int index2)
     {
-        if(suf1 < 0 || suf1 >= size_ || suf2 < 0 || suf2 >= size_)
+        if(index1 < 0 || index1 >= size_ || index2 < 0 || index2 >= size_)
             throw new IndexOutOfBoundsException("Text index out of range");
 
-        if(suf1 == suf2)
-            return size_ - suf1;
+        if(index1 == index2)
+            return size_ - index1;
 
-        int i1 = Math.min(inverseArray.get(suf1), inverseArray.get(suf2));
-        int i2 = Math.max(inverseArray.get(suf1), inverseArray.get(suf2));
-        int res = lcpArray.get(i1 + 1);
+        int j1 = Math.min(inverseArray.get(index1), inverseArray.get(index2));
+        int j2 = Math.max(inverseArray.get(index1), inverseArray.get(index2));
 
-        for(int i = i1 + 2; i <= i2; ++i)
-            res = Math.min(res, lcpArray.get(i));
-
-        return res;
+        return IntStream.range(j1 + 1, j2 + 1)
+                        .mapToObj(lcpArray::get)
+                        .min(Integer::compareTo)
+                        .orElseGet(() -> lcpArray.get(j1 + 1));
     }
 
     private void initInverseArray()
@@ -140,8 +139,7 @@ public class SuffixArray
                 lcpArray.set(inverseArray.get(i), len);
             }
 
-            if(len > 0)
-                --len;
+            len = Math.max(0, len - 1);
         }
     }
 
@@ -172,7 +170,7 @@ public class SuffixArray
         for(int i : indices12)
         {
             if(getElement(txt, i) != last0 || getElement(txt, i + 1) != last1
-                    || getElement(txt, i + 2) != last2)
+                       || getElement(txt, i + 2) != last2)
             {
                 ++code;
                 last0 = getElement(txt, i);
@@ -223,8 +221,9 @@ public class SuffixArray
 
         while(index0 < sa0.size() && index12 < sa12.size())
         {
-            int pos12 = sa12.get(index12) < length2 ? sa12.get(index12) * 3 + 1
-                                                    : (sa12.get(index12) - length2) * 3 + 2;
+            int pos12 = sa12.get(index12) < length2
+                        ? sa12.get(index12) * 3 + 1
+                        : (sa12.get(index12) - length2) * 3 + 2;
             int pos0 = sa0.get(index0);
             boolean cond;
 
@@ -252,8 +251,9 @@ public class SuffixArray
 
         while(index12 < sa12.size())
         {
-            saMerged.add(sa12.get(index12) < length2 ? sa12.get(index12) * 3 + 1
-                                                     : (sa12.get(index12) - length2) * 3 + 2);
+            saMerged.add(sa12.get(index12) < length2
+                         ? sa12.get(index12) * 3 + 1
+                         : (sa12.get(index12) - length2) * 3 + 2);
             ++index12;
         }
 

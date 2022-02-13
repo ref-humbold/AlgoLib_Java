@@ -9,7 +9,7 @@ public final class LongestIncreasingSubsequence
 {
     /**
      * Constructs the longest increasing subsequence.
-     * @param sequence sequence of elements
+     * @param sequence the sequence of elements
      * @param comparator comparator function of elements in subsequence
      * @return the longest increasing subsequence (least lexicographically)
      */

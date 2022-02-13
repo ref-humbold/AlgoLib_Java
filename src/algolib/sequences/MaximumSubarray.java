@@ -12,7 +12,7 @@ public final class MaximumSubarray
 {
     /**
      * Dynamically constructs coherent subarray with maximal sum.
-     * @param sequence sequence of numbers
+     * @param sequence the sequence of numbers
      * @return maximum subarray
      */
     public static List<Double> findMaximumSubarray(Iterable<Double> sequence)
@@ -37,7 +37,7 @@ public final class MaximumSubarray
 
     /**
      * Calculates maximal sum from all coherent subarrays using interval tree.
-     * @param sequence sequence of numbers
+     * @param sequence the sequence of numbers
      * @return sum of maximum subarray
      */
     public static double countMaximalSubsum(Collection<Double> sequence)

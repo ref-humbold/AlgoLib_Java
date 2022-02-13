@@ -122,8 +122,8 @@ public class AVLTree<E>
     @Override
     public boolean contains(Object object)
     {
-        return !isEmpty()
-                && findNode(object, (node, obj) -> Objects.equals(node.getElement(), obj)) != null;
+        return !isEmpty() && findNode(object, (node, obj) -> Objects.equals(node.getElement(), obj))
+                                     != null;
     }
 
     @Override
@@ -194,7 +194,7 @@ public class AVLTree<E>
         return node.getParent() != null && node.getParent().getRight() == node;
     }
 
-    // Compares two elements using a comparator or a natural order.
+    // Compares two elements using comparator or natural order.
     @SuppressWarnings("unchecked")
     private int compare(Object obj1, Object obj2)
     {
@@ -456,7 +456,7 @@ public class AVLTree<E>
             else
             {
                 while(currentNode.getParent() != null
-                        && currentNode.getParent().getLeft() != currentNode)
+                              && currentNode.getParent().getLeft() != currentNode)
                     currentNode = currentNode.getParent();
 
                 currentNode = currentNode.getParent();
@@ -495,7 +495,7 @@ public class AVLTree<E>
             else
             {
                 while(currentNode.getParent() != null
-                        && currentNode.getParent().getRight() != currentNode)
+                              && currentNode.getParent().getRight() != currentNode)
                     currentNode = currentNode.getParent();
 
                 currentNode = currentNode.getParent();

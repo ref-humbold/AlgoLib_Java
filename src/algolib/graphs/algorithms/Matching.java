@@ -12,7 +12,7 @@ public final class Matching
 {
     /**
      * Finds maximal matching in given bipartite graph.
-     * @param graph a bipartite graph
+     * @param graph the bipartite graph
      * @return map of matched vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty> Map<Vertex<VertexId>,

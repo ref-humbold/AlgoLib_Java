@@ -68,9 +68,9 @@ public final class Equation
     }
 
     /**
-     * Adds another equation.
+     * Adds given equation to this equation.
      * @param equation equation to be added
-     * @throws IllegalArgumentException if equations sizes differ
+     * @throws IllegalArgumentException if equations sizes are different
      */
     public void add(Equation equation)
     {
@@ -84,9 +84,9 @@ public final class Equation
     }
 
     /**
-     * Subtracts another equation.
+     * Subtracts given equation from this equation.
      * @param equation equation to be subtracted
-     * @throws IllegalArgumentException if equations sizes differ
+     * @throws IllegalArgumentException if equations sizes are different
      */
     public void subtract(Equation equation)
     {
@@ -100,9 +100,9 @@ public final class Equation
     }
 
     /**
-     * Multiplies equation by a constant.
-     * @param constant constant
-     * @throws ArithmeticException if constant is zero
+     * Multiplies this equation by given constant.
+     * @param constant the constant
+     * @throws ArithmeticException if the constant is zero
      */
     public void multiply(double constant)
     {
@@ -116,9 +116,9 @@ public final class Equation
     }
 
     /**
-     * Divides equation by a constant.
-     * @param constant constant
-     * @throws ArithmeticException if constant is zero
+     * Divides this equation by given constant.
+     * @param constant the constant
+     * @throws ArithmeticException if the constant is zero
      */
     public void divide(double constant)
     {
@@ -132,11 +132,11 @@ public final class Equation
     }
 
     /**
-     * Transforms equation through a linear combination with another equation.
-     * @param equation equation
-     * @param constant linear combination constant
-     * @throws IllegalArgumentException if equations sizes differ
-     * @throws ArithmeticException if constant is zero
+     * Transforms equation through linear combination with given equation.
+     * @param equation the equation
+     * @param constant the linear combination constant
+     * @throws IllegalArgumentException if equations sizes are different
+     * @throws ArithmeticException if the constant is zero
      */
     public void combine(Equation equation, double constant)
     {
@@ -154,14 +154,18 @@ public final class Equation
 
     /**
      * Checks whether given values solve this equation.
-     * @param solution values to check
-     * @return {@code true} if solution is correct, otherwise {@code false}
+     * @param solution the values
+     * @return {@code true} if the solution is correct, otherwise {@code false}
      */
     public boolean isSolution(double[] solution)
     {
-        return solution.length == coefficients.length && IntStream.range(0, coefficients.length)
-                                                                  .mapToDouble(i -> solution[i]
-                                                                                            * coefficients[i])
-                                                                  .sum() == free;
+        if(solution.length != coefficients.length)
+            return false;
+
+        double result = IntStream.range(0, coefficients.length)
+                                 .mapToDouble(i -> solution[i] * coefficients[i])
+                                 .sum();
+
+        return result == free;
     }
 }
