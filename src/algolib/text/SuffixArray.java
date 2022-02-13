@@ -55,7 +55,7 @@ public class SuffixArray
 
     /**
      * @param i index in suffix array
-     * @return suffix from i-th index
+     * @return text suffix at the index
      */
     public String get(int i)
     {
@@ -66,6 +66,7 @@ public class SuffixArray
     }
 
     /**
+     * Finds suffix in text for given index in this suffix array.
      * @param i index in suffix array
      * @return index in text where suffix begins
      */
@@ -78,6 +79,7 @@ public class SuffixArray
     }
 
     /**
+     * Finds index in this suffix array for given text suffix.
      * @param suf index in text where suffix begins
      * @return index of suffix in suffix array
      */
@@ -90,9 +92,10 @@ public class SuffixArray
     }
 
     /**
+     * Counts length of the longest common prefix of given suffixes.
      * @param suf1 index in text where first suffix begins
      * @param suf2 index in text where second suffix begins
-     * @return longest common prefix of both suffices
+     * @return length of the longest common prefix
      */
     public int countLCP(int suf1, int suf2)
     {

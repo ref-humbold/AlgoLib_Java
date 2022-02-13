@@ -64,8 +64,8 @@ public final class Primes
     }
 
     /**
-     * Checks whether given number is prime using Fermat's prime test.
-     * @param number number to check
+     * Tests whether given number is prime using Fermat's prime test.
+     * @param number number to test
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
     public static boolean testFermat(int number)
@@ -88,8 +88,8 @@ public final class Primes
     }
 
     /**
-     * Checks whether given number is prime using Fermat's prime test.
-     * @param number number to check
+     * Tests whether given number is prime using Fermat's prime test.
+     * @param number number to test
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
     public static boolean testFermat(long number)
@@ -112,8 +112,8 @@ public final class Primes
     }
 
     /**
-     * Checks whether given number is prime using Miller-Rabin's prime test.
-     * @param number number to check
+     * Tests whether given number is prime using Miller-Rabin's prime test.
+     * @param number number to test
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
     public static boolean testMiller(int number)
@@ -146,8 +146,8 @@ public final class Primes
     }
 
     /**
-     * Checks whether given number is prime using Miller-Rabin's prime test.
-     * @param number number to check
+     * Tests whether given number is prime using Miller-Rabin's prime test.
+     * @param number number to test
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
     public static boolean testMiller(long number)

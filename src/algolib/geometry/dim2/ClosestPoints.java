@@ -10,7 +10,7 @@ import algolib.tuples.Pair;
 public final class ClosestPoints
 {
     /**
-     * Searches for closest of points among given points.
+     * Searches for pair of closest of points among given points.
      * @param points list of points
      * @return pair of the closest points
      */
@@ -25,7 +25,7 @@ public final class ClosestPoints
         return searchClosest(pointsX, pointsY, 0, -1);
     }
 
-    // Finds closest pair of points among three of them.
+    // Finds pair of closest points among three of them.
     private static Pair<Point2D, Point2D> searchThree(List<Point2D> pointsX, int indexBegin,
                                                       int indexEnd)
     {
@@ -43,7 +43,7 @@ public final class ClosestPoints
         return Pair.of(pointsX.get(indexBegin), pointsX.get(indexEnd));
     }
 
-    // Finds closest pair inside a belt of given width.
+    // Finds pair of closest points inside a belt of given width.
     // The resulting distance should not be less than belt width.
     private static Optional<Pair<Point2D, Point2D>> checkBelt(List<Point2D> pointsY, double middleX,
                                                               double beltWidth)

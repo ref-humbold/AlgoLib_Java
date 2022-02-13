@@ -59,6 +59,12 @@ public final class BaseWordsMap
         return getCode(startIndex, text.length());
     }
 
+    /**
+    * Retrieves code of substring denoted by given range indices.
+    * @param startIndex starting index, inclusive
+    * @param endIndex ending index, exclusive
+    * @return code of the substring
+    */
     public Pair<Integer, Integer> getCode(int startIndex, int endIndex)
     {
         if(startIndex < 0 || startIndex >= text.length())
@@ -80,7 +86,7 @@ public final class BaseWordsMap
                        factors.get(Pair.of(endIndex - n, endIndex)));
     }
 
-    // Builds a base words map using Karp-Miller-Rosenberg algorithm
+    // Builds base words map using Karp-Miller-Rosenberg algorithm.
     private void create()
     {
         int codeValue = extend(1, 0, (i, length) -> new int[]{text.charAt(i), 1 + text.charAt(i), i,
@@ -94,7 +100,7 @@ public final class BaseWordsMap
                                                         i + length});
     }
 
-    // Encodes substring of given length using already counted factors
+    // Encodes substring of given length using already counted factors.
     private int extend(int length, int codeValue, BiFunction<Integer, Integer, int[]> func)
     {
         ComparablePair<Integer, Integer> previousCode = ComparablePair.of(0, 0);

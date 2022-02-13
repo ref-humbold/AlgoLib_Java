@@ -10,7 +10,7 @@ public final class ConvexHull
     /**
      * Constructs convex hull of given points.
      * @param points list of points
-     * @return list of hull points
+     * @return list of points in the convex hull
      */
     public static List<Point2D> findConvexHull(List<Point2D> points)
     {
@@ -33,7 +33,7 @@ public final class ConvexHull
         return lowerHull;
     }
 
-    // Creates a half of a convex hull for given points.
+    // Creates half of convex hull for given points.
     private static List<Point2D> createHalfHull(List<Point2D> points)
     {
         List<Point2D> hull = new ArrayList<>();
