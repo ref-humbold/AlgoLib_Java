@@ -38,26 +38,6 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void size_WhenEmpty_ThenZero()
-    {
-        // given
-        testObject = new DoubleHeap<>();
-        // when
-        int result = testObject.size();
-        // then
-        Assertions.assertThat(result).isZero();
-    }
-
-    @Test
-    public void size_WhenNotEmpty_ThenNumberOfElements()
-    {
-        // when
-        int result = testObject.size();
-        // then
-        Assertions.assertThat(result).isEqualTo(numbers.length);
-    }
-
-    @Test
     public void isEmpty_WhenEmpty_ThenTrue()
     {
         // given
@@ -75,6 +55,26 @@ public class DoubleHeapTest
         boolean result = testObject.isEmpty();
         // then
         Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void size_WhenEmpty_ThenZero()
+    {
+        // given
+        testObject = new DoubleHeap<>();
+        // when
+        int result = testObject.size();
+        // then
+        Assertions.assertThat(result).isZero();
+    }
+
+    @Test
+    public void size_WhenNotEmpty_ThenNumberOfElements()
+    {
+        // when
+        int result = testObject.size();
+        // then
+        Assertions.assertThat(result).isEqualTo(numbers.length);
     }
 
     // region iterator & descendingIterator
@@ -430,8 +430,11 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void removeMin_WhenMultipleCalls_ThenSortedDescending()
+    public void removeMin_WhenMultipleCalls_ThenSortedAsComparator()
     {
+        // given
+        testObject = new DoubleHeap<>(Comparator.naturalOrder());
+        testObject.addAll(Arrays.asList(numbers));
         // when
         List<Integer> result = new ArrayList<>();
 
@@ -439,7 +442,7 @@ public class DoubleHeapTest
             result.add(testObject.removeMin());
         // then
         Assertions.assertThat(result).hasSameElementsAs(Arrays.asList(numbers));
-        Assertions.assertThat(result).isSorted();
+        Assertions.assertThat(result).isSortedAccordingTo(testObject.comparator());
     }
 
     @Test
@@ -464,8 +467,11 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void removeMax_WhenMultipleCalls_ThenSortedDescending()
+    public void removeMax_WhenMultipleCalls_ThenSortedReversedToComparator()
     {
+        // given
+        testObject = new DoubleHeap<>(Comparator.naturalOrder());
+        testObject.addAll(Arrays.asList(numbers));
         // when
         List<Integer> result = new ArrayList<>();
 
@@ -473,7 +479,7 @@ public class DoubleHeapTest
             result.add(testObject.removeMax());
         // then
         Assertions.assertThat(result).hasSameElementsAs(Arrays.asList(numbers));
-        Assertions.assertThat(result).isSortedAccordingTo((n, m) -> m.compareTo(n));
+        Assertions.assertThat(result).isSortedAccordingTo(testObject.comparator().reversed());
     }
 
     // endregion

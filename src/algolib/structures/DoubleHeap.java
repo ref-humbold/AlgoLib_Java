@@ -23,6 +23,22 @@ public class DoubleHeap<E>
     }
 
     @SuppressWarnings("unchecked")
+    public DoubleHeap(DoubleHeap<? extends E> doubleHeap)
+    {
+        super();
+        comparator_ = (Comparator<? super E>)doubleHeap.comparator();
+        addAll(doubleHeap);
+    }
+
+    @SuppressWarnings("unchecked")
+    public DoubleHeap(PriorityQueue<? extends E> queue)
+    {
+        super();
+        comparator_ = (Comparator<? super E>)queue.comparator();
+        addAll(queue);
+    }
+
+    @SuppressWarnings("unchecked")
     public DoubleHeap(Collection<? extends E> collection)
     {
         super();
