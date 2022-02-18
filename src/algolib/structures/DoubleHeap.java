@@ -1,8 +1,8 @@
-// Structure of double heap
 package algolib.structures;
 
 import java.util.*;
 
+/** Structure of double heap */
 public class DoubleHeap<E>
         extends AbstractQueue<E>
 {
@@ -13,8 +13,13 @@ public class DoubleHeap<E>
 
     public DoubleHeap()
     {
+        this((Comparator<? super E>)null);
+    }
+
+    public DoubleHeap(Comparator<? super E> comparator)
+    {
         super();
-        comparator_ = null;
+        comparator_ = comparator;
     }
 
     @SuppressWarnings("unchecked")
@@ -36,12 +41,6 @@ public class DoubleHeap<E>
             comparator_ = null;
 
         addAll(collection);
-    }
-
-    public DoubleHeap(Comparator<? super E> comparator)
-    {
-        super();
-        comparator_ = comparator;
     }
 
     @Override
@@ -72,11 +71,6 @@ public class DoubleHeap<E>
         return new HeapDescendingIterator<>(heap);
     }
 
-    /**
-     * Adds given new value to this double heap.
-     * @param element the value
-     * @return {@code true} if the value was added successfully, otherwise {@code false}
-     */
     @Override
     public boolean offer(E element)
     {
@@ -238,7 +232,7 @@ public class DoubleHeap<E>
         heap.clear();
     }
 
-    // Compares two elements using a comparator or a natural order.
+    // Compares two elements using comparator or natural order.
     @SuppressWarnings("unchecked")
     private int compare(int index1, int index2)
     {
@@ -327,13 +321,12 @@ public class DoubleHeap<E>
     private abstract static class AbstractHeapIterator<E>
             implements Iterator<E>
     {
-        final List<E> orderList = new ArrayList<>();
-        private int currentIndex = 0;
+        final Queue<E> orderQueue = new ArrayDeque<>();
 
         @Override
         public boolean hasNext()
         {
-            return currentIndex < orderList.size();
+            return !orderQueue.isEmpty();
         }
 
         @Override
@@ -342,10 +335,7 @@ public class DoubleHeap<E>
             if(!hasNext())
                 throw new NoSuchElementException("No more elements in iterator.");
 
-            E returnValue = orderList.get(currentIndex);
-
-            ++currentIndex;
-            return returnValue;
+            return orderQueue.remove();
         }
 
         List<E> createOrderedMinimalList(List<E> heap)
@@ -353,7 +343,8 @@ public class DoubleHeap<E>
             Queue<Integer> indices = new ArrayDeque<>();
             List<E> minimalList = new ArrayList<>();
 
-            indices.add(DoubleHeap.INDEX_MIN);
+            if(!heap.isEmpty())
+                indices.add(DoubleHeap.INDEX_MIN);
 
             while(!indices.isEmpty())
             {
@@ -376,7 +367,8 @@ public class DoubleHeap<E>
             Queue<Integer> indices = new ArrayDeque<>();
             List<E> maximalList = new ArrayList<>();
 
-            indices.add(DoubleHeap.INDEX_MAX);
+            if(heap.size() > DoubleHeap.INDEX_MAX)
+                indices.add(DoubleHeap.INDEX_MAX);
 
             while(!indices.isEmpty())
             {
@@ -406,8 +398,8 @@ public class DoubleHeap<E>
             List<E> maximalList = createOrderedMaximalList(heap);
 
             Collections.reverse(maximalList);
-            orderList.addAll(minimalList);
-            orderList.addAll(maximalList);
+            orderQueue.addAll(minimalList);
+            orderQueue.addAll(maximalList);
         }
     }
 
@@ -422,8 +414,8 @@ public class DoubleHeap<E>
             List<E> maximalList = createOrderedMaximalList(heap);
 
             Collections.reverse(minimalList);
-            orderList.addAll(maximalList);
-            orderList.addAll(minimalList);
+            orderQueue.addAll(maximalList);
+            orderQueue.addAll(minimalList);
         }
     }
 }

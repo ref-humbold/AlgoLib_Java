@@ -1,10 +1,6 @@
 package algolib.structures;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Index;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,16 +77,70 @@ public class DoubleHeapTest
         Assertions.assertThat(result).isFalse();
     }
 
+    // region iterator & descendingIterator
+
+    @Test
+    public void iterator_WhenEmpty_ThenNoElements()
+    {
+        // given
+        testObject = new DoubleHeap<>();
+        // when
+        Iterator<Integer> result = testObject.iterator();
+        // then
+        Assertions.assertThat(result.hasNext()).isFalse();
+        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    public void iterator_WhenOneElement_ThenThisElementOnly()
+    {
+        // given
+        int element = 17;
+        testObject = new DoubleHeap<>(List.of(element));
+        // when
+        Iterator<Integer> result = testObject.iterator();
+        // then
+        Assertions.assertThat(result.hasNext()).isTrue();
+        Assertions.assertThat(result.next()).isEqualTo(element);
+        Assertions.assertThat(result.hasNext()).isFalse();
+    }
+
     @Test
     public void iterator_WhenNotEmpty_ThenFirstMinimumAndLastMaximum()
     {
         // when
         List<Integer> result = new ArrayList<>();
 
-        testObject.iterator().forEachRemaining(e -> result.add(e));
+        testObject.iterator().forEachRemaining(result::add);
         // then
         Assertions.assertThat(result).contains(minimum, Index.atIndex(0));
         Assertions.assertThat(result).contains(maximum, Index.atIndex(result.size() - 1));
+    }
+
+    @Test
+    public void descendingIterator_WhenEmpty_ThenNoElements()
+    {
+        // given
+        testObject = new DoubleHeap<>();
+        // when
+        Iterator<Integer> result = testObject.descendingIterator();
+        // then
+        Assertions.assertThat(result.hasNext()).isFalse();
+        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    public void descendingIterator_WhenOneElement_ThenThisElementOnly()
+    {
+        // given
+        int element = 17;
+        testObject = new DoubleHeap<>(List.of(element));
+        // when
+        Iterator<Integer> result = testObject.descendingIterator();
+        // then
+        Assertions.assertThat(result.hasNext()).isTrue();
+        Assertions.assertThat(result.next()).isEqualTo(element);
+        Assertions.assertThat(result.hasNext()).isFalse();
     }
 
     @Test
@@ -99,12 +149,13 @@ public class DoubleHeapTest
         // when
         List<Integer> result = new ArrayList<>();
 
-        testObject.descendingIterator().forEachRemaining(e -> result.add(e));
+        testObject.descendingIterator().forEachRemaining(result::add);
         // then
         Assertions.assertThat(result).contains(maximum, Index.atIndex(0));
         Assertions.assertThat(result).contains(minimum, Index.atIndex(result.size() - 1));
     }
 
+    // endregion
     // region add & offer
 
     @Test
