@@ -84,7 +84,7 @@ public class PairingHeapTest
     }
 
     @Test
-    public void iterator_WhenOneElement_ThenThisElementOnly()
+    public void iterator_WhenSingleElement_ThenThisElementOnly()
     {
         // given
         int element = 17;
@@ -99,7 +99,7 @@ public class PairingHeapTest
     }
 
     @Test
-    public void iterator_WhenNotEmpty_ThenFirstMinimum()
+    public void iterator_WhenMultipleElements_ThenMinimumFirst()
     {
         // when
         List<Integer> result = new ArrayList<>();
@@ -138,10 +138,10 @@ public class PairingHeapTest
     }
 
     @Test
-    public void offer_WhenNewElementIsLess_ThenAddedToMin()
+    public void offer_WhenNewElementIsLessThanMinimum_ThenNewMinimum()
     {
         // given
-        int element = minimum - 1;
+        int element = minimum - 3;
         // when
         testObject.offer(element);
         // then
@@ -164,7 +164,20 @@ public class PairingHeapTest
     }
 
     @Test
-    public void peek_WhenNotEmpty_ThenMinimalElement()
+    public void peek_WhenSingleElement_ThenThisElement()
+    {
+        // given
+        int element = 19;
+
+        testObject = new PairingHeap<>(List.of(element));
+        // when
+        Integer result = testObject.peek();
+        // then
+        Assertions.assertThat(result).isEqualTo(element);
+    }
+
+    @Test
+    public void peek_WhenMultipleElements_ThenMinimalElement()
     {
         // when
         Integer result = testObject.peek();
@@ -184,7 +197,20 @@ public class PairingHeapTest
     }
 
     @Test
-    public void element_WhenNotEmpty_ThenMinimalElement()
+    public void element_WhenSingleElement_ThenThisElement()
+    {
+        // given
+        int element = 19;
+
+        testObject = new PairingHeap<>(List.of(element));
+        // when
+        Integer result = testObject.element();
+        // then
+        Assertions.assertThat(result).isEqualTo(element);
+    }
+
+    @Test
+    public void element_WhenMultipleElements_ThenMinimalElement()
     {
         // when
         Integer result = testObject.element();
@@ -211,6 +237,7 @@ public class PairingHeapTest
     {
         // given
         int element = 19;
+
         testObject = new PairingHeap<>(List.of(element));
         // when
         Integer result = testObject.poll();
@@ -220,7 +247,7 @@ public class PairingHeapTest
     }
 
     @Test
-    public void poll_WhenNotEmpty_ThenMinimalElementRemoved()
+    public void poll_WhenMultipleElements_ThenMinimalElementRemoved()
     {
         // when
         Integer result = testObject.poll();
@@ -241,7 +268,21 @@ public class PairingHeapTest
     }
 
     @Test
-    public void remove_WhenNotEmpty_ThenMinimalElementRemoved()
+    public void remove_WhenSingleElement_ThenThisElementRemoved()
+    {
+        // given
+        int element = 19;
+
+        testObject = new PairingHeap<>(List.of(element));
+        // when
+        Integer result = testObject.remove();
+        // then
+        Assertions.assertThat(testObject).isEmpty();
+        Assertions.assertThat(result).isEqualTo(element);
+    }
+
+    @Test
+    public void remove_WhenMultipleElements_ThenMinimalElementRemoved()
     {
         // when
         Integer result = testObject.remove();
@@ -251,7 +292,7 @@ public class PairingHeapTest
     }
 
     @Test
-    public void remove_WhenMultipleCalls_ThenSortedAsComparator()
+    public void remove_WhenMultipleCalls_ThenSorted()
     {
         // when
         List<Integer> result = new ArrayList<>();
@@ -260,7 +301,7 @@ public class PairingHeapTest
             result.add(testObject.remove());
         // then
         Assertions.assertThat(result).hasSameElementsAs(Arrays.asList(numbers));
-        Assertions.assertThat(result).isSortedAccordingTo(Integer::compareTo);
+        Assertions.assertThat(result).isSortedAccordingTo(Comparator.naturalOrder());
     }
 
     // endregion

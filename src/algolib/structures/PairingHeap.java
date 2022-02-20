@@ -1,6 +1,8 @@
 package algolib.structures;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /** Structure of pairing heap */
 public class PairingHeap<E extends Comparable<E>>
@@ -46,9 +48,7 @@ public class PairingHeap<E extends Comparable<E>>
     @Override
     public boolean offer(E element)
     {
-        var newNode = new HeapNode<>(element, new ArrayList<>());
-
-        heap = heap == null ? newNode : heap.merge(newNode);
+        heap = heap == null ? new HeapNode<>(element, new ArrayList<>()) : heap.add(element);
         return true;
     }
 
@@ -99,6 +99,17 @@ public class PairingHeap<E extends Comparable<E>>
             size = node.size;
         }
 
+        HeapNode<E> add(E element)
+        {
+            if(element.compareTo(this.element) <= 0)
+                return new HeapNode<>(element, Stream.of(this)
+                                                     .collect(Collectors.toCollection(
+                                                             ArrayList::new)));
+
+            append(new HeapNode<>(element, new ArrayList<>()));
+            return this;
+        }
+
         HeapNode<E> pop()
         {
             return mergePairs(0);
@@ -107,7 +118,7 @@ public class PairingHeap<E extends Comparable<E>>
         HeapNode<E> merge(HeapNode<E> node)
         {
             if(node == null)
-                return new HeapNode<>(this);
+                return this;
 
             HeapNode<E> mergedNode;
 
@@ -136,14 +147,11 @@ public class PairingHeap<E extends Comparable<E>>
             if(index >= children.size())
                 return null;
 
-            HeapNode<E> resultNode;
+            HeapNode<E> mergedNode = index >= children.size() - 1
+                                     ? children.get(index)
+                                     : children.get(index).merge(children.get(index + 1));
 
-            if(index >= children.size() - 1)
-                resultNode = children.get(index);
-            else
-                resultNode = children.get(index).merge(children.get(index + 1));
-
-            return resultNode.merge(mergePairs(index + 2));
+            return mergedNode.merge(mergePairs(index + 2));
         }
     }
 

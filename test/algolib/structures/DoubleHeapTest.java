@@ -107,7 +107,7 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void iterator_WhenMultipleElements_ThenFirstMinimumAndLastMaximum()
+    public void iterator_WhenMultipleElements_ThenMinimumFirstAndMaximumLast()
     {
         // when
         List<Integer> result = new ArrayList<>();
@@ -146,7 +146,7 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void descendingIterator_WhenMultipleElements_ThenFirstMaximumAndLastMinimum()
+    public void descendingIterator_WhenMultipleElements_ThenMaximumFirstAndMinimumLast()
     {
         // when
         List<Integer> result = new ArrayList<>();
@@ -236,7 +236,7 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void peekMax_WhenSingleElement_ThenThisElement()
+    public void peekMin_WhenSingleElement_ThenThisElement()
     {
         // given
         int element = 19;
@@ -460,7 +460,7 @@ public class DoubleHeapTest
     public void removeMin_WhenMultipleCalls_ThenSortedAsComparator()
     {
         // given
-        testObject = new DoubleHeap<>(Comparator.naturalOrder());
+        testObject = new DoubleHeap<>(Comparator.reverseOrder());
         testObject.addAll(Arrays.asList(numbers));
         // when
         List<Integer> result = new ArrayList<>();
@@ -497,7 +497,7 @@ public class DoubleHeapTest
     public void removeMax_WhenMultipleCalls_ThenSortedReversedToComparator()
     {
         // given
-        testObject = new DoubleHeap<>(Comparator.naturalOrder());
+        testObject = new DoubleHeap<>(Comparator.reverseOrder());
         testObject.addAll(Arrays.asList(numbers));
         // when
         List<Integer> result = new ArrayList<>();
