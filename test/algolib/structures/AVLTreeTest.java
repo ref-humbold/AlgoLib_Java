@@ -43,6 +43,26 @@ public class AVLTreeTest
     }
 
     @Test
+    public void isEmpty_WhenEmpty_ThenTrue()
+    {
+        // given
+        testObject = new AVLTree<>();
+        // when
+        boolean result = testObject.isEmpty();
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void isEmpty_WhenNotEmpty_ThenFalse()
+    {
+        // when
+        boolean result = testObject.isEmpty();
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
     public void size_WhenEmpty_ThenZero()
     {
         // given
@@ -63,23 +83,12 @@ public class AVLTreeTest
     }
 
     @Test
-    public void isEmpty_WhenEmpty_ThenTrue()
-    {
-        // given
-        testObject = new AVLTree<>();
-        // when
-        boolean result = testObject.isEmpty();
-        // then
-        Assertions.assertThat(result).isTrue();
-    }
-
-    @Test
-    public void isEmpty_WhenNotEmpty_ThenFalse()
+    public void clear_WhenNotEmpty_ThenEmpty()
     {
         // when
-        boolean result = testObject.isEmpty();
+        testObject.clear();
         // then
-        Assertions.assertThat(result).isFalse();
+        Assertions.assertThat(testObject).isEmpty();
     }
 
     @Test
@@ -272,7 +281,7 @@ public class AVLTreeTest
     public void removeAll_WhenPresentElements_ThenTrue()
     {
         // given
-        List<Integer> elements = List.of(14, 24, 30, 45);
+        Set<Integer> elements = Set.of(14, 24, 30, 45);
         // when
         boolean result = testObject.removeAll(elements);
         // then
@@ -284,7 +293,7 @@ public class AVLTreeTest
     public void removeAll_WhenPresentAndAbsentElements_ThenTrue()
     {
         // given
-        List<Integer> elements = List.of(14, 162, 30, 195);
+        Set<Integer> elements = Set.of(14, 162, 30, 195);
         // when
         boolean result = testObject.removeAll(elements);
         // then
@@ -296,20 +305,11 @@ public class AVLTreeTest
     public void removeAll_WhenAbsentElements_ThenFalse()
     {
         // given
-        List<Integer> elements = List.of(111, 140, 187);
+        Set<Integer> elements = Set.of(111, 140, 187);
         // when
         boolean result = testObject.removeAll(elements);
         // then
         Assertions.assertThat(result).isFalse();
         Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
-    }
-
-    @Test
-    public void clear_WhenNotEmpty_ThenEmpty()
-    {
-        // when
-        testObject.clear();
-        // then
-        Assertions.assertThat(testObject).isEmpty();
     }
 }

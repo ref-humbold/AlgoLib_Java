@@ -49,6 +49,12 @@ public class AVLTree<E>
         comparator_ = comparator;
     }
 
+    @Override
+    public boolean isEmpty()
+    {
+        return tree == null;
+    }
+
     private void setRoot(AVLNode<E> node)
     {
         tree = node;
@@ -103,6 +109,19 @@ public class AVLTree<E>
     }
 
     @Override
+    public int size()
+    {
+        return size_;
+    }
+
+    @Override
+    public void clear()
+    {
+        setRoot(null);
+        size_ = 0;
+    }
+
+    @Override
     public Iterator<E> iterator()
     {
         return new AVLIterator(tree != null ? tree.minimum() : null);
@@ -111,12 +130,6 @@ public class AVLTree<E>
     public Iterator<E> descendingIterator()
     {
         return new AVLDescendingIterator(tree != null ? tree.maximum() : null);
-    }
-
-    @Override
-    public int size()
-    {
-        return size_;
     }
 
     @Override
@@ -175,13 +188,6 @@ public class AVLTree<E>
     public boolean removeAll(Collection<?> objects)
     {
         return objects.stream().reduce(false, (acc, obj) -> remove(obj) || acc, Boolean::logicalOr);
-    }
-
-    @Override
-    public void clear()
-    {
-        setRoot(null);
-        size_ = 0;
     }
 
     private boolean isLeftSon(AVLNode<E> node)

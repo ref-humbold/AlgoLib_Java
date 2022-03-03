@@ -33,6 +33,13 @@ public class PairingHeap<E extends Comparable<E>>
     }
 
     @Override
+    public void clear()
+    {
+        heap = null;
+        size_ = 0;
+    }
+
+    @Override
     public Iterator<E> iterator()
     {
         return new HeapIterator<>(heap);
@@ -47,13 +54,7 @@ public class PairingHeap<E extends Comparable<E>>
     @Override
     public boolean offer(E element)
     {
-        if(heap == null)
-            heap = new HeapNode<>(element, null);
-        else if(element.compareTo(heap.element) < 0)
-            heap = new HeapNode<>(element, new HeapNodeList<>(heap, null));
-        else
-            heap.append(new HeapNode<>(element, null));
-
+        heap = heap == null ? new HeapNode<>(element, null) : heap.append(element);
         ++size_;
         return true;
     }
@@ -81,13 +82,6 @@ public class PairingHeap<E extends Comparable<E>>
         size_ += other.size_;
     }
 
-    @Override
-    public void clear()
-    {
-        heap = null;
-        size_ = 0;
-    }
-
     private static class HeapNodeList<E extends Comparable<E>>
     {
         final HeapNode<E> node;
@@ -103,12 +97,20 @@ public class PairingHeap<E extends Comparable<E>>
     private static class HeapNode<E extends Comparable<E>>
     {
         private final E element;
-        private HeapNodeList<E> children;
+        private final HeapNodeList<E> children;
 
         HeapNode(E element, HeapNodeList<E> children)
         {
             this.element = element;
             this.children = children;
+        }
+
+        HeapNode<E> append(E element)
+        {
+            return this.element.compareTo(element) <= 0
+                    ? new HeapNode<>(this.element, new HeapNodeList<>(new HeapNode<>(element, null),
+                                                                      children))
+                    : new HeapNode<>(element, new HeapNodeList<>(this, null));
         }
 
         HeapNode<E> pop()
@@ -118,21 +120,11 @@ public class PairingHeap<E extends Comparable<E>>
 
         HeapNode<E> merge(HeapNode<E> node)
         {
-            if(node == null)
-                return this;
-
-            if(element.compareTo(node.element) <= 0)
-            {
-                append(node);
-                return this;
-            }
-
-            return new HeapNode<>(node.element, new HeapNodeList<>(this, node.children));
-        }
-
-        void append(HeapNode<E> node)
-        {
-            children = new HeapNodeList<>(node, children);
+            return node == null
+                    ? this
+                    : element.compareTo(node.element) <= 0
+                            ? new HeapNode<>(element, new HeapNodeList<>(node, children))
+                            : new HeapNode<>(node.element, new HeapNodeList<>(this, node.children));
         }
 
         private HeapNode<E> mergePairs(HeapNodeList<E> list)

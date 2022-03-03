@@ -72,6 +72,15 @@ public class PairingHeapTest
     }
 
     @Test
+    public void clear_WhenNotEmpty_ThenEmpty()
+    {
+        // when
+        testObject.clear();
+        // then
+        Assertions.assertThat(testObject).isEmpty();
+    }
+
+    @Test
     public void iterator_WhenEmpty_ThenNoElements()
     {
         // given
@@ -356,14 +365,22 @@ public class PairingHeapTest
         Assertions.assertThat(testObject.peek()).isEqualTo(newMinimum);
     }
 
-    // endregion
-
     @Test
-    public void clear_WhenNotEmpty_ThenEmpty()
+    public void merge_WhenSharedInnerHeap_ThenChangedOnlyMergingHeap()
     {
+        // given
+        testObject = new PairingHeap<>();
+
+        var first = new PairingHeap<>(List.of(10, 20));
+        var second = new PairingHeap<>(List.of(4, 8));
         // when
-        testObject.clear();
+        testObject.merge(first);
+        testObject.merge(second);
         // then
-        Assertions.assertThat(testObject).isEmpty();
+        Assertions.assertThat(testObject.peek()).isEqualTo(4);
+        Assertions.assertThat(first.peek()).isEqualTo(10);
+        Assertions.assertThat(second.peek()).isEqualTo(4);
     }
+
+    // endregion
 }

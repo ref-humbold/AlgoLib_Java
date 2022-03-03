@@ -45,7 +45,7 @@ public class DoubleHeap<E>
 
         if(collection instanceof DoubleHeap)
         {
-            DoubleHeap<? extends E> doubleHeap = ((DoubleHeap<? extends E>)collection);
+            DoubleHeap<? extends E> doubleHeap = (DoubleHeap<? extends E>)collection;
             comparator_ = (Comparator<? super E>)doubleHeap.comparator();
         }
         else if(collection instanceof PriorityQueue)
@@ -77,6 +77,12 @@ public class DoubleHeap<E>
     }
 
     @Override
+    public void clear()
+    {
+        heap.clear();
+    }
+
+    @Override
     public Iterator<E> iterator()
     {
         return new HeapIterator<>(heap);
@@ -85,42 +91,6 @@ public class DoubleHeap<E>
     public Iterator<E> descendingIterator()
     {
         return new HeapDescendingIterator<>(heap);
-    }
-
-    @Override
-    public boolean offer(E element)
-    {
-        heap.add(element);
-
-        if(heap.size() > 1)
-        {
-            int index = heap.size() - 1;
-
-            if(index % 2 == 1)
-            {
-                if(compare(index, index - 1) < 0)
-                {
-                    swap(index, index - 1);
-                    moveToMin(index - 1);
-                }
-                else
-                    moveToMax(index);
-            }
-            else
-            {
-                int newIndex = ((index + 1) / 2 - 1) / 2 * 2 + 1;
-
-                if(compare(index, newIndex) > 0)
-                {
-                    swap(index, newIndex);
-                    moveToMax(newIndex);
-                }
-                else
-                    moveToMin(index);
-            }
-        }
-
-        return true;
     }
 
     @Override
@@ -175,6 +145,42 @@ public class DoubleHeap<E>
     public E elementMax()
     {
         return Optional.ofNullable(peekMax()).orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public boolean offer(E element)
+    {
+        heap.add(element);
+
+        if(heap.size() > 1)
+        {
+            int index = heap.size() - 1;
+
+            if(index % 2 == 1)
+            {
+                if(compare(index, index - 1) < 0)
+                {
+                    swap(index, index - 1);
+                    moveToMin(index - 1);
+                }
+                else
+                    moveToMax(index);
+            }
+            else
+            {
+                int newIndex = ((index + 1) / 2 - 1) / 2 * 2 + 1;
+
+                if(compare(index, newIndex) > 0)
+                {
+                    swap(index, newIndex);
+                    moveToMax(newIndex);
+                }
+                else
+                    moveToMin(index);
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -240,12 +246,6 @@ public class DoubleHeap<E>
     public E removeMax()
     {
         return Optional.ofNullable(pollMax()).orElseThrow(NoSuchElementException::new);
-    }
-
-    @Override
-    public void clear()
-    {
-        heap.clear();
     }
 
     // Compares two elements using comparator or natural order.
