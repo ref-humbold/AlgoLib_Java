@@ -16,7 +16,6 @@ public final class LongestCommonSubsequence
     {
         List<T> shortList = sequence1.size() <= sequence2.size() ? sequence1 : sequence2;
         List<T> longList = sequence1.size() > sequence2.size() ? sequence1 : sequence2;
-
         int[] lcs = IntStream.range(0, shortList.size() + 1).map(i -> 0).toArray();
 
         for(T element : longList)
@@ -47,7 +46,6 @@ public final class LongestCommonSubsequence
     {
         String shortText = text1.length() <= text2.length() ? text1 : text2;
         String longText = text1.length() > text2.length() ? text1 : text2;
-
         int[] lcs = IntStream.range(0, shortText.length() + 1).map(i -> 0).toArray();
 
         for(char element : longText.toCharArray())

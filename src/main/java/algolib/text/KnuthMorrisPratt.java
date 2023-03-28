@@ -15,8 +15,8 @@ public final class KnuthMorrisPratt
      */
     public static List<Integer> kmpSearch(String text, String pattern)
     {
-        Objects.requireNonNull(text, "Text is null.");
-        Objects.requireNonNull(pattern, "Pattern is null.");
+        Objects.requireNonNull(text, "Text is null");
+        Objects.requireNonNull(pattern, "Pattern is null");
 
         if("".equals(pattern))
             return new ArrayList<>();

@@ -24,14 +24,14 @@ public final class BaseWordsMap
         create();
     }
 
-    public static BaseWordsMap build(String text)
-    {
-        return new BaseWordsMap(text);
-    }
-
     public String getText()
     {
         return text;
+    }
+
+    public static BaseWordsMap build(String text)
+    {
+        return new BaseWordsMap(text);
     }
 
     @Override
@@ -94,11 +94,14 @@ public final class BaseWordsMap
     // Builds base words map using Karp-Miller-Rosenberg algorithm.
     private void create()
     {
-        int codeValue = extend(1, 0, (i, length) -> new int[]{text.charAt(i), 1 + text.charAt(i), i,
-                                                              i + length});
+        int codeValue = extend(1,
+                               0,
+                               (i, length) -> new int[]{text.charAt(i), 1 + text.charAt(i), i,
+                                                        i + length});
 
         for(int currentLength = 2; currentLength <= text.length(); currentLength *= 2)
-            codeValue = extend(currentLength, codeValue,
+            codeValue = extend(currentLength,
+                               codeValue,
                                (i, length) -> new int[]{factors.get(Pair.of(i, i + length / 2)),
                                                         factors.get(Pair.of(i + length / 2,
                                                                             i + length)), i,

@@ -34,8 +34,9 @@ public final class LongestIncreasingSubsequence
                         searchIndex(sequence, comparator, subsequence, i, 0, subsequence.size());
 
                 subsequence.set(index, i);
-                previousElem.add(
-                        Optional.of(index).filter(ix -> ix > 0).map(ix -> subsequence.get(ix - 1)));
+                previousElem.add(Optional.of(index)
+                                         .filter(ix -> ix > 0)
+                                         .map(ix -> subsequence.get(ix - 1)));
             }
         }
 
@@ -55,8 +56,11 @@ public final class LongestIncreasingSubsequence
 
     // Searches for place of element in list of subsequences.
     // (indexBegin inclusive, indexEnd exclusive)
-    private static <T> int searchIndex(List<T> sequence, Comparator<T> comparator,
-                                       List<Integer> subsequence, int indexElem, int indexBegin,
+    private static <T> int searchIndex(List<T> sequence,
+                                       Comparator<T> comparator,
+                                       List<Integer> subsequence,
+                                       int indexElem,
+                                       int indexBegin,
                                        int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
@@ -66,10 +70,18 @@ public final class LongestIncreasingSubsequence
         T middleElem = sequence.get(subsequence.get(indexMiddle));
 
         if(comparator.compare(sequence.get(indexElem), middleElem) > 0)
-            return searchIndex(sequence, comparator, subsequence, indexElem, indexMiddle + 1,
+            return searchIndex(sequence,
+                               comparator,
+                               subsequence,
+                               indexElem,
+                               indexMiddle + 1,
                                indexEnd);
 
-        return searchIndex(sequence, comparator, subsequence, indexElem, indexBegin,
+        return searchIndex(sequence,
+                           comparator,
+                           subsequence,
+                           indexElem,
+                           indexBegin,
                            indexMiddle + 1);
     }
 }

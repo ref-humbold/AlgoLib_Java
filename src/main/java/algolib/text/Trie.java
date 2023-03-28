@@ -74,7 +74,7 @@ public class Trie
 
     public void remove(String text)
     {
-        if(text.length() > 0)
+        if(!text.isEmpty())
             removeNode(text, tree, 0);
     }
 
@@ -110,8 +110,8 @@ public class Trie
 
     private static class TrieNode
     {
-        private final Map<Character, TrieNode> children = new HashMap<>();
         boolean terminus = false;
+        private final Map<Character, TrieNode> children = new HashMap<>();
 
         boolean isEmpty()
         {

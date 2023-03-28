@@ -25,8 +25,11 @@ public final class EditDistance
      * @param substitutionCost the cost of substitution operation
      * @return the cost of edit distance
      */
-    public static double countLevenshtein(String source, String destination, double insertionCost,
-                                          double deletionCost, double substitutionCost)
+    public static double countLevenshtein(String source,
+                                          String destination,
+                                          double insertionCost,
+                                          double deletionCost,
+                                          double substitutionCost)
     {
         if(insertionCost < 0 || deletionCost < 0 || substitutionCost < 0)
             throw new IllegalArgumentException("Cost cannot be negative");
@@ -76,7 +79,9 @@ public final class EditDistance
      * @param deletionCost the cost of deletion operation
      * @return the cost of edit distance
      */
-    public static double countLCS(String source, String destination, double insertionCost,
+    public static double countLCS(String source,
+                                  String destination,
+                                  double insertionCost,
                                   double deletionCost)
     {
         if(insertionCost < 0 || deletionCost < 0)

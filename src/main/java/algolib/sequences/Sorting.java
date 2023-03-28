@@ -60,7 +60,9 @@ public final class Sorting
 
         for(int half_step = 1; half_step < sequence.size(); half_step *= 2)
             for(int i = 0; i < sequence.size(); i += half_step + half_step)
-                Sorting.merge(sequence, i, Math.min(i + half_step, sequence.size()),
+                Sorting.merge(sequence,
+                              i,
+                              Math.min(i + half_step, sequence.size()),
                               Math.min(i + half_step + half_step, sequence.size()));
     }
 
@@ -82,8 +84,9 @@ public final class Sorting
         int rightVertex = vertex + vertex + 2;
 
         if(rightVertex < indexEnd)
-            nextVertex = heap.get(rightVertex).compareTo(heap.get(leftVertex)) < 0 ? leftVertex
-                                                                                   : rightVertex;
+            nextVertex = heap.get(rightVertex).compareTo(heap.get(leftVertex)) < 0
+                         ? leftVertex
+                         : rightVertex;
 
         if(leftVertex == indexEnd - 1)
             nextVertex = leftVertex;
@@ -98,7 +101,8 @@ public final class Sorting
     }
 
     // Mutably sorts given sequence using a recursive merge-sort algorithm.
-    private static <T extends Comparable<T>> void doMergeSort(List<T> sequence, int indexBegin,
+    private static <T extends Comparable<T>> void doMergeSort(List<T> sequence,
+                                                              int indexBegin,
                                                               int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
@@ -112,8 +116,10 @@ public final class Sorting
     }
 
     // Merges two sorted fragments of a sequence.
-    private static <T extends Comparable<T>> void merge(List<T> sequence, int indexBegin,
-                                                        int indexMiddle, int indexEnd)
+    private static <T extends Comparable<T>> void merge(List<T> sequence,
+                                                        int indexBegin,
+                                                        int indexMiddle,
+                                                        int indexEnd)
     {
         List<T> ordered = new ArrayList<>();
         int iter1 = indexBegin;
@@ -142,7 +148,8 @@ public final class Sorting
     }
 
     // Mutably sorts given sequence using a quick-sort algorithm.
-    private static <T extends Comparable<T>> void doQuickSort(List<T> sequence, int indexBegin,
+    private static <T extends Comparable<T>> void doQuickSort(List<T> sequence,
+                                                              int indexBegin,
                                                               int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
