@@ -135,8 +135,8 @@ public class AVLTree<E>
     @Override
     public boolean contains(Object object)
     {
-        return !isEmpty() && findNode(object, (node, obj) -> Objects.equals(node.getElement(), obj))
-                                     != null;
+        return !isEmpty()
+                && findNode(object, (node, obj) -> Objects.equals(node.getElement(), obj)) != null;
     }
 
     @Override
@@ -176,8 +176,8 @@ public class AVLTree<E>
     @Override
     public boolean remove(Object object)
     {
-        return Optional.ofNullable(
-                               findNode(object, (n, obj) -> Objects.equals(n.getElement(), obj)))
+        return Optional.ofNullable(findNode(object,
+                                            (n, obj) -> Objects.equals(n.getElement(), obj)))
                        .stream()
                        .peek(this::deleteNode)
                        .findFirst()
@@ -433,7 +433,7 @@ public class AVLTree<E>
         }
     }
 
-    private class AVLIterator
+    private final class AVLIterator
             implements Iterator<E>
     {
         private AVLNode<E> currentNode;
@@ -462,7 +462,7 @@ public class AVLTree<E>
             else
             {
                 while(currentNode.getParent() != null
-                              && currentNode.getParent().getLeft() != currentNode)
+                        && currentNode.getParent().getLeft() != currentNode)
                     currentNode = currentNode.getParent();
 
                 currentNode = currentNode.getParent();
@@ -472,7 +472,7 @@ public class AVLTree<E>
         }
     }
 
-    private class AVLDescendingIterator
+    private final class AVLDescendingIterator
             implements Iterator<E>
     {
         private AVLNode<E> currentNode;
@@ -501,7 +501,7 @@ public class AVLTree<E>
             else
             {
                 while(currentNode.getParent() != null
-                              && currentNode.getParent().getRight() != currentNode)
+                        && currentNode.getParent().getRight() != currentNode)
                     currentNode = currentNode.getParent();
 
                 currentNode = currentNode.getParent();

@@ -108,9 +108,10 @@ public class PairingHeap<E extends Comparable<E>>
         HeapNode<E> append(E element)
         {
             return this.element.compareTo(element) <= 0
-                    ? new HeapNode<>(this.element, new HeapNodeList<>(new HeapNode<>(element, null),
-                                                                      children))
-                    : new HeapNode<>(element, new HeapNodeList<>(this, null));
+                   ? new HeapNode<>(this.element,
+                                    new HeapNodeList<>(new HeapNode<>(element,
+                                                                      null), children))
+                   : new HeapNode<>(element, new HeapNodeList<>(this, null));
         }
 
         HeapNode<E> pop()
@@ -121,10 +122,12 @@ public class PairingHeap<E extends Comparable<E>>
         HeapNode<E> merge(HeapNode<E> node)
         {
             return node == null
-                    ? this
-                    : element.compareTo(node.element) <= 0
-                            ? new HeapNode<>(element, new HeapNodeList<>(node, children))
-                            : new HeapNode<>(node.element, new HeapNodeList<>(this, node.children));
+                   ? this
+                   : element.compareTo(node.element) <= 0
+                     ? new HeapNode<>(element,
+                                      new HeapNodeList<>(node,
+                                                         children))
+                     : new HeapNode<>(node.element, new HeapNodeList<>(this, node.children));
         }
 
         private HeapNode<E> mergePairs(HeapNodeList<E> list)
@@ -139,7 +142,7 @@ public class PairingHeap<E extends Comparable<E>>
         }
     }
 
-    private static class HeapIterator<E extends Comparable<E>>
+    private static final class HeapIterator<E extends Comparable<E>>
             implements Iterator<E>
     {
         private final Queue<HeapNode<E>> nodes = new ArrayDeque<>();

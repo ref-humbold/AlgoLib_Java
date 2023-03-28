@@ -11,8 +11,8 @@
   <property name="vendor" value="Rafał Kaleta" />
 
   <property name="main.package" value="algolib" />
-  <property name="src.dir" value="src" />
-  <property name="test.dir" value="test" />
+  <property name="src.dir" value="src/main/java" />
+  <property name="test.dir" value="src/test/java" />
   <property name="build.dir" value="bin" />
   <property name="dist.dir" value="dist" />
   <property name="junit.output.dir" value="junit" />

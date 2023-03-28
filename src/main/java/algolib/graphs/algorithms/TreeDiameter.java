@@ -14,7 +14,7 @@ public final class TreeDiameter
      * @param tree the tree graph
      * @return diameter length
      */
-    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> double findDiameter(
+    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> double countDiameter(
             TreeGraph<VertexId, VertexProperty, EdgeProperty> tree)
     {
         return tree.getVertices()
@@ -42,15 +42,9 @@ public final class TreeDiameter
                 double weight = tree.getProperties().get(edge).getWeight();
                 Pair<Double, Double> result = dfs(tree, neighbour, vertex);
 
-                if(result.first + weight > pathFrom)
-                {
-                    pathThrough = pathFrom + result.first + weight;
-                    pathFrom = result.first + weight;
-                }
-                else
-                    pathThrough = Math.max(pathThrough, pathFrom + result.first + weight);
-
+                pathThrough = Math.max(pathThrough, pathFrom + result.first + weight);
                 pathSubtree = Math.max(pathSubtree, result.second);
+                pathFrom = Math.max(pathFrom, result.first + weight);
             }
         }
 

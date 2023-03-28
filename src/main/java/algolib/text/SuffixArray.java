@@ -39,7 +39,8 @@ public class SuffixArray
         SuffixArray other = (SuffixArray)obj;
 
         return size_ == other.size_ && Objects.equals(text, other.text) && Objects.equals(
-                suffixArray, other.suffixArray);
+                suffixArray,
+                other.suffixArray);
     }
 
     @Override
@@ -170,7 +171,7 @@ public class SuffixArray
         for(int i : indices12)
         {
             if(getElement(txt, i) != last0 || getElement(txt, i + 1) != last1
-                       || getElement(txt, i + 2) != last2)
+                    || getElement(txt, i + 2) != last2)
             {
                 ++code;
                 last0 = getElement(txt, i);
@@ -210,7 +211,9 @@ public class SuffixArray
         return merge(txt, sa0, t12, sa12);
     }
 
-    private List<Integer> merge(List<Integer> t0, List<Integer> sa0, List<Integer> t12,
+    private List<Integer> merge(List<Integer> t0,
+                                List<Integer> sa0,
+                                List<Integer> t12,
                                 List<Integer> sa12)
     {
         List<Integer> saMerged = new ArrayList<>();
@@ -228,12 +231,15 @@ public class SuffixArray
             boolean cond;
 
             if(sa12.get(index12) < length2)
-                cond = lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
+                cond = lessOrEqual(getElement(t0, pos12),
+                                   getElement(t0, pos0),
                                    getElement(t12, sa12.get(index12) + length2),
                                    getElement(t12, pos0 / 3));
             else
-                cond = lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
-                                   getElement(t0, pos12 + 1), getElement(t0, pos0 + 1),
+                cond = lessOrEqual(getElement(t0, pos12),
+                                   getElement(t0, pos0),
+                                   getElement(t0, pos12 + 1),
+                                   getElement(t0, pos0 + 1),
                                    getElement(t12, sa12.get(index12) - length2 + 1),
                                    getElement(t12, pos0 / 3 + length2));
 

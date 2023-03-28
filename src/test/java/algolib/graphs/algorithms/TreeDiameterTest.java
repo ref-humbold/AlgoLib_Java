@@ -10,18 +10,18 @@ import algolib.graphs.properties.Weighted;
 public class TreeDiameterTest
 {
     @Test
-    public void findDiameter_WhenOneVertex_ThenZero()
+    public void countDiameter_WhenOneVertex_ThenZero()
     {
         // given
         TreeGraph<Integer, Void, Weight> tree = new TreeGraph<>(0);
         // when
-        double result = TreeDiameter.findDiameter(tree);
+        double result = TreeDiameter.countDiameter(tree);
         // then
         Assertions.assertThat(result).isZero();
     }
 
     @Test
-    public void findDiameter_WhenAllWeightsEqual_ThenDiameterLength()
+    public void countDiameter_WhenAllWeightsEqual_ThenDiameterLength()
     {
         // given
         Weight weight = new Weight(1);
@@ -36,13 +36,13 @@ public class TreeDiameterTest
         tree.addVertex(8, tree.getVertex(6), null, weight);
         tree.addVertex(9, tree.getVertex(6), null, weight);
         // when
-        double result = TreeDiameter.findDiameter(tree);
+        double result = TreeDiameter.countDiameter(tree);
         // then
         Assertions.assertThat(result).isEqualTo(6);
     }
 
     @Test
-    public void findDiameter_WhenEdgeWithBigWeight_ThenLongestPath()
+    public void countDiameter_WhenEdgeWithBigWeight_ThenLongestPath()
     {
         // given
         TreeGraph<Integer, Void, Weight> tree = new TreeGraph<>(0);
@@ -52,7 +52,7 @@ public class TreeDiameterTest
         tree.addVertex(4, tree.getVertex(2), null, new Weight(5));
         tree.addVertex(5, tree.getVertex(3), null, new Weight(5));
         // when
-        double result = TreeDiameter.findDiameter(tree);
+        double result = TreeDiameter.countDiameter(tree);
         // then
         Assertions.assertThat(result).isEqualTo(1015);
     }
