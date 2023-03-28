@@ -110,15 +110,13 @@
 
   <target name="build" depends="jar" />
 
-  <target name="rebuild" depends="resolve, build" />
-
   <target name="main" depends="build, test" />
 
   <target name="all" depends="resolve, main" />
 
-  <target name="refresh" depends="clean, build" />
+  <target name="rebuild" depends="clean, build" />
 
-  <target name="refresh-main" depends="clean, main" />
+  <target name="rebuild-main" depends="clean, main" />
 
-  <target name="refresh-all" depends="clean, all" />
+  <target name="rebuild-all" depends="clean, all" />
 </project>
