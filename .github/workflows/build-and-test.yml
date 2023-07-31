@@ -5,24 +5,24 @@ on: [push, pull_request]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v2
 
     - name: APT Install Java
-      run: sudo apt-get update && sudo apt-get install openjdk-11-jdk
-      
+      run: sudo apt-get update && sudo apt-get install openjdk-17-jdk
+
     - name: APT Install Apache ANT
       run: sudo apt-get update && sudo apt-get install ant
-    
+
     - name: Install JUnit5 for ANT
       run: ./ci/install_ant_junit5.sh
-      
+
     - name: Download Dependencies
       run: ant -lib ./lib resolve
-      
+
     - name: Build
       run: ant -lib ./lib build
-      
+
     - name: Test
       run: ant -lib ./lib test
