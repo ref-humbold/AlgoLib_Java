@@ -1,10 +1,7 @@
 package algolib.maths;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
@@ -16,49 +13,42 @@ public final class Primes
 
     /**
      * Finds prime numbers less than given number.
-     * @param maxNumber maximal number, exclusive
+     * @param maximum maximal number, exclusive
      * @return collection of prime numbers
      */
-    public static Collection<Integer> find(int maxNumber)
+    public static Collection<Integer> findPrimes(int maximum)
     {
-        return Primes.find(0, maxNumber);
+        return Primes.findPrimes(0, maximum);
     }
 
     /**
      * Finds prime numbers inside a range of integers.
-     * @param minNumber minimal number in range, inclusive
-     * @param maxNumber maximal number in range, exclusive
+     * @param minimum minimal number in range, inclusive
+     * @param maximum maximal number in range, exclusive
      * @return collection of prime numbers
      */
-    public static Collection<Integer> find(int minNumber, int maxNumber)
+    public static Collection<Integer> findPrimes(int minimum, int maximum)
     {
-        if(maxNumber <= minNumber || maxNumber <= 2)
-            return List.of();
+        if(maximum <= minimum || maximum <= 2)
+            return Collections.emptyList();
 
-        ArrayList<Integer> primes = new ArrayList<>();
-        ArrayList<Boolean> is_prime = new ArrayList<>();
-        ArrayList<Boolean> base_primes = new ArrayList<>(
-                Collections.nCopies(Double.valueOf(Math.sqrt(maxNumber) / 2.0).intValue(), true));
+        int segmentSize = Double.valueOf(Math.sqrt(maximum)).intValue();
+        int[] basePrimes = getBasePrimes(segmentSize);
+        List<Integer> primes = new ArrayList<>();
 
-        for(int i = minNumber; i < maxNumber; ++i)
-            is_prime.add(i == 2 || (i > 2 && i % 2 != 0));
+        if(minimum < segmentSize)
+            primes.addAll(IntStream.concat(IntStream.of(2), Arrays.stream(basePrimes))
+                                   .filter(p -> p >= minimum)
+                                   .boxed()
+                                   .toList());
 
-        for(int i = 0; i < base_primes.size(); ++i)
-            if(base_primes.get(i))
-            {
-                int p = 2 * i + 3;
-                int begin = minNumber < p * p ? p * p - minNumber : (p - minNumber % p) % p;
+        for(int i = Math.max(minimum, segmentSize); i < maximum; i += segmentSize)
+        {
+            int[] segmentPrimes =
+                    getSegmentPrimes(i, Math.min(i + segmentSize, maximum), basePrimes);
 
-                for(int j = (p * p - 3) / 2; j < base_primes.size(); j += p)
-                    base_primes.set(j, false);
-
-                for(int j = begin; j < is_prime.size(); j += p)
-                    is_prime.set(j, false);
-            }
-
-        for(int i = 0; i < is_prime.size(); ++i)
-            if(is_prime.get(i))
-                primes.add(minNumber + i);
+            primes.addAll(Arrays.stream(segmentPrimes).boxed().toList());
+        }
 
         return primes;
     }
@@ -177,5 +167,49 @@ public final class Primes
         }
 
         return true;
+    }
+
+    // Extracts prime numbers between 0 and given maximum value
+    private static int[] getBasePrimes(int baseMaximum)
+    {
+        List<Boolean> isPrime = new ArrayList<>(Collections.nCopies((baseMaximum - 1) / 2, true));
+
+        for(int i = 0; i < Double.valueOf(Math.sqrt(baseMaximum) / 2).intValue(); ++i)
+            if(isPrime.get(i))
+            {
+                int primeValue = 2 * i + 3;
+
+                for(int j = primeValue * primeValue; j < baseMaximum; j += 2 * primeValue)
+                    isPrime.set((j - 3) / 2, false);
+            }
+
+        return IntStream.range(0, isPrime.size())
+                        .filter(isPrime::get)
+                        .map(index -> 2 * index + 3)
+                        .toArray();
+    }
+
+    // Extracts prime numbers from given range using given basic prime numbers
+    private static int[] getSegmentPrimes(int segmentStart, int segmentEnd, int[] basePrimes)
+    {
+        int segmentBegin = segmentStart + 1 - segmentStart % 2;
+        List<Boolean> isPrime = IntStream.range(segmentBegin, segmentEnd)
+                                         .filter(i -> i % 2 == 1)
+                                         .mapToObj(i -> i > 2)
+                                         .collect(Collectors.toList());
+
+        for(int p : basePrimes)
+        {
+            int primeMultiple = (segmentBegin + p - 1) / p * p;
+            int multipleStart = primeMultiple % 2 == 0 ? primeMultiple + p : primeMultiple;
+
+            for(int i = multipleStart; i < segmentEnd; i += 2 * p)
+                isPrime.set((i - segmentBegin) / 2, false);
+        }
+
+        return IntStream.range(0, isPrime.size())
+                        .filter(isPrime::get)
+                        .map(index -> segmentBegin + 2 * index)
+                        .toArray();
     }
 }
