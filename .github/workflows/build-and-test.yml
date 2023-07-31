@@ -8,21 +8,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
     - name: APT Install Java
-      run: sudo apt-get update && sudo apt-get install openjdk-17-jdk
-
+      run: |
+        sudo apt-get update && sudo apt-get install openjdk-17-jdk
+        sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
     - name: APT Install Apache ANT
       run: sudo apt-get update && sudo apt-get install ant
-
     - name: Install JUnit5 for ANT
       run: ./ci/install_ant_junit5.sh
-
     - name: Download Dependencies
-      run: ant -lib ./lib resolve
-
+      run: |
+        export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+        ant -lib ./lib resolve
     - name: Build
-      run: ant -lib ./lib build
-
+      run: |
+        export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+        ant -lib ./lib build
     - name: Test
-      run: ant -lib ./lib test
+      run: |
+        export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+        ant -lib ./lib test
