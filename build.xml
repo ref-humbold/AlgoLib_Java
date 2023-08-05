@@ -28,8 +28,8 @@
   <property name="ivy.install.version" value="2.5.0" />
 
   <path id="project.classpath">
-    <fileset dir="${ivy.lib.dir}" includes="*.jar" />
-    <pathelement location="${build.dir}" />
+    <fileset dir="${basedir}/${ivy.lib.dir}" includes="*.jar" />
+    <pathelement location="${basedir}/${build.dir}" />
   </path>
 
   <target name="download-ivy" unless="offline">
@@ -71,7 +71,7 @@
     </javac>
   </target>
 
-  <target name="jar" depends="compile">
+  <target name="jar">
     <jar destfile="${dist.dir}/${jar.file}" basedir="${build.dir}" excludes="**/*Test.class">
       <manifest>
         <attribute name="Built-By" value="${vendor}" />
@@ -88,11 +88,11 @@
   <target name="test">
     <mkdir dir="${junit.result.dir}" />
     <junitlauncher printsummary="true" failureproperty="junit.failure">
+      <classpath refid="project.classpath" />
       <testclasses outputdir="${junit.result.dir}">
         <fileset dir="${build.dir}" includes="**/*Test.class" />
         <listener type="legacy-xml" sendSysErr="true" sendSysOut="true" />
       </testclasses>
-      <classpath refid="project.classpath" />
     </junitlauncher>
     <mkdir dir="${junit.report.dir}" />
     <junitreport todir="${junit.report.dir}">
@@ -109,11 +109,11 @@
     </javadoc>
   </target>
 
-  <target name="build" depends="jar" />
+  <target name="build" depends="compile, jar" />
 
-  <target name="main" depends="build, test" />
+  <target name="main" depends="resolve, build" />
 
-  <target name="all" depends="resolve, main" />
+  <target name="all" depends="main, test" />
 
   <target name="rebuild" depends="clean, build" />
 
