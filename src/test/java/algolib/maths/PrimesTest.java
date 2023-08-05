@@ -90,7 +90,7 @@ public class PrimesTest
     }
 
     @Test
-    public void findPrimes_WhenMinimumIsTwo_ThenTwoIncluded()
+    public void findPrimes_WhenMinIsTwo_ThenTwoIncluded()
     {
         // when
         Collection<Integer> result = Primes.findPrimes(2, 30);
@@ -99,7 +99,7 @@ public class PrimesTest
     }
 
     @Test
-    public void findPrimes_WhenMinimumIsThree_ThenTwoNotIncluded()
+    public void findPrimes_WhenMinIsThree_ThenTwoNotIncluded()
     {
         // when
         Collection<Integer> result = Primes.findPrimes(3, 30);

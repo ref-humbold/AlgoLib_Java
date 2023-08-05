@@ -1,6 +1,7 @@
 package algolib.geometry.dim2;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,16 @@ import algolib.tuples.Pair;
 // Tests: Algorithm for searching closest points
 public class ClosestPointsTest
 {
+    @Test
+    public void findClosestPoints_WhenNoPoints_ThenNoSuchElementException()
+    {
+        // when
+        Throwable throwable =
+                Assertions.catchThrowable(() -> ClosestPoints.findClosestPoints(List.of()));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+    }
+
     @Test
     public void findClosestPoints_WhenOnePoint_ThenThisPoint()
     {

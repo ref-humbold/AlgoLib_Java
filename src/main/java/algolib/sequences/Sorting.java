@@ -60,9 +60,7 @@ public final class Sorting
 
         for(int half_step = 1; half_step < sequence.size(); half_step *= 2)
             for(int i = 0; i < sequence.size(); i += half_step + half_step)
-                Sorting.merge(sequence,
-                              i,
-                              Math.min(i + half_step, sequence.size()),
+                Sorting.merge(sequence, i, Math.min(i + half_step, sequence.size()),
                               Math.min(i + half_step + half_step, sequence.size()));
     }
 
@@ -155,7 +153,7 @@ public final class Sorting
         if(indexEnd - indexBegin <= 1)
             return;
 
-        int indexPivot = indexBegin + Sorting.choosePivot(indexEnd - indexBegin);
+        int indexPivot = Sorting.choosePivot(indexBegin, indexEnd);
 
         swap(sequence, indexPivot, indexBegin);
         indexPivot = indexBegin;
@@ -181,13 +179,14 @@ public final class Sorting
     }
 
     // Randomly chooses pivot for quick-sort algorithm.
-    private static int choosePivot(int size)
+    private static int choosePivot(int indexBegin, int indexEnd)
     {
-        return Stream.of(random.nextInt(size), random.nextInt(size), random.nextInt(size))
+        return Stream.of(random.nextInt(indexBegin, indexEnd), random.nextInt(indexBegin, indexEnd),
+                         random.nextInt(indexBegin, indexEnd))
                      .sorted()
                      .skip(1)
                      .findFirst()
-                     .orElse(0);
+                     .orElse(indexBegin);
     }
 
     // Swaps two elements in given sequence.
