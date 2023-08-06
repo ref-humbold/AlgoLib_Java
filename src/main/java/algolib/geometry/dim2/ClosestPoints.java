@@ -27,6 +27,7 @@ public final class ClosestPoints
         List<Point2D> pointsX = new ArrayList<>(points);
         List<Point2D> pointsY = new ArrayList<>(points);
 
+        Geometry2D.sortByY(pointsX);
         Geometry2D.sortByX(pointsX);
         Geometry2D.sortByY(pointsY);
 
@@ -34,21 +35,21 @@ public final class ClosestPoints
     }
 
     // Searches for closest points among three of them.
-    private static Pair<Point2D, Point2D> searchThree(List<Point2D> pointsX, int indexBegin)
+    private static Pair<Point2D, Point2D> searchThree(Point2D point1,
+                                                      Point2D point2,
+                                                      Point2D point3)
     {
-        int indexMiddle = indexBegin + 1;
-        int indexEnd = indexBegin + 2;
-        double distanceBM = Geometry2D.distance(pointsX.get(indexBegin), pointsX.get(indexMiddle));
-        double distanceME = Geometry2D.distance(pointsX.get(indexMiddle), pointsX.get(indexEnd));
-        double distanceBE = Geometry2D.distance(pointsX.get(indexBegin), pointsX.get(indexEnd));
+        double distance12 = Geometry2D.distance(point1, point2);
+        double distance23 = Geometry2D.distance(point2, point3);
+        double distance31 = Geometry2D.distance(point3, point1);
 
-        if(distanceBM <= distanceME && distanceBM <= distanceBE)
-            return Pair.of(pointsX.get(indexBegin), pointsX.get(indexMiddle));
+        if(distance12 <= distance23 && distance12 <= distance31)
+            return Pair.of(point1, point2);
 
-        if(distanceME <= distanceBM && distanceME <= distanceBE)
-            return Pair.of(pointsX.get(indexMiddle), pointsX.get(indexEnd));
+        if(distance23 <= distance12 && distance23 <= distance31)
+            return Pair.of(point2, point3);
 
-        return Pair.of(pointsX.get(indexBegin), pointsX.get(indexEnd));
+        return Pair.of(point1, point3);
     }
 
     // Searches for closest points inside a belt of given width.
@@ -74,7 +75,7 @@ public final class ClosestPoints
                 if(pt2.y > pt1.y + beltWidth)
                     break;
 
-                if((pt1.x <= middleX && pt2.x > middleX) || (pt1.x > middleX && pt2.x <= middleX))
+                if((pt1.x <= middleX && pt2.x >= middleX) || (pt1.x > middleX && pt2.x <= middleX))
                 {
                     double currentDistance = Geometry2D.distance(pt1, pt2);
 
@@ -100,25 +101,27 @@ public final class ClosestPoints
             return Pair.of(pointsX.get(indexBegin), pointsX.get(indexEnd - 1));
 
         if(indexEnd - indexBegin == 3)
-            return searchThree(pointsX, indexBegin);
+            return searchThree(pointsX.get(indexBegin), pointsX.get(indexBegin + 1),
+                               pointsX.get(indexBegin + 2));
 
         int indexMiddle = (indexBegin + indexEnd) / 2;
-        double middleX = (pointsX.get(indexMiddle).x + pointsX.get(indexMiddle + 1).x) / 2;
-        List<Point2D> pointsYL = new ArrayList<>();
-        List<Point2D> pointsYR = new ArrayList<>();
+        List<Point2D> closetsYL = new ArrayList<>();
+        List<Point2D> closetsYR = new ArrayList<>();
 
         for(Point2D pt : pointsY)
-            if(pt.x < indexMiddle)
-                pointsYL.add(pt);
+            if(pt.x < pointsX.get(indexMiddle).x
+                    || pt.x == pointsX.get(indexMiddle).x && pt.y < pointsX.get(indexMiddle).y)
+                closetsYL.add(pt);
             else
-                pointsYR.add(pt);
+                closetsYR.add(pt);
 
-        Pair<Point2D, Point2D> closestL = searchClosest(pointsX, pointsYL, indexBegin, indexMiddle);
-        Pair<Point2D, Point2D> closestR = searchClosest(pointsX, pointsYR, indexMiddle, indexEnd);
+        Pair<Point2D, Point2D> closestL =
+                searchClosest(pointsX, closetsYL, indexBegin, indexMiddle);
+        Pair<Point2D, Point2D> closestR = searchClosest(pointsX, closetsYR, indexMiddle, indexEnd);
         Pair<Point2D, Point2D> closestPoints =
                 Geometry2D.distance(closestL.first, closestL.second) <= Geometry2D.distance(
                         closestR.first, closestR.second) ? closestL : closestR;
-        Optional<Pair<Point2D, Point2D>> beltPoints = checkBelt(pointsY, middleX,
+        Optional<Pair<Point2D, Point2D>> beltPoints = checkBelt(pointsY, pointsX.get(indexMiddle).x,
                                                                 Geometry2D.distance(
                                                                         closestPoints.first,
                                                                         closestPoints.second));
