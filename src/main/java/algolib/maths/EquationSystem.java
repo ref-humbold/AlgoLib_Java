@@ -114,7 +114,7 @@ public final class EquationSystem
                     double param = equations[j].getCoefficient(i) / equations[i].getCoefficient(i);
 
                     if(param != 0)
-                        equations[j].combine(equations[i], -param);
+                        equations[j] = equations[j].add(equations[i].multiply(-param));
                 }
             }
         }
@@ -138,8 +138,8 @@ public final class EquationSystem
      * @param solution the values
      * @return {@code true} if the solution is correct, otherwise {@code false}
      */
-    public boolean isSolution(double[] solution)
+    public boolean hasSolution(double[] solution)
     {
-        return Arrays.stream(equations).allMatch(eq -> eq.isSolution(solution));
+        return Arrays.stream(equations).allMatch(eq -> eq.hasSolution(solution));
     }
 }

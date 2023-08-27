@@ -28,8 +28,8 @@ public class EquationSystemTest
 
         // then
         Assertions.assertThat(result).containsExactly(1, 3, -2);
-        Assertions.assertThat(testObject.isSolution(result)).isTrue();
-        Assertions.assertThat(testObject.isSolution(new double[]{-2, -18, -36.5})).isFalse();
+        Assertions.assertThat(testObject.hasSolution(result)).isTrue();
+        Assertions.assertThat(testObject.hasSolution(new double[]{-2, -18, -36.5})).isFalse();
     }
 
     @Test
@@ -44,8 +44,8 @@ public class EquationSystemTest
         Throwable throwable = Assertions.catchThrowable(() -> testObject.solve());
         // then
         Assertions.assertThat(throwable).isInstanceOf(NoSolutionException.class);
-        Assertions.assertThat(testObject.isSolution(new double[]{1, 3, -2})).isFalse();
-        Assertions.assertThat(testObject.isSolution(new double[]{-2, -18, -36.5})).isFalse();
+        Assertions.assertThat(testObject.hasSolution(new double[]{1, 3, -2})).isFalse();
+        Assertions.assertThat(testObject.hasSolution(new double[]{-2, -18, -36.5})).isFalse();
     }
 
     @Test
@@ -60,7 +60,7 @@ public class EquationSystemTest
         Throwable throwable = Assertions.catchThrowable(() -> testObject.solve());
         // then
         Assertions.assertThat(throwable).isInstanceOf(InfiniteSolutionsException.class);
-        Assertions.assertThat(testObject.isSolution(new double[]{1, 3, -2})).isTrue();
-        Assertions.assertThat(testObject.isSolution(new double[]{-2, -18, -36.5})).isTrue();
+        Assertions.assertThat(testObject.hasSolution(new double[]{1, 3, -2})).isTrue();
+        Assertions.assertThat(testObject.hasSolution(new double[]{-2, -18, -36.5})).isTrue();
     }
 }
