@@ -32,7 +32,7 @@ public class EquationTest
         Assertions.assertThat(coefficients(result))
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(-2, -3, 0, 2.5);
-        Assertions.assertThat(result.getFree()).isEqualTo(-15);
+        Assertions.assertThat(result.getFreeTerm()).isEqualTo(-15);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class EquationTest
         Assertions.assertThat(coefficients(result))
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(3, 2, 4, 7.5);
-        Assertions.assertThat(result.getFree()).isEqualTo(20);
+        Assertions.assertThat(result.getFreeTerm()).isEqualTo(20);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class EquationTest
         Assertions.assertThat(coefficients(result))
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(1, 4, -4, -12.5);
-        Assertions.assertThat(result.getFree()).isEqualTo(10);
+        Assertions.assertThat(result.getFreeTerm()).isEqualTo(10);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class EquationTest
         Assertions.assertThat(coefficients(result))
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(4, 6, 0, -5);
-        Assertions.assertThat(result.getFree()).isEqualTo(30);
+        Assertions.assertThat(result.getFreeTerm()).isEqualTo(30);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class EquationTest
         Assertions.assertThat(coefficients(result))
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(-1, -1.5, 0, 1.25);
-        Assertions.assertThat(result.getFree()).isEqualTo(-7.5);
+        Assertions.assertThat(result.getFreeTerm()).isEqualTo(-7.5);
     }
 
     @Test

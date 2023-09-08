@@ -62,23 +62,23 @@ public final class EquationSystem
         gaussianReduce();
 
         if(equations[equations.length - 1].getCoefficient(equations.length - 1) == 0
-                   && equations[equations.length - 1].getFree() == 0)
+                   && equations[equations.length - 1].getFreeTerm() == 0)
             throw new InfiniteSolutionsException();
 
         if(equations[equations.length - 1].getCoefficient(equations.length - 1) == 0
-                   && equations[equations.length - 1].getFree() != 0)
+                   && equations[equations.length - 1].getFreeTerm() != 0)
             throw new NoSolutionException();
 
         double[] solution = new double[equations.length];
 
         solution[equations.length - 1] =
-                equations[equations.length - 1].getFree() / equations[equations.length
+                equations[equations.length - 1].getFreeTerm() / equations[equations.length
                                                                               - 1].getCoefficient(
                         equations.length - 1);
 
         for(int i = equations.length - 2; i >= 0; --i)
         {
-            double value = equations[i].getFree();
+            double value = equations[i].getFreeTerm();
 
             for(int j = equations.length - 1; j > i; --j)
                 value -= equations[i].getCoefficient(j) * solution[j];

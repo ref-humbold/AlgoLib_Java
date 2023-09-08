@@ -12,27 +12,27 @@ import java.util.stream.IntStream;
 public final class Equation
 {
     private final double[] coefficients;
-    private final double free;
+    private final double freeTerm;
 
-    private Equation(double[] coefficients, double free)
+    private Equation(double[] coefficients, double freeTerm)
     {
         this.coefficients = coefficients;
-        this.free = free;
+        this.freeTerm = freeTerm;
     }
 
-    public double getFree()
+    public double getFreeTerm()
     {
-        return free;
-    }
-
-    public static Equation of(double[] coefficients, double free)
-    {
-        return new Equation(coefficients, free);
+        return freeTerm;
     }
 
     public double getCoefficient(int i)
     {
         return coefficients[i];
+    }
+
+    public static Equation of(double[] coefficients, double free)
+    {
+        return new Equation(coefficients, free);
     }
 
     @Override
@@ -46,14 +46,14 @@ public final class Equation
 
         Equation other = (Equation)obj;
 
-        return Double.compare(other.free, free) == 0 && Arrays.equals(coefficients,
-                                                                      other.coefficients);
+        return Double.compare(other.freeTerm, freeTerm) == 0 && Arrays.equals(coefficients,
+                                                                              other.coefficients);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(free, Arrays.hashCode(coefficients));
+        return Objects.hash(freeTerm, Arrays.hashCode(coefficients));
     }
 
     @Override
@@ -64,7 +64,7 @@ public final class Equation
                         .filter(i -> coefficients[i] != 0)
                         .mapToObj(i -> String.format("%s x_%d", df.format(coefficients[i]), i))
                         .collect(Collectors.joining(" + ", "",
-                                                    String.format(" = %s", df.format(free))));
+                                                    String.format(" = %s", df.format(freeTerm))));
     }
 
     public int size()
@@ -78,7 +78,7 @@ public final class Equation
      */
     public Equation negate()
     {
-        return new Equation(Arrays.stream(coefficients).map(c -> -c).toArray(), -free);
+        return new Equation(Arrays.stream(coefficients).map(c -> -c).toArray(), -freeTerm);
     }
 
     /**
@@ -94,7 +94,7 @@ public final class Equation
 
         return new Equation(IntStream.range(0, coefficients.length)
                                      .mapToDouble(i -> coefficients[i] + equation.coefficients[i])
-                                     .toArray(), free + equation.free);
+                                     .toArray(), freeTerm + equation.freeTerm);
     }
 
     /**
@@ -110,7 +110,7 @@ public final class Equation
 
         return new Equation(IntStream.range(0, coefficients.length)
                                      .mapToDouble(i -> coefficients[i] - equation.coefficients[i])
-                                     .toArray(), free - equation.free);
+                                     .toArray(), freeTerm - equation.freeTerm);
     }
 
     /**
@@ -125,7 +125,7 @@ public final class Equation
             throw new ArithmeticException("Constant cannot be zero");
 
         return new Equation(Arrays.stream(coefficients).map(c -> c * constant).toArray(),
-                            free * constant);
+                            freeTerm * constant);
     }
 
     /**
@@ -140,7 +140,7 @@ public final class Equation
             throw new ArithmeticException("Constant cannot be zero");
 
         return new Equation(Arrays.stream(coefficients).map(c -> c / constant).toArray(),
-                            free / constant);
+                            freeTerm / constant);
     }
 
     /**
@@ -157,6 +157,6 @@ public final class Equation
                                  .mapToDouble(i -> solution[i] * coefficients[i])
                                  .sum();
 
-        return result == free;
+        return result == freeTerm;
     }
 }

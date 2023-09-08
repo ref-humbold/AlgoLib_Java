@@ -25,7 +25,6 @@ public class EquationSystemTest
             Assertions.fail(
                     String.format("Unexpected exception: %s", e.getClass().getSimpleName()));
         }
-
         // then
         Assertions.assertThat(result).containsExactly(1, 3, -2);
         Assertions.assertThat(testObject.hasSolution(result)).isTrue();
@@ -39,9 +38,8 @@ public class EquationSystemTest
         EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
                                                       Equation.of(new double[]{7, -1, 0}, 4),
                                                       Equation.of(new double[]{-1, -1.5, 1}, -1));
-
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.solve());
+        Throwable throwable = Assertions.catchThrowable(testObject::solve);
         // then
         Assertions.assertThat(throwable).isInstanceOf(NoSolutionException.class);
         Assertions.assertThat(testObject.hasSolution(new double[]{1, 3, -2})).isFalse();
@@ -55,12 +53,27 @@ public class EquationSystemTest
         EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
                                                       Equation.of(new double[]{7, -1, 0}, 4),
                                                       Equation.of(new double[]{4, 6, -4}, 30));
-
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.solve());
+        Throwable throwable = Assertions.catchThrowable(testObject::solve);
         // then
         Assertions.assertThat(throwable).isInstanceOf(InfiniteSolutionsException.class);
         Assertions.assertThat(testObject.hasSolution(new double[]{1, 3, -2})).isTrue();
         Assertions.assertThat(testObject.hasSolution(new double[]{-2, -18, -36.5})).isTrue();
+    }
+
+    @Test
+    public void swap_ThenEquationsSwapped()
+    {
+        // given
+        EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
+                                                      Equation.of(new double[]{7, -1, 0}, 4),
+                                                      Equation.of(new double[]{-1, 6, 4}, 9));
+        // when
+        testObject.swap(0, 2);
+        // then
+        Assertions.assertThat(testObject.getEquation(0).toString())
+                  .isEqualTo("-1 x_0 + 6 x_1 + 4 x_2 = 9");
+        Assertions.assertThat(testObject.getEquation(2).toString())
+                  .isEqualTo("2 x_0 + 3 x_1 + -2 x_2 = 15");
     }
 }
