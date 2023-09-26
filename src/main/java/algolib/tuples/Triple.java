@@ -33,7 +33,7 @@ public class Triple<F, S, T>
         Triple<?, ?, ?> other = (Triple<?, ?, ?>)obj;
 
         return Objects.equals(first, other.first) && Objects.equals(second, other.second)
-                && Objects.equals(third, other.third);
+                       && Objects.equals(third, other.third);
     }
 
     @Override
@@ -45,6 +45,6 @@ public class Triple<F, S, T>
     @Override
     public String toString()
     {
-        return String.format("(%s, %s, %s)", first, second, third);
+        return "(%s, %s, %s)".formatted(first, second, third);
     }
 }

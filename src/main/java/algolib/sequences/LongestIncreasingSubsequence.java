@@ -8,12 +8,12 @@ import java.util.stream.Stream;
 public final class LongestIncreasingSubsequence
 {
     /**
-     * Constructs the longest increasing subsequence.
+     * Constructs longest increasing subsequence according to given comparator.
      * @param sequence the sequence of elements
-     * @param comparator comparator function of elements in subsequence
+     * @param comparator the comparator of elements in sequence
      * @return the longest increasing subsequence (least lexicographically)
      */
-    public static <T> Collection<T> findLIS(List<T> sequence, Comparator<T> comparator)
+    public static <T> Collection<T> findLis(List<T> sequence, Comparator<T> comparator)
     {
         List<Optional<Integer>> previousElem =
                 Stream.of(Optional.<Integer>empty()).collect(Collectors.toList());
@@ -34,9 +34,8 @@ public final class LongestIncreasingSubsequence
                         searchIndex(sequence, comparator, subsequence, i, 0, subsequence.size());
 
                 subsequence.set(index, i);
-                previousElem.add(Optional.of(index)
-                                         .filter(ix -> ix > 0)
-                                         .map(ix -> subsequence.get(ix - 1)));
+                previousElem.add(
+                        Optional.of(index).filter(ix -> ix > 0).map(ix -> subsequence.get(ix - 1)));
             }
         }
 
@@ -55,13 +54,13 @@ public final class LongestIncreasingSubsequence
     }
 
     // Searches for place of element in list of subsequences.
-    // (indexBegin inclusive, indexEnd exclusive)
-    private static <T> int searchIndex(List<T> sequence,
-                                       Comparator<T> comparator,
-                                       List<Integer> subsequence,
-                                       int indexElem,
-                                       int indexBegin,
-                                       int indexEnd)
+    private static <T> int searchIndex(
+            List<T> sequence,
+            Comparator<T> comparator,
+            List<Integer> subsequence,
+            int indexElem,
+            int indexBegin,
+            int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
             return indexBegin;
@@ -70,18 +69,10 @@ public final class LongestIncreasingSubsequence
         T middleElem = sequence.get(subsequence.get(indexMiddle));
 
         if(comparator.compare(sequence.get(indexElem), middleElem) > 0)
-            return searchIndex(sequence,
-                               comparator,
-                               subsequence,
-                               indexElem,
-                               indexMiddle + 1,
+            return searchIndex(sequence, comparator, subsequence, indexElem, indexMiddle + 1,
                                indexEnd);
 
-        return searchIndex(sequence,
-                           comparator,
-                           subsequence,
-                           indexElem,
-                           indexBegin,
+        return searchIndex(sequence, comparator, subsequence, indexElem, indexBegin,
                            indexMiddle + 1);
     }
 }

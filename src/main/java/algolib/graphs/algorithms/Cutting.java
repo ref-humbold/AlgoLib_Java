@@ -10,15 +10,15 @@ import java.util.stream.Collectors;
 import algolib.graphs.Edge;
 import algolib.graphs.UndirectedGraph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.strategy.DFSStrategy;
+import algolib.graphs.algorithms.strategy.DfsStrategy;
 
 /** Algorithms for graph cutting (edge cut and vertex cut) */
 public final class Cutting
 {
     /**
-     * Finds an edge cut of given graph.
-     * @param graph an undirected graph
-     * @return collection of edges in the edge cut
+     * Finds edge cut of given graph.
+     * @param graph the undirected graph
+     * @return the collection of edges in the edge cut
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Edge<VertexId>> findEdgeCut(
             UndirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
@@ -28,15 +28,15 @@ public final class Cutting
         Searching.dfsRecursive(graph, strategy, graph.getVertices());
         return graph.getVertices()
                     .stream()
-                    .filter(vertex -> strategy.hasBridge(vertex))
+                    .filter(strategy::hasBridge)
                     .map(vertex -> graph.getEdge(vertex, strategy.dfsParents.get(vertex)))
                     .collect(Collectors.toList());
     }
 
     /**
-     * Finds a vertex cut of given graph.
-     * @param graph an undirected graph
-     * @return collection of vertices in the vertex cut
+     * Finds vertex cut of given graph.
+     * @param graph the undirected graph
+     * @return the collection of vertices in the vertex cut
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> findVertexCut(
             UndirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
@@ -46,12 +46,12 @@ public final class Cutting
         Searching.dfsRecursive(graph, strategy, graph.getVertices());
         return graph.getVertices()
                     .stream()
-                    .filter(vertex -> strategy.isSeparator(vertex))
+                    .filter(strategy::isSeparator)
                     .collect(Collectors.toList());
     }
 
     private static class CuttingStrategy<VertexId>
-            implements DFSStrategy<VertexId>
+            implements DfsStrategy<VertexId>
     {
         final Map<Vertex<VertexId>, Vertex<VertexId>> dfsParents = new HashMap<>();
         final Map<Vertex<VertexId>, List<Vertex<VertexId>>> dfsChildren = new HashMap<>();

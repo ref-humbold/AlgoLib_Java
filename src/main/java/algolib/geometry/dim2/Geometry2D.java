@@ -42,19 +42,19 @@ public final class Geometry2D
      * Calculates the distance between given points.
      * @param point1 the first point
      * @param point2 the second point
-     * @return distance between the points
+     * @return the distance between the points
      */
     public static double distance(Point2D point1, Point2D point2)
     {
         return Math.sqrt(
                 (point2.x - point1.x) * (point2.x - point1.x) + (point2.y - point1.y) * (point2.y
-                                                                                                 - point1.y));
+                        - point1.y));
     }
 
     /**
      * Translates given point by given vector.
      * @param point the point
-     * @param vector the translation vector
+     * @param vector the vector of translation
      * @return the translated point
      */
     public static Point2D translate(Point2D point, Vector2D vector)
@@ -65,7 +65,7 @@ public final class Geometry2D
     /**
      * Reflects given point in another point.
      * @param point the point
-     * @param centre the reflection point
+     * @param centre the point of reflection
      * @return the reflected point
      */
     public static Point2D reflect(Point2D point, Point2D centre)

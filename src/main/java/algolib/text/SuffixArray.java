@@ -33,14 +33,11 @@ public class SuffixArray
         if(this == obj)
             return true;
 
-        if(!(obj instanceof SuffixArray))
+        if(!(obj instanceof SuffixArray other))
             return false;
 
-        SuffixArray other = (SuffixArray)obj;
-
         return size_ == other.size_ && Objects.equals(text, other.text) && Objects.equals(
-                suffixArray,
-                other.suffixArray);
+                suffixArray, other.suffixArray);
     }
 
     @Override
@@ -55,8 +52,8 @@ public class SuffixArray
     }
 
     /**
-     * @param index index in suffix array
-     * @return text suffix at the index
+     * @param index the index in this suffix array
+     * @return the text suffix at the index
      */
     public String get(int index)
     {
@@ -68,8 +65,8 @@ public class SuffixArray
 
     /**
      * Finds suffix in text for given index in this suffix array.
-     * @param index index in suffix array
-     * @return index in text where suffix begins
+     * @param index the index in this suffix array
+     * @return the index in text where suffix begins
      */
     public int indexAt(int index)
     {
@@ -81,8 +78,8 @@ public class SuffixArray
 
     /**
      * Finds index in this suffix array for given text suffix.
-     * @param index index in text where suffix begins
-     * @return index of suffix in suffix array
+     * @param index the index in text where suffix begins
+     * @return the index of suffix in suffix array
      */
     public int indexOf(int index)
     {
@@ -94,11 +91,11 @@ public class SuffixArray
 
     /**
      * Calculates length of the longest common prefix of given suffixes.
-     * @param index1 index in text where first suffix begins
-     * @param index2 index in text where second suffix begins
-     * @return length of the longest common prefix
+     * @param index1 the index in text where the first suffix begins
+     * @param index2 the index in text where the second suffix begins
+     * @return the length of the longest common prefix
      */
-    public int countLCP(int index1, int index2)
+    public int countLcp(int index1, int index2)
     {
         if(index1 < 0 || index1 >= size_ || index2 < 0 || index2 >= size_)
             throw new IndexOutOfBoundsException("Text index out of range");
@@ -171,7 +168,7 @@ public class SuffixArray
         for(int i : indices12)
         {
             if(getElement(txt, i) != last0 || getElement(txt, i + 1) != last1
-                    || getElement(txt, i + 2) != last2)
+                       || getElement(txt, i + 2) != last2)
             {
                 ++code;
                 last0 = getElement(txt, i);
@@ -211,10 +208,8 @@ public class SuffixArray
         return merge(txt, sa0, t12, sa12);
     }
 
-    private List<Integer> merge(List<Integer> t0,
-                                List<Integer> sa0,
-                                List<Integer> t12,
-                                List<Integer> sa12)
+    private List<Integer> merge(
+            List<Integer> t0, List<Integer> sa0, List<Integer> t12, List<Integer> sa12)
     {
         List<Integer> saMerged = new ArrayList<>();
         int length2 = (t0.size() + 2) / 3;
@@ -231,15 +226,12 @@ public class SuffixArray
             boolean cond;
 
             if(sa12.get(index12) < length2)
-                cond = lessOrEqual(getElement(t0, pos12),
-                                   getElement(t0, pos0),
+                cond = lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
                                    getElement(t12, sa12.get(index12) + length2),
                                    getElement(t12, pos0 / 3));
             else
-                cond = lessOrEqual(getElement(t0, pos12),
-                                   getElement(t0, pos0),
-                                   getElement(t0, pos12 + 1),
-                                   getElement(t0, pos0 + 1),
+                cond = lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
+                                   getElement(t0, pos12 + 1), getElement(t0, pos0 + 1),
                                    getElement(t12, sa12.get(index12) - length2 + 1),
                                    getElement(t12, pos0 / 3 + length2));
 

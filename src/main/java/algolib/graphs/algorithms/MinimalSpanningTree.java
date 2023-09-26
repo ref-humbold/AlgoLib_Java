@@ -17,8 +17,8 @@ import algolib.tuples.Pair;
 public final class MinimalSpanningTree
 {
     /**
-     * Kruskal algorithm.
-     * @param graph an undirected weighted graph
+     * Computes MST using Kruskal algorithm.
+     * @param graph the undirected weighted graph
      * @return the minimal spanning tree
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> UndirectedGraph<VertexId, VertexProperty, EdgeProperty> kruskal(
@@ -48,9 +48,9 @@ public final class MinimalSpanningTree
     }
 
     /**
-     * Prim algorithm.
-     * @param graph an undirected weighted graph
-     * @param source starting vertex
+     * Computes MST using Prim algorithm.
+     * @param graph the undirected weighted graph
+     * @param source the starting vertex
      * @return the minimal spanning tree
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> UndirectedGraph<VertexId, VertexProperty, EdgeProperty> prim(

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.strategy.DFSStrategy;
+import algolib.graphs.algorithms.strategy.DfsStrategy;
 import algolib.graphs.algorithms.strategy.EmptyStrategy;
 
 // Tests: Algorithms for graph searching
@@ -279,7 +279,7 @@ public class SearchingTest
     // endregion
 
     private static class TestingStrategy<VertexId>
-            implements DFSStrategy<VertexId>
+            implements DfsStrategy<VertexId>
     {
         HashSet<Vertex<VertexId>> entries = new HashSet<>();
         HashSet<Vertex<VertexId>> exits = new HashSet<>();

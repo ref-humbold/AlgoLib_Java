@@ -75,7 +75,7 @@ public final class Fraction
     @Override
     public String toString()
     {
-        return String.format("%d/%d", numerator, denominator);
+        return "%d/%d".formatted(numerator, denominator);
     }
 
     public Fraction negate()

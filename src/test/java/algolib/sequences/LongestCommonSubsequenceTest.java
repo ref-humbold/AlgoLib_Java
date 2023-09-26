@@ -14,7 +14,7 @@ public class LongestCommonSubsequenceTest
     public void countLCSLength_WhenEmpty_ThenZero()
     {
         // when
-        int result = LongestCommonSubsequence.countLCSLength("qwertyuiop", "");
+        int result = LongestCommonSubsequence.countLcsLength("qwertyuiop", "");
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -23,7 +23,7 @@ public class LongestCommonSubsequenceTest
     public void countLcsLength_WhenRepeatedSingleElement_ThenOne()
     {
         // when
-        int result = LongestCommonSubsequence.countLCSLength("abcde", "eeee");
+        int result = LongestCommonSubsequence.countLcsLength("abcde", "eeee");
         // then
         Assertions.assertThat(result).isEqualTo(1);
     }
@@ -34,7 +34,7 @@ public class LongestCommonSubsequenceTest
         // given
         String text = "xxxx";
         // when
-        int result = LongestCommonSubsequence.countLCSLength(text + text, text);
+        int result = LongestCommonSubsequence.countLcsLength(text + text, text);
         // then
         Assertions.assertThat(result).isEqualTo(text.length());
     }
@@ -45,7 +45,7 @@ public class LongestCommonSubsequenceTest
         // given
         String sequence = "qwertyuiop";
         // when
-        int result = LongestCommonSubsequence.countLCSLength(sequence, sequence);
+        int result = LongestCommonSubsequence.countLcsLength(sequence, sequence);
         // then
         Assertions.assertThat(result).isEqualTo(sequence.length());
     }
@@ -54,7 +54,7 @@ public class LongestCommonSubsequenceTest
     public void countLcsLength_WhenSubtext_ThenSubtextLength()
     {
         // when
-        int result = LongestCommonSubsequence.countLCSLength("qwertyuiop", "zxqwertyasdfuiopcvb");
+        int result = LongestCommonSubsequence.countLcsLength("qwertyuiop", "zxqwertyasdfuiopcvb");
         // then
         Assertions.assertThat(result).isEqualTo("qwertyuiop".length());
     }
@@ -63,7 +63,7 @@ public class LongestCommonSubsequenceTest
     public void countLcsLength_WhenDifferent_ThenZero()
     {
         // when
-        int result = LongestCommonSubsequence.countLCSLength("qwertyuiop", "asdfghjkl");
+        int result = LongestCommonSubsequence.countLcsLength("qwertyuiop", "asdfghjkl");
         // then
         Assertions.assertThat(result).isEqualTo(0);
     }
@@ -72,7 +72,7 @@ public class LongestCommonSubsequenceTest
     public void countLcsLength_WhenCommonSubtext_ThenCommonSubtextLength()
     {
         // when
-        int result = LongestCommonSubsequence.countLCSLength("qwertyuiop", "zxrtyasdfuiopcvb");
+        int result = LongestCommonSubsequence.countLcsLength("qwertyuiop", "zxrtyasdfuiopcvb");
         // then
         Assertions.assertThat(result).isEqualTo("rtyuiop".length());
     }
@@ -83,7 +83,7 @@ public class LongestCommonSubsequenceTest
         // given
         List<Integer> sequence = Collections.nCopies(25, 11);
         // when
-        int result = LongestCommonSubsequence.countLCSLength(sequence,
+        int result = LongestCommonSubsequence.countLcsLength(sequence,
                                                              Stream.concat(sequence.stream(),
                                                                            sequence.stream())
                                                                    .collect(Collectors.toList()));
@@ -97,7 +97,7 @@ public class LongestCommonSubsequenceTest
         // given
         List<Integer> sequence = "qwertyuiop".chars().boxed().collect(Collectors.toList());
         // when
-        int result = LongestCommonSubsequence.countLCSLength(sequence, sequence);
+        int result = LongestCommonSubsequence.countLcsLength(sequence, sequence);
         // then
         Assertions.assertThat(result).isEqualTo(sequence.size());
     }
@@ -106,7 +106,7 @@ public class LongestCommonSubsequenceTest
     public void countLcsLength_WhenCommonSubsequence_ThenCommonSubsequenceLength()
     {
         // when
-        int result = LongestCommonSubsequence.countLCSLength(
+        int result = LongestCommonSubsequence.countLcsLength(
                 "qwertyuiop".chars().boxed().collect(Collectors.toList()),
                 "zxrtyasdfuiopcvb".chars().boxed().collect(Collectors.toList()));
         // then

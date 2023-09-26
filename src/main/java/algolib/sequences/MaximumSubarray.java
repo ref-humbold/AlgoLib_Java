@@ -13,7 +13,7 @@ public final class MaximumSubarray
     /**
      * Dynamically constructs coherent subarray with maximal sum.
      * @param sequence the sequence of numbers
-     * @return maximum subarray
+     * @return the maximum subarray
      */
     public static List<Double> findMaximumSubarray(Iterable<Double> sequence)
     {
@@ -38,7 +38,7 @@ public final class MaximumSubarray
     /**
      * Calculates maximal sum from all coherent subarrays using interval tree.
      * @param sequence the sequence of numbers
-     * @return sum of maximum subarray
+     * @return the sum of maximum subarray
      */
     public static double countMaximalSubsum(Collection<Double> sequence)
     {
@@ -70,16 +70,15 @@ public final class MaximumSubarray
                 int indexLeft = index + index;
                 int indexRight = index + index + 1;
 
-                intervalSums.set(index,
-                                 Math.max(Math.max(intervalSums.get(indexRight),
-                                                   intervalSums.get(indexLeft)),
-                                          suffixSums.get(indexRight) + prefixSums.get(indexLeft)));
-                prefixSums.set(index,
-                               Math.max(prefixSums.get(indexRight),
-                                        allSums.get(indexRight) + prefixSums.get(indexLeft)));
-                suffixSums.set(index,
-                               Math.max(suffixSums.get(indexLeft),
-                                        suffixSums.get(indexRight) + allSums.get(indexLeft)));
+                intervalSums.set(index, Math.max(
+                        Math.max(intervalSums.get(indexRight), intervalSums.get(indexLeft)),
+                        suffixSums.get(indexRight) + prefixSums.get(indexLeft)));
+                prefixSums.set(index, Math.max(prefixSums.get(indexRight),
+                                               allSums.get(indexRight) + prefixSums.get(
+                                                       indexLeft)));
+                suffixSums.set(index, Math.max(suffixSums.get(indexLeft),
+                                               suffixSums.get(indexRight) + allSums.get(
+                                                       indexLeft)));
                 allSums.set(index, allSums.get(indexRight) + allSums.get(indexLeft));
                 index /= 2;
             }

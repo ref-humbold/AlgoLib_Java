@@ -18,6 +18,12 @@ public final class Vector2D
         this.y = y;
     }
 
+    @Override
+    public double[] getCoordinates()
+    {
+        return new double[]{x, y};
+    }
+
     public static Vector2D of(double x, double y)
     {
         return new Vector2D(x, y);
@@ -39,21 +45,13 @@ public final class Vector2D
     }
 
     @Override
-    public double[] getCoordinates()
-    {
-        return new double[]{x, y};
-    }
-
-    @Override
     public boolean equals(Object obj)
     {
         if(this == obj)
             return true;
 
-        if(!(obj instanceof Vector2D))
+        if(!(obj instanceof Vector2D other))
             return false;
-
-        Vector2D other = (Vector2D)obj;
 
         return areEqual(x, other.x) && areEqual(y, other.y);
     }
@@ -67,7 +65,7 @@ public final class Vector2D
     @Override
     public String toString()
     {
-        return String.format("[%f, %f]", x, y);
+        return "[%f, %f]".formatted(x, y);
     }
 
     public double length()

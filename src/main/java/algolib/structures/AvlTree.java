@@ -1,49 +1,37 @@
-// Structure of AVL tree
 package algolib.structures;
 
 import java.util.*;
 import java.util.function.BiFunction;
 
-public class AVLTree<E>
+/** Structure of AVL tree */
+public class AvlTree<E>
         extends AbstractSet<E>
 {
     private final Comparator<? super E> comparator_;
-    private AVLNode<E> tree = null;
+    private AvlNode<E> tree = null;
     private int size_ = 0;
 
-    public AVLTree()
+    public AvlTree()
     {
         super();
         comparator_ = null;
     }
 
     @SuppressWarnings("unchecked")
-    public AVLTree(Collection<? extends E> collection)
+    public AvlTree(Collection<? extends E> collection)
     {
         super();
-
-        if(collection instanceof AVLTree)
-        {
-            AVLTree<? extends E> avlTree = (AVLTree<? extends E>)collection;
-            comparator_ = (Comparator<? super E>)avlTree.comparator();
-        }
-        else if(collection instanceof SortedSet)
-        {
-            SortedSet<? extends E> sortedSet = (SortedSet<? extends E>)collection;
-            comparator_ = (Comparator<? super E>)sortedSet.comparator();
-        }
-        else if(collection instanceof PriorityQueue)
-        {
-            PriorityQueue<? extends E> priorityQueue = (PriorityQueue<? extends E>)collection;
-            comparator_ = (Comparator<? super E>)priorityQueue.comparator();
-        }
-        else
-            comparator_ = null;
-
+        comparator_ = collection instanceof AvlTree<? extends E> avlTree
+                      ? (Comparator<? super E>)avlTree.comparator()
+                      : collection instanceof SortedSet<? extends E> sortedSet
+                        ? (Comparator<? super E>)sortedSet.comparator()
+                        : collection instanceof PriorityQueue<? extends E> priorityQueue
+                          ? (Comparator<? super E>)priorityQueue.comparator()
+                          : null;
         addAll(collection);
     }
 
-    public AVLTree(Comparator<? super E> comparator)
+    public AvlTree(Comparator<? super E> comparator)
     {
         super();
         comparator_ = comparator;
@@ -55,7 +43,7 @@ public class AVLTree<E>
         return tree == null;
     }
 
-    private void setRoot(AVLNode<E> node)
+    private void setRoot(AvlNode<E> node)
     {
         tree = node;
 
@@ -69,10 +57,8 @@ public class AVLTree<E>
         if(this == obj)
             return true;
 
-        if(!(obj instanceof AVLTree))
+        if(!(obj instanceof AvlTree<?> other))
             return false;
-
-        AVLTree<?> other = (AVLTree<?>)obj;
 
         return size_ == other.size_ && containsAll(other);
     }
@@ -124,33 +110,33 @@ public class AVLTree<E>
     @Override
     public Iterator<E> iterator()
     {
-        return new AVLIterator(tree != null ? tree.minimum() : null);
+        return new AvlIterator(tree != null ? tree.minimum() : null);
     }
 
     public Iterator<E> descendingIterator()
     {
-        return new AVLDescendingIterator(tree != null ? tree.maximum() : null);
+        return new AvlDescendingIterator(tree != null ? tree.maximum() : null);
     }
 
     @Override
     public boolean contains(Object object)
     {
-        return !isEmpty()
-                && findNode(object, (node, obj) -> Objects.equals(node.getElement(), obj)) != null;
+        return !isEmpty() && findNode(object, (node, obj) -> Objects.equals(node.getElement(), obj))
+                                     != null;
     }
 
     @Override
     public boolean add(E e)
     {
-        AVLNode<E> nodeParent = findNode(e, (node, obj) -> {
-            AVLNode<E> child = search(node, obj);
+        AvlNode<E> nodeParent = findNode(e, (node, obj) -> {
+            AvlNode<E> child = search(node, obj);
 
             return child == null || Objects.equals(obj, child.getElement());
         });
 
         if(nodeParent == null)
         {
-            AVLNode<E> newNode = new AVLNode<>(e);
+            AvlNode<E> newNode = new AvlNode<>(e);
             setRoot(newNode);
             ++size_;
             return true;
@@ -158,7 +144,7 @@ public class AVLTree<E>
 
         if(search(nodeParent, e) == null)
         {
-            AVLNode<E> newNode = new AVLNode<>(e);
+            AvlNode<E> newNode = new AvlNode<>(e);
 
             if(compare(e, nodeParent.getElement()) < 0)
                 nodeParent.setLeft(newNode);
@@ -176,8 +162,8 @@ public class AVLTree<E>
     @Override
     public boolean remove(Object object)
     {
-        return Optional.ofNullable(findNode(object,
-                                            (n, obj) -> Objects.equals(n.getElement(), obj)))
+        return Optional.ofNullable(
+                               findNode(object, (n, obj) -> Objects.equals(n.getElement(), obj)))
                        .stream()
                        .peek(this::deleteNode)
                        .findFirst()
@@ -190,12 +176,12 @@ public class AVLTree<E>
         return objects.stream().reduce(false, (acc, obj) -> remove(obj) || acc, Boolean::logicalOr);
     }
 
-    private boolean isLeftSon(AVLNode<E> node)
+    private boolean isLeftSon(AvlNode<E> node)
     {
         return node.getParent() != null && node.getParent().getLeft() == node;
     }
 
-    private boolean isRightSon(AVLNode<E> node)
+    private boolean isRightSon(AvlNode<E> node)
     {
         return node.getParent() != null && node.getParent().getRight() == node;
     }
@@ -214,7 +200,7 @@ public class AVLTree<E>
     // - node if element is in it
     // - left child if element is less than node's element
     // - right child if element is greater than node's element
-    private AVLNode<E> search(AVLNode<E> node, Object object)
+    private AvlNode<E> search(AvlNode<E> node, Object object)
     {
         if(Objects.equals(object, node.getElement()))
             return node;
@@ -231,9 +217,9 @@ public class AVLTree<E>
     }
 
     // Searches for node that satisfies given predicate with given value.
-    private AVLNode<E> findNode(Object object, BiFunction<AVLNode<E>, Object, Boolean> predicate)
+    private AvlNode<E> findNode(Object object, BiFunction<AvlNode<E>, Object, Boolean> predicate)
     {
-        AVLNode<E> node = tree;
+        AvlNode<E> node = tree;
 
         while(node != null && !predicate.apply(node, object))
             node = search(node, object);
@@ -242,11 +228,11 @@ public class AVLTree<E>
     }
 
     // Removes inner node from the tree.
-    private void deleteNode(AVLNode<E> node)
+    private void deleteNode(AvlNode<E> node)
     {
         if(node.getLeft() != null && node.getRight() != null)
         {
-            AVLNode<E> succ = node.getRight().minimum();
+            AvlNode<E> succ = node.getRight().minimum();
             E temp = succ.getElement();
 
             succ.setElement(node.getElement());
@@ -255,11 +241,11 @@ public class AVLTree<E>
         }
         else
         {
-            AVLNode<E> child = node.getLeft() != null ? node.getLeft() : node.getRight();
+            AvlNode<E> child = node.getLeft() != null ? node.getLeft() : node.getRight();
 
             if(node.getParent() != null)
             {
-                AVLNode<E> nodeParent = node.getParent();
+                AvlNode<E> nodeParent = node.getParent();
 
                 replaceNode(node, child);
                 balance(nodeParent);
@@ -273,7 +259,7 @@ public class AVLTree<E>
     }
 
     // Replaces the first node as a child of its parent with the second node.
-    private void replaceNode(AVLNode<E> node1, AVLNode<E> node2)
+    private void replaceNode(AvlNode<E> node1, AvlNode<E> node2)
     {
         if(isLeftSon(node1))
             node1.getParent().setLeft(node2);
@@ -286,11 +272,11 @@ public class AVLTree<E>
     }
 
     // Rotates the node along the edge to its parent.
-    private void rotate(AVLNode<E> node)
+    private void rotate(AvlNode<E> node)
     {
         if(isRightSon(node))
         {
-            AVLNode<E> upperNode = node.getParent();
+            AvlNode<E> upperNode = node.getParent();
 
             upperNode.setRight(node.getLeft());
             replaceNode(upperNode, node);
@@ -298,7 +284,7 @@ public class AVLTree<E>
         }
         else if(isLeftSon(node))
         {
-            AVLNode<E> upperNode = node.getParent();
+            AvlNode<E> upperNode = node.getParent();
 
             upperNode.setLeft(node.getRight());
             replaceNode(upperNode, node);
@@ -307,7 +293,7 @@ public class AVLTree<E>
     }
 
     // Restores balancing on a path from given node to the root.
-    private void balance(AVLNode<E> node)
+    private void balance(AvlNode<E> node)
     {
         while(node != null)
         {
@@ -336,25 +322,23 @@ public class AVLTree<E>
         }
     }
 
-    private int countBalance(AVLNode<E> node)
+    private int countBalance(AvlNode<E> node)
     {
-        int leftHeight = Optional.ofNullable(node.getLeft()).map(AVLNode::getHeight).orElse(0);
-        int rightHeight = Optional.ofNullable(node.getRight()).map(AVLNode::getHeight).orElse(0);
+        int leftHeight = Optional.ofNullable(node.getLeft()).map(AvlNode::getHeight).orElse(0);
+        int rightHeight = Optional.ofNullable(node.getRight()).map(AvlNode::getHeight).orElse(0);
 
         return leftHeight - rightHeight;
     }
 
-    private static class AVLNode<T>
+    private static class AvlNode<T>
     {
-        /** Value in the node */
         private T element;
-
         private int height = 1;
-        private AVLNode<T> left = null;
-        private AVLNode<T> right = null;
-        private AVLNode<T> parent = null;
+        private AvlNode<T> left = null;
+        private AvlNode<T> right = null;
+        private AvlNode<T> parent = null;
 
-        AVLNode(T element)
+        AvlNode(T element)
         {
             this.element = element;
         }
@@ -374,12 +358,12 @@ public class AVLTree<E>
             return height;
         }
 
-        AVLNode<T> getLeft()
+        AvlNode<T> getLeft()
         {
             return left;
         }
 
-        void setLeft(AVLNode<T> node)
+        void setLeft(AvlNode<T> node)
         {
             left = node;
 
@@ -389,12 +373,12 @@ public class AVLTree<E>
             countHeight();
         }
 
-        AVLNode<T> getRight()
+        AvlNode<T> getRight()
         {
             return right;
         }
 
-        void setRight(AVLNode<T> node)
+        void setRight(AvlNode<T> node)
         {
             right = node;
 
@@ -404,41 +388,41 @@ public class AVLTree<E>
             countHeight();
         }
 
-        AVLNode<T> getParent()
+        AvlNode<T> getParent()
         {
             return parent;
         }
 
-        void setParent(AVLNode<T> parent)
+        void setParent(AvlNode<T> parent)
         {
             this.parent = parent;
         }
 
         void countHeight()
         {
-            int leftHeight = Optional.ofNullable(left).map(AVLNode::getHeight).orElse(0);
-            int rightHeight = Optional.ofNullable(right).map(AVLNode::getHeight).orElse(0);
+            int leftHeight = Optional.ofNullable(left).map(AvlNode::getHeight).orElse(0);
+            int rightHeight = Optional.ofNullable(right).map(AvlNode::getHeight).orElse(0);
 
             height = Math.max(leftHeight, rightHeight) + 1;
         }
 
-        AVLNode<T> minimum()
+        AvlNode<T> minimum()
         {
-            return Optional.ofNullable(left).map(AVLNode::minimum).orElse(this);
+            return Optional.ofNullable(left).map(AvlNode::minimum).orElse(this);
         }
 
-        AVLNode<T> maximum()
+        AvlNode<T> maximum()
         {
-            return Optional.ofNullable(right).map(AVLNode::maximum).orElse(this);
+            return Optional.ofNullable(right).map(AvlNode::maximum).orElse(this);
         }
     }
 
-    private final class AVLIterator
+    private final class AvlIterator
             implements Iterator<E>
     {
-        private AVLNode<E> currentNode;
+        private AvlNode<E> currentNode;
 
-        AVLIterator(AVLNode<E> node)
+        AvlIterator(AvlNode<E> node)
         {
             currentNode = node;
         }
@@ -462,7 +446,7 @@ public class AVLTree<E>
             else
             {
                 while(currentNode.getParent() != null
-                        && currentNode.getParent().getLeft() != currentNode)
+                              && currentNode.getParent().getLeft() != currentNode)
                     currentNode = currentNode.getParent();
 
                 currentNode = currentNode.getParent();
@@ -472,12 +456,12 @@ public class AVLTree<E>
         }
     }
 
-    private final class AVLDescendingIterator
+    private final class AvlDescendingIterator
             implements Iterator<E>
     {
-        private AVLNode<E> currentNode;
+        private AvlNode<E> currentNode;
 
-        AVLDescendingIterator(AVLNode<E> node)
+        AvlDescendingIterator(AvlNode<E> node)
         {
             currentNode = node;
         }
@@ -501,7 +485,7 @@ public class AVLTree<E>
             else
             {
                 while(currentNode.getParent() != null
-                        && currentNode.getParent().getRight() != currentNode)
+                              && currentNode.getParent().getRight() != currentNode)
                     currentNode = currentNode.getParent();
 
                 currentNode = currentNode.getParent();

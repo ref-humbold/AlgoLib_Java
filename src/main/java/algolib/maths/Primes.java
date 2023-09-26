@@ -13,8 +13,8 @@ public final class Primes
 
     /**
      * Finds prime numbers less than given number.
-     * @param maximum maximal number, exclusive
-     * @return collection of prime numbers
+     * @param maximum the maximal number, exclusive
+     * @return the collection of prime numbers
      */
     public static Collection<Integer> findPrimes(int maximum)
     {
@@ -22,10 +22,10 @@ public final class Primes
     }
 
     /**
-     * Finds prime numbers inside a range of integers.
-     * @param minimum minimal number in range, inclusive
-     * @param maximum maximal number in range, exclusive
-     * @return collection of prime numbers
+     * Finds prime numbers inside given range of numbers.
+     * @param minimum the minimal number in range, inclusive
+     * @param maximum the maximal number in range, exclusive
+     * @return the collection of prime numbers
      */
     public static Collection<Integer> findPrimes(int minimum, int maximum)
     {
@@ -54,7 +54,7 @@ public final class Primes
     }
 
     /**
-     * Checks whether given number is prime using Fermat's prime test.
+     * Checks whether given number is prime using Fermat prime test.
      * @param number the number
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
@@ -78,7 +78,7 @@ public final class Primes
     }
 
     /**
-     * Checks whether given number is prime using Fermat's prime test.
+     * Checks whether given number is prime using Fermat prime test.
      * @param number the number
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
@@ -102,7 +102,7 @@ public final class Primes
     }
 
     /**
-     * Checks whether given number is prime using Miller-Rabin's prime test.
+     * Checks whether given number is prime using Miller-Rabin prime test.
      * @param number the number
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
@@ -136,7 +136,7 @@ public final class Primes
     }
 
     /**
-     * Checks whether given number is prime using Miller-Rabin's prime test.
+     * Checks whether given number is prime using Miller-Rabin prime test.
      * @param number the number
      * @return {@code true} if the number is probably prime, otherwise {@code false}
      */
@@ -169,7 +169,7 @@ public final class Primes
         return true;
     }
 
-    // Extracts prime numbers between 0 and given maximum value
+    // Extracts prime numbers between 0 and given maximum value.
     private static int[] getBasePrimes(int baseMaximum)
     {
         List<Boolean> isPrime = new ArrayList<>(Collections.nCopies((baseMaximum - 1) / 2, true));
@@ -189,7 +189,7 @@ public final class Primes
                         .toArray();
     }
 
-    // Extracts prime numbers from given range using given basic prime numbers
+    // Extracts prime numbers from given range using given basic prime numbers.
     private static int[] getSegmentPrimes(int segmentStart, int segmentEnd, int[] basePrimes)
     {
         int segmentBegin = segmentStart + 1 - segmentStart % 2;

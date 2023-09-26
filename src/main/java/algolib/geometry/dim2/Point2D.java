@@ -18,15 +18,15 @@ public final class Point2D
         this.y = y;
     }
 
-    public static Point2D of(double x, double y)
-    {
-        return new Point2D(x, y);
-    }
-
     @Override
     public double[] getCoordinates()
     {
         return new double[]{x, y};
+    }
+
+    public static Point2D of(double x, double y)
+    {
+        return new Point2D(x, y);
     }
 
     @Override
@@ -35,10 +35,8 @@ public final class Point2D
         if(this == obj)
             return true;
 
-        if(!(obj instanceof Point2D))
+        if(!(obj instanceof Point2D other))
             return false;
-
-        Point2D other = (Point2D)obj;
 
         return areEqual(x, other.x) && areEqual(y, other.y);
     }
@@ -52,7 +50,7 @@ public final class Point2D
     @Override
     public String toString()
     {
-        return String.format("(%f, %f)", x, y);
+        return "(%f, %f)".formatted(x, y);
     }
 
     public double radius()

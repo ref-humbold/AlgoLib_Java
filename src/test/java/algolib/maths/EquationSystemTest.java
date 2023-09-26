@@ -22,8 +22,7 @@ public class EquationSystemTest
         }
         catch(InfiniteSolutionsException | NoSolutionException e)
         {
-            Assertions.fail(
-                    String.format("Unexpected exception: %s", e.getClass().getSimpleName()));
+            Assertions.fail("Unexpected exception: %s".formatted(e.getClass().getSimpleName()));
         }
         // then
         Assertions.assertThat(result).containsExactly(1, 3, -2);

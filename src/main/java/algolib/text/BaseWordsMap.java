@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import algolib.tuples.ComparablePair;
@@ -40,10 +39,8 @@ public final class BaseWordsMap
         if(this == obj)
             return true;
 
-        if(obj == null || getClass() != obj.getClass())
+        if(!(obj instanceof BaseWordsMap other))
             return false;
-
-        BaseWordsMap other = (BaseWordsMap)obj;
 
         return Objects.equals(text, other.text) && Objects.equals(factors, other.factors);
     }
@@ -56,7 +53,7 @@ public final class BaseWordsMap
 
     /**
      * Retrieves code of substring starting at given index.
-     * @param startIndex starting index, inclusive
+     * @param startIndex the start index, inclusive
      * @return the code of the substring
      */
     public Pair<Integer, Integer> getCode(int startIndex)
@@ -65,18 +62,18 @@ public final class BaseWordsMap
     }
 
     /**
-     * Retrieves code of substring denoted by given range indices.
-     * @param startIndex starting index, inclusive
-     * @param endIndex ending index, exclusive
+     * Retrieves code of substring denoted by given indices range.
+     * @param startIndex the start index, inclusive
+     * @param endIndex the end index, exclusive
      * @return the code of the substring
      */
     public Pair<Integer, Integer> getCode(int startIndex, int endIndex)
     {
         if(startIndex < 0 || startIndex >= text.length())
-            throw new IndexOutOfBoundsException(String.format("Index out of range %d", startIndex));
+            throw new IndexOutOfBoundsException("Index out of range %d".formatted(startIndex));
 
         if(endIndex < 0 || endIndex > text.length())
-            throw new IndexOutOfBoundsException(String.format("Index out of range %d", endIndex));
+            throw new IndexOutOfBoundsException("Index out of range %d".formatted(endIndex));
 
         if(endIndex <= startIndex)
             return Pair.of(0, 0);
@@ -94,14 +91,11 @@ public final class BaseWordsMap
     // Builds base words map using Karp-Miller-Rosenberg algorithm.
     private void create()
     {
-        int codeValue = extend(1,
-                               0,
-                               (i, length) -> new int[]{text.charAt(i), 1 + text.charAt(i), i,
-                                                        i + length});
+        int codeValue = extend(1, 0, (i, length) -> new int[]{text.charAt(i), 1 + text.charAt(i), i,
+                                                              i + length});
 
         for(int currentLength = 2; currentLength <= text.length(); currentLength *= 2)
-            codeValue = extend(currentLength,
-                               codeValue,
+            codeValue = extend(currentLength, codeValue,
                                (i, length) -> new int[]{factors.get(Pair.of(i, i + length / 2)),
                                                         factors.get(Pair.of(i + length / 2,
                                                                             i + length)), i,
@@ -115,7 +109,7 @@ public final class BaseWordsMap
         List<int[]> codes = IntStream.range(0, text.length() - length + 1)
                                      .mapToObj(i -> func.apply(i, length))
                                      .sorted(new CodesComparator())
-                                     .collect(Collectors.toList());
+                                     .toList();
 
         for(int[] code : codes)
         {

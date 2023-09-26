@@ -20,15 +20,15 @@ public final class Point3D
         this.z = z;
     }
 
-    public static Point3D of(double x, double y, double z)
-    {
-        return new Point3D(x, y, z);
-    }
-
     @Override
     public double[] getCoordinates()
     {
         return new double[]{x, y, z};
+    }
+
+    public static Point3D of(double x, double y, double z)
+    {
+        return new Point3D(x, y, z);
     }
 
     @Override
@@ -37,10 +37,8 @@ public final class Point3D
         if(this == obj)
             return true;
 
-        if(!(obj instanceof Point3D))
+        if(!(obj instanceof Point3D other))
             return false;
-
-        Point3D other = (Point3D)obj;
 
         return areEqual(x, other.x) && areEqual(y, other.y) && areEqual(z, other.z);
     }
@@ -54,7 +52,7 @@ public final class Point3D
     @Override
     public String toString()
     {
-        return String.format("(%f, %f, %f)", x, y, z);
+        return "(%f, %f, %f)".formatted(x, y, z);
     }
 
     public double radius()

@@ -4,7 +4,7 @@ import java.util.*;
 
 import algolib.graphs.DirectedGraph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.strategy.DFSStrategy;
+import algolib.graphs.algorithms.strategy.DfsStrategy;
 
 /** Algorithms for topological sorting of a directed graph */
 public final class TopologicalSorting
@@ -12,7 +12,7 @@ public final class TopologicalSorting
     /**
      * Topological sorting algorithm using predecessors counting.
      * @param graph the directed graph
-     * @return topological order of vertices
+     * @return the topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
     public static <VertexId extends Comparable<VertexId>, VertexProperty, EdgeProperty> List<Vertex<VertexId>> inputsTopologicalSort(
@@ -25,8 +25,8 @@ public final class TopologicalSorting
     /**
      * Topological sorting algorithm using predecessors counting.
      * @param graph the directed graph
-     * @param vertexIdComparator comparator of vertex indices
-     * @return topological order of vertices
+     * @param vertexIdComparator the comparator of vertex identifiers
+     * @return the topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
     public static <VertexId, VertexProperty, EdgeProperty> List<Vertex<VertexId>> inputsTopologicalSort(
@@ -77,7 +77,7 @@ public final class TopologicalSorting
     /**
      * Topological sorting algorithm using DFS.
      * @param graph the directed graph
-     * @return topological order of vertices
+     * @return the topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
     public static <VertexId, VertexProperty, EdgeProperty> List<Vertex<VertexId>> dfsTopologicalSort(
@@ -95,7 +95,7 @@ public final class TopologicalSorting
     }
 
     private static class TopologicalStrategy<VertexId>
-            implements DFSStrategy<VertexId>
+            implements DfsStrategy<VertexId>
     {
         final List<Vertex<VertexId>> order = new ArrayList<>();
 

@@ -60,7 +60,7 @@ public class EquationTest
     }
 
     @Test
-    public void multiply_WhenConstantIsNonZero_ThenMultiplyingEquations()
+    public void multiply_WhenConstantIsNonZero_ThenMultiplyingEachCoefficient()
     {
         // when
         Equation result = testObject.multiply(2);
@@ -81,7 +81,7 @@ public class EquationTest
     }
 
     @Test
-    public void divide_WhenConstantIsNonZero_ThenDividingEquations()
+    public void divide_WhenConstantIsNonZero_ThenDividingEachCoefficient()
     {
         // when
         Equation result = testObject.divide(-2);
@@ -113,10 +113,8 @@ public class EquationTest
     @Test
     public void hasSolution_WhenSolution_ThenTrue()
     {
-        // given
-        double[] solution = {10, 10, -29, 14};
         // when
-        boolean result = testObject.hasSolution(solution);
+        boolean result = testObject.hasSolution(new double[]{10, 10, -29, 14});
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -124,10 +122,8 @@ public class EquationTest
     @Test
     public void hasSolution_WhenNotSolution_ThenFalse()
     {
-        // given
-        double[] solution = {10, 6, -17, 14};
         // when
-        boolean result = testObject.hasSolution(solution);
+        boolean result = testObject.hasSolution(new double[]{10, 6, -17, 14});
         // then
         Assertions.assertThat(result).isFalse();
     }

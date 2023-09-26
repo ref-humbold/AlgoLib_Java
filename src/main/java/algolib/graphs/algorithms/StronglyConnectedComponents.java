@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import algolib.graphs.DirectedGraph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.strategy.DFSStrategy;
+import algolib.graphs.algorithms.strategy.DfsStrategy;
 
 /** Algorithm for strongly connected components */
 public final class StronglyConnectedComponents
@@ -13,7 +13,7 @@ public final class StronglyConnectedComponents
     /**
      * Finds strongly connected components in given directed graph.
      * @param graph the directed graph
-     * @return list of vertices in strongly connected components
+     * @return the list of vertices in strongly connected components
      */
     public static <VertexId, VertexProperty, EdgeProperty> List<Set<Vertex<VertexId>>> findSCC(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
@@ -47,7 +47,7 @@ public final class StronglyConnectedComponents
     }
 
     private static class PostOrderStrategy<VertexId>
-            implements DFSStrategy<VertexId>
+            implements DfsStrategy<VertexId>
     {
         final Map<Vertex<VertexId>, Integer> postTimes = new HashMap<>();
         int timer = 0;
@@ -81,7 +81,7 @@ public final class StronglyConnectedComponents
     }
 
     private static class SCCStrategy<VertexId>
-            implements DFSStrategy<VertexId>
+            implements DfsStrategy<VertexId>
     {
         final List<Set<Vertex<VertexId>>> components = new ArrayList<>();
 

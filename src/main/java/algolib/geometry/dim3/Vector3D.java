@@ -20,6 +20,12 @@ public final class Vector3D
         this.z = z;
     }
 
+    @Override
+    public double[] getCoordinates()
+    {
+        return new double[]{x, y, z};
+    }
+
     public static Vector3D of(double x, double y, double z)
     {
         return new Vector3D(x, y, z);
@@ -52,21 +58,13 @@ public final class Vector3D
     }
 
     @Override
-    public double[] getCoordinates()
-    {
-        return new double[]{x, y, z};
-    }
-
-    @Override
     public boolean equals(Object obj)
     {
         if(this == obj)
             return true;
 
-        if(!(obj instanceof Vector3D))
+        if(!(obj instanceof Vector3D other))
             return false;
-
-        Vector3D other = (Vector3D)obj;
 
         return areEqual(x, other.x) && areEqual(y, other.y) && areEqual(z, other.z);
     }
@@ -80,7 +78,7 @@ public final class Vector3D
     @Override
     public String toString()
     {
-        return String.format("[%f, %f, %f]", x, y, z);
+        return "[%f, %f, %f]".formatted(x, y, z);
     }
 
     public double length()

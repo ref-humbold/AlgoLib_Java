@@ -15,8 +15,8 @@ public class Edge<VertexId>
     }
 
     /**
-     * @param vertex vertex adjacent to this edge
-     * @return neighbour of the vertex along this edge
+     * @param vertex the vertex adjacent to this edge
+     * @return the neighbour of the vertex along this edge
      * @throws IllegalArgumentException if the vertex is not adjacent to this edge
      */
     public Vertex<VertexId> getNeighbour(Vertex<VertexId> vertex)
@@ -28,10 +28,10 @@ public class Edge<VertexId>
             return source;
 
         throw new IllegalArgumentException(
-                String.format("Edge %s is not adjacent to given vertex %s", this, vertex));
+                "Edge %s is not adjacent to given vertex %s".formatted(this, vertex));
     }
 
-    /** @return edge with reversed direction */
+    /** @return the edge with reversed direction */
     public Edge<VertexId> reversed()
     {
         return new Edge<>(destination, source);
@@ -43,10 +43,8 @@ public class Edge<VertexId>
         if(this == obj)
             return true;
 
-        if(obj == null || getClass() != obj.getClass())
+        if(!(obj instanceof Edge<?> other))
             return false;
-
-        Edge<?> other = (Edge<?>)obj;
 
         return source.equals(other.source) && destination.equals(other.destination);
     }
@@ -60,6 +58,6 @@ public class Edge<VertexId>
     @Override
     public String toString()
     {
-        return String.format("Edge{%s -- %s}", source.toString(), destination.toString());
+        return "Edge{%s -- %s}".formatted(source.toString(), destination.toString());
     }
 }

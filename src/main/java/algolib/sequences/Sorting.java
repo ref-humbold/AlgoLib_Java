@@ -1,4 +1,3 @@
-// Algorithms for sequence sorting
 package algolib.sequences;
 
 import java.util.ArrayList;
@@ -7,12 +6,13 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Stream;
 
+/** Algorithms for sequence sorting */
 public final class Sorting
 {
     private static final Random random = new Random();
 
     /**
-     * Mutably sorts given sequence using a heap.
+     * Mutably sorts given sequence using heap.
      * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void heapSort(List<T> sequence)
@@ -38,7 +38,8 @@ public final class Sorting
     }
 
     /**
-     * Mutably sorts given sequence using a top-down merge-sort algorithm.
+     * Mutably sorts given sequence using top-down merge-sort algorithm.
+     * Sorting is guaranteed to be stable.
      * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void topDownMergeSort(List<T> sequence)
@@ -48,7 +49,8 @@ public final class Sorting
     }
 
     /**
-     * Mutably sorts given sequence using a bottom-up merge-sort algorithm.
+     * Mutably sorts given sequence using bottom-up merge-sort algorithm.
+     * Sorting is guaranteed to be stable.
      * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void bottomUpMergeSort(List<T> sequence)
@@ -65,7 +67,7 @@ public final class Sorting
     }
 
     /**
-     * Mutably sorts given sequence using a quick-sort algorithm.
+     * Mutably sorts given sequence using quick-sort algorithm.
      * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void quickSort(List<T> sequence)
@@ -74,7 +76,7 @@ public final class Sorting
         doQuickSort(sequence, 0, sequence.size());
     }
 
-    // Move element down inside given heap
+    // Move element down inside given heap.
     private static <T extends Comparable<T>> void moveDown(List<T> heap, int vertex, int indexEnd)
     {
         int nextVertex = -1;
@@ -98,10 +100,9 @@ public final class Sorting
         Sorting.moveDown(heap, nextVertex, indexEnd);
     }
 
-    // Mutably sorts given sequence using a recursive merge-sort algorithm.
-    private static <T extends Comparable<T>> void doMergeSort(List<T> sequence,
-                                                              int indexBegin,
-                                                              int indexEnd)
+    // Mutably sorts given sequence using recursive merge-sort algorithm.
+    private static <T extends Comparable<T>> void doMergeSort(
+            List<T> sequence, int indexBegin, int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
             return;
@@ -113,11 +114,9 @@ public final class Sorting
         Sorting.merge(sequence, indexBegin, indexMiddle, indexEnd);
     }
 
-    // Merges two sorted fragments of a sequence.
-    private static <T extends Comparable<T>> void merge(List<T> sequence,
-                                                        int indexBegin,
-                                                        int indexMiddle,
-                                                        int indexEnd)
+    // Merges two sorted fragments of given sequence. Guaranteed to be stable.
+    private static <T extends Comparable<T>> void merge(
+            List<T> sequence, int indexBegin, int indexMiddle, int indexEnd)
     {
         List<T> ordered = new ArrayList<>();
         int iter1 = indexBegin;
@@ -145,10 +144,9 @@ public final class Sorting
             sequence.set(indexBegin + i, ordered.get(i));
     }
 
-    // Mutably sorts given sequence using a quick-sort algorithm.
-    private static <T extends Comparable<T>> void doQuickSort(List<T> sequence,
-                                                              int indexBegin,
-                                                              int indexEnd)
+    // Mutably sorts given sequence using quick-sort algorithm.
+    private static <T extends Comparable<T>> void doQuickSort(
+            List<T> sequence, int indexBegin, int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
             return;

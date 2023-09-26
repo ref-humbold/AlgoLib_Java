@@ -10,9 +10,9 @@ public final class LongestCommonSubsequence
      * Computes length of the longest common subsequence of given sequences.
      * @param sequence1 the first sequence
      * @param sequence2 the second sequence
-     * @return length of the longest common subsequence
+     * @return the length of the longest common subsequence
      */
-    public static <T> int countLCSLength(List<T> sequence1, List<T> sequence2)
+    public static <T> int countLcsLength(List<T> sequence1, List<T> sequence2)
     {
         List<T> shortList = sequence1.size() <= sequence2.size() ? sequence1 : sequence2;
         List<T> longList = sequence1.size() > sequence2.size() ? sequence1 : sequence2;
@@ -40,9 +40,9 @@ public final class LongestCommonSubsequence
      * Computes length of the longest common subsequence of given texts.
      * @param text1 the first text
      * @param text2 the second text
-     * @return length of the longest common subsequence
+     * @return the length of the longest common subsequence
      */
-    public static int countLCSLength(String text1, String text2)
+    public static int countLcsLength(String text1, String text2)
     {
         String shortText = text1.length() <= text2.length() ? text1 : text2;
         String longText = text1.length() > text2.length() ? text1 : text2;

@@ -36,20 +36,19 @@ public final class Geometry3D
      * Calculates distance between given points.
      * @param point1 the first point
      * @param point2 the second point
-     * @return distance between the points
+     * @return the distance between the points
      */
     public static double distance(Point3D point1, Point3D point2)
     {
         return Math.sqrt(
                 (point2.x - point1.x) * (point2.x - point1.x) + (point2.y - point1.y) * (point2.y
-                                                                                                 - point1.y)
-                        + (point2.z - point1.z) * (point2.z - point1.z));
+                        - point1.y) + (point2.z - point1.z) * (point2.z - point1.z));
     }
 
     /**
      * Translates given point by given vector.
      * @param point the point
-     * @param vector the translation vector
+     * @param vector the vector of translation
      * @return the translated point
      */
     public static Point3D translate(Point3D point, Vector3D vector)
@@ -60,7 +59,7 @@ public final class Geometry3D
     /**
      * Reflects given point in another point.
      * @param point the point to be reflected
-     * @param centre the reflection point
+     * @param centre the point of reflection
      * @return the reflected point
      */
     public static Point3D reflect(Point3D point, Point3D centre)

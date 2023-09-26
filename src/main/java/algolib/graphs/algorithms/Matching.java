@@ -13,7 +13,7 @@ public final class Matching
     /**
      * Finds maximal matching in given bipartite graph.
      * @param graph the bipartite graph
-     * @return map of matched vertices
+     * @return the map of matched vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty> Map<Vertex<VertexId>,
                                                                       Vertex<VertexId>> match(
@@ -93,8 +93,10 @@ public final class Matching
             }
         }
 
-        private boolean dfs(Vertex<VertexId> vertex, Set<Vertex<VertexId>> visited,
-                            Map<Vertex<VertexId>, Double> distances)
+        private boolean dfs(
+                Vertex<VertexId> vertex,
+                Set<Vertex<VertexId>> visited,
+                Map<Vertex<VertexId>, Double> distances)
         {
             visited.add(vertex);
 

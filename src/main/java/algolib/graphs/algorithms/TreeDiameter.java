@@ -12,7 +12,7 @@ public final class TreeDiameter
     /**
      * Computes length of diameter of given tree.
      * @param tree the tree graph
-     * @return diameter length
+     * @return the length of the tree diameter
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> double countDiameter(
             TreeGraph<VertexId, VertexProperty, EdgeProperty> tree)
@@ -26,7 +26,8 @@ public final class TreeDiameter
     }
 
     private static <VertexId, VertexProperty, EdgeProperty extends Weighted> Pair<Double, Double> dfs(
-            TreeGraph<VertexId, VertexProperty, EdgeProperty> tree, Vertex<VertexId> vertex,
+            TreeGraph<VertexId, VertexProperty, EdgeProperty> tree,
+            Vertex<VertexId> vertex,
             Vertex<VertexId> parent)
     {
         double pathFrom = 0.0;

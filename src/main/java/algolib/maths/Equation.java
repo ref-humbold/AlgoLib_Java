@@ -25,14 +25,18 @@ public final class Equation
         return freeTerm;
     }
 
-    public double getCoefficient(int i)
-    {
-        return coefficients[i];
-    }
-
     public static Equation of(double[] coefficients, double free)
     {
         return new Equation(coefficients, free);
+    }
+
+    /**
+     * @param i the index of variable
+     * @return the coefficient specified by the index
+     */
+    public double getCoefficient(int i)
+    {
+        return coefficients[i];
     }
 
     @Override
@@ -41,10 +45,8 @@ public final class Equation
         if(this == obj)
             return true;
 
-        if(obj == null || getClass() != obj.getClass())
+        if(!(obj instanceof Equation other))
             return false;
-
-        Equation other = (Equation)obj;
 
         return Double.compare(other.freeTerm, freeTerm) == 0 && Arrays.equals(coefficients,
                                                                               other.coefficients);
@@ -62,11 +64,12 @@ public final class Equation
         DecimalFormat df = new DecimalFormat("", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
         return IntStream.range(0, coefficients.length)
                         .filter(i -> coefficients[i] != 0)
-                        .mapToObj(i -> String.format("%s x_%d", df.format(coefficients[i]), i))
+                        .mapToObj(i -> "%s x_%d".formatted(df.format(coefficients[i]), i))
                         .collect(Collectors.joining(" + ", "",
-                                                    String.format(" = %s", df.format(freeTerm))));
+                                                    " = %s".formatted(df.format(freeTerm))));
     }
 
+    /** @return the number of coefficients */
     public int size()
     {
         return coefficients.length;
@@ -74,7 +77,7 @@ public final class Equation
 
     /**
      * Negates this equation.
-     * @return result equation
+     * @return the equation with all coefficients negated
      */
     public Equation negate()
     {
@@ -83,9 +86,9 @@ public final class Equation
 
     /**
      * Adds given equation to this equation.
-     * @param equation equation to be added
-     * @return result equation
-     * @throws IllegalArgumentException if equations sizes are different
+     * @param equation the other equation
+     * @return the equation with coefficients added
+     * @throws IllegalArgumentException if equations have different number of variables
      */
     public Equation add(Equation equation)
     {
@@ -99,9 +102,9 @@ public final class Equation
 
     /**
      * Subtracts given equation from this equation.
-     * @param equation equation to be subtracted
-     * @return result equation
-     * @throws IllegalArgumentException if equations sizes are different
+     * @param equation the other equation
+     * @return the equation with coefficients subtracted
+     * @throws IllegalArgumentException if equations have different number of variables
      */
     public Equation subtract(Equation equation)
     {
@@ -116,8 +119,8 @@ public final class Equation
     /**
      * Multiplies this equation by given constant.
      * @param constant the constant
-     * @return result equation
-     * @throws ArithmeticException if the constant is zero
+     * @return the equation with all coefficients multiplied
+     * @throws ArithmeticException if constant is equal to zero
      */
     public Equation multiply(double constant)
     {
@@ -131,8 +134,8 @@ public final class Equation
     /**
      * Divides this equation by given constant.
      * @param constant the constant
-     * @return result equation
-     * @throws ArithmeticException if the constant is zero
+     * @return the equation with all coefficients divided
+     * @throws ArithmeticException if constant is equal to zero
      */
     public Equation divide(double constant)
     {

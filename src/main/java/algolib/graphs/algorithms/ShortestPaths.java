@@ -20,9 +20,10 @@ public final class ShortestPaths
 {
     /**
      * Bellman-Ford algorithm.
-     * @param graph the directed graph with weighted edges
-     * @param source source vertex
-     * @return map of vertices' distances
+     * @param graph the directed weighted graph
+     * @param source the source vertex
+     * @return the map of distances to each vertex
+     * @throws IllegalStateException if graph contains a negative cycle
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Vertex<VertexId>,
                                                                                        Double> bellmanFord(
@@ -58,9 +59,10 @@ public final class ShortestPaths
 
     /**
      * Dijkstra algorithm.
-     * @param graph the graph with weighted edges (weights are not negative)
-     * @param source source vertex
-     * @return map of vertices' distances
+     * @param graph the weighted graph with non-negative weights
+     * @param source the source vertex
+     * @return the map of distances to each vertex.
+     * @throws IllegalStateException if graph contains an edge with negative weight
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Vertex<VertexId>,
                                                                                        Double> dijkstra(
@@ -110,8 +112,8 @@ public final class ShortestPaths
 
     /**
      * Floyd-Warshall algorithm.
-     * @param graph the directed graph with weighted edges
-     * @return map of distances between all pairs of vertices
+     * @param graph the directed weighted graph
+     * @return the map of distances between all pairs of vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Pair<Vertex<VertexId>, Vertex<VertexId>>, Double> floydWarshall(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)

@@ -7,6 +7,6 @@ public interface DirectedGraph<VertexId, VertexProperty, EdgeProperty>
     /** Reverses directions of edges in this graph. */
     void reverse();
 
-    /** @return copy of this graph with reversed directions of edges */
+    /** @return the copy of the graph with reversed directions of edges */
     DirectedGraph<VertexId, VertexProperty, EdgeProperty> reversedCopy();
 }

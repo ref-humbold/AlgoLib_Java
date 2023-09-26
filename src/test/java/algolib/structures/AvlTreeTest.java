@@ -6,26 +6,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // Tests: Structure of AVL tree
-public class AVLTreeTest
+public class AvlTreeTest
 {
     private final Integer[] numbers =
             new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26};
-    private AVLTree<Integer> testObject;
+    private AvlTree<Integer> testObject;
 
     @BeforeEach
     public void setUp()
     {
-        testObject = new AVLTree<>(Arrays.asList(numbers));
+        testObject = new AvlTree<>(Arrays.asList(numbers));
     }
 
     @Test
     public void constructor_WhenFromAVLTree_ThenCopied()
     {
         // given
-        testObject = new AVLTree<>(Comparator.comparing(i -> -i));
+        testObject = new AvlTree<>(Comparator.comparing(i -> -i));
         testObject.addAll(Arrays.asList(numbers));
         // when
-        AVLTree<Number> result = new AVLTree<>(testObject);
+        AvlTree<Number> result = new AvlTree<>(testObject);
         // then
         Assertions.assertThat(result.comparator()).isEqualTo(testObject.comparator());
         Assertions.assertThat(result.size()).isEqualTo(testObject.size());
@@ -46,7 +46,7 @@ public class AVLTreeTest
     public void isEmpty_WhenEmpty_ThenTrue()
     {
         // given
-        testObject = new AVLTree<>();
+        testObject = new AvlTree<>();
         // when
         boolean result = testObject.isEmpty();
         // then
@@ -66,7 +66,7 @@ public class AVLTreeTest
     public void size_WhenEmpty_ThenZero()
     {
         // given
-        testObject = new AVLTree<>();
+        testObject = new AvlTree<>();
         // when
         int result = testObject.size();
         // then
@@ -129,7 +129,7 @@ public class AVLTreeTest
     public void iterator_WhenEmpty_ThenNoElements()
     {
         // given
-        testObject = new AVLTree<>();
+        testObject = new AvlTree<>();
         // when
         List<Integer> result = new ArrayList<>(testObject);
         // then
@@ -155,7 +155,7 @@ public class AVLTreeTest
     public void descendingIterator_WhenEmpty_ThenNoElements()
     {
         // given
-        testObject = new AVLTree<>();
+        testObject = new AvlTree<>();
         Iterator<Integer> iterator = testObject.descendingIterator();
         // when
         List<Integer> result = new ArrayList<>();
@@ -212,7 +212,7 @@ public class AVLTreeTest
         int root = 27;
         int elem = 11;
 
-        testObject = new AVLTree<>(Arrays.asList(root, elem));
+        testObject = new AvlTree<>(Arrays.asList(root, elem));
         // when
         boolean result = testObject.remove(root);
         // then
@@ -228,7 +228,7 @@ public class AVLTreeTest
         int root = 11;
         int elem = 27;
 
-        testObject = new AVLTree<>(Arrays.asList(root, elem));
+        testObject = new AvlTree<>(Arrays.asList(root, elem));
         // when
         boolean result = testObject.remove(root);
         // then
@@ -243,7 +243,7 @@ public class AVLTreeTest
         // given
         int root = 0;
 
-        testObject = new AVLTree<>(Collections.singletonList(root));
+        testObject = new AvlTree<>(Collections.singletonList(root));
         // when
         boolean result = testObject.remove(root);
         // then
@@ -256,7 +256,7 @@ public class AVLTreeTest
     public void remove_WhenEmpty_ThenFalse()
     {
         // given
-        testObject = new AVLTree<>();
+        testObject = new AvlTree<>();
         // when
         boolean result = testObject.remove(0);
         // then

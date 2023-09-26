@@ -117,7 +117,7 @@ public class SuffixArrayTest
     public void countLCP_WhenSameSuffix_ThenLengthOfPrefix()
     {
         // when
-        int result = testObject.countLCP(4, 4);
+        int result = testObject.countLcp(4, 4);
         // then
         Assertions.assertThat(result).isEqualTo(7);
     }
@@ -126,7 +126,7 @@ public class SuffixArrayTest
     public void countLCP_WhenFirstEarlierThanSecondSuffix_ThenLengthOfPrefix()
     {
         // when
-        int result = testObject.countLCP(1, 10);
+        int result = testObject.countLcp(1, 10);
         // then
         Assertions.assertThat(result).isEqualTo(1);
     }
@@ -135,7 +135,7 @@ public class SuffixArrayTest
     public void countLCP_WhenFirstFurtherThanSecondSuffix_ThenLengthOfPrefix()
     {
         // when
-        int result = testObject.countLCP(9, 6);
+        int result = testObject.countLcp(9, 6);
         // then
         Assertions.assertThat(result).isEqualTo(0);
     }
@@ -144,8 +144,8 @@ public class SuffixArrayTest
     public void countLCP_WhenSwapSuffix_ThenSameLength()
     {
         // when
-        int result0 = testObject.countLCP(2, 5);
-        int result1 = testObject.countLCP(5, 2);
+        int result0 = testObject.countLcp(2, 5);
+        int result1 = testObject.countLcp(5, 2);
         // then
         Assertions.assertThat(result0).isEqualTo(3);
         Assertions.assertThat(result1).isEqualTo(result0);

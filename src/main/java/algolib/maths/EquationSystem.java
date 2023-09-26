@@ -2,7 +2,7 @@ package algolib.maths;
 
 import java.util.Arrays;
 
-/** Structure of linear equation system (with Gauss elimination algorithm) */
+/** Structure of linear equation system */
 public final class EquationSystem
 {
     private final Equation[] equations;
@@ -20,6 +20,10 @@ public final class EquationSystem
         return new EquationSystem(equations);
     }
 
+    /**
+     * @param i the index of equation
+     * @return the equation of this system specified by the index
+     */
     public Equation getEquation(int i)
     {
         return equations[i];
@@ -31,10 +35,8 @@ public final class EquationSystem
         if(this == obj)
             return true;
 
-        if(obj == null || getClass() != obj.getClass())
+        if(!(obj instanceof EquationSystem other))
             return false;
-
-        EquationSystem other = (EquationSystem)obj;
 
         return Arrays.equals(equations, other.equations);
     }
@@ -45,6 +47,7 @@ public final class EquationSystem
         return Arrays.hashCode(equations);
     }
 
+    /** @return the number of equations */
     public int size()
     {
         return equations.length;
@@ -53,8 +56,8 @@ public final class EquationSystem
     /**
      * Computes solution of this equation system.
      * @return the solution
-     * @throws NoSolutionException if there is no solution
      * @throws InfiniteSolutionsException if there are infinitely many solutions
+     * @throws NoSolutionException if there is no solution
      */
     public double[] solve()
             throws InfiniteSolutionsException, NoSolutionException
@@ -73,7 +76,7 @@ public final class EquationSystem
 
         solution[equations.length - 1] =
                 equations[equations.length - 1].getFreeTerm() / equations[equations.length
-                                                                              - 1].getCoefficient(
+                                                                                  - 1].getCoefficient(
                         equations.length - 1);
 
         for(int i = equations.length - 2; i >= 0; --i)
@@ -89,7 +92,7 @@ public final class EquationSystem
         return solution;
     }
 
-    /** Runs the Gauss elimination algorithm. */
+    /** Runs the Gaussian elimination algorithm on this equation system. */
     public void gaussianReduce()
     {
         for(int i = 0; i < equations.length - 1; ++i)
@@ -121,9 +124,9 @@ public final class EquationSystem
     }
 
     /**
-     * Swaps two equations.
-     * @param i index of the first equation
-     * @param j index of the second equation
+     * Swaps two equations in this system.
+     * @param i the index of the first equation
+     * @param j the index of the second equation
      */
     public void swap(int i, int j)
     {

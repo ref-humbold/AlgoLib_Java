@@ -116,8 +116,8 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
     }
 
     /**
-     * @param groupNumber group number
-     * @return vertices that belong to the group
+     * @param groupNumber the group number
+     * @return the vertices that belong to the group
      */
     public Collection<Vertex<VertexId>> getVerticesFromGroup(int groupNumber)
     {
@@ -131,9 +131,9 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex to given group in this graph.
-     * @param groupNumber group number
-     * @param vertexId identifier of new vertex
-     * @return new vertex, or {@code null} if vertex already exists
+     * @param groupNumber the group number
+     * @param vertexId the identifier of new vertex
+     * @return the created vertex, or {@code null} if vertex already exists
      */
     public Vertex<VertexId> addVertex(int groupNumber, VertexId vertexId)
     {
@@ -142,10 +142,10 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex with given property to given group in this graph.
-     * @param groupNumber group number
-     * @param vertexId identifier of new vertex
-     * @param property vertex property
-     * @return new vertex, or {@code null} if vertex already exists
+     * @param groupNumber the group number
+     * @param vertexId the identifier of new vertex
+     * @param property the vertex property
+     * @return the created vertex, or {@code null} if vertex already exists
      */
     public Vertex<VertexId> addVertex(int groupNumber, VertexId vertexId, VertexProperty property)
     {
@@ -154,9 +154,9 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex to given group in this graph.
-     * @param groupNumber group number
-     * @param vertex new vertex
-     * @return new vertex, or {@code null} if vertex already exists
+     * @param groupNumber the group number
+     * @param vertex the new vertex
+     * @return the created vertex, or {@code null} if vertex already exists
      */
     public Vertex<VertexId> addVertex(int groupNumber, Vertex<VertexId> vertex)
     {
@@ -165,13 +165,13 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex with given property to given group in this graph.
-     * @param groupNumber group number
-     * @param vertex new vertex
-     * @param property vertex property
-     * @return new vertex, or {@code null} if vertex already exists
+     * @param groupNumber the group number
+     * @param vertex the new vertex
+     * @param property the vertex property
+     * @return the created vertex, or {@code null} if vertex already exists
      */
-    public Vertex<VertexId> addVertex(int groupNumber, Vertex<VertexId> vertex,
-                                      VertexProperty property)
+    public Vertex<VertexId> addVertex(
+            int groupNumber, Vertex<VertexId> vertex, VertexProperty property)
     {
         validateGroup(groupNumber);
         return Optional.ofNullable(graph.addVertex(vertex, property)).map(newVertex -> {
@@ -182,9 +182,9 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new edge between given vertices to this graph.
-     * @param source source vertex
-     * @param destination destination vertex
-     * @return new edge, or {@code null} if edge already exists
+     * @param source the source vertex
+     * @param destination the destination vertex
+     * @return the created edge, or {@code null} if edge already exists
      * @throws GraphPartitionException if vertices belong to same group
      */
     public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination)
@@ -194,22 +194,22 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new edge between given vertices with given property to this graph.
-     * @param source source vertex
-     * @param destination destination vertex
-     * @param property edge property
-     * @return new edge, or {@code null} if edge already exists
+     * @param source the source vertex
+     * @param destination the destination vertex
+     * @param property the edge property
+     * @return the created edge, or {@code null} if edge already exists
      * @throws GraphPartitionException if the edge connects vertices that belong to same group
      */
-    public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination,
-                                         EdgeProperty property)
+    public Edge<VertexId> addEdgeBetween(
+            Vertex<VertexId> source, Vertex<VertexId> destination, EdgeProperty property)
     {
         return addEdge(new Edge<>(source, destination), property);
     }
 
     /**
      * Adds new edge to this graph.
-     * @param edge new edge
-     * @return new edge, or {@code null} if edge already exists
+     * @param edge the new edge
+     * @return the created edge, or {@code null} if edge already exists
      * @throws GraphPartitionException if the edge connects vertices that belong to same group
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge)
@@ -219,9 +219,9 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new edge with given property to this graph.
-     * @param edge new edge
-     * @param property edge property
-     * @return new edge, or {@code null} if edge already exists
+     * @param edge the new edge
+     * @param property the edge property
+     * @return the created edge, or {@code null} if edge already exists
      * @throws GraphPartitionException if vertices belong to same group
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)

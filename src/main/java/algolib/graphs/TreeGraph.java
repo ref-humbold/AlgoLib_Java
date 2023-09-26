@@ -89,9 +89,9 @@ public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex to this graph and creates an edge to given existing vertex.
-     * @param vertexId identifier of new vertex
-     * @param neighbour existing vertex
-     * @return new edge between the vertices, or {@code null} if vertex already exists
+     * @param vertexId the identifier of new vertex
+     * @param neighbour the existing vertex
+     * @return the created edge between the vertices, or {@code null} if vertex already exists
      */
     public Edge<VertexId> addVertex(VertexId vertexId, Vertex<VertexId> neighbour)
     {
@@ -100,23 +100,26 @@ public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex to this graph and creates an edge to given existing vertex.
-     * @param vertexId identifier of new vertex
-     * @param neighbour existing vertex
-     * @param vertexProperty vertex property
-     * @param edgeProperty edge property
-     * @return new edge between the vertices, or {@code null} if vertex already exists
+     * @param vertexId the identifier of new vertex
+     * @param neighbour the existing vertex
+     * @param vertexProperty the vertex property
+     * @param edgeProperty the edge property
+     * @return the created edge between the vertices, or {@code null} if vertex already exists
      */
-    public Edge<VertexId> addVertex(VertexId vertexId, Vertex<VertexId> neighbour,
-                                    VertexProperty vertexProperty, EdgeProperty edgeProperty)
+    public Edge<VertexId> addVertex(
+            VertexId vertexId,
+            Vertex<VertexId> neighbour,
+            VertexProperty vertexProperty,
+            EdgeProperty edgeProperty)
     {
         return addVertex(new Vertex<>(vertexId), neighbour, vertexProperty, edgeProperty);
     }
 
     /**
      * Adds new vertex to this graph and creates an edge to given existing vertex.
-     * @param vertex new vertex
-     * @param neighbour existing vertex
-     * @return new edge between the vertices, or {@code null} if vertex already exists
+     * @param vertex the new vertex
+     * @param neighbour the existing vertex
+     * @return the created edge between the vertices, or {@code null} if vertex already exists
      */
     public Edge<VertexId> addVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour)
     {
@@ -125,14 +128,17 @@ public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex to this graph and creates an edge to given existing vertex.
-     * @param vertex new vertex
-     * @param neighbour existing vertex
-     * @param vertexProperty vertex property
-     * @param edgeProperty edge property
-     * @return new edge between the vertices, or {@code null} if vertex already exists
+     * @param vertex the new vertex
+     * @param neighbour the existing vertex
+     * @param vertexProperty the vertex property
+     * @param edgeProperty the edge property
+     * @return the created edge between the vertices, or {@code null} if vertex already exists
      */
-    public Edge<VertexId> addVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour,
-                                    VertexProperty vertexProperty, EdgeProperty edgeProperty)
+    public Edge<VertexId> addVertex(
+            Vertex<VertexId> vertex,
+            Vertex<VertexId> neighbour,
+            VertexProperty vertexProperty,
+            EdgeProperty edgeProperty)
     {
         return Optional.ofNullable(graph.addVertex(vertex, vertexProperty))
                        .map(newVertex -> graph.addEdgeBetween(newVertex, neighbour, edgeProperty))

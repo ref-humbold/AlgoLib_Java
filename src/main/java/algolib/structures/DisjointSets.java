@@ -1,4 +1,3 @@
-// Structure of disjoint sets (union-find)
 package algolib.structures;
 
 import java.util.HashMap;
@@ -6,6 +5,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+/** Structure of disjoint sets (union-find) */
 public class DisjointSets<E>
 {
     private final Map<E, E> represents = new HashMap<>();
@@ -37,7 +37,7 @@ public class DisjointSets<E>
     }
 
     /**
-     * Checks if given element belongs to any set.
+     * Checks whether given element belongs to any set.
      * @param element the element
      * @return {@code true} if the element is included in one of sets, otherwise {@code false}
      */
@@ -47,15 +47,16 @@ public class DisjointSets<E>
     }
 
     /**
-     * Adds given new value as singleton set.
-     * @param element the value
+     * Adds new element as singleton set.
+     * @param element the new element
      * @return {@code this} for method chaining
-     * @throws IllegalArgumentException if the element is already in this structure
+     * @throws IllegalArgumentException if the element is already present
      */
     public DisjointSets<E> add(E element)
     {
         if(contains(element))
-            throw new IllegalArgumentException("Value " + element.toString() + "already present.");
+            throw new IllegalArgumentException(
+                    "Value %s already present.".formatted(element.toString()));
 
         represents.put(element, element);
         ++size_;
@@ -64,16 +65,17 @@ public class DisjointSets<E>
     }
 
     /**
-     * Adds given new values as singleton sets.
-     * @param elements the values
+     * Adds new elements as singleton sets.
+     * @param elements the new elements
      * @return {@code this} for method chaining
-     * @throws IllegalArgumentException if any of the elements is already in this structure
+     * @throws IllegalArgumentException if any of the elements is already present
      */
     public DisjointSets<E> addAll(Iterable<E> elements)
     {
         for(E elem : elements)
             if(contains(elem))
-                throw new IllegalArgumentException("Value " + elem.toString() + "already present.");
+                throw new IllegalArgumentException(
+                        "Value %s already present.".formatted(elem.toString()));
 
         for(E elem : elements)
         {
@@ -88,7 +90,7 @@ public class DisjointSets<E>
      * Finds represent of given element.
      * @param element the element
      * @return the represent of the element
-     * @throws NoSuchElementException if element is not in this structure
+     * @throws NoSuchElementException if element is not present
      */
     public E findSet(E element)
     {
@@ -104,8 +106,8 @@ public class DisjointSets<E>
     /**
      * Finds represent of given element, or returns given default value.
      * @param element the element
-     * @param defaultValue the value to return if element not inside
-     * @return the represent of the element
+     * @param defaultValue the value to return if element not present
+     * @return the represent of the element, if present, otherwise the default value
      */
     public E findSetOrDefault(E element, E defaultValue)
     {
@@ -124,7 +126,7 @@ public class DisjointSets<E>
      * @param element1 the element from the first set
      * @param element2 the element from the second set
      * @return {@code this} for method chaining
-     * @throws NoSuchElementException if either element is not in this structure
+     * @throws NoSuchElementException if either element is not present
      */
     public DisjointSets<E> unionSet(E element1, E element2)
     {
@@ -141,8 +143,8 @@ public class DisjointSets<E>
      * Checks whether given elements belong to the same set.
      * @param element1 the element from the first set
      * @param element2 the element from the second set
-     * @return {@code true} if both elements are in the same set, otherwise {@code false}
-     * @throws NoSuchElementException if either element is not in this structure
+     * @return {@code true} if elements are in the same set, otherwise {@code false}
+     * @throws NoSuchElementException if either element is not present
      */
     public boolean isSameSet(E element1, E element2)
     {

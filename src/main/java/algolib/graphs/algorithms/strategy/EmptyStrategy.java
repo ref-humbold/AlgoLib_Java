@@ -3,7 +3,7 @@ package algolib.graphs.algorithms.strategy;
 import algolib.graphs.Vertex;
 
 public class EmptyStrategy<VertexId>
-        implements DFSStrategy<VertexId>
+        implements DfsStrategy<VertexId>
 {
     @Override
     public void forRoot(Vertex<VertexId> root)

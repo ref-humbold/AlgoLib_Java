@@ -8,7 +8,7 @@ import java.util.Map;
 
 import algolib.graphs.TreeGraph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.strategy.DFSStrategy;
+import algolib.graphs.algorithms.strategy.DfsStrategy;
 
 /** Algorithm for lowest common ancestor */
 public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
@@ -19,18 +19,18 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
     private final LCAStrategy<VertexId> strategy = new LCAStrategy<>();
     private boolean empty = true;
 
-    public LowestCommonAncestor(TreeGraph<VertexId, VertexProperty, EdgeProperty> graph,
-                                Vertex<VertexId> root)
+    public LowestCommonAncestor(
+            TreeGraph<VertexId, VertexProperty, EdgeProperty> graph, Vertex<VertexId> root)
     {
         this.graph = graph;
         this.root = root;
     }
 
     /**
-     * Finds the lowest common ancestor of two vertices in a rooted tree.
+     * Finds lowest common ancestor of given vertices in a rooted tree.
      * @param vertex1 the first vertex
      * @param vertex2 the second vertex
-     * @return lowest common ancestor of given vertices
+     * @return the lowest common ancestor of the vertices
      */
     public Vertex<VertexId> findLCA(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
     {
@@ -82,7 +82,7 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
     }
 
     private static class LCAStrategy<VertexId>
-            implements DFSStrategy<VertexId>
+            implements DfsStrategy<VertexId>
     {
         final Map<Vertex<VertexId>, Vertex<VertexId>> parents = new HashMap<>();
         final Map<Vertex<VertexId>, Integer> preTimes = new HashMap<>();

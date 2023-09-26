@@ -42,20 +42,11 @@ public class DoubleHeap<E>
     public DoubleHeap(Collection<? extends E> collection)
     {
         super();
-
-        if(collection instanceof DoubleHeap)
-        {
-            DoubleHeap<? extends E> doubleHeap = (DoubleHeap<? extends E>)collection;
-            comparator_ = (Comparator<? super E>)doubleHeap.comparator();
-        }
-        else if(collection instanceof PriorityQueue)
-        {
-            PriorityQueue<? extends E> priorityQueue = (PriorityQueue<E>)collection;
-            comparator_ = (Comparator<? super E>)priorityQueue.comparator();
-        }
-        else
-            comparator_ = null;
-
+        comparator_ = (collection instanceof DoubleHeap<? extends E> doubleHeap)
+                      ? (Comparator<? super E>)doubleHeap.comparator()
+                      : (collection instanceof PriorityQueue<? extends E> priorityQueue)
+                        ? (Comparator<? super E>)priorityQueue.comparator()
+                        : null;
         addAll(collection);
     }
 
@@ -110,27 +101,22 @@ public class DoubleHeap<E>
 
     /**
      * Retrieves maximal element from this double heap.
-     * @return maximal element
+     * @return the maximal element
      */
     public E peekMax()
     {
-        switch(size())
+        return switch(size())
         {
-            case 0:
-                return null;
-
-            case 1:
-                return heap.get(INDEX_MIN);
-
-            default:
-                return heap.get(INDEX_MAX);
-        }
+            case 0 -> null;
+            case 1 -> heap.get(INDEX_MIN);
+            default -> heap.get(INDEX_MAX);
+        };
     }
 
     /**
      * Retrieves minimal element from this double heap.
-     * @return minimal element
-     * @throws NoSuchElementException if double heap is empty
+     * @return the minimal element
+     * @throws NoSuchElementException if the double heap is empty
      */
     public E elementMin()
     {
@@ -139,8 +125,8 @@ public class DoubleHeap<E>
 
     /**
      * Retrieves maximal element from this double heap.
-     * @return maximal element
-     * @throws NoSuchElementException if double heap is empty
+     * @return the maximal element
+     * @throws NoSuchElementException if the double heap is empty
      */
     public E elementMax()
     {
@@ -191,7 +177,7 @@ public class DoubleHeap<E>
 
     /**
      * Retrieves and removes minimal element from this double heap.
-     * @return removed minimal element
+     * @return the removed minimal element
      */
     public E pollMin()
     {
@@ -209,7 +195,7 @@ public class DoubleHeap<E>
 
     /**
      * Retrieves and removes maximal element from this double heap.
-     * @return maximal element
+     * @return the maximal element
      */
     public E pollMax()
     {
@@ -230,8 +216,8 @@ public class DoubleHeap<E>
 
     /**
      * Retrieves and removes minimal element from this double heap.
-     * @return removed minimal element
-     * @throws NoSuchElementException if double heap is empty
+     * @return the removed minimal element
+     * @throws NoSuchElementException if the double heap is empty
      */
     public E removeMin()
     {
@@ -240,8 +226,8 @@ public class DoubleHeap<E>
 
     /**
      * Retrieves and removes maximal element from this double heap.
-     * @return maximal element
-     * @throws NoSuchElementException if double heap is empty
+     * @return the maximal element
+     * @throws NoSuchElementException if the double heap is empty
      */
     public E removeMax()
     {
@@ -258,6 +244,7 @@ public class DoubleHeap<E>
         return comparator_.compare(heap.get(index1), heap.get(index2));
     }
 
+    // Moves element from given index towards minimum.
     private void moveToMin(int index)
     {
         if(index == INDEX_MIN)
@@ -283,6 +270,7 @@ public class DoubleHeap<E>
         }
     }
 
+    // Performs a single step of movement towards minimum.
     private void stepToMin(int index, int nextIndex)
     {
         if(compare(index, nextIndex) < 0)
@@ -292,6 +280,7 @@ public class DoubleHeap<E>
         }
     }
 
+    // Moves element from given index towards maximum.
     private void moveToMax(int index)
     {
         if(index == INDEX_MAX)
@@ -317,6 +306,7 @@ public class DoubleHeap<E>
         }
     }
 
+    // Performs a single step of movement towards maximum.
     private void stepToMax(int index, int nextIndex)
     {
         if(compare(index, nextIndex) > 0)
@@ -326,6 +316,7 @@ public class DoubleHeap<E>
         }
     }
 
+    // Swaps two elements in the double heap.
     private void swap(int index1, int index2)
     {
         E temp = heap.get(index1);

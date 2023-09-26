@@ -4,8 +4,8 @@ import java.util.*;
 
 import algolib.graphs.Graph;
 import algolib.graphs.Vertex;
-import algolib.graphs.algorithms.strategy.BFSStrategy;
-import algolib.graphs.algorithms.strategy.DFSStrategy;
+import algolib.graphs.algorithms.strategy.BfsStrategy;
+import algolib.graphs.algorithms.strategy.DfsStrategy;
 
 /** Algorithms for graph searching */
 public final class Searching
@@ -14,11 +14,12 @@ public final class Searching
      * Breadth-first search algorithm.
      * @param graph the graph
      * @param strategy the searching strategy
-     * @param roots starting vertices
-     * @return collection of visited vertices
+     * @param roots the starting vertices
+     * @return the collection of visited vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> bfs(
-            Graph<VertexId, VertexProperty, EdgeProperty> graph, BFSStrategy<VertexId> strategy,
+            Graph<VertexId, VertexProperty, EdgeProperty> graph,
+            BfsStrategy<VertexId> strategy,
             Collection<Vertex<VertexId>> roots)
     {
         Set<Vertex<VertexId>> reached = new HashSet<>();
@@ -56,11 +57,12 @@ public final class Searching
      * Iterative depth-first search algorithm.
      * @param graph the graph
      * @param strategy the searching strategy
-     * @param roots starting vertices
-     * @return collection of visited vertices
+     * @param roots the starting vertices
+     * @return the collection of visited vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> dfsIterative(
-            Graph<VertexId, VertexProperty, EdgeProperty> graph, DFSStrategy<VertexId> strategy,
+            Graph<VertexId, VertexProperty, EdgeProperty> graph,
+            DfsStrategy<VertexId> strategy,
             Collection<Vertex<VertexId>> roots)
     {
         Map<Vertex<VertexId>, Integer> reached = new HashMap<>();
@@ -106,11 +108,12 @@ public final class Searching
      * Recursive depth-first search algorithm
      * @param graph the graph
      * @param strategy the searching strategy
-     * @param roots starting vertices
-     * @return collection of visited vertices
+     * @param roots the starting vertices
+     * @return the collection of visited vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> dfsRecursive(
-            Graph<VertexId, VertexProperty, EdgeProperty> graph, DFSStrategy<VertexId> strategy,
+            Graph<VertexId, VertexProperty, EdgeProperty> graph,
+            DfsStrategy<VertexId> strategy,
             Collection<Vertex<VertexId>> roots)
     {
         DfsRecursiveState<VertexId> state = new DfsRecursiveState<>();
@@ -129,7 +132,8 @@ public final class Searching
 
     // Single step of recursive DFS.
     private static <VertexId, VertexProperty, EdgeProperty> void dfsRecursiveStep(
-            Graph<VertexId, VertexProperty, EdgeProperty> graph, DFSStrategy<VertexId> strategy,
+            Graph<VertexId, VertexProperty, EdgeProperty> graph,
+            DfsStrategy<VertexId> strategy,
             DfsRecursiveState<VertexId> state)
     {
         Vertex<VertexId> vertex = state.vertex;

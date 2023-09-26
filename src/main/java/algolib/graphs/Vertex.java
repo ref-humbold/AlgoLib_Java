@@ -18,10 +18,8 @@ public class Vertex<VertexId>
         if(this == obj)
             return true;
 
-        if(!(obj instanceof Vertex))
+        if(!(obj instanceof Vertex<?> other))
             return false;
-
-        Vertex<?> other = (Vertex<?>)obj;
 
         return Objects.equals(id, other.id);
     }
@@ -35,6 +33,6 @@ public class Vertex<VertexId>
     @Override
     public String toString()
     {
-        return String.format("Vertex(%s)", id);
+        return "Vertex(%s)".formatted(id);
     }
 }

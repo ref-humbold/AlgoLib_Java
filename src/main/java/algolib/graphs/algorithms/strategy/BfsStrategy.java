@@ -2,7 +2,7 @@ package algolib.graphs.algorithms.strategy;
 
 import algolib.graphs.Vertex;
 
-public interface BFSStrategy<VertexId>
+public interface BfsStrategy<VertexId>
 {
     void forRoot(Vertex<VertexId> root);
 

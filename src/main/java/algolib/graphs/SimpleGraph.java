@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
         implements Graph<VertexId, VertexProperty, EdgeProperty>
 {
-    protected GraphRepresentation<VertexId, VertexProperty, EdgeProperty> representation;
+    GraphRepresentation<VertexId, VertexProperty, EdgeProperty> representation;
     private final GraphProperties<VertexId, VertexProperty, EdgeProperty> properties =
             new GraphProperties<>()
             {
@@ -92,8 +92,8 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex to this graph.
-     * @param vertexId identifier of new vertex
-     * @return new vertex, or {@code null} if vertex already exists
+     * @param vertexId the identifier of new vertex
+     * @return the created vertex, or {@code null} if vertex already exists
      */
     public Vertex<VertexId> addVertex(VertexId vertexId)
     {
@@ -102,9 +102,9 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex with given property to this graph.
-     * @param vertexId identifier of new vertex
-     * @param property vertex property
-     * @return new vertex, or {@code null} if vertex already exists
+     * @param vertexId the identifier of new vertex
+     * @param property the vertex property
+     * @return the created vertex, or {@code null} if vertex already exists
      */
     public Vertex<VertexId> addVertex(VertexId vertexId, VertexProperty property)
     {
@@ -113,8 +113,8 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex to this graph.
-     * @param vertex new vertex
-     * @return new vertex, or {@code null} if vertex already exists
+     * @param vertex the new vertex
+     * @return the created vertex, or {@code null} if vertex already exists
      */
     public Vertex<VertexId> addVertex(Vertex<VertexId> vertex)
     {
@@ -123,9 +123,9 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new vertex with given property to this graph.
-     * @param vertex new vertex
-     * @param property vertex property
-     * @return new vertex, or {@code null} if vertex already exists
+     * @param vertex the new vertex
+     * @param property the vertex property
+     * @return the created vertex, or {@code null} if vertex already exists
      */
     public Vertex<VertexId> addVertex(Vertex<VertexId> vertex, VertexProperty property)
     {
@@ -142,9 +142,9 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new edge between given vertices to this graph.
-     * @param source source vertex
-     * @param destination destination vertex
-     * @return new edge, or {@code null} if edge already exists
+     * @param source the source vertex
+     * @param destination the destination vertex
+     * @return the created edge, or {@code null} if edge already exists
      */
     public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
@@ -153,21 +153,21 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new edge between given vertices with given property to this graph.
-     * @param source source vertex
-     * @param destination destination vertex
-     * @param property edge property
-     * @return new edge, or {@code null} if edge already exists
+     * @param source the source vertex
+     * @param destination the destination vertex
+     * @param property the edge property
+     * @return the created edge, or {@code null} if edge already exists
      */
-    public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination,
-                                         EdgeProperty property)
+    public Edge<VertexId> addEdgeBetween(
+            Vertex<VertexId> source, Vertex<VertexId> destination, EdgeProperty property)
     {
         return addEdge(new Edge<>(source, destination), property);
     }
 
     /**
      * Adds new edge to this graph.
-     * @param edge new edge
-     * @return new edge, or {@code null} if edge already exists
+     * @param edge the new edge
+     * @return the created edge, or {@code null} if edge already exists
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge)
     {
@@ -176,9 +176,9 @@ public abstract class SimpleGraph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * Adds new edge with given property to this graph.
-     * @param edge new edge
-     * @param property edge property
-     * @return new edge, or {@code null} if edge already exists
+     * @param edge the new edge
+     * @param property the edge property
+     * @return the created edge, or {@code null} if edge already exists
      */
     public abstract Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property);
 }
