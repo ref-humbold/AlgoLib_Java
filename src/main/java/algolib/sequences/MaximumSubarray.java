@@ -36,7 +36,7 @@ public final class MaximumSubarray
     }
 
     /**
-     * Calculates maximal sum from all coherent subarrays using interval tree.
+     * Computes maximal sum from all coherent subarrays using interval tree.
      * @param sequence the sequence of numbers
      * @return the sum of maximum subarray
      */

@@ -13,7 +13,7 @@ public final class StronglyConnectedComponents
     /**
      * Finds strongly connected components in given directed graph.
      * @param graph the directed graph
-     * @return the list of vertices in strongly connected components
+     * @return the vertices in strongly connected components
      */
     public static <VertexId, VertexProperty, EdgeProperty> List<Set<Vertex<VertexId>>> findSCC(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)

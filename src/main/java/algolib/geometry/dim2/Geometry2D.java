@@ -6,8 +6,8 @@ import java.util.List;
 public final class Geometry2D
 {
     /**
-     * Mutably sorts points by their X coordinate. Sorting is guaranteed to be stable.
-     * @param points the list of points
+     * Mutably sorts given points by their X coordinate. Sorting is guaranteed to be stable.
+     * @param points the points
      */
     public static void sortByX(List<Point2D> points)
     {
@@ -15,8 +15,8 @@ public final class Geometry2D
     }
 
     /**
-     * Mutably sorts points by their Y coordinate. Sorting is guaranteed to be stable.
-     * @param points the list of points
+     * Mutably sorts given points by their Y coordinate. Sorting is guaranteed to be stable.
+     * @param points the points
      */
     public static void sortByY(List<Point2D> points)
     {
@@ -24,9 +24,9 @@ public final class Geometry2D
     }
 
     /**
-     * Mutably sorts points by their polar coordinates. First sorts by angle, then by radius.
+     * Mutably sorts given points by their polar coordinates. First sorts by angle, then by radius.
      * Sorting is guaranteed to be stable.
-     * @param points the list of points
+     * @param points the points
      */
     public static void sortByAngle(List<Point2D> points)
     {
@@ -46,9 +46,10 @@ public final class Geometry2D
      */
     public static double distance(Point2D point1, Point2D point2)
     {
-        return Math.sqrt(
-                (point2.x - point1.x) * (point2.x - point1.x) + (point2.y - point1.y) * (point2.y
-                        - point1.y));
+        double distanceX = point2.x - point1.x;
+        double distanceY = point2.y - point1.y;
+
+        return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
     }
 
     /**

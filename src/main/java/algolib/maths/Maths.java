@@ -6,7 +6,7 @@ public final class Maths
     // region gcd
 
     /**
-     * Calculates greatest common divisor of two numbers.
+     * Calculates greatest common divisor of given numbers.
      * @param number1 the first number
      * @param number2 the second number
      * @return the greatest common divisor
@@ -28,7 +28,7 @@ public final class Maths
     }
 
     /**
-     * Calculates greatest common divisor of two numbers.
+     * Calculates greatest common divisor of given numbers.
      * @param number1 the first number
      * @param number2 the second number
      * @return the greatest common divisor
@@ -53,7 +53,7 @@ public final class Maths
     // region lcm
 
     /**
-     * Calculates lowest common multiple of two numbers.
+     * Calculates lowest common multiple of given numbers.
      * @param number1 the first number
      * @param number2 the second number
      * @return the lowest common multiple
@@ -67,7 +67,7 @@ public final class Maths
     }
 
     /**
-     * Calculates lowest common multiple of two numbers.
+     * Calculates lowest common multiple of given numbers.
      * @param number1 the first number
      * @param number2 the second number
      * @return the lowest common multiple
@@ -84,7 +84,7 @@ public final class Maths
     // region multiply
 
     /**
-     * Performs fast multiplication of two numbers.
+     * Performs fast multiplication of given numbers.
      * @param factor1 the first factor
      * @param factor2 the second factor
      * @return the multiplication result
@@ -115,7 +115,7 @@ public final class Maths
     }
 
     /**
-     * Performs fast multiplication of two numbers.
+     * Performs fast multiplication of given numbers.
      * @param factor1 the first factor
      * @param factor2 the second factor
      * @return the multiplication result
@@ -146,7 +146,7 @@ public final class Maths
     }
 
     /**
-     * Performs fast multiplication of two numbers with modulo taken.
+     * Performs fast multiplication of given numbers with modulo taken.
      * @param factor1 the first factor
      * @param factor2 the second factor
      * @param modulo the modulo
@@ -181,7 +181,7 @@ public final class Maths
     }
 
     /**
-     * Performs fast multiplication of two numbers with modulo taken.
+     * Performs fast multiplication of given numbers with modulo taken.
      * @param factor1 the first factor
      * @param factor2 the second factor
      * @param modulo the modulo
@@ -219,7 +219,7 @@ public final class Maths
     // region power
 
     /**
-     * Performs fast exponentiation of two numbers.
+     * Performs fast exponentiation of given numbers.
      * @param base the base
      * @param exponent the exponent
      * @return the exponentiation result
@@ -247,7 +247,7 @@ public final class Maths
     }
 
     /**
-     * Performs fast exponentiation of two numbers.
+     * Performs fast exponentiation of given numbers.
      * @param base the base
      * @param exponent the exponent
      * @return the exponentiation result
@@ -275,7 +275,7 @@ public final class Maths
     }
 
     /**
-     * Performs fast exponentiation of two numbers with modulo taken.
+     * Performs fast exponentiation of given numbers with modulo taken.
      * @param base the base
      * @param exponent the exponent
      * @param modulo the modulo
@@ -307,7 +307,7 @@ public final class Maths
     }
 
     /**
-     * Performs fast exponentiation of two numbers with modulo taken.
+     * Performs fast exponentiation of given numbers with modulo taken.
      * @param base the base
      * @param exponent the exponent
      * @param modulo the modulo

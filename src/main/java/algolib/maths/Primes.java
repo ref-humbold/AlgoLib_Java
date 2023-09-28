@@ -14,7 +14,7 @@ public final class Primes
     /**
      * Finds prime numbers less than given number.
      * @param maximum the maximal number, exclusive
-     * @return the collection of prime numbers
+     * @return the prime numbers
      */
     public static Collection<Integer> findPrimes(int maximum)
     {
@@ -25,7 +25,7 @@ public final class Primes
      * Finds prime numbers inside given range of numbers.
      * @param minimum the minimal number in range, inclusive
      * @param maximum the maximal number in range, exclusive
-     * @return the collection of prime numbers
+     * @return the prime numbers
      */
     public static Collection<Integer> findPrimes(int minimum, int maximum)
     {
@@ -169,7 +169,7 @@ public final class Primes
         return true;
     }
 
-    // Extracts prime numbers between 0 and given maximum value.
+    // Extracts prime numbers between zero and given maximum value.
     private static int[] getBasePrimes(int baseMaximum)
     {
         List<Boolean> isPrime = new ArrayList<>(Collections.nCopies((baseMaximum - 1) / 2, true));

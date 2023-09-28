@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-/** Structure of suffix array (with longest common prefix) */
+/** Structure of suffix array */
 public class SuffixArray
 {
     private final int size_;
@@ -46,6 +46,7 @@ public class SuffixArray
         return Objects.hash(size_, text, suffixArray);
     }
 
+    /** @return the length of this suffix array */
     public int size()
     {
         return size_;
@@ -90,10 +91,10 @@ public class SuffixArray
     }
 
     /**
-     * Calculates length of the longest common prefix of given suffixes.
+     * Computes length of longest common prefix of given suffixes.
      * @param index1 the index in text where the first suffix begins
      * @param index2 the index in text where the second suffix begins
-     * @return the length of the longest common prefix
+     * @return the length of longest common prefix
      */
     public int countLcp(int index1, int index2)
     {

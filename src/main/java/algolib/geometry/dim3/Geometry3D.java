@@ -6,8 +6,8 @@ import java.util.List;
 public final class Geometry3D
 {
     /**
-     * Mutably sorts points by their X coordinate. Sorting is guaranteed to be stable.
-     * @param points the list of points
+     * Mutably sorts given points by their X coordinate. Sorting is guaranteed to be stable.
+     * @param points the points
      */
     public static void sortByX(List<Point3D> points)
     {
@@ -15,8 +15,8 @@ public final class Geometry3D
     }
 
     /**
-     * Mutably sorts points by their Y coordinate. Sorting is guaranteed to be stable.
-     * @param points the list of points
+     * Mutably sorts given points by their Y coordinate. Sorting is guaranteed to be stable.
+     * @param points the points
      */
     public static void sortByY(List<Point3D> points)
     {
@@ -24,8 +24,8 @@ public final class Geometry3D
     }
 
     /**
-     * Mutably sorts points by their Z coordinate. Sorting is guaranteed to be stable.
-     * @param points the list of points
+     * Mutably sorts given points by their Z coordinate. Sorting is guaranteed to be stable.
+     * @param points the points
      */
     public static void sortByZ(List<Point3D> points)
     {
@@ -42,7 +42,8 @@ public final class Geometry3D
     {
         return Math.sqrt(
                 (point2.x - point1.x) * (point2.x - point1.x) + (point2.y - point1.y) * (point2.y
-                        - point1.y) + (point2.z - point1.z) * (point2.z - point1.z));
+                                                                                                 - point1.y)
+                        + (point2.z - point1.z) * (point2.z - point1.z));
     }
 
     /**

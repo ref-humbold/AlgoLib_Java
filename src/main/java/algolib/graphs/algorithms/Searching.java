@@ -15,7 +15,7 @@ public final class Searching
      * @param graph the graph
      * @param strategy the searching strategy
      * @param roots the starting vertices
-     * @return the collection of visited vertices
+     * @return the visited vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> bfs(
             Graph<VertexId, VertexProperty, EdgeProperty> graph,
@@ -58,7 +58,7 @@ public final class Searching
      * @param graph the graph
      * @param strategy the searching strategy
      * @param roots the starting vertices
-     * @return the collection of visited vertices
+     * @return the visited vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> dfsIterative(
             Graph<VertexId, VertexProperty, EdgeProperty> graph,
@@ -109,7 +109,7 @@ public final class Searching
      * @param graph the graph
      * @param strategy the searching strategy
      * @param roots the starting vertices
-     * @return the collection of visited vertices
+     * @return the visited vertices
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> dfsRecursive(
             Graph<VertexId, VertexProperty, EdgeProperty> graph,
