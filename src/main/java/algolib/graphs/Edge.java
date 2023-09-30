@@ -15,6 +15,7 @@ public class Edge<VertexId>
     }
 
     /**
+     * Gets the neighbour of given adjacent vertex.
      * @param vertex the vertex adjacent to this edge
      * @return the neighbour of the vertex along this edge
      * @throws IllegalArgumentException if the vertex is not adjacent to this edge
