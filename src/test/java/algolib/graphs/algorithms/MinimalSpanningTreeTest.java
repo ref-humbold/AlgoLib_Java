@@ -40,7 +40,7 @@ public class MinimalSpanningTreeTest
     }
 
     @Test
-    public void kruskal_ThenMST()
+    public void kruskal_ThenMinimalSpanningTree()
     {
         // when
         UndirectedGraph<Integer, Void, Weight> result = MinimalSpanningTree.kruskal(graph);
@@ -60,7 +60,7 @@ public class MinimalSpanningTreeTest
     }
 
     @Test
-    public void prim_ThenMST()
+    public void prim_ThenMinimalSpanningTree()
     {
         // when
         UndirectedGraph<Integer, Void, Weight> result =
@@ -81,7 +81,7 @@ public class MinimalSpanningTreeTest
     }
 
     @Test
-    public void prim_WhenDifferentSources_ThenSameMST()
+    public void prim_WhenDifferentSources_ThenSameMinimalSpanningTree()
     {
         // when
         UndirectedGraph<Integer, Void, Weight> result1 =

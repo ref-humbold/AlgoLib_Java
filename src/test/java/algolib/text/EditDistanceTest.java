@@ -57,49 +57,49 @@ public class EditDistanceTest
     }
 
     // endregion
-    // region countLCS
+    // region countLcs
 
     @Test
-    public void countLCS_WhenSameText_ThenZero()
+    public void countLcs_WhenSameText_ThenZero()
     {
         // given
         String text = "qwertyuiop";
         // when
-        double result = EditDistance.countLCS(text, text);
+        double result = EditDistance.countLcs(text, text);
         // then
         Assertions.assertThat(result).isZero();
     }
 
     @Test
-    public void countLCS_WhenEmptySource_ThenSumOfInsertions()
+    public void countLcs_WhenEmptySource_ThenSumOfInsertions()
     {
         // given
         String text = "qwertyuiop";
         double insertionCost = 2.0;
         // when
-        double result = EditDistance.countLCS("", text, insertionCost, 1.0);
+        double result = EditDistance.countLcs("", text, insertionCost, 1.0);
         // then
         Assertions.assertThat(result).isCloseTo(text.length() * insertionCost, OFFSET);
     }
 
     @Test
-    public void countLCS_WhenEmptyDestination_ThenSumOfDeletions()
+    public void countLcs_WhenEmptyDestination_ThenSumOfDeletions()
     {
         // given
         String text = "qwertyuiop";
         double deletionCost = 2.0;
         // when
-        double result = EditDistance.countLCS(text, "", 1.0, deletionCost);
+        double result = EditDistance.countLcs(text, "", 1.0, deletionCost);
         // then
         Assertions.assertThat(result).isCloseTo(text.length() * deletionCost, OFFSET);
     }
 
     @Test
-    public void countLCS_WhenNegativeCost_ThenIllegalArgumentException()
+    public void countLcs_WhenNegativeCost_ThenIllegalArgumentException()
     {
         // when
         Throwable throwable =
-                Assertions.catchThrowable(() -> EditDistance.countLCS("a", "b", 1.0, -1.0));
+                Assertions.catchThrowable(() -> EditDistance.countLcs("a", "b", 1.0, -1.0));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }

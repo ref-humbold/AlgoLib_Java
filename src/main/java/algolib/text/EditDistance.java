@@ -67,9 +67,9 @@ public final class EditDistance
      * @param destination the final text
      * @return the cost of edit distance
      */
-    public static double countLCS(String source, String destination)
+    public static double countLcs(String source, String destination)
     {
-        return countLCS(source, destination, 1.0, 1.0);
+        return countLcs(source, destination, 1.0, 1.0);
     }
 
     /**
@@ -80,7 +80,7 @@ public final class EditDistance
      * @param deletionCost the cost of deletion operation
      * @return the cost of edit distance
      */
-    public static double countLCS(
+    public static double countLcs(
             String source, String destination, double insertionCost, double deletionCost)
     {
         if(insertionCost < 0 || deletionCost < 0)

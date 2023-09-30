@@ -102,12 +102,12 @@ public final class Cutting
 
         boolean hasBridge(Vertex<VertexId> vertex)
         {
-            return !isDFSRoot(vertex) && lowValues.get(vertex).equals(dfsDepths.get(vertex));
+            return !isDfsRoot(vertex) && lowValues.get(vertex).equals(dfsDepths.get(vertex));
         }
 
         boolean isSeparator(Vertex<VertexId> vertex)
         {
-            if(isDFSRoot(vertex))
+            if(isDfsRoot(vertex))
                 return dfsChildren.get(vertex).size() > 1;
 
             return dfsChildren.get(vertex)
@@ -115,7 +115,7 @@ public final class Cutting
                               .anyMatch(child -> lowValues.get(child) >= dfsDepths.get(vertex));
         }
 
-        boolean isDFSRoot(Vertex<VertexId> vertex)
+        boolean isDfsRoot(Vertex<VertexId> vertex)
         {
             return dfsDepths.get(vertex) == 0;
         }

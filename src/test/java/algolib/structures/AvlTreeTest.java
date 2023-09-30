@@ -19,7 +19,7 @@ public class AvlTreeTest
     }
 
     @Test
-    public void constructor_WhenFromAVLTree_ThenCopied()
+    public void constructor_WhenFromAvlTree_ThenCopied()
     {
         // given
         testObject = new AvlTree<>(Comparator.comparing(i -> -i));

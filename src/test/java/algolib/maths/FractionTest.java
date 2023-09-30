@@ -136,7 +136,7 @@ public class FractionTest
     // region binary functions
 
     @Test
-    public void add_ThenDenominatorEqualsLCM()
+    public void add_ThenDenominatorEqualsLowestCommonMultiple()
     {
         // when
         Fraction result = Fraction.of(1, 2).add(Fraction.of(5, 7));

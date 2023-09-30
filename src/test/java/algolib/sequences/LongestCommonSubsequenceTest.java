@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class LongestCommonSubsequenceTest
 {
     @Test
-    public void countLCSLength_WhenEmpty_ThenZero()
+    public void countLcsLength_WhenEmpty_ThenZero()
     {
         // when
         int result = LongestCommonSubsequence.countLcsLength("qwertyuiop", "");

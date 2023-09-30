@@ -37,67 +37,67 @@ public class LowestCommonAncestorTest
     }
 
     @Test
-    public void findLCA_WhenSameVertex_ThenVertexIsLCA()
+    public void findLca_WhenSameVertex_ThenVertexIsLowestCommonAncestor()
     {
         // given
         Vertex<Integer> vertex = testObject.graph.getVertex(6);
         // when
-        Vertex<Integer> result = testObject.findLCA(vertex, vertex);
+        Vertex<Integer> result = testObject.findLca(vertex, vertex);
         // then
         Assertions.assertThat(result).isEqualTo(vertex);
     }
 
     @Test
-    public void findLCA_WhenVerticesInDifferentSubtrees_ThenLCA()
+    public void findLca_WhenVerticesInDifferentSubtrees_ThenLowestCommonAncestor()
     {
         // when
         Vertex<Integer> result =
-                testObject.findLCA(testObject.graph.getVertex(5), testObject.graph.getVertex(7));
+                testObject.findLca(testObject.graph.getVertex(5), testObject.graph.getVertex(7));
         // then
         Assertions.assertThat(result).isEqualTo(testObject.graph.getVertex(1));
     }
 
     @Test
-    public void findLCA_WhenVerticesSwapped_ThenSameLCA()
+    public void findLca_WhenVerticesSwapped_ThenSameLowestCommonAncestor()
     {
         // given
         Vertex<Integer> vertex1 = testObject.graph.getVertex(5);
         Vertex<Integer> vertex2 = testObject.graph.getVertex(7);
         // when
-        Vertex<Integer> result1 = testObject.findLCA(vertex1, vertex2);
-        Vertex<Integer> result2 = testObject.findLCA(vertex2, vertex1);
+        Vertex<Integer> result1 = testObject.findLca(vertex1, vertex2);
+        Vertex<Integer> result2 = testObject.findLca(vertex2, vertex1);
         // then
         Assertions.assertThat(result1).isEqualTo(testObject.graph.getVertex(1));
         Assertions.assertThat(result2).isEqualTo(result1);
     }
 
     @Test
-    public void findLCA_WhenRootIsCommonAncestor_ThenRoot()
+    public void findLca_WhenRootIsCommonAncestor_ThenRoot()
     {
         // when
         Vertex<Integer> result =
-                testObject.findLCA(testObject.graph.getVertex(3), testObject.graph.getVertex(9));
+                testObject.findLca(testObject.graph.getVertex(3), testObject.graph.getVertex(9));
         // then
         Assertions.assertThat(result).isEqualTo(testObject.root);
     }
 
     @Test
-    public void findLCA_WhenVerticesAreOnSamePathFromRoot_ThenLCAIsCloserToRoot()
+    public void findLca_WhenVerticesAreOnSamePathFromRoot_ThenCloserToRoot()
     {
         //given
         Vertex<Integer> vertex1 = testObject.graph.getVertex(8);
         Vertex<Integer> vertex2 = testObject.graph.getVertex(2);
         // when
-        Vertex<Integer> result = testObject.findLCA(vertex1, vertex2);
+        Vertex<Integer> result = testObject.findLca(vertex1, vertex2);
         // then
         Assertions.assertThat(result).isEqualTo(vertex2);
     }
 
     @Test
-    public void findLCA_WhenRootIsOneOfVertices_ThenRoot()
+    public void findLca_WhenRootIsOneOfVertices_ThenRoot()
     {
         // when
-        Vertex<Integer> result = testObject.findLCA(testObject.graph.getVertex(4), testObject.root);
+        Vertex<Integer> result = testObject.findLca(testObject.graph.getVertex(4), testObject.root);
         // then
         Assertions.assertThat(result).isEqualTo(testObject.root);
     }

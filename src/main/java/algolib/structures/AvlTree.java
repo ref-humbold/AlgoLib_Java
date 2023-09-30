@@ -292,7 +292,7 @@ public class AvlTree<E>
         }
     }
 
-    // Restores balancing on a path from given node to the root.
+    // Restores balancing on the path from given node to the root.
     private void balance(AvlNode<E> node)
     {
         while(node != null)

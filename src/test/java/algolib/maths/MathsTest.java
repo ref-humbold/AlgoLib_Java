@@ -9,7 +9,7 @@ public class MathsTest
     //region gcd
 
     @Test
-    public void gcd_WhenNumbersAreComposite_ThenGCD()
+    public void gcd_WhenNumbersAreComposite_ThenGreatestCommonDivisor()
     {
         // when
         long result = Maths.gcd(161L, 46L);
@@ -61,7 +61,7 @@ public class MathsTest
     // region lcm
 
     @Test
-    public void lcm_WhenNumbersAreComposite_ThenLCM()
+    public void lcm_WhenNumbersAreComposite_ThenLowestCommonMultiple()
     {
         // when
         long result = Maths.lcm(161L, 46L);

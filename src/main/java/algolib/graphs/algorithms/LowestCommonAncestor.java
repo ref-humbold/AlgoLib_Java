@@ -16,7 +16,7 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
     public final TreeGraph<VertexId, VertexProperty, EdgeProperty> graph;
     public final Vertex<VertexId> root;
     private final Map<Vertex<VertexId>, List<Vertex<VertexId>>> paths = new HashMap<>();
-    private final LCAStrategy<VertexId> strategy = new LCAStrategy<>();
+    private final LcaStrategy<VertexId> strategy = new LcaStrategy<>();
     private boolean empty = true;
 
     public LowestCommonAncestor(
@@ -32,7 +32,7 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
      * @param vertex2 the second vertex
      * @return the lowest common ancestor of the vertices
      */
-    public Vertex<VertexId> findLCA(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
+    public Vertex<VertexId> findLca(Vertex<VertexId> vertex1, Vertex<VertexId> vertex2)
     {
         if(empty)
             initialize();
@@ -81,7 +81,7 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
                        && strategy.postTimes.get(vertex1) <= strategy.postTimes.get(vertex2);
     }
 
-    private static class LCAStrategy<VertexId>
+    private static class LcaStrategy<VertexId>
             implements DfsStrategy<VertexId>
     {
         final Map<Vertex<VertexId>, Vertex<VertexId>> parents = new HashMap<>();

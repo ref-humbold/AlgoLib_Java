@@ -114,7 +114,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void countLCP_WhenSameSuffix_ThenLengthOfPrefix()
+    public void countLcp_WhenSameSuffix_ThenLengthOfPrefix()
     {
         // when
         int result = testObject.countLcp(4, 4);
@@ -123,7 +123,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void countLCP_WhenFirstEarlierThanSecondSuffix_ThenLengthOfPrefix()
+    public void countLcp_WhenFirstEarlierThanSecondSuffix_ThenLengthOfPrefix()
     {
         // when
         int result = testObject.countLcp(1, 10);
@@ -132,7 +132,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void countLCP_WhenFirstFurtherThanSecondSuffix_ThenLengthOfPrefix()
+    public void countLcp_WhenFirstFurtherThanSecondSuffix_ThenLengthOfPrefix()
     {
         // when
         int result = testObject.countLcp(9, 6);
@@ -141,7 +141,7 @@ public class SuffixArrayTest
     }
 
     @Test
-    public void countLCP_WhenSwapSuffix_ThenSameLength()
+    public void countLcp_WhenSwapSuffix_ThenSameLength()
     {
         // when
         int result0 = testObject.countLcp(2, 5);

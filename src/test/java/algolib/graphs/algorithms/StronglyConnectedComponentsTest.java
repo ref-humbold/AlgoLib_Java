@@ -15,7 +15,7 @@ import algolib.graphs.Vertex;
 public class StronglyConnectedComponentsTest
 {
     @Test
-    public void findSCC_WhenManyComponents_ThenAllListed()
+    public void findScc_WhenManyComponents_ThenAllListed()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
@@ -36,7 +36,7 @@ public class StronglyConnectedComponentsTest
         graph.addEdgeBetween(graph.getVertex(8), graph.getVertex(7));
         graph.addEdgeBetween(graph.getVertex(9), graph.getVertex(8));
         // when
-        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findSCC(graph);
+        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findScc(graph);
         // then
         Assertions.assertThat(result).hasSize(4);
         Assertions.assertThat(result)
@@ -48,7 +48,7 @@ public class StronglyConnectedComponentsTest
     }
 
     @Test
-    public void findSCC_WhenSingleComponent_ThenAllVertices()
+    public void findScc_WhenSingleComponent_ThenAllVertices()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
@@ -62,19 +62,19 @@ public class StronglyConnectedComponentsTest
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(6));
         graph.addEdgeBetween(graph.getVertex(6), graph.getVertex(0));
         // when
-        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findSCC(graph);
+        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findScc(graph);
         // then
         Assertions.assertThat(result).containsExactly(new HashSet<>(graph.getVertices()));
     }
 
     @Test
-    public void findSCC_WhenEmptyGraph_ThenEachVertexIsComponent()
+    public void findScc_WhenEmptyGraph_ThenEachVertexIsComponent()
     {
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 4).boxed().collect(Collectors.toList()));
         // when
-        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findSCC(graph);
+        List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findScc(graph);
         // then
         Assertions.assertThat(result).hasSize(4);
         Assertions.assertThat(result)
