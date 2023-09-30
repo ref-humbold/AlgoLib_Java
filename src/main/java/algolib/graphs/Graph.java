@@ -13,10 +13,10 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
     /** @return the number of edges */
     int getEdgesCount();
 
-    /** @return the collection of all vertices */
+    /** @return all vertices */
     Collection<Vertex<VertexId>> getVertices();
 
-    /** @return the collection of all edges */
+    /** @return all edges */
     Collection<Edge<VertexId>> getEdges();
 
     /**
@@ -44,13 +44,13 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
 
     /**
      * @param vertex the vertex from this graph
-     * @return the collection of edges adjacent to the vertex
+     * @return the edges adjacent to the vertex
      */
     Collection<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex);
 
     /**
      * @param vertex the vertex from this graph
-     * @return the collection of neighbouring vertices
+     * @return the neighbouring vertices
      */
     Collection<Vertex<VertexId>> getNeighbours(Vertex<VertexId> vertex);
 

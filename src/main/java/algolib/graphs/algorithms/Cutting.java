@@ -18,7 +18,7 @@ public final class Cutting
     /**
      * Finds edge cut of given graph.
      * @param graph the undirected graph
-     * @return the collection of edges in the edge cut
+     * @return the edges in the edge cut
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Edge<VertexId>> findEdgeCut(
             UndirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
@@ -36,7 +36,7 @@ public final class Cutting
     /**
      * Finds vertex cut of given graph.
      * @param graph the undirected graph
-     * @return the collection of vertices in the vertex cut
+     * @return the vertices in the vertex cut
      */
     public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> findVertexCut(
             UndirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
