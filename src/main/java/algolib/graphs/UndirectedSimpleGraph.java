@@ -3,7 +3,7 @@ package algolib.graphs;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-/** Structure of undirected simple graph */
+/** Structure of undirected simple graph. */
 public class UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
         extends SimpleGraph<VertexId, VertexProperty, EdgeProperty>
         implements UndirectedGraph<VertexId, VertexProperty, EdgeProperty>

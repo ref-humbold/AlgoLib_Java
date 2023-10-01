@@ -3,7 +3,7 @@ package algolib.tuples;
 import java.util.Comparator;
 import java.util.Objects;
 
-/** Structure of comparable triple */
+/** Structure of comparable triple. */
 public final class ComparableTriple<F extends Comparable<? super F>, S extends Comparable<? super S>, T extends Comparable<? super T>>
         extends Triple<F, S, T>
         implements Comparable<Triple<F, S, T>>

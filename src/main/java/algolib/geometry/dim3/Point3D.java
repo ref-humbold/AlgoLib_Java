@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import algolib.geometry.GeometryObject;
 
-/** Structure of point in 3 dimensions */
+/** Structure of point in 3 dimensions. */
 public final class Point3D
         extends GeometryObject
 {

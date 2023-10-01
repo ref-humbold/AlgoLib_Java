@@ -13,11 +13,11 @@ import algolib.graphs.properties.Weighted;
 import algolib.structures.DisjointSets;
 import algolib.tuples.Pair;
 
-/** Algorithms for minimal spanning tree */
+/** Algorithms for minimal spanning tree of an undirected weighted graph. */
 public final class MinimalSpanningTree
 {
     /**
-     * Computes MST using Kruskal algorithm.
+     * Computes minimal spanning tree of given undirected graph using Kruskal algorithm.
      * @param graph the undirected weighted graph
      * @return the minimal spanning tree
      */
@@ -48,7 +48,7 @@ public final class MinimalSpanningTree
     }
 
     /**
-     * Computes MST using Prim algorithm.
+     * Computes minimal spanning tree of given undirected graph using Prim algorithm.
      * @param graph the undirected weighted graph
      * @param source the starting vertex
      * @return the minimal spanning tree

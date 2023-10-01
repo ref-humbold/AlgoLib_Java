@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/** Structure of multipartite graph */
+/** Structure of multipartite graph. */
 public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
         implements UndirectedGraph<VertexId, VertexProperty, EdgeProperty>
 {
@@ -116,6 +116,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
     }
 
     /**
+     * Gets the vertices of given group.
      * @param groupNumber the group number
      * @return the vertices that belong to the group
      */

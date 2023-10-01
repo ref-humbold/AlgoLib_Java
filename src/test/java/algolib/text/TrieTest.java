@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-// Tests: Structure of trie tree
+// Tests: Structure of trie tree.
 public class TrieTest
 {
     private final List<String> texts = List.of("abcd", "ab", "xyz");

@@ -7,7 +7,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.BfsStrategy;
 import algolib.graphs.algorithms.strategy.DfsStrategy;
 
-/** Algorithms for graph searching */
+/** Algorithms for graph searching. */
 public final class Searching
 {
     /**

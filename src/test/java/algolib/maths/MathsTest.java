@@ -3,7 +3,7 @@ package algolib.maths;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// Tests: Algorithms for basic mathematical calculations
+// Tests: Algorithms for basic mathematical calculations.
 public class MathsTest
 {
     //region gcd

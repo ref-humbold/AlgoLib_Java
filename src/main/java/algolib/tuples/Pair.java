@@ -2,7 +2,7 @@ package algolib.tuples;
 
 import java.util.Objects;
 
-/** Structure of pair */
+/** Structure of pair. */
 public class Pair<F, S>
 {
     public final F first;

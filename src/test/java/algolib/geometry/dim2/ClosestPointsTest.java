@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.tuples.Pair;
 
-// Tests: Algorithm for searching closest points
+// Tests: Algorithm for searching closest points.
 public class ClosestPointsTest
 {
     @Test

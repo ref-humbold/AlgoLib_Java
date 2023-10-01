@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Algorithm for convex hull (monotone chain) */
+/** Algorithm for convex hull (monotone chain). */
 public final class ConvexHull
 {
     /**
-     * Constructs convex hull of given points.
+     * Computes convex hull of given points.
      * @param points the points
      * @return the points in the convex hull
      */
@@ -33,7 +33,7 @@ public final class ConvexHull
         return lowerHull;
     }
 
-    // Creates half of convex hull for given points.
+    // Computes half of convex hull for given points.
     private static List<Point2D> createHalfHull(List<Point2D> points)
     {
         List<Point2D> hull = new ArrayList<>();

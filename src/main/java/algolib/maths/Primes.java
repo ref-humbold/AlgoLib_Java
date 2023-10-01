@@ -5,14 +5,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
-/** Algorithms for prime numbers */
+/** Algorithms for prime numbers. */
 public final class Primes
 {
     private static final int ATTEMPTS = 17;
     private static final Random random = new Random();
 
     /**
-     * Finds prime numbers less than given number.
+     * Searches for prime numbers less than given number.
      * @param maximum the maximal number, exclusive
      * @return the prime numbers
      */
@@ -22,9 +22,9 @@ public final class Primes
     }
 
     /**
-     * Finds prime numbers inside given range of numbers.
-     * @param minimum the minimal number in range, inclusive
-     * @param maximum the maximal number in range, exclusive
+     * Searches for prime numbers inside given range of numbers.
+     * @param minimum the minimal number, inclusive
+     * @param maximum the maximal number, exclusive
      * @return the prime numbers
      */
     public static Collection<Integer> findPrimes(int minimum, int maximum)

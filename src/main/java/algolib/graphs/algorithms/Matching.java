@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import algolib.graphs.MultipartiteGraph;
 import algolib.graphs.Vertex;
 
-/** Hopcroft-Karp algorithm for matching in bipartite graph */
+/** Hopcroft-Karp algorithm for matching in a bipartite graph. */
 public final class Matching
 {
     /**
-     * Finds maximal matching in given bipartite graph.
+     * Computes maximal matching in given bipartite graph.
      * @param graph the bipartite graph
      * @return the map of matched vertices
      */

@@ -12,7 +12,7 @@ import algolib.graphs.UndirectedGraph;
 import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.properties.Weighted;
 
-// Tests: Algorithms for minimal spanning tree
+// Tests: Algorithms for minimal spanning tree.
 public class MinimalSpanningTreeTest
 {
     private static final Offset<Double> OFFSET = Offset.offset(1e-6);

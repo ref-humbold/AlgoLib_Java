@@ -2,7 +2,7 @@ package algolib.text;
 
 import java.util.stream.IntStream;
 
-/** Algorithms for edit distance */
+/** Algorithms for edit distance. */
 public final class EditDistance
 {
     /**

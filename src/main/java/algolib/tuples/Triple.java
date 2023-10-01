@@ -2,7 +2,7 @@ package algolib.tuples;
 
 import java.util.Objects;
 
-/** Structure of triple */
+/** Structure of triple. */
 public class Triple<F, S, T>
 {
     public final F first;

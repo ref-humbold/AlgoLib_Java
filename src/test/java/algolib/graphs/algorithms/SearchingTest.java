@@ -16,7 +16,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DfsStrategy;
 import algolib.graphs.algorithms.strategy.EmptyStrategy;
 
-// Tests: Algorithms for graph searching
+// Tests: Algorithms for graph searching.
 public class SearchingTest
 {
     private DirectedSimpleGraph<Integer, Void, Void> directedGraph;

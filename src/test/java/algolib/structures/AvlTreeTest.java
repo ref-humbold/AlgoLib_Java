@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-// Tests: Structure of AVL tree
+// Tests: Structure of AVL tree.
 public class AvlTreeTest
 {
     private final Integer[] numbers =

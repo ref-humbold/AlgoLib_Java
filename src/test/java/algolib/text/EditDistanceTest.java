@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 
-// Tests: Algorithms for edit distance
+// Tests: Algorithms for edit distance.
 public class EditDistanceTest
 {
     private static final Offset<Double> OFFSET = Offset.offset(1e-6);

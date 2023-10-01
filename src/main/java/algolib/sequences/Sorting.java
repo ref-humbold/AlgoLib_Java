@@ -6,13 +6,14 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Stream;
 
-/** Algorithms for sequence sorting */
+/** Algorithms for sequence sorting. */
 public final class Sorting
 {
     private static final Random random = new Random();
 
     /**
      * Mutably sorts given sequence using heap.
+     * @param <T> the type of sequence elements
      * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void heapSort(List<T> sequence)
@@ -40,6 +41,7 @@ public final class Sorting
     /**
      * Mutably sorts given sequence using top-down merge-sort algorithm.
      * Sorting is guaranteed to be stable.
+     * @param <T> the type of sequence elements
      * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void topDownMergeSort(List<T> sequence)
@@ -51,6 +53,7 @@ public final class Sorting
     /**
      * Mutably sorts given sequence using bottom-up merge-sort algorithm.
      * Sorting is guaranteed to be stable.
+     * @param <T> the type of sequence elements
      * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void bottomUpMergeSort(List<T> sequence)
@@ -68,6 +71,7 @@ public final class Sorting
 
     /**
      * Mutably sorts given sequence using quick-sort algorithm.
+     * @param <T> the type of sequence elements
      * @param sequence the sequence of elements
      */
     public static <T extends Comparable<T>> void quickSort(List<T> sequence)

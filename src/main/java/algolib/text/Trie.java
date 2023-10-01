@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Structure of trie tree */
+/** Structure of trie tree. */
 public class Trie
 {
     private TrieNode tree = new TrieNode();

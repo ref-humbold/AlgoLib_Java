@@ -7,11 +7,11 @@ import java.util.List;
 
 import algolib.tuples.Pair;
 
-/** Algorithms for maximum subarray */
+/** Algorithms for maximum subarray. */
 public final class MaximumSubarray
 {
     /**
-     * Dynamically constructs coherent subarray with maximal sum.
+     * Dynamically computes coherent subarray with maximal sum.
      * @param sequence the sequence of numbers
      * @return the maximum subarray
      */

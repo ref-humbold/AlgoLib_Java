@@ -1,6 +1,6 @@
 package algolib.maths;
 
-/** Algorithms for basic mathematical calculations */
+/** Algorithms for basic mathematical calculations. */
 public final class Maths
 {
     // region gcd

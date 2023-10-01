@@ -2,7 +2,7 @@ package algolib.structures;
 
 import java.util.*;
 
-/** Structure of double heap */
+/** Structure of double heap. */
 public class DoubleHeap<E>
         extends AbstractQueue<E>
 {
@@ -56,6 +56,10 @@ public class DoubleHeap<E>
         return heap.isEmpty();
     }
 
+    /**
+     * Gets the comparator.
+     * @return the comparator
+     */
     public Comparator<? super E> comparator()
     {
         return comparator_;
@@ -92,7 +96,7 @@ public class DoubleHeap<E>
 
     /**
      * Retrieves minimal element from this double heap.
-     * @return minimal element
+     * @return the minimal element
      */
     public E peekMin()
     {

@@ -8,11 +8,11 @@ import java.util.Optional;
 
 import algolib.tuples.Pair;
 
-/** Algorithm for searching closest points */
+/** Algorithm for searching closest points. */
 public final class ClosestPoints
 {
     /**
-     * Searches for a pair of closest points among given points.
+     * Searches for the pair of closest points among given points.
      * @param points the points
      * @return the pair of closest points
      * @throws NoSuchElementException if no points specified
@@ -106,7 +106,7 @@ public final class ClosestPoints
 
         for(Point2D pt : pointsY)
             if(pt.x < pointsX.get(indexMiddle).x
-                    || pt.x == pointsX.get(indexMiddle).x && pt.y < pointsX.get(indexMiddle).y)
+                       || pt.x == pointsX.get(indexMiddle).x && pt.y < pointsX.get(indexMiddle).y)
                 closetsYL.add(pt);
             else
                 closetsYR.add(pt);

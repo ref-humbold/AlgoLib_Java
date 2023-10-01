@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 
-// Tests: Algorithms for maximum subarray
+// Tests: Algorithms for maximum subarray.
 public class MaximumSubarrayTest
 {
     // region findMaximumSubarray

@@ -5,7 +5,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// Tests: Algorithm for longest increasing subsequence
+// Tests: Algorithm for longest increasing subsequence.
 public class LongestIncreasingSubsequenceTest
 {
     @Test

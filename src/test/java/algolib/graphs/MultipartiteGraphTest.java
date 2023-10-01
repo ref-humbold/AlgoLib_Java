@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-// Tests: Structure of multipartite graph
+// Tests: Structure of multipartite graph.
 public class MultipartiteGraphTest
 {
     private MultipartiteGraph<Integer, String, String> testObject;

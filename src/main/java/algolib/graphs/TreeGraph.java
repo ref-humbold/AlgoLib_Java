@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
-/** Structure of tree graph */
+/** Structure of tree graph. */
 public class TreeGraph<VertexId, VertexProperty, EdgeProperty>
         implements UndirectedGraph<VertexId, VertexProperty, EdgeProperty>
 {

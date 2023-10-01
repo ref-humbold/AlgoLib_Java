@@ -3,11 +3,12 @@ package algolib.sequences;
 import java.util.List;
 import java.util.stream.IntStream;
 
-/** Algorithm for longest common subsequence */
+/** Algorithm for longest common subsequence. */
 public final class LongestCommonSubsequence
 {
     /**
      * Computes length of the longest common subsequence of given sequences.
+     * @param <T> the type of sequence elements
      * @param sequence1 the first sequence
      * @param sequence2 the second sequence
      * @return the length of the longest common subsequence

@@ -6,7 +6,7 @@ import org.assertj.core.data.Index;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-// Tests: Structure of double heap
+// Tests: Structure of double heap.
 public class DoubleHeapTest
 {
     private final Integer[] numbers =

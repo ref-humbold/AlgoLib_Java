@@ -16,7 +16,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
-// Tests: Algorithms for shortest paths in graph
+// Tests: Algorithms for shortest paths in graph.
 public class ShortestPathsTest
 {
     private static final double INF = Weighted.INFINITY;

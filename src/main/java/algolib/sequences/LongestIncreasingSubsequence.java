@@ -4,11 +4,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/** Algorithm for longest increasing subsequence */
+/** Algorithm for longest increasing subsequence. */
 public final class LongestIncreasingSubsequence
 {
     /**
-     * Constructs longest increasing subsequence according to given comparator.
+     * Computes longest increasing subsequence according to given comparator.
+     * @param <T> the type of sequence elements
      * @param sequence the sequence of elements
      * @param comparator the comparator of elements in sequence
      * @return the longest increasing subsequence (least lexicographically)
@@ -49,7 +50,6 @@ public final class LongestIncreasingSubsequence
         }
 
         Collections.reverse(longestSubsequence);
-
         return longestSubsequence;
     }
 

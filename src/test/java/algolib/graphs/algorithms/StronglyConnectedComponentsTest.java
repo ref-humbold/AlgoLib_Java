@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.Vertex;
 
-// Tests: Algorithm for strongly connected components
+// Tests: Algorithm for strongly connected components.
 public class StronglyConnectedComponentsTest
 {
     @Test

@@ -2,7 +2,7 @@ package algolib.graphs;
 
 import java.util.Objects;
 
-/** Structure of edge in graph */
+/** Structure of edge in graph. */
 public class Edge<VertexId>
 {
     public final Vertex<VertexId> source;
@@ -32,7 +32,10 @@ public class Edge<VertexId>
                 "Edge %s is not adjacent to given vertex %s".formatted(this, vertex));
     }
 
-    /** @return the edge with reversed direction */
+    /**
+     * Gets the reversed copy of this edge.
+     * @return the edge with reversed direction
+     */
     public Edge<VertexId> reversed()
     {
         return new Edge<>(destination, source);

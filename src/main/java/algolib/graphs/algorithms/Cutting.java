@@ -12,11 +12,11 @@ import algolib.graphs.UndirectedGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DfsStrategy;
 
-/** Algorithms for graph cutting (edge cut and vertex cut) */
+/** Algorithms for graph cutting (edge cut and vertex cut). */
 public final class Cutting
 {
     /**
-     * Finds edge cut of given graph.
+     * Computes edge cut of given undirected graph.
      * @param graph the undirected graph
      * @return the edges in the edge cut
      */
@@ -34,7 +34,7 @@ public final class Cutting
     }
 
     /**
-     * Finds vertex cut of given graph.
+     * Computes vertex cut of given undirected graph.
      * @param graph the undirected graph
      * @return the vertices in the vertex cut
      */

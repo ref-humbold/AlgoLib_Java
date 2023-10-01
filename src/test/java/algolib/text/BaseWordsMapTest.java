@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.tuples.Pair;
 
-// Tests: Structure of base words map using Karp-Miller-Rosenberg algorithm
+// Tests: Structure of base words map using Karp-Miller-Rosenberg algorithm.
 public class BaseWordsMapTest
 {
     private BaseWordsMap testObject;

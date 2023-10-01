@@ -2,7 +2,7 @@ package algolib.structures;
 
 import java.util.*;
 
-/** Structure of pairing heap */
+/** Structure of pairing heap. */
 public class PairingHeap<E extends Comparable<E>>
         extends AbstractQueue<E>
 {
@@ -108,9 +108,8 @@ public class PairingHeap<E extends Comparable<E>>
         HeapNode<E> append(E element)
         {
             return this.element.compareTo(element) <= 0
-                   ? new HeapNode<>(this.element,
-                                    new HeapNodeList<>(new HeapNode<>(element,
-                                                                      null), children))
+                   ? new HeapNode<>(this.element, new HeapNodeList<>(new HeapNode<>(element, null),
+                                                                     children))
                    : new HeapNode<>(element, new HeapNodeList<>(this, null));
         }
 
@@ -124,9 +123,7 @@ public class PairingHeap<E extends Comparable<E>>
             return node == null
                    ? this
                    : element.compareTo(node.element) <= 0
-                     ? new HeapNode<>(element,
-                                      new HeapNodeList<>(node,
-                                                         children))
+                     ? new HeapNode<>(element, new HeapNodeList<>(node, children))
                      : new HeapNode<>(node.element, new HeapNodeList<>(this, node.children));
         }
 

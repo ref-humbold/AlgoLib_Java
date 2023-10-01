@@ -4,7 +4,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// Tests: Knuth-Morris-Pratt algorithm for pattern searching
+// Tests: Knuth-Morris-Pratt algorithm for pattern searching.
 public class KnuthMorrisPrattTest
 {
     @Test

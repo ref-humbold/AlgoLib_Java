@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-/** Structure of suffix array */
+/** Structure of suffix array. */
 public class SuffixArray
 {
     private final int size_;
@@ -46,13 +46,17 @@ public class SuffixArray
         return Objects.hash(size_, text, suffixArray);
     }
 
-    /** @return the length of this suffix array */
+    /**
+     * Gets the length of this suffix array.
+     * @return the length of this suffix array
+     */
     public int size()
     {
         return size_;
     }
 
     /**
+     * Gets the text suffix at given index.
      * @param index the index in this suffix array
      * @return the text suffix at the index
      */
@@ -65,7 +69,7 @@ public class SuffixArray
     }
 
     /**
-     * Finds suffix in text for given index in this suffix array.
+     * Searches for suffix in text for given index in this suffix array.
      * @param index the index in this suffix array
      * @return the index in text where suffix begins
      */
@@ -78,7 +82,7 @@ public class SuffixArray
     }
 
     /**
-     * Finds index in this suffix array for given text suffix.
+     * Searches for index in this suffix array for given text suffix.
      * @param index the index in text where suffix begins
      * @return the index of suffix in suffix array
      */
@@ -91,7 +95,7 @@ public class SuffixArray
     }
 
     /**
-     * Computes length of longest common prefix of given suffixes.
+     * Computes length of the longest common prefix of given suffixes.
      * @param index1 the index in text where the first suffix begins
      * @param index2 the index in text where the second suffix begins
      * @return the length of longest common prefix

@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-// Tests: Structure of tree graph
+// Tests: Structure of tree graph.
 public class TreeGraphTest
 {
     private TreeGraph<Integer, String, String> testObject;

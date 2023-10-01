@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import algolib.geometry.GeometryObject;
 
-/** Structure of vector in 3 dimensions */
+/** Structure of vector in 3 dimensions. */
 public final class Vector3D
         extends GeometryObject
 {

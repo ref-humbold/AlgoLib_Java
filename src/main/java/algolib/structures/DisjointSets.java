@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-/** Structure of disjoint sets (union-find) */
+/** Structure of disjoint sets (union-find). */
 public class DisjointSets<E>
 {
     private final Map<E, E> represents = new HashMap<>();
@@ -24,13 +24,19 @@ public class DisjointSets<E>
         }
     }
 
-    /** @return {@code true} if structure is empty, otherwise {@code false} */
+    /**
+     * Checks whether this structure is empty.
+     * @return {@code true} if structure is empty, otherwise {@code false}
+     */
     public boolean isEmpty()
     {
         return size_ == 0;
     }
 
-    /** @return the number of sets */
+    /**
+     * Gets the number of sets in this structure.
+     * @return the number of sets
+     */
     public int size()
     {
         return size_;
@@ -87,7 +93,7 @@ public class DisjointSets<E>
     }
 
     /**
-     * Finds represent of given element.
+     * Searches for represent of given element.
      * @param element the element
      * @return the represent of the element
      * @throws NoSuchElementException if element is not present
@@ -104,7 +110,7 @@ public class DisjointSets<E>
     }
 
     /**
-     * Finds represent of given element, or returns given default value.
+     * Searches for represent of given element, or returns given default value.
      * @param element the element
      * @param defaultValue the value to return if element not present
      * @return the represent of the element, if present, otherwise the default value

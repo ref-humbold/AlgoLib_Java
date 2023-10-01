@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/** Structure of directed simple graph */
+/** Structure of directed simple graph. */
 public class DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
         extends SimpleGraph<VertexId, VertexProperty, EdgeProperty>
         implements DirectedGraph<VertexId, VertexProperty, EdgeProperty>

@@ -2,7 +2,7 @@ package algolib.maths;
 
 import java.util.Arrays;
 
-/** Structure of linear equation system */
+/** Structure of linear equation system. */
 public final class EquationSystem
 {
     private final Equation[] equations;
@@ -18,15 +18,6 @@ public final class EquationSystem
     public static EquationSystem of(Equation... equations)
     {
         return new EquationSystem(equations);
-    }
-
-    /**
-     * @param i the index of equation
-     * @return the equation of this system specified by the index
-     */
-    public Equation getEquation(int i)
-    {
-        return equations[i];
     }
 
     @Override
@@ -47,10 +38,23 @@ public final class EquationSystem
         return Arrays.hashCode(equations);
     }
 
-    /** @return the number of equations */
+    /**
+     * Gets the number of equations.
+     * @return the number of equations
+     */
     public int size()
     {
         return equations.length;
+    }
+
+    /**
+     * Gets the equation at given index.
+     * @param i the index of equation
+     * @return the equation of this system specified by the index
+     */
+    public Equation getEquation(int i)
+    {
+        return equations[i];
     }
 
     /**

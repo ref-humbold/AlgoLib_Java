@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** Knuth-Morris-Pratt algorithm for pattern searching */
+/** Knuth-Morris-Pratt algorithm for pattern searching. */
 public final class KnuthMorrisPratt
 {
     /**

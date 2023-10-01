@@ -10,7 +10,7 @@ import algolib.graphs.TreeGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DfsStrategy;
 
-/** Algorithm for lowest common ancestor */
+/** Algorithm for lowest common ancestors in a rooted tree. */
 public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
 {
     public final TreeGraph<VertexId, VertexProperty, EdgeProperty> graph;
@@ -27,7 +27,7 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
     }
 
     /**
-     * Finds lowest common ancestor of given vertices in a rooted tree.
+     * Searches for lowest common ancestor of given vertices in this rooted tree.
      * @param vertex1 the first vertex
      * @param vertex2 the second vertex
      * @return the lowest common ancestor of the vertices

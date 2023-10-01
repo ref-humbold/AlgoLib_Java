@@ -6,12 +6,12 @@ import algolib.graphs.DirectedGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DfsStrategy;
 
-/** Algorithms for topological sorting of a directed graph */
+/** Algorithms for topological sorting of a directed acyclic graph. */
 public final class TopologicalSorting
 {
     /**
-     * Topological sorting algorithm using predecessors counting.
-     * @param graph the directed graph
+     * Topologically sorts the vertices of given directed acyclic graph using predecessors counting.
+     * @param graph the directed acyclic graph
      * @return the topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */
@@ -23,8 +23,8 @@ public final class TopologicalSorting
     }
 
     /**
-     * Topological sorting algorithm using predecessors counting.
-     * @param graph the directed graph
+     * Topologically sorts the vertices of given directed acyclic graph using predecessors counting.
+     * @param graph the directed acyclic graph
      * @param vertexIdComparator the comparator of vertex identifiers
      * @return the topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
@@ -75,8 +75,8 @@ public final class TopologicalSorting
     }
 
     /**
-     * Topological sorting algorithm using DFS.
-     * @param graph the directed graph
+     * Topologically sorts the vertices of given directed acyclic graph using depth-first search.
+     * @param graph the directed acyclic graph
      * @return the topological order of vertices
      * @throws DirectedCyclicGraphException if given graph contains a cycle
      */

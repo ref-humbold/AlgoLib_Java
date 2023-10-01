@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 import algolib.tuples.ComparablePair;
 import algolib.tuples.Pair;
 
-/** Structure of base words map using Karp-Miller-Rosenberg algorithm */
+/** Structure of base words map using Karp-Miller-Rosenberg algorithm. */
 public final class BaseWordsMap
 {
     private final String text;

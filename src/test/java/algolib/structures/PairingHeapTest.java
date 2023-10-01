@@ -6,7 +6,7 @@ import org.assertj.core.data.Index;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-// Tests: Structure of pairing heap
+// Tests: Structure of pairing heap.
 public class PairingHeapTest
 {
     private final Integer[] numbers =

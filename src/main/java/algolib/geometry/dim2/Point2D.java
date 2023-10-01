@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import algolib.geometry.GeometryObject;
 
-/** Structure of point in 2 dimensions */
+/** Structure of point in 2 dimensions. */
 public final class Point2D
         extends GeometryObject
 {

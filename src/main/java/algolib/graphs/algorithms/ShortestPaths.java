@@ -15,11 +15,12 @@ import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
-/** Algorithms for shortest paths in graph */
+/** Algorithms for shortest paths in a graph. */
 public final class ShortestPaths
 {
     /**
-     * Computes shortest path from given vertex using Bellman-Ford algorithm.
+     * Computes shortest paths in given directed graph from given vertex using Bellman-Ford
+     * algorithm.
      * @param graph the directed weighted graph
      * @param source the source vertex
      * @return the map of distances to each vertex
@@ -58,7 +59,7 @@ public final class ShortestPaths
     }
 
     /**
-     * Computes shortest path from given vertex using Dijkstra algorithm.
+     * Computes shortest paths in given graph from given vertex using Dijkstra algorithm.
      * @param graph the weighted graph with non-negative weights
      * @param source the source vertex
      * @return the map of distances to each vertex.
@@ -111,7 +112,8 @@ public final class ShortestPaths
     }
 
     /**
-     * Computes shortest path between all vertices using Floyd-Warshall algorithm.
+     * Computes shortest paths in given directed graph between all vertices using Floyd-Warshall
+     * algorithm.
      * @param graph the directed weighted graph
      * @return the map of distances between all pairs of vertices
      */

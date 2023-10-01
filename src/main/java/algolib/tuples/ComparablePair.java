@@ -3,7 +3,7 @@ package algolib.tuples;
 import java.util.Comparator;
 import java.util.Objects;
 
-/** Structure of comparable pair */
+/** Structure of comparable pair. */
 public final class ComparablePair<F extends Comparable<? super F>, S extends Comparable<? super S>>
         extends Pair<F, S>
         implements Comparable<Pair<F, S>>

@@ -4,7 +4,7 @@ import java.util.Collection;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// Tests: Algorithms for prime numbers
+// Tests: Algorithms for prime numbers.
 public class PrimesTest
 {
     //region testFindPrimes

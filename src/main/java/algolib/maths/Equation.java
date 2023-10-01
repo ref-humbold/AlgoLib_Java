@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-/** Structure of linear equation */
+/** Structure of linear equation. */
 public final class Equation
 {
     private final double[] coefficients;
@@ -28,15 +28,6 @@ public final class Equation
     public static Equation of(double[] coefficients, double free)
     {
         return new Equation(coefficients, free);
-    }
-
-    /**
-     * @param i the index of variable
-     * @return the coefficient specified by the index
-     */
-    public double getCoefficient(int i)
-    {
-        return coefficients[i];
     }
 
     @Override
@@ -69,10 +60,23 @@ public final class Equation
                                                     " = %s".formatted(df.format(freeTerm))));
     }
 
-    /** @return the number of coefficients */
+    /**
+     * Gets the number of coefficients.
+     * @return the number of coefficients
+     */
     public int size()
     {
         return coefficients.length;
+    }
+
+    /**
+     * Gets the coefficient by the variable at given index.
+     * @param i the index of variable
+     * @return the coefficient specified by the index
+     */
+    public double getCoefficient(int i)
+    {
+        return coefficients[i];
     }
 
     /**

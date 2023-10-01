@@ -10,7 +10,7 @@ import algolib.graphs.Edge;
 import algolib.graphs.UndirectedSimpleGraph;
 import algolib.graphs.Vertex;
 
-// Tests: Algorithms for graph cutting (edge cut and vertex cut)
+// Tests: Algorithms for graph cutting (edge cut and vertex cut).
 public class CuttingTest
 {
     @Test

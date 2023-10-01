@@ -3,7 +3,7 @@ package algolib.structures;
 import java.util.*;
 import java.util.function.BiFunction;
 
-/** Structure of AVL tree */
+/** Structure of AVL tree. */
 public class AvlTree<E>
         extends AbstractSet<E>
 {
@@ -89,6 +89,10 @@ public class AvlTree<E>
         return builder.toString();
     }
 
+    /**
+     * Gets the comparator.
+     * @return the comparator
+     */
     public Comparator<? super E> comparator()
     {
         return comparator_;
