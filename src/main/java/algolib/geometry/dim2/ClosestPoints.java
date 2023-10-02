@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import algolib.tuples.Pair;
 
-/** Algorithm for searching closest points. */
+/** Algorithm for searching pair of closest points in 2D. */
 public final class ClosestPoints
 {
     /**

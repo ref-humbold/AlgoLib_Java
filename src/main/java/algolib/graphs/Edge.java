@@ -2,7 +2,7 @@ package algolib.graphs;
 
 import java.util.Objects;
 
-/** Structure of edge in graph. */
+/** Structure of graph edge. */
 public class Edge<VertexId>
 {
     public final Vertex<VertexId> source;

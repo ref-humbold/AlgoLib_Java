@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-// Tests: Structure of undirected graph.
+// Tests: Structure of undirected simple graph.
 public class UndirectedSimpleGraphTest
 {
     private UndirectedSimpleGraph<Integer, String, String> testObject;

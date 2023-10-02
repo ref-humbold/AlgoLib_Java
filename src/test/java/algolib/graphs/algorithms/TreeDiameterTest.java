@@ -1,4 +1,3 @@
-// Tests: Algorithm for counting diameter of a tree.
 package algolib.graphs.algorithms;
 
 import org.assertj.core.api.Assertions;
@@ -7,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.TreeGraph;
 import algolib.graphs.properties.Weighted;
 
+// Tests: Algorithm for computing diameter of a tree.
 public class TreeDiameterTest
 {
     @Test

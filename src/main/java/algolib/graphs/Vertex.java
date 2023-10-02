@@ -2,7 +2,7 @@ package algolib.graphs;
 
 import java.util.Objects;
 
-/** Structure of vertex in graph. */
+/** Structure of graph vertex. */
 public class Vertex<VertexId>
 {
     public final VertexId id;

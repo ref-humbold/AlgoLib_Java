@@ -5,7 +5,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// Tests: Algorithms for basic geometrical computations in 2D.
+// Tests: Algorithms for basic geometrical operations in 2D.
 public class Geometry2DTest
 {
     @Test

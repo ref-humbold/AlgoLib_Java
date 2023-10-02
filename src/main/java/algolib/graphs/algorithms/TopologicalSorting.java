@@ -6,7 +6,7 @@ import algolib.graphs.DirectedGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DfsStrategy;
 
-/** Algorithms for topological sorting of a directed acyclic graph. */
+/** Algorithms for topological sorting of a graph. */
 public final class TopologicalSorting
 {
     /**

@@ -2,7 +2,7 @@ package algolib.geometry.dim2;
 
 import java.util.List;
 
-/** Algorithms for basic geometrical computations in 2D. */
+/** Algorithms for basic geometrical operations in 2D. */
 public final class Geometry2D
 {
     /**

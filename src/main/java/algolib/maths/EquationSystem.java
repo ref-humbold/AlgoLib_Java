@@ -2,7 +2,7 @@ package algolib.maths;
 
 import java.util.Arrays;
 
-/** Structure of linear equation system. */
+/** Structure of linear equations system. */
 public final class EquationSystem
 {
     private final Equation[] equations;

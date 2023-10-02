@@ -6,7 +6,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
-/** Algorithm for counting diameter of a tree. */
+/** Algorithm for computing diameter of a tree. */
 public final class TreeDiameter
 {
     /**

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.TreeGraph;
 import algolib.graphs.Vertex;
 
-// Tests: Algorithm for lowest common ancestor.
+// Tests: Algorithm for lowest common ancestors in a rooted tree.
 public class LowestCommonAncestorTest
 {
     private LowestCommonAncestor<Integer, Void, Void> testObject;

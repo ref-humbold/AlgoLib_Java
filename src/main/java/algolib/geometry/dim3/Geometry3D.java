@@ -2,7 +2,7 @@ package algolib.geometry.dim3;
 
 import java.util.List;
 
-/** Algorithms for basic geometrical computations in 3D. */
+/** Algorithms for basic geometrical operations in 3D. */
 public final class Geometry3D
 {
     /**

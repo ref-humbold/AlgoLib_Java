@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Algorithm for convex hull (monotone chain). */
+/** Algorithm for convex hull in 2D (monotone chain). */
 public final class ConvexHull
 {
     /**

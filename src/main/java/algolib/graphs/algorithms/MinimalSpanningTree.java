@@ -13,7 +13,7 @@ import algolib.graphs.properties.Weighted;
 import algolib.structures.DisjointSets;
 import algolib.tuples.Pair;
 
-/** Algorithms for minimal spanning tree of an undirected weighted graph. */
+/** Algorithms for minimal spanning tree. */
 public final class MinimalSpanningTree
 {
     /**

@@ -10,7 +10,7 @@ import algolib.graphs.DirectedGraph;
 import algolib.graphs.DirectedSimpleGraph;
 import algolib.graphs.Vertex;
 
-// Tests: Algorithms for topological sorting of a directed graph.
+// Tests: Algorithms for topological sorting of a graph.
 public class TopologicalSortingTest
 {
     // region inputsTopologicalSort

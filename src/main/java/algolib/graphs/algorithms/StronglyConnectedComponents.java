@@ -7,7 +7,7 @@ import algolib.graphs.DirectedGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DfsStrategy;
 
-/** Algorithm for strongly connected components of a directed graph. */
+/** Algorithm for strongly connected components. */
 public final class StronglyConnectedComponents
 {
     /**

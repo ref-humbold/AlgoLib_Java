@@ -2,7 +2,7 @@ package algolib.graphs;
 
 import java.util.Collection;
 
-/** Structure of graph. */
+/** Structure of basic graph. */
 public interface Graph<VertexId, VertexProperty, EdgeProperty>
 {
     GraphProperties<VertexId, VertexProperty, EdgeProperty> getProperties();

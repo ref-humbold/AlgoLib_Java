@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import algolib.geometry.GeometryObject;
 
+// Tests: Structure of vector in 3D.
 public class Vector3DTest
 {
     private static final Offset<Double> OFFSET = Offset.offset(GeometryObject.EPSILON);

@@ -16,7 +16,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
-// Tests: Algorithms for shortest paths in graph.
+// Tests: Algorithms for shortest paths in a graph.
 public class ShortestPathsTest
 {
     private static final double INF = Weighted.INFINITY;
@@ -267,8 +267,8 @@ public class ShortestPathsTest
 
     // endregion
 
-    private Map<Vertex<Integer>, Double> fromList(Graph<Integer, Void, Weight> graph,
-                                                  List<Double> distances)
+    private Map<Vertex<Integer>, Double> fromList(
+            Graph<Integer, Void, Weight> graph, List<Double> distances)
     {
         Map<Vertex<Integer>, Double> map = new HashMap<>();
 

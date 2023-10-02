@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import algolib.graphs.MultipartiteGraph;
 import algolib.graphs.Vertex;
 
-// Tests: Hopcroft-Karp algorithm for matching in bipartite graph.
+// Tests: Hopcroft-Karp algorithm for matching in a bipartite graph.
 public class MatchingTest
 {
     @Test
