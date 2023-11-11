@@ -39,7 +39,7 @@ public final class Geometry2D
     }
 
     /**
-     * Calculates the distance between given points.
+     * Calculates distance between given points.
      * @param point1 the first point
      * @param point2 the second point
      * @return the distance between the points

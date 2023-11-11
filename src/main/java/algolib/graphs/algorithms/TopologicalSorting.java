@@ -6,14 +6,14 @@ import algolib.graphs.DirectedGraph;
 import algolib.graphs.Vertex;
 import algolib.graphs.algorithms.strategy.DfsStrategy;
 
-/** Algorithms for topological sorting of a graph. */
+/** Algorithms for topological sorting of a directed acyclic graph. */
 public final class TopologicalSorting
 {
     /**
      * Topologically sorts the vertices of given directed acyclic graph using predecessors counting.
      * @param graph the directed acyclic graph
      * @return the topological order of vertices
-     * @throws DirectedCyclicGraphException if given graph contains a cycle
+     * @throws DirectedCyclicGraphException if the given graph contains a cycle
      */
     public static <VertexId extends Comparable<VertexId>, VertexProperty, EdgeProperty> List<Vertex<VertexId>> inputsTopologicalSort(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
@@ -27,7 +27,7 @@ public final class TopologicalSorting
      * @param graph the directed acyclic graph
      * @param vertexIdComparator the comparator of vertex identifiers
      * @return the topological order of vertices
-     * @throws DirectedCyclicGraphException if given graph contains a cycle
+     * @throws DirectedCyclicGraphException if the graph contains a cycle
      */
     public static <VertexId, VertexProperty, EdgeProperty> List<Vertex<VertexId>> inputsTopologicalSort(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph,
@@ -78,7 +78,7 @@ public final class TopologicalSorting
      * Topologically sorts the vertices of given directed acyclic graph using depth-first search.
      * @param graph the directed acyclic graph
      * @return the topological order of vertices
-     * @throws DirectedCyclicGraphException if given graph contains a cycle
+     * @throws DirectedCyclicGraphException if the graph contains a cycle
      */
     public static <VertexId, VertexProperty, EdgeProperty> List<Vertex<VertexId>> dfsTopologicalSort(
             DirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)

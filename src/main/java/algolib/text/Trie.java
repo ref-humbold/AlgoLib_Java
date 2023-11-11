@@ -19,16 +19,29 @@ public class Trie
         addAll(texts);
     }
 
+    /**
+     * Checks whether this tree is empty.
+     * @return {@code true} if the tree is empty, otherwise {@code false}
+     */
     public boolean isEmpty()
     {
         return tree.isEmpty();
     }
 
+    /**
+     * Gets the number of texts of this tree.
+     * @return the number of texts
+     */
     public int size()
     {
         return size_;
     }
 
+    /**
+     * Checks whether given text belongs to this tree.
+     * @param text the text
+     * @return {@code true} if the text is present, otherwise {@code false}
+     */
     public boolean contains(String text)
     {
         TrieNode node = tree;
@@ -44,11 +57,20 @@ public class Trie
         return node.terminus;
     }
 
+    /**
+     * Checks whether given texts belong to this tree.
+     * @param texts the texts
+     * @return {@code true} if all texts are present, otherwise {@code false}
+     */
     public boolean containsAll(Collection<String> texts)
     {
         return texts.stream().allMatch(this::contains);
     }
 
+    /**
+     * Adds new text to this tree.
+     * @param text the new text
+     */
     public void add(String text)
     {
         TrieNode node = tree;
@@ -66,30 +88,46 @@ public class Trie
         }
     }
 
+    /**
+     * Adds new texts to this tree.
+     * @param texts the new texts
+     */
     public void addAll(Collection<String> texts)
     {
         for(String text : texts)
             add(text);
     }
 
+    /**
+     * Removes given text from this tree.
+     * @param text the text
+     */
     public void remove(String text)
     {
         if(!text.isEmpty())
             removeNode(text, tree, 0);
     }
 
+    /**
+     * Removes given texts from this tree.
+     * @param texts the texts
+     */
     public void removeAll(Collection<String> texts)
     {
         for(String text : texts)
             remove(text);
     }
 
+    /**
+     * Removes all texts from this tree.
+     */
     public void clear()
     {
         tree = new TrieNode();
         size_ = 0;
     }
 
+    // Removes node for character in text at specified index.
     private boolean removeNode(String text, TrieNode node, int i)
     {
         if(i == text.length() && node.terminus)

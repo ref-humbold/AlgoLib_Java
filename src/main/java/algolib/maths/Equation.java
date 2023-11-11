@@ -61,8 +61,8 @@ public final class Equation
     }
 
     /**
-     * Gets the number of coefficients.
-     * @return the number of coefficients
+     * Gets the number of variables in this equation.
+     * @return the number of variables
      */
     public int size()
     {
@@ -92,7 +92,7 @@ public final class Equation
      * Adds given equation to this equation.
      * @param equation the other equation
      * @return the equation with coefficients added
-     * @throws IllegalArgumentException if equations have different number of variables
+     * @throws IllegalArgumentException if the equations have different number of variables
      */
     public Equation add(Equation equation)
     {
@@ -108,7 +108,7 @@ public final class Equation
      * Subtracts given equation from this equation.
      * @param equation the other equation
      * @return the equation with coefficients subtracted
-     * @throws IllegalArgumentException if equations have different number of variables
+     * @throws IllegalArgumentException if the equations have different number of variables
      */
     public Equation subtract(Equation equation)
     {
@@ -124,7 +124,7 @@ public final class Equation
      * Multiplies this equation by given constant.
      * @param constant the constant
      * @return the equation with all coefficients multiplied
-     * @throws ArithmeticException if constant is equal to zero
+     * @throws ArithmeticException if the constant is equal to zero
      */
     public Equation multiply(double constant)
     {
@@ -139,7 +139,7 @@ public final class Equation
      * Divides this equation by given constant.
      * @param constant the constant
      * @return the equation with all coefficients divided
-     * @throws ArithmeticException if constant is equal to zero
+     * @throws ArithmeticException if the constant is equal to zero
      */
     public Equation divide(double constant)
     {
@@ -160,10 +160,8 @@ public final class Equation
         if(solution.length != coefficients.length)
             return false;
 
-        double result = IntStream.range(0, coefficients.length)
-                                 .mapToDouble(i -> solution[i] * coefficients[i])
-                                 .sum();
-
-        return result == freeTerm;
+        return IntStream.range(0, coefficients.length)
+                        .mapToDouble(i -> solution[i] * coefficients[i])
+                        .sum() == freeTerm;
     }
 }

@@ -186,7 +186,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @param source the source vertex
      * @param destination the destination vertex
      * @return the created edge, or {@code null} if edge already exists
-     * @throws GraphPartitionException if vertices belong to same group
+     * @throws GraphPartitionException if the vertices belong to the same group
      */
     public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
@@ -199,7 +199,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @param destination the destination vertex
      * @param property the edge property
      * @return the created edge, or {@code null} if edge already exists
-     * @throws GraphPartitionException if the edge connects vertices that belong to same group
+     * @throws GraphPartitionException if the vertices belong to the same group
      */
     public Edge<VertexId> addEdgeBetween(
             Vertex<VertexId> source, Vertex<VertexId> destination, EdgeProperty property)
@@ -211,7 +211,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * Adds new edge to this graph.
      * @param edge the new edge
      * @return the created edge, or {@code null} if edge already exists
-     * @throws GraphPartitionException if the edge connects vertices that belong to same group
+     * @throws GraphPartitionException if the edge connects vertices from the same group
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge)
     {
@@ -223,7 +223,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @param edge the new edge
      * @param property the edge property
      * @return the created edge, or {@code null} if edge already exists
-     * @throws GraphPartitionException if vertices belong to same group
+     * @throws GraphPartitionException if the edge connects vertices from the same group
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {

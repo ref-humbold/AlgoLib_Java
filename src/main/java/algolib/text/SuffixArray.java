@@ -48,7 +48,7 @@ public class SuffixArray
 
     /**
      * Gets the length of this suffix array.
-     * @return the length of this suffix array
+     * @return the length of suffix array
      */
     public int size()
     {
@@ -57,7 +57,7 @@ public class SuffixArray
 
     /**
      * Gets the text suffix at given index.
-     * @param index the index in this suffix array
+     * @param index the index in suffix array
      * @return the text suffix at the index
      */
     public String get(int index)
@@ -70,7 +70,7 @@ public class SuffixArray
 
     /**
      * Searches for suffix in text for given index in this suffix array.
-     * @param index the index in this suffix array
+     * @param index the index in suffix array
      * @return the index in text where suffix begins
      */
     public int indexAt(int index)
@@ -84,7 +84,7 @@ public class SuffixArray
     /**
      * Searches for index in this suffix array for given text suffix.
      * @param index the index in text where suffix begins
-     * @return the index of suffix in suffix array
+     * @return the index in suffix array
      */
     public int indexOf(int index)
     {

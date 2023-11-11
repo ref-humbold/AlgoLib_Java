@@ -1,5 +1,6 @@
 package algolib.maths;
 
+import java.io.Serial;
 import java.util.Objects;
 
 /** Structure of fraction. */
@@ -7,7 +8,7 @@ public final class Fraction
         extends Number
         implements Comparable<Number>
 {
-    private static final long serialVersionUID = 330776497365163091L;
+    @Serial private static final long serialVersionUID = 330776497365163091L;
 
     private final long numerator;
     private final long denominator;
@@ -88,7 +89,7 @@ public final class Fraction
     /**
      * Inverts this fraction.
      * @return the inverted fraction
-     * @throws ArithmeticException if this fraction is equal to zero
+     * @throws ArithmeticException if the fraction is equal to zero
      */
     public Fraction invert()
     {
@@ -194,7 +195,7 @@ public final class Fraction
      * Divides this fraction by given fraction.
      * @param f the fraction
      * @return the result of division
-     * @throws ArithmeticException if divisor is equal to zero
+     * @throws ArithmeticException if the divisor is equal to zero
      */
     public Fraction divide(Fraction f)
     {
@@ -208,7 +209,7 @@ public final class Fraction
      * Divides this fraction by given number.
      * @param i the number
      * @return the result of division
-     * @throws ArithmeticException if divisor is equal to zero
+     * @throws ArithmeticException if the divisor is equal to zero
      */
     public Fraction divide(int i)
     {
@@ -219,7 +220,7 @@ public final class Fraction
      * Divides this fraction by given number.
      * @param i the number
      * @return the result of division
-     * @throws ArithmeticException if divisor is equal to zero
+     * @throws ArithmeticException if the divisor is equal to zero
      */
     public Fraction divide(long i)
     {

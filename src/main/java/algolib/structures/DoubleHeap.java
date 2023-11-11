@@ -57,7 +57,7 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Gets the comparator.
+     * Gets the comparator of this double heap.
      * @return the comparator
      */
     public Comparator<? super E> comparator()

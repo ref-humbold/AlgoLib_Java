@@ -2,7 +2,7 @@ package algolib.maths;
 
 import java.util.Arrays;
 
-/** Structure of linear equations system. */
+/** Structure of system of linear equations. */
 public final class EquationSystem
 {
     private final Equation[] equations;
@@ -39,7 +39,7 @@ public final class EquationSystem
     }
 
     /**
-     * Gets the number of equations.
+     * Gets the number of equations in this system.
      * @return the number of equations
      */
     public int size()
@@ -49,8 +49,8 @@ public final class EquationSystem
 
     /**
      * Gets the equation at given index.
-     * @param i the index of equation
-     * @return the equation of this system specified by the index
+     * @param i the index
+     * @return the equation by the index
      */
     public Equation getEquation(int i)
     {
@@ -60,8 +60,8 @@ public final class EquationSystem
     /**
      * Computes solution of this equation system.
      * @return the solution
-     * @throws InfiniteSolutionsException if there are infinitely many solutions
-     * @throws NoSolutionException if there is no solution
+     * @throws InfiniteSolutionsException if infinitely many solutions
+     * @throws NoSolutionException if no solution
      */
     public double[] solve()
             throws InfiniteSolutionsException, NoSolutionException

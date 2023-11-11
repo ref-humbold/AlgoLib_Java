@@ -26,7 +26,7 @@ public class DisjointSets<E>
 
     /**
      * Checks whether this structure is empty.
-     * @return {@code true} if structure is empty, otherwise {@code false}
+     * @return {@code true} if the structure is empty, otherwise {@code false}
      */
     public boolean isEmpty()
     {
@@ -45,7 +45,7 @@ public class DisjointSets<E>
     /**
      * Checks whether given element belongs to any set.
      * @param element the element
-     * @return {@code true} if the element is included in one of sets, otherwise {@code false}
+     * @return {@code true} if the element belongs to the structure, otherwise {@code false}
      */
     public boolean contains(E element)
     {
@@ -96,7 +96,7 @@ public class DisjointSets<E>
      * Searches for represent of given element.
      * @param element the element
      * @return the represent of the element
-     * @throws NoSuchElementException if element is not present
+     * @throws NoSuchElementException if the element is not present
      */
     public E findSet(E element)
     {
@@ -149,7 +149,7 @@ public class DisjointSets<E>
      * Checks whether given elements belong to the same set.
      * @param element1 the element from the first set
      * @param element2 the element from the second set
-     * @return {@code true} if elements are in the same set, otherwise {@code false}
+     * @return {@code true} if the elements are in the same set, otherwise {@code false}
      * @throws NoSuchElementException if either element is not present
      */
     public boolean isSameSet(E element1, E element2)

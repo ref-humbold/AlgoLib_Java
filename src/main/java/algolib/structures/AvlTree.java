@@ -90,7 +90,7 @@ public class AvlTree<E>
     }
 
     /**
-     * Gets the comparator.
+     * Gets the comparator of this AVL tree.
      * @return the comparator
      */
     public Comparator<? super E> comparator()

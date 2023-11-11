@@ -15,7 +15,7 @@ import algolib.graphs.Vertex;
 import algolib.graphs.properties.Weighted;
 import algolib.tuples.Pair;
 
-/** Algorithms for shortest paths in a graph. */
+/** Algorithms for shortest paths in a weighted graph. */
 public final class ShortestPaths
 {
     /**
@@ -24,7 +24,7 @@ public final class ShortestPaths
      * @param graph the directed weighted graph
      * @param source the source vertex
      * @return the map of distances to each vertex
-     * @throws IllegalStateException if graph contains a negative cycle
+     * @throws IllegalStateException if the graph contains a negative cycle
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Vertex<VertexId>,
                                                                                        Double> bellmanFord(
@@ -63,7 +63,7 @@ public final class ShortestPaths
      * @param graph the weighted graph with non-negative weights
      * @param source the source vertex
      * @return the map of distances to each vertex.
-     * @throws IllegalStateException if graph contains an edge with negative weight
+     * @throws IllegalStateException if the graph contains an edge with negative weight
      */
     public static <VertexId, VertexProperty, EdgeProperty extends Weighted> Map<Vertex<VertexId>,
                                                                                        Double> dijkstra(
