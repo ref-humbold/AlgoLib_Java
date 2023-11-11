@@ -186,7 +186,7 @@ public class MultipartiteGraphTest
     }
 
     @Test
-    public void addVertex_WhenExistingVertex_ThenNull()
+    public void addVertex_WhenExistingVertex_ThenIllegalArgumentException()
     {
         // given
         Vertex<Integer> vertex = new Vertex<>(6);
@@ -194,9 +194,10 @@ public class MultipartiteGraphTest
 
         testObject.getProperties().set(vertex, property);
         // when
-        Vertex<Integer> result = testObject.addVertex(3, vertex, "xyz");
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.addVertex(3, vertex, "xyz"));
         // then
-        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
         Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
     }
@@ -227,7 +228,7 @@ public class MultipartiteGraphTest
     }
 
     @Test
-    public void addEdgeBetween_WhenExistingEdge_ThenNull()
+    public void addEdgeBetween_WhenExistingEdge_ThenIllegalArgumentException()
     {
         // given
         Vertex<Integer> source = new Vertex<>(8);
@@ -235,9 +236,10 @@ public class MultipartiteGraphTest
 
         testObject.addEdgeBetween(source, destination);
         // when
-        Edge<Integer> result = testObject.addEdgeBetween(source, destination);
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.addEdgeBetween(source, destination));
         // then
-        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

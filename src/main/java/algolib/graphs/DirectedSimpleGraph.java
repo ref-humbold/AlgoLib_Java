@@ -52,7 +52,7 @@ public class DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {
         if(getEdge(edge.source, edge.destination) != null)
-            return null;
+            throw new IllegalArgumentException("Edge %s already exists".formatted(edge));
 
         representation.addEdgeToSource(edge);
         representation.setProperty(edge, property);

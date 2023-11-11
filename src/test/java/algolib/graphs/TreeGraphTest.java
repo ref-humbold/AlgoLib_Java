@@ -176,7 +176,7 @@ public class TreeGraphTest
     }
 
     @Test
-    public void addVertex_WhenExistingVertex_ThenNull()
+    public void addVertex_WhenExistingVertex_ThenIllegalArgumentException()
     {
         // given
         Vertex<Integer> vertex = new Vertex<>(6);
@@ -184,9 +184,10 @@ public class TreeGraphTest
 
         testObject.getProperties().set(vertex, property);
         // when
-        Edge<Integer> result = testObject.addVertex(vertex, new Vertex<>(2), "abcdefg", "xyz");
+        Throwable throwable = Assertions.catchThrowable(
+                () -> testObject.addVertex(vertex, new Vertex<>(2), "abcdefg", "xyz"));
         // then
-        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(8);
         Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
     }

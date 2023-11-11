@@ -67,31 +67,31 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
 
     Stream<Edge<VertexId>> getAdjacentEdges(Vertex<VertexId> vertex)
     {
-        validate(vertex);
+        validateVertex(vertex);
         return graphMap.get(vertex).stream();
     }
 
     VertexProperty getProperty(Vertex<VertexId> vertex)
     {
-        validate(vertex);
+        validateVertex(vertex);
         return vertexProperties.get(vertex);
     }
 
     void setProperty(Vertex<VertexId> vertex, VertexProperty property)
     {
-        validate(vertex);
+        validateVertex(vertex);
         vertexProperties.put(vertex, property);
     }
 
     EdgeProperty getProperty(Edge<VertexId> edge)
     {
-        validate(edge, true);
+        validateEdge(edge);
         return edgeProperties.get(edge);
     }
 
     void setProperty(Edge<VertexId> edge, EdgeProperty property)
     {
-        validate(edge, true);
+        validateEdge(edge);
         edgeProperties.put(edge, property);
     }
 
@@ -104,31 +104,41 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
 
     void addEdgeToSource(Edge<VertexId> edge)
     {
-        validate(edge, false);
+        validateEdgeVertices(edge);
         graphMap.get(edge.source).add(edge);
     }
 
     void addEdgeToDestination(Edge<VertexId> edge)
     {
-        validate(edge, false);
+        validateEdgeVertices(edge);
         graphMap.get(edge.destination).add(edge);
     }
 
-    private void validate(Vertex<VertexId> vertex)
+    private void validateVertex(Vertex<VertexId> vertex)
     {
         if(!graphMap.containsKey(vertex))
             throw new IllegalArgumentException(
                     "Vertex %s does not belong to this graph".formatted(vertex.toString()));
     }
 
-    private void validate(Edge<VertexId> edge, boolean existing)
+    private void validateEdgeVertices(Edge<VertexId> edge)
     {
-        if(!graphMap.containsKey(edge.source) || !graphMap.containsKey(edge.destination))
+        if(!graphMap.containsKey(edge.source))
             throw new IllegalArgumentException(
-                    "Edge %s does not belong to this graph".formatted(edge));
+                    "Edge source %s does not belong to this graph".formatted(edge.source));
 
-        if(existing && !graphMap.get(edge.source).contains(edge) && !graphMap.get(edge.destination)
-                                                                             .contains(edge))
+        if(!graphMap.containsKey(edge.destination))
+            throw new IllegalArgumentException(
+                    "Edge destination %s does not belong to this graph".formatted(
+                            edge.destination));
+    }
+
+    private void validateEdge(Edge<VertexId> edge)
+    {
+        validateEdgeVertices(edge);
+
+        if(!graphMap.get(edge.source).contains(edge) && !graphMap.get(edge.destination)
+                                                                 .contains(edge))
             throw new IllegalArgumentException(
                     "Edge %s does not belong to this graph".formatted(edge));
     }

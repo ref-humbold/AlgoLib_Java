@@ -295,9 +295,10 @@ public class UndirectedSimpleGraphTest
 
         testObject.getProperties().set(vertex, property);
         // when
-        Vertex<Integer> result = testObject.addVertex(vertex, "abcdefg");
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.addVertex(vertex, "abcdefg"));
         // then
-        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
         Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
     }
@@ -322,7 +323,7 @@ public class UndirectedSimpleGraphTest
     }
 
     @Test
-    public void addEdgeBetween_WhenExistingEdge_ThenNull()
+    public void addEdgeBetween_WhenExistingEdge_ThenIllegalArgumentException()
     {
         // given
         Vertex<Integer> source = new Vertex<>(3);
@@ -330,13 +331,14 @@ public class UndirectedSimpleGraphTest
 
         testObject.addEdgeBetween(source, destination);
         // when
-        Edge<Integer> result = testObject.addEdgeBetween(source, destination);
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.addEdgeBetween(source, destination));
         // then
-        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    public void addEdgeBetween_WhenReversedEdge_ThenNull()
+    public void addEdgeBetween_WhenReversedEdge_ThenIllegalArgumentException()
     {
         // given
         Vertex<Integer> source = new Vertex<>(3);
@@ -344,9 +346,10 @@ public class UndirectedSimpleGraphTest
 
         testObject.addEdgeBetween(source, destination);
         // when
-        Edge<Integer> result = testObject.addEdgeBetween(destination, source);
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.addEdgeBetween(destination, source));
         // then
-        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

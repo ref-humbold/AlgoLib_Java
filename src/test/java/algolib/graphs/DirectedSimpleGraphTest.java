@@ -296,9 +296,10 @@ public class DirectedSimpleGraphTest
 
         testObject.getProperties().set(vertex, property);
         // when
-        Vertex<Integer> result = testObject.addVertex(vertex, "abcdefg");
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.addVertex(vertex, "abcdefg"));
         // then
-        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
         Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
     }
@@ -323,16 +324,17 @@ public class DirectedSimpleGraphTest
     }
 
     @Test
-    public void addEdgeBetween_WhenExistingEdge_ThenNull()
+    public void addEdgeBetween_WhenExistingEdge_ThenIllegalArgumentException()
     {
         // given
         Vertex<Integer> source = new Vertex<>(3);
         Vertex<Integer> destination = new Vertex<>(7);
         testObject.addEdgeBetween(source, destination);
         // when
-        Edge<Integer> result = testObject.addEdgeBetween(source, destination);
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.addEdgeBetween(source, destination));
         // then
-        Assertions.assertThat(result).isNull();
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

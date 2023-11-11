@@ -3,7 +3,6 @@ package algolib.graphs;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /** Structure of multipartite graph. */
@@ -169,23 +168,26 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @param groupNumber the group number
      * @param vertex the new vertex
      * @param property the vertex property
-     * @return the created vertex, or {@code null} if vertex already exists
+     * @return the created vertex
+     * @throws IllegalArgumentException if vertex already exists
      */
     public Vertex<VertexId> addVertex(
             int groupNumber, Vertex<VertexId> vertex, VertexProperty property)
     {
         validateGroup(groupNumber);
-        return Optional.ofNullable(graph.addVertex(vertex, property)).map(newVertex -> {
-            vertexGroupMap.put(newVertex, groupNumber);
-            return newVertex;
-        }).orElse(null);
+
+        Vertex<VertexId> newVertex = graph.addVertex(vertex, property);
+
+        vertexGroupMap.put(newVertex, groupNumber);
+        return newVertex;
     }
 
     /**
      * Adds new edge between given vertices to this graph.
      * @param source the source vertex
      * @param destination the destination vertex
-     * @return the created edge, or {@code null} if edge already exists
+     * @return the created edge
+     * @throws IllegalArgumentException if edge already exists
      * @throws GraphPartitionException if the vertices belong to the same group
      */
     public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source, Vertex<VertexId> destination)
@@ -198,7 +200,8 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @param source the source vertex
      * @param destination the destination vertex
      * @param property the edge property
-     * @return the created edge, or {@code null} if edge already exists
+     * @return the created edge
+     * @throws IllegalArgumentException if edge already exists
      * @throws GraphPartitionException if the vertices belong to the same group
      */
     public Edge<VertexId> addEdgeBetween(
@@ -210,7 +213,8 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
     /**
      * Adds new edge to this graph.
      * @param edge the new edge
-     * @return the created edge, or {@code null} if edge already exists
+     * @return the created edge
+     * @throws IllegalArgumentException if edge already exists
      * @throws GraphPartitionException if the edge connects vertices from the same group
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge)
@@ -222,7 +226,8 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * Adds new edge with given property to this graph.
      * @param edge the new edge
      * @param property the edge property
-     * @return the created edge, or {@code null} if edge already exists
+     * @return the created edge
+     * @throws IllegalArgumentException if edge already exists
      * @throws GraphPartitionException if the edge connects vertices from the same group
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
