@@ -1,0 +1,124 @@
+package algolib.maths;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+// Tests: Algorithms for testing prime numbers.
+public class PrimesTestingTest
+{
+    //region testPrimeFermat
+
+    @Test
+    public void testPrimeFermat_WhenZero_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(0);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenOne_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(1);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenTwo_ThenTrue()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(2);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenPrime_ThenTrue()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(1013);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenComposite1_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(1001L);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenComposite2_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(
+                41041); // 41041 = 7 * 11 * 13 * 41 is a Carmichael number
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    //endregion
+    //region testPrimeMiller
+
+    @Test
+    public void testPrimeMiller_WhenZero_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(0);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenOne_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(1);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenTwo_ThenTrue_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(2);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenPrime_ThenTrue()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(1013);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenComposite1_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(1001L);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenComposite2_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(41041);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    //endregion
+}

@@ -4,16 +4,15 @@ import java.util.Collection;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// Tests: Algorithms for prime numbers.
-public class PrimesTest
+// Tests: Algorithms for searching for prime numbers.
+public class PrimesSearchingTest
 {
-    //region testFindPrimes
 
     @Test
     public void findPrimes_WhenMinGreaterThanMax_ThenEmpty()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(100, 30);
+        Collection<Integer> result = PrimesSearching.findPrimes(100, 30);
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -22,8 +21,8 @@ public class PrimesTest
     public void findPrimes_WhenSingleArgument_ThenMinIsZero()
     {
         // when
-        Collection<Integer> result1 = Primes.findPrimes(100);
-        Collection<Integer> result2 = Primes.findPrimes(0, 100);
+        Collection<Integer> result1 = PrimesSearching.findPrimes(100);
+        Collection<Integer> result2 = PrimesSearching.findPrimes(0, 100);
         // then
         Assertions.assertThat(result1).isEqualTo(result2);
     }
@@ -32,7 +31,7 @@ public class PrimesTest
     public void findPrimes_WhenMaxIsComposite_ThenAllPrimes()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(100);
+        Collection<Integer> result = PrimesSearching.findPrimes(100);
         // then
         Assertions.assertThat(result)
                   .containsExactly(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
@@ -43,7 +42,7 @@ public class PrimesTest
     public void findPrimes_WhenMaxIsPrime_ThenMaxExclusive()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(67);
+        Collection<Integer> result = PrimesSearching.findPrimes(67);
         // then
         Assertions.assertThat(result)
                   .containsExactly(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
@@ -54,7 +53,7 @@ public class PrimesTest
     public void findPrimes_WhenMaxIsTwo_ThenEmpty()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(2);
+        Collection<Integer> result = PrimesSearching.findPrimes(2);
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -63,7 +62,7 @@ public class PrimesTest
     public void findPrimes_WhenMaxIsThree_ThenSingleElement()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(3);
+        Collection<Integer> result = PrimesSearching.findPrimes(3);
         // then
         Assertions.assertThat(result).containsExactly(2);
     }
@@ -72,7 +71,7 @@ public class PrimesTest
     public void findPrimes_WhenMaxIsFour_ThenAllPrimes()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(4);
+        Collection<Integer> result = PrimesSearching.findPrimes(4);
         // then
         Assertions.assertThat(result).containsExactly(2, 3);
     }
@@ -81,7 +80,7 @@ public class PrimesTest
     public void findPrimes_WhenRange_ThenPrimesBetween()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(30, 200);
+        Collection<Integer> result = PrimesSearching.findPrimes(30, 200);
         // then
         Assertions.assertThat(result)
                   .containsExactly(31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,
@@ -93,7 +92,7 @@ public class PrimesTest
     public void findPrimes_WhenMinIsTwo_ThenTwoIncluded()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(2, 30);
+        Collection<Integer> result = PrimesSearching.findPrimes(2, 30);
         // then
         Assertions.assertThat(result).containsExactly(2, 3, 5, 7, 11, 13, 17, 19, 23, 29);
     }
@@ -102,7 +101,7 @@ public class PrimesTest
     public void findPrimes_WhenMinIsThree_ThenTwoNotIncluded()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(3, 30);
+        Collection<Integer> result = PrimesSearching.findPrimes(3, 30);
         // then
         Assertions.assertThat(result).containsExactly(3, 5, 7, 11, 13, 17, 19, 23, 29);
     }
@@ -111,7 +110,7 @@ public class PrimesTest
     public void findPrimes_WhenMaxIsFourthPowerOfPrime_ThenAllPrimesBetween()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(9, 81);
+        Collection<Integer> result = PrimesSearching.findPrimes(9, 81);
         // then
         Assertions.assertThat(result)
                   .containsExactly(11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
@@ -122,7 +121,7 @@ public class PrimesTest
     public void findPrimes_WhenMinIsLessThanSquareRootOfMax_ThenPrimesBetween()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(5, 150);
+        Collection<Integer> result = PrimesSearching.findPrimes(5, 150);
         // then
         Assertions.assertThat(result)
                   .containsExactly(5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67,
@@ -134,7 +133,7 @@ public class PrimesTest
     public void findPrimes_WhenMinAndMaxArePrimes_ThenMinInclusiveAndMaxExclusive()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(137, 317);
+        Collection<Integer> result = PrimesSearching.findPrimes(137, 317);
         // then
         Assertions.assertThat(result)
                   .containsExactly(137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
@@ -146,7 +145,7 @@ public class PrimesTest
     public void findPrimes_WhenMinEqualsMaxAndPrime_ThenEmpty()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(41, 41);
+        Collection<Integer> result = PrimesSearching.findPrimes(41, 41);
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -155,124 +154,8 @@ public class PrimesTest
     public void findPrimes_WhenMinEqualsMaxAndComposite_ThenEmpty()
     {
         // when
-        Collection<Integer> result = Primes.findPrimes(91, 91);
+        Collection<Integer> result = PrimesSearching.findPrimes(91, 91);
         // then
         Assertions.assertThat(result).isEmpty();
     }
-
-    //endregion
-    //region testFermat
-
-    @Test
-    public void testFermat_WhenZero_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testFermat(0);
-        // then
-        Assertions.assertThat(result).isFalse();
-    }
-
-    @Test
-    public void testFermat_WhenOne_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testFermat(1);
-        // then
-        Assertions.assertThat(result).isFalse();
-    }
-
-    @Test
-    public void testFermat_WhenTwo_ThenTrue()
-    {
-        // when
-        boolean result = Primes.testFermat(2);
-        // then
-        Assertions.assertThat(result).isTrue();
-    }
-
-    @Test
-    public void testFermat_WhenPrime_ThenTrue()
-    {
-        // when
-        boolean result = Primes.testFermat(1013);
-        // then
-        Assertions.assertThat(result).isTrue();
-    }
-
-    @Test
-    public void testFermat_WhenComposite_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testFermat(1001L);
-        // then
-        Assertions.assertThat(result).isFalse();
-    }
-
-    @Test
-    public void testFermat_WhenCarmichaelNumber_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testFermat(1105);  // 1105 = 5 * 13 * 17 is a Carmichael number
-        // then
-        Assertions.assertThat(result).isFalse();
-    }
-
-    //endregion
-    //region testMiller
-
-    @Test
-    public void testMiller_WhenZero_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testMiller(0);
-        // then
-        Assertions.assertThat(result).isFalse();
-    }
-
-    @Test
-    public void testMiller_WhenOne_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testMiller(1);
-        // then
-        Assertions.assertThat(result).isFalse();
-    }
-
-    @Test
-    public void testMiller_WhenTwo_ThenTrue_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testMiller(2);
-        // then
-        Assertions.assertThat(result).isTrue();
-    }
-
-    @Test
-    public void testMiller_WhenPrime_ThenTrue()
-    {
-        // when
-        boolean result = Primes.testMiller(1013);
-        // then
-        Assertions.assertThat(result).isTrue();
-    }
-
-    @Test
-    public void testMiller_WhenComposite1_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testMiller(1001L);
-        // then
-        Assertions.assertThat(result).isFalse();
-    }
-
-    @Test
-    public void testMiller_WhenComposite2_ThenFalse()
-    {
-        // when
-        boolean result = Primes.testMiller(1105);
-        // then
-        Assertions.assertThat(result).isFalse();
-    }
-
-    //endregion
 }
