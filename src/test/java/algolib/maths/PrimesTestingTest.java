@@ -45,10 +45,19 @@ public class PrimesTestingTest
     }
 
     @Test
-    public void testPrimeFermat_WhenPrimeLong_ThenTrue()
+    public void testPrimeFermat_WhenPrimeLong1_ThenTrue()
     {
         // when
         boolean result = PrimesTesting.testPrimeFermat(2131L);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenPrimeLong2_ThenTrue()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(6199L);
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -63,10 +72,19 @@ public class PrimesTestingTest
     }
 
     @Test
-    public void testPrimeFermat_WhenCompositeLong_ThenFalse()
+    public void testPrimeFermat_WhenCompositeLong1_ThenFalse()
     {
         // when
         boolean result = PrimesTesting.testPrimeFermat(41041L); // 41041 = 7 * 11 * 13 * 41
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenCompositeLong2_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(73627L); // 73627 = 17 * 61 * 71
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -120,10 +138,19 @@ public class PrimesTestingTest
     }
 
     @Test
-    public void testPrimeMiller_WhenPrimeLong_ThenTrue()
+    public void testPrimeMiller_WhenPrimeLong1_ThenTrue()
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(2131L);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenPrimeLong2_ThenTrue()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(6199L);
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -138,10 +165,19 @@ public class PrimesTestingTest
     }
 
     @Test
-    public void testPrimeMiller_WhenCompositeLong_ThenFalse()
+    public void testPrimeMiller_WhenCompositeLong1_ThenFalse()
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(41041L);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenCompositeLong2_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(73627L);
         // then
         Assertions.assertThat(result).isFalse();
     }
