@@ -10,6 +10,8 @@ public final class PrimesTesting
     private static final int ATTEMPTS = 17;
     private static final Random random = new Random();
 
+    //region testPrimeFermat
+
     /**
      * Checks whether given number is prime using Fermat prime test.
      * @param number the number
@@ -57,6 +59,9 @@ public final class PrimesTesting
 
         return true;
     }
+
+    //endregion
+    //region testPrimeMiller
 
     /**
      * Checks whether given number is prime using Miller-Rabin prime test.
@@ -125,4 +130,6 @@ public final class PrimesTesting
 
         return true;
     }
+
+    //endregion
 }

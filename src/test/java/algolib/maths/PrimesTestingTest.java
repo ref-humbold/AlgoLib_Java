@@ -45,20 +45,37 @@ public class PrimesTestingTest
     }
 
     @Test
-    public void testPrimeFermat_WhenComposite1_ThenFalse()
+    public void testPrimeFermat_WhenPrimeLong_ThenTrue()
     {
         // when
-        boolean result = PrimesTesting.testPrimeFermat(1001L);
+        boolean result = PrimesTesting.testPrimeFermat(2131L);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenComposite_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(1001); // 1001 = 7 * 11 * 13
         // then
         Assertions.assertThat(result).isFalse();
     }
 
     @Test
-    public void testPrimeFermat_WhenComposite2_ThenFalse()
+    public void testPrimeFermat_WhenCompositeLong_ThenFalse()
     {
         // when
-        boolean result = PrimesTesting.testPrimeFermat(
-                41041); // 41041 = 7 * 11 * 13 * 41 is a Carmichael number
+        boolean result = PrimesTesting.testPrimeFermat(41041L); // 41041 = 7 * 11 * 13 * 41
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeFermat_WhenCompositeSquareOfPrime_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeFermat(3481); // 3481 = 59 ^ 2
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -103,19 +120,37 @@ public class PrimesTestingTest
     }
 
     @Test
-    public void testPrimeMiller_WhenComposite1_ThenFalse()
+    public void testPrimeMiller_WhenPrimeLong_ThenTrue()
     {
         // when
-        boolean result = PrimesTesting.testPrimeMiller(1001L);
+        boolean result = PrimesTesting.testPrimeMiller(2131L);
+        // then
+        Assertions.assertThat(result).isTrue();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenComposite_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(1001);
         // then
         Assertions.assertThat(result).isFalse();
     }
 
     @Test
-    public void testPrimeMiller_WhenComposite2_ThenFalse()
+    public void testPrimeMiller_WhenCompositeLong_ThenFalse()
     {
         // when
-        boolean result = PrimesTesting.testPrimeMiller(41041);
+        boolean result = PrimesTesting.testPrimeMiller(41041L);
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
+    @Test
+    public void testPrimeMiller_WhenCompositeSquareOfPrime_ThenFalse()
+    {
+        // when
+        boolean result = PrimesTesting.testPrimeMiller(3481);
         // then
         Assertions.assertThat(result).isFalse();
     }
