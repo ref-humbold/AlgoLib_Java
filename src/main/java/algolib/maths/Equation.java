@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,6 +19,11 @@ public final class Equation
         this.freeTerm = freeTerm;
     }
 
+    public double[] getCoefficients()
+    {
+        return coefficients;
+    }
+
     public double getFreeTerm()
     {
         return freeTerm;
@@ -28,25 +32,6 @@ public final class Equation
     public static Equation of(double[] coefficients, double free)
     {
         return new Equation(coefficients, free);
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof Equation other))
-            return false;
-
-        return Double.compare(other.freeTerm, freeTerm) == 0 && Arrays.equals(coefficients,
-                                                                              other.coefficients);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(freeTerm, Arrays.hashCode(coefficients));
     }
 
     @Override
@@ -67,16 +52,6 @@ public final class Equation
     public int size()
     {
         return coefficients.length;
-    }
-
-    /**
-     * Gets the coefficient by the variable at given index.
-     * @param i the index of variable
-     * @return the coefficient specified by the index
-     */
-    public double getCoefficient(int i)
-    {
-        return coefficients[i];
     }
 
     /**

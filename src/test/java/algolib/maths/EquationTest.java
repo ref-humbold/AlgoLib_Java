@@ -1,6 +1,5 @@
 package algolib.maths;
 
-import java.util.stream.IntStream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +28,7 @@ public class EquationTest
         // when
         Equation result = testObject.negate();
         // then
-        Assertions.assertThat(coefficients(result))
+        Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(-2, -3, 0, 2.5);
         Assertions.assertThat(result.getFreeTerm()).isEqualTo(-15);
@@ -41,7 +40,7 @@ public class EquationTest
         // when
         Equation result = testObject.add(Equation.of(new double[]{1, -1, 4, 10}, 5));
         // then
-        Assertions.assertThat(coefficients(result))
+        Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(3, 2, 4, 7.5);
         Assertions.assertThat(result.getFreeTerm()).isEqualTo(20);
@@ -53,7 +52,7 @@ public class EquationTest
         // when
         Equation result = testObject.subtract(Equation.of(new double[]{1, -1, 4, 10}, 5));
         // then
-        Assertions.assertThat(coefficients(result))
+        Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(1, 4, -4, -12.5);
         Assertions.assertThat(result.getFreeTerm()).isEqualTo(10);
@@ -65,7 +64,7 @@ public class EquationTest
         // when
         Equation result = testObject.multiply(2);
         // then
-        Assertions.assertThat(coefficients(result))
+        Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(4, 6, 0, -5);
         Assertions.assertThat(result.getFreeTerm()).isEqualTo(30);
@@ -86,7 +85,7 @@ public class EquationTest
         // when
         Equation result = testObject.divide(-2);
         // then
-        Assertions.assertThat(coefficients(result))
+        Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
                   .containsExactly(-1, -1.5, 0, 1.25);
         Assertions.assertThat(result.getFreeTerm()).isEqualTo(-7.5);
@@ -126,10 +125,5 @@ public class EquationTest
         boolean result = testObject.hasSolution(new double[]{10, 6, -17, 14});
         // then
         Assertions.assertThat(result).isFalse();
-    }
-
-    private double[] coefficients(Equation equation)
-    {
-        return IntStream.range(0, equation.size()).mapToDouble(equation::getCoefficient).toArray();
     }
 }

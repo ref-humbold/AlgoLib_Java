@@ -1,6 +1,7 @@
 package algolib.maths;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /** Structure of system of linear equations. */
 public final class EquationSystem
@@ -38,6 +39,14 @@ public final class EquationSystem
         return Arrays.hashCode(equations);
     }
 
+    @Override
+    public String toString()
+    {
+        return "{ %s }".formatted(Arrays.stream(equations)
+                                        .map(Equation::toString)
+                                        .collect(Collectors.joining(" ; ")));
+    }
+
     /**
      * Gets the number of equations in this system.
      * @return the number of equations
@@ -68,29 +77,29 @@ public final class EquationSystem
     {
         gaussianReduce();
 
-        if(equations[equations.length - 1].getCoefficient(equations.length - 1) == 0
-                   && equations[equations.length - 1].getFreeTerm() == 0)
+        int lastIndex = equations.length - 1;
+
+        if(equations[lastIndex].getCoefficients()[lastIndex] == 0
+                   && equations[lastIndex].getFreeTerm() == 0)
             throw new InfiniteSolutionsException();
 
-        if(equations[equations.length - 1].getCoefficient(equations.length - 1) == 0
-                   && equations[equations.length - 1].getFreeTerm() != 0)
+        if(equations[lastIndex].getCoefficients()[lastIndex] == 0
+                   && equations[lastIndex].getFreeTerm() != 0)
             throw new NoSolutionException();
 
         double[] solution = new double[equations.length];
 
-        solution[equations.length - 1] =
-                equations[equations.length - 1].getFreeTerm() / equations[equations.length
-                                                                                  - 1].getCoefficient(
-                        equations.length - 1);
+        solution[lastIndex] = equations[lastIndex].getFreeTerm()
+                                      / equations[lastIndex].getCoefficients()[lastIndex];
 
         for(int i = equations.length - 2; i >= 0; --i)
         {
             double value = equations[i].getFreeTerm();
 
-            for(int j = equations.length - 1; j > i; --j)
-                value -= equations[i].getCoefficient(j) * solution[j];
+            for(int j = lastIndex; j > i; --j)
+                value -= equations[i].getCoefficients()[j] * solution[j];
 
-            solution[i] = value / equations[i].getCoefficient(i);
+            solution[i] = value / equations[i].getCoefficients()[i];
         }
 
         return solution;
@@ -101,24 +110,16 @@ public final class EquationSystem
     {
         for(int i = 0; i < equations.length - 1; ++i)
         {
-            int indexMin = i;
+            int indexMin = getMinimalCoefficientIndex(i);
 
-            for(int j = i + 1; j < equations.length; ++j)
-            {
-                double minCoef = equations[indexMin].getCoefficient(i);
-                double actCoef = equations[j].getCoefficient(i);
-
-                if(actCoef != 0 && (minCoef == 0 || Math.abs(actCoef) < Math.abs(minCoef)))
-                    indexMin = j;
-            }
-
-            if(equations[indexMin].getCoefficient(i) != 0)
+            if(equations[indexMin].getCoefficients()[i] != 0)
             {
                 swap(indexMin, i);
 
                 for(int j = i + 1; j < equations.length; ++j)
                 {
-                    double param = equations[j].getCoefficient(i) / equations[i].getCoefficient(i);
+                    double param =
+                            equations[j].getCoefficients()[i] / equations[i].getCoefficients()[i];
 
                     if(param != 0)
                         equations[j] = equations[j].add(equations[i].multiply(-param));
@@ -148,5 +149,23 @@ public final class EquationSystem
     public boolean hasSolution(double[] solution)
     {
         return Arrays.stream(equations).allMatch(eq -> eq.hasSolution(solution));
+    }
+
+    private int getMinimalCoefficientIndex(int startingIndex)
+    {
+        int indexMin = startingIndex;
+
+        for(int i = startingIndex + 1; i < equations.length; ++i)
+        {
+            double minCoefficient = equations[indexMin].getCoefficients()[startingIndex];
+            double currentCoefficient = equations[i].getCoefficients()[startingIndex];
+
+            if(currentCoefficient != 0 && (minCoefficient == 0
+                                                   || Math.abs(currentCoefficient) < Math.abs(
+                    minCoefficient)))
+                indexMin = i;
+        }
+
+        return indexMin;
     }
 }

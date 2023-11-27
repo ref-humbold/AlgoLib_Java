@@ -7,6 +7,21 @@ import org.junit.jupiter.api.Test;
 public class EquationSystemTest
 {
     @Test
+    public void toString_ThenStringRepresentation()
+    {
+        // given
+        var testObject = EquationSystem.of(Equation.of(new double[]{2.0, 3.0, -2.0}, 15),
+                                           Equation.of(new double[]{7.0, -1.0, 0.0}, 4),
+                                           Equation.of(new double[]{-1.0, 6.0, 4.0}, 9));
+        // when
+        String result = testObject.toString();
+        // then
+        Assertions.assertThat(result)
+                  .isEqualTo("{ 2 x_0 + 3 x_1 + -2 x_2 = 15 ; 7 x_0 + -1 x_1 = 4 ; "
+                                     + "-1 x_0 + 6 x_1 + 4 x_2 = 9 }");
+    }
+
+    @Test
     public void solve_WhenSingleSolution_ThenSolution()
     {
         // given
