@@ -23,20 +23,20 @@ public final class KnuthMorrisPratt
 
         List<Integer> places = new ArrayList<>();
         List<Integer> pi = KnuthMorrisPratt.prefixes(pattern);
-        int pos = 0;
+        int position = 0;
 
         for(int i = 0; i < text.length(); ++i)
         {
-            while(pos > 0 && pattern.charAt(pos) != text.charAt(i))
-                pos = pi.get(pos - 1);
+            while(position > 0 && pattern.charAt(position) != text.charAt(i))
+                position = pi.get(position - 1);
 
-            if(pattern.charAt(pos) == text.charAt(i))
-                ++pos;
+            if(pattern.charAt(position) == text.charAt(i))
+                ++position;
 
-            if(pos == pattern.length())
+            if(position == pattern.length())
             {
                 places.add(i - pattern.length() + 1);
-                pos = pi.get(pos - 1);
+                position = pi.get(position - 1);
             }
         }
 
@@ -47,19 +47,19 @@ public final class KnuthMorrisPratt
     private static List<Integer> prefixes(String pattern)
     {
         List<Integer> pi = new ArrayList<>();
-        int pos = 0;
+        int position = 0;
 
         pi.add(0);
 
-        for(char ltr : pattern.toCharArray())
+        for(char letter : pattern.substring(1).toCharArray())
         {
-            while(pos > 0 && pattern.charAt(pos) != ltr)
-                pos = pi.get(pos - 1);
+            while(position > 0 && pattern.charAt(position) != letter)
+                position = pi.get(position - 1);
 
-            if(pattern.charAt(pos) == ltr)
-                ++pos;
+            if(pattern.charAt(position) == letter)
+                ++position;
 
-            pi.add(pos);
+            pi.add(position);
         }
 
         return pi;

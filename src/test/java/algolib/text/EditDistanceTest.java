@@ -12,6 +12,18 @@ public class EditDistanceTest
     // region countLevenshtein
 
     @Test
+    public void countLevenshtein_WhenDifferentText_ThenDistance()
+    {
+        // given
+        String source = "qwertyuiop";
+        String destination = "wertzuiopsx";
+        // when
+        double result = EditDistance.countLevenshtein(source, destination);
+        // then
+        Assertions.assertThat(result).isCloseTo(4.0, OFFSET);
+    }
+
+    @Test
     public void countLevenshtein_WhenSameText_ThenZero()
     {
         // given
@@ -60,6 +72,18 @@ public class EditDistanceTest
     // region countLcs
 
     @Test
+    public void countLcs_WhenDifferentText_ThenDistance()
+    {
+        // given
+        String source = "qwertyuiop";
+        String destination = "wertzuiopsx";
+        // when
+        double result = EditDistance.countLcs(source, destination);
+        // then
+        Assertions.assertThat(result).isCloseTo(5.0, OFFSET);
+    }
+
+    @Test
     public void countLcs_WhenSameText_ThenZero()
     {
         // given
@@ -106,6 +130,19 @@ public class EditDistanceTest
 
     // endregion
     // region countHamming
+
+    @Test
+    public void countHamming_WhenDifferentText_ThenDistance()
+    {
+        // given
+        String source = "qwertyuiop";
+        String destination = "qvertzuimp";
+        double substitutionCost = 2.0;
+        // when
+        double result = EditDistance.countHamming(source, destination, substitutionCost);
+        // then
+        Assertions.assertThat(result).isCloseTo(3 * substitutionCost, OFFSET);
+    }
 
     @Test
     public void countHamming_WhenEmpty_ThenZero()

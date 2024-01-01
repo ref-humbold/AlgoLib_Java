@@ -8,6 +8,16 @@ import org.junit.jupiter.api.Test;
 public class KnuthMorrisPrattTest
 {
     @Test
+    public void kmpSearch_WhenPatternFound_ThenAllOccurrences()
+    {
+        // when
+        List<Integer> result =
+                KnuthMorrisPratt.kmpSearch("abcdecdcdefgcdcdecdcdecdcdehijcdecdcdek", "cdecdcde");
+        // then
+        Assertions.assertThat(result).containsExactly(2, 14, 19, 30);
+    }
+
+    @Test
     public void kmpSearch_WhenPatternFoundOnce_ThenSingleOccurrence()
     {
         // when
@@ -29,7 +39,7 @@ public class KnuthMorrisPrattTest
     public void kmpSearch_WhenPatternFoundTwiceAndOverlaps_ThenTwoOccurrences()
     {
         // when
-        List<Integer> result = KnuthMorrisPratt.kmpSearch("aaabcde", "aa");
+        List<Integer> result = KnuthMorrisPratt.kmpSearch("aaaabcde", "aaa");
         // then
         Assertions.assertThat(result).containsExactly(0, 1);
     }
