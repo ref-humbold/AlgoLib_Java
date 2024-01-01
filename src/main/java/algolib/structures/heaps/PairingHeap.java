@@ -1,13 +1,15 @@
-package algolib.structures;
+package algolib.structures.heaps;
 
 import java.util.*;
 
 /** Structure of pairing heap. */
 public class PairingHeap<E extends Comparable<E>>
         extends AbstractQueue<E>
+        implements Heap<E>
 {
     private HeapNode<E> heap = null;
     private int size_ = 0;
+    private final Comparator<E> comparator_ = Comparator.naturalOrder();
 
     public PairingHeap()
     {
@@ -24,6 +26,12 @@ public class PairingHeap<E extends Comparable<E>>
     public boolean isEmpty()
     {
         return heap == null;
+    }
+
+    @Override
+    public Comparator<? super E> comparator()
+    {
+        return comparator_;
     }
 
     @Override
@@ -54,7 +62,7 @@ public class PairingHeap<E extends Comparable<E>>
     @Override
     public boolean offer(E element)
     {
-        heap = heap == null ? new HeapNode<>(element, null) : heap.append(element);
+        heap = heap == null ? new HeapNode<>(element, null, comparator_) : heap.append(element);
         ++size_;
         return true;
     }
@@ -82,35 +90,19 @@ public class PairingHeap<E extends Comparable<E>>
         size_ += other.size_;
     }
 
-    private static class HeapNodeList<E extends Comparable<E>>
+    private record HeapNodeList<E>(HeapNode<E> node, HeapNodeList<E> next)
     {
-        final HeapNode<E> node;
-        final HeapNodeList<E> next;
-
-        HeapNodeList(HeapNode<E> node, HeapNodeList<E> next)
-        {
-            this.node = node;
-            this.next = next;
-        }
     }
 
-    private static class HeapNode<E extends Comparable<E>>
+    private record HeapNode<E>(E element, HeapNodeList<E> children, Comparator<E> comparator)
     {
-        private final E element;
-        private final HeapNodeList<E> children;
-
-        HeapNode(E element, HeapNodeList<E> children)
-        {
-            this.element = element;
-            this.children = children;
-        }
-
         HeapNode<E> append(E element)
         {
-            return this.element.compareTo(element) <= 0
-                   ? new HeapNode<>(this.element, new HeapNodeList<>(new HeapNode<>(element, null),
-                                                                     children))
-                   : new HeapNode<>(element, new HeapNodeList<>(this, null));
+            return comparator.compare(this.element, element) <= 0
+                   ? new HeapNode<>(this.element, new HeapNodeList<>(new HeapNode<>(element, null,
+                                                                                    comparator),
+                                                                     children), comparator)
+                   : new HeapNode<>(element, new HeapNodeList<>(this, null), comparator);
         }
 
         HeapNode<E> pop()
@@ -122,9 +114,10 @@ public class PairingHeap<E extends Comparable<E>>
         {
             return node == null
                    ? this
-                   : element.compareTo(node.element) <= 0
-                     ? new HeapNode<>(element, new HeapNodeList<>(node, children))
-                     : new HeapNode<>(node.element, new HeapNodeList<>(this, node.children));
+                   : comparator.compare(element, node.element) <= 0
+                     ? new HeapNode<>(element, new HeapNodeList<>(node, children), comparator)
+                     : new HeapNode<>(node.element, new HeapNodeList<>(this, node.children),
+                                      comparator);
         }
 
         private HeapNode<E> mergePairs(HeapNodeList<E> list)

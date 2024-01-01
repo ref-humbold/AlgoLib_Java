@@ -1,4 +1,4 @@
-package algolib.structures;
+package algolib.structures.heaps;
 
 import java.util.*;
 import org.assertj.core.api.Assertions;
@@ -167,7 +167,7 @@ public class DoubleHeapTest
     }
 
     // endregion
-    // region peek
+    // region peek*
 
     @Test
     public void peek_WhenNotEmpty_ThenMinimalElement()
@@ -300,7 +300,7 @@ public class DoubleHeapTest
     }
 
     // endregion
-    // region element
+    // region element*
 
     @Test
     public void element_WhenNotEmpty_ThenMinimalElement()
@@ -352,7 +352,7 @@ public class DoubleHeapTest
     }
 
     // endregion
-    // region poll
+    // region poll*
 
     @Test
     public void poll_WhenNotEmpty_ThenMinimalElementRemoved()
@@ -432,7 +432,7 @@ public class DoubleHeapTest
     }
 
     // endregion
-    // region remove
+    // region remove*
 
     @Test
     public void remove_WhenNotEmpty_ThenMinimalElementRemoved()

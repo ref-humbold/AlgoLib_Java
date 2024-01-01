@@ -1,4 +1,4 @@
-package algolib.structures;
+package algolib.structures.heaps;
 
 import java.util.*;
 import org.assertj.core.api.Assertions;

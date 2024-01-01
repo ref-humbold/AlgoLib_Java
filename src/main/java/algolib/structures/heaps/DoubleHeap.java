@@ -1,10 +1,11 @@
-package algolib.structures;
+package algolib.structures.heaps;
 
 import java.util.*;
 
 /** Structure of double heap. */
 public class DoubleHeap<E>
         extends AbstractQueue<E>
+        implements Heap<E>
 {
     private static final int INDEX_MIN = 0;
     private static final int INDEX_MAX = 1;
@@ -56,10 +57,7 @@ public class DoubleHeap<E>
         return heap.isEmpty();
     }
 
-    /**
-     * Gets the comparator of this double heap.
-     * @return the comparator
-     */
+    @Override
     public Comparator<? super E> comparator()
     {
         return comparator_;
