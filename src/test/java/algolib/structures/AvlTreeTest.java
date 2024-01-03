@@ -116,16 +116,6 @@ public class AvlTreeTest
     }
 
     @Test
-    public void iterator_WhenNotEmpty_ThenSortedElements()
-    {
-        // when
-        List<Integer> result = new ArrayList<>(testObject);
-        // then
-        Assertions.assertThat(result).isSorted();
-        Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
-    }
-
-    @Test
     public void iterator_WhenEmpty_ThenNoElements()
     {
         // given
@@ -137,17 +127,27 @@ public class AvlTreeTest
     }
 
     @Test
-    public void descendingIterator_WhenNotEmpty_ThenReverseSortedElements()
+    public void iterator_WhenSingleElement_ThenThisElementOnly()
     {
         // given
-        Iterator<Integer> iterator = testObject.descendingIterator();
-        // when
-        List<Integer> result = new ArrayList<>();
+        int element = 17;
 
-        while(iterator.hasNext())
-            result.add(iterator.next());
+        testObject = new AvlTree<>(List.of(element));
+        // when
+        Iterator<Integer> iterator = testObject.iterator();
         // then
-        Assertions.assertThat(result).isSortedAccordingTo((n, m) -> m.compareTo(n));
+        Assertions.assertThat(iterator.hasNext()).isTrue();
+        Assertions.assertThat(iterator.next()).isEqualTo(element);
+        Assertions.assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void iterator_WhenMultipleElements_ThenSortedElements()
+    {
+        // when
+        List<Integer> result = new ArrayList<>(testObject);
+        // then
+        Assertions.assertThat(result).isSorted();
         Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
     }
 
@@ -164,6 +164,36 @@ public class AvlTreeTest
             result.add(iterator.next());
         // then
         Assertions.assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void descendingIterator_WhenSingleElement_ThenThisElementOnly()
+    {
+        // given
+        int element = 17;
+
+        testObject = new AvlTree<>(List.of(element));
+        // when
+        Iterator<Integer> iterator = testObject.descendingIterator();
+        // then
+        Assertions.assertThat(iterator.hasNext()).isTrue();
+        Assertions.assertThat(iterator.next()).isEqualTo(element);
+        Assertions.assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void descendingIterator_WhenMultipleElements_ThenReverseSortedElements()
+    {
+        // given
+        Iterator<Integer> iterator = testObject.descendingIterator();
+        // when
+        List<Integer> result = new ArrayList<>();
+
+        while(iterator.hasNext())
+            result.add(iterator.next());
+        // then
+        Assertions.assertThat(result).isSortedAccordingTo((n, m) -> m.compareTo(n));
+        Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
     }
 
     @Test

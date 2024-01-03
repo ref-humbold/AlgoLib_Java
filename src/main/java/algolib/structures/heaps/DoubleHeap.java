@@ -342,7 +342,7 @@ public class DoubleHeap<E>
         public E next()
         {
             if(!hasNext())
-                throw new NoSuchElementException("No more elements in iterator.");
+                throw new NoSuchElementException("No more elements in iterator");
 
             return orderQueue.remove();
         }

@@ -101,7 +101,7 @@ public class DisjointSets<E>
     public E findSet(E element)
     {
         if(represents.get(element) == null)
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Element does not belong to the structure");
 
         if(!Objects.equals(represents.get(element), element))
             represents.put(element, findSet(represents.get(element)));

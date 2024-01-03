@@ -1,6 +1,8 @@
 package algolib.structures.heaps;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /** Structure of pairing heap. */
 public class PairingHeap<E extends Comparable<E>>
@@ -62,7 +64,7 @@ public class PairingHeap<E extends Comparable<E>>
     @Override
     public boolean offer(E element)
     {
-        heap = heap == null ? new HeapNode<>(element, null, comparator_) : heap.append(element);
+        heap = heap == null ? new HeapNode<>(element, comparator_) : heap.append(element);
         ++size_;
         return true;
     }
@@ -90,24 +92,27 @@ public class PairingHeap<E extends Comparable<E>>
         size_ += other.size_;
     }
 
-    private record HeapNodeList<E>(HeapNode<E> node, HeapNodeList<E> next)
+    private record HeapNode<E>(E element, List<HeapNode<E>> children, Comparator<E> comparator)
     {
-    }
+        HeapNode(E element, Comparator<E> comparator)
+        {
+            this(element, new ArrayList<>(), comparator);
+        }
 
-    private record HeapNode<E>(E element, HeapNodeList<E> children, Comparator<E> comparator)
-    {
         HeapNode<E> append(E element)
         {
             return comparator.compare(this.element, element) <= 0
-                   ? new HeapNode<>(this.element, new HeapNodeList<>(new HeapNode<>(element, null,
-                                                                                    comparator),
-                                                                     children), comparator)
-                   : new HeapNode<>(element, new HeapNodeList<>(this, null), comparator);
+                   ? new HeapNode<>(this.element, Stream.concat(Stream.of(new HeapNode<>(element,
+                                                                                         comparator)),
+                                                                children.stream())
+                                                        .collect(Collectors.toList()), comparator)
+                   : new HeapNode<>(element, Stream.of(this).collect(Collectors.toList()),
+                                    comparator);
         }
 
         HeapNode<E> pop()
         {
-            return mergePairs(children);
+            return mergePairs(0);
         }
 
         HeapNode<E> merge(HeapNode<E> node)
@@ -115,20 +120,22 @@ public class PairingHeap<E extends Comparable<E>>
             return node == null
                    ? this
                    : comparator.compare(element, node.element) <= 0
-                     ? new HeapNode<>(element, new HeapNodeList<>(node, children), comparator)
-                     : new HeapNode<>(node.element, new HeapNodeList<>(this, node.children),
-                                      comparator);
+                     ? new HeapNode<>(element, Stream.concat(Stream.of(node), children.stream())
+                                                     .collect(Collectors.toList()), comparator)
+                     : new HeapNode<>(node.element,
+                                      Stream.concat(Stream.of(this), node.children.stream())
+                                            .collect(Collectors.toList()), comparator);
         }
 
-        private HeapNode<E> mergePairs(HeapNodeList<E> list)
+        private HeapNode<E> mergePairs(int index)
         {
-            if(list == null)
+            if(index >= children.size())
                 return null;
 
-            if(list.next == null)
-                return list.node;
+            if(index == children.size() - 1)
+                return children.get(index);
 
-            return list.node.merge(list.next.node).merge(mergePairs(list.next.next));
+            return children.get(index).merge(children.get(index + 1)).merge(mergePairs(index + 2));
         }
     }
 
@@ -153,17 +160,11 @@ public class PairingHeap<E extends Comparable<E>>
         public E next()
         {
             if(!hasNext())
-                throw new NoSuchElementException("No more elements in iterator.");
+                throw new NoSuchElementException("No more elements in iterator");
 
             HeapNode<E> node = nodes.remove();
             E returnValue = node.element;
-            HeapNodeList<E> list = node.children;
-
-            while(list != null)
-            {
-                nodes.add(list.node);
-                list = list.next;
-            }
+            nodes.addAll(node.children);
 
             return returnValue;
         }

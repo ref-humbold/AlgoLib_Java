@@ -116,13 +116,14 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void iterator_WhenMultipleElements_ThenMinimumFirstAndMaximumLast()
+    public void iterator_WhenMultipleElements_ThenAllElementsMinimumFirstMaximumLast()
     {
         // when
         List<Integer> result = new ArrayList<>();
 
         testObject.iterator().forEachRemaining(result::add);
         // then
+        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(Arrays.asList(numbers));
         Assertions.assertThat(result).contains(minimum, Index.atIndex(0));
         Assertions.assertThat(result).contains(maximum, Index.atIndex(result.size() - 1));
     }
@@ -155,13 +156,14 @@ public class DoubleHeapTest
     }
 
     @Test
-    public void descendingIterator_WhenMultipleElements_ThenMaximumFirstAndMinimumLast()
+    public void descendingIterator_WhenMultipleElements_ThenAllElementsMaximumFirstMinimumLast()
     {
         // when
         List<Integer> result = new ArrayList<>();
 
         testObject.descendingIterator().forEachRemaining(result::add);
         // then
+        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(Arrays.asList(numbers));
         Assertions.assertThat(result).contains(maximum, Index.atIndex(0));
         Assertions.assertThat(result).contains(minimum, Index.atIndex(result.size() - 1));
     }

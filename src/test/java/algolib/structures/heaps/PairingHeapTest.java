@@ -1,6 +1,7 @@
 package algolib.structures.heaps;
 
 import java.util.*;
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Index;
 import org.junit.jupiter.api.BeforeEach;
@@ -108,13 +109,14 @@ public class PairingHeapTest
     }
 
     @Test
-    public void iterator_WhenMultipleElements_ThenMinimumFirst()
+    public void iterator_WhenMultipleElements_ThenAllElementsMinimumFirst()
     {
         // when
         List<Integer> result = new ArrayList<>();
 
         testObject.iterator().forEachRemaining(result::add);
         // then
+        Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
         Assertions.assertThat(result).contains(minimum, Index.atIndex(0));
     }
 
@@ -366,20 +368,25 @@ public class PairingHeapTest
     }
 
     @Test
-    public void merge_WhenSharedInnerHeap_ThenChangedOnlyMergingHeap()
+    public void merge_WhenMultipleMerges_ThenChangedOnlyMergingHeap()
     {
         // given
-        testObject = new PairingHeap<>();
+        List<Integer> firstElements = List.of(10, 20);
+        List<Integer> secondElements = List.of(4, 8);
 
-        var first = new PairingHeap<>(List.of(10, 20));
-        var second = new PairingHeap<>(List.of(4, 8));
+        testObject = new PairingHeap<>();
+        var first = new PairingHeap<>(firstElements);
+        var second = new PairingHeap<>(secondElements);
         // when
         testObject.merge(first);
         testObject.merge(second);
         // then
         Assertions.assertThat(testObject.peek()).isEqualTo(4);
-        Assertions.assertThat(first.peek()).isEqualTo(10);
-        Assertions.assertThat(second.peek()).isEqualTo(4);
+        Assertions.assertThat(testObject)
+                  .containsExactlyInAnyOrderElementsOf(
+                          Stream.concat(firstElements.stream(), secondElements.stream()).toList());
+        Assertions.assertThat(first).containsExactlyInAnyOrderElementsOf(firstElements);
+        Assertions.assertThat(second).containsExactlyInAnyOrderElementsOf(secondElements);
     }
 
     // endregion
