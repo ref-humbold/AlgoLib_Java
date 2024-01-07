@@ -121,9 +121,10 @@ public class AvlTreeTest
         // given
         testObject = new AvlTree<>();
         // when
-        List<Integer> result = new ArrayList<>(testObject);
+        Iterator<Integer> result = testObject.iterator();
         // then
-        Assertions.assertThat(result).isEmpty();
+        Assertions.assertThat(result.hasNext()).isFalse();
+        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -156,14 +157,11 @@ public class AvlTreeTest
     {
         // given
         testObject = new AvlTree<>();
-        Iterator<Integer> iterator = testObject.descendingIterator();
         // when
-        List<Integer> result = new ArrayList<>();
-
-        while(iterator.hasNext())
-            result.add(iterator.next());
+        Iterator<Integer> result = testObject.descendingIterator();
         // then
-        Assertions.assertThat(result).isEmpty();
+        Assertions.assertThat(result.hasNext()).isFalse();
+        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
