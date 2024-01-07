@@ -2,10 +2,9 @@ package algolib.structures.heaps;
 
 import java.util.*;
 
-/** Structure of double heap. */
+/** Structure of heap. */
 public class DoubleHeap<E>
-        extends AbstractQueue<E>
-        implements Heap<E>
+        extends AbstractHeap<E>
 {
     private static final int INDEX_MIN = 0;
     private static final int INDEX_MAX = 1;
@@ -93,8 +92,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves minimal element from this double heap.
-     * @return the minimal element
+     * Retrieves minimal element from this heap.
+     * @return the minimal element, or {@code null} if the heap is empty
      */
     public E peekMin()
     {
@@ -102,8 +101,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves maximal element from this double heap.
-     * @return the maximal element
+     * Retrieves maximal element from this heap.
+     * @return the maximal element, or {@code null} if the heap is empty
      */
     public E peekMax()
     {
@@ -116,9 +115,9 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves minimal element from this double heap.
+     * Retrieves minimal element from this heap.
      * @return the minimal element
-     * @throws NoSuchElementException if the double heap is empty
+     * @throws NoSuchElementException if the heap is empty
      */
     public E elementMin()
     {
@@ -126,9 +125,9 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves maximal element from this double heap.
+     * Retrieves maximal element from this heap.
      * @return the maximal element
-     * @throws NoSuchElementException if the double heap is empty
+     * @throws NoSuchElementException if the heap is empty
      */
     public E elementMax()
     {
@@ -178,8 +177,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves and removes minimal element from this double heap.
-     * @return the removed minimal element
+     * Retrieves and removes minimal element from this heap.
+     * @return the removed minimal element, or {@code null} if the heap is empty
      */
     public E pollMin()
     {
@@ -196,8 +195,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves and removes maximal element from this double heap.
-     * @return the maximal element
+     * Retrieves and removes maximal element from this heap.
+     * @return the maximal element, or {@code null} if the heap is empty
      */
     public E pollMax()
     {
@@ -217,9 +216,9 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves and removes minimal element from this double heap.
+     * Retrieves and removes minimal element from this heap.
      * @return the removed minimal element
-     * @throws NoSuchElementException if the double heap is empty
+     * @throws NoSuchElementException if the heap is empty
      */
     public E removeMin()
     {
@@ -227,9 +226,9 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves and removes maximal element from this double heap.
+     * Retrieves and removes maximal element from this heap.
      * @return the maximal element
-     * @throws NoSuchElementException if the double heap is empty
+     * @throws NoSuchElementException if the heap is empty
      */
     public E removeMax()
     {
@@ -318,7 +317,7 @@ public class DoubleHeap<E>
         }
     }
 
-    // Swaps two elements in the double heap.
+    // Swaps two elements in the heap.
     private void swap(int index1, int index2)
     {
         E temp = heap.get(index1);
