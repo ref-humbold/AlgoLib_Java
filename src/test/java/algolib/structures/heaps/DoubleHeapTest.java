@@ -169,6 +169,61 @@ public class DoubleHeapTest
     }
 
     // endregion
+    // region add & offer
+
+    @Test
+    public void add_WhenNewElement_ThenAdded()
+    {
+        // given
+        int element = 46;
+        // when
+        testObject.add(element);
+        // then
+        Assertions.assertThat(testObject).hasSize(numbers.length + 1);
+        Assertions.assertThat(testObject.peekMin()).isEqualTo(minimum);
+        Assertions.assertThat(testObject.peekMax()).isEqualTo(maximum);
+    }
+
+    @Test
+    public void offer_WhenEmpty_ThenAdded()
+    {
+        // given
+        int element = 19;
+
+        testObject = new DoubleHeap<>();
+        // when
+        testObject.offer(element);
+        // then
+        Assertions.assertThat(testObject).hasSize(1);
+        Assertions.assertThat(testObject.peekMin()).isEqualTo(element);
+        Assertions.assertThat(testObject.peekMax()).isEqualTo(element);
+    }
+
+    @Test
+    public void offer_WhenNewElementIsLessThanMinimum_ThenNewMinimum()
+    {
+        // given
+        int element = minimum - 3;
+        // when
+        testObject.offer(element);
+        // then
+        Assertions.assertThat(testObject).hasSize(numbers.length + 1);
+        Assertions.assertThat(testObject.peekMin()).isEqualTo(element);
+    }
+
+    @Test
+    public void offer_WhenNewElementIsGreaterThanMaximum_ThenNewMaximum()
+    {
+        // given
+        int element = maximum + 3;
+        // when
+        testObject.offer(element);
+        // then
+        Assertions.assertThat(testObject).hasSize(numbers.length + 1);
+        Assertions.assertThat(testObject.peekMax()).isEqualTo(element);
+    }
+
+    // endregion
     // region peek*
 
     @Test
@@ -247,61 +302,6 @@ public class DoubleHeapTest
     }
 
     // endregion
-    // region add & offer
-
-    @Test
-    public void add_WhenNewElement_ThenAdded()
-    {
-        // given
-        int element = 46;
-        // when
-        testObject.add(element);
-        // then
-        Assertions.assertThat(testObject).hasSize(numbers.length + 1);
-        Assertions.assertThat(testObject.peekMin()).isEqualTo(minimum);
-        Assertions.assertThat(testObject.peekMax()).isEqualTo(maximum);
-    }
-
-    @Test
-    public void offer_WhenEmpty_ThenAdded()
-    {
-        // given
-        int element = 19;
-
-        testObject = new DoubleHeap<>();
-        // when
-        testObject.offer(element);
-        // then
-        Assertions.assertThat(testObject).hasSize(1);
-        Assertions.assertThat(testObject.peekMin()).isEqualTo(element);
-        Assertions.assertThat(testObject.peekMax()).isEqualTo(element);
-    }
-
-    @Test
-    public void offer_WhenNewElementIsLessThanMinimum_ThenNewMinimum()
-    {
-        // given
-        int element = minimum - 3;
-        // when
-        testObject.offer(element);
-        // then
-        Assertions.assertThat(testObject).hasSize(numbers.length + 1);
-        Assertions.assertThat(testObject.peekMin()).isEqualTo(element);
-    }
-
-    @Test
-    public void offer_WhenNewElementIsGreaterThanMaximum_ThenNewMaximum()
-    {
-        // given
-        int element = maximum + 3;
-        // when
-        testObject.offer(element);
-        // then
-        Assertions.assertThat(testObject).hasSize(numbers.length + 1);
-        Assertions.assertThat(testObject.peekMax()).isEqualTo(element);
-    }
-
-    // endregion
     // region element*
 
     @Test
@@ -368,7 +368,8 @@ public class DoubleHeapTest
 
     @Test
     public void pollMin_WhenEmpty_ThenNull()
-    {// given
+    {
+        // given
         testObject = new DoubleHeap<>();
         // when
         Integer result = testObject.pollMin();
