@@ -1,10 +1,10 @@
 package algolib.structures.heaps;
 
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Stack;
 
 /** Structure of leftist heap. */
 public class LeftistHeap<E extends Comparable<E>>
@@ -150,12 +150,12 @@ public class LeftistHeap<E extends Comparable<E>>
     private class HeapIterator
             implements Iterator<E>
     {
-        private final Stack<HeapNode> nodes = new Stack<>();
+        private final ArrayDeque<HeapNode> nodes = new ArrayDeque<>();
 
         HeapIterator()
         {
             if(heap != null)
-                nodes.add(heap);
+                nodes.addFirst(heap);
         }
 
         @Override
@@ -170,14 +170,14 @@ public class LeftistHeap<E extends Comparable<E>>
             if(!hasNext())
                 throw new NoSuchElementException("No more elements in iterator");
 
-            HeapNode node = nodes.pop();
+            HeapNode node = nodes.removeFirst();
             E returnValue = node.element;
 
             if(node.left != null)
-                nodes.add(node.left);
+                nodes.addFirst(node.left);
 
             if(node.right != null)
-                nodes.add(node.right);
+                nodes.addFirst(node.right);
 
             return returnValue;
         }

@@ -43,6 +43,15 @@ public class DisjointSets<E>
     }
 
     /**
+     * Removes all sets from this structure.
+     */
+    public void clear()
+    {
+        represents.clear();
+        size_ = 0;
+    }
+
+    /**
      * Checks whether given element belongs to any set.
      * @param element the element
      * @return {@code true} if the element belongs to the structure, otherwise {@code false}
