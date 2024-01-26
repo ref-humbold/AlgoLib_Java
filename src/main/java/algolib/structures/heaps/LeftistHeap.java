@@ -13,16 +13,14 @@ public class LeftistHeap<E extends Comparable<E>>
     private HeapNode heap = null;
     private int size_ = 0;
 
-    private final Comparator<E> comparator_ = Comparator.naturalOrder();
-
     public LeftistHeap()
     {
-        super();
+        super(Comparator.naturalOrder());
     }
 
     public LeftistHeap(Collection<? extends E> collection)
     {
-        super();
+        super(Comparator.naturalOrder());
         addAll(collection);
     }
 
@@ -30,12 +28,6 @@ public class LeftistHeap<E extends Comparable<E>>
     public boolean isEmpty()
     {
         return heap == null;
-    }
-
-    @Override
-    public Comparator<? super E> comparator()
-    {
-        return comparator_;
     }
 
     @Override
@@ -138,7 +130,7 @@ public class LeftistHeap<E extends Comparable<E>>
         {
             return node == null
                    ? this
-                   : comparator_.compare(element, node.element) < 0
+                   : comparator().compare(element, node.element) < 0
                      ? new HeapNode(element, left, right == null
                                                    ? node
                                                    : right.merge(node))

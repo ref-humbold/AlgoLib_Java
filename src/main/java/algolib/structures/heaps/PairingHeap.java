@@ -8,16 +8,15 @@ public class PairingHeap<E extends Comparable<E>>
 {
     private HeapNode heap = null;
     private int size_ = 0;
-    private final Comparator<E> comparator_ = Comparator.naturalOrder();
 
     public PairingHeap()
     {
-        super();
+        super(Comparator.naturalOrder());
     }
 
     public PairingHeap(Collection<? extends E> collection)
     {
-        super();
+        super(Comparator.naturalOrder());
         addAll(collection);
     }
 
@@ -25,12 +24,6 @@ public class PairingHeap<E extends Comparable<E>>
     public boolean isEmpty()
     {
         return heap == null;
-    }
-
-    @Override
-    public Comparator<? super E> comparator()
-    {
-        return comparator_;
     }
 
     @Override
@@ -154,7 +147,7 @@ public class PairingHeap<E extends Comparable<E>>
 
         HeapNode append(E element)
         {
-            return comparator_.compare(this.element, element) <= 0
+            return comparator().compare(this.element, element) <= 0
                    ? new HeapNode(this.element, new HeapNodeList(new HeapNode(element), children))
                    : new HeapNode(element, new HeapNodeList(this));
         }
@@ -168,7 +161,7 @@ public class PairingHeap<E extends Comparable<E>>
         {
             return node == null
                    ? this
-                   : comparator_.compare(element, node.element) <= 0
+                   : comparator().compare(element, node.element) <= 0
                      ? new HeapNode(element, new HeapNodeList(node, children))
                      : new HeapNode(node.element, new HeapNodeList(this, node.children));
         }

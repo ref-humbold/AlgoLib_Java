@@ -8,45 +8,40 @@ public class DoubleHeap<E>
 {
     private static final int INDEX_MIN = 0;
     private static final int INDEX_MAX = 1;
-    private final Comparator<? super E> comparator_;
     private final List<E> heap = new ArrayList<>();
 
     public DoubleHeap()
     {
-        this((Comparator<? super E>)null);
+        super(null);
     }
 
     public DoubleHeap(Comparator<? super E> comparator)
     {
-        super();
-        comparator_ = comparator;
+        super(comparator);
     }
 
     @SuppressWarnings("unchecked")
     public DoubleHeap(DoubleHeap<? extends E> doubleHeap)
     {
-        super();
-        comparator_ = (Comparator<? super E>)doubleHeap.comparator();
+        super((Comparator<? super E>)doubleHeap.comparator());
         addAll(doubleHeap);
     }
 
     @SuppressWarnings("unchecked")
     public DoubleHeap(PriorityQueue<? extends E> queue)
     {
-        super();
-        comparator_ = (Comparator<? super E>)queue.comparator();
+        super((Comparator<? super E>)queue.comparator());
         addAll(queue);
     }
 
     @SuppressWarnings("unchecked")
     public DoubleHeap(Collection<? extends E> collection)
     {
-        super();
-        comparator_ = (collection instanceof DoubleHeap<? extends E> doubleHeap)
-                      ? (Comparator<? super E>)doubleHeap.comparator()
-                      : (collection instanceof PriorityQueue<? extends E> priorityQueue)
-                        ? (Comparator<? super E>)priorityQueue.comparator()
-                        : null;
+        super((collection instanceof DoubleHeap<? extends E> doubleHeap)
+              ? (Comparator<? super E>)doubleHeap.comparator()
+              : (collection instanceof PriorityQueue<? extends E> priorityQueue)
+                ? (Comparator<? super E>)priorityQueue.comparator()
+                : null);
         addAll(collection);
     }
 
@@ -54,12 +49,6 @@ public class DoubleHeap<E>
     public boolean isEmpty()
     {
         return heap.isEmpty();
-    }
-
-    @Override
-    public Comparator<? super E> comparator()
-    {
-        return comparator_;
     }
 
     @Override
@@ -239,10 +228,10 @@ public class DoubleHeap<E>
     @SuppressWarnings("unchecked")
     private int compare(int index1, int index2)
     {
-        if(comparator_ == null)
+        if(comparator() == null)
             return ((Comparable<E>)heap.get(index1)).compareTo(heap.get(index2));
 
-        return comparator_.compare(heap.get(index1), heap.get(index2));
+        return comparator().compare(heap.get(index1), heap.get(index2));
     }
 
     // Moves element from given index towards minimum.

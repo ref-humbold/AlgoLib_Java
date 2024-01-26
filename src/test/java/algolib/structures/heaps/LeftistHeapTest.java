@@ -81,6 +81,8 @@ public class LeftistHeapTest
         Assertions.assertThat(testObject).isEmpty();
     }
 
+    // region iterator
+
     @Test
     public void iterator_WhenEmpty_ThenNoElements()
     {
@@ -116,7 +118,8 @@ public class LeftistHeapTest
         Assertions.assertThat(result).contains(minimum, Index.atIndex(0));
     }
 
-    // region add & offer
+    // endregion
+    // region add & offer && addAll
 
     @Test
     public void add_WhenEmpty_ThenAdded()
@@ -152,6 +155,19 @@ public class LeftistHeapTest
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
         Assertions.assertThat(testObject.peek()).isEqualTo(element);
+    }
+
+    @Test
+    public void addAll_WhenNewElements_ThenAllAdded()
+    {
+        // given
+        List<Integer> elements = List.of(minimum - 3, minimum + 5, minimum + 13, minimum + 20);
+        // when
+        testObject.addAll(elements);
+        // then
+        Assertions.assertThat(testObject).hasSize(numbers.size() + elements.size());
+        Assertions.assertThat(testObject.peek())
+                  .isEqualTo(elements.stream().min(Comparator.naturalOrder()).get());
     }
 
     // endregion
@@ -196,18 +212,7 @@ public class LeftistHeapTest
     }
 
     @Test
-    public void element_WhenSingleElement_ThenThisElement()
-    {
-        // given
-        int element = numbers.get(0);
-        // when
-        Integer result = new LeftistHeap<>(List.of(element)).element();
-        // then
-        Assertions.assertThat(result).isEqualTo(element);
-    }
-
-    @Test
-    public void element_WhenMultipleElements_ThenMinimalElement()
+    public void element_WhenNotEmpty_ThenMinimalElement()
     {
         // when
         Integer result = testObject.element();
@@ -252,6 +257,19 @@ public class LeftistHeapTest
     }
 
     @Test
+    public void poll_WhenMultipleCalls_ThenSortedAscendingToComparator()
+    {
+        // when
+        List<Integer> result = new ArrayList<>();
+
+        while(!testObject.isEmpty())
+            result.add(testObject.poll());
+        // then
+        Assertions.assertThat(result).hasSameElementsAs(numbers);
+        Assertions.assertThat(result).isSortedAccordingTo(testObject.comparator());
+    }
+
+    @Test
     public void remove_WhenEmpty_ThenNoSuchElementException()
     {
         // when
@@ -261,40 +279,13 @@ public class LeftistHeapTest
     }
 
     @Test
-    public void remove_WhenSingleElement_ThenThisElementRemoved()
-    {
-        // given
-        int element = numbers.get(0);
-
-        testObject = new LeftistHeap<>(List.of(element));
-        // when
-        Integer result = testObject.remove();
-        // then
-        Assertions.assertThat(testObject).isEmpty();
-        Assertions.assertThat(result).isEqualTo(element);
-    }
-
-    @Test
-    public void remove_WhenMultipleElements_ThenMinimalElementRemoved()
+    public void remove_WhenNotEmpty_ThenMinimalElementRemoved()
     {
         // when
         Integer result = testObject.remove();
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(minimum);
-    }
-
-    @Test
-    public void remove_WhenMultipleCalls_ThenSorted()
-    {
-        // when
-        List<Integer> result = new ArrayList<>();
-
-        while(!testObject.isEmpty())
-            result.add(testObject.remove());
-        // then
-        Assertions.assertThat(result).hasSameElementsAs(numbers);
-        Assertions.assertThat(result).isSortedAccordingTo(Comparator.naturalOrder());
     }
 
     // endregion
@@ -340,13 +331,13 @@ public class LeftistHeapTest
     public void merge_WhenOtherHasLessMinimum_ThenNewMinimum()
     {
         // given
-        int newMinimum = minimum - 4;
-        var other = new LeftistHeap<>(List.of(newMinimum, minimum + 5, minimum + 13, minimum + 20));
+        var other =
+                new LeftistHeap<>(List.of(minimum - 3, minimum + 5, minimum + 13, minimum + 20));
         // when
         testObject.merge(other);
         // then
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + other.size());
-        Assertions.assertThat(testObject.peek()).isEqualTo(newMinimum);
+        Assertions.assertThat(testObject.peek()).isEqualTo(other.peek());
     }
 
     @Test
@@ -363,7 +354,10 @@ public class LeftistHeapTest
         testObject.merge(first);
         testObject.merge(second);
         // then
-        Assertions.assertThat(testObject.peek()).isEqualTo(4);
+        Assertions.assertThat(testObject.peek())
+                  .isEqualTo(Stream.concat(firstElements.stream(), secondElements.stream())
+                                   .min(Comparator.naturalOrder())
+                                   .orElseThrow());
         Assertions.assertThat(testObject)
                   .containsExactlyInAnyOrderElementsOf(
                           Stream.concat(firstElements.stream(), secondElements.stream()).toList());

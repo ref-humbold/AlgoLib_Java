@@ -7,11 +7,22 @@ import java.util.NoSuchElementException;
 public abstract class AbstractHeap<E>
         extends AbstractQueue<E>
 {
+    private final Comparator<? super E> comparator_;
+
+    protected AbstractHeap(Comparator<? super E> comparator)
+    {
+        super();
+        comparator_ = comparator;
+    }
+
     /**
      * Gets the comparator of this heap.
      * @return the comparator
      */
-    public abstract Comparator<? super E> comparator();
+    public Comparator<? super E> comparator()
+    {
+        return comparator_;
+    }
 
     /**
      * Retrieves minimal element from this heap.
