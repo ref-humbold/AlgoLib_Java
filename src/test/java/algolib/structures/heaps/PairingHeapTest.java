@@ -136,25 +136,25 @@ public class PairingHeapTest
     }
 
     @Test
-    public void add_WhenNewElementGreaterThanMinimum_ThenAdded()
-    {
-        // when
-        testObject.add(minimum + 3);
-        // then
-        Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
-        Assertions.assertThat(testObject.peek()).isEqualTo(minimum);
-    }
-
-    @Test
-    public void offer_WhenNewElementLessThanMinimum_ThenNewMinimum()
+    public void add_WhenNewElementLessThanMinimum_ThenNewMinimum()
     {
         // given
         int element = minimum - 3;
         // when
-        testObject.offer(element);
+        testObject.add(element);
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
         Assertions.assertThat(testObject.peek()).isEqualTo(element);
+    }
+
+    @Test
+    public void offer_WhenNewElementGreaterThanMinimum_ThenAdded()
+    {
+        // when
+        testObject.offer(minimum + 3);
+        // then
+        Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
+        Assertions.assertThat(testObject.peek()).isEqualTo(minimum);
     }
 
     @Test
@@ -316,18 +316,6 @@ public class PairingHeapTest
     }
 
     @Test
-    public void merge_WhenOtherHasGreaterMinimum_ThenMinimumRemains()
-    {
-        // given
-        var other = new PairingHeap<>(List.of(minimum + 5, minimum + 13, minimum + 20));
-        // when
-        testObject.merge(other);
-        // then
-        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + other.size());
-        Assertions.assertThat(testObject.peek()).isEqualTo(minimum);
-    }
-
-    @Test
     public void merge_WhenOtherHasLessMinimum_ThenNewMinimum()
     {
         // given
@@ -338,6 +326,18 @@ public class PairingHeapTest
         // then
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + other.size());
         Assertions.assertThat(testObject.peek()).isEqualTo(other.peek());
+    }
+
+    @Test
+    public void merge_WhenOtherHasGreaterMinimum_ThenMinimumRemains()
+    {
+        // given
+        var other = new PairingHeap<>(List.of(minimum + 5, minimum + 13, minimum + 20));
+        // when
+        testObject.merge(other);
+        // then
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + other.size());
+        Assertions.assertThat(testObject.peek()).isEqualTo(minimum);
     }
 
     @Test

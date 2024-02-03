@@ -114,9 +114,9 @@ public class DisjointSetsTest
     public void add_WhenEmpty_ThenNewSingletonSet()
     {
         // given
-        testObject = new DisjointSets<>();
+        int element = numbers.get(0);
 
-        Integer element = numbers.get(0);
+        testObject = new DisjointSets<>();
         // when
         testObject.add(element);
         // then
@@ -129,7 +129,7 @@ public class DisjointSetsTest
     public void add_WhenNewElement_ThenNewSingletonSet()
     {
         // given
-        Integer element = absent.get(0);
+        int element = absent.get(0);
         // when
         testObject.add(element);
         // then
@@ -151,36 +151,32 @@ public class DisjointSetsTest
     public void addAll_WhenEmpty_ThenNewSingletonSets()
     {
         // given
-        List<Integer> elements = numbers;
-
         testObject = new DisjointSets<>();
         // when
-        testObject.addAll(elements);
+        testObject.addAll(numbers);
         // then
-        for(Integer e : elements)
+        for(Integer e : numbers)
         {
             Assertions.assertThat(testObject.contains(e)).isTrue();
             Assertions.assertThat(testObject.findSet(e)).isEqualTo(e);
         }
 
-        Assertions.assertThat(testObject.size()).isEqualTo(elements.size());
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
     }
 
     @Test
     public void addAll_WhenNewElements_ThenNewSingletonSets()
     {
-        // given
-        List<Integer> elements = absent;
         // when
-        testObject.addAll(elements);
+        testObject.addAll(absent);
         // then
-        for(Integer e : elements)
+        for(Integer e : absent)
         {
             Assertions.assertThat(testObject.contains(e)).isTrue();
             Assertions.assertThat(testObject.findSet(e)).isEqualTo(e);
         }
 
-        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + elements.size());
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + absent.size());
     }
 
     @Test
@@ -274,18 +270,18 @@ public class DisjointSetsTest
         // then
         Assertions.assertThat(testObject.isSameSet(element1, element2)).isTrue();
         Assertions.assertThat(testObject.findSet(element2)).isEqualTo(testObject.findSet(element1));
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() - 1);
     }
 
     @Test
-    public void unionSet_WhenSingleElement_ThenSameRepresent()
+    public void unionSet_WhenSingleElement_ThenNoChanges()
     {
         // given
         Integer element = present.get(0);
         // when
         testObject.unionSet(element, element);
         // then
-        Assertions.assertThat(testObject.isSameSet(element, element)).isTrue();
-        Assertions.assertThat(testObject.findSet(element)).isEqualTo(testObject.findSet(element));
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
     }
 
     @Test
@@ -300,6 +296,7 @@ public class DisjointSetsTest
         // then
         Assertions.assertThat(testObject.isSameSet(element1, element2)).isTrue();
         Assertions.assertThat(testObject.findSet(element2)).isEqualTo(testObject.findSet(element1));
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() - 1);
     }
 
     @Test
@@ -316,6 +313,7 @@ public class DisjointSetsTest
         // then
         Assertions.assertThat(testObject.isSameSet(first, last)).isTrue();
         Assertions.assertThat(testObject.findSet(last)).isEqualTo(testObject.findSet(first));
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() - present.size() + 1);
     }
 
     // endregion
