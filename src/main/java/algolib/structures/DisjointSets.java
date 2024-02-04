@@ -1,9 +1,8 @@
 package algolib.structures;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /** Structure of disjoint sets (union-find). */
 public class DisjointSets<E>
@@ -15,13 +14,17 @@ public class DisjointSets<E>
     {
     }
 
-    public DisjointSets(Iterable<? extends E> universe)
+    public DisjointSets(Collection<? extends Collection<E>> sets)
     {
-        for(E e : universe)
-        {
-            represents.put(e, e);
-            ++size_;
-        }
+        List<List<E>> setsList =
+                sets.stream().map(HashSet::new).map(s -> s.stream().toList()).toList();
+        validateDuplicates(setsList);
+
+        for(List<E> set : setsList)
+            for(E element : set)
+                represents.put(element, set.get(0));
+
+        size_ = setsList.size();
     }
 
     /**
@@ -62,41 +65,48 @@ public class DisjointSets<E>
     }
 
     /**
-     * Adds new element as singleton set.
-     * @param element the new element
-     * @return {@code this} for method chaining
-     * @throws IllegalArgumentException if the element is already present
-     */
-    public DisjointSets<E> add(E element)
-    {
-        if(contains(element))
-            throw new IllegalArgumentException(
-                    "Value %s already present.".formatted(element.toString()));
-
-        represents.put(element, element);
-        ++size_;
-
-        return this;
-    }
-
-    /**
-     * Adds new elements as singleton sets.
+     * Adds new elements as a new set.
      * @param elements the new elements
      * @return {@code this} for method chaining
      * @throws IllegalArgumentException if any of the elements is already present
      */
-    public DisjointSets<E> addAll(Iterable<E> elements)
+    public DisjointSets<E> add(Collection<E> elements)
     {
-        for(E elem : elements)
-            if(contains(elem))
-                throw new IllegalArgumentException(
-                        "Value %s already present.".formatted(elem.toString()));
+        ArrayList<E> elementsList = new ArrayList<>();
 
-        for(E elem : elements)
+        for(E element : elements)
         {
-            represents.put(elem, elem);
-            ++size_;
+            if(contains(element))
+                throw new IllegalArgumentException(
+                        "Value %s already present.".formatted(element.toString()));
+
+            elementsList.add(element);
         }
+
+        for(E element : elementsList)
+            represents.put(element, elementsList.get(0));
+
+        ++size_;
+        return this;
+    }
+
+    /**
+     * Adds new elements to the existing set represented by another element.
+     * @param elements the new elements
+     * @param represent the represent of the set
+     * @return {@code this} for method chaining
+     * @throws IllegalArgumentException if any of the elements is already present
+     * @throws NoSuchElementException if the represent is not present
+     */
+    public DisjointSets<E> add(Collection<E> elements, E represent)
+    {
+        for(E element : elements)
+            if(contains(element))
+                throw new IllegalArgumentException(
+                        "Value %s already present.".formatted(element.toString()));
+
+        for(E element : elements)
+            represents.put(element, findSet(represent));
 
         return this;
     }
@@ -164,5 +174,22 @@ public class DisjointSets<E>
     public boolean isSameSet(E element1, E element2)
     {
         return Objects.equals(findSet(element1), findSet(element2));
+    }
+
+    private void validateDuplicates(List<List<E>> setsList)
+    {
+        List<E> duplicates = setsList.stream()
+                                     .flatMap(Collection::stream)
+                                     .collect(Collectors.groupingBy(Function.identity(),
+                                                                    Collectors.counting()))
+                                     .entrySet()
+                                     .stream()
+                                     .filter(entry -> entry.getValue() != 1)
+                                     .map(Map.Entry::getKey)
+                                     .toList();
+
+        if(!duplicates.isEmpty())
+            throw new IllegalArgumentException("Duplicate elements found: %s".formatted(
+                    duplicates.stream().map(Objects::toString).collect(Collectors.joining(", "))));
     }
 }

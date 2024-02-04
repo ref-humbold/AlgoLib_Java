@@ -24,13 +24,34 @@ public class DisjointSetsTest
     @BeforeEach
     public void setUp()
     {
-        testObject = new DisjointSets<>(numbers);
+        testObject = new DisjointSets<>(numbers.stream().map(List::of).toList());
     }
 
     @AfterEach
     public void tearDown()
     {
         testObject = null;
+    }
+
+    @Test
+    public void constructor_WhenDuplicatesInDifferentSets_ThenIllegalArgumentException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(
+                () -> new DisjointSets<>(List.of(List.of(1, 2, 3), List.of(1, 11, 21, 31))));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void constructor_WhenDuplicatesInSameSet_ThenConstructed()
+    {
+        // given
+        List<List<Integer>> sets = List.of(List.of(1, 2, 3), List.of(10, 100, 10));
+        // when
+        testObject = new DisjointSets<>(sets);
+        // then
+        Assertions.assertThat(testObject.size()).isEqualTo(sets.size());
     }
 
     @Test
@@ -108,93 +129,93 @@ public class DisjointSetsTest
     }
 
     // endregion
-    // region add & addAll
+    // region add
 
     @Test
-    public void add_WhenEmpty_ThenNewSingletonSet()
+    public void add_WhenEmpty_ThenNewSet()
     {
         // given
-        int element = numbers.get(0);
-
         testObject = new DisjointSets<>();
         // when
-        testObject.add(element);
+        testObject.add(numbers);
         // then
-        Assertions.assertThat(testObject.contains(element)).isTrue();
-        Assertions.assertThat(testObject.findSet(element)).isEqualTo(element);
+        for(int element : numbers)
+        {
+            Assertions.assertThat(testObject.contains(element)).isTrue();
+            Assertions.assertThat(testObject.findSet(element)).isEqualTo(numbers.get(0));
+        }
+
         Assertions.assertThat(testObject.size()).isOne();
     }
 
     @Test
-    public void add_WhenNewElement_ThenNewSingletonSet()
+    public void add_WhenNewElements_ThenNewSet()
     {
-        // given
-        int element = absent.get(0);
         // when
-        testObject.add(element);
+        testObject.add(absent);
         // then
-        Assertions.assertThat(testObject.contains(element)).isTrue();
-        Assertions.assertThat(testObject.findSet(element)).isEqualTo(element);
+        for(int element : absent)
+        {
+            Assertions.assertThat(testObject.contains(element)).isTrue();
+            Assertions.assertThat(testObject.findSet(element)).isEqualTo(absent.get(0));
+        }
+
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + 1);
     }
 
     @Test
-    public void add_WhenPresentElement_ThenIllegalArgumentException()
+    public void add_WhenPresentElements_ThenIllegalArgumentException()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.add(present.get(0)));
+        Throwable throwable = Assertions.catchThrowable(() -> testObject.add(present));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    public void addAll_WhenEmpty_ThenNewSingletonSets()
+    public void add_WhenNewAndPresentElements_ThenIllegalArgumentException()
+    {
+        // when
+        Throwable throwable = Assertions.catchThrowable(
+                () -> testObject.add(Stream.concat(absent.stream(), present.stream()).toList()));
+        // then
+        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void add_WhenNewElementsToPresentRepresent_ThenAddedToExistingSet()
     {
         // given
-        testObject = new DisjointSets<>();
+        int represent = present.get(0);
         // when
-        testObject.addAll(numbers);
+        testObject.add(absent, represent);
         // then
-        for(Integer e : numbers)
+        for(int element : absent)
         {
-            Assertions.assertThat(testObject.contains(e)).isTrue();
-            Assertions.assertThat(testObject.findSet(e)).isEqualTo(e);
+            Assertions.assertThat(testObject.contains(element)).isTrue();
+            Assertions.assertThat(testObject.findSet(element))
+                      .isEqualTo(testObject.findSet(represent));
         }
 
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
     }
 
     @Test
-    public void addAll_WhenNewElements_ThenNewSingletonSets()
+    public void add_WhenNewElementsToAbsentRepresent_ThenNoSuchElementException()
     {
         // when
-        testObject.addAll(absent);
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.add(absent, absent.get(0)));
         // then
-        for(Integer e : absent)
-        {
-            Assertions.assertThat(testObject.contains(e)).isTrue();
-            Assertions.assertThat(testObject.findSet(e)).isEqualTo(e);
-        }
-
-        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + absent.size());
+        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
-    public void addAll_WhenPresentElements_ThenIllegalArgumentException()
+    public void add_WhenPresentElementsToAbsentRepresent_ThenIllegalArgumentException()
     {
         // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.addAll(present));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    public void addAll_WhenNewAndPresentElements_ThenIllegalArgumentException()
-    {
-        // given
-        List<Integer> elements = Stream.concat(absent.stream(), present.stream()).toList();
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.addAll(elements));
+        Throwable throwable =
+                Assertions.catchThrowable(() -> testObject.add(present, absent.get(0)));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
     }
@@ -216,9 +237,9 @@ public class DisjointSetsTest
     public void findSet_WhenPresentElement_ThenRepresent()
     {
         // given
-        Integer element = present.get(0);
+        int element = present.get(0);
         // when
-        Integer result = testObject.findSet(element);
+        int result = testObject.findSet(element);
         // then
         Assertions.assertThat(result).isEqualTo(element);
     }
@@ -233,13 +254,25 @@ public class DisjointSetsTest
     }
 
     @Test
+    public void findSet_WhenSameSet_ThenSameRepresent()
+    {
+        // given
+        testObject = new DisjointSets<>(List.of(numbers));
+        // when
+        int result1 = testObject.findSet(numbers.get(1));
+        int result2 = testObject.findSet(numbers.get(2));
+        // then
+        Assertions.assertThat(result2).isEqualTo(result1);
+    }
+
+    @Test
     public void findSetOrDefault_WhenPresentElement_ThenRepresent()
     {
         // given
-        Integer element = present.get(0);
-        Integer defaultValue = absent.get(0);
+        int element = present.get(0);
+        int defaultValue = absent.get(0);
         // when
-        Integer result = testObject.findSetOrDefault(element, defaultValue);
+        int result = testObject.findSetOrDefault(element, defaultValue);
         // then
         Assertions.assertThat(result).isEqualTo(element);
     }
@@ -248,10 +281,10 @@ public class DisjointSetsTest
     public void findSetOrDefault_WhenAbsentElement_ThenDefaultValue()
     {
         // given
-        Integer element = absent.get(0);
-        Integer defaultValue = present.get(0);
+        int element = absent.get(0);
+        int defaultValue = present.get(0);
         // when
-        Integer result = testObject.findSetOrDefault(element, defaultValue);
+        int result = testObject.findSetOrDefault(element, defaultValue);
         // then
         Assertions.assertThat(result).isEqualTo(defaultValue);
     }
@@ -263,8 +296,8 @@ public class DisjointSetsTest
     public void unionSet_WhenDifferentSets_ThenSameRepresent()
     {
         // given
-        Integer element1 = present.get(0);
-        Integer element2 = present.get(1);
+        int element1 = present.get(0);
+        int element2 = present.get(1);
         // when
         testObject.unionSet(element1, element2);
         // then
@@ -277,7 +310,7 @@ public class DisjointSetsTest
     public void unionSet_WhenSingleElement_ThenNoChanges()
     {
         // given
-        Integer element = present.get(0);
+        int element = present.get(0);
         // when
         testObject.unionSet(element, element);
         // then
@@ -288,8 +321,8 @@ public class DisjointSetsTest
     public void unionSet_WhenSameSet_ThenSameRepresent()
     {
         // given
-        Integer element1 = present.get(0);
-        Integer element2 = present.get(1);
+        int element1 = present.get(0);
+        int element2 = present.get(1);
         testObject.unionSet(element1, element2);
         // when
         testObject.unionSet(element2, element1);
@@ -303,8 +336,8 @@ public class DisjointSetsTest
     public void unionSet_WhenNewElementsInChain_ThenSameRepresent()
     {
         // given
-        Integer first = present.get(0);
-        Integer last = present.get(present.size() - 1);
+        int first = present.get(0);
+        int last = present.get(present.size() - 1);
 
         // when
         for(int i = 1; i < present.size(); ++i)
@@ -332,7 +365,7 @@ public class DisjointSetsTest
     public void isSameSet_WhenSingleElement_ThenTrue()
     {
         // given
-        Integer element = present.get(0);
+        int element = present.get(0);
         // when
         boolean result = testObject.isSameSet(element, element);
         // then
@@ -343,8 +376,8 @@ public class DisjointSetsTest
     public void isSameSet_WhenSameSet_ThenTrue()
     {
         // given
-        Integer element1 = present.get(0);
-        Integer element2 = present.get(1);
+        int element1 = present.get(0);
+        int element2 = present.get(1);
         testObject.unionSet(element1, element2);
         // when
         boolean result = testObject.isSameSet(element2, element1);
