@@ -1,6 +1,8 @@
 package algolib.graphs.algorithms;
 
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,10 +29,10 @@ public final class MinimalSpanningTree
         UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> mst =
                 new UndirectedSimpleGraph<>(
                         graph.getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
-        DisjointSets<Vertex<VertexId>> vertexSets = new DisjointSets<>(graph.getVertices());
+        DisjointSets<Vertex<VertexId>> vertexSets =
+                new DisjointSets<>(graph.getVertices().stream().map(List::of).toList());
         PriorityQueue<Edge<VertexId>> edgeQueue = new PriorityQueue<>(
-                (edge1, edge2) -> Double.compare(graph.getProperties().get(edge1).getWeight(),
-                                                 graph.getProperties().get(edge2).getWeight()));
+                Comparator.comparingDouble(edge -> graph.getProperties().get(edge).getWeight()));
 
         edgeQueue.addAll(graph.getEdges());
 

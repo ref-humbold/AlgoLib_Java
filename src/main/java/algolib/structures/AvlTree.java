@@ -2,6 +2,7 @@ package algolib.structures;
 
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /** Structure of AVL tree. */
 public class AvlTree<E>
@@ -72,21 +73,7 @@ public class AvlTree<E>
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
-        Iterator<E> it = iterator();
-
-        builder.append("{|");
-
-        while(it.hasNext())
-        {
-            builder.append(it.next());
-
-            if(it.hasNext())
-                builder.append(", ");
-        }
-
-        builder.append("|}");
-        return builder.toString();
+        return stream().map(Objects::toString).collect(Collectors.joining(", ", "{|", "|}"));
     }
 
     /**

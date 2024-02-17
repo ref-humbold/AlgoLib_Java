@@ -1,6 +1,9 @@
 package algolib.structures;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,14 +11,19 @@ import org.junit.jupiter.api.Test;
 // Tests: Structure of AVL tree.
 public class AvlTreeTest
 {
-    private final Integer[] numbers =
-            new Integer[]{10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26};
+    private final List<Integer> numbers =
+            List.of(10, 6, 14, 97, 24, 37, 2, 30, 45, 18, 51, 71, 68, 26);
+    private final List<Integer> absent = List.of(111, 140, 187, 253);
+    private final List<Integer> present = IntStream.range(0, numbers.size())
+                                                   .filter(i -> i % 3 == 2)
+                                                   .mapToObj(numbers::get)
+                                                   .toList();
     private AvlTree<Integer> testObject;
 
     @BeforeEach
     public void setUp()
     {
-        testObject = new AvlTree<>(Arrays.asList(numbers));
+        testObject = new AvlTree<>(numbers);
     }
 
     @Test
@@ -23,7 +31,7 @@ public class AvlTreeTest
     {
         // given
         testObject = new AvlTree<>(Comparator.comparing(i -> -i));
-        testObject.addAll(Arrays.asList(numbers));
+        testObject.addAll(numbers);
         // when
         AvlTree<Number> result = new AvlTree<>(testObject);
         // then
@@ -45,10 +53,8 @@ public class AvlTreeTest
     @Test
     public void isEmpty_WhenEmpty_ThenTrue()
     {
-        // given
-        testObject = new AvlTree<>();
         // when
-        boolean result = testObject.isEmpty();
+        boolean result = new AvlTree<Integer>().isEmpty();
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -65,10 +71,8 @@ public class AvlTreeTest
     @Test
     public void size_WhenEmpty_ThenZero()
     {
-        // given
-        testObject = new AvlTree<>();
         // when
-        int result = testObject.size();
+        int result = new AvlTree<Integer>().size();
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -79,7 +83,7 @@ public class AvlTreeTest
         // when
         int result = testObject.size();
         // then
-        Assertions.assertThat(result).isEqualTo(numbers.length);
+        Assertions.assertThat(result).isEqualTo(numbers.size());
     }
 
     @Test
@@ -91,10 +95,95 @@ public class AvlTreeTest
         Assertions.assertThat(testObject).isEmpty();
     }
 
+    // region iterator & descendingIterator
+
+    @Test
+    public void iterator_WhenEmpty_ThenNoElements()
+    {
+        // when
+        Iterator<Integer> result = new AvlTree<Integer>().iterator();
+        // then
+        Assertions.assertThat(result.hasNext()).isFalse();
+        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    public void iterator_WhenSingleElement_ThenThisElementOnly()
+    {
+        // given
+        int element = numbers.get(0);
+        // when
+        Iterator<Integer> iterator = new AvlTree<>(List.of(element)).iterator();
+        // then
+        Assertions.assertThat(iterator.hasNext()).isTrue();
+        Assertions.assertThat(iterator.next()).isEqualTo(element);
+        Assertions.assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void iterator_WhenMultipleElements_ThenSortedElements()
+    {
+        // when
+        List<Integer> result = new ArrayList<>(testObject);
+        // then
+        Assertions.assertThat(result).isSorted();
+        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(numbers);
+    }
+
+    @Test
+    public void descendingIterator_WhenEmpty_ThenNoElements()
+    {
+        // when
+        Iterator<Integer> result = new AvlTree<Integer>().descendingIterator();
+        // then
+        Assertions.assertThat(result.hasNext()).isFalse();
+        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    public void descendingIterator_WhenSingleElement_ThenThisElementOnly()
+    {
+        // given
+        int element = numbers.get(0);
+        // when
+        Iterator<Integer> iterator = new AvlTree<>(List.of(element)).descendingIterator();
+        // then
+        Assertions.assertThat(iterator.hasNext()).isTrue();
+        Assertions.assertThat(iterator.next()).isEqualTo(element);
+        Assertions.assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void descendingIterator_WhenMultipleElements_ThenReverseSortedElements()
+    {
+        // given
+        Iterator<Integer> iterator = testObject.descendingIterator();
+        // when
+        List<Integer> result = new ArrayList<>();
+
+        while(iterator.hasNext())
+            result.add(iterator.next());
+        // then
+        Assertions.assertThat(result).isSortedAccordingTo((n, m) -> m.compareTo(n));
+        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(numbers);
+    }
+
+    // endregion
+    // region contains
+
+    @Test
+    public void contains_WhenEmpty_ThenFalse()
+    {
+        // when
+        boolean result = new AvlTree<Integer>().contains(numbers.get(0));
+        // then
+        Assertions.assertThat(result).isFalse();
+    }
+
     @Test
     public void contains_WhenPresentElement_ThenTrue()
     {
-        for(Integer i : numbers)
+        for(Integer i : present)
         {
             // when
             boolean result = testObject.contains(i);
@@ -106,7 +195,7 @@ public class AvlTreeTest
     @Test
     public void contains_WhenAbsentElement_ThenFalse()
     {
-        for(Integer i : new Integer[]{111, 140, 187})
+        for(Integer i : absent)
         {
             // when
             boolean result = testObject.contains(i);
@@ -115,61 +204,28 @@ public class AvlTreeTest
         }
     }
 
-    @Test
-    public void iterator_WhenNotEmpty_ThenSortedElements()
-    {
-        // when
-        List<Integer> result = new ArrayList<>(testObject);
-        // then
-        Assertions.assertThat(result).isSorted();
-        Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
-    }
+    // endregion
+    // region add
 
     @Test
-    public void iterator_WhenEmpty_ThenNoElements()
+    public void add_WhenEmpty_ThenTrue()
     {
         // given
+        int element = numbers.get(0);
+
         testObject = new AvlTree<>();
         // when
-        List<Integer> result = new ArrayList<>(testObject);
+        boolean result = testObject.add(element);
         // then
-        Assertions.assertThat(result).isEmpty();
-    }
-
-    @Test
-    public void descendingIterator_WhenNotEmpty_ThenReverseSortedElements()
-    {
-        // given
-        Iterator<Integer> iterator = testObject.descendingIterator();
-        // when
-        List<Integer> result = new ArrayList<>();
-
-        while(iterator.hasNext())
-            result.add(iterator.next());
-        // then
-        Assertions.assertThat(result).isSortedAccordingTo((n, m) -> m.compareTo(n));
-        Assertions.assertThat(result).containsExactlyInAnyOrder(numbers);
-    }
-
-    @Test
-    public void descendingIterator_WhenEmpty_ThenNoElements()
-    {
-        // given
-        testObject = new AvlTree<>();
-        Iterator<Integer> iterator = testObject.descendingIterator();
-        // when
-        List<Integer> result = new ArrayList<>();
-
-        while(iterator.hasNext())
-            result.add(iterator.next());
-        // then
-        Assertions.assertThat(result).isEmpty();
+        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(testObject).contains(element);
+        Assertions.assertThat(testObject).hasSize(1);
     }
 
     @Test
     public void add_WhenNewElement_ThenTrue()
     {
-        for(Integer i : new Integer[]{111, 140, 187})
+        for(Integer i : absent)
         {
             // when
             boolean result = testObject.add(i);
@@ -177,12 +233,14 @@ public class AvlTreeTest
             Assertions.assertThat(result).isTrue();
             Assertions.assertThat(testObject).contains(i);
         }
+
+        Assertions.assertThat(testObject).hasSize(numbers.size() + absent.size());
     }
 
     @Test
     public void add_WhenPresentElement_ThenFalse()
     {
-        for(Integer i : new Integer[]{14, 24, 30, 45})
+        for(Integer i : present)
         {
             // when
             boolean result = testObject.add(i);
@@ -190,12 +248,26 @@ public class AvlTreeTest
             Assertions.assertThat(result).isFalse();
             Assertions.assertThat(testObject).contains(i);
         }
+
+        Assertions.assertThat(testObject).hasSameSizeAs(numbers);
+    }
+
+    // endregion
+    // region remove
+
+    @Test
+    public void remove_WhenEmpty_ThenFalse()
+    {
+        // when
+        boolean result = new AvlTree<Integer>().remove(numbers.get(0));
+        // then
+        Assertions.assertThat(result).isFalse();
     }
 
     @Test
     public void remove_WhenPresentElement_ThenTrue()
     {
-        for(Integer i : new Integer[]{14, 24, 30, 45})
+        for(Integer i : present)
         {
             // when
             boolean result = testObject.remove(i);
@@ -203,45 +275,64 @@ public class AvlTreeTest
             Assertions.assertThat(result).isTrue();
             Assertions.assertThat(testObject).doesNotContain(i);
         }
+
+        Assertions.assertThat(testObject).hasSize(numbers.size() - present.size());
     }
 
     @Test
-    public void remove_WhenRootAndTwoElements1()
+    public void remove_WhenAbsentElement_ThenFalse()
+    {
+        for(Integer i : absent)
+        {
+            // when
+            boolean result = testObject.remove(i);
+            // then
+            Assertions.assertThat(result).isFalse();
+            Assertions.assertThat(testObject).doesNotContain(i);
+        }
+
+        Assertions.assertThat(testObject).hasSameSizeAs(numbers);
+    }
+
+    @Test
+    public void remove_WhenRootGreaterThanElement_ThenRemoved()
     {
         // given
-        int root = 27;
-        int elem = 11;
+        int root = absent.get(1);
+        int element = absent.get(0);
 
-        testObject = new AvlTree<>(Arrays.asList(root, elem));
+        testObject = new AvlTree<>(List.of(root, element));
         // when
         boolean result = testObject.remove(root);
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject).doesNotContain(root);
-        Assertions.assertThat(testObject).contains(elem);
+        Assertions.assertThat(testObject).contains(element);
+        Assertions.assertThat(testObject).hasSize(1);
     }
 
     @Test
-    public void remove_WhenRootAndTwoElements2()
+    public void remove_WhenRootLessThanElement_ThenRemoved()
     {
         // given
-        int root = 11;
-        int elem = 27;
+        int root = absent.get(0);
+        int element = absent.get(1);
 
-        testObject = new AvlTree<>(Arrays.asList(root, elem));
+        testObject = new AvlTree<>(List.of(root, element));
         // when
         boolean result = testObject.remove(root);
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject).doesNotContain(root);
-        Assertions.assertThat(testObject).contains(elem);
+        Assertions.assertThat(testObject).contains(element);
+        Assertions.assertThat(testObject).hasSize(1);
     }
 
     @Test
-    public void remove_WhenRootAndOneElement()
+    public void remove_WhenRootOnly_ThenEmpty()
     {
         // given
-        int root = 0;
+        int root = absent.get(0);
 
         testObject = new AvlTree<>(Collections.singletonList(root));
         // when
@@ -252,64 +343,57 @@ public class AvlTreeTest
         Assertions.assertThat(testObject).isEmpty();
     }
 
-    @Test
-    public void remove_WhenEmpty_ThenFalse()
-    {
-        // given
-        testObject = new AvlTree<>();
-        // when
-        boolean result = testObject.remove(0);
-        // then
-        Assertions.assertThat(result).isFalse();
-        Assertions.assertThat(testObject).isEmpty();
-    }
+    // endregion
+    // region removeAll
 
     @Test
-    public void remove_WhenAbsentElement_ThenFalse()
+    public void removeAll_WhenEmpty_ThenFalse()
     {
-        for(Integer i : new Integer[]{111, 140, 187})
-        {
-            // when
-            boolean result = testObject.remove(i);
-            // then
-            Assertions.assertThat(result).isFalse();
-            Assertions.assertThat(testObject).doesNotContain(i);
-        }
+        // when
+        boolean result = new AvlTree<Integer>().removeAll(new HashSet<>(numbers));
+        // then
+        Assertions.assertThat(result).isFalse();
     }
 
     @Test
     public void removeAll_WhenPresentElements_ThenTrue()
     {
         // given
-        Set<Integer> elements = Set.of(14, 24, 30, 45);
+        Set<Integer> elements = new HashSet<>(present);
         // when
         boolean result = testObject.removeAll(elements);
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
-    }
-
-    @Test
-    public void removeAll_WhenPresentAndAbsentElements_ThenTrue()
-    {
-        // given
-        Set<Integer> elements = Set.of(14, 162, 30, 195);
-        // when
-        boolean result = testObject.removeAll(elements);
-        // then
-        Assertions.assertThat(result).isTrue();
-        Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
+        Assertions.assertThat(testObject).hasSize(numbers.size() - present.size());
     }
 
     @Test
     public void removeAll_WhenAbsentElements_ThenFalse()
     {
         // given
-        Set<Integer> elements = Set.of(111, 140, 187);
+        Set<Integer> elements = new HashSet<>(absent);
         // when
         boolean result = testObject.removeAll(elements);
         // then
         Assertions.assertThat(result).isFalse();
         Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
+        Assertions.assertThat(testObject).hasSameSizeAs(numbers);
     }
+
+    @Test
+    public void removeAll_WhenPresentAndAbsentElements_ThenTrue()
+    {
+        // given
+        Set<Integer> elements =
+                Stream.concat(present.stream(), absent.stream()).collect(Collectors.toSet());
+        // when
+        boolean result = testObject.removeAll(elements);
+        // then
+        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
+        Assertions.assertThat(testObject).hasSize(numbers.size() - present.size());
+    }
+
+    // endregion
 }

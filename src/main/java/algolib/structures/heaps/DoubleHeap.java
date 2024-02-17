@@ -1,52 +1,47 @@
-package algolib.structures;
+package algolib.structures.heaps;
 
 import java.util.*;
 
-/** Structure of double heap. */
+/** Structure of heap. */
 public class DoubleHeap<E>
-        extends AbstractQueue<E>
+        extends AbstractHeap<E>
 {
     private static final int INDEX_MIN = 0;
     private static final int INDEX_MAX = 1;
-    private final Comparator<? super E> comparator_;
     private final List<E> heap = new ArrayList<>();
 
     public DoubleHeap()
     {
-        this((Comparator<? super E>)null);
+        super(null);
     }
 
     public DoubleHeap(Comparator<? super E> comparator)
     {
-        super();
-        comparator_ = comparator;
+        super(comparator);
     }
 
     @SuppressWarnings("unchecked")
     public DoubleHeap(DoubleHeap<? extends E> doubleHeap)
     {
-        super();
-        comparator_ = (Comparator<? super E>)doubleHeap.comparator();
+        super((Comparator<? super E>)doubleHeap.comparator());
         addAll(doubleHeap);
     }
 
     @SuppressWarnings("unchecked")
     public DoubleHeap(PriorityQueue<? extends E> queue)
     {
-        super();
-        comparator_ = (Comparator<? super E>)queue.comparator();
+        super((Comparator<? super E>)queue.comparator());
         addAll(queue);
     }
 
     @SuppressWarnings("unchecked")
     public DoubleHeap(Collection<? extends E> collection)
     {
-        super();
-        comparator_ = (collection instanceof DoubleHeap<? extends E> doubleHeap)
-                      ? (Comparator<? super E>)doubleHeap.comparator()
-                      : (collection instanceof PriorityQueue<? extends E> priorityQueue)
-                        ? (Comparator<? super E>)priorityQueue.comparator()
-                        : null;
+        super((collection instanceof DoubleHeap<? extends E> doubleHeap)
+              ? (Comparator<? super E>)doubleHeap.comparator()
+              : (collection instanceof PriorityQueue<? extends E> priorityQueue)
+                ? (Comparator<? super E>)priorityQueue.comparator()
+                : null);
         addAll(collection);
     }
 
@@ -54,15 +49,6 @@ public class DoubleHeap<E>
     public boolean isEmpty()
     {
         return heap.isEmpty();
-    }
-
-    /**
-     * Gets the comparator of this double heap.
-     * @return the comparator
-     */
-    public Comparator<? super E> comparator()
-    {
-        return comparator_;
     }
 
     @Override
@@ -95,8 +81,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves minimal element from this double heap.
-     * @return the minimal element
+     * Retrieves minimal element from this heap.
+     * @return the minimal element, or {@code null} if the heap is empty
      */
     public E peekMin()
     {
@@ -104,8 +90,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves maximal element from this double heap.
-     * @return the maximal element
+     * Retrieves maximal element from this heap.
+     * @return the maximal element, or {@code null} if the heap is empty
      */
     public E peekMax()
     {
@@ -118,9 +104,9 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves minimal element from this double heap.
+     * Retrieves minimal element from this heap.
      * @return the minimal element
-     * @throws NoSuchElementException if the double heap is empty
+     * @throws NoSuchElementException if the heap is empty
      */
     public E elementMin()
     {
@@ -128,9 +114,9 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves maximal element from this double heap.
+     * Retrieves maximal element from this heap.
      * @return the maximal element
-     * @throws NoSuchElementException if the double heap is empty
+     * @throws NoSuchElementException if the heap is empty
      */
     public E elementMax()
     {
@@ -180,8 +166,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves and removes minimal element from this double heap.
-     * @return the removed minimal element
+     * Retrieves and removes minimal element from this heap.
+     * @return the removed minimal element, or {@code null} if the heap is empty
      */
     public E pollMin()
     {
@@ -198,8 +184,8 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves and removes maximal element from this double heap.
-     * @return the maximal element
+     * Retrieves and removes maximal element from this heap.
+     * @return the maximal element, or {@code null} if the heap is empty
      */
     public E pollMax()
     {
@@ -219,9 +205,9 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves and removes minimal element from this double heap.
+     * Retrieves and removes minimal element from this heap.
      * @return the removed minimal element
-     * @throws NoSuchElementException if the double heap is empty
+     * @throws NoSuchElementException if the heap is empty
      */
     public E removeMin()
     {
@@ -229,9 +215,9 @@ public class DoubleHeap<E>
     }
 
     /**
-     * Retrieves and removes maximal element from this double heap.
+     * Retrieves and removes maximal element from this heap.
      * @return the maximal element
-     * @throws NoSuchElementException if the double heap is empty
+     * @throws NoSuchElementException if the heap is empty
      */
     public E removeMax()
     {
@@ -242,10 +228,10 @@ public class DoubleHeap<E>
     @SuppressWarnings("unchecked")
     private int compare(int index1, int index2)
     {
-        if(comparator_ == null)
+        if(comparator() == null)
             return ((Comparable<E>)heap.get(index1)).compareTo(heap.get(index2));
 
-        return comparator_.compare(heap.get(index1), heap.get(index2));
+        return comparator().compare(heap.get(index1), heap.get(index2));
     }
 
     // Moves element from given index towards minimum.
@@ -320,7 +306,7 @@ public class DoubleHeap<E>
         }
     }
 
-    // Swaps two elements in the double heap.
+    // Swaps two elements in the heap.
     private void swap(int index1, int index2)
     {
         E temp = heap.get(index1);
@@ -344,7 +330,7 @@ public class DoubleHeap<E>
         public E next()
         {
             if(!hasNext())
-                throw new NoSuchElementException("No more elements in iterator.");
+                throw new NoSuchElementException("No more elements in iterator");
 
             return orderQueue.remove();
         }
