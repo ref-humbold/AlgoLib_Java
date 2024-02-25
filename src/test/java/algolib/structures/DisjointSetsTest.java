@@ -137,8 +137,10 @@ public class DisjointSetsTest
         // given
         testObject = new DisjointSets<>();
         // when
-        testObject.add(numbers);
+        DisjointSets<Integer> result = testObject.add(numbers);
         // then
+        Assertions.assertThat(result).isSameAs(testObject);
+
         for(int element : numbers)
         {
             Assertions.assertThat(testObject.contains(element)).isTrue();
@@ -152,8 +154,9 @@ public class DisjointSetsTest
     public void add_WhenEmptyNewElements_ThenNoChanges()
     {
         // when
-        testObject.add(List.of());
+        DisjointSets<Integer> result = testObject.add(List.of());
         // then
+        Assertions.assertThat(result).isSameAs(testObject);
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
     }
 
@@ -161,8 +164,10 @@ public class DisjointSetsTest
     public void add_WhenNewElements_ThenNewSet()
     {
         // when
-        testObject.add(absent);
+        DisjointSets<Integer> result = testObject.add(absent);
         // then
+        Assertions.assertThat(result).isSameAs(testObject);
+
         for(int element : absent)
         {
             Assertions.assertThat(testObject.contains(element)).isTrue();
@@ -195,8 +200,9 @@ public class DisjointSetsTest
     public void add_WhenEmptyNewElementsToPresentRepresent_ThenNoChanges()
     {
         // when
-        testObject.add(List.of(), present.get(0));
+        DisjointSets<Integer> result = testObject.add(List.of(), present.get(0));
         // then
+        Assertions.assertThat(result).isSameAs(testObject);
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
     }
 
@@ -206,8 +212,10 @@ public class DisjointSetsTest
         // given
         int represent = present.get(0);
         // when
-        testObject.add(absent, represent);
+        DisjointSets<Integer> result = testObject.add(absent, represent);
         // then
+        Assertions.assertThat(result).isSameAs(testObject);
+
         for(int element : absent)
         {
             Assertions.assertThat(testObject.contains(element)).isTrue();
@@ -317,8 +325,9 @@ public class DisjointSetsTest
         int element1 = present.get(0);
         int element2 = present.get(1);
         // when
-        testObject.unionSet(element1, element2);
+        DisjointSets<Integer> result = testObject.unionSet(element1, element2);
         // then
+        Assertions.assertThat(result).isSameAs(testObject);
         Assertions.assertThat(testObject.isSameSet(element1, element2)).isTrue();
         Assertions.assertThat(testObject.findSet(element2)).isEqualTo(testObject.findSet(element1));
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() - 1);
@@ -330,8 +339,9 @@ public class DisjointSetsTest
         // given
         int element = present.get(0);
         // when
-        testObject.unionSet(element, element);
+        DisjointSets<Integer> result = testObject.unionSet(element, element);
         // then
+        Assertions.assertThat(result).isSameAs(testObject);
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
     }
 
@@ -343,8 +353,9 @@ public class DisjointSetsTest
         int element2 = present.get(1);
         testObject.unionSet(element1, element2);
         // when
-        testObject.unionSet(element2, element1);
+        DisjointSets<Integer> result = testObject.unionSet(element2, element1);
         // then
+        Assertions.assertThat(result).isSameAs(testObject);
         Assertions.assertThat(testObject.isSameSet(element1, element2)).isTrue();
         Assertions.assertThat(testObject.findSet(element2)).isEqualTo(testObject.findSet(element1));
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() - 1);
