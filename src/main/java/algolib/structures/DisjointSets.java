@@ -72,21 +72,19 @@ public class DisjointSets<E>
      */
     public DisjointSets<E> add(Collection<E> elements)
     {
-        ArrayList<E> elementsList = new ArrayList<>();
+        ArrayList<E> elementsList = new ArrayList<>(elements);
 
-        for(E element : elements)
-        {
+        for(E element : elementsList)
             if(contains(element))
                 throw new IllegalArgumentException(
                         "Value %s already present.".formatted(element.toString()));
 
-            elementsList.add(element);
-        }
-
         for(E element : elementsList)
             represents.put(element, elementsList.get(0));
 
-        ++size_;
+        if(!elementsList.isEmpty())
+            ++size_;
+
         return this;
     }
 

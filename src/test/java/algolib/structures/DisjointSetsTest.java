@@ -149,6 +149,15 @@ public class DisjointSetsTest
     }
 
     @Test
+    public void add_WhenEmptyNewElements_ThenNoChanges()
+    {
+        // when
+        testObject.add(List.of());
+        // then
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
+    }
+
+    @Test
     public void add_WhenNewElements_ThenNewSet()
     {
         // when
@@ -180,6 +189,15 @@ public class DisjointSetsTest
                 () -> testObject.add(Stream.concat(absent.stream(), present.stream()).toList()));
         // then
         Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void add_WhenEmptyNewElementsToPresentRepresent_ThenNoChanges()
+    {
+        // when
+        testObject.add(List.of(), present.get(0));
+        // then
+        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
     }
 
     @Test
