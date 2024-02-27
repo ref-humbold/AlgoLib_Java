@@ -346,23 +346,22 @@ public class DisjointSetsTest
     }
 
     @Test
-    public void unionSet_WhenSameSet_ThenSameRepresent()
+    public void unionSet_WhenSameSet_ThenNoChanges()
     {
         // given
-        int element1 = present.get(0);
-        int element2 = present.get(1);
-        testObject.unionSet(element1, element2);
+        int element1 = numbers.get(1);
+        int element2 = numbers.get(2);
+        testObject = new DisjointSets<>(List.of(absent, numbers));
         // when
-        DisjointSets<Integer> result = testObject.unionSet(element2, element1);
+        DisjointSets<Integer> result = testObject.unionSet(element1, element2);
         // then
         Assertions.assertThat(result).isSameAs(testObject);
         Assertions.assertThat(testObject.isSameSet(element1, element2)).isTrue();
-        Assertions.assertThat(testObject.findSet(element2)).isEqualTo(testObject.findSet(element1));
-        Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() - 1);
+        Assertions.assertThat(testObject.size()).isEqualTo(2);
     }
 
     @Test
-    public void unionSet_WhenNewElementsInChain_ThenSameRepresent()
+    public void unionSet_WhenDifferentSetsInChain_ThenSameRepresent()
     {
         // given
         int first = present.get(0);

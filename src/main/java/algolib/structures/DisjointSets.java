@@ -182,7 +182,7 @@ public class DisjointSets<E>
                                                                     Collectors.counting()))
                                      .entrySet()
                                      .stream()
-                                     .filter(entry -> entry.getValue() != 1)
+                                     .filter(entry -> entry.getValue() > 1)
                                      .map(Map.Entry::getKey)
                                      .toList();
 
