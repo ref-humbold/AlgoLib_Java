@@ -36,8 +36,9 @@ public class MatchingTest
         // when
         Map<Vertex<Integer>, Vertex<Integer>> result = Matching.match(graph);
         // then
-        Assertions.assertThat(result).containsOnlyKeys(graph.getVertices());
-        Assertions.assertThat(result).containsAllEntriesOf(expected);
+        Assertions.assertThat(result)
+                  .containsOnlyKeys(graph.getVertices())
+                  .containsAllEntriesOf(expected);
     }
 
     @Test

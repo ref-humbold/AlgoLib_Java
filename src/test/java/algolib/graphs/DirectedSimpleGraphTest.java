@@ -204,10 +204,9 @@ public class DirectedSimpleGraphTest
         // when
         Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(1));
         // then
-        Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsOnly(new Vertex<>(1), new Vertex<>(3), new Vertex<>(4), new Vertex<>(7),
-                                new Vertex<>(9));
+                  .containsExactlyInAnyOrder(new Vertex<>(1), new Vertex<>(3), new Vertex<>(4),
+                                             new Vertex<>(7), new Vertex<>(9));
     }
 
     @Test
@@ -224,13 +223,12 @@ public class DirectedSimpleGraphTest
         // when
         Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(1));
         // then
-        Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(new Vertex<>(1), new Vertex<>(1)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(3)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(4)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(7)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(9)));
+                  .containsExactlyInAnyOrder(new Edge<>(new Vertex<>(1), new Vertex<>(1)),
+                                             new Edge<>(new Vertex<>(1), new Vertex<>(3)),
+                                             new Edge<>(new Vertex<>(1), new Vertex<>(4)),
+                                             new Edge<>(new Vertex<>(1), new Vertex<>(7)),
+                                             new Edge<>(new Vertex<>(1), new Vertex<>(9)));
     }
 
     @Test

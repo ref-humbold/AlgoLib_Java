@@ -75,9 +75,7 @@ public class EquationSystemTest
         // when
         testObject.swap(0, 2);
         // then
-        Assertions.assertThat(testObject.getEquation(0).toString())
-                  .isEqualTo("-1 x_0 + 6 x_1 + 4 x_2 = 9");
-        Assertions.assertThat(testObject.getEquation(2).toString())
-                  .isEqualTo("2 x_0 + 3 x_1 + -2 x_2 = 15");
+        Assertions.assertThat(testObject.getEquation(0)).hasToString("-1 x_0 + 6 x_1 + 4 x_2 = 9");
+        Assertions.assertThat(testObject.getEquation(2)).hasToString("2 x_0 + 3 x_1 + -2 x_2 = 15");
     }
 }

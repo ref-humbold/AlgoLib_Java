@@ -201,10 +201,10 @@ public class UndirectedSimpleGraphTest
         // when
         Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(1));
         // then
-        Assertions.assertThat(result).hasSize(7);
         Assertions.assertThat(result)
-                  .containsOnly(new Vertex<>(1), new Vertex<>(2), new Vertex<>(3), new Vertex<>(4),
-                                new Vertex<>(6), new Vertex<>(7), new Vertex<>(9));
+                  .containsExactlyInAnyOrder(new Vertex<>(1), new Vertex<>(2), new Vertex<>(3),
+                                             new Vertex<>(4), new Vertex<>(6), new Vertex<>(7),
+                                             new Vertex<>(9));
     }
 
     @Test
@@ -221,15 +221,14 @@ public class UndirectedSimpleGraphTest
         // when
         Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(1));
         // then
-        Assertions.assertThat(result).hasSize(7);
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(new Vertex<>(1), new Vertex<>(1)),
-                                new Edge<>(new Vertex<>(2), new Vertex<>(1)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(3)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(4)),
-                                new Edge<>(new Vertex<>(6), new Vertex<>(1)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(7)),
-                                new Edge<>(new Vertex<>(1), new Vertex<>(9)));
+                  .containsExactlyInAnyOrder(new Edge<>(new Vertex<>(1), new Vertex<>(1)),
+                                             new Edge<>(new Vertex<>(2), new Vertex<>(1)),
+                                             new Edge<>(new Vertex<>(1), new Vertex<>(3)),
+                                             new Edge<>(new Vertex<>(1), new Vertex<>(4)),
+                                             new Edge<>(new Vertex<>(6), new Vertex<>(1)),
+                                             new Edge<>(new Vertex<>(1), new Vertex<>(7)),
+                                             new Edge<>(new Vertex<>(1), new Vertex<>(9)));
     }
 
     @Test

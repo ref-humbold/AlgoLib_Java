@@ -104,7 +104,7 @@ public class AvlTreeTest
         Iterator<Integer> result = new AvlTree<Integer>().iterator();
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
-        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -126,8 +126,7 @@ public class AvlTreeTest
         // when
         List<Integer> result = new ArrayList<>(testObject);
         // then
-        Assertions.assertThat(result).isSorted();
-        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(numbers);
+        Assertions.assertThat(result).isSorted().containsExactlyInAnyOrderElementsOf(numbers);
     }
 
     @Test
@@ -137,7 +136,7 @@ public class AvlTreeTest
         Iterator<Integer> result = new AvlTree<Integer>().descendingIterator();
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
-        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -164,8 +163,9 @@ public class AvlTreeTest
         while(iterator.hasNext())
             result.add(iterator.next());
         // then
-        Assertions.assertThat(result).isSortedAccordingTo((n, m) -> m.compareTo(n));
-        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(numbers);
+        Assertions.assertThat(result)
+                  .isSortedAccordingTo((n, m) -> m.compareTo(n))
+                  .containsExactlyInAnyOrderElementsOf(numbers);
     }
 
     // endregion
@@ -218,8 +218,7 @@ public class AvlTreeTest
         boolean result = testObject.add(element);
         // then
         Assertions.assertThat(result).isTrue();
-        Assertions.assertThat(testObject).contains(element);
-        Assertions.assertThat(testObject).hasSize(1);
+        Assertions.assertThat(testObject).contains(element).hasSize(1);
     }
 
     @Test
@@ -306,9 +305,7 @@ public class AvlTreeTest
         boolean result = testObject.remove(root);
         // then
         Assertions.assertThat(result).isTrue();
-        Assertions.assertThat(testObject).doesNotContain(root);
-        Assertions.assertThat(testObject).contains(element);
-        Assertions.assertThat(testObject).hasSize(1);
+        Assertions.assertThat(testObject).doesNotContain(root).contains(element).hasSize(1);
     }
 
     @Test
@@ -323,9 +320,7 @@ public class AvlTreeTest
         boolean result = testObject.remove(root);
         // then
         Assertions.assertThat(result).isTrue();
-        Assertions.assertThat(testObject).doesNotContain(root);
-        Assertions.assertThat(testObject).contains(element);
-        Assertions.assertThat(testObject).hasSize(1);
+        Assertions.assertThat(testObject).doesNotContain(root).contains(element).hasSize(1);
     }
 
     @Test
@@ -339,8 +334,7 @@ public class AvlTreeTest
         boolean result = testObject.remove(root);
         // then
         Assertions.assertThat(result).isTrue();
-        Assertions.assertThat(testObject).doesNotContain(root);
-        Assertions.assertThat(testObject).isEmpty();
+        Assertions.assertThat(testObject).doesNotContain(root).isEmpty();
     }
 
     // endregion
@@ -364,8 +358,9 @@ public class AvlTreeTest
         boolean result = testObject.removeAll(elements);
         // then
         Assertions.assertThat(result).isTrue();
-        Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
-        Assertions.assertThat(testObject).hasSize(numbers.size() - present.size());
+        Assertions.assertThat(testObject)
+                  .doesNotContainAnyElementsOf(elements)
+                  .hasSize(numbers.size() - present.size());
     }
 
     @Test
@@ -377,8 +372,9 @@ public class AvlTreeTest
         boolean result = testObject.removeAll(elements);
         // then
         Assertions.assertThat(result).isFalse();
-        Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
-        Assertions.assertThat(testObject).hasSameSizeAs(numbers);
+        Assertions.assertThat(testObject)
+                  .doesNotContainAnyElementsOf(elements)
+                  .hasSameSizeAs(numbers);
     }
 
     @Test
@@ -391,8 +387,9 @@ public class AvlTreeTest
         boolean result = testObject.removeAll(elements);
         // then
         Assertions.assertThat(result).isTrue();
-        Assertions.assertThat(testObject).doesNotContainAnyElementsOf(elements);
-        Assertions.assertThat(testObject).hasSize(numbers.size() - present.size());
+        Assertions.assertThat(testObject)
+                  .doesNotContainAnyElementsOf(elements)
+                  .hasSize(numbers.size() - present.size());
     }
 
     // endregion

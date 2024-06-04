@@ -106,7 +106,7 @@ public class DoubleHeapTest
         Iterator<Integer> result = new DoubleHeap<Integer>().iterator();
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
-        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -130,9 +130,10 @@ public class DoubleHeapTest
 
         testObject.iterator().forEachRemaining(result::add);
         // then
-        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(numbers);
-        Assertions.assertThat(result).contains(minimum, Index.atIndex(0));
-        Assertions.assertThat(result).contains(maximum, Index.atIndex(result.size() - 1));
+        Assertions.assertThat(result)
+                  .containsExactlyInAnyOrderElementsOf(numbers)
+                  .contains(minimum, Index.atIndex(0))
+                  .contains(maximum, Index.atIndex(result.size() - 1));
     }
 
     @Test
@@ -142,7 +143,7 @@ public class DoubleHeapTest
         Iterator<Integer> result = new DoubleHeap<Integer>().descendingIterator();
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
-        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -166,9 +167,10 @@ public class DoubleHeapTest
 
         testObject.descendingIterator().forEachRemaining(result::add);
         // then
-        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(numbers);
-        Assertions.assertThat(result).contains(maximum, Index.atIndex(0));
-        Assertions.assertThat(result).contains(minimum, Index.atIndex(result.size() - 1));
+        Assertions.assertThat(result)
+                  .containsExactlyInAnyOrderElementsOf(numbers)
+                  .contains(maximum, Index.atIndex(0))
+                  .contains(minimum, Index.atIndex(result.size() - 1));
     }
 
     // endregion
@@ -409,8 +411,9 @@ public class DoubleHeapTest
         while(!testObject.isEmpty())
             result.add(testObject.pollMin());
         // then
-        Assertions.assertThat(result).hasSameElementsAs(numbers);
-        Assertions.assertThat(result).isSortedAccordingTo(Comparator.naturalOrder());
+        Assertions.assertThat(result)
+                  .hasSameElementsAs(numbers)
+                  .isSortedAccordingTo(Comparator.naturalOrder());
     }
 
     @Test
@@ -455,8 +458,9 @@ public class DoubleHeapTest
         while(!testObject.isEmpty())
             result.add(testObject.pollMax());
         // then
-        Assertions.assertThat(result).hasSameElementsAs(numbers);
-        Assertions.assertThat(result).isSortedAccordingTo(Comparator.reverseOrder());
+        Assertions.assertThat(result)
+                  .hasSameElementsAs(numbers)
+                  .isSortedAccordingTo(Comparator.reverseOrder());
     }
 
     // endregion

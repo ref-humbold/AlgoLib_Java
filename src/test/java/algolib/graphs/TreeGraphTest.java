@@ -118,9 +118,8 @@ public class TreeGraphTest
         // when
         Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(1));
         // then
-        Assertions.assertThat(result).hasSize(3);
         Assertions.assertThat(result)
-                  .containsOnly(new Vertex<>(0), new Vertex<>(4), new Vertex<>(5));
+                  .containsExactlyInAnyOrder(new Vertex<>(0), new Vertex<>(4), new Vertex<>(5));
     }
 
     @Test
@@ -129,11 +128,10 @@ public class TreeGraphTest
         // when
         Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(1));
         // then
-        Assertions.assertThat(result).hasSize(3);
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(new Vertex<>(1), new Vertex<>(0)),
-                                new Edge<>(new Vertex<>(4), new Vertex<>(1)),
-                                new Edge<>(new Vertex<>(5), new Vertex<>(1)));
+                  .containsExactlyInAnyOrder(new Edge<>(new Vertex<>(1), new Vertex<>(0)),
+                                             new Edge<>(new Vertex<>(4), new Vertex<>(1)),
+                                             new Edge<>(new Vertex<>(5), new Vertex<>(1)));
     }
 
     @Test

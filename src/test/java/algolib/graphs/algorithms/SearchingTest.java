@@ -67,8 +67,8 @@ public class SearchingTest
         Collection<Vertex<Integer>> result = Searching.bfs(undirectedGraph, new EmptyStrategy<>(),
                                                            List.of(undirectedGraph.getVertex(0)));
         // then
-        Assertions.assertThat(result).isSubsetOf(undirectedGraph.getVertices());
         Assertions.assertThat(result)
+                  .isSubsetOf(undirectedGraph.getVertices())
                   .doesNotContain(undirectedGraph.getVertex(2), undirectedGraph.getVertex(6),
                                   undirectedGraph.getVertex(9));
     }
@@ -105,11 +105,10 @@ public class SearchingTest
         Collection<Vertex<Integer>> result = Searching.bfs(directedGraph, new EmptyStrategy<>(),
                                                            List.of(directedGraph.getVertex(1)));
         // then
-        Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsOnly(directedGraph.getVertex(0), directedGraph.getVertex(1),
-                                directedGraph.getVertex(3), directedGraph.getVertex(4),
-                                directedGraph.getVertex(7));
+                  .containsExactlyInAnyOrder(directedGraph.getVertex(0), directedGraph.getVertex(1),
+                                             directedGraph.getVertex(3), directedGraph.getVertex(4),
+                                             directedGraph.getVertex(7));
     }
 
     @Test
@@ -138,8 +137,8 @@ public class SearchingTest
                 Searching.dfsIterative(undirectedGraph, new EmptyStrategy<>(),
                                        List.of(undirectedGraph.getVertex(0)));
         // then
-        Assertions.assertThat(result).isSubsetOf(undirectedGraph.getVertices());
         Assertions.assertThat(result)
+                  .isSubsetOf(undirectedGraph.getVertices())
                   .doesNotContain(undirectedGraph.getVertex(2), undirectedGraph.getVertex(6),
                                   undirectedGraph.getVertex(9));
     }
@@ -179,11 +178,10 @@ public class SearchingTest
                 Searching.dfsIterative(directedGraph, new EmptyStrategy<>(),
                                        List.of(directedGraph.getVertex(1)));
         // then
-        Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsOnly(directedGraph.getVertex(0), directedGraph.getVertex(1),
-                                directedGraph.getVertex(3), directedGraph.getVertex(4),
-                                directedGraph.getVertex(7));
+                  .containsExactlyInAnyOrder(directedGraph.getVertex(0), directedGraph.getVertex(1),
+                                             directedGraph.getVertex(3), directedGraph.getVertex(4),
+                                             directedGraph.getVertex(7));
     }
 
     @Test
@@ -214,8 +212,8 @@ public class SearchingTest
                 Searching.dfsRecursive(undirectedGraph, new EmptyStrategy<>(),
                                        List.of(undirectedGraph.getVertex(0)));
         // then
-        Assertions.assertThat(result).isSubsetOf(undirectedGraph.getVertices());
         Assertions.assertThat(result)
+                  .isSubsetOf(undirectedGraph.getVertices())
                   .doesNotContain(undirectedGraph.getVertex(2), undirectedGraph.getVertex(6),
                                   undirectedGraph.getVertex(9));
     }
@@ -254,11 +252,10 @@ public class SearchingTest
                 Searching.dfsRecursive(directedGraph, new EmptyStrategy<>(),
                                        List.of(directedGraph.getVertex(1)));
         // then
-        Assertions.assertThat(result).hasSize(5);
         Assertions.assertThat(result)
-                  .containsOnly(directedGraph.getVertex(0), directedGraph.getVertex(1),
-                                directedGraph.getVertex(3), directedGraph.getVertex(4),
-                                directedGraph.getVertex(7));
+                  .containsExactlyInAnyOrder(directedGraph.getVertex(0), directedGraph.getVertex(1),
+                                             directedGraph.getVertex(3), directedGraph.getVertex(4),
+                                             directedGraph.getVertex(7));
     }
 
     @Test

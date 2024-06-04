@@ -90,7 +90,7 @@ public class PairingHeapTest
         Iterator<Integer> result = new PairingHeap<Integer>().iterator();
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
-        Assertions.assertThatCode(result::next).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -114,8 +114,9 @@ public class PairingHeapTest
 
         testObject.iterator().forEachRemaining(result::add);
         // then
-        Assertions.assertThat(result).containsExactlyInAnyOrderElementsOf(numbers);
-        Assertions.assertThat(result).contains(minimum, Index.atIndex(0));
+        Assertions.assertThat(result)
+                  .containsExactlyInAnyOrderElementsOf(numbers)
+                  .contains(minimum, Index.atIndex(0));
     }
 
     // endregion
@@ -263,8 +264,9 @@ public class PairingHeapTest
         while(!testObject.isEmpty())
             result.add(testObject.poll());
         // then
-        Assertions.assertThat(result).hasSameElementsAs(numbers);
-        Assertions.assertThat(result).isSortedAccordingTo(testObject.comparator());
+        Assertions.assertThat(result)
+                  .hasSameElementsAs(numbers)
+                  .isSortedAccordingTo(testObject.comparator());
     }
 
     @Test

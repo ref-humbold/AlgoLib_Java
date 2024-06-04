@@ -117,8 +117,7 @@ public class MultipartiteGraphTest
         // when
         Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(9));
         // then
-        Assertions.assertThat(result).hasSize(2);
-        Assertions.assertThat(result).containsOnly(new Vertex<>(2), new Vertex<>(7));
+        Assertions.assertThat(result).containsExactlyInAnyOrder(new Vertex<>(2), new Vertex<>(7));
     }
 
     @Test
@@ -127,10 +126,9 @@ public class MultipartiteGraphTest
         // when
         Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(9));
         // then
-        Assertions.assertThat(result).hasSize(2);
         Assertions.assertThat(result)
-                  .containsOnly(new Edge<>(new Vertex<>(2), new Vertex<>(9)),
-                                new Edge<>(new Vertex<>(7), new Vertex<>(9)));
+                  .containsExactlyInAnyOrder(new Edge<>(new Vertex<>(2), new Vertex<>(9)),
+                                             new Edge<>(new Vertex<>(7), new Vertex<>(9)));
     }
 
     @Test

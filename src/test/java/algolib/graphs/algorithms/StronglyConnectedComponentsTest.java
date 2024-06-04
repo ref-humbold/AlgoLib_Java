@@ -38,13 +38,13 @@ public class StronglyConnectedComponentsTest
         // when
         List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findScc(graph);
         // then
-        Assertions.assertThat(result).hasSize(4);
         Assertions.assertThat(result)
-                  .containsOnly(Set.of(graph.getVertex(0), graph.getVertex(1), graph.getVertex(3),
-                                       graph.getVertex(4)), Set.of(graph.getVertex(2)),
-                                Set.of(graph.getVertex(5)),
-                                Set.of(graph.getVertex(6), graph.getVertex(7), graph.getVertex(8),
-                                       graph.getVertex(9)));
+                  .containsExactlyInAnyOrder(
+                          Set.of(graph.getVertex(0), graph.getVertex(1), graph.getVertex(3),
+                                 graph.getVertex(4)), Set.of(graph.getVertex(2)),
+                          Set.of(graph.getVertex(5)),
+                          Set.of(graph.getVertex(6), graph.getVertex(7), graph.getVertex(8),
+                                 graph.getVertex(9)));
     }
 
     @Test
@@ -76,9 +76,9 @@ public class StronglyConnectedComponentsTest
         // when
         List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findScc(graph);
         // then
-        Assertions.assertThat(result).hasSize(4);
         Assertions.assertThat(result)
-                  .containsOnly(Set.of(graph.getVertex(0)), Set.of(graph.getVertex(1)),
-                                Set.of(graph.getVertex(2)), Set.of(graph.getVertex(3)));
+                  .containsExactlyInAnyOrder(Set.of(graph.getVertex(0)), Set.of(graph.getVertex(1)),
+                                             Set.of(graph.getVertex(2)),
+                                             Set.of(graph.getVertex(3)));
     }
 }
