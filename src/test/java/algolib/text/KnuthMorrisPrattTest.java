@@ -74,20 +74,14 @@ public class KnuthMorrisPrattTest
     @Test
     public void kmpSearch_WhenTextIsNull_ThenNullPointerException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> KnuthMorrisPratt.kmpSearch(null, "a"));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
+        Assertions.assertThatThrownBy(() -> KnuthMorrisPratt.kmpSearch(null, "a"))
+                  .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     public void kmpSearch_WhenPatternIsNull_ThenNullPointerException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> KnuthMorrisPratt.kmpSearch("abcde", null));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
+        Assertions.assertThatThrownBy(() -> KnuthMorrisPratt.kmpSearch("abcde", null))
+                  .isInstanceOf(NullPointerException.class);
     }
 }

@@ -183,11 +183,10 @@ public class TreeGraphTest
         String property = "qwerty";
 
         testObject.getProperties().set(vertex, property);
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> testObject.addVertex(vertex, new Vertex<>(2), "abcdefg", "xyz"));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(
+                          () -> testObject.addVertex(vertex, new Vertex<>(2), "abcdefg", "xyz"))
+                  .isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(8);
         Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
     }

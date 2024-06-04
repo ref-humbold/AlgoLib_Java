@@ -22,10 +22,8 @@ public class SortingTest
     @Test
     public void heapSort_WhenNull_ThenNullPointerException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Sorting.heapSort(null));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
+        Assertions.assertThatThrownBy(() -> Sorting.heapSort(null))
+                  .isInstanceOf(NullPointerException.class);
     }
 
     @Test
@@ -42,10 +40,8 @@ public class SortingTest
     @Test
     public void topDownMergeSort_WhenNull_ThenNullPointerException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Sorting.topDownMergeSort(null));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
+        Assertions.assertThatThrownBy(() -> Sorting.topDownMergeSort(null))
+                  .isInstanceOf(NullPointerException.class);
     }
 
     @Test
@@ -62,10 +58,8 @@ public class SortingTest
     @Test
     public void bottomUpMergeSort_WhenNull_ThenNullPointerException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Sorting.bottomUpMergeSort(null));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
+        Assertions.assertThatThrownBy(() -> Sorting.bottomUpMergeSort(null))
+                  .isInstanceOf(NullPointerException.class);
     }
 
     @Test
@@ -82,9 +76,7 @@ public class SortingTest
     @Test
     public void quickSort_WhenNull_ThenNullPointerException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Sorting.quickSort(null));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NullPointerException.class);
+        Assertions.assertThatThrownBy(() -> Sorting.quickSort(null))
+                  .isInstanceOf(NullPointerException.class);
     }
 }

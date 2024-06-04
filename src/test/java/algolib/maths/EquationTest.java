@@ -73,10 +73,8 @@ public class EquationTest
     @Test
     public void multiply_WhenConstantIsZero_ThenArithmeticException()
     {
-        // when
-        Throwable result = Assertions.catchThrowable(() -> testObject.multiply(0));
-        // then
-        Assertions.assertThat(result).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> testObject.multiply(0))
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     @Test
@@ -94,10 +92,8 @@ public class EquationTest
     @Test
     public void divide_WhenConstantIsZero_ThenArithmeticException()
     {
-        // when
-        Throwable result = Assertions.catchThrowable(() -> testObject.divide(0));
-        // then
-        Assertions.assertThat(result).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> testObject.divide(0))
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     @Test

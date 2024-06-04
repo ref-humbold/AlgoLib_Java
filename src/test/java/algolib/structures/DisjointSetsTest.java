@@ -36,11 +36,11 @@ public class DisjointSetsTest
     @Test
     public void constructor_WhenDuplicatesInDifferentSets_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> new DisjointSets<>(List.of(List.of(1, 2, 3), List.of(1, 11, 21, 31))));
+        // given
+        List<List<Integer>> sets = List.of(List.of(1, 2, 3), List.of(1, 11, 21, 31));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> new DisjointSets<>(sets))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -180,20 +180,16 @@ public class DisjointSetsTest
     @Test
     public void add_WhenPresentElements_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.add(present));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> testObject.add(present))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     public void add_WhenNewAndPresentElements_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> testObject.add(Stream.concat(absent.stream(), present.stream()).toList()));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(
+                          () -> testObject.add(Stream.concat(absent.stream(), present.stream()).toList()))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -229,21 +225,15 @@ public class DisjointSetsTest
     @Test
     public void add_WhenNewElementsToAbsentRepresent_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> testObject.add(absent, absent.get(0)));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> testObject.add(absent, absent.get(0)))
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void add_WhenPresentElementsToAbsentRepresent_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> testObject.add(present, absent.get(0)));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> testObject.add(present, absent.get(0)))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     // endregion
@@ -252,11 +242,8 @@ public class DisjointSetsTest
     @Test
     public void findSet_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> new DisjointSets<Integer>().findSet(numbers.get(0)));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new DisjointSets<Integer>().findSet(numbers.get(0)))
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -273,10 +260,8 @@ public class DisjointSetsTest
     @Test
     public void findSet_WhenAbsentElement_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.findSet(absent.get(0)));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> testObject.findSet(absent.get(0)))
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test

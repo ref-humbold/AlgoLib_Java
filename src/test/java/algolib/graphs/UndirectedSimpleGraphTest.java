@@ -59,17 +59,13 @@ public class UndirectedSimpleGraphTest
         Vertex<Integer> vertex = new Vertex<>(14);
         Edge<Integer> edge1 = new Edge<>(new Vertex<>(2), new Vertex<>(8));
         Edge<Integer> edge2 = new Edge<>(new Vertex<>(0), new Vertex<>(-1));
-        // when
-        Throwable throwableVertex =
-                Assertions.catchThrowable(() -> testObject.getProperties().get(vertex));
-        Throwable throwableEdge1 =
-                Assertions.catchThrowable(() -> testObject.getProperties().get(edge1));
-        Throwable throwableEdge2 =
-                Assertions.catchThrowable(() -> testObject.getProperties().get(edge2));
         // then
-        Assertions.assertThat(throwableVertex).isInstanceOf(IllegalArgumentException.class);
-        Assertions.assertThat(throwableEdge1).isInstanceOf(IllegalArgumentException.class);
-        Assertions.assertThat(throwableEdge2).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> testObject.getProperties().get(vertex))
+                  .isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> testObject.getProperties().get(edge1))
+                  .isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> testObject.getProperties().get(edge2))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -294,11 +290,9 @@ public class UndirectedSimpleGraphTest
         String property = "qwerty";
 
         testObject.getProperties().set(vertex, property);
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> testObject.addVertex(vertex, "abcdefg"));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> testObject.addVertex(vertex, "abcdefg"))
+                  .isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
         Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
     }
@@ -330,11 +324,9 @@ public class UndirectedSimpleGraphTest
         Vertex<Integer> destination = new Vertex<>(7);
 
         testObject.addEdgeBetween(source, destination);
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> testObject.addEdgeBetween(source, destination));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> testObject.addEdgeBetween(source, destination))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -345,11 +337,9 @@ public class UndirectedSimpleGraphTest
         Vertex<Integer> destination = new Vertex<>(7);
 
         testObject.addEdgeBetween(source, destination);
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> testObject.addEdgeBetween(destination, source));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> testObject.addEdgeBetween(destination, source))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

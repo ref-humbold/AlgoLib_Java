@@ -59,10 +59,8 @@ public class SuffixArrayTest
     @Test
     public void get_WhenOutOfRange_ThenIndexOutOfBoundsException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.get(20));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+        Assertions.assertThatThrownBy(() -> testObject.get(20))
+                  .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @Test
@@ -83,10 +81,8 @@ public class SuffixArrayTest
     @Test
     public void indexAt_WhenOutOfRange_ThenIndexOutOfBoundsException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.indexAt(20));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+        Assertions.assertThatThrownBy(() -> testObject.indexAt(20))
+                  .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @Test
@@ -107,10 +103,8 @@ public class SuffixArrayTest
     @Test
     public void indexOf_WhenOutOfRange_ThenIndexOutOfBoundsException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.indexOf(20));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+        Assertions.assertThatThrownBy(() -> testObject.indexOf(20))
+                  .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @Test

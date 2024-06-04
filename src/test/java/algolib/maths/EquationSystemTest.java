@@ -3,6 +3,8 @@ package algolib.maths;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import algolib.TestUtils;
+
 // Tests: Structure of linear equations system.
 public class EquationSystemTest
 {
@@ -25,20 +27,11 @@ public class EquationSystemTest
     public void solve_WhenSingleSolution_ThenSolution()
     {
         // given
-        EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
-                                                      Equation.of(new double[]{7, -1, 0}, 4),
-                                                      Equation.of(new double[]{-1, 6, 4}, 9));
+        var testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
+                                           Equation.of(new double[]{7, -1, 0}, 4),
+                                           Equation.of(new double[]{-1, 6, 4}, 9));
         // when
-        double[] result = new double[0];
-
-        try
-        {
-            result = testObject.solve();
-        }
-        catch(InfiniteSolutionsException | NoSolutionException e)
-        {
-            Assertions.fail("Unexpected exception: %s".formatted(e.getClass().getSimpleName()));
-        }
+        double[] result = TestUtils.failOnException(testObject::solve);
         // then
         Assertions.assertThat(result).containsExactly(1, 3, -2);
         Assertions.assertThat(testObject.hasSolution(result)).isTrue();
@@ -49,13 +42,11 @@ public class EquationSystemTest
     public void solve_WhenNoSolution_ThenNoSolutionException()
     {
         // given
-        EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
-                                                      Equation.of(new double[]{7, -1, 0}, 4),
-                                                      Equation.of(new double[]{-1, -1.5, 1}, -1));
-        // when
-        Throwable throwable = Assertions.catchThrowable(testObject::solve);
+        var testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
+                                           Equation.of(new double[]{7, -1, 0}, 4),
+                                           Equation.of(new double[]{-1, -1.5, 1}, -1));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSolutionException.class);
+        Assertions.assertThatThrownBy(testObject::solve).isInstanceOf(NoSolutionException.class);
         Assertions.assertThat(testObject.hasSolution(new double[]{1, 3, -2})).isFalse();
         Assertions.assertThat(testObject.hasSolution(new double[]{-2, -18, -36.5})).isFalse();
     }
@@ -64,13 +55,12 @@ public class EquationSystemTest
     public void solve_WhenInfiniteSolutions_ThenInfiniteSolutionsException()
     {
         // given
-        EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
-                                                      Equation.of(new double[]{7, -1, 0}, 4),
-                                                      Equation.of(new double[]{4, 6, -4}, 30));
-        // when
-        Throwable throwable = Assertions.catchThrowable(testObject::solve);
+        var testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
+                                           Equation.of(new double[]{7, -1, 0}, 4),
+                                           Equation.of(new double[]{4, 6, -4}, 30));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(InfiniteSolutionsException.class);
+        Assertions.assertThatThrownBy(testObject::solve)
+                  .isInstanceOf(InfiniteSolutionsException.class);
         Assertions.assertThat(testObject.hasSolution(new double[]{1, 3, -2})).isTrue();
         Assertions.assertThat(testObject.hasSolution(new double[]{-2, -18, -36.5})).isTrue();
     }
@@ -79,9 +69,9 @@ public class EquationSystemTest
     public void swap_ThenEquationsSwapped()
     {
         // given
-        EquationSystem testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
-                                                      Equation.of(new double[]{7, -1, 0}, 4),
-                                                      Equation.of(new double[]{-1, 6, 4}, 9));
+        var testObject = EquationSystem.of(Equation.of(new double[]{2, 3, -2}, 15),
+                                           Equation.of(new double[]{7, -1, 0}, 4),
+                                           Equation.of(new double[]{-1, 6, 4}, 9));
         // when
         testObject.swap(0, 2);
         // then

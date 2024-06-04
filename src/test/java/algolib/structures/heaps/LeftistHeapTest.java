@@ -205,10 +205,8 @@ public class LeftistHeapTest
     @Test
     public void element_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> new LeftistHeap<Integer>().element());
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new LeftistHeap<Integer>().element())
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -272,10 +270,8 @@ public class LeftistHeapTest
     @Test
     public void remove_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> new LeftistHeap<Integer>().remove());
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new LeftistHeap<Integer>().remove())
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test

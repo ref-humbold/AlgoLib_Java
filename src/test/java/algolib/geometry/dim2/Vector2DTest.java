@@ -131,9 +131,7 @@ public class Vector2DTest
     @Test
     public void divide_WhenDivisionByZero_ThenArithmeticException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Vector2D.of(1.0, 1.0).divide(0));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> Vector2D.of(1.0, 1.0).divide(0))
+                  .isInstanceOf(ArithmeticException.class);
     }
 }

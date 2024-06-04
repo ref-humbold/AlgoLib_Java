@@ -61,11 +61,8 @@ public class EditDistanceTest
     @Test
     public void countLevenshtein_WhenNegativeCost_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> EditDistance.countLevenshtein("a", "b", 1.0, 1.0, -1.0));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> EditDistance.countLevenshtein("a", "b", 1.0, 1.0, -1.0))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     // endregion
@@ -121,11 +118,8 @@ public class EditDistanceTest
     @Test
     public void countLcs_WhenNegativeCost_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> EditDistance.countLcs("a", "b", 1.0, -1.0));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> EditDistance.countLcs("a", "b", 1.0, -1.0))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     // endregion
@@ -167,21 +161,15 @@ public class EditDistanceTest
     @Test
     public void countHamming_WhenDifferentLength_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> EditDistance.countHamming("qwerty", "asdf"));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> EditDistance.countHamming("qwerty", "asdf"))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     public void countHamming_WhenNegativeCost_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> EditDistance.countHamming("a", "b", -1.0));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> EditDistance.countHamming("a", "b", -1.0))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     // endregion

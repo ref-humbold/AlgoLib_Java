@@ -164,10 +164,8 @@ public class MultipartiteGraphTest
     @Test
     public void getVerticesFromGroup_WhenInvalidGroup_ThenIndexOutOfBoundsException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.getVerticesFromGroup(14));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+        Assertions.assertThatThrownBy(() -> testObject.getVerticesFromGroup(14))
+                  .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @Test
@@ -193,11 +191,9 @@ public class MultipartiteGraphTest
         String property = "qwerty";
 
         testObject.getProperties().set(vertex, property);
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> testObject.addVertex(3, vertex, "xyz"));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+
+        Assertions.assertThatThrownBy(() -> testObject.addVertex(3, vertex, "xyz"))
+                  .isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(10);
         Assertions.assertThat(testObject.getProperties().get(vertex)).isEqualTo(property);
     }
@@ -205,10 +201,8 @@ public class MultipartiteGraphTest
     @Test
     public void addVertex_WhenInvalidGroup_ThenIndexOutOfBoundsException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.addVertex(-3, 19));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+        Assertions.assertThatThrownBy(() -> testObject.addVertex(-3, 19))
+                  .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @Test
@@ -235,30 +229,24 @@ public class MultipartiteGraphTest
         Vertex<Integer> destination = new Vertex<>(3);
 
         testObject.addEdgeBetween(source, destination);
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> testObject.addEdgeBetween(source, destination));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+
+        Assertions.assertThatThrownBy(() -> testObject.addEdgeBetween(source, destination))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     public void addEdgeBetween_WhenSameGroup_ThenGraphPartitionException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> testObject.addEdgeBetween(new Vertex<>(5), new Vertex<>(8)));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(GraphPartitionException.class);
+        Assertions.assertThatThrownBy(
+                          () -> testObject.addEdgeBetween(new Vertex<>(5), new Vertex<>(8)))
+                  .isInstanceOf(GraphPartitionException.class);
     }
 
     @Test
     public void addEdgeBetween_WhenInvalidVertex_ThenIllegalArgumentException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> testObject.addEdgeBetween(new Vertex<>(15), new Vertex<>(18)));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(
+                          () -> testObject.addEdgeBetween(new Vertex<>(15), new Vertex<>(18)))
+                  .isInstanceOf(IllegalArgumentException.class);
     }
 }

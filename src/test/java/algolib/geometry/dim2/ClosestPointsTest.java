@@ -13,11 +13,9 @@ public class ClosestPointsTest
     @Test
     public void findClosestPoints_WhenNoPoints_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> ClosestPoints.findClosestPoints(List.of()));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+
+        Assertions.assertThatThrownBy(() -> ClosestPoints.findClosestPoints(List.of()))
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test

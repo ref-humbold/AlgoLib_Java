@@ -58,11 +58,9 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> TopologicalSorting.inputsTopologicalSort(graph));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(DirectedCyclicGraphException.class);
+        Assertions.assertThatThrownBy(() -> TopologicalSorting.inputsTopologicalSort(graph))
+                  .isInstanceOf(DirectedCyclicGraphException.class);
     }
 
     @Test
@@ -129,11 +127,9 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> TopologicalSorting.dfsTopologicalSort(graph));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(DirectedCyclicGraphException.class);
+        Assertions.assertThatThrownBy(() -> TopologicalSorting.dfsTopologicalSort(graph))
+                  .isInstanceOf(DirectedCyclicGraphException.class);
     }
 
     @Test

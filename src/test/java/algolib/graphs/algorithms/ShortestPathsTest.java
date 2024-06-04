@@ -140,11 +140,11 @@ public class ShortestPathsTest
         // given
         directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
                                      new Weight(-20.0));
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> ShortestPaths.bellmanFord(directedGraph, directedGraph.getVertex(1)));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalStateException.class);
+        Assertions.assertThatThrownBy(
+                          () -> ShortestPaths.bellmanFord(directedGraph,
+                                                          directedGraph.getVertex(1)))
+                  .isInstanceOf(IllegalStateException.class);
     }
 
     // endregion
@@ -182,11 +182,10 @@ public class ShortestPathsTest
         // given
         directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
                                      new Weight(-5.0));
-        // when
-        Throwable throwable = Assertions.catchThrowable(
-                () -> ShortestPaths.dijkstra(directedGraph, directedGraph.getVertex(1)));
         // then
-        Assertions.assertThat(throwable).isInstanceOf(IllegalStateException.class);
+        Assertions.assertThatThrownBy(
+                          () -> ShortestPaths.dijkstra(directedGraph, directedGraph.getVertex(1)))
+                  .isInstanceOf(IllegalStateException.class);
     }
 
     // endregion

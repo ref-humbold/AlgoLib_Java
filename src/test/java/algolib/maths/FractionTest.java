@@ -31,10 +31,8 @@ public class FractionTest
     @Test
     public void of_WhenDenominatorIsZero_ThenArithmeticException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Fraction.of(1, 0));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> Fraction.of(1, 0))
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     @Test
@@ -126,10 +124,8 @@ public class FractionTest
     @Test
     public void invert_WhenZero_ThenArithmeticException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(Fraction.of(0)::invert);
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(Fraction.of(0)::invert)
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     // endregion
@@ -201,11 +197,8 @@ public class FractionTest
     @Test
     public void divide_WhenZero_ThenArithmeticException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> Fraction.of(9, 14).divide(Fraction.of(0)));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> Fraction.of(9, 14).divide(Fraction.of(0)))
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     @Test

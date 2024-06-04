@@ -205,10 +205,8 @@ public class PairingHeapTest
     @Test
     public void element_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> new PairingHeap<Integer>().element());
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new PairingHeap<Integer>().element())
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -272,10 +270,8 @@ public class PairingHeapTest
     @Test
     public void remove_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> new PairingHeap<Integer>().remove());
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new PairingHeap<Integer>().remove())
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test

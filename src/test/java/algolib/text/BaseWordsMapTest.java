@@ -79,18 +79,14 @@ public class BaseWordsMapTest
     @Test
     public void getCode_WhenInvalidStartIndex_ThenIndexOutOfRangeException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.getCode(-1));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+        Assertions.assertThatThrownBy(() -> testObject.getCode(-1))
+                  .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @Test
     public void getCode_WhenInvalidEndIndex_ThenIndexOutOfRangeException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> testObject.getCode(5, 15));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
+        Assertions.assertThatThrownBy(() -> testObject.getCode(5, 15))
+                  .isInstanceOf(IndexOutOfBoundsException.class);
     }
 }

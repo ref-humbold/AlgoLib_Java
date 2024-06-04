@@ -325,11 +325,8 @@ public class DoubleHeapTest
     @Test
     public void elementMin_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> new DoubleHeap<Integer>().elementMin());
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new DoubleHeap<Integer>().elementMin())
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -344,11 +341,8 @@ public class DoubleHeapTest
     @Test
     public void elementMax_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> new DoubleHeap<Integer>().elementMax());
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new DoubleHeap<Integer>().elementMax())
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -481,11 +475,8 @@ public class DoubleHeapTest
     @Test
     public void removeMin_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> new DoubleHeap<Integer>().removeMin());
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new DoubleHeap<Integer>().removeMin())
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -501,11 +492,8 @@ public class DoubleHeapTest
     @Test
     public void removeMax_WhenEmpty_ThenNoSuchElementException()
     {
-        // when
-        Throwable throwable =
-                Assertions.catchThrowable(() -> new DoubleHeap<Integer>().removeMax());
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+        Assertions.assertThatThrownBy(() -> new DoubleHeap<Integer>().removeMax())
+                  .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test

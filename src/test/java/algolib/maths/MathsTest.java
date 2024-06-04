@@ -212,10 +212,8 @@ public class MathsTest
     @Test
     public void multiply_WhenModuloIsNegative_ThenArithmeticException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.multiply(547, 312, -10000));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> Maths.multiply(547, 312, -10000))
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     // endregion
@@ -242,10 +240,8 @@ public class MathsTest
     @Test
     public void power_WhenBaseAndExponentAreZero_ThenArithmeticException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.power(0, 0));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> Maths.power(0, 0))
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     @Test
@@ -278,10 +274,8 @@ public class MathsTest
     @Test
     public void power_WhenExponentIsNegative_ThenArithmeticException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.power(3, -10));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> Maths.power(3, -10))
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     @Test
@@ -314,10 +308,8 @@ public class MathsTest
     @Test
     public void power_WhenModuloIsNegative_ThenArithmeticException()
     {
-        // when
-        Throwable throwable = Assertions.catchThrowable(() -> Maths.power(5, 11, -10000));
-        // then
-        Assertions.assertThat(throwable).isInstanceOf(ArithmeticException.class);
+        Assertions.assertThatThrownBy(() -> Maths.power(5, 11, -10000))
+                  .isInstanceOf(ArithmeticException.class);
     }
 
     // endregion
