@@ -13,6 +13,7 @@ public class KnuthMorrisPrattTest
         // when
         List<Integer> result =
                 KnuthMorrisPratt.kmpSearch("abcdecdcdefgcdcdecdcdecdcdehijcdecdcdek", "cdecdcde");
+
         // then
         Assertions.assertThat(result).containsExactly(2, 14, 19, 30);
     }
@@ -22,6 +23,7 @@ public class KnuthMorrisPrattTest
     {
         // when
         List<Integer> result = KnuthMorrisPratt.kmpSearch("abcde", "a");
+
         // then
         Assertions.assertThat(result).containsExactly(0);
     }
@@ -31,6 +33,7 @@ public class KnuthMorrisPrattTest
     {
         // when
         List<Integer> result = KnuthMorrisPratt.kmpSearch("abcdae", "a");
+
         // then
         Assertions.assertThat(result).containsExactly(0, 4);
     }
@@ -40,6 +43,7 @@ public class KnuthMorrisPrattTest
     {
         // when
         List<Integer> result = KnuthMorrisPratt.kmpSearch("aaaabcde", "aaa");
+
         // then
         Assertions.assertThat(result).containsExactly(0, 1);
     }
@@ -49,6 +53,7 @@ public class KnuthMorrisPrattTest
     {
         // when
         List<Integer> result = KnuthMorrisPratt.kmpSearch("abcde", "x");
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -58,6 +63,7 @@ public class KnuthMorrisPrattTest
     {
         // when
         List<Integer> result = KnuthMorrisPratt.kmpSearch("abcde", "");
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -67,6 +73,7 @@ public class KnuthMorrisPrattTest
     {
         // when
         List<Integer> result = KnuthMorrisPratt.kmpSearch("", "a");
+
         // then
         Assertions.assertThat(result).isEmpty();
     }

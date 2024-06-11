@@ -30,6 +30,7 @@ public class PairingHeapTest
     {
         // when
         var result = new PairingHeap<>(testObject);
+
         // then
         Assertions.assertThat(result.size()).isEqualTo(testObject.size());
         Assertions.assertThat(result.peek()).isEqualTo(testObject.peek());
@@ -41,6 +42,7 @@ public class PairingHeapTest
     {
         // when
         boolean result = new PairingHeap<Integer>().isEmpty();
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -50,6 +52,7 @@ public class PairingHeapTest
     {
         // when
         boolean result = testObject.isEmpty();
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -59,6 +62,7 @@ public class PairingHeapTest
     {
         // when
         int result = new PairingHeap<Integer>().size();
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -68,6 +72,7 @@ public class PairingHeapTest
     {
         // when
         int result = testObject.size();
+
         // then
         Assertions.assertThat(result).isEqualTo(numbers.size());
     }
@@ -77,6 +82,7 @@ public class PairingHeapTest
     {
         // when
         testObject.clear();
+
         // then
         Assertions.assertThat(testObject).isEmpty();
     }
@@ -88,6 +94,7 @@ public class PairingHeapTest
     {
         // when
         Iterator<Integer> result = new PairingHeap<Integer>().iterator();
+
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
         Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
@@ -98,8 +105,10 @@ public class PairingHeapTest
     {
         // given
         int element = numbers.get(0);
+
         // when
         Iterator<Integer> result = new PairingHeap<>(List.of(element)).iterator();
+
         // then
         Assertions.assertThat(result.hasNext()).isTrue();
         Assertions.assertThat(result.next()).isEqualTo(element);
@@ -113,6 +122,7 @@ public class PairingHeapTest
         List<Integer> result = new ArrayList<>();
 
         testObject.iterator().forEachRemaining(result::add);
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrderElementsOf(numbers)
@@ -129,8 +139,10 @@ public class PairingHeapTest
         int element = numbers.get(0);
 
         testObject = new PairingHeap<>();
+
         // when
         testObject.add(element);
+
         // then
         Assertions.assertThat(testObject).hasSize(1);
         Assertions.assertThat(testObject.peek()).isEqualTo(element);
@@ -141,8 +153,10 @@ public class PairingHeapTest
     {
         // given
         int element = minimum - 3;
+
         // when
         testObject.add(element);
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
         Assertions.assertThat(testObject.peek()).isEqualTo(element);
@@ -153,6 +167,7 @@ public class PairingHeapTest
     {
         // when
         testObject.offer(minimum + 3);
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
         Assertions.assertThat(testObject.peek()).isEqualTo(minimum);
@@ -163,8 +178,10 @@ public class PairingHeapTest
     {
         // given
         List<Integer> elements = List.of(minimum - 3, minimum + 5, minimum + 13, minimum + 20);
+
         // when
         testObject.addAll(elements);
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + elements.size());
         Assertions.assertThat(testObject.peek())
@@ -179,6 +196,7 @@ public class PairingHeapTest
     {
         // when
         Integer result = new PairingHeap<Integer>().peek();
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -188,8 +206,10 @@ public class PairingHeapTest
     {
         // given
         int element = numbers.get(0);
+
         // when
         Integer result = new PairingHeap<>(List.of(element)).peek();
+
         // then
         Assertions.assertThat(result).isEqualTo(element);
     }
@@ -199,6 +219,7 @@ public class PairingHeapTest
     {
         // when
         Integer result = testObject.peek();
+
         // then
         Assertions.assertThat(result).isEqualTo(minimum);
     }
@@ -215,6 +236,7 @@ public class PairingHeapTest
     {
         // when
         Integer result = testObject.element();
+
         // then
         Assertions.assertThat(result).isEqualTo(minimum);
     }
@@ -227,6 +249,7 @@ public class PairingHeapTest
     {
         // when
         Integer result = new PairingHeap<Integer>().poll();
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -238,8 +261,10 @@ public class PairingHeapTest
         int element = numbers.get(0);
 
         testObject = new PairingHeap<>(List.of(element));
+
         // when
         Integer result = testObject.poll();
+
         // then
         Assertions.assertThat(testObject).isEmpty();
         Assertions.assertThat(result).isEqualTo(element);
@@ -250,6 +275,7 @@ public class PairingHeapTest
     {
         // when
         Integer result = testObject.poll();
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(minimum);
@@ -263,6 +289,7 @@ public class PairingHeapTest
 
         while(!testObject.isEmpty())
             result.add(testObject.poll());
+
         // then
         Assertions.assertThat(result)
                   .hasSameElementsAs(numbers)
@@ -281,6 +308,7 @@ public class PairingHeapTest
     {
         // when
         Integer result = testObject.remove();
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(minimum);
@@ -296,8 +324,10 @@ public class PairingHeapTest
         testObject = new PairingHeap<>();
 
         var other = new PairingHeap<>(numbers);
+
         // when
         testObject.merge(other);
+
         // then
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
         Assertions.assertThat(testObject.peek()).isEqualTo(other.peek());
@@ -308,6 +338,7 @@ public class PairingHeapTest
     {
         // when
         testObject.merge(new PairingHeap<>());
+
         // then
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size());
         Assertions.assertThat(testObject.peek()).isEqualTo(minimum);
@@ -319,8 +350,10 @@ public class PairingHeapTest
         // given
         var other =
                 new PairingHeap<>(List.of(minimum - 3, minimum + 5, minimum + 13, minimum + 20));
+
         // when
         testObject.merge(other);
+
         // then
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + other.size());
         Assertions.assertThat(testObject.peek()).isEqualTo(other.peek());
@@ -331,8 +364,10 @@ public class PairingHeapTest
     {
         // given
         var other = new PairingHeap<>(List.of(minimum + 5, minimum + 13, minimum + 20));
+
         // when
         testObject.merge(other);
+
         // then
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + other.size());
         Assertions.assertThat(testObject.peek()).isEqualTo(minimum);
@@ -348,9 +383,11 @@ public class PairingHeapTest
         testObject = new PairingHeap<>();
         var first = new PairingHeap<>(firstElements);
         var second = new PairingHeap<>(secondElements);
+
         // when
         testObject.merge(first);
         testObject.merge(second);
+
         // then
         Assertions.assertThat(testObject.peek())
                   .isEqualTo(Stream.concat(firstElements.stream(), secondElements.stream())

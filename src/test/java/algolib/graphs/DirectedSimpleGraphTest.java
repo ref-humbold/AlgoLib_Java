@@ -28,12 +28,14 @@ public class DirectedSimpleGraphTest
                 testObject.addEdgeBetween(testObject.getVertex(0), testObject.getVertex(1));
         String vertexProperty = "x";
         String edgeProperty = "y";
+
         // when
         testObject.getProperties().set(vertex, vertexProperty);
         testObject.getProperties().set(edge, edgeProperty);
 
         String resultVertex = testObject.getProperties().get(vertex);
         String resultEdge = testObject.getProperties().get(edge);
+
         // then
         Assertions.assertThat(resultVertex).isEqualTo(vertexProperty);
         Assertions.assertThat(resultEdge).isEqualTo(edgeProperty);
@@ -45,9 +47,11 @@ public class DirectedSimpleGraphTest
         // given
         Vertex<Integer> vertex = new Vertex<>(4);
         Edge<Integer> edge = testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(7));
+
         // when
         String resultVertex = testObject.getProperties().get(vertex);
         String resultEdge = testObject.getProperties().get(edge);
+
         // then
         Assertions.assertThat(resultVertex).isNull();
         Assertions.assertThat(resultEdge).isNull();
@@ -60,6 +64,7 @@ public class DirectedSimpleGraphTest
         Vertex<Integer> vertex = new Vertex<>(14);
         Edge<Integer> edge1 = new Edge<>(new Vertex<>(2), new Vertex<>(8));
         Edge<Integer> edge2 = new Edge<>(new Vertex<>(0), new Vertex<>(-1));
+
         // then
         Assertions.assertThatThrownBy(() -> testObject.getProperties().get(vertex))
                   .isInstanceOf(IllegalArgumentException.class);
@@ -74,6 +79,7 @@ public class DirectedSimpleGraphTest
     {
         // when
         int result = testObject.getVerticesCount();
+
         // then
         Assertions.assertThat(result).isEqualTo(10);
     }
@@ -89,8 +95,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(3));
         testObject.addEdgeBetween(new Vertex<>(3), new Vertex<>(6));
         testObject.addEdgeBetween(new Vertex<>(9), new Vertex<>(3));
+
         // when
         int result = testObject.getEdgesCount();
+
         // then
         Assertions.assertThat(result).isEqualTo(7);
     }
@@ -100,6 +108,7 @@ public class DirectedSimpleGraphTest
     {
         // when
         Collection<Vertex<Integer>> result = testObject.getVertices();
+
         // then
         Assertions.assertThat(result)
                   .containsOnly(new Vertex<>(0), new Vertex<>(1), new Vertex<>(2), new Vertex<>(3),
@@ -118,8 +127,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(3));
         testObject.addEdgeBetween(new Vertex<>(3), new Vertex<>(6));
         testObject.addEdgeBetween(new Vertex<>(9), new Vertex<>(3));
+
         // when
         Collection<Edge<Integer>> result = testObject.getEdges();
+
         // then
         Assertions.assertThat(result)
                   .containsOnly(new Edge<>(new Vertex<>(1), new Vertex<>(5)),
@@ -136,8 +147,10 @@ public class DirectedSimpleGraphTest
     {
         // given
         int vertexId = 4;
+
         // when
         Vertex<Integer> result = testObject.getVertex(vertexId);
+
         // then
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(result.id).isEqualTo(vertexId);
@@ -148,6 +161,7 @@ public class DirectedSimpleGraphTest
     {
         // when
         Vertex<Integer> result = testObject.getVertex(16);
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -160,8 +174,10 @@ public class DirectedSimpleGraphTest
         Vertex<Integer> destination = new Vertex<>(5);
 
         testObject.addEdgeBetween(source, destination);
+
         // when
         Edge<Integer> result = testObject.getEdge(source, destination);
+
         // then
         Assertions.assertThat(result.source).isEqualTo(source);
         Assertions.assertThat(result.destination).isEqualTo(destination);
@@ -175,8 +191,10 @@ public class DirectedSimpleGraphTest
         Vertex<Integer> destination = new Vertex<>(5);
 
         testObject.addEdgeBetween(source, destination);
+
         // when
         Edge<Integer> result = testObject.getEdge(destination, source);
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -186,6 +204,7 @@ public class DirectedSimpleGraphTest
     {
         // when
         Edge<Integer> result = testObject.getEdge(1, 2);
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -201,8 +220,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(1), new Vertex<>(9));
         testObject.addEdgeBetween(new Vertex<>(2), new Vertex<>(1));
         testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(1));
+
         // when
         Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(1));
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(new Vertex<>(1), new Vertex<>(3), new Vertex<>(4),
@@ -220,8 +241,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(1), new Vertex<>(9));
         testObject.addEdgeBetween(new Vertex<>(2), new Vertex<>(1));
         testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(1));
+
         // when
         Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(1));
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(new Edge<>(new Vertex<>(1), new Vertex<>(1)),
@@ -242,8 +265,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(1), new Vertex<>(9));
         testObject.addEdgeBetween(new Vertex<>(2), new Vertex<>(1));
         testObject.addEdgeBetween(new Vertex<>(6), new Vertex<>(1));
+
         // when
         int result = testObject.getOutputDegree(new Vertex<>(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(5);
     }
@@ -259,8 +284,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(9), new Vertex<>(1));
         testObject.addEdgeBetween(new Vertex<>(1), new Vertex<>(2));
         testObject.addEdgeBetween(new Vertex<>(1), new Vertex<>(6));
+
         // when
         int result = testObject.getInputDegree(new Vertex<>(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(5);
     }
@@ -271,8 +298,10 @@ public class DirectedSimpleGraphTest
         // given
         int newVertexId = 13;
         String property = "qwerty";
+
         // when
         Vertex<Integer> result = testObject.addVertex(newVertexId, property);
+
         // then
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(result.id).isEqualTo(newVertexId);
@@ -289,6 +318,7 @@ public class DirectedSimpleGraphTest
         String property = "qwerty";
 
         testObject.getProperties().set(vertex, property);
+
         // then
         Assertions.assertThatThrownBy(() -> testObject.addVertex(vertex, "abcdefg"))
                   .isInstanceOf(IllegalArgumentException.class);
@@ -303,9 +333,11 @@ public class DirectedSimpleGraphTest
         Vertex<Integer> vertex1 = new Vertex<>(1);
         Vertex<Integer> vertex2 = new Vertex<>(5);
         String property = "asdfgh";
+
         // when
         Edge<Integer> result = testObject.addEdgeBetween(vertex1, vertex2, property);
         testObject.addEdgeBetween(vertex1, vertex1);
+
         // then
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(result.source).isEqualTo(vertex1);
@@ -322,6 +354,7 @@ public class DirectedSimpleGraphTest
         Vertex<Integer> source = new Vertex<>(3);
         Vertex<Integer> destination = new Vertex<>(7);
         testObject.addEdgeBetween(source, destination);
+
         // then
         Assertions.assertThatThrownBy(() -> testObject.addEdgeBetween(source, destination))
                   .isInstanceOf(IllegalArgumentException.class);
@@ -346,8 +379,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(9), new Vertex<>(6));
         testObject.getProperties().set(vertex, vertexProperty);
         testObject.getProperties().set(edge, edgeProperty);
+
         // when
         testObject.reverse();
+
         // then
         Assertions.assertThat(testObject.getEdges())
                   .containsOnly(new Edge<>(new Vertex<>(1), new Vertex<>(9)),
@@ -386,8 +421,10 @@ public class DirectedSimpleGraphTest
         testObject.addEdgeBetween(new Vertex<>(9), new Vertex<>(6));
         testObject.getProperties().set(vertex, vertexProperty);
         testObject.getProperties().set(edge, edgeProperty);
+
         // when
         DirectedGraph<Integer, String, String> result = testObject.reversedCopy();
+
         // then
         Assertions.assertThat(result.getVertices()).hasSameElementsAs(testObject.getVertices());
         Assertions.assertThat(result.getEdges())

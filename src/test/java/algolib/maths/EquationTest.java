@@ -27,6 +27,7 @@ public class EquationTest
     {
         // when
         Equation result = testObject.negate();
+
         // then
         Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
@@ -39,6 +40,7 @@ public class EquationTest
     {
         // when
         Equation result = testObject.add(Equation.of(new double[]{1, -1, 4, 10}, 5));
+
         // then
         Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
@@ -51,6 +53,7 @@ public class EquationTest
     {
         // when
         Equation result = testObject.subtract(Equation.of(new double[]{1, -1, 4, 10}, 5));
+
         // then
         Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
@@ -63,6 +66,7 @@ public class EquationTest
     {
         // when
         Equation result = testObject.multiply(2);
+
         // then
         Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
@@ -82,6 +86,7 @@ public class EquationTest
     {
         // when
         Equation result = testObject.divide(-2);
+
         // then
         Assertions.assertThat(result.getCoefficients())
                   .usingComparatorWithPrecision(0.0)
@@ -101,6 +106,7 @@ public class EquationTest
     {
         // when
         String result = testObject.toString();
+
         // then
         Assertions.assertThat(result).isEqualTo("2 x_0 + 3 x_1 + -2.5 x_3 = 15");
     }
@@ -110,6 +116,7 @@ public class EquationTest
     {
         // when
         boolean result = testObject.hasSolution(new double[]{10, 10, -29, 14});
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -119,6 +126,7 @@ public class EquationTest
     {
         // when
         boolean result = testObject.hasSolution(new double[]{10, 6, -17, 14});
+
         // then
         Assertions.assertThat(result).isFalse();
     }

@@ -13,6 +13,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(100, 30);
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -23,6 +24,7 @@ public class PrimesSearchingTest
         // when
         Collection<Integer> result1 = PrimesSearching.findPrimes(100);
         Collection<Integer> result2 = PrimesSearching.findPrimes(0, 100);
+
         // then
         Assertions.assertThat(result1).isEqualTo(result2);
     }
@@ -32,6 +34,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(100);
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
@@ -43,6 +46,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(67);
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
@@ -54,6 +58,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(2);
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -63,6 +68,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(3);
+
         // then
         Assertions.assertThat(result).containsExactly(2);
     }
@@ -72,6 +78,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(4);
+
         // then
         Assertions.assertThat(result).containsExactly(2, 3);
     }
@@ -81,6 +88,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(30, 200);
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,
@@ -93,6 +101,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(2, 30);
+
         // then
         Assertions.assertThat(result).containsExactly(2, 3, 5, 7, 11, 13, 17, 19, 23, 29);
     }
@@ -102,6 +111,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(3, 30);
+
         // then
         Assertions.assertThat(result).containsExactly(3, 5, 7, 11, 13, 17, 19, 23, 29);
     }
@@ -111,6 +121,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(9, 81);
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
@@ -122,6 +133,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(5, 150);
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67,
@@ -134,6 +146,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(137, 317);
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
@@ -146,6 +159,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(41, 41);
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -155,6 +169,7 @@ public class PrimesSearchingTest
     {
         // when
         Collection<Integer> result = PrimesSearching.findPrimes(91, 91);
+
         // then
         Assertions.assertThat(result).isEmpty();
     }

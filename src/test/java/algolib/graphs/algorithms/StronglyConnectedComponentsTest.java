@@ -35,8 +35,10 @@ public class StronglyConnectedComponentsTest
         graph.addEdgeBetween(graph.getVertex(8), graph.getVertex(3));
         graph.addEdgeBetween(graph.getVertex(8), graph.getVertex(7));
         graph.addEdgeBetween(graph.getVertex(9), graph.getVertex(8));
+
         // when
         List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findScc(graph);
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(
@@ -61,8 +63,10 @@ public class StronglyConnectedComponentsTest
         graph.addEdgeBetween(graph.getVertex(4), graph.getVertex(5));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(6));
         graph.addEdgeBetween(graph.getVertex(6), graph.getVertex(0));
+
         // when
         List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findScc(graph);
+
         // then
         Assertions.assertThat(result).containsExactly(new HashSet<>(graph.getVertices()));
     }
@@ -73,8 +77,10 @@ public class StronglyConnectedComponentsTest
         // given
         DirectedSimpleGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 4).boxed().collect(Collectors.toList()));
+
         // when
         List<Set<Vertex<Integer>>> result = StronglyConnectedComponents.findScc(graph);
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(Set.of(graph.getVertex(0)), Set.of(graph.getVertex(1)),

@@ -10,6 +10,7 @@ public class ComparableTripleTest
     {
         // when
         String result = ComparableTriple.of(124, 'a', 7.8).toString();
+
         // then
         Assertions.assertThat(result).isEqualTo("(124, a, 7.8)");
     }
@@ -19,6 +20,7 @@ public class ComparableTripleTest
     {
         // when
         boolean result = ComparableTriple.of(124, 'a', 7.8).equals(Triple.of(124, 'a', 7.8));
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -28,6 +30,7 @@ public class ComparableTripleTest
     {
         // when
         boolean result = ComparableTriple.of(124, 'a', 7.8).equals(Triple.of(118, 'a', 7.8));
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -37,6 +40,7 @@ public class ComparableTripleTest
     {
         // when
         boolean result = ComparableTriple.of(124, 'a', 7.8).equals(Triple.of(124, 'k', 7.8));
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -46,6 +50,7 @@ public class ComparableTripleTest
     {
         // when
         boolean result = ComparableTriple.of(124, 'a', 7.8).equals(Triple.of(124, 'a', -8.9));
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -55,6 +60,7 @@ public class ComparableTripleTest
     {
         // when
         int result = ComparableTriple.of(124, 'a', 7.8).compareTo(Triple.of(124, 'a', 7.8));
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -64,6 +70,7 @@ public class ComparableTripleTest
     {
         // when
         int result = ComparableTriple.of(124, 'a', 7.8).compareTo(Triple.of(118, 'k', -8.9));
+
         // then
         Assertions.assertThat(result).isPositive();
     }
@@ -73,6 +80,7 @@ public class ComparableTripleTest
     {
         // when
         int result = ComparableTriple.of(124, 'a', 7.8).compareTo(Triple.of(124, 'k', -8.9));
+
         // then
         Assertions.assertThat(result).isNegative();
     }
@@ -82,6 +90,7 @@ public class ComparableTripleTest
     {
         // when
         int result = ComparableTriple.of(124, 'a', 7.8).compareTo(Triple.of(124, 'a', -8.9));
+
         // then
         Assertions.assertThat(result).isPositive();
     }
@@ -92,6 +101,7 @@ public class ComparableTripleTest
         // when
         int result =
                 ComparableTriple.of(124, (Character)null, 7.8).compareTo(Triple.of(124, 'a', 7.8));
+
         // then
         Assertions.assertThat(result).isNegative();
     }
@@ -101,6 +111,7 @@ public class ComparableTripleTest
     {
         // when
         int result = ComparableTriple.of(124, 'a', 7.8).compareTo(Triple.of(124, null, 7.8));
+
         // then
         Assertions.assertThat(result).isPositive();
     }

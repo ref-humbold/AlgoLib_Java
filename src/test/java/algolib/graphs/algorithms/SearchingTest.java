@@ -66,6 +66,7 @@ public class SearchingTest
         // when
         Collection<Vertex<Integer>> result = Searching.bfs(undirectedGraph, new EmptyStrategy<>(),
                                                            List.of(undirectedGraph.getVertex(0)));
+
         // then
         Assertions.assertThat(result)
                   .isSubsetOf(undirectedGraph.getVertices())
@@ -78,10 +79,12 @@ public class SearchingTest
     {
         // given
         TestingStrategy<Integer> strategy = new TestingStrategy<>();
+
         // when
         Collection<Vertex<Integer>> result = Searching.bfs(undirectedGraph, strategy,
                                                            List.of(undirectedGraph.getVertex(0),
                                                                    undirectedGraph.getVertex(6)));
+
         // then
         Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
         Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
@@ -94,6 +97,7 @@ public class SearchingTest
         // when
         Collection<Vertex<Integer>> result =
                 Searching.bfs(undirectedGraph, new EmptyStrategy<>(), List.of());
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -104,6 +108,7 @@ public class SearchingTest
         // when
         Collection<Vertex<Integer>> result = Searching.bfs(directedGraph, new EmptyStrategy<>(),
                                                            List.of(directedGraph.getVertex(1)));
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(directedGraph.getVertex(0), directedGraph.getVertex(1),
@@ -116,10 +121,12 @@ public class SearchingTest
     {
         // given
         TestingStrategy<Integer> strategy = new TestingStrategy<>();
+
         // when
         Collection<Vertex<Integer>> result = Searching.bfs(directedGraph, strategy,
                                                            List.of(directedGraph.getVertex(8),
                                                                    directedGraph.getVertex(6)));
+
         // then
         Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
         Assertions.assertThat(strategy.entries).hasSameElementsAs(directedGraph.getVertices());
@@ -136,6 +143,7 @@ public class SearchingTest
         Collection<Vertex<Integer>> result =
                 Searching.dfsIterative(undirectedGraph, new EmptyStrategy<>(),
                                        List.of(undirectedGraph.getVertex(0)));
+
         // then
         Assertions.assertThat(result)
                   .isSubsetOf(undirectedGraph.getVertices())
@@ -148,12 +156,14 @@ public class SearchingTest
     {
         // given
         TestingStrategy<Integer> strategy = new TestingStrategy<>();
+
         // when
         Collection<Vertex<Integer>> result = Searching.dfsIterative(undirectedGraph, strategy,
                                                                     List.of(undirectedGraph.getVertex(
                                                                                     0),
                                                                             undirectedGraph.getVertex(
                                                                                     6)));
+
         // then
         Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
         Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
@@ -166,6 +176,7 @@ public class SearchingTest
         // when
         Collection<Vertex<Integer>> result =
                 Searching.dfsIterative(undirectedGraph, new EmptyStrategy<>(), List.of());
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -177,6 +188,7 @@ public class SearchingTest
         Collection<Vertex<Integer>> result =
                 Searching.dfsIterative(directedGraph, new EmptyStrategy<>(),
                                        List.of(directedGraph.getVertex(1)));
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(directedGraph.getVertex(0), directedGraph.getVertex(1),
@@ -189,12 +201,14 @@ public class SearchingTest
     {
         // given
         TestingStrategy<Integer> strategy = new TestingStrategy<>();
+
         // when
         Collection<Vertex<Integer>> result = Searching.dfsIterative(directedGraph, strategy,
                                                                     List.of(directedGraph.getVertex(
                                                                                     8),
                                                                             directedGraph.getVertex(
                                                                                     6)));
+
         // then
         Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
         Assertions.assertThat(strategy.entries).hasSameElementsAs(directedGraph.getVertices());
@@ -211,6 +225,7 @@ public class SearchingTest
         Collection<Vertex<Integer>> result =
                 Searching.dfsRecursive(undirectedGraph, new EmptyStrategy<>(),
                                        List.of(undirectedGraph.getVertex(0)));
+
         // then
         Assertions.assertThat(result)
                   .isSubsetOf(undirectedGraph.getVertices())
@@ -225,9 +240,11 @@ public class SearchingTest
         TestingStrategy<Integer> strategy = new TestingStrategy<>();
         List<Vertex<Integer>> roots =
                 List.of(undirectedGraph.getVertex(0), undirectedGraph.getVertex(6));
+
         // when
         Collection<Vertex<Integer>> result =
                 Searching.dfsRecursive(undirectedGraph, strategy, roots);
+
         // then
         Assertions.assertThat(result).hasSameElementsAs(undirectedGraph.getVertices());
         Assertions.assertThat(strategy.entries).hasSameElementsAs(undirectedGraph.getVertices());
@@ -240,6 +257,7 @@ public class SearchingTest
         // when
         Collection<Vertex<Integer>> result =
                 Searching.dfsRecursive(undirectedGraph, new EmptyStrategy<>(), List.of());
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -251,6 +269,7 @@ public class SearchingTest
         Collection<Vertex<Integer>> result =
                 Searching.dfsRecursive(directedGraph, new EmptyStrategy<>(),
                                        List.of(directedGraph.getVertex(1)));
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(directedGraph.getVertex(0), directedGraph.getVertex(1),
@@ -265,8 +284,10 @@ public class SearchingTest
         TestingStrategy<Integer> strategy = new TestingStrategy<>();
         List<Vertex<Integer>> roots =
                 List.of(directedGraph.getVertex(8), directedGraph.getVertex(6));
+
         // when
         Collection<Vertex<Integer>> result = Searching.dfsRecursive(directedGraph, strategy, roots);
+
         // then
         Assertions.assertThat(result).hasSameElementsAs(directedGraph.getVertices());
         Assertions.assertThat(strategy.entries).hasSameElementsAs(directedGraph.getVertices());

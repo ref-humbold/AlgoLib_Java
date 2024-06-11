@@ -27,8 +27,10 @@ public class DoubleHeapTest
         // given
         testObject = new DoubleHeap<>(Comparator.reverseOrder());
         testObject.addAll(numbers);
+
         // when
         DoubleHeap<Number> result = new DoubleHeap<>(testObject);
+
         // then
         Assertions.assertThat(result.comparator()).isEqualTo(testObject.comparator());
         Assertions.assertThat(result.size()).isEqualTo(testObject.size());
@@ -43,8 +45,10 @@ public class DoubleHeapTest
         // given
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Comparator.reverseOrder());
         priorityQueue.addAll(numbers);
+
         // when
         DoubleHeap<Number> result = new DoubleHeap<>(priorityQueue);
+
         // then
         Assertions.assertThat(result.comparator()).isEqualTo(priorityQueue.comparator());
         Assertions.assertThat(result.size()).isEqualTo(priorityQueue.size());
@@ -57,6 +61,7 @@ public class DoubleHeapTest
     {
         // when
         boolean result = new DoubleHeap<Integer>().isEmpty();
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -66,6 +71,7 @@ public class DoubleHeapTest
     {
         // when
         boolean result = testObject.isEmpty();
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -75,6 +81,7 @@ public class DoubleHeapTest
     {
         // when
         int result = new DoubleHeap<Integer>().size();
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -84,6 +91,7 @@ public class DoubleHeapTest
     {
         // when
         int result = testObject.size();
+
         // then
         Assertions.assertThat(result).isEqualTo(numbers.size());
     }
@@ -93,6 +101,7 @@ public class DoubleHeapTest
     {
         // when
         testObject.clear();
+
         // then
         Assertions.assertThat(testObject).isEmpty();
     }
@@ -104,6 +113,7 @@ public class DoubleHeapTest
     {
         // when
         Iterator<Integer> result = new DoubleHeap<Integer>().iterator();
+
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
         Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
@@ -114,8 +124,10 @@ public class DoubleHeapTest
     {
         // given
         int element = numbers.get(0);
+
         // when
         Iterator<Integer> result = new DoubleHeap<>(List.of(element)).iterator();
+
         // then
         Assertions.assertThat(result.hasNext()).isTrue();
         Assertions.assertThat(result.next()).isEqualTo(element);
@@ -129,6 +141,7 @@ public class DoubleHeapTest
         List<Integer> result = new ArrayList<>();
 
         testObject.iterator().forEachRemaining(result::add);
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrderElementsOf(numbers)
@@ -141,6 +154,7 @@ public class DoubleHeapTest
     {
         // when
         Iterator<Integer> result = new DoubleHeap<Integer>().descendingIterator();
+
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
         Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
@@ -151,8 +165,10 @@ public class DoubleHeapTest
     {
         // given
         int element = numbers.get(0);
+
         // when
         Iterator<Integer> result = new DoubleHeap<>(List.of(element)).descendingIterator();
+
         // then
         Assertions.assertThat(result.hasNext()).isTrue();
         Assertions.assertThat(result.next()).isEqualTo(element);
@@ -166,6 +182,7 @@ public class DoubleHeapTest
         List<Integer> result = new ArrayList<>();
 
         testObject.descendingIterator().forEachRemaining(result::add);
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrderElementsOf(numbers)
@@ -183,8 +200,10 @@ public class DoubleHeapTest
         int element = numbers.get(0);
 
         testObject = new DoubleHeap<>();
+
         // when
         testObject.add(element);
+
         // then
         Assertions.assertThat(testObject).hasSize(1);
         Assertions.assertThat(testObject.peekMin()).isEqualTo(element);
@@ -196,6 +215,7 @@ public class DoubleHeapTest
     {
         // when
         testObject.add((minimum + maximum) / 2);
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
         Assertions.assertThat(testObject.peekMin()).isEqualTo(minimum);
@@ -207,8 +227,10 @@ public class DoubleHeapTest
     {
         // given
         int element = minimum - 3;
+
         // when
         testObject.offer(element);
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
         Assertions.assertThat(testObject.peekMin()).isEqualTo(element);
@@ -219,8 +241,10 @@ public class DoubleHeapTest
     {
         // given
         int element = maximum + 3;
+
         // when
         testObject.offer(element);
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + 1);
         Assertions.assertThat(testObject.peekMax()).isEqualTo(element);
@@ -232,8 +256,10 @@ public class DoubleHeapTest
         // given
         List<Integer> elements =
                 List.of(minimum - 3, minimum + 5, minimum + 13, minimum + 20, maximum + 3);
+
         // when
         testObject.addAll(elements);
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() + elements.size());
         Assertions.assertThat(testObject.peekMin())
@@ -250,6 +276,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.peek();
+
         // then
         Assertions.assertThat(result).isEqualTo(minimum);
     }
@@ -259,6 +286,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = new DoubleHeap<Integer>().peekMin();
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -268,8 +296,10 @@ public class DoubleHeapTest
     {
         // given
         int element = numbers.get(0);
+
         // when
         Integer result = new DoubleHeap<>(List.of(element)).peekMin();
+
         // then
         Assertions.assertThat(result).isEqualTo(element);
     }
@@ -279,6 +309,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.peekMin();
+
         // then
         Assertions.assertThat(result).isEqualTo(minimum);
     }
@@ -288,6 +319,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = new DoubleHeap<Integer>().peekMax();
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -297,8 +329,10 @@ public class DoubleHeapTest
     {
         // given
         int element = numbers.get(0);
+
         // when
         Integer result = new DoubleHeap<>(List.of(element)).peekMax();
+
         // then
         Assertions.assertThat(result).isEqualTo(element);
     }
@@ -308,6 +342,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.peekMax();
+
         // then
         Assertions.assertThat(result).isEqualTo(maximum);
     }
@@ -320,6 +355,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.element();
+
         // then
         Assertions.assertThat(result).isEqualTo(minimum);
     }
@@ -336,6 +372,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.elementMin();
+
         // then
         Assertions.assertThat(result).isEqualTo(minimum);
     }
@@ -352,6 +389,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.elementMax();
+
         // then
         Assertions.assertThat(result).isEqualTo(maximum);
     }
@@ -364,6 +402,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.poll();
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(minimum);
@@ -374,6 +413,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = new DoubleHeap<Integer>().pollMin();
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -385,8 +425,10 @@ public class DoubleHeapTest
         int element = numbers.get(0);
 
         testObject = new DoubleHeap<>(List.of(element));
+
         // when
         Integer result = testObject.pollMin();
+
         // then
         Assertions.assertThat(testObject).isEmpty();
         Assertions.assertThat(result).isEqualTo(element);
@@ -397,6 +439,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.pollMin();
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(minimum);
@@ -410,6 +453,7 @@ public class DoubleHeapTest
 
         while(!testObject.isEmpty())
             result.add(testObject.pollMin());
+
         // then
         Assertions.assertThat(result)
                   .hasSameElementsAs(numbers)
@@ -421,6 +465,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = new DoubleHeap<Integer>().pollMax();
+
         // then
         Assertions.assertThat(result).isNull();
     }
@@ -432,8 +477,10 @@ public class DoubleHeapTest
         int element = numbers.get(0);
 
         testObject = new DoubleHeap<>(List.of(element));
+
         // when
         Integer result = testObject.pollMax();
+
         // then
         Assertions.assertThat(testObject).isEmpty();
         Assertions.assertThat(result).isEqualTo(element);
@@ -444,6 +491,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.pollMax();
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(maximum);
@@ -457,6 +505,7 @@ public class DoubleHeapTest
 
         while(!testObject.isEmpty())
             result.add(testObject.pollMax());
+
         // then
         Assertions.assertThat(result)
                   .hasSameElementsAs(numbers)
@@ -471,6 +520,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.remove();
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(minimum);
@@ -488,6 +538,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.removeMin();
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(minimum);
@@ -505,6 +556,7 @@ public class DoubleHeapTest
     {
         // when
         Integer result = testObject.removeMax();
+
         // then
         Assertions.assertThat(testObject).hasSize(numbers.size() - 1);
         Assertions.assertThat(result).isEqualTo(maximum);

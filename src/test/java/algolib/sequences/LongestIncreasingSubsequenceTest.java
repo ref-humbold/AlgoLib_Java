@@ -13,9 +13,11 @@ public class LongestIncreasingSubsequenceTest
     {
         // given
         List<Integer> sequence = List.of(1, 3, 5, 7, 9, 11, 13, 15);
+
         // when
         Collection<Integer> result =
                 LongestIncreasingSubsequence.findLis(sequence, Integer::compareTo);
+
         // then
         Assertions.assertThat(result).containsExactlyElementsOf(sequence);
     }
@@ -27,6 +29,7 @@ public class LongestIncreasingSubsequenceTest
         Collection<Integer> result =
                 LongestIncreasingSubsequence.findLis(List.of(12, 10, 8, 6, 4, 2),
                                                      Integer::compareTo);
+
         // then
         Assertions.assertThat(result).containsExactly(2);
     }
@@ -38,6 +41,7 @@ public class LongestIncreasingSubsequenceTest
         Collection<Integer> result =
                 LongestIncreasingSubsequence.findLis(List.of(2, 1, 4, 3, 6, 5, 8, 7, 10),
                                                      Integer::compareTo);
+
         // then
         Assertions.assertThat(result).containsExactly(1, 3, 5, 7, 10);
     }
@@ -49,6 +53,7 @@ public class LongestIncreasingSubsequenceTest
         Collection<Integer> result =
                 LongestIncreasingSubsequence.findLis(List.of(0, 2, 4, 6, 8, 3, 5, 7, 8),
                                                      Integer::compareTo);
+
         // then
         Assertions.assertThat(result).containsExactly(0, 2, 3, 5, 7, 8);
     }
@@ -60,6 +65,7 @@ public class LongestIncreasingSubsequenceTest
         Collection<Integer> result =
                 LongestIncreasingSubsequence.findLis(List.of(1, 3, 5, 7, 9, 11, 13, 15),
                                                      (i1, i2) -> i2.compareTo(i1));
+
         // then
         Assertions.assertThat(result).containsExactly(15);
     }
@@ -69,9 +75,11 @@ public class LongestIncreasingSubsequenceTest
     {
         // given
         List<Integer> sequence = List.of(12, 10, 8, 6, 4, 2);
+
         // when
         Collection<Integer> result =
                 LongestIncreasingSubsequence.findLis(sequence, (i1, i2) -> i2.compareTo(i1));
+
         // then
         Assertions.assertThat(result).containsExactlyElementsOf(sequence);
     }

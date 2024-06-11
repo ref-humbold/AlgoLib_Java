@@ -17,6 +17,7 @@ public class Vector3DTest
         // when
         Vector3D result =
                 Vector3D.between(Point3D.of(2.4, 7.8, -10.3), Point3D.of(-1.5, 13.2, 15.8));
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector3D.of(-3.9, 5.4, 26.1));
     }
@@ -26,6 +27,7 @@ public class Vector3DTest
     {
         // when
         double[] result = Vector3D.of(5.0, -19.0, 14.2).getCoordinates();
+
         // then
         Assertions.assertThat(result).containsExactly(5.0, -19.0, 14.2);
     }
@@ -35,6 +37,7 @@ public class Vector3DTest
     {
         // when
         double result = Vector3D.dot(Vector3D.of(1.5, -4.0, -3.5), Vector3D.of(9.0, -2.5, 8.5));
+
         // then
         Assertions.assertThat(result).isCloseTo(-6.25, OFFSET);
     }
@@ -44,6 +47,7 @@ public class Vector3DTest
     {
         // when
         double result = Vector3D.dot(Vector3D.of(1.0, 0.0, 1.0), Vector3D.of(0.0, -2.0, 0.0));
+
         // then
         Assertions.assertThat(result).isCloseTo(0.0, OFFSET);
     }
@@ -53,6 +57,7 @@ public class Vector3DTest
     {
         // when
         Vector3D result = Vector3D.cross(Vector3D.of(1.5, -4.0, -3.5), Vector3D.of(9.0, -2.5, 8.5));
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector3D.of(-42.75, -44.25, 32.25));
     }
@@ -62,6 +67,7 @@ public class Vector3DTest
     {
         // when
         Vector3D result = Vector3D.cross(Vector3D.of(3.0, 3.0, 3.0), Vector3D.of(-8.0, -8.0, -8.0));
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector3D.of(0.0, 0.0, 0.0));
     }

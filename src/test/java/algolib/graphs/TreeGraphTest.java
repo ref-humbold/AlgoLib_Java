@@ -31,12 +31,14 @@ public class TreeGraphTest
         Edge<Integer> edge = testObject.getEdge(6, 2);
         String vertexProperty = "x";
         String edgeProperty = "y";
+
         // when
         testObject.getProperties().set(vertex, vertexProperty);
         testObject.getProperties().set(edge, edgeProperty);
 
         String resultVertex = testObject.getProperties().get(vertex);
         String resultEdge = testObject.getProperties().get(edge);
+
         // then
         Assertions.assertThat(resultVertex).isEqualTo(vertexProperty);
         Assertions.assertThat(resultEdge).isEqualTo(edgeProperty);
@@ -47,6 +49,7 @@ public class TreeGraphTest
     {
         // when
         int result = testObject.getVerticesCount();
+
         // then
         Assertions.assertThat(result).isEqualTo(8);
     }
@@ -56,6 +59,7 @@ public class TreeGraphTest
     {
         // when
         int result = testObject.getEdgesCount();
+
         // then
         Assertions.assertThat(result).isEqualTo(7);
     }
@@ -65,6 +69,7 @@ public class TreeGraphTest
     {
         // when
         Collection<Vertex<Integer>> result = testObject.getVertices();
+
         // then
         Assertions.assertThat(result)
                   .containsOnly(new Vertex<>(0), new Vertex<>(1), new Vertex<>(2), new Vertex<>(3),
@@ -76,6 +81,7 @@ public class TreeGraphTest
     {
         // when
         Collection<Edge<Integer>> result = testObject.getEdges();
+
         // then
         Assertions.assertThat(result)
                   .containsOnly(new Edge<>(new Vertex<>(1), new Vertex<>(0)),
@@ -92,8 +98,10 @@ public class TreeGraphTest
     {
         // given
         int vertexId = 5;
+
         // when
         Vertex<Integer> result = testObject.getVertex(vertexId);
+
         // then
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(result.id).isEqualTo(vertexId);
@@ -105,8 +113,10 @@ public class TreeGraphTest
         // given
         Vertex<Integer> source = new Vertex<>(5);
         Vertex<Integer> destination = new Vertex<>(1);
+
         // when
         Edge<Integer> result = testObject.getEdge(source, destination);
+
         // then
         Assertions.assertThat(result.source).isEqualTo(source);
         Assertions.assertThat(result.destination).isEqualTo(destination);
@@ -117,6 +127,7 @@ public class TreeGraphTest
     {
         // when
         Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(1));
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(new Vertex<>(0), new Vertex<>(4), new Vertex<>(5));
@@ -127,6 +138,7 @@ public class TreeGraphTest
     {
         // when
         Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(1));
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(new Edge<>(new Vertex<>(1), new Vertex<>(0)),
@@ -139,6 +151,7 @@ public class TreeGraphTest
     {
         // when
         int result = testObject.getOutputDegree(new Vertex<>(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(3);
     }
@@ -148,6 +161,7 @@ public class TreeGraphTest
     {
         // when
         int result = testObject.getInputDegree(new Vertex<>(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(3);
     }
@@ -160,9 +174,11 @@ public class TreeGraphTest
         Vertex<Integer> neighbour = new Vertex<>(5);
         String vertexProperty = "qwerty";
         String edgeProperty = "asdfgh";
+
         // when
         Edge<Integer> result =
                 testObject.addVertex(newVertexId, neighbour, vertexProperty, edgeProperty);
+
         // then
         Assertions.assertThat(result.source).isEqualTo(new Vertex<>(newVertexId));
         Assertions.assertThat(result.destination).isEqualTo(neighbour);
@@ -181,6 +197,7 @@ public class TreeGraphTest
         String property = "qwerty";
 
         testObject.getProperties().set(vertex, property);
+
         // then
         Assertions.assertThatThrownBy(
                           () -> testObject.addVertex(vertex, new Vertex<>(2), "abcdefg", "xyz"))

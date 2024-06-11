@@ -17,8 +17,10 @@ public class EditDistanceTest
         // given
         String source = "qwertyuiop";
         String destination = "wertzuiopsx";
+
         // when
         double result = EditDistance.countLevenshtein(source, destination);
+
         // then
         Assertions.assertThat(result).isCloseTo(4.0, OFFSET);
     }
@@ -28,8 +30,10 @@ public class EditDistanceTest
     {
         // given
         String text = "qwertyuiop";
+
         // when
         double result = EditDistance.countLevenshtein(text, text);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -40,8 +44,10 @@ public class EditDistanceTest
         // given
         String text = "qwertyuiop";
         double insertionCost = 2.0;
+
         // when
         double result = EditDistance.countLevenshtein("", text, insertionCost, 1.0, 1.0);
+
         // then
         Assertions.assertThat(result).isCloseTo(text.length() * insertionCost, OFFSET);
     }
@@ -52,8 +58,10 @@ public class EditDistanceTest
         // given
         String text = "qwertyuiop";
         double deletionCost = 2.0;
+
         // when
         double result = EditDistance.countLevenshtein(text, "", 1.0, deletionCost, 1.0);
+
         // then
         Assertions.assertThat(result).isCloseTo(text.length() * deletionCost, OFFSET);
     }
@@ -74,8 +82,10 @@ public class EditDistanceTest
         // given
         String source = "qwertyuiop";
         String destination = "wertzuiopsx";
+
         // when
         double result = EditDistance.countLcs(source, destination);
+
         // then
         Assertions.assertThat(result).isCloseTo(5.0, OFFSET);
     }
@@ -85,8 +95,10 @@ public class EditDistanceTest
     {
         // given
         String text = "qwertyuiop";
+
         // when
         double result = EditDistance.countLcs(text, text);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -97,8 +109,10 @@ public class EditDistanceTest
         // given
         String text = "qwertyuiop";
         double insertionCost = 2.0;
+
         // when
         double result = EditDistance.countLcs("", text, insertionCost, 1.0);
+
         // then
         Assertions.assertThat(result).isCloseTo(text.length() * insertionCost, OFFSET);
     }
@@ -109,8 +123,10 @@ public class EditDistanceTest
         // given
         String text = "qwertyuiop";
         double deletionCost = 2.0;
+
         // when
         double result = EditDistance.countLcs(text, "", 1.0, deletionCost);
+
         // then
         Assertions.assertThat(result).isCloseTo(text.length() * deletionCost, OFFSET);
     }
@@ -132,8 +148,10 @@ public class EditDistanceTest
         String source = "qwertyuiop";
         String destination = "qvertzuimp";
         double substitutionCost = 2.0;
+
         // when
         double result = EditDistance.countHamming(source, destination, substitutionCost);
+
         // then
         Assertions.assertThat(result).isCloseTo(3 * substitutionCost, OFFSET);
     }
@@ -143,6 +161,7 @@ public class EditDistanceTest
     {
         // when
         double result = EditDistance.countHamming("", "");
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -152,8 +171,10 @@ public class EditDistanceTest
     {
         // given
         String text = "qwertyuiop";
+
         // when
         double result = EditDistance.countHamming(text, text);
+
         // then
         Assertions.assertThat(result).isZero();
     }

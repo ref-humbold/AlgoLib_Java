@@ -13,6 +13,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(32, 104);
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(4, 13));
     }
@@ -22,8 +23,10 @@ public class FractionTest
     {
         // given
         int value = 29;
+
         // when
         Fraction result = Fraction.of(value);
+
         // then
         Assertions.assertThat(result.compareTo(value)).isEqualTo(0);
     }
@@ -40,6 +43,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(-4, 11);
+
         // then
         Assertions.assertThat(result.compareTo(0L)).isEqualTo(-1);
     }
@@ -49,6 +53,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(4, -11);
+
         // then
         Assertions.assertThat(result.compareTo(0L)).isEqualTo(-1);
     }
@@ -58,6 +63,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(-4, -11);
+
         // then
         Assertions.assertThat(result.compareTo(0L)).isEqualTo(1);
     }
@@ -69,6 +75,7 @@ public class FractionTest
     public void intValue_ThenIntegerValueRoundedTowardsZero()
     {    // when
         int result = Fraction.of(-129, 20).intValue();
+
         // then
         Assertions.assertThat(result).isEqualTo(-6);
     }
@@ -78,6 +85,7 @@ public class FractionTest
     {
         // when
         double result = Fraction.of(-129, 20).doubleValue();
+
         // then
         Assertions.assertThat(result).isEqualTo(-6.45);
     }
@@ -90,6 +98,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(3, 10).negate();
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(-3, 10));
     }
@@ -99,6 +108,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(-3, 10).negate();
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(3, 10));
     }
@@ -108,6 +118,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(-3, 10).negate();
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(3, 10));
     }
@@ -117,6 +128,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(23, 18).invert();
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(18, 23));
     }
@@ -136,6 +148,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(1, 2).add(Fraction.of(5, 7));
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(17, 14));
     }
@@ -145,6 +158,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(7, 3).add(4);
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(19, 3));
     }
@@ -154,6 +168,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(1, 2).subtract(Fraction.of(3, 10));
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(1, 5));
     }
@@ -163,6 +178,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(7, 3).subtract(4);
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(-5, 3));
     }
@@ -172,6 +188,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(3, 7).multiply(Fraction.of(5, 12));
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(5, 28));
     }
@@ -181,6 +198,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(7, 3).multiply(4);
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(28, 3));
     }
@@ -190,6 +208,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(9, 14).divide(Fraction.of(2, 5));
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(45, 28));
     }
@@ -206,6 +225,7 @@ public class FractionTest
     {
         // when
         Fraction result = Fraction.of(7, 3).divide(4);
+
         // then
         Assertions.assertThat(result).isEqualTo(Fraction.of(7, 12));
     }
@@ -218,6 +238,7 @@ public class FractionTest
     {
         // when
         int result = Fraction.of(9, 14).compareTo(Fraction.of(17, 14));
+
         // then
         Assertions.assertThat(result).isLessThan(0);
     }
@@ -227,6 +248,7 @@ public class FractionTest
     {
         // when
         int result = Fraction.of(9, 14).compareTo(Fraction.of(9, 26));
+
         // then
         Assertions.assertThat(result).isGreaterThan(0);
     }
@@ -236,6 +258,7 @@ public class FractionTest
     {
         // when
         int result = Fraction.of(9, 14).compareTo(Fraction.of(3, 5));
+
         // then
         Assertions.assertThat(result).isGreaterThan(0);
     }
@@ -245,6 +268,7 @@ public class FractionTest
     {
         // when
         int result = Fraction.of(9, 15).compareTo(Fraction.of(3, 5));
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -254,6 +278,7 @@ public class FractionTest
     {
         // when
         int result = Fraction.of(11, 3).compareTo(2.67);
+
         // then
         Assertions.assertThat(result).isGreaterThan(0);
     }
@@ -263,6 +288,7 @@ public class FractionTest
     {
         // when
         int result = Fraction.of(-13, 8).compareTo(-1.625);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -272,6 +298,7 @@ public class FractionTest
     {
         // when
         int result = Fraction.of(-31, 6).compareTo(-4);
+
         // then
         Assertions.assertThat(result).isLessThan(0);
     }
@@ -281,6 +308,7 @@ public class FractionTest
     {
         // when
         int result = Fraction.of(125, 5).compareTo(25);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -292,6 +320,7 @@ public class FractionTest
     {
         // when
         String result = Fraction.of(129, -20).toString();
+
         // then
         Assertions.assertThat(result).isEqualTo("-129/20");
     }

@@ -41,8 +41,10 @@ public class LowestCommonAncestorTest
     {
         // given
         Vertex<Integer> vertex = testObject.graph.getVertex(6);
+
         // when
         Vertex<Integer> result = testObject.findLca(vertex, vertex);
+
         // then
         Assertions.assertThat(result).isEqualTo(vertex);
     }
@@ -53,6 +55,7 @@ public class LowestCommonAncestorTest
         // when
         Vertex<Integer> result =
                 testObject.findLca(testObject.graph.getVertex(5), testObject.graph.getVertex(7));
+
         // then
         Assertions.assertThat(result).isEqualTo(testObject.graph.getVertex(1));
     }
@@ -63,9 +66,11 @@ public class LowestCommonAncestorTest
         // given
         Vertex<Integer> vertex1 = testObject.graph.getVertex(5);
         Vertex<Integer> vertex2 = testObject.graph.getVertex(7);
+
         // when
         Vertex<Integer> result1 = testObject.findLca(vertex1, vertex2);
         Vertex<Integer> result2 = testObject.findLca(vertex2, vertex1);
+
         // then
         Assertions.assertThat(result1).isEqualTo(testObject.graph.getVertex(1));
         Assertions.assertThat(result2).isEqualTo(result1);
@@ -77,6 +82,7 @@ public class LowestCommonAncestorTest
         // when
         Vertex<Integer> result =
                 testObject.findLca(testObject.graph.getVertex(3), testObject.graph.getVertex(9));
+
         // then
         Assertions.assertThat(result).isEqualTo(testObject.root);
     }
@@ -87,8 +93,10 @@ public class LowestCommonAncestorTest
         //given
         Vertex<Integer> vertex1 = testObject.graph.getVertex(8);
         Vertex<Integer> vertex2 = testObject.graph.getVertex(2);
+
         // when
         Vertex<Integer> result = testObject.findLca(vertex1, vertex2);
+
         // then
         Assertions.assertThat(result).isEqualTo(vertex2);
     }
@@ -98,6 +106,7 @@ public class LowestCommonAncestorTest
     {
         // when
         Vertex<Integer> result = testObject.findLca(testObject.graph.getVertex(4), testObject.root);
+
         // then
         Assertions.assertThat(result).isEqualTo(testObject.root);
     }

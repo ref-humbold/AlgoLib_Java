@@ -13,6 +13,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeFermat(0);
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -22,6 +23,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeFermat(1);
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -31,6 +33,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeFermat(2);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -40,6 +43,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeFermat(1013);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -49,6 +53,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeFermat(2131L);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -58,6 +63,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeFermat(6199L);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -106,6 +112,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(0);
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -115,6 +122,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(1);
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -124,6 +132,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(2);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -133,6 +142,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(1013);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -142,6 +152,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(2131L);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -151,6 +162,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(6199L);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -160,6 +172,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(1001);
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -169,6 +182,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(41041L);
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -178,6 +192,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(73627L);
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -187,6 +202,7 @@ public class PrimesTestingTest
     {
         // when
         boolean result = PrimesTesting.testPrimeMiller(3481);
+
         // then
         Assertions.assertThat(result).isFalse();
     }

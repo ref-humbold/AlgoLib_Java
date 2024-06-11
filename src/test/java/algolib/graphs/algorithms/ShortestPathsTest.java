@@ -97,9 +97,11 @@ public class ShortestPathsTest
         // given
         List<Double> distances = List.of(20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0);
         Map<Vertex<Integer>, Double> expected = fromList(directedGraph, distances);
+
         // when
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.bellmanFord(directedGraph, directedGraph.getVertex(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(expected);
     }
@@ -113,9 +115,11 @@ public class ShortestPathsTest
 
         directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
                                      new Weight(-5.0));
+
         // when
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.bellmanFord(directedGraph, directedGraph.getVertex(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(expected);
     }
@@ -126,10 +130,12 @@ public class ShortestPathsTest
         // given
         List<Double> distances = List.of(4.0, 0.0, INF, 7.0, 7.0, 8.0, INF, 10.0, 10.0, INF);
         Map<Vertex<Integer>, Double> expected = fromList(undirectedGraph, distances);
+
         // when
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.bellmanFord(undirectedGraph.asDirected(),
                                           undirectedGraph.getVertex(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(expected);
     }
@@ -140,6 +146,7 @@ public class ShortestPathsTest
         // given
         directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
                                      new Weight(-20.0));
+
         // then
         Assertions.assertThatThrownBy(
                           () -> ShortestPaths.bellmanFord(directedGraph,
@@ -156,9 +163,11 @@ public class ShortestPathsTest
         // given
         List<Double> distances = List.of(20.0, 0.0, INF, 17.0, 7.0, 8.0, 12.0, 12.0, 10.0, 20.0);
         Map<Vertex<Integer>, Double> expected = fromList(directedGraph, distances);
+
         // when
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.dijkstra(directedGraph, directedGraph.getVertex(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(expected);
     }
@@ -169,9 +178,11 @@ public class ShortestPathsTest
         // given
         List<Double> distances = List.of(4.0, 0.0, INF, 7.0, 7.0, 8.0, INF, 10.0, 10.0, INF);
         Map<Vertex<Integer>, Double> expected = fromList(undirectedGraph, distances);
+
         // when
         Map<Vertex<Integer>, Double> result =
                 ShortestPaths.dijkstra(undirectedGraph, undirectedGraph.getVertex(1));
+
         // then
         Assertions.assertThat(result).isEqualTo(expected);
     }
@@ -182,6 +193,7 @@ public class ShortestPathsTest
         // given
         directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
                                      new Weight(-5.0));
+
         // then
         Assertions.assertThatThrownBy(
                           () -> ShortestPaths.dijkstra(directedGraph, directedGraph.getVertex(1)))
@@ -207,9 +219,11 @@ public class ShortestPathsTest
                                 {INF, INF, INF, INF, INF, 10.0, 3.0, INF, 12.0, 0.0}};
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> expected =
                 fromMatrix(undirectedGraph, distances);
+
         // when
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
                 ShortestPaths.floydWarshall(directedGraph);
+
         // then
         Assertions.assertThat(result).isEqualTo(expected);
     }
@@ -233,9 +247,11 @@ public class ShortestPathsTest
 
         directedGraph.addEdgeBetween(directedGraph.getVertex(8), directedGraph.getVertex(3),
                                      new Weight(-5.0));
+
         // when
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
                 ShortestPaths.floydWarshall(directedGraph);
+
         // then
         Assertions.assertThat(result).isEqualTo(expected);
     }
@@ -257,9 +273,11 @@ public class ShortestPathsTest
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> expected =
                 fromMatrix(undirectedGraph, distances);
 
+
         // when
         Map<Pair<Vertex<Integer>, Vertex<Integer>>, Double> result =
                 ShortestPaths.floydWarshall(undirectedGraph.asDirected());
+
         // then
         Assertions.assertThat(result).isEqualTo(expected);
     }

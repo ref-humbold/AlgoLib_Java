@@ -12,6 +12,7 @@ public class ConvexHullTest
     {
         // when
         List<Point2D> result = ConvexHull.findConvexHull(List.of(Point2D.of(3.0, 2.0)));
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -22,6 +23,7 @@ public class ConvexHullTest
         // when
         List<Point2D> result =
                 ConvexHull.findConvexHull(List.of(Point2D.of(2.0, 3.0), Point2D.of(3.0, 2.0)));
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -32,8 +34,10 @@ public class ConvexHullTest
         // given
         List<Point2D> points =
                 List.of(Point2D.of(1.0, -1.0), Point2D.of(5.0, 1.0), Point2D.of(3.0, 4.0));
+
         // when
         List<Point2D> result = ConvexHull.findConvexHull(points);
+
         // then
         Assertions.assertThat(result).isEqualTo(points);
     }
@@ -48,6 +52,7 @@ public class ConvexHullTest
                         Point2D.of(-1, -8), Point2D.of(-5, 10), Point2D.of(8, 0), Point2D.of(3, -6),
                         Point2D.of(-2, 1), Point2D.of(-2, 8), Point2D.of(10, 2), Point2D.of(6, 3),
                         Point2D.of(-7, 7), Point2D.of(6, -4)));
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(Point2D.of(-8, -7), Point2D.of(-1, -8), Point2D.of(3, -6),
@@ -63,6 +68,7 @@ public class ConvexHullTest
                 List.of(Point2D.of(-1, -3), Point2D.of(-3, -3), Point2D.of(-3, -1),
                         Point2D.of(2, -3), Point2D.of(-3, 5), Point2D.of(0, -3), Point2D.of(7, -3),
                         Point2D.of(-3, -2)));
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(Point2D.of(-3, -3), Point2D.of(7, -3), Point2D.of(-3, 5));

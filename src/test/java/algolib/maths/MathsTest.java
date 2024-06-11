@@ -13,6 +13,7 @@ public class MathsTest
     {
         // when
         long result = Maths.gcd(161L, 46L);
+
         // then
         Assertions.assertThat(result).isEqualTo(23L);
     }
@@ -22,6 +23,7 @@ public class MathsTest
     {
         // when
         int result = Maths.gcd(127, 41);
+
         // then
         Assertions.assertThat(result).isOne();
     }
@@ -31,6 +33,7 @@ public class MathsTest
     {
         // when
         int result = Maths.gcd(119, 57);
+
         // then
         Assertions.assertThat(result).isOne();
     }
@@ -40,8 +43,10 @@ public class MathsTest
     {
         // given
         int number = 34;
+
         // when
         int result = Maths.gcd(number, number * 6);
+
         // then
         Assertions.assertThat(result).isEqualTo(number);
     }
@@ -51,8 +56,10 @@ public class MathsTest
     {
         // given
         int number = 96;
+
         // when
         int result = Maths.gcd(number, 0);
+
         // then
         Assertions.assertThat(result).isEqualTo(number);
     }
@@ -65,6 +72,7 @@ public class MathsTest
     {
         // when
         long result = Maths.lcm(161L, 46L);
+
         // then
         Assertions.assertThat(result).isEqualTo(322L);
     }
@@ -74,6 +82,7 @@ public class MathsTest
     {
         // when
         int result = Maths.lcm(127, 41);
+
         // then
         Assertions.assertThat(result).isEqualTo(5207);
     }
@@ -83,6 +92,7 @@ public class MathsTest
     {
         // when
         int result = Maths.lcm(119, 57);
+
         // then
         Assertions.assertThat(result).isEqualTo(6783);
     }
@@ -92,8 +102,10 @@ public class MathsTest
     {
         // given
         int number = 34;
+
         // when
         int result = Maths.lcm(number, number * 6);
+
         // then
         Assertions.assertThat(result).isEqualTo(number * 6);
     }
@@ -103,6 +115,7 @@ public class MathsTest
     {
         // when
         int result = Maths.lcm(96, 0);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -115,6 +128,7 @@ public class MathsTest
     {
         // when
         int result = Maths.multiply(0, 14);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -124,6 +138,7 @@ public class MathsTest
     {
         // when
         int result = Maths.multiply(14, 0);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -133,6 +148,7 @@ public class MathsTest
     {
         // when
         int result = Maths.multiply(0, 0);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -142,6 +158,7 @@ public class MathsTest
     {
         // when
         long result = Maths.multiply(3, 10);
+
         // then
         Assertions.assertThat(result).isEqualTo(30);
     }
@@ -151,6 +168,7 @@ public class MathsTest
     {
         // when
         int result = Maths.multiply(-3, 10);
+
         // then
         Assertions.assertThat(result).isEqualTo(-30);
     }
@@ -160,6 +178,7 @@ public class MathsTest
     {
         // when
         int result = Maths.multiply(3, -10);
+
         // then
         Assertions.assertThat(result).isEqualTo(-30);
     }
@@ -169,6 +188,7 @@ public class MathsTest
     {
         // when
         long result = Maths.multiply(-3L, -10L);
+
         // then
         Assertions.assertThat(result).isEqualTo(30L);
     }
@@ -178,6 +198,7 @@ public class MathsTest
     {
         // when
         int result = Maths.multiply(547, 312, 10000);
+
         // then
         Assertions.assertThat(result).isEqualTo(664);
     }
@@ -187,6 +208,7 @@ public class MathsTest
     {
         // when
         int result = Maths.multiply(-547, 312, 10000);
+
         // then
         Assertions.assertThat(result).isEqualTo(9336);
     }
@@ -196,6 +218,7 @@ public class MathsTest
     {
         // when
         int result = Maths.multiply(547, -312, 10000);
+
         // then
         Assertions.assertThat(result).isEqualTo(9336);
     }
@@ -205,6 +228,7 @@ public class MathsTest
     {
         // when
         long result = Maths.multiply(-547L, -312L, 10000L);
+
         // then
         Assertions.assertThat(result).isEqualTo(664L);
     }
@@ -224,6 +248,7 @@ public class MathsTest
     {
         // when
         int result = Maths.power(0, 14);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -233,6 +258,7 @@ public class MathsTest
     {
         // when
         int result = Maths.power(14, 0);
+
         // then
         Assertions.assertThat(result).isOne();
     }
@@ -249,6 +275,7 @@ public class MathsTest
     {
         // when
         int result = Maths.power(3, 10);
+
         // then
         Assertions.assertThat(result).isEqualTo(59049);
     }
@@ -258,6 +285,7 @@ public class MathsTest
     {
         // when
         int result = Maths.power(-3, 10);
+
         // then
         Assertions.assertThat(result).isEqualTo(59049);
     }
@@ -267,6 +295,7 @@ public class MathsTest
     {
         // when
         long result = Maths.power(-3L, 9L);
+
         // then
         Assertions.assertThat(result).isEqualTo(-19683L);
     }
@@ -283,6 +312,7 @@ public class MathsTest
     {
         // when
         int result = Maths.power(5, 11, 10000);
+
         // then
         Assertions.assertThat(result).isEqualTo(8125);
     }
@@ -292,6 +322,7 @@ public class MathsTest
     {
         // when
         int result = Maths.power(-5, 11, 10000);
+
         // then
         Assertions.assertThat(result).isEqualTo(1875);
     }
@@ -301,6 +332,7 @@ public class MathsTest
     {
         // when
         long result = Maths.power(-5L, 12L, 10000L);
+
         // then
         Assertions.assertThat(result).isEqualTo(625L);
     }

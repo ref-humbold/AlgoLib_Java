@@ -44,6 +44,7 @@ public class MinimalSpanningTreeTest
     {
         // when
         UndirectedGraph<Integer, Void, Weight> result = MinimalSpanningTree.kruskal(graph);
+
         // then
         double mstSize = result.getEdges()
                                .stream()
@@ -65,6 +66,7 @@ public class MinimalSpanningTreeTest
         // when
         UndirectedGraph<Integer, Void, Weight> result =
                 MinimalSpanningTree.prim(graph, graph.getVertex(0));
+
         // then
         double mstSize = result.getEdges()
                                .stream()
@@ -88,6 +90,7 @@ public class MinimalSpanningTreeTest
                 MinimalSpanningTree.prim(graph, graph.getVertex(1));
         UndirectedGraph<Integer, Void, Weight> result4 =
                 MinimalSpanningTree.prim(graph, graph.getVertex(4));
+
         // then
         Assertions.assertThat(result1.getEdgesCount()).isEqualTo(result4.getEdgesCount());
         Assertions.assertThat(result1.getEdges()).hasSameElementsAs(result4.getEdges());

@@ -16,6 +16,7 @@ public class Vector2DTest
     {
         // when
         Vector2D result = Vector2D.between(Point2D.of(2.4, 7.8), Point2D.of(-1.5, 13.2));
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector2D.of(-3.9, 5.4));
     }
@@ -25,6 +26,7 @@ public class Vector2DTest
     {
         // when
         double[] result = Vector2D.of(5.0, -19.0).getCoordinates();
+
         // then
         Assertions.assertThat(result).containsExactly(5.0, -19.0);
     }
@@ -34,6 +36,7 @@ public class Vector2DTest
     {
         // when
         double result = Vector2D.dot(Vector2D.of(1.5, -4.0), Vector2D.of(9.0, -2.5));
+
         // then
         Assertions.assertThat(result).isCloseTo(23.5, OFFSET);
     }
@@ -43,6 +46,7 @@ public class Vector2DTest
     {
         // when
         double result = Vector2D.dot(Vector2D.of(1.0, 0.0), Vector2D.of(0.0, -2.0));
+
         // then
         Assertions.assertThat(result).isCloseTo(0.0, OFFSET);
     }
@@ -52,6 +56,7 @@ public class Vector2DTest
     {
         // when
         double result = Vector2D.area(Vector2D.of(1.5, -4.0), Vector2D.of(9.0, -2.5));
+
         // then
         Assertions.assertThat(result).isCloseTo(32.25, OFFSET);
     }
@@ -61,6 +66,7 @@ public class Vector2DTest
     {
         // when
         double result = Vector2D.area(Vector2D.of(3.0, 3.0), Vector2D.of(-8.0, -8.0));
+
         // then
         Assertions.assertThat(result).isCloseTo(0.0, OFFSET);
     }
@@ -70,6 +76,7 @@ public class Vector2DTest
     {
         // when
         double result = Vector2D.of(8.0, -6.0).length();
+
         // then
         Assertions.assertThat(result).isCloseTo(10.0, OFFSET);
     }
@@ -79,6 +86,7 @@ public class Vector2DTest
     {
         // when
         Vector2D result = Vector2D.of(5.4, 9.0).negate();
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector2D.of(-5.4, -9.0));
     }
@@ -88,6 +96,7 @@ public class Vector2DTest
     {
         // when
         Vector2D result = Vector2D.of(5.4, 9.0).add(Vector2D.of(7.9, -8.1));
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector2D.of(13.3, 0.9));
     }
@@ -97,6 +106,7 @@ public class Vector2DTest
     {
         // when
         Vector2D result = Vector2D.of(5.4, 9.0).subtract(Vector2D.of(7.9, -8.1));
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector2D.of(-2.5, 17.1));
     }
@@ -106,6 +116,7 @@ public class Vector2DTest
     {
         // when
         Vector2D result = Vector2D.of(5.4, 9.0).multiply(3);
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector2D.of(16.2, 27.0));
     }
@@ -115,6 +126,7 @@ public class Vector2DTest
     {
         // when
         Vector2D result = Vector2D.of(5.4, 9.0).multiply(0);
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector2D.of(0, 0));
     }
@@ -124,6 +136,7 @@ public class Vector2DTest
     {
         // when
         Vector2D result = Vector2D.of(5.4, 9.0).divide(3);
+
         // then
         Assertions.assertThat(result).isEqualTo(Vector2D.of(1.8, 3.0));
     }

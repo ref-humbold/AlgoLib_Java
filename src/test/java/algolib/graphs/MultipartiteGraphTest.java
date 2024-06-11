@@ -31,12 +31,14 @@ public class MultipartiteGraphTest
         Edge<Integer> edge = testObject.getEdge(new Vertex<>(0), new Vertex<>(3));
         String vertexProperty = "x";
         String edgeProperty = "y";
+
         // when
         testObject.getProperties().set(vertex, vertexProperty);
         testObject.getProperties().set(edge, edgeProperty);
 
         String resultVertex = testObject.getProperties().get(vertex);
         String resultEdge = testObject.getProperties().get(edge);
+
         // then
         Assertions.assertThat(resultVertex).isEqualTo(vertexProperty);
         Assertions.assertThat(resultEdge).isEqualTo(edgeProperty);
@@ -47,6 +49,7 @@ public class MultipartiteGraphTest
     {
         // when
         int result = testObject.getVerticesCount();
+
         // then
         Assertions.assertThat(result).isEqualTo(10);
     }
@@ -56,6 +59,7 @@ public class MultipartiteGraphTest
     {
         // when
         int result = testObject.getEdgesCount();
+
         // then
         Assertions.assertThat(result).isEqualTo(5);
     }
@@ -65,6 +69,7 @@ public class MultipartiteGraphTest
     {
         // when
         Collection<Vertex<Integer>> result = testObject.getVertices();
+
         // then
         Assertions.assertThat(result)
                   .containsOnly(new Vertex<>(0), new Vertex<>(1), new Vertex<>(2), new Vertex<>(3),
@@ -77,6 +82,7 @@ public class MultipartiteGraphTest
     {
         // when
         Collection<Edge<Integer>> result = testObject.getEdges();
+
         // then
         Assertions.assertThat(result)
                   .containsOnly(new Edge<>(new Vertex<>(0), new Vertex<>(3)),
@@ -91,8 +97,10 @@ public class MultipartiteGraphTest
     {
         // given
         int vertexId = 5;
+
         // when
         Vertex<Integer> result = testObject.getVertex(vertexId);
+
         // then
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(result.id).isEqualTo(vertexId);
@@ -104,8 +112,10 @@ public class MultipartiteGraphTest
         // given
         Vertex<Integer> source = new Vertex<>(2);
         Vertex<Integer> destination = new Vertex<>(9);
+
         // when
         Edge<Integer> result = testObject.getEdge(source, destination);
+
         // then
         Assertions.assertThat(result.source).isEqualTo(source);
         Assertions.assertThat(result.destination).isEqualTo(destination);
@@ -116,6 +126,7 @@ public class MultipartiteGraphTest
     {
         // when
         Collection<Vertex<Integer>> result = testObject.getNeighbours(new Vertex<>(9));
+
         // then
         Assertions.assertThat(result).containsExactlyInAnyOrder(new Vertex<>(2), new Vertex<>(7));
     }
@@ -125,6 +136,7 @@ public class MultipartiteGraphTest
     {
         // when
         Collection<Edge<Integer>> result = testObject.getAdjacentEdges(new Vertex<>(9));
+
         // then
         Assertions.assertThat(result)
                   .containsExactlyInAnyOrder(new Edge<>(new Vertex<>(2), new Vertex<>(9)),
@@ -136,6 +148,7 @@ public class MultipartiteGraphTest
     {
         // when
         int result = testObject.getOutputDegree(new Vertex<>(9));
+
         // then
         Assertions.assertThat(result).isEqualTo(2);
     }
@@ -145,6 +158,7 @@ public class MultipartiteGraphTest
     {
         // when
         int result = testObject.getInputDegree(new Vertex<>(9));
+
         // then
         Assertions.assertThat(result).isEqualTo(2);
     }
@@ -154,6 +168,7 @@ public class MultipartiteGraphTest
     {
         // when
         Collection<Vertex<Integer>> result = testObject.getVerticesFromGroup(2);
+
         // then
         Assertions.assertThat(result)
                   .containsOnly(new Vertex<>(5), new Vertex<>(6), new Vertex<>(7), new Vertex<>(8));
@@ -172,8 +187,10 @@ public class MultipartiteGraphTest
         // given
         int newVertex = 13;
         String property = "qwerty";
+
         // when
         Vertex<Integer> result = testObject.addVertex(4, newVertex, property);
+
         // then
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
@@ -210,8 +227,10 @@ public class MultipartiteGraphTest
         Vertex<Integer> source = new Vertex<>(2);
         Vertex<Integer> destination = new Vertex<>(8);
         String property = "asdfgh";
+
         // when
         Edge<Integer> result = testObject.addEdgeBetween(source, destination, property);
+
         // then
         Assertions.assertThat(result.source).isEqualTo(source);
         Assertions.assertThat(result.destination).isEqualTo(destination);

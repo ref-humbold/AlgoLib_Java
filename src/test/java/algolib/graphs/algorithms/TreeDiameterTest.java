@@ -14,8 +14,10 @@ public class TreeDiameterTest
     {
         // given
         TreeGraph<Integer, Void, Weight> tree = new TreeGraph<>(0);
+
         // when
         double result = TreeDiameter.countDiameter(tree);
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -35,8 +37,10 @@ public class TreeDiameterTest
         tree.addVertex(7, tree.getVertex(4), null, weight);
         tree.addVertex(8, tree.getVertex(6), null, weight);
         tree.addVertex(9, tree.getVertex(6), null, weight);
+
         // when
         double result = TreeDiameter.countDiameter(tree);
+
         // then
         Assertions.assertThat(result).isEqualTo(6);
     }
@@ -51,8 +55,10 @@ public class TreeDiameterTest
         tree.addVertex(3, tree.getVertex(1), null, new Weight(10));
         tree.addVertex(4, tree.getVertex(2), null, new Weight(5));
         tree.addVertex(5, tree.getVertex(3), null, new Weight(5));
+
         // when
         double result = TreeDiameter.countDiameter(tree);
+
         // then
         Assertions.assertThat(result).isEqualTo(1015);
     }

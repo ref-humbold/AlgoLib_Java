@@ -10,6 +10,7 @@ public class ComparablePairTest
     {
         // when
         String result = ComparablePair.of(124, 'a').toString();
+
         // then
         Assertions.assertThat(result).isEqualTo("(124, a)");
     }
@@ -19,6 +20,7 @@ public class ComparablePairTest
     {
         // when
         boolean result = ComparablePair.of(124, 'a').equals(Pair.of(124, 'a'));
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -28,6 +30,7 @@ public class ComparablePairTest
     {
         // when
         boolean result = ComparablePair.of(124, 'a').equals(Pair.of(118, 'a'));
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -37,6 +40,7 @@ public class ComparablePairTest
     {
         // when
         boolean result = ComparablePair.of(124, 'a').equals(Pair.of(124, 'k'));
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -46,6 +50,7 @@ public class ComparablePairTest
     {
         // when
         int result = ComparablePair.of(124, 'a').compareTo(Pair.of(124, 'a'));
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -55,6 +60,7 @@ public class ComparablePairTest
     {
         // when
         int result = ComparablePair.of(124, 'a').compareTo(Pair.of(118, 'k'));
+
         // then
         Assertions.assertThat(result).isPositive();
     }
@@ -64,6 +70,7 @@ public class ComparablePairTest
     {
         // when
         int result = ComparablePair.of(124, 'a').compareTo(Pair.of(124, 'k'));
+
         // then
         Assertions.assertThat(result).isNegative();
     }
@@ -73,6 +80,7 @@ public class ComparablePairTest
     {
         // when
         int result = ComparablePair.of((Integer)null, 'a').compareTo(Pair.of(124, 'k'));
+
         // then
         Assertions.assertThat(result).isNegative();
     }
@@ -82,6 +90,7 @@ public class ComparablePairTest
     {
         // when
         int result = ComparablePair.of(124, 'a').compareTo(Pair.of(null, 'k'));
+
         // then
         Assertions.assertThat(result).isPositive();
     }

@@ -32,8 +32,10 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
+
         // when
         List<Vertex<Integer>> result = TopologicalSorting.inputsTopologicalSort(graph);
+
         // then
         Assertions.assertThat(result)
                   .containsExactly(graph.getVertex(3), graph.getVertex(5), graph.getVertex(1),
@@ -58,6 +60,7 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
+
         // then
         Assertions.assertThatThrownBy(() -> TopologicalSorting.inputsTopologicalSort(graph))
                   .isInstanceOf(DirectedCyclicGraphException.class);
@@ -69,8 +72,10 @@ public class TopologicalSortingTest
         // given
         DirectedGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
+
         // when
         List<Vertex<Integer>> result = TopologicalSorting.inputsTopologicalSort(graph);
+
         // then
         Assertions.assertThat(result).isEqualTo(graph.getVertices());
     }
@@ -95,8 +100,10 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
+
         // when
         List<Vertex<Integer>> result = TopologicalSorting.dfsTopologicalSort(graph);
+
         // then
         Assertions.assertThat(result)
                   .isIn(List.of(graph.getVertex(3), graph.getVertex(5), graph.getVertex(1),
@@ -127,6 +134,7 @@ public class TopologicalSortingTest
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(1));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(2));
         graph.addEdgeBetween(graph.getVertex(5), graph.getVertex(4));
+
         // then
         Assertions.assertThatThrownBy(() -> TopologicalSorting.dfsTopologicalSort(graph))
                   .isInstanceOf(DirectedCyclicGraphException.class);
@@ -138,8 +146,10 @@ public class TopologicalSortingTest
         // given
         DirectedGraph<Integer, Void, Void> graph = new DirectedSimpleGraph<>(
                 IntStream.range(0, 6).boxed().collect(Collectors.toList()));
+
         // when
         List<Vertex<Integer>> result = TopologicalSorting.dfsTopologicalSort(graph);
+
         // then
         Assertions.assertThat(result).isEqualTo(graph.getVertices());
     }

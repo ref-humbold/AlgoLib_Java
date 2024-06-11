@@ -35,8 +35,10 @@ public class CuttingTest
         graph.addEdgeBetween(graph.getVertex(9), graph.getVertex(10));
         graph.addEdgeBetween(graph.getVertex(9), graph.getVertex(11));
         graph.addEdgeBetween(graph.getVertex(10), graph.getVertex(11));
+
         // when
         Collection<Edge<Integer>> result = Cutting.findEdgeCut(graph);
+
         // then
         Assertions.assertThat(result).containsOnly(graph.getEdge(0, 7), graph.getEdge(5, 6));
     }
@@ -54,8 +56,10 @@ public class CuttingTest
         graph.addEdgeBetween(graph.getVertex(1), graph.getVertex(4));
         graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(5));
         graph.addEdgeBetween(graph.getVertex(4), graph.getVertex(5));
+
         // when
         Collection<Edge<Integer>> result = Cutting.findEdgeCut(graph);
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -82,8 +86,10 @@ public class CuttingTest
         graph.addEdgeBetween(graph.getVertex(9), graph.getVertex(10));
         graph.addEdgeBetween(graph.getVertex(9), graph.getVertex(11));
         graph.addEdgeBetween(graph.getVertex(10), graph.getVertex(11));
+
         // when
         Collection<Vertex<Integer>> result = Cutting.findVertexCut(graph);
+
         // then
         Assertions.assertThat(result)
                   .containsOnly(graph.getVertex(0), graph.getVertex(1), graph.getVertex(5),
@@ -104,8 +110,10 @@ public class CuttingTest
         graph.addEdgeBetween(graph.getVertex(2), graph.getVertex(3));
         graph.addEdgeBetween(graph.getVertex(3), graph.getVertex(5));
         graph.addEdgeBetween(graph.getVertex(4), graph.getVertex(5));
+
         // when
         Collection<Vertex<Integer>> result = Cutting.findVertexCut(graph);
+
         // then
         Assertions.assertThat(result).isEmpty();
     }

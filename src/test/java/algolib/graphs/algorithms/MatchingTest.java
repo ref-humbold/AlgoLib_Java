@@ -33,8 +33,10 @@ public class MatchingTest
                                                                           graph::getVertex,
                                                                           i -> graph.getVertex(
                                                                                   matches[i])));
+
         // when
         Map<Vertex<Integer>, Vertex<Integer>> result = Matching.match(graph);
+
         // then
         Assertions.assertThat(result)
                   .containsOnlyKeys(graph.getVertices())
@@ -47,8 +49,10 @@ public class MatchingTest
         // given
         MultipartiteGraph<Integer, Void, Void> graph =
                 new MultipartiteGraph<>(2, List.of(List.of(0, 1, 2, 3, 4)));
+
         // when
         Map<Vertex<Integer>, Vertex<Integer>> result = Matching.match(graph);
+
         // then
         Assertions.assertThat(result).isEmpty();
     }
@@ -59,8 +63,10 @@ public class MatchingTest
         // given
         MultipartiteGraph<Integer, Void, Void> graph =
                 new MultipartiteGraph<>(2, List.of(List.of(), List.of(0, 1, 2, 3, 4)));
+
         // when
         Map<Vertex<Integer>, Vertex<Integer>> result = Matching.match(graph);
+
         // then
         Assertions.assertThat(result).isEmpty();
     }

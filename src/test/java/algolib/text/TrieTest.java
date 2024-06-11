@@ -23,8 +23,10 @@ public class TrieTest
     {
         // given
         testObject = new Trie();
+
         // when
         boolean result = testObject.isEmpty();
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -34,6 +36,7 @@ public class TrieTest
     {
         // when
         boolean result = testObject.isEmpty();
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -43,8 +46,10 @@ public class TrieTest
     {
         // given
         testObject = new Trie();
+
         // when
         int result = testObject.size();
+
         // then
         Assertions.assertThat(result).isEqualTo(0);
     }
@@ -54,6 +59,7 @@ public class TrieTest
     {
         // when
         int result = testObject.size();
+
         // then
         Assertions.assertThat(result).isEqualTo(texts.size());
     }
@@ -63,6 +69,7 @@ public class TrieTest
     {
         // when
         boolean result = testObject.contains("abcd");
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -72,6 +79,7 @@ public class TrieTest
     {
         // when
         boolean result = testObject.contains("abxx");
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -81,6 +89,7 @@ public class TrieTest
     {
         // when
         boolean result = testObject.contains("xy");
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -90,8 +99,10 @@ public class TrieTest
     {
         // given
         List<String> textsToCheck = List.of("abxx", "x", "abcdef", "xyz");
+
         // when
         boolean result = testObject.containsAll(textsToCheck);
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -101,6 +112,7 @@ public class TrieTest
     {
         // when
         boolean result = testObject.containsAll(texts);
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -110,8 +122,10 @@ public class TrieTest
     {
         // given
         String text = "abcd";
+
         // when
         testObject.add(text);
+
         // then
         Assertions.assertThat(testObject.contains(text)).isTrue();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size());
@@ -122,8 +136,10 @@ public class TrieTest
     {
         // given
         String text = "abxx";
+
         // when
         testObject.add(text);
+
         // then
         Assertions.assertThat(testObject.contains(text)).isTrue();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size() + 1);
@@ -134,8 +150,10 @@ public class TrieTest
     {
         // given
         String text = "xy";
+
         // when
         testObject.add(text);
+
         // then
         Assertions.assertThat(testObject.contains(text)).isTrue();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size() + 1);
@@ -146,8 +164,10 @@ public class TrieTest
     {
         // given
         List<String> textsToAdd = List.of("abxx", "x", "abcdef", "xyz");
+
         // when
         testObject.addAll(textsToAdd);
+
         // then
         for(String text : textsToAdd)
             Assertions.assertThat(testObject.contains(text)).isTrue();
@@ -161,8 +181,10 @@ public class TrieTest
     {
         // given
         String text = "abcd";
+
         // when
         testObject.remove(text);
+
         // then
         Assertions.assertThat(testObject.contains(text)).isFalse();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size() - 1);
@@ -173,8 +195,10 @@ public class TrieTest
     {
         // given
         String text = "abxx";
+
         // when
         testObject.remove(text);
+
         // then
         Assertions.assertThat(testObject.contains(text)).isFalse();
         Assertions.assertThat(testObject.size()).isEqualTo(texts.size());
@@ -185,8 +209,10 @@ public class TrieTest
     {
         // given
         String text = "xy";
+
         // when
         testObject.remove(text);
+
         // then
         Assertions.assertThat(testObject.contains("xyz")).isTrue();
         Assertions.assertThat(testObject.contains(text)).isFalse();
@@ -198,8 +224,10 @@ public class TrieTest
     {
         // given
         List<String> textsToRemove = List.of("abxx", "x", "abcdef", "xyz");
+
         // when
         testObject.removeAll(textsToRemove);
+
         // then
         for(String text : textsToRemove)
             Assertions.assertThat(testObject.contains(text)).isFalse();
@@ -213,6 +241,7 @@ public class TrieTest
     {
         // when
         testObject.clear();
+
         // then
         Assertions.assertThat(testObject.isEmpty()).isTrue();
         Assertions.assertThat(testObject.size()).isEqualTo(0);

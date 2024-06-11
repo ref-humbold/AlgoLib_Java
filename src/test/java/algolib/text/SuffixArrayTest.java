@@ -28,6 +28,7 @@ public class SuffixArrayTest
     {
         // when
         String result = testObject.getText();
+
         // then
         Assertions.assertThat(result).isEqualTo(TEXT);
     }
@@ -37,6 +38,7 @@ public class SuffixArrayTest
     {
         // when
         int result = testObject.size();
+
         // then
         Assertions.assertThat(result).isEqualTo(11);
     }
@@ -49,6 +51,7 @@ public class SuffixArrayTest
         String result1 = testObject.get(3);
         String result2 = testObject.get(6);
         String result3 = testObject.get(9);
+
         // then
         Assertions.assertThat(result0).isEqualTo("i");
         Assertions.assertThat(result1).isEqualTo("ississippi");
@@ -71,6 +74,7 @@ public class SuffixArrayTest
         int result1 = testObject.indexAt(3);
         int result2 = testObject.indexAt(6);
         int result3 = testObject.indexAt(9);
+
         // then
         Assertions.assertThat(result0).isEqualTo(10);
         Assertions.assertThat(result1).isEqualTo(1);
@@ -93,6 +97,7 @@ public class SuffixArrayTest
         int result1 = testObject.indexOf(3);
         int result2 = testObject.indexOf(6);
         int result3 = testObject.indexOf(9);
+
         // then
         Assertions.assertThat(result0).isEqualTo(4);
         Assertions.assertThat(result1).isEqualTo(8);
@@ -112,6 +117,7 @@ public class SuffixArrayTest
     {
         // when
         int result = testObject.countLcp(4, 4);
+
         // then
         Assertions.assertThat(result).isEqualTo(7);
     }
@@ -121,6 +127,7 @@ public class SuffixArrayTest
     {
         // when
         int result = testObject.countLcp(1, 10);
+
         // then
         Assertions.assertThat(result).isEqualTo(1);
     }
@@ -130,6 +137,7 @@ public class SuffixArrayTest
     {
         // when
         int result = testObject.countLcp(9, 6);
+
         // then
         Assertions.assertThat(result).isEqualTo(0);
     }
@@ -140,6 +148,7 @@ public class SuffixArrayTest
         // when
         int result0 = testObject.countLcp(2, 5);
         int result1 = testObject.countLcp(5, 2);
+
         // then
         Assertions.assertThat(result0).isEqualTo(3);
         Assertions.assertThat(result1).isEqualTo(result0);

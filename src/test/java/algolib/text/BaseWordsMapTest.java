@@ -22,6 +22,7 @@ public class BaseWordsMapTest
     {
         // when
         Pair<Integer, Integer> result = testObject.getCode(4, 4);
+
         // then
         Assertions.assertThat(result).isEqualTo(Pair.of(0, 0));
     }
@@ -31,6 +32,7 @@ public class BaseWordsMapTest
     {
         // when
         Pair<Integer, Integer> result = testObject.getCode(6, 2);
+
         // then
         Assertions.assertThat(result).isEqualTo(Pair.of(0, 0));
     }

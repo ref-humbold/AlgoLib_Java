@@ -32,8 +32,10 @@ public class AvlTreeTest
         // given
         testObject = new AvlTree<>(Comparator.comparing(i -> -i));
         testObject.addAll(numbers);
+
         // when
         AvlTree<Number> result = new AvlTree<>(testObject);
+
         // then
         Assertions.assertThat(result.comparator()).isEqualTo(testObject.comparator());
         Assertions.assertThat(result.size()).isEqualTo(testObject.size());
@@ -45,6 +47,7 @@ public class AvlTreeTest
     {
         // when
         String result = testObject.toString();
+
         // then
         Assertions.assertThat(result)
                   .isEqualTo("{|2, 6, 10, 14, 18, 24, 26, 30, 37, 45, 51, 68, 71, 97|}");
@@ -55,6 +58,7 @@ public class AvlTreeTest
     {
         // when
         boolean result = new AvlTree<Integer>().isEmpty();
+
         // then
         Assertions.assertThat(result).isTrue();
     }
@@ -64,6 +68,7 @@ public class AvlTreeTest
     {
         // when
         boolean result = testObject.isEmpty();
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -73,6 +78,7 @@ public class AvlTreeTest
     {
         // when
         int result = new AvlTree<Integer>().size();
+
         // then
         Assertions.assertThat(result).isZero();
     }
@@ -82,6 +88,7 @@ public class AvlTreeTest
     {
         // when
         int result = testObject.size();
+
         // then
         Assertions.assertThat(result).isEqualTo(numbers.size());
     }
@@ -91,6 +98,7 @@ public class AvlTreeTest
     {
         // when
         testObject.clear();
+
         // then
         Assertions.assertThat(testObject).isEmpty();
     }
@@ -102,6 +110,7 @@ public class AvlTreeTest
     {
         // when
         Iterator<Integer> result = new AvlTree<Integer>().iterator();
+
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
         Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
@@ -112,8 +121,10 @@ public class AvlTreeTest
     {
         // given
         int element = numbers.get(0);
+
         // when
         Iterator<Integer> iterator = new AvlTree<>(List.of(element)).iterator();
+
         // then
         Assertions.assertThat(iterator.hasNext()).isTrue();
         Assertions.assertThat(iterator.next()).isEqualTo(element);
@@ -125,6 +136,7 @@ public class AvlTreeTest
     {
         // when
         List<Integer> result = new ArrayList<>(testObject);
+
         // then
         Assertions.assertThat(result).isSorted().containsExactlyInAnyOrderElementsOf(numbers);
     }
@@ -134,6 +146,7 @@ public class AvlTreeTest
     {
         // when
         Iterator<Integer> result = new AvlTree<Integer>().descendingIterator();
+
         // then
         Assertions.assertThat(result.hasNext()).isFalse();
         Assertions.assertThatThrownBy(result::next).isInstanceOf(NoSuchElementException.class);
@@ -144,8 +157,10 @@ public class AvlTreeTest
     {
         // given
         int element = numbers.get(0);
+
         // when
         Iterator<Integer> iterator = new AvlTree<>(List.of(element)).descendingIterator();
+
         // then
         Assertions.assertThat(iterator.hasNext()).isTrue();
         Assertions.assertThat(iterator.next()).isEqualTo(element);
@@ -157,11 +172,13 @@ public class AvlTreeTest
     {
         // given
         Iterator<Integer> iterator = testObject.descendingIterator();
+
         // when
         List<Integer> result = new ArrayList<>();
 
         while(iterator.hasNext())
             result.add(iterator.next());
+
         // then
         Assertions.assertThat(result)
                   .isSortedAccordingTo((n, m) -> m.compareTo(n))
@@ -176,6 +193,7 @@ public class AvlTreeTest
     {
         // when
         boolean result = new AvlTree<Integer>().contains(numbers.get(0));
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -187,6 +205,7 @@ public class AvlTreeTest
         {
             // when
             boolean result = testObject.contains(i);
+
             // then
             Assertions.assertThat(result).isTrue();
         }
@@ -199,6 +218,7 @@ public class AvlTreeTest
         {
             // when
             boolean result = testObject.contains(i);
+
             // then
             Assertions.assertThat(result).isFalse();
         }
@@ -214,8 +234,10 @@ public class AvlTreeTest
         int element = numbers.get(0);
 
         testObject = new AvlTree<>();
+
         // when
         boolean result = testObject.add(element);
+
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject).contains(element).hasSize(1);
@@ -228,6 +250,7 @@ public class AvlTreeTest
         {
             // when
             boolean result = testObject.add(i);
+
             // then
             Assertions.assertThat(result).isTrue();
             Assertions.assertThat(testObject).contains(i);
@@ -243,6 +266,7 @@ public class AvlTreeTest
         {
             // when
             boolean result = testObject.add(i);
+
             // then
             Assertions.assertThat(result).isFalse();
             Assertions.assertThat(testObject).contains(i);
@@ -259,6 +283,7 @@ public class AvlTreeTest
     {
         // when
         boolean result = new AvlTree<Integer>().remove(numbers.get(0));
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -270,6 +295,7 @@ public class AvlTreeTest
         {
             // when
             boolean result = testObject.remove(i);
+
             // then
             Assertions.assertThat(result).isTrue();
             Assertions.assertThat(testObject).doesNotContain(i);
@@ -285,6 +311,7 @@ public class AvlTreeTest
         {
             // when
             boolean result = testObject.remove(i);
+
             // then
             Assertions.assertThat(result).isFalse();
             Assertions.assertThat(testObject).doesNotContain(i);
@@ -301,8 +328,10 @@ public class AvlTreeTest
         int element = absent.get(0);
 
         testObject = new AvlTree<>(List.of(root, element));
+
         // when
         boolean result = testObject.remove(root);
+
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject).doesNotContain(root).contains(element).hasSize(1);
@@ -316,8 +345,10 @@ public class AvlTreeTest
         int element = absent.get(1);
 
         testObject = new AvlTree<>(List.of(root, element));
+
         // when
         boolean result = testObject.remove(root);
+
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject).doesNotContain(root).contains(element).hasSize(1);
@@ -330,8 +361,10 @@ public class AvlTreeTest
         int root = absent.get(0);
 
         testObject = new AvlTree<>(Collections.singletonList(root));
+
         // when
         boolean result = testObject.remove(root);
+
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject).doesNotContain(root).isEmpty();
@@ -345,6 +378,7 @@ public class AvlTreeTest
     {
         // when
         boolean result = new AvlTree<Integer>().removeAll(new HashSet<>(numbers));
+
         // then
         Assertions.assertThat(result).isFalse();
     }
@@ -354,8 +388,10 @@ public class AvlTreeTest
     {
         // given
         Set<Integer> elements = new HashSet<>(present);
+
         // when
         boolean result = testObject.removeAll(elements);
+
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject)
@@ -368,8 +404,10 @@ public class AvlTreeTest
     {
         // given
         Set<Integer> elements = new HashSet<>(absent);
+
         // when
         boolean result = testObject.removeAll(elements);
+
         // then
         Assertions.assertThat(result).isFalse();
         Assertions.assertThat(testObject)
@@ -383,8 +421,10 @@ public class AvlTreeTest
         // given
         Set<Integer> elements =
                 Stream.concat(present.stream(), absent.stream()).collect(Collectors.toSet());
+
         // when
         boolean result = testObject.removeAll(elements);
+
         // then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(testObject)
