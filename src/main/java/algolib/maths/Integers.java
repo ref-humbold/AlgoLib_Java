@@ -1,7 +1,7 @@
 package algolib.maths;
 
-/** Algorithms for basic mathematical operations. */
-public final class Maths
+/** Algorithms for basic computations on integers. */
+public final class Integers
 {
     // region gcd
 
@@ -63,7 +63,7 @@ public final class Maths
         int min_number = Math.min(Math.abs(number1), Math.abs(number2));
         int max_number = Math.max(Math.abs(number1), Math.abs(number2));
 
-        return max_number / Maths.gcd(number1, number2) * min_number;
+        return max_number / Integers.gcd(number1, number2) * min_number;
     }
 
     /**
@@ -77,7 +77,7 @@ public final class Maths
         long min_number = Math.min(Math.abs(number1), Math.abs(number2));
         long max_number = Math.max(Math.abs(number1), Math.abs(number2));
 
-        return max_number / Maths.gcd(number1, number2) * min_number;
+        return max_number / Integers.gcd(number1, number2) * min_number;
     }
 
     // endregion
@@ -94,13 +94,13 @@ public final class Maths
         int result = 0;
 
         if(factor1 < 0 && factor2 < 0)
-            return Maths.multiply(-factor1, -factor2);
+            return Integers.multiply(-factor1, -factor2);
 
         if(factor1 < 0)
-            return -Maths.multiply(-factor1, factor2);
+            return -Integers.multiply(-factor1, factor2);
 
         if(factor2 < 0)
-            return -Maths.multiply(factor1, -factor2);
+            return -Integers.multiply(factor1, -factor2);
 
         while(factor2 > 0)
         {
@@ -125,13 +125,13 @@ public final class Maths
         long result = 0;
 
         if(factor1 < 0 && factor2 < 0)
-            return Maths.multiply(-factor1, -factor2);
+            return Integers.multiply(-factor1, -factor2);
 
         if(factor1 < 0)
-            return -Maths.multiply(-factor1, factor2);
+            return -Integers.multiply(-factor1, factor2);
 
         if(factor2 < 0)
-            return -Maths.multiply(factor1, -factor2);
+            return -Integers.multiply(factor1, -factor2);
 
         while(factor2 > 0)
         {
@@ -160,13 +160,13 @@ public final class Maths
             throw new ArithmeticException("Non-positive modulo");
 
         if(factor1 < 0 && factor2 < 0)
-            return Maths.multiply(-factor1, -factor2, modulo);
+            return Integers.multiply(-factor1, -factor2, modulo);
 
         if(factor1 < 0)
-            return modulo - Maths.multiply(-factor1, factor2, modulo);
+            return modulo - Integers.multiply(-factor1, factor2, modulo);
 
         if(factor2 < 0)
-            return modulo - Maths.multiply(factor1, -factor2, modulo);
+            return modulo - Integers.multiply(factor1, -factor2, modulo);
 
         while(factor2 > 0)
         {
@@ -195,13 +195,13 @@ public final class Maths
             throw new ArithmeticException("Non-positive modulo");
 
         if(factor1 < 0 && factor2 < 0)
-            return Maths.multiply(-factor1, -factor2, modulo);
+            return Integers.multiply(-factor1, -factor2, modulo);
 
         if(factor1 < 0)
-            return modulo - Maths.multiply(-factor1, factor2, modulo);
+            return modulo - Integers.multiply(-factor1, factor2, modulo);
 
         if(factor2 < 0)
-            return modulo - Maths.multiply(factor1, -factor2, modulo);
+            return modulo - Integers.multiply(factor1, -factor2, modulo);
 
         while(factor2 > 0)
         {
@@ -237,9 +237,9 @@ public final class Maths
         while(exponent > 0)
         {
             if(exponent % 2 == 1)
-                result = Maths.multiply(result, base);
+                result = Integers.multiply(result, base);
 
-            base = Maths.multiply(base, base);
+            base = Integers.multiply(base, base);
             exponent /= 2;
         }
 
@@ -265,9 +265,9 @@ public final class Maths
         while(exponent > 0)
         {
             if(exponent % 2 == 1)
-                result = Maths.multiply(result, base);
+                result = Integers.multiply(result, base);
 
-            base = Maths.multiply(base, base);
+            base = Integers.multiply(base, base);
             exponent /= 2;
         }
 
@@ -297,9 +297,9 @@ public final class Maths
         while(exponent > 0)
         {
             if(exponent % 2 == 1)
-                result = Maths.multiply(result, base, modulo);
+                result = Integers.multiply(result, base, modulo);
 
-            base = Maths.multiply(base, base, modulo);
+            base = Integers.multiply(base, base, modulo);
             exponent /= 2;
         }
 
@@ -329,9 +329,9 @@ public final class Maths
         while(exponent > 0)
         {
             if(exponent % 2 == 1)
-                result = Maths.multiply(result, base, modulo);
+                result = Integers.multiply(result, base, modulo);
 
-            base = Maths.multiply(base, base, modulo);
+            base = Integers.multiply(base, base, modulo);
             exponent /= 2;
         }
 
