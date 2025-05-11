@@ -4,7 +4,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// Tests: Algorithm for convex hull in 2D (monotone chain).
+// Tests: Algorithm for convex hull in 2D (Graham's scan).
 public class ConvexHullTest
 {
     @Test
@@ -55,9 +55,9 @@ public class ConvexHullTest
 
         // then
         Assertions.assertThat(result)
-                  .containsExactly(Point2D.of(-8, -7), Point2D.of(-1, -8), Point2D.of(3, -6),
-                                   Point2D.of(6, -4), Point2D.of(10, 2), Point2D.of(5, 9),
-                                   Point2D.of(-5, 10), Point2D.of(-7, 7));
+                  .containsExactly(Point2D.of(-1, -8), Point2D.of(3, -6), Point2D.of(6, -4),
+                                   Point2D.of(10, 2), Point2D.of(5, 9), Point2D.of(-5, 10),
+                                   Point2D.of(-7, 7), Point2D.of(-8, -7));
     }
 
     @Test
