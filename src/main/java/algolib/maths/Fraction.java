@@ -26,7 +26,7 @@ public final class Fraction
             denominator = -denominator;
         }
 
-        long gcd = Maths.gcd(numerator, denominator);
+        long gcd = Integers.gcd(numerator, denominator);
 
         this.numerator = numerator / gcd;
         this.denominator = denominator / gcd;
@@ -262,7 +262,7 @@ public final class Fraction
 
     private int compare(Fraction f)
     {
-        long commonDenominator = Maths.lcm(denominator, f.denominator);
+        long commonDenominator = Integers.lcm(denominator, f.denominator);
 
         long thisNumerator = commonDenominator / denominator * numerator;
         long otherNumerator = commonDenominator / f.denominator * f.numerator;
