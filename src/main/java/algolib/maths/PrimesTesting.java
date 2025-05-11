@@ -29,7 +29,8 @@ public final class PrimesTesting
         {
             int witness = 2 + Math.abs(random.nextInt()) % (number - 2);
 
-            if(Maths.gcd(witness, number) > 1 || Maths.power(witness, number - 1, number) != 1)
+            if(Integers.gcd(witness, number) > 1
+                    || Integers.power(witness, number - 1, number) != 1)
                 return false;
         }
 
@@ -53,7 +54,8 @@ public final class PrimesTesting
         {
             long witness = 2L + Math.abs(random.nextLong()) % (number - 2);
 
-            if(Maths.gcd(witness, number) > 1 || Maths.power(witness, number - 1, number) != 1)
+            if(Integers.gcd(witness, number) > 1
+                    || Integers.power(witness, number - 1, number) != 1)
                 return false;
         }
 
@@ -85,11 +87,11 @@ public final class PrimesTesting
         {
             int witness = 1 + Math.abs(random.nextInt()) % (number - 1);
 
-            if(Maths.power(witness, multiplicand, number) != 1)
+            if(Integers.power(witness, multiplicand, number) != 1)
             {
                 if(IntStream.iterate(multiplicand, d -> d <= number / 2, d -> d * 2)
                             .boxed()
-                            .allMatch(d -> Maths.power(witness, d, number) != number - 1))
+                            .allMatch(d -> Integers.power(witness, d, number) != number - 1))
                     return false;
             }
         }
@@ -119,11 +121,11 @@ public final class PrimesTesting
         {
             long witness = 1L + Math.abs(random.nextLong()) % (number - 1);
 
-            if(Maths.power(witness, multiplicand, number) != 1)
+            if(Integers.power(witness, multiplicand, number) != 1)
             {
                 if(LongStream.iterate(multiplicand, d -> d <= number / 2, d -> d * 2)
                              .boxed()
-                             .allMatch(d -> Maths.power(witness, d, number) != number - 1))
+                             .allMatch(d -> Integers.power(witness, d, number) != number - 1))
                     return false;
             }
         }
