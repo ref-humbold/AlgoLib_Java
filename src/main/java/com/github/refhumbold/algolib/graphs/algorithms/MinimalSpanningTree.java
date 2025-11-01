@@ -1,0 +1,103 @@
+package com.github.refhumbold.algolib.graphs.algorithms;
+
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.stream.Collectors;
+import com.github.refhumbold.algolib.graphs.Edge;
+import com.github.refhumbold.algolib.graphs.UndirectedGraph;
+import com.github.refhumbold.algolib.graphs.UndirectedSimpleGraph;
+import com.github.refhumbold.algolib.graphs.Vertex;
+import com.github.refhumbold.algolib.graphs.properties.Weighted;
+import com.github.refhumbold.algolib.structures.DisjointSets;
+import com.github.refhumbold.algolib.tuples.Pair;
+
+/** Algorithms for minimal spanning tree. */
+public final class MinimalSpanningTree
+{
+    /**
+     * Computes minimal spanning tree of given undirected graph using Kruskal algorithm.
+     * @param graph the undirected weighted graph
+     * @return the minimal spanning tree
+     */
+    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> UndirectedGraph<VertexId, VertexProperty, EdgeProperty> kruskal(
+            UndirectedGraph<VertexId, VertexProperty, EdgeProperty> graph)
+    {
+        UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> mst =
+                new UndirectedSimpleGraph<>(
+                        graph.getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
+        DisjointSets<Vertex<VertexId>> vertexSets =
+                new DisjointSets<>(graph.getVertices().stream().map(List::of).toList());
+        PriorityQueue<Edge<VertexId>> edgeQueue = new PriorityQueue<>(
+                Comparator.comparingDouble(edge -> graph.getProperties().get(edge).getWeight()));
+
+        edgeQueue.addAll(graph.getEdges());
+
+        while(vertexSets.size() > 1 && !edgeQueue.isEmpty())
+        {
+            Edge<VertexId> edge = edgeQueue.remove();
+
+            if(!vertexSets.isSameSet(edge.source, edge.destination))
+                mst.addEdge(edge, graph.getProperties().get(edge));
+
+            vertexSets.unionSet(edge.source, edge.destination);
+        }
+
+        return mst;
+    }
+
+    /**
+     * Computes minimal spanning tree of given undirected graph using Prim algorithm.
+     * @param graph the undirected weighted graph
+     * @param source the starting vertex
+     * @return the minimal spanning tree
+     */
+    public static <VertexId, VertexProperty, EdgeProperty extends Weighted> UndirectedGraph<VertexId, VertexProperty, EdgeProperty> prim(
+            UndirectedGraph<VertexId, VertexProperty, EdgeProperty> graph,
+            Vertex<VertexId> source)
+    {
+        UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> mst =
+                new UndirectedSimpleGraph<>(
+                        graph.getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
+        Set<Vertex<VertexId>> visited = new HashSet<>();
+        PriorityQueue<Pair<Edge<VertexId>, Vertex<VertexId>>> queue = new PriorityQueue<>(
+                (pair1, pair2) -> Double.compare(graph.getProperties().get(pair1.first).getWeight(),
+                        graph.getProperties().get(pair2.first).getWeight()));
+
+        visited.add(source);
+
+        for(Edge<VertexId> adjacentEdge : graph.getAdjacentEdges(source))
+        {
+            Vertex<VertexId> neighbour = adjacentEdge.getNeighbour(source);
+
+            if(neighbour != source)
+                queue.add(Pair.of(adjacentEdge, neighbour));
+        }
+
+        while(!queue.isEmpty())
+        {
+            Edge<VertexId> edge = queue.element().first;
+            Vertex<VertexId> vertex = queue.element().second;
+
+            queue.remove();
+
+            if(!visited.contains(vertex))
+            {
+                visited.add(vertex);
+                mst.addEdge(edge, graph.getProperties().get(edge));
+
+                for(Edge<VertexId> adjacentEdge : graph.getAdjacentEdges(vertex))
+                {
+                    Vertex<VertexId> neighbour = adjacentEdge.getNeighbour(vertex);
+
+                    if(!visited.contains(neighbour))
+                        queue.add(Pair.of(adjacentEdge, neighbour));
+                }
+            }
+        }
+
+        return mst;
+    }
+}

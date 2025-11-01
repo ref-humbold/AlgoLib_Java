@@ -1,0 +1,14 @@
+package com.github.refhumbold.algolib.graphs.algorithms.strategy;
+
+import com.github.refhumbold.algolib.graphs.Vertex;
+
+public interface BfsStrategy<VertexId>
+{
+    void forRoot(Vertex<VertexId> root);
+
+    void onEntry(Vertex<VertexId> vertex);
+
+    void onNextVertex(Vertex<VertexId> vertex, Vertex<VertexId> neighbour);
+
+    void onExit(Vertex<VertexId> vertex);
+}
