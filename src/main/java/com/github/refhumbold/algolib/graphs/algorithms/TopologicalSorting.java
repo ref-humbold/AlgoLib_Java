@@ -39,7 +39,7 @@ public final class TopologicalSorting
         List<Vertex<VertexId>> order = new ArrayList<>();
         Map<Vertex<VertexId>, Integer> inputDegrees = new HashMap<>();
         PriorityQueue<Vertex<VertexId>> vertexQueue = new PriorityQueue<>(
-                ((vertex1, vertex2) -> vertexIdComparator.compare(vertex1.id, vertex2.id)));
+                ((vertex1, vertex2) -> vertexIdComparator.compare(vertex1.id(), vertex2.id())));
 
         for(Vertex<VertexId> vertex : graph.getVertices())
         {

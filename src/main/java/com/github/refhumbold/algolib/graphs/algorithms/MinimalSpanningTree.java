@@ -27,7 +27,7 @@ public final class MinimalSpanningTree
     {
         UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> mst =
                 new UndirectedSimpleGraph<>(
-                        graph.getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
+                        graph.getVertices().stream().map(Vertex::id).collect(Collectors.toList()));
         DisjointSets<Vertex<VertexId>> vertexSets =
                 new DisjointSets<>(graph.getVertices().stream().map(List::of).toList());
         PriorityQueue<Edge<VertexId>> edgeQueue = new PriorityQueue<>(
@@ -39,10 +39,10 @@ public final class MinimalSpanningTree
         {
             Edge<VertexId> edge = edgeQueue.remove();
 
-            if(!vertexSets.isSameSet(edge.source, edge.destination))
+            if(!vertexSets.isSameSet(edge.source(), edge.destination()))
                 mst.addEdge(edge, graph.getProperties().get(edge));
 
-            vertexSets.unionSet(edge.source, edge.destination);
+            vertexSets.unionSet(edge.source(), edge.destination());
         }
 
         return mst;
@@ -60,7 +60,7 @@ public final class MinimalSpanningTree
     {
         UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> mst =
                 new UndirectedSimpleGraph<>(
-                        graph.getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
+                        graph.getVertices().stream().map(v -> v.id()).collect(Collectors.toList()));
         Set<Vertex<VertexId>> visited = new HashSet<>();
         PriorityQueue<Pair<Edge<VertexId>, Vertex<VertexId>>> queue = new PriorityQueue<>(
                 (pair1, pair2) -> Double.compare(graph.getProperties().get(pair1.first).getWeight(),

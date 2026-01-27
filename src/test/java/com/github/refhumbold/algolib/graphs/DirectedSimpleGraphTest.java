@@ -153,7 +153,7 @@ public class DirectedSimpleGraphTest
 
         // then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.id).isEqualTo(vertexId);
+        Assertions.assertThat(result.id()).isEqualTo(vertexId);
     }
 
     @Test
@@ -179,8 +179,8 @@ public class DirectedSimpleGraphTest
         Edge<Integer> result = testObject.getEdge(source, destination);
 
         // then
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
+        Assertions.assertThat(result.source()).isEqualTo(source);
+        Assertions.assertThat(result.destination()).isEqualTo(destination);
     }
 
     @Test
@@ -304,7 +304,7 @@ public class DirectedSimpleGraphTest
 
         // then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.id).isEqualTo(newVertexId);
+        Assertions.assertThat(result.id()).isEqualTo(newVertexId);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
         Assertions.assertThat(testObject.getNeighbours(result)).isEmpty();
         Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
@@ -340,8 +340,8 @@ public class DirectedSimpleGraphTest
 
         // then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.source).isEqualTo(vertex1);
-        Assertions.assertThat(result.destination).isEqualTo(vertex2);
+        Assertions.assertThat(result.source()).isEqualTo(vertex1);
+        Assertions.assertThat(result.destination()).isEqualTo(vertex2);
         Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
         Assertions.assertThat(testObject.getNeighbours(vertex1)).containsOnly(vertex1, vertex2);
         Assertions.assertThat(testObject.getNeighbours(vertex2)).isEmpty();

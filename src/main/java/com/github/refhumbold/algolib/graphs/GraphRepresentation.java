@@ -46,7 +46,7 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
     {
         return graphMap.keySet()
                        .stream()
-                       .filter(v -> v.id.equals(vertexId))
+                       .filter(v -> v.id().equals(vertexId))
                        .findFirst()
                        .orElse(null);
     }
@@ -55,12 +55,13 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
     {
         return graphMap.entrySet()
                        .stream()
-                       .filter(entry -> entry.getKey().id.equals(sourceId))
+                       .filter(entry -> entry.getKey().id().equals(sourceId))
                        .findFirst()
                        .flatMap(entry -> entry.getValue()
                                               .stream()
-                                              .filter(edge -> edge.getNeighbour(
-                                                      entry.getKey()).id.equals(destinationId))
+                                              .filter(edge -> edge.getNeighbour(entry.getKey())
+                                                                  .id()
+                                                                  .equals(destinationId))
                                               .findFirst())
                        .orElse(null);
     }
@@ -105,13 +106,13 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
     void addEdgeToSource(Edge<VertexId> edge)
     {
         validateEdgeVertices(edge);
-        graphMap.get(edge.source).add(edge);
+        graphMap.get(edge.source()).add(edge);
     }
 
     void addEdgeToDestination(Edge<VertexId> edge)
     {
         validateEdgeVertices(edge);
-        graphMap.get(edge.destination).add(edge);
+        graphMap.get(edge.destination()).add(edge);
     }
 
     private void validateVertex(Vertex<VertexId> vertex)
@@ -123,22 +124,22 @@ class GraphRepresentation<VertexId, VertexProperty, EdgeProperty>
 
     private void validateEdgeVertices(Edge<VertexId> edge)
     {
-        if(!graphMap.containsKey(edge.source))
+        if(!graphMap.containsKey(edge.source()))
             throw new IllegalArgumentException(
-                    "Edge source %s does not belong to this graph".formatted(edge.source));
+                    "Edge source %s does not belong to this graph".formatted(edge.source()));
 
-        if(!graphMap.containsKey(edge.destination))
+        if(!graphMap.containsKey(edge.destination()))
             throw new IllegalArgumentException(
                     "Edge destination %s does not belong to this graph".formatted(
-                            edge.destination));
+                            edge.destination()));
     }
 
     private void validateEdge(Edge<VertexId> edge)
     {
         validateEdgeVertices(edge);
 
-        if(!graphMap.get(edge.source).contains(edge) && !graphMap.get(edge.destination)
-                                                                 .contains(edge))
+        if(!graphMap.get(edge.source()).contains(edge) && !graphMap.get(edge.destination())
+                                                                   .contains(edge))
             throw new IllegalArgumentException(
                     "Edge %s does not belong to this graph".formatted(edge));
     }

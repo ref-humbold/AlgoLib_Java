@@ -149,7 +149,7 @@ public class UndirectedSimpleGraphTest
 
         // then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.id).isEqualTo(vertexId);
+        Assertions.assertThat(result.id()).isEqualTo(vertexId);
     }
 
     @Test
@@ -175,8 +175,8 @@ public class UndirectedSimpleGraphTest
         Edge<Integer> result = testObject.getEdge(source, destination);
 
         // then
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
+        Assertions.assertThat(result.source()).isEqualTo(source);
+        Assertions.assertThat(result.destination()).isEqualTo(destination);
     }
 
     @Test
@@ -192,8 +192,8 @@ public class UndirectedSimpleGraphTest
         Edge<Integer> result = testObject.getEdge(destination, source);
 
         // then
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
+        Assertions.assertThat(result.source()).isEqualTo(source);
+        Assertions.assertThat(result.destination()).isEqualTo(destination);
     }
 
     @Test
@@ -303,7 +303,7 @@ public class UndirectedSimpleGraphTest
 
         // then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.id).isEqualTo(newVertexId);
+        Assertions.assertThat(result.id()).isEqualTo(newVertexId);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(11);
         Assertions.assertThat(testObject.getNeighbours(result)).isEmpty();
         Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
@@ -339,8 +339,8 @@ public class UndirectedSimpleGraphTest
 
         // then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
+        Assertions.assertThat(result.source()).isEqualTo(source);
+        Assertions.assertThat(result.destination()).isEqualTo(destination);
         Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
         Assertions.assertThat(testObject.getNeighbours(source)).containsOnly(source, destination);
         Assertions.assertThat(testObject.getNeighbours(destination)).containsOnly(source);

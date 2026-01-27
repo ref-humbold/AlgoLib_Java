@@ -41,14 +41,14 @@ public final class ShortestPaths
         for(int i = 0; i < graph.getVerticesCount() - 1; ++i)
             for(Vertex<VertexId> vertex : graph.getVertices())
                 for(Edge<VertexId> edge : graph.getAdjacentEdges(vertex))
-                    distances.put(edge.destination, Math.min(distances.get(edge.destination),
+                    distances.put(edge.destination(), Math.min(distances.get(edge.destination()),
                             distances.get(vertex) + graph.getProperties().get(edge).getWeight()));
 
         for(Vertex<VertexId> vertex : graph.getVertices())
             for(Edge<VertexId> edge : graph.getAdjacentEdges(vertex))
                 if(distances.get(vertex) < Weighted.INFINITY
                         && distances.get(vertex) + graph.getProperties().get(edge).getWeight()
-                        < distances.get(edge.destination))
+                        < distances.get(edge.destination()))
                     throw new IllegalStateException("Graph contains a negative cycle.");
 
         return distances;
@@ -123,7 +123,7 @@ public final class ShortestPaths
                 distances.put(Pair.of(v, u), v.equals(u) ? 0.0 : Weighted.INFINITY);
 
         for(Edge<VertexId> e : graph.getEdges())
-            distances.put(Pair.of(e.source, e.destination),
+            distances.put(Pair.of(e.source(), e.destination()),
                     graph.getProperties().get(e).getWeight());
 
         for(Vertex<VertexId> w : graph.getVertices())

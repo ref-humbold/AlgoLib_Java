@@ -45,7 +45,7 @@ public class UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     @Override
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {
-        if(getEdge(edge.source, edge.destination) != null)
+        if(getEdge(edge.source(), edge.destination()) != null)
             throw new IllegalArgumentException("Edge %s already exists".formatted(edge));
 
         representation.addEdgeToSource(edge);
@@ -59,15 +59,15 @@ public class UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     {
         DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> directedSimpleGraph =
                 new DirectedSimpleGraph<>(
-                        getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
+                        getVertices().stream().map(Vertex::id).collect(Collectors.toList()));
 
         getVertices().forEach(vertex -> directedSimpleGraph.getProperties()
                                                            .set(vertex,
-                                                                getProperties().get(vertex)));
+                                                                   getProperties().get(vertex)));
         getEdges().forEach(edge -> {
             directedSimpleGraph.addEdge(edge, getProperties().get(edge));
 
-            if(!edge.source.equals(edge.destination))
+            if(!edge.source().equals(edge.destination()))
                 directedSimpleGraph.addEdge(edge.reversed(), getProperties().get(edge));
         });
 

@@ -103,7 +103,7 @@ public class MultipartiteGraphTest
 
         // then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.id).isEqualTo(vertexId);
+        Assertions.assertThat(result.id()).isEqualTo(vertexId);
     }
 
     @Test
@@ -117,8 +117,8 @@ public class MultipartiteGraphTest
         Edge<Integer> result = testObject.getEdge(source, destination);
 
         // then
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
+        Assertions.assertThat(result.source()).isEqualTo(source);
+        Assertions.assertThat(result.destination()).isEqualTo(destination);
     }
 
     @Test
@@ -232,8 +232,8 @@ public class MultipartiteGraphTest
         Edge<Integer> result = testObject.addEdgeBetween(source, destination, property);
 
         // then
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
+        Assertions.assertThat(result.source()).isEqualTo(source);
+        Assertions.assertThat(result.destination()).isEqualTo(destination);
         Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(property);
         Assertions.assertThat(testObject.getNeighbours(destination)).containsOnly(source);
     }

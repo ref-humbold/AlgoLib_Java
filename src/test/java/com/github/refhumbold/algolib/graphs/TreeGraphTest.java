@@ -104,7 +104,7 @@ public class TreeGraphTest
 
         // then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.id).isEqualTo(vertexId);
+        Assertions.assertThat(result.id()).isEqualTo(vertexId);
     }
 
     @Test
@@ -118,8 +118,8 @@ public class TreeGraphTest
         Edge<Integer> result = testObject.getEdge(source, destination);
 
         // then
-        Assertions.assertThat(result.source).isEqualTo(source);
-        Assertions.assertThat(result.destination).isEqualTo(destination);
+        Assertions.assertThat(result.source()).isEqualTo(source);
+        Assertions.assertThat(result.destination()).isEqualTo(destination);
     }
 
     @Test
@@ -180,11 +180,11 @@ public class TreeGraphTest
                 testObject.addVertex(newVertexId, neighbour, vertexProperty, edgeProperty);
 
         // then
-        Assertions.assertThat(result.source).isEqualTo(new Vertex<>(newVertexId));
-        Assertions.assertThat(result.destination).isEqualTo(neighbour);
+        Assertions.assertThat(result.source()).isEqualTo(new Vertex<>(newVertexId));
+        Assertions.assertThat(result.destination()).isEqualTo(neighbour);
         Assertions.assertThat(testObject.getVerticesCount()).isEqualTo(9);
-        Assertions.assertThat(testObject.getNeighbours(result.source)).containsOnly(neighbour);
-        Assertions.assertThat(testObject.getProperties().get(result.source))
+        Assertions.assertThat(testObject.getNeighbours(result.source())).containsOnly(neighbour);
+        Assertions.assertThat(testObject.getProperties().get(result.source()))
                   .isEqualTo(vertexProperty);
         Assertions.assertThat(testObject.getProperties().get(result)).isEqualTo(edgeProperty);
     }

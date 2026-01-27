@@ -1,19 +1,8 @@
 package com.github.refhumbold.algolib.graphs;
 
-import java.util.Objects;
-
 /** Structure of graph edge. */
-public class Edge<VertexId>
+public record Edge<VertexId>(Vertex<VertexId> source, Vertex<VertexId> destination)
 {
-    public final Vertex<VertexId> source;
-    public final Vertex<VertexId> destination;
-
-    public Edge(Vertex<VertexId> source, Vertex<VertexId> destination)
-    {
-        this.source = source;
-        this.destination = destination;
-    }
-
     /**
      * Gets the neighbour of given adjacent vertex.
      * @param vertex the vertex adjacent to this edge
@@ -39,24 +28,6 @@ public class Edge<VertexId>
     public Edge<VertexId> reversed()
     {
         return new Edge<>(destination, source);
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof Edge<?> other))
-            return false;
-
-        return source.equals(other.source) && destination.equals(other.destination);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(source, destination);
     }
 
     @Override

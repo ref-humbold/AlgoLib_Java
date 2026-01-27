@@ -42,8 +42,8 @@ public class DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     {
         return representation.getEdgesSet()
                              .flatMap(edges -> edges.stream()
-                                                    .filter(edge -> edge.destination.equals(
-                                                            vertex)))
+                                                    .filter(edge -> edge.destination()
+                                                                        .equals(vertex)))
                              .mapToInt(edge -> 1)
                              .sum();
     }
@@ -51,7 +51,7 @@ public class DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     @Override
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {
-        if(getEdge(edge.source, edge.destination) != null)
+        if(getEdge(edge.source(), edge.destination()) != null)
             throw new IllegalArgumentException("Edge %s already exists".formatted(edge));
 
         representation.addEdgeToSource(edge);
@@ -64,7 +64,7 @@ public class DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     {
         GraphRepresentation<VertexId, VertexProperty, EdgeProperty> newRepresentation =
                 new GraphRepresentation<>(
-                        getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
+                        getVertices().stream().map(v -> v.id()).collect(Collectors.toList()));
 
         representation.getVertices().forEach(vertex -> {
             newRepresentation.setProperty(vertex, representation.getProperty(vertex));
@@ -83,7 +83,7 @@ public class DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty>
     {
         DirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> reversedGraph =
                 new DirectedSimpleGraph<>(
-                        getVertices().stream().map(v -> v.id).collect(Collectors.toList()));
+                        getVertices().stream().map(Vertex::id).collect(Collectors.toList()));
 
         getVertices().forEach(
                 vertex -> reversedGraph.getProperties().set(vertex, getProperties().get(vertex)));

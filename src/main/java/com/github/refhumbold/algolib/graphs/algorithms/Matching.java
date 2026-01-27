@@ -101,15 +101,8 @@ public final class Matching
             {
                 Vertex<VertexId> matched = matching.get(neighbour);
 
-                if(matched == null)
-                {
-                    matching.put(vertex, neighbour);
-                    matching.put(neighbour, vertex);
-                    return true;
-                }
-
-                if(!visited.contains(matched) && distances.get(matched) == distances.get(vertex) + 1
-                        && dfs(matched, visited, distances))
+                if(matched == null || (!visited.contains(matched) && (distances.get(matched) == (
+                        distances.get(vertex) + 1)) && dfs(matched, visited, distances)))
                 {
                     matching.put(vertex, neighbour);
                     matching.put(neighbour, vertex);

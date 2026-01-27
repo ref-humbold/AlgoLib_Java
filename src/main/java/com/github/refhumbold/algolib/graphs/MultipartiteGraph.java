@@ -29,7 +29,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
         if(vertexIds.size() > this.groupsCount)
             throw new IllegalArgumentException(
                     String.format("Cannot add vertices to group %d, graph contains only %d groups",
-                                  vertexIds.size(), this.groupsCount));
+                            vertexIds.size(), this.groupsCount));
 
         int i = 0;
 
@@ -171,8 +171,9 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @return the created vertex
      * @throws IllegalArgumentException if vertex already exists
      */
-    public Vertex<VertexId> addVertex(
-            int groupNumber, Vertex<VertexId> vertex, VertexProperty property)
+    public Vertex<VertexId> addVertex(int groupNumber,
+            Vertex<VertexId> vertex,
+            VertexProperty property)
     {
         validateGroup(groupNumber);
 
@@ -204,8 +205,9 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @throws IllegalArgumentException if edge already exists
      * @throws GraphPartitionException if the vertices belong to the same group
      */
-    public Edge<VertexId> addEdgeBetween(
-            Vertex<VertexId> source, Vertex<VertexId> destination, EdgeProperty property)
+    public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source,
+            Vertex<VertexId> destination,
+            EdgeProperty property)
     {
         return addEdge(new Edge<>(source, destination), property);
     }
@@ -232,7 +234,7 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      */
     public Edge<VertexId> addEdge(Edge<VertexId> edge, EdgeProperty property)
     {
-        if(areInSameGroup(edge.source, edge.destination))
+        if(areInSameGroup(edge.source(), edge.destination()))
             throw new GraphPartitionException(
                     "Cannot create an edge between vertices in the same group");
 
@@ -252,6 +254,6 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
         if(groupNumber < 0 || groupNumber >= groupsCount)
             throw new IndexOutOfBoundsException(
                     String.format("Invalid group number %d, graph contains only %d groups",
-                                  groupNumber, groupsCount));
+                            groupNumber, groupsCount));
     }
 }

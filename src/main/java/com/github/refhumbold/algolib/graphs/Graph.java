@@ -54,7 +54,7 @@ public interface Graph<VertexId, VertexProperty, EdgeProperty>
      */
     default Edge<VertexId> getEdge(Vertex<VertexId> source, Vertex<VertexId> destination)
     {
-        return getEdge(source.id, destination.id);
+        return getEdge(source.id(), destination.id());
     }
 
     /**
