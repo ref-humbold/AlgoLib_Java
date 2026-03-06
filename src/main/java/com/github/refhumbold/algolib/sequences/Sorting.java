@@ -66,7 +66,7 @@ public final class Sorting
         for(int half_step = 1; half_step < sequence.size(); half_step *= 2)
             for(int i = 0; i < sequence.size(); i += half_step + half_step)
                 Sorting.merge(sequence, i, Math.min(i + half_step, sequence.size()),
-                              Math.min(i + half_step + half_step, sequence.size()));
+                        Math.min(i + half_step + half_step, sequence.size()));
     }
 
     /**
@@ -106,7 +106,9 @@ public final class Sorting
 
     // Mutably sorts given sequence using recursive merge-sort algorithm.
     private static <T extends Comparable<T>> void doMergeSort(
-            List<T> sequence, int indexBegin, int indexEnd)
+            List<T> sequence,
+            int indexBegin,
+            int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
             return;
@@ -120,7 +122,10 @@ public final class Sorting
 
     // Merges two sorted fragments of given sequence. Guaranteed to be stable.
     private static <T extends Comparable<T>> void merge(
-            List<T> sequence, int indexBegin, int indexMiddle, int indexEnd)
+            List<T> sequence,
+            int indexBegin,
+            int indexMiddle,
+            int indexEnd)
     {
         List<T> ordered = new ArrayList<>();
         int iter1 = indexBegin;
@@ -150,7 +155,9 @@ public final class Sorting
 
     // Mutably sorts given sequence using quick-sort algorithm.
     private static <T extends Comparable<T>> void doQuickSort(
-            List<T> sequence, int indexBegin, int indexEnd)
+            List<T> sequence,
+            int indexBegin,
+            int indexEnd)
     {
         if(indexEnd - indexBegin <= 1)
             return;
@@ -184,7 +191,7 @@ public final class Sorting
     private static int choosePivot(int indexBegin, int indexEnd)
     {
         return Stream.of(random.nextInt(indexBegin, indexEnd), random.nextInt(indexBegin, indexEnd),
-                         random.nextInt(indexBegin, indexEnd))
+                             random.nextInt(indexBegin, indexEnd))
                      .sorted()
                      .skip(1)
                      .findFirst()

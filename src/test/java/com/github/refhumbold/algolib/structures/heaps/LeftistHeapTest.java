@@ -104,7 +104,7 @@ public class LeftistHeapTest
     public void iterator_WhenSingleElement_ThenThisElementOnly()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         // when
         Iterator<Integer> result = new LeftistHeap<>(List.of(element)).iterator();
@@ -136,7 +136,7 @@ public class LeftistHeapTest
     public void add_WhenEmpty_ThenAdded()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         testObject = new LeftistHeap<>();
 
@@ -205,7 +205,7 @@ public class LeftistHeapTest
     public void peek_WhenSingleElement_ThenThisElement()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         // when
         Integer result = new LeftistHeap<>(List.of(element)).peek();
@@ -258,7 +258,7 @@ public class LeftistHeapTest
     public void poll_WhenSingleElement_ThenThisElementRemoved()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         testObject = new LeftistHeap<>(List.of(element));
 

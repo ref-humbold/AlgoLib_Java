@@ -131,11 +131,9 @@ public class LeftistHeap<E extends Comparable<E>>
             return node == null
                    ? this
                    : comparator().compare(element, node.element) < 0
-                     ? new HeapNode(element, left, right == null
-                                                   ? node
-                                                   : right.merge(node))
+                     ? new HeapNode(element, left, right == null ? node : right.merge(node))
                      : new HeapNode(node.element, node.left,
-                                    node.right == null ? this : node.right.merge(this));
+                             node.right == null ? this : node.right.merge(this));
         }
     }
 

@@ -34,8 +34,8 @@ public final class ConvexHull
         for(Point2D pt : anglePoints)
         {
             while(hull.size() > 1
-                    && crossProduct(hull.get(hull.size() - 2), hull.get(hull.size() - 1), pt) >= 0)
-                hull.remove(hull.size() - 1);
+                    && crossProduct(hull.get(hull.size() - 2), hull.getLast(), pt) >= 0)
+                hull.removeLast();
 
             hull.add(pt);
         }

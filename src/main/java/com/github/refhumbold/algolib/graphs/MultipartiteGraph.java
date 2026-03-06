@@ -171,7 +171,8 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @return the created vertex
      * @throws IllegalArgumentException if vertex already exists
      */
-    public Vertex<VertexId> addVertex(int groupNumber,
+    public Vertex<VertexId> addVertex(
+            int groupNumber,
             Vertex<VertexId> vertex,
             VertexProperty property)
     {
@@ -205,7 +206,8 @@ public class MultipartiteGraph<VertexId, VertexProperty, EdgeProperty>
      * @throws IllegalArgumentException if edge already exists
      * @throws GraphPartitionException if the vertices belong to the same group
      */
-    public Edge<VertexId> addEdgeBetween(Vertex<VertexId> source,
+    public Edge<VertexId> addEdgeBetween(
+            Vertex<VertexId> source,
             Vertex<VertexId> destination,
             EdgeProperty property)
     {

@@ -123,7 +123,7 @@ public class DoubleHeapTest
     public void iterator_WhenSingleElement_ThenThisElementOnly()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         // when
         Iterator<Integer> result = new DoubleHeap<>(List.of(element)).iterator();
@@ -164,7 +164,7 @@ public class DoubleHeapTest
     public void descendingIterator_WhenSingleElement_ThenThisElementOnly()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         // when
         Iterator<Integer> result = new DoubleHeap<>(List.of(element)).descendingIterator();
@@ -197,7 +197,7 @@ public class DoubleHeapTest
     public void add_WhenEmpty_ThenAdded()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         testObject = new DoubleHeap<>();
 
@@ -295,7 +295,7 @@ public class DoubleHeapTest
     public void peekMin_WhenSingleElement_ThenThisElement()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         // when
         Integer result = new DoubleHeap<>(List.of(element)).peekMin();
@@ -328,7 +328,7 @@ public class DoubleHeapTest
     public void peekMax_WhenSingleElement_ThenThisElement()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         // when
         Integer result = new DoubleHeap<>(List.of(element)).peekMax();
@@ -422,7 +422,7 @@ public class DoubleHeapTest
     public void pollMin_WhenSingleElement_ThenThisElementRemoved()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         testObject = new DoubleHeap<>(List.of(element));
 
@@ -474,7 +474,7 @@ public class DoubleHeapTest
     public void pollMax_WhenSingleElement_ThenThisElementRemoved()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         testObject = new DoubleHeap<>(List.of(element));
 

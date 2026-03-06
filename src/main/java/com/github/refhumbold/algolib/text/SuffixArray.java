@@ -173,7 +173,7 @@ public class SuffixArray
         for(int i : indices12)
         {
             if(getElement(txt, i) != last0 || getElement(txt, i + 1) != last1
-                       || getElement(txt, i + 2) != last2)
+                    || getElement(txt, i + 2) != last2)
             {
                 ++code;
                 last0 = getElement(txt, i);
@@ -187,7 +187,6 @@ public class SuffixArray
                 t12.set(i / 3 + length2, code);
         }
 
-        List<Integer> sa0 = new ArrayList<>();
         List<Integer> sa12;
 
         if(code < length02)
@@ -205,16 +204,18 @@ public class SuffixArray
                 sa12.set(t12.get(i) - 1, i);
         }
 
-        for(int i : sa12)
-            if(i < length2)
-                sa0.add(3 * i);
+        List<Integer> sa0 =
+                sa12.stream().filter(i -> i < length2).map(i -> 3 * i).collect(Collectors.toList());
 
         sortIndices(sa0, txt, 0);
         return merge(txt, sa0, t12, sa12);
     }
 
     private List<Integer> merge(
-            List<Integer> t0, List<Integer> sa0, List<Integer> t12, List<Integer> sa12)
+            List<Integer> t0,
+            List<Integer> sa0,
+            List<Integer> t12,
+            List<Integer> sa12)
     {
         List<Integer> saMerged = new ArrayList<>();
         int length2 = (t0.size() + 2) / 3;
@@ -232,13 +233,12 @@ public class SuffixArray
 
             if(sa12.get(index12) < length2)
                 cond = lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
-                                   getElement(t12, sa12.get(index12) + length2),
-                                   getElement(t12, pos0 / 3));
+                        getElement(t12, sa12.get(index12) + length2), getElement(t12, pos0 / 3));
             else
                 cond = lessOrEqual(getElement(t0, pos12), getElement(t0, pos0),
-                                   getElement(t0, pos12 + 1), getElement(t0, pos0 + 1),
-                                   getElement(t12, sa12.get(index12) - length2 + 1),
-                                   getElement(t12, pos0 / 3 + length2));
+                        getElement(t0, pos12 + 1), getElement(t0, pos0 + 1),
+                        getElement(t12, sa12.get(index12) - length2 + 1),
+                        getElement(t12, pos0 / 3 + length2));
 
             if(cond)
             {
@@ -297,15 +297,11 @@ public class SuffixArray
 
     private boolean lessOrEqual(int... elements)
     {
-        for(int i = 0; i < elements.length; i += 2)
-        {
-            if(elements[i] < elements[i + 1])
-                return true;
-
-            if(elements[i] > elements[i + 1])
-                return false;
-        }
-
-        return true;
+        return IntStream.iterate(0, i -> i < elements.length, i -> i + 2)
+                        .dropWhile(i -> elements[i] == elements[i + 1])
+                        .boxed()
+                        .findFirst()
+                        .map(i -> elements[i] < elements[i + 1])
+                        .orElse(true);
     }
 }

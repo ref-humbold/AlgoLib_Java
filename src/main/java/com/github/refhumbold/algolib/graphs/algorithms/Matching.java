@@ -91,7 +91,8 @@ public final class Matching
             }
         }
 
-        private boolean dfs(Vertex<VertexId> vertex,
+        private boolean dfs(
+                Vertex<VertexId> vertex,
                 Set<Vertex<VertexId>> visited,
                 Map<Vertex<VertexId>, Double> distances)
         {

@@ -22,7 +22,7 @@ public class DisjointSets<E>
 
         for(List<E> set : setsList)
             for(E element : set)
-                represents.put(element, set.get(0));
+                represents.put(element, set.getFirst());
 
         size_ = setsList.size();
     }
@@ -80,7 +80,7 @@ public class DisjointSets<E>
                         "Value %s already present.".formatted(element.toString()));
 
         for(E element : elementsList)
-            represents.put(element, elementsList.get(0));
+            represents.put(element, elementsList.getFirst());
 
         if(!elementsList.isEmpty())
             ++size_;
@@ -179,7 +179,7 @@ public class DisjointSets<E>
         List<E> duplicates = setsList.stream()
                                      .flatMap(Collection::stream)
                                      .collect(Collectors.groupingBy(Function.identity(),
-                                                                    Collectors.counting()))
+                                             Collectors.counting()))
                                      .entrySet()
                                      .stream()
                                      .filter(entry -> entry.getValue() > 1)

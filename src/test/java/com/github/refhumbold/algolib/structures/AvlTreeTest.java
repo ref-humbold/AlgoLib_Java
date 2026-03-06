@@ -120,7 +120,7 @@ public class AvlTreeTest
     public void iterator_WhenSingleElement_ThenThisElementOnly()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         // when
         Iterator<Integer> iterator = new AvlTree<>(List.of(element)).iterator();
@@ -156,7 +156,7 @@ public class AvlTreeTest
     public void descendingIterator_WhenSingleElement_ThenThisElementOnly()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         // when
         Iterator<Integer> iterator = new AvlTree<>(List.of(element)).descendingIterator();
@@ -192,7 +192,7 @@ public class AvlTreeTest
     public void contains_WhenEmpty_ThenFalse()
     {
         // when
-        boolean result = new AvlTree<Integer>().contains(numbers.get(0));
+        boolean result = new AvlTree<Integer>().contains(numbers.getFirst());
 
         // then
         Assertions.assertThat(result).isFalse();
@@ -231,7 +231,7 @@ public class AvlTreeTest
     public void add_WhenEmpty_ThenTrue()
     {
         // given
-        int element = numbers.get(0);
+        int element = numbers.getFirst();
 
         testObject = new AvlTree<>();
 
@@ -282,7 +282,7 @@ public class AvlTreeTest
     public void remove_WhenEmpty_ThenFalse()
     {
         // when
-        boolean result = new AvlTree<Integer>().remove(numbers.get(0));
+        boolean result = new AvlTree<Integer>().remove(numbers.getFirst());
 
         // then
         Assertions.assertThat(result).isFalse();
@@ -358,7 +358,7 @@ public class AvlTreeTest
     public void remove_WhenRootOnly_ThenEmpty()
     {
         // given
-        int root = absent.get(0);
+        int root = absent.getFirst();
 
         testObject = new AvlTree<>(Collections.singletonList(root));
 

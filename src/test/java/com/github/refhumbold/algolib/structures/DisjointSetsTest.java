@@ -113,7 +113,7 @@ public class DisjointSetsTest
     public void contains_WhenEmpty_ThenFalse()
     {
         // when
-        boolean result = new DisjointSets<Integer>().contains(numbers.get(0));
+        boolean result = new DisjointSets<Integer>().contains(numbers.getFirst());
 
         // then
         Assertions.assertThat(result).isFalse();
@@ -123,7 +123,7 @@ public class DisjointSetsTest
     public void contains_WhenPresentElement_ThenTrue()
     {
         // when
-        boolean result = testObject.contains(present.get(0));
+        boolean result = testObject.contains(present.getFirst());
 
         // then
         Assertions.assertThat(result).isTrue();
@@ -133,7 +133,7 @@ public class DisjointSetsTest
     public void contains_WhenAbsentElement_ThenFalse()
     {
         // when
-        boolean result = testObject.contains(absent.get(0));
+        boolean result = testObject.contains(absent.getFirst());
 
         // then
         Assertions.assertThat(result).isFalse();
@@ -157,7 +157,7 @@ public class DisjointSetsTest
         for(int element : numbers)
         {
             Assertions.assertThat(testObject.contains(element)).isTrue();
-            Assertions.assertThat(testObject.findSet(element)).isEqualTo(numbers.get(0));
+            Assertions.assertThat(testObject.findSet(element)).isEqualTo(numbers.getFirst());
         }
 
         Assertions.assertThat(testObject.size()).isOne();
@@ -186,7 +186,7 @@ public class DisjointSetsTest
         for(int element : absent)
         {
             Assertions.assertThat(testObject.contains(element)).isTrue();
-            Assertions.assertThat(testObject.findSet(element)).isEqualTo(absent.get(0));
+            Assertions.assertThat(testObject.findSet(element)).isEqualTo(absent.getFirst());
         }
 
         Assertions.assertThat(testObject.size()).isEqualTo(numbers.size() + 1);
@@ -211,7 +211,7 @@ public class DisjointSetsTest
     public void add_WhenEmptyNewElementsToPresentRepresent_ThenNoChanges()
     {
         // when
-        DisjointSets<Integer> result = testObject.add(List.of(), present.get(0));
+        DisjointSets<Integer> result = testObject.add(List.of(), present.getFirst());
 
         // then
         Assertions.assertThat(result).isSameAs(testObject);
@@ -222,7 +222,7 @@ public class DisjointSetsTest
     public void add_WhenNewElementsToPresentRepresent_ThenAddedToExistingSet()
     {
         // given
-        int represent = present.get(0);
+        int represent = present.getFirst();
 
         // when
         DisjointSets<Integer> result = testObject.add(absent, represent);
@@ -243,14 +243,14 @@ public class DisjointSetsTest
     @Test
     public void add_WhenNewElementsToAbsentRepresent_ThenNoSuchElementException()
     {
-        Assertions.assertThatThrownBy(() -> testObject.add(absent, absent.get(0)))
+        Assertions.assertThatThrownBy(() -> testObject.add(absent, absent.getFirst()))
                   .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void add_WhenPresentElementsToAbsentRepresent_ThenIllegalArgumentException()
     {
-        Assertions.assertThatThrownBy(() -> testObject.add(present, absent.get(0)))
+        Assertions.assertThatThrownBy(() -> testObject.add(present, absent.getFirst()))
                   .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -260,7 +260,7 @@ public class DisjointSetsTest
     @Test
     public void findSet_WhenEmpty_ThenNoSuchElementException()
     {
-        Assertions.assertThatThrownBy(() -> new DisjointSets<Integer>().findSet(numbers.get(0)))
+        Assertions.assertThatThrownBy(() -> new DisjointSets<Integer>().findSet(numbers.getFirst()))
                   .isInstanceOf(NoSuchElementException.class);
     }
 
@@ -268,7 +268,7 @@ public class DisjointSetsTest
     public void findSet_WhenPresentElement_ThenRepresent()
     {
         // given
-        int element = present.get(0);
+        int element = present.getFirst();
 
         // when
         int result = testObject.findSet(element);
@@ -280,7 +280,7 @@ public class DisjointSetsTest
     @Test
     public void findSet_WhenAbsentElement_ThenNoSuchElementException()
     {
-        Assertions.assertThatThrownBy(() -> testObject.findSet(absent.get(0)))
+        Assertions.assertThatThrownBy(() -> testObject.findSet(absent.getFirst()))
                   .isInstanceOf(NoSuchElementException.class);
     }
 
@@ -302,8 +302,8 @@ public class DisjointSetsTest
     public void findSetOrDefault_WhenPresentElement_ThenRepresent()
     {
         // given
-        int element = present.get(0);
-        int defaultValue = absent.get(0);
+        int element = present.getFirst();
+        int defaultValue = absent.getFirst();
 
         // when
         int result = testObject.findSetOrDefault(element, defaultValue);
@@ -316,8 +316,8 @@ public class DisjointSetsTest
     public void findSetOrDefault_WhenAbsentElement_ThenDefaultValue()
     {
         // given
-        int element = absent.get(0);
-        int defaultValue = present.get(0);
+        int element = absent.getFirst();
+        int defaultValue = present.getFirst();
 
         // when
         int result = testObject.findSetOrDefault(element, defaultValue);
@@ -350,7 +350,7 @@ public class DisjointSetsTest
     public void unionSet_WhenSingleElement_ThenNoChanges()
     {
         // given
-        int element = present.get(0);
+        int element = present.getFirst();
 
         // when
         DisjointSets<Integer> result = testObject.unionSet(element, element);
@@ -381,8 +381,8 @@ public class DisjointSetsTest
     public void unionSet_WhenDifferentSetsInChain_ThenSameRepresent()
     {
         // given
-        int first = present.get(0);
-        int last = present.get(present.size() - 1);
+        int first = present.getFirst();
+        int last = present.getLast();
 
         // when
         for(int i = 1; i < present.size(); ++i)
@@ -411,7 +411,7 @@ public class DisjointSetsTest
     public void isSameSet_WhenSingleElement_ThenTrue()
     {
         // given
-        int element = present.get(0);
+        int element = present.getFirst();
 
         // when
         boolean result = testObject.isSameSet(element, element);

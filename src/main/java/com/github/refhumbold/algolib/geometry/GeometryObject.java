@@ -8,10 +8,10 @@ public abstract class GeometryObject
     {
     }
 
+    public abstract double[] getCoordinates();
+
     protected static boolean areEqual(double d1, double d2)
     {
         return Math.abs(d1 - d2) < EPSILON;
     }
-
-    public abstract double[] getCoordinates();
 }

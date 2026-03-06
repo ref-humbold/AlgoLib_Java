@@ -112,8 +112,8 @@ public class AvlTree<E>
     @Override
     public boolean contains(Object object)
     {
-        return !isEmpty() && findNode(object, (node, obj) -> Objects.equals(node.getElement(), obj))
-                                     != null;
+        return !isEmpty()
+                && findNode(object, (node, obj) -> Objects.equals(node.getElement(), obj)) != null;
     }
 
     @Override
@@ -437,7 +437,7 @@ public class AvlTree<E>
             else
             {
                 while(currentNode.getParent() != null
-                              && currentNode.getParent().getLeft() != currentNode)
+                        && currentNode.getParent().getLeft() != currentNode)
                     currentNode = currentNode.getParent();
 
                 currentNode = currentNode.getParent();
@@ -476,7 +476,7 @@ public class AvlTree<E>
             else
             {
                 while(currentNode.getParent() != null
-                              && currentNode.getParent().getRight() != currentNode)
+                        && currentNode.getParent().getRight() != currentNode)
                     currentNode = currentNode.getParent();
 
                 currentNode = currentNode.getParent();

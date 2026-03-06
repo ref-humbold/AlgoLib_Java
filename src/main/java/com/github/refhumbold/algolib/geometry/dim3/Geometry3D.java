@@ -1,5 +1,6 @@
 package com.github.refhumbold.algolib.geometry.dim3;
 
+import java.util.Comparator;
 import java.util.List;
 
 /** Algorithms for basic geometrical operations in 3D. */
@@ -11,7 +12,7 @@ public final class Geometry3D
      */
     public static void sortByX(List<Point3D> points)
     {
-        points.sort((pt1, pt2) -> Double.compare(pt1.x, pt2.x));
+        points.sort(Comparator.comparingDouble(pt -> pt.x));
     }
 
     /**
@@ -20,7 +21,7 @@ public final class Geometry3D
      */
     public static void sortByY(List<Point3D> points)
     {
-        points.sort((pt1, pt2) -> Double.compare(pt1.y, pt2.y));
+        points.sort(Comparator.comparingDouble(pt -> pt.y));
     }
 
     /**
@@ -29,7 +30,7 @@ public final class Geometry3D
      */
     public static void sortByZ(List<Point3D> points)
     {
-        points.sort((pt1, pt2) -> Double.compare(pt1.z, pt2.z));
+        points.sort(Comparator.comparingDouble(pt -> pt.z));
     }
 
     /**
@@ -42,8 +43,7 @@ public final class Geometry3D
     {
         return Math.sqrt(
                 (point2.x - point1.x) * (point2.x - point1.x) + (point2.y - point1.y) * (point2.y
-                                                                                                 - point1.y)
-                        + (point2.z - point1.z) * (point2.z - point1.z));
+                        - point1.y) + (point2.z - point1.z) * (point2.z - point1.z));
     }
 
     /**
@@ -66,6 +66,6 @@ public final class Geometry3D
     public static Point3D reflect(Point3D point, Point3D centre)
     {
         return Point3D.of(-point.x + 2 * centre.x, -point.y + 2 * centre.y,
-                          -point.z + 2 * centre.z);
+                -point.z + 2 * centre.z);
     }
 }

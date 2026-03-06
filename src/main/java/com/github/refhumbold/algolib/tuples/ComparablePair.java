@@ -14,7 +14,8 @@ public final class ComparablePair<F extends Comparable<? super F>, S extends Com
     }
 
     public static <F extends Comparable<F>, S extends Comparable<S>> ComparablePair<F, S> of(
-            F first, S second)
+            F first,
+            S second)
     {
         return new ComparablePair<>(first, second);
     }

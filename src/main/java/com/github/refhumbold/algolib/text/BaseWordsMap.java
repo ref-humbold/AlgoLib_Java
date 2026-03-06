@@ -144,15 +144,11 @@ public final class BaseWordsMap
         @Override
         public int compare(int[] a1, int[] a2)
         {
-            for(int i = 0; i < Math.min(a1.length, a2.length); ++i)
-            {
-                int compareInts = Integer.compare(a1[i], a2[i]);
-
-                if(compareInts != 0)
-                    return compareInts;
-            }
-
-            return 0;
+            return IntStream.range(0, Math.min(a1.length, a2.length))
+                            .map(i -> Integer.compare(a1[i], a2[i]))
+                            .filter(compareInts -> compareInts != 0)
+                            .findFirst()
+                            .orElse(0);
         }
     }
 }

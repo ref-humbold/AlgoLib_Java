@@ -62,7 +62,7 @@ public final class Fraction
             return false;
 
         return Objects.equals(numerator, other.numerator) && Objects.equals(denominator,
-                                                                            other.denominator);
+                other.denominator);
     }
 
     @Override
@@ -107,7 +107,7 @@ public final class Fraction
     public Fraction add(Fraction f)
     {
         return Fraction.of(numerator * f.denominator + f.numerator * denominator,
-                           denominator * f.denominator);
+                denominator * f.denominator);
     }
 
     /**
@@ -138,7 +138,7 @@ public final class Fraction
     public Fraction subtract(Fraction f)
     {
         return Fraction.of(numerator * f.denominator - f.numerator * denominator,
-                           denominator * f.denominator);
+                denominator * f.denominator);
     }
 
     /**

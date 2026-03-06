@@ -22,7 +22,7 @@ public final class LongestIncreasingSubsequence
 
         for(int i = 1; i < sequence.size(); ++i)
         {
-            Integer subsequenceEnd = subsequence.get(subsequence.size() - 1);
+            Integer subsequenceEnd = subsequence.getLast();
 
             if(comparator.compare(sequence.get(i), sequence.get(subsequenceEnd)) > 0)
             {
@@ -41,7 +41,7 @@ public final class LongestIncreasingSubsequence
         }
 
         List<T> longestSubsequence = new ArrayList<>();
-        Optional<Integer> subsequenceIndex = Optional.of(subsequence.get(subsequence.size() - 1));
+        Optional<Integer> subsequenceIndex = Optional.of(subsequence.getLast());
 
         while(subsequenceIndex.isPresent())
         {
@@ -70,9 +70,9 @@ public final class LongestIncreasingSubsequence
 
         if(comparator.compare(sequence.get(indexElem), middleElem) > 0)
             return searchIndex(sequence, comparator, subsequence, indexElem, indexMiddle + 1,
-                               indexEnd);
+                    indexEnd);
 
         return searchIndex(sequence, comparator, subsequence, indexElem, indexBegin,
-                           indexMiddle + 1);
+                indexMiddle + 1);
     }
 }

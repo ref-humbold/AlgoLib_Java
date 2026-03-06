@@ -80,17 +80,17 @@ public final class EquationSystem
         int lastIndex = equations.length - 1;
 
         if(equations[lastIndex].getCoefficients()[lastIndex] == 0
-                   && equations[lastIndex].getFreeTerm() == 0)
+                && equations[lastIndex].getFreeTerm() == 0)
             throw new InfiniteSolutionsException();
 
         if(equations[lastIndex].getCoefficients()[lastIndex] == 0
-                   && equations[lastIndex].getFreeTerm() != 0)
+                && equations[lastIndex].getFreeTerm() != 0)
             throw new NoSolutionException();
 
         double[] solution = new double[equations.length];
 
         solution[lastIndex] = equations[lastIndex].getFreeTerm()
-                                      / equations[lastIndex].getCoefficients()[lastIndex];
+                / equations[lastIndex].getCoefficients()[lastIndex];
 
         for(int i = equations.length - 2; i >= 0; --i)
         {
@@ -161,8 +161,7 @@ public final class EquationSystem
             double currentCoefficient = equations[i].getCoefficients()[startingIndex];
 
             if(currentCoefficient != 0 && (minCoefficient == 0
-                                                   || Math.abs(currentCoefficient) < Math.abs(
-                    minCoefficient)))
+                    || Math.abs(currentCoefficient) < Math.abs(minCoefficient)))
                 indexMin = i;
         }
 

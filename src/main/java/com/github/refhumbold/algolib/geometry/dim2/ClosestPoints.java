@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.IntStream;
 import com.github.refhumbold.algolib.tuples.Pair;
 
 /** Algorithm for searching pair of closest points in 2D. */
@@ -34,7 +35,8 @@ public final class ClosestPoints
     }
 
     // Searches for closest points among three of them.
-    private static Pair<Point2D, Point2D> searchThree(Point2D point1,
+    private static Pair<Point2D, Point2D> searchThree(
+            Point2D point1,
             Point2D point2,
             Point2D point3)
     {
@@ -53,17 +55,18 @@ public final class ClosestPoints
 
     // Searches for closest points inside a belt of given width.
     // The resulting distance should not be less than belt width.
-    private static Optional<Pair<Point2D, Point2D>> checkBelt(List<Point2D> pointsY,
+    private static Optional<Pair<Point2D, Point2D>> checkBelt(
+            List<Point2D> pointsY,
             double middleX,
             double beltWidth)
     {
         Optional<Pair<Point2D, Point2D>> closestPoints = Optional.empty();
-        List<Integer> beltPoints = new ArrayList<>();
         double minDistance = beltWidth;
-
-        for(int i = 0; i < pointsY.size(); ++i)
-            if(pointsY.get(i).x >= middleX - beltWidth && pointsY.get(i).x <= middleX + beltWidth)
-                beltPoints.add(i);
+        List<Integer> beltPoints = IntStream.range(0, pointsY.size())
+                                            .filter(i -> pointsY.get(i).x >= middleX - beltWidth
+                                                    && pointsY.get(i).x <= middleX + beltWidth)
+                                            .boxed()
+                                            .toList();
 
         for(int i = 1; i < beltPoints.size(); ++i)
             for(int j = i + 1; j < beltPoints.size(); ++j)
@@ -91,7 +94,8 @@ public final class ClosestPoints
 
     // Searches for closest points in given sublist of points.
     // Points are given sorted by X coordinate and by Y coordinate.
-    private static Pair<Point2D, Point2D> searchClosest(List<Point2D> pointsX,
+    private static Pair<Point2D, Point2D> searchClosest(
+            List<Point2D> pointsX,
             List<Point2D> pointsY,
             int indexBegin,
             int indexEnd)

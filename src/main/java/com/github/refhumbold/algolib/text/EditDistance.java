@@ -53,8 +53,8 @@ public final class EditDistance
                 distance[i + 1] = element == destination.charAt(i)
                                   ? previousDiagonal
                                   : Math.min(Math.min(previousAbove + deletionCost,
-                                                      distance[i] + insertionCost),
-                                             previousDiagonal + substitutionCost);
+                                                  distance[i] + insertionCost),
+                                          previousDiagonal + substitutionCost);
             }
         }
 
@@ -81,7 +81,10 @@ public final class EditDistance
      * @return the cost of edit distance
      */
     public static double countLcs(
-            String source, String destination, double insertionCost, double deletionCost)
+            String source,
+            String destination,
+            double insertionCost,
+            double deletionCost)
     {
         if(insertionCost < 0 || deletionCost < 0)
             throw new IllegalArgumentException("Cost cannot be negative");
@@ -104,7 +107,7 @@ public final class EditDistance
                 distance[i + 1] = element == destination.charAt(i)
                                   ? previousDiagonal
                                   : Math.min(previousAbove + deletionCost,
-                                             distance[i] + insertionCost);
+                                          distance[i] + insertionCost);
             }
         }
 

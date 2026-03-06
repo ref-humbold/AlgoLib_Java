@@ -84,7 +84,7 @@ public final class Cutting
         {
             int minimalLowValue = dfsChildren.get(vertex)
                                              .stream()
-                                             .mapToInt(child -> lowValues.get(child))
+                                             .mapToInt(lowValues::get)
                                              .min()
                                              .orElse(Integer.MAX_VALUE);
 

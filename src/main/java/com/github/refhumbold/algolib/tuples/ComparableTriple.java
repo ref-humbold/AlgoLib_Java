@@ -13,8 +13,9 @@ public final class ComparableTriple<F extends Comparable<? super F>, S extends C
         super(first, second, third);
     }
 
-    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> ComparableTriple<F, S, T> of(
-            F first, S second, T third)
+    public static <F extends Comparable<F>, S extends Comparable<S>, T extends Comparable<T>> ComparableTriple<F, S, T> of(F first,
+            S second,
+            T third)
     {
         return new ComparableTriple<>(first, second, third);
     }

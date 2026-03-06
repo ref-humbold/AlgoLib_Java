@@ -1,5 +1,6 @@
 package com.github.refhumbold.algolib.graphs.algorithms;
 
+import java.util.Comparator;
 import com.github.refhumbold.algolib.graphs.Edge;
 import com.github.refhumbold.algolib.graphs.TreeGraph;
 import com.github.refhumbold.algolib.graphs.Vertex;
@@ -19,8 +20,7 @@ public final class TreeDiameter
     {
         return tree.getVertices()
                    .stream()
-                   .max((v1, v2) -> Integer.compare(tree.getOutputDegree(v1),
-                                                    tree.getOutputDegree(v2)))
+                   .max(Comparator.comparingInt(tree::getOutputDegree))
                    .map(root -> dfs(tree, root, root).second)
                    .orElse(0.0);
     }

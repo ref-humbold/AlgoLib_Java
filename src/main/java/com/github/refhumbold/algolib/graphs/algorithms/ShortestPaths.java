@@ -1,10 +1,6 @@
 package com.github.refhumbold.algolib.graphs.algorithms;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import com.github.refhumbold.algolib.graphs.DirectedGraph;
@@ -77,7 +73,7 @@ public final class ShortestPaths
                                                                        v -> Weighted.INFINITY));
         Set<Vertex<VertexId>> visited = new HashSet<>();
         PriorityQueue<Pair<Double, Vertex<VertexId>>> vertexQueue =
-                new PriorityQueue<>((pair1, pair2) -> Double.compare(pair1.first, pair2.first));
+                new PriorityQueue<>(Comparator.comparingDouble(pair -> pair.first));
 
         distances.put(source, 0.0);
         vertexQueue.add(Pair.of(0.0, source));

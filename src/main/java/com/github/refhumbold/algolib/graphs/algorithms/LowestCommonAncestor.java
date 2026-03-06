@@ -18,7 +18,8 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
     private final LcaStrategy<VertexId> strategy = new LcaStrategy<>();
     private boolean empty = true;
 
-    public LowestCommonAncestor(TreeGraph<VertexId, VertexProperty, EdgeProperty> graph,
+    public LowestCommonAncestor(
+            TreeGraph<VertexId, VertexProperty, EdgeProperty> graph,
             Vertex<VertexId> root)
     {
         this.graph = graph;
@@ -55,7 +56,7 @@ public final class LowestCommonAncestor<VertexId, VertexProperty, EdgeProperty>
                                                 .filter(candidate -> !isOffspring(vertex2,
                                                         candidate))
                                                 .findFirst()
-                                                .orElse(paths.get(vertex1).get(0));
+                                                .orElse(paths.get(vertex1).getFirst());
 
         return find(nextVertex, vertex2);
     }

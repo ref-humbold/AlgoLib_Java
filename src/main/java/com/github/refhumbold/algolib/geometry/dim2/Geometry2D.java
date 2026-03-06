@@ -1,5 +1,6 @@
 package com.github.refhumbold.algolib.geometry.dim2;
 
+import java.util.Comparator;
 import java.util.List;
 
 /** Algorithms for basic geometrical operations in 2D. */
@@ -11,7 +12,7 @@ public final class Geometry2D
      */
     public static void sortByX(List<Point2D> points)
     {
-        points.sort((pt1, pt2) -> Double.compare(pt1.x, pt2.x));
+        points.sort(Comparator.comparingDouble(pt -> pt.x));
     }
 
     /**
@@ -20,7 +21,7 @@ public final class Geometry2D
      */
     public static void sortByY(List<Point2D> points)
     {
-        points.sort((pt1, pt2) -> Double.compare(pt1.y, pt2.y));
+        points.sort(Comparator.comparingDouble(pt -> pt.y));
     }
 
     /**
@@ -30,12 +31,8 @@ public final class Geometry2D
      */
     public static void sortByAngle(List<Point2D> points)
     {
-        points.sort((pt1, pt2) -> {
-            if(pt1.angleDeg() == pt2.angleDeg())
-                return Double.compare(pt1.radius(), pt2.radius());
-            else
-                return Double.compare(pt1.angleDeg(), pt2.angleDeg());
-        });
+        points.sort((pt1, pt2) -> pt1.angleDeg() == pt2.angleDeg() ? Double.compare(pt1.radius(),
+                pt2.radius()) : Double.compare(pt1.angleDeg(), pt2.angleDeg()));
     }
 
     /**

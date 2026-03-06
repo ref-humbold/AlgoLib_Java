@@ -42,7 +42,7 @@ public final class Equation
                         .filter(i -> coefficients[i] != 0)
                         .mapToObj(i -> "%s x_%d".formatted(df.format(coefficients[i]), i))
                         .collect(Collectors.joining(" + ", "",
-                                                    " = %s".formatted(df.format(freeTerm))));
+                                " = %s".formatted(df.format(freeTerm))));
     }
 
     /**
@@ -107,7 +107,7 @@ public final class Equation
             throw new ArithmeticException("Constant cannot be zero");
 
         return new Equation(Arrays.stream(coefficients).map(c -> c * constant).toArray(),
-                            freeTerm * constant);
+                freeTerm * constant);
     }
 
     /**
@@ -122,7 +122,7 @@ public final class Equation
             throw new ArithmeticException("Constant cannot be zero");
 
         return new Equation(Arrays.stream(coefficients).map(c -> c / constant).toArray(),
-                            freeTerm / constant);
+                freeTerm / constant);
     }
 
     /**

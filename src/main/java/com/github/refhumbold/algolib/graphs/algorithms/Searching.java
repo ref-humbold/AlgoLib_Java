@@ -16,7 +16,8 @@ public final class Searching
      * @param roots the starting vertices
      * @return the visited vertices
      */
-    public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> bfs(Graph<VertexId, VertexProperty, EdgeProperty> graph,
+    public static <VertexId, VertexProperty, EdgeProperty> Collection<Vertex<VertexId>> bfs(
+            Graph<VertexId, VertexProperty, EdgeProperty> graph,
             BfsStrategy<VertexId> strategy,
             Collection<Vertex<VertexId>> roots)
     {
@@ -129,7 +130,8 @@ public final class Searching
     }
 
     // Single step of recursive DFS.
-    private static <VertexId, VertexProperty, EdgeProperty> void dfsRecursiveStep(Graph<VertexId, VertexProperty, EdgeProperty> graph,
+    private static <VertexId, VertexProperty, EdgeProperty> void dfsRecursiveStep(
+            Graph<VertexId, VertexProperty, EdgeProperty> graph,
             DfsStrategy<VertexId> strategy,
             DfsRecursiveState<VertexId> state)
     {

@@ -60,11 +60,11 @@ public final class MinimalSpanningTree
     {
         UndirectedSimpleGraph<VertexId, VertexProperty, EdgeProperty> mst =
                 new UndirectedSimpleGraph<>(
-                        graph.getVertices().stream().map(v -> v.id()).collect(Collectors.toList()));
+                        graph.getVertices().stream().map(Vertex::id).collect(Collectors.toList()));
         Set<Vertex<VertexId>> visited = new HashSet<>();
         PriorityQueue<Pair<Edge<VertexId>, Vertex<VertexId>>> queue = new PriorityQueue<>(
-                (pair1, pair2) -> Double.compare(graph.getProperties().get(pair1.first).getWeight(),
-                        graph.getProperties().get(pair2.first).getWeight()));
+                Comparator.comparingDouble(
+                        pair -> graph.getProperties().get(pair.first).getWeight()));
 
         visited.add(source);
 

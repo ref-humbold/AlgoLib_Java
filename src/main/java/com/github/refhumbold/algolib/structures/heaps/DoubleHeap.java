@@ -175,8 +175,8 @@ public class DoubleHeap<E>
 
         if(minimal != null)
         {
-            heap.set(INDEX_MIN, heap.get(heap.size() - 1));
-            heap.remove(heap.size() - 1);
+            heap.set(INDEX_MIN, heap.getLast());
+            heap.removeLast();
             moveToMax(INDEX_MIN);
         }
 
@@ -196,8 +196,8 @@ public class DoubleHeap<E>
 
         if(maximal != null)
         {
-            heap.set(INDEX_MAX, heap.get(heap.size() - 1));
-            heap.remove(heap.size() - 1);
+            heap.set(INDEX_MAX, heap.getLast());
+            heap.removeLast();
             moveToMin(INDEX_MAX);
         }
 

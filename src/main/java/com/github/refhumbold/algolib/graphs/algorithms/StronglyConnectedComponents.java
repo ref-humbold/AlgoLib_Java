@@ -93,7 +93,7 @@ public final class StronglyConnectedComponents
         @Override
         public void onEntry(Vertex<VertexId> vertex)
         {
-            components.get(components.size() - 1).add(vertex);
+            components.getLast().add(vertex);
         }
 
         @Override
