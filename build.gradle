@@ -31,7 +31,7 @@ tasks.jar {
   manifest {
     attributes(
         'Built-By': project.vendor,
-        'Specification-Title': 'Algorithms\' Library',
+        'Specification-Title': 'Algorithms Library',
         'Specification-Version': project.specVersion,
         'Specification-Vendor': project.vendor,
         'Implementation-Title': project.mainPackage,
