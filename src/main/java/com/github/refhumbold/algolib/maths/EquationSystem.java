@@ -22,24 +22,6 @@ public final class EquationSystem
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof EquationSystem other))
-            return false;
-
-        return Arrays.equals(equations, other.equations);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Arrays.hashCode(equations);
-    }
-
-    @Override
     public String toString()
     {
         return "{ %s }".formatted(Arrays.stream(equations)

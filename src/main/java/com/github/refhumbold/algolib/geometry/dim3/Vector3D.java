@@ -59,13 +59,8 @@ public final class Vector3D
     @Override
     public boolean equals(Object obj)
     {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof Vector3D other))
-            return false;
-
-        return areEqual(x, other.x) && areEqual(y, other.y) && areEqual(z, other.z);
+        return this == obj || obj instanceof Vector3D other && areEqual(x, other.x) && areEqual(y,
+                other.y) && areEqual(z, other.z);
     }
 
     @Override

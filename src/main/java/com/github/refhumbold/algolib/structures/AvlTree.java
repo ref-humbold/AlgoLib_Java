@@ -55,13 +55,8 @@ public class AvlTree<E>
     @Override
     public boolean equals(Object obj)
     {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof AvlTree<?> other))
-            return false;
-
-        return size_ == other.size_ && containsAll(other);
+        return this == obj
+                || obj instanceof AvlTree<?> other && size_ == other.size_ && containsAll(other);
     }
 
     @Override

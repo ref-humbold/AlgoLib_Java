@@ -55,14 +55,8 @@ public final class Fraction
     @Override
     public boolean equals(Object obj)
     {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof Fraction other))
-            return false;
-
-        return Objects.equals(numerator, other.numerator) && Objects.equals(denominator,
-                other.denominator);
+        return this == obj || obj instanceof Fraction other && Objects.equals(numerator,
+                other.numerator) && Objects.equals(denominator, other.denominator);
     }
 
     @Override
@@ -254,16 +248,14 @@ public final class Fraction
     @Override
     public int compareTo(Number number)
     {
-        if(number instanceof Fraction)
-            return compare((Fraction)number);
-
-        return Double.compare(doubleValue(), number.doubleValue());
+        return number instanceof Fraction f
+               ? compare(f)
+               : Double.compare(doubleValue(), number.doubleValue());
     }
 
     private int compare(Fraction f)
     {
         long commonDenominator = Integers.lcm(denominator, f.denominator);
-
         long thisNumerator = commonDenominator / denominator * numerator;
         long otherNumerator = commonDenominator / f.denominator * f.numerator;
 

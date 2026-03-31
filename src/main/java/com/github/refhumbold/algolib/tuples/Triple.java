@@ -24,16 +24,9 @@ public class Triple<F, S, T>
     @Override
     public boolean equals(Object obj)
     {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof Triple))
-            return false;
-
-        Triple<?, ?, ?> other = (Triple<?, ?, ?>)obj;
-
-        return Objects.equals(first, other.first) && Objects.equals(second, other.second)
-                       && Objects.equals(third, other.third);
+        return this == obj || obj instanceof Triple<?, ?, ?> other && Objects.equals(first,
+                other.first) && Objects.equals(second, other.second) && Objects.equals(third,
+                other.third);
     }
 
     @Override

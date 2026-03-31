@@ -31,13 +31,8 @@ public final class Point2D
     @Override
     public boolean equals(Object obj)
     {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof Point2D other))
-            return false;
-
-        return areEqual(x, other.x) && areEqual(y, other.y);
+        return this == obj || obj instanceof Point2D other && areEqual(x, other.x) && areEqual(y,
+                other.y);
     }
 
     @Override

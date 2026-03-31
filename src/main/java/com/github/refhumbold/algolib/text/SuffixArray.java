@@ -30,14 +30,9 @@ public class SuffixArray
     @Override
     public boolean equals(Object obj)
     {
-        if(this == obj)
-            return true;
-
-        if(!(obj instanceof SuffixArray other))
-            return false;
-
-        return size_ == other.size_ && Objects.equals(text, other.text) && Objects.equals(
-                suffixArray, other.suffixArray);
+        return this == obj
+                || obj instanceof SuffixArray other && size_ == other.size_ && Objects.equals(text,
+                other.text) && Objects.equals(suffixArray, other.suffixArray);
     }
 
     @Override
