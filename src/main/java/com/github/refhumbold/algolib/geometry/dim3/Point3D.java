@@ -1,5 +1,6 @@
 package com.github.refhumbold.algolib.geometry.dim3;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 import com.github.refhumbold.algolib.geometry.GeometryComparator;
 
@@ -45,7 +46,9 @@ public final class Point3D
     @Override
     public String toString()
     {
-        return "(%f, %f, %f)".formatted(x, y, z);
+        var df = new DecimalFormat("0.0###########");
+
+        return "(%s, %s, %s)".formatted(df.format(x), df.format(y), df.format(z));
     }
 
     public double radius()

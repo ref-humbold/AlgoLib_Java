@@ -1,5 +1,6 @@
 package com.github.refhumbold.algolib.geometry.dim2;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 import com.github.refhumbold.algolib.geometry.GeometryComparator;
 
@@ -52,5 +53,13 @@ public final class Angle
     public int compareTo(Angle angle)
     {
         return angle == null ? 1 : comparator.compare(degrees, angle.degrees);
+    }
+
+    @Override
+    public String toString()
+    {
+        var df = new DecimalFormat("0.0###########");
+
+        return "Angle(%s deg)".formatted(df.format(degrees));
     }
 }

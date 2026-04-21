@@ -1,9 +1,7 @@
 package com.github.refhumbold.algolib.maths;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -37,7 +35,8 @@ public final class Equation
     @Override
     public String toString()
     {
-        DecimalFormat df = new DecimalFormat("", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        var df = new DecimalFormat("0.############");
+
         return IntStream.range(0, coefficients.length)
                         .filter(i -> coefficients[i] != 0)
                         .mapToObj(i -> "%s x_%d".formatted(df.format(coefficients[i]), i))

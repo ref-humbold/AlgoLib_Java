@@ -3,6 +3,7 @@ package com.github.refhumbold.algolib.geometry.dim2;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -38,6 +39,16 @@ public class AngleTest
 
         // then
         Assertions.assertThat(result).isCloseTo(radians, OFFSET);
+    }
+
+    @Test
+    public void toString_ThenStringRepresentation()
+    {
+        // when
+        String result = Angle.fromDegrees(150.123456789).toString();
+
+        // then
+        Assertions.assertThat(result).isEqualTo("Angle(150.123456789 deg)");
     }
 
     private static Stream<Arguments> paramsFor_degrees_WhenFromRadians()
