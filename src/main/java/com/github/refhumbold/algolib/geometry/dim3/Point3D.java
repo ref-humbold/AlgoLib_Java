@@ -1,25 +1,24 @@
 package com.github.refhumbold.algolib.geometry.dim3;
 
 import java.util.Objects;
-import com.github.refhumbold.algolib.geometry.GeometryObject;
+import com.github.refhumbold.algolib.geometry.GeometryComparator;
 
 /** Structure of point in 3D. */
 public final class Point3D
-        extends GeometryObject
 {
+    public static final Point3D ZERO = of(0, 0, 0);
+    private static final GeometryComparator comparator = new GeometryComparator();
     public final double x;
     public final double y;
     public final double z;
 
     private Point3D(double x, double y, double z)
     {
-        super();
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    @Override
     public double[] getCoordinates()
     {
         return new double[]{ x, y, z };
@@ -33,8 +32,8 @@ public final class Point3D
     @Override
     public boolean equals(Object obj)
     {
-        return this == obj || obj instanceof Point3D other && areEqual(x, other.x) && areEqual(y,
-                other.y) && areEqual(z, other.z);
+        return this == obj || obj instanceof Point3D other && comparator.compare(x, other.x) == 0
+                && comparator.compare(y, other.y) == 0 && comparator.compare(z, other.z) == 0;
     }
 
     @Override

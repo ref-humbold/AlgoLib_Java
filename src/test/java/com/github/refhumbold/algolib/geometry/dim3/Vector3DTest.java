@@ -3,12 +3,11 @@ package com.github.refhumbold.algolib.geometry.dim3;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
-import com.github.refhumbold.algolib.geometry.GeometryObject;
 
 // Tests: Structure of vector in 3D.
 public class Vector3DTest
 {
-    private static final Offset<Double> OFFSET = Offset.offset(GeometryObject.EPSILON);
+    private static final Offset<Double> OFFSET = Offset.offset(1e-12);
 
     @Test
     public void between_ThenVectorFromBeginToEnd()
@@ -68,7 +67,7 @@ public class Vector3DTest
         Vector3D result = Vector3D.cross(Vector3D.of(3.0, 3.0, 3.0), Vector3D.of(-8.0, -8.0, -8.0));
 
         // then
-        Assertions.assertThat(result).isEqualTo(Vector3D.of(0.0, 0.0, 0.0));
+        Assertions.assertThat(result).isEqualTo(Vector3D.ZERO);
     }
 
     @Test
@@ -170,7 +169,7 @@ public class Vector3DTest
         // when
         Vector3D result = Vector3D.of(5.4, 9.0, -12.3).multiply(0);
         // then
-        Assertions.assertThat(result).isEqualTo(Vector3D.of(0.0, 0.0, 0.0));
+        Assertions.assertThat(result).isEqualTo(Vector3D.ZERO);
     }
 
     @Test

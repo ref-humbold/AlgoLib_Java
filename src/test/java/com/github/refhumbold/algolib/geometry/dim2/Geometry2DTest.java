@@ -13,7 +13,7 @@ public class Geometry2DTest
     {
         // given
         List<Point2D> sequence =
-                Arrays.asList(Point2D.of(0.0, 0.0), Point2D.of(-2.0, -3.0), Point2D.of(-3.0, 2.0),
+                Arrays.asList(Point2D.ZERO, Point2D.of(-2.0, -3.0), Point2D.of(-3.0, 2.0),
                         Point2D.of(2.0, 3.0), Point2D.of(3.0, -2.0), Point2D.of(-2.0, 3.0),
                         Point2D.of(3.0, 2.0), Point2D.of(2.0, -3.0), Point2D.of(-3.0, -2.0));
 
@@ -23,7 +23,7 @@ public class Geometry2DTest
         // then
         Assertions.assertThat(sequence)
                   .containsExactly(Point2D.of(-3.0, 2.0), Point2D.of(-3.0, -2.0),
-                          Point2D.of(-2.0, -3.0), Point2D.of(-2.0, 3.0), Point2D.of(0.0, 0.0),
+                          Point2D.of(-2.0, -3.0), Point2D.of(-2.0, 3.0), Point2D.ZERO,
                           Point2D.of(2.0, 3.0), Point2D.of(2.0, -3.0), Point2D.of(3.0, -2.0),
                           Point2D.of(3.0, 2.0));
     }
@@ -33,7 +33,7 @@ public class Geometry2DTest
     {
         // given
         List<Point2D> sequence =
-                Arrays.asList(Point2D.of(0.0, 0.0), Point2D.of(-2.0, -3.0), Point2D.of(-3.0, 2.0),
+                Arrays.asList(Point2D.ZERO, Point2D.of(-2.0, -3.0), Point2D.of(-3.0, 2.0),
                         Point2D.of(2.0, 3.0), Point2D.of(3.0, -2.0), Point2D.of(-2.0, 3.0),
                         Point2D.of(3.0, 2.0), Point2D.of(2.0, -3.0), Point2D.of(-3.0, -2.0));
 
@@ -43,7 +43,7 @@ public class Geometry2DTest
         // then
         Assertions.assertThat(sequence)
                   .containsExactly(Point2D.of(-2.0, -3.0), Point2D.of(2.0, -3.0),
-                          Point2D.of(3.0, -2.0), Point2D.of(-3.0, -2.0), Point2D.of(0.0, 0.0),
+                          Point2D.of(3.0, -2.0), Point2D.of(-3.0, -2.0), Point2D.ZERO,
                           Point2D.of(-3.0, 2.0), Point2D.of(3.0, 2.0), Point2D.of(2.0, 3.0),
                           Point2D.of(-2.0, 3.0));
     }
@@ -53,7 +53,7 @@ public class Geometry2DTest
     {
         // given
         List<Point2D> sequence =
-                Arrays.asList(Point2D.of(0.0, 0.0), Point2D.of(-2.0, -3.0), Point2D.of(-3.0, 2.0),
+                Arrays.asList(Point2D.ZERO, Point2D.of(-2.0, -3.0), Point2D.of(-3.0, 2.0),
                         Point2D.of(2.0, 3.0), Point2D.of(3.0, -2.0), Point2D.of(-2.0, 3.0),
                         Point2D.of(3.0, 2.0), Point2D.of(2.0, -3.0), Point2D.of(-3.0, -2.0));
 
@@ -62,7 +62,7 @@ public class Geometry2DTest
 
         // then
         Assertions.assertThat(sequence)
-                  .containsExactly(Point2D.of(0.0, 0.0), Point2D.of(3.0, 2.0), Point2D.of(2.0, 3.0),
+                  .containsExactly(Point2D.ZERO, Point2D.of(3.0, 2.0), Point2D.of(2.0, 3.0),
                           Point2D.of(-2.0, 3.0), Point2D.of(-3.0, 2.0), Point2D.of(-3.0, -2.0),
                           Point2D.of(-2.0, -3.0), Point2D.of(2.0, -3.0), Point2D.of(3.0, -2.0));
     }
@@ -72,7 +72,7 @@ public class Geometry2DTest
     {
         // given
         List<Point2D> sequence =
-                Arrays.asList(Point2D.of(0.0, 0.0), Point2D.of(1.0, 1.0), Point2D.of(-2.0, -2.0),
+                Arrays.asList(Point2D.ZERO, Point2D.of(1.0, 1.0), Point2D.of(-2.0, -2.0),
                         Point2D.of(-3.0, -3.0), Point2D.of(4.0, 4.0));
 
         // when
@@ -80,7 +80,7 @@ public class Geometry2DTest
 
         // then
         Assertions.assertThat(sequence)
-                  .containsExactly(Point2D.of(0.0, 0.0), Point2D.of(1.0, 1.0), Point2D.of(4.0, 4.0),
+                  .containsExactly(Point2D.ZERO, Point2D.of(1.0, 1.0), Point2D.of(4.0, 4.0),
                           Point2D.of(-2.0, -2.0), Point2D.of(-3.0, -3.0));
     }
 
@@ -124,7 +124,7 @@ public class Geometry2DTest
         Point2D point = Point2D.of(13.5, 6.5);
 
         // when
-        Point2D result = Geometry2D.translate(point, Vector2D.of(0.0, 0.0));
+        Point2D result = Geometry2D.translate(point, Vector2D.ZERO);
 
         // then
         Assertions.assertThat(result).isEqualTo(point);
@@ -145,7 +145,7 @@ public class Geometry2DTest
     public void reflect_WhenZeroPoint_ThenPointReflected()
     {
         // when
-        Point2D result = Geometry2D.reflect(Point2D.of(13.5, 6.5), Point2D.of(0.0, 0.0));
+        Point2D result = Geometry2D.reflect(Point2D.of(13.5, 6.5), Point2D.ZERO);
 
         // then
         Assertions.assertThat(result).isEqualTo(Point2D.of(-13.5, -6.5));

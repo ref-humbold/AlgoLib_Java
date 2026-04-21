@@ -2,17 +2,20 @@ package com.github.refhumbold.algolib.geometry.dim3;
 
 import java.util.Comparator;
 import java.util.List;
+import com.github.refhumbold.algolib.geometry.GeometryComparator;
 
 /** Algorithms for basic geometrical operations in 3D. */
 public final class Geometry3D
 {
+    private static final GeometryComparator comparator = new GeometryComparator();
+
     /**
      * Mutably sorts given points by their X coordinate. Sorting is guaranteed to be stable.
      * @param points the points
      */
     public static void sortByX(List<Point3D> points)
     {
-        points.sort(Comparator.comparingDouble(pt -> pt.x));
+        points.sort(Comparator.comparing(pt -> pt.x, comparator));
     }
 
     /**
@@ -21,7 +24,7 @@ public final class Geometry3D
      */
     public static void sortByY(List<Point3D> points)
     {
-        points.sort(Comparator.comparingDouble(pt -> pt.y));
+        points.sort(Comparator.comparing(pt -> pt.y, comparator));
     }
 
     /**
@@ -30,7 +33,7 @@ public final class Geometry3D
      */
     public static void sortByZ(List<Point3D> points)
     {
-        points.sort(Comparator.comparingDouble(pt -> pt.z));
+        points.sort(Comparator.comparing(pt -> pt.z, comparator));
     }
 
     /**

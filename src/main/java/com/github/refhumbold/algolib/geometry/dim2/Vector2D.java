@@ -1,23 +1,22 @@
 package com.github.refhumbold.algolib.geometry.dim2;
 
 import java.util.Objects;
-import com.github.refhumbold.algolib.geometry.GeometryObject;
+import com.github.refhumbold.algolib.geometry.GeometryComparator;
 
 /** Structure of vector in 2D. */
 public final class Vector2D
-        extends GeometryObject
 {
+    public static final Vector2D ZERO = of(0, 0);
+    private static final GeometryComparator comparator = new GeometryComparator();
     public final double x;
     public final double y;
 
     private Vector2D(double x, double y)
     {
-        super();
         this.x = x;
         this.y = y;
     }
 
-    @Override
     public double[] getCoordinates()
     {
         return new double[]{ x, y };
@@ -46,8 +45,8 @@ public final class Vector2D
     @Override
     public boolean equals(Object obj)
     {
-        return this == obj || obj instanceof Vector2D other && areEqual(x, other.x) && areEqual(y,
-                other.y);
+        return this == obj || obj instanceof Vector2D other && comparator.compare(x, other.x) == 0
+                && comparator.compare(y, other.y) == 0;
     }
 
     @Override

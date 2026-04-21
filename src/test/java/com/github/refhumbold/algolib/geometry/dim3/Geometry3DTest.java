@@ -13,7 +13,7 @@ public class Geometry3DTest
     {
         // given
         List<Point3D> sequence =
-                Arrays.asList(Point3D.of(0.0, 0.0, 0.0), Point3D.of(2.0, 3.0, -5.0),
+                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0),
                         Point3D.of(-2.0, -3.0, 5.0), Point3D.of(2.0, -3.0, -5.0),
                         Point3D.of(-2.0, -3.0, -5.0), Point3D.of(3.0, 2.0, 5.0),
                         Point3D.of(-3.0, 2.0, 5.0));
@@ -22,7 +22,7 @@ public class Geometry3DTest
         // then
         Assertions.assertThat(sequence)
                   .containsExactly(Point3D.of(-3.0, 2.0, 5.0), Point3D.of(-2.0, -3.0, 5.0),
-                          Point3D.of(-2.0, -3.0, -5.0), Point3D.of(0.0, 0.0, 0.0),
+                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO,
                           Point3D.of(2.0, 3.0, -5.0), Point3D.of(2.0, -3.0, -5.0),
                           Point3D.of(3.0, 2.0, 5.0));
     }
@@ -32,7 +32,7 @@ public class Geometry3DTest
     {
         // given
         List<Point3D> sequence =
-                Arrays.asList(Point3D.of(0.0, 0.0, 0.0), Point3D.of(2.0, 3.0, -5.0),
+                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0),
                         Point3D.of(-2.0, -3.0, 5.0), Point3D.of(2.0, -3.0, -5.0),
                         Point3D.of(-2.0, -3.0, -5.0), Point3D.of(3.0, 2.0, 5.0),
                         Point3D.of(-3.0, 2.0, 5.0));
@@ -41,7 +41,7 @@ public class Geometry3DTest
         // then
         Assertions.assertThat(sequence)
                   .containsExactly(Point3D.of(-2.0, -3.0, 5.0), Point3D.of(2.0, -3.0, -5.0),
-                          Point3D.of(-2.0, -3.0, -5.0), Point3D.of(0.0, 0.0, 0.0),
+                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO,
                           Point3D.of(3.0, 2.0, 5.0), Point3D.of(-3.0, 2.0, 5.0),
                           Point3D.of(2.0, 3.0, -5.0));
     }
@@ -51,7 +51,7 @@ public class Geometry3DTest
     {
         // given
         List<Point3D> sequence =
-                Arrays.asList(Point3D.of(0.0, 0.0, 0.0), Point3D.of(2.0, 3.0, -5.0),
+                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0),
                         Point3D.of(-2.0, -3.0, 5.0), Point3D.of(2.0, -3.0, -5.0),
                         Point3D.of(-2.0, -3.0, -5.0), Point3D.of(3.0, 2.0, 5.0),
                         Point3D.of(-3.0, 2.0, 5.0));
@@ -60,7 +60,7 @@ public class Geometry3DTest
         // then
         Assertions.assertThat(sequence)
                   .containsExactly(Point3D.of(2.0, 3.0, -5.0), Point3D.of(2.0, -3.0, -5.0),
-                          Point3D.of(-2.0, -3.0, -5.0), Point3D.of(0.0, 0.0, 0.0),
+                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO,
                           Point3D.of(-2.0, -3.0, 5.0), Point3D.of(3.0, 2.0, 5.0),
                           Point3D.of(-3.0, 2.0, 5.0));
     }
@@ -101,7 +101,7 @@ public class Geometry3DTest
         // given
         Point3D point = Point3D.of(13.5, 6.5, -4.2);
         // when
-        Point3D result = Geometry3D.translate(point, Vector3D.of(0.0, 0.0, 0.0));
+        Point3D result = Geometry3D.translate(point, Vector3D.ZERO);
         // then
         Assertions.assertThat(result).isEqualTo(point);
     }
@@ -120,7 +120,7 @@ public class Geometry3DTest
     public void reflect_WhenZeroPoint_ThenPointReflected()
     {
         // when
-        Point3D result = Geometry3D.reflect(Point3D.of(13.5, 6.5, -4.2), Point3D.of(0.0, 0.0, 0.0));
+        Point3D result = Geometry3D.reflect(Point3D.of(13.5, 6.5, -4.2), Point3D.ZERO);
         // then
         Assertions.assertThat(result).isEqualTo(Point3D.of(-13.5, -6.5, 4.2));
     }

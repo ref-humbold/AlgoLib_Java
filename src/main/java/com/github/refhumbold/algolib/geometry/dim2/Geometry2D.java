@@ -2,17 +2,20 @@ package com.github.refhumbold.algolib.geometry.dim2;
 
 import java.util.Comparator;
 import java.util.List;
+import com.github.refhumbold.algolib.geometry.GeometryComparator;
 
 /** Algorithms for basic geometrical operations in 2D. */
 public final class Geometry2D
 {
+    private static final GeometryComparator comparator = new GeometryComparator();
+
     /**
      * Mutably sorts given points by their X coordinate. Sorting is guaranteed to be stable.
      * @param points the points
      */
     public static void sortByX(List<Point2D> points)
     {
-        points.sort(Comparator.comparingDouble(pt -> pt.x));
+        points.sort(Comparator.comparing(pt -> pt.x, comparator));
     }
 
     /**
@@ -21,7 +24,7 @@ public final class Geometry2D
      */
     public static void sortByY(List<Point2D> points)
     {
-        points.sort(Comparator.comparingDouble(pt -> pt.y));
+        points.sort(Comparator.comparing(pt -> pt.y, comparator));
     }
 
     /**
@@ -31,8 +34,19 @@ public final class Geometry2D
      */
     public static void sortByAngle(List<Point2D> points)
     {
-        points.sort((pt1, pt2) -> pt1.angleDeg() == pt2.angleDeg() ? Double.compare(pt1.radius(),
-                pt2.radius()) : Double.compare(pt1.angleDeg(), pt2.angleDeg()));
+        points.sort((pt1, pt2) -> pt1.angle().equals(pt2.angle()) ? comparator.compare(pt1.radius(),
+                pt2.radius()) : pt1.angle().compareTo(pt2.angle()));
+    }
+
+    /**
+     * Mutably sorts given points by their polar coordinates around given central point.
+     * First sorts by angle, then by radius. Sorting is guaranteed to be stable.
+     * @param points the points
+     * @param centre the central point
+     */
+    public static void sortByAngleAround(List<Point2D> points, Point2D centre)
+    {
+        Vector2D translation = Vector2D.between(centre, Point2D.ZERO);
     }
 
     /**

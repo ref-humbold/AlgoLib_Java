@@ -1,23 +1,22 @@
 package com.github.refhumbold.algolib.geometry.dim2;
 
 import java.util.Objects;
-import com.github.refhumbold.algolib.geometry.GeometryObject;
+import com.github.refhumbold.algolib.geometry.GeometryComparator;
 
 /** Structure of point in 2D. */
 public final class Point2D
-        extends GeometryObject
 {
+    public static final Point2D ZERO = of(0, 0);
+    private static final GeometryComparator comparator = new GeometryComparator();
     public final double x;
     public final double y;
 
     private Point2D(double x, double y)
     {
-        super();
         this.x = x;
         this.y = y;
     }
 
-    @Override
     public double[] getCoordinates()
     {
         return new double[]{ x, y };
@@ -31,8 +30,8 @@ public final class Point2D
     @Override
     public boolean equals(Object obj)
     {
-        return this == obj || obj instanceof Point2D other && areEqual(x, other.x) && areEqual(y,
-                other.y);
+        return this == obj || obj instanceof Point2D other && comparator.compare(x, other.x) == 0
+                && comparator.compare(y, other.y) == 0;
     }
 
     @Override
@@ -52,15 +51,8 @@ public final class Point2D
         return Math.sqrt(x * x + y * y);
     }
 
-    public double angleRad()
+    public Angle angle()
     {
-        return Math.atan2(y, x);
-    }
-
-    public double angleDeg()
-    {
-        double ang = angleRad() * 180.0 / Math.PI;
-
-        return y >= 0.0 ? ang : ang + 360.0;
+        return Angle.fromRadians(Math.atan2(y, x));
     }
 }

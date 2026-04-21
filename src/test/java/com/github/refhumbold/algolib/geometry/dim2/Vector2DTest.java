@@ -3,12 +3,11 @@ package com.github.refhumbold.algolib.geometry.dim2;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
-import com.github.refhumbold.algolib.geometry.GeometryObject;
 
 // Tests: Structure of vector in 2D.
 public class Vector2DTest
 {
-    private static final Offset<Double> OFFSET = Offset.offset(GeometryObject.EPSILON);
+    private static final Offset<Double> OFFSET = Offset.offset(1e-12);
 
     @Test
     public void between_ThenVectorFromBeginToEnd()
