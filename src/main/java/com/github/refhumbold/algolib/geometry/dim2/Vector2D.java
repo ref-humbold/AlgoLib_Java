@@ -18,11 +18,6 @@ public final class Vector2D
         this.y = y;
     }
 
-    public double[] getCoordinates()
-    {
-        return new double[]{ x, y };
-    }
-
     public static Vector2D of(double x, double y)
     {
         return new Vector2D(x, y);
@@ -41,6 +36,11 @@ public final class Vector2D
     public static double area(Vector2D v1, Vector2D v2)
     {
         return v1.x * v2.y - v1.y * v2.x;
+    }
+
+    public double[] coordinates()
+    {
+        return new double[]{x, y};
     }
 
     @Override

@@ -20,14 +20,19 @@ public final class Point3D
         this.z = z;
     }
 
-    public double[] getCoordinates()
-    {
-        return new double[]{ x, y, z };
-    }
-
     public static Point3D of(double x, double y, double z)
     {
         return new Point3D(x, y, z);
+    }
+
+    public double[] coordinates()
+    {
+        return new double[]{x, y, z};
+    }
+
+    public double radius()
+    {
+        return Math.sqrt(x * x + y * y + z * z);
     }
 
     @Override
@@ -49,10 +54,5 @@ public final class Point3D
         var df = new DecimalFormat("0.0###########");
 
         return "(%s, %s, %s)".formatted(df.format(x), df.format(y), df.format(z));
-    }
-
-    public double radius()
-    {
-        return Math.sqrt(x * x + y * y + z * z);
     }
 }

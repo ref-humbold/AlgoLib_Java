@@ -20,11 +20,6 @@ public final class Vector3D
         this.z = z;
     }
 
-    public double[] getCoordinates()
-    {
-        return new double[]{ x, y, z };
-    }
-
     public static Vector3D of(double x, double y, double z)
     {
         return new Vector3D(x, y, z);
@@ -54,6 +49,11 @@ public final class Vector3D
     public static double volume(Vector3D v1, Vector3D v2, Vector3D v3)
     {
         return dot(v1, cross(v2, v3));
+    }
+
+    public double[] coordinates()
+    {
+        return new double[]{x, y, z};
     }
 
     @Override

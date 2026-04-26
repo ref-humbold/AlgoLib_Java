@@ -1,13 +1,27 @@
 package com.github.refhumbold.algolib.geometry.dim3;
 
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 // Tests: Structure of vector in 3D.
 public class Vector3DTest
 {
     private static final Offset<Double> OFFSET = Offset.offset(1e-12);
+
+    @Test
+    public void coordinates_ThenArray()
+    {
+        // when
+        double[] result = Vector3D.of(150.123456789, -3700.987654321, 0.55555555).coordinates();
+
+        // then
+        Assertions.assertThat(result).containsExactly(150.123456789, -3700.987654321, 0.55555555);
+    }
 
     @Test
     public void between_ThenVectorFromBeginToEnd()
@@ -20,14 +34,14 @@ public class Vector3DTest
         Assertions.assertThat(result).isEqualTo(Vector3D.of(-3.9, 5.4, 26.1));
     }
 
-    @Test
-    public void getCoordinates_ThenArray()
+    @ParameterizedTest
+    @MethodSource("paramsFor_length")
+    public void length_ThenLengthOfVector()
     {
         // when
-        double[] result = Vector3D.of(5.0, -19.0, 14.2).getCoordinates();
-
+        double result = Vector3D.of(18.0, -6.0, 13.0).length();
         // then
-        Assertions.assertThat(result).containsExactly(5.0, -19.0, 14.2);
+        Assertions.assertThat(result).isCloseTo(23.0, OFFSET);
     }
 
     @Test
@@ -119,15 +133,6 @@ public class Vector3DTest
     }
 
     @Test
-    public void length_ThenLengthOfVector()
-    {
-        // when
-        double result = Vector3D.of(18.0, -6.0, 13.0).length();
-        // then
-        Assertions.assertThat(result).isCloseTo(23.0, OFFSET);
-    }
-
-    @Test
     public void negate_ThenNegateEachCoordinate()
     {
         // when
@@ -186,5 +191,46 @@ public class Vector3DTest
     {
         Assertions.assertThatThrownBy(() -> Vector3D.of(1.0, 1.0, 1.0).divide(0))
                   .isInstanceOf(ArithmeticException.class);
+    }
+
+    @Test
+    public void toString_ThenStringRepresentation()
+    {
+        // when
+        String result = Vector3D.of(150.123456789, -3700.987654321, 0.55555555).toString();
+
+        // then
+        Assertions.assertThat(result).isEqualTo("[150.123456789, -3700.987654321, 0.55555555]");
+    }
+
+    private static Stream<Arguments> paramsFor_length()
+    {
+        return Stream.of(Arguments.of(Vector3D.ZERO, 0.0),
+                Arguments.of(Vector3D.of(14.0, 0.0, 0.0), 14.0),
+                Arguments.of(Vector3D.of(-14.0, 0.0, 0.0), 14.0),
+                Arguments.of(Vector3D.of(0.0, 14.0, 0.0), 14.0),
+                Arguments.of(Vector3D.of(0.0, -14.0, 0.0), 14.0),
+                Arguments.of(Vector3D.of(0.0, 0.0, 14.0), 14.0),
+                Arguments.of(Vector3D.of(0.0, 0.0, -14.0), 14.0),
+                Arguments.of(Vector3D.of(8.0, 6.0, 0.0), 10.0),
+                Arguments.of(Vector3D.of(8.0, -6.0, 0.0), 10.0),
+                Arguments.of(Vector3D.of(-8.0, 6.0, 0.0), 10.0),
+                Arguments.of(Vector3D.of(-8.0, -6.0, 0.0), 10.0),
+                Arguments.of(Vector3D.of(8.0, 0.0, 6.0), 10.0),
+                Arguments.of(Vector3D.of(8.0, 0.0, -6.0), 10.0),
+                Arguments.of(Vector3D.of(-8.0, 0.0, 6.0), 10.0),
+                Arguments.of(Vector3D.of(-8.0, 0.0, -6.0), 10.0),
+                Arguments.of(Vector3D.of(0.0, 8.0, 6.0), 10.0),
+                Arguments.of(Vector3D.of(0.0, 8.0, -6.0), 10.0),
+                Arguments.of(Vector3D.of(0.0, -8.0, 6.0), 10.0),
+                Arguments.of(Vector3D.of(0.0, -8.0, -6.0), 10.0),
+                Arguments.of(Vector3D.of(18.0, 6.0, 13.0), 23.0),
+                Arguments.of(Vector3D.of(18.0, 6.0, -13.0), 23.0),
+                Arguments.of(Vector3D.of(18.0, -6.0, 13.0), 23.0),
+                Arguments.of(Vector3D.of(18.0, -6.0, -13.0), 23.0),
+                Arguments.of(Vector3D.of(-18.0, 6.0, 13.0), 23.0),
+                Arguments.of(Vector3D.of(-18.0, 6.0, -13.0), 23.0),
+                Arguments.of(Vector3D.of(-18.0, -6.0, 13.0), 23.0),
+                Arguments.of(Vector3D.of(-18.0, -6.0, -13.0), 23.0));
     }
 }

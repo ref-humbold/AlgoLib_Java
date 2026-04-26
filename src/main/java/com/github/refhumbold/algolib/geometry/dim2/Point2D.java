@@ -18,14 +18,24 @@ public final class Point2D
         this.y = y;
     }
 
-    public double[] getCoordinates()
-    {
-        return new double[]{ x, y };
-    }
-
     public static Point2D of(double x, double y)
     {
         return new Point2D(x, y);
+    }
+
+    public double[] coordinates()
+    {
+        return new double[]{x, y};
+    }
+
+    public double radius()
+    {
+        return Math.sqrt(x * x + y * y);
+    }
+
+    public Angle angle()
+    {
+        return Angle.fromRadians(Math.atan2(y, x));
     }
 
     @Override
@@ -47,15 +57,5 @@ public final class Point2D
         var df = new DecimalFormat("0.0###########");
 
         return "(%s, %s)".formatted(df.format(x), df.format(y));
-    }
-
-    public double radius()
-    {
-        return Math.sqrt(x * x + y * y);
-    }
-
-    public Angle angle()
-    {
-        return Angle.fromRadians(Math.atan2(y, x));
     }
 }

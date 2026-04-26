@@ -1,13 +1,38 @@
 package com.github.refhumbold.algolib.geometry.dim2;
 
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 // Tests: Structure of vector in 2D.
 public class Vector2DTest
 {
     private static final Offset<Double> OFFSET = Offset.offset(1e-12);
+
+    @Test
+    public void coordinates_ThenArray()
+    {
+        // when
+        double[] result = Vector2D.of(150.123456789, -3700.987654321).coordinates();
+
+        // then
+        Assertions.assertThat(result).containsExactly(150.123456789, -3700.987654321);
+    }
+
+    @ParameterizedTest
+    @MethodSource("paramsFor_length")
+    public void length_ThenLengthOfVector()
+    {
+        // when
+        double result = Vector2D.of(8.0, -6.0).length();
+
+        // then
+        Assertions.assertThat(result).isCloseTo(10.0, OFFSET);
+    }
 
     @Test
     public void between_ThenVectorFromBeginToEnd()
@@ -17,16 +42,6 @@ public class Vector2DTest
 
         // then
         Assertions.assertThat(result).isEqualTo(Vector2D.of(-3.9, 5.4));
-    }
-
-    @Test
-    public void getCoordinates_ThenArray()
-    {
-        // when
-        double[] result = Vector2D.of(5.0, -19.0).getCoordinates();
-
-        // then
-        Assertions.assertThat(result).containsExactly(5.0, -19.0);
     }
 
     @Test
@@ -67,16 +82,6 @@ public class Vector2DTest
 
         // then
         Assertions.assertThat(result).isCloseTo(0.0, OFFSET);
-    }
-
-    @Test
-    public void length_ThenLengthOfVector()
-    {
-        // when
-        double result = Vector2D.of(8.0, -6.0).length();
-
-        // then
-        Assertions.assertThat(result).isCloseTo(10.0, OFFSET);
     }
 
     @Test
@@ -126,7 +131,7 @@ public class Vector2DTest
         Vector2D result = Vector2D.of(5.4, 9.0).multiply(0);
 
         // then
-        Assertions.assertThat(result).isEqualTo(Vector2D.of(0, 0));
+        Assertions.assertThat(result).isEqualTo(Vector2D.ZERO);
     }
 
     @Test
@@ -144,5 +149,28 @@ public class Vector2DTest
     {
         Assertions.assertThatThrownBy(() -> Vector2D.of(1.0, 1.0).divide(0))
                   .isInstanceOf(ArithmeticException.class);
+    }
+
+    @Test
+    public void toString_ThenStringRepresentation()
+    {
+        // when
+        String result = Vector2D.of(150.123456789, -3700.987654321).toString();
+
+        // then
+        Assertions.assertThat(result).isEqualTo("[150.123456789, -3700.987654321]");
+    }
+
+    private static Stream<Arguments> paramsFor_length()
+    {
+        return Stream.of(Arguments.of(Vector2D.ZERO, 0.0),
+                Arguments.of(Vector2D.of(14.0, 0.0), 14.0),
+                Arguments.of(Vector2D.of(-14.0, 0.0), 14.0),
+                Arguments.of(Vector2D.of(0.0, 14.0), 14.0),
+                Arguments.of(Vector2D.of(0.0, -14.0), 14.0),
+                Arguments.of(Vector2D.of(8.0, 6.0), 10.0),
+                Arguments.of(Vector2D.of(8.0, -6.0), 10.0),
+                Arguments.of(Vector2D.of(-8.0, 6.0), 10.0),
+                Arguments.of(Vector2D.of(-8.0, -6.0), 10.0));
     }
 }
