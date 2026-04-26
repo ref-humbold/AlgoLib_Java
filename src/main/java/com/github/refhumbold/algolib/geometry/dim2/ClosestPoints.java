@@ -24,12 +24,8 @@ public final class ClosestPoints
         if(points.isEmpty())
             throw new NoSuchElementException("Sequence contains no points");
 
-        List<Point2D> pointsX = new ArrayList<>(points);
-        List<Point2D> pointsY = new ArrayList<>(points);
-
-        Geometry2D.sortByY(pointsX);
-        Geometry2D.sortByX(pointsX);
-        Geometry2D.sortByY(pointsY);
+        List<Point2D> pointsY = Geometry2D.sortByY(points);
+        List<Point2D> pointsX = Geometry2D.sortByX(pointsY);
 
         return searchClosest(pointsX, pointsY, 0, pointsX.size());
     }

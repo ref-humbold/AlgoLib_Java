@@ -13,18 +13,17 @@ public class Geometry3DTest
     {
         // given
         List<Point3D> sequence =
-                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0),
-                        Point3D.of(-2.0, -3.0, 5.0), Point3D.of(2.0, -3.0, -5.0),
-                        Point3D.of(-2.0, -3.0, -5.0), Point3D.of(3.0, 2.0, 5.0),
-                        Point3D.of(-3.0, 2.0, 5.0));
+                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0), Point3D.of(-2.0, -3.0, 5.0),
+                        Point3D.of(2.0, -3.0, -5.0), Point3D.of(-2.0, -3.0, -5.0),
+                        Point3D.of(3.0, 2.0, 5.0), Point3D.of(-3.0, 2.0, 5.0));
         // when
-        Geometry3D.sortByX(sequence);
+        List<Point3D> result = Geometry3D.sortByX(sequence);
         // then
-        Assertions.assertThat(sequence)
+        Assertions.assertThat(result)
+                  .isNotSameAs(sequence)
                   .containsExactly(Point3D.of(-3.0, 2.0, 5.0), Point3D.of(-2.0, -3.0, 5.0),
-                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO,
-                          Point3D.of(2.0, 3.0, -5.0), Point3D.of(2.0, -3.0, -5.0),
-                          Point3D.of(3.0, 2.0, 5.0));
+                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0),
+                          Point3D.of(2.0, -3.0, -5.0), Point3D.of(3.0, 2.0, 5.0));
     }
 
     @Test
@@ -32,18 +31,17 @@ public class Geometry3DTest
     {
         // given
         List<Point3D> sequence =
-                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0),
-                        Point3D.of(-2.0, -3.0, 5.0), Point3D.of(2.0, -3.0, -5.0),
-                        Point3D.of(-2.0, -3.0, -5.0), Point3D.of(3.0, 2.0, 5.0),
-                        Point3D.of(-3.0, 2.0, 5.0));
+                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0), Point3D.of(-2.0, -3.0, 5.0),
+                        Point3D.of(2.0, -3.0, -5.0), Point3D.of(-2.0, -3.0, -5.0),
+                        Point3D.of(3.0, 2.0, 5.0), Point3D.of(-3.0, 2.0, 5.0));
         // when
-        Geometry3D.sortByY(sequence);
+        List<Point3D> result = Geometry3D.sortByY(sequence);
         // then
-        Assertions.assertThat(sequence)
+        Assertions.assertThat(result)
+                  .isNotSameAs(sequence)
                   .containsExactly(Point3D.of(-2.0, -3.0, 5.0), Point3D.of(2.0, -3.0, -5.0),
-                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO,
-                          Point3D.of(3.0, 2.0, 5.0), Point3D.of(-3.0, 2.0, 5.0),
-                          Point3D.of(2.0, 3.0, -5.0));
+                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO, Point3D.of(3.0, 2.0, 5.0),
+                          Point3D.of(-3.0, 2.0, 5.0), Point3D.of(2.0, 3.0, -5.0));
     }
 
     @Test
@@ -51,18 +49,17 @@ public class Geometry3DTest
     {
         // given
         List<Point3D> sequence =
-                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0),
-                        Point3D.of(-2.0, -3.0, 5.0), Point3D.of(2.0, -3.0, -5.0),
-                        Point3D.of(-2.0, -3.0, -5.0), Point3D.of(3.0, 2.0, 5.0),
-                        Point3D.of(-3.0, 2.0, 5.0));
+                Arrays.asList(Point3D.ZERO, Point3D.of(2.0, 3.0, -5.0), Point3D.of(-2.0, -3.0, 5.0),
+                        Point3D.of(2.0, -3.0, -5.0), Point3D.of(-2.0, -3.0, -5.0),
+                        Point3D.of(3.0, 2.0, 5.0), Point3D.of(-3.0, 2.0, 5.0));
         // when
-        Geometry3D.sortByZ(sequence);
+        List<Point3D> result = Geometry3D.sortByZ(sequence);
         // then
-        Assertions.assertThat(sequence)
+        Assertions.assertThat(result)
+                  .isNotSameAs(sequence)
                   .containsExactly(Point3D.of(2.0, 3.0, -5.0), Point3D.of(2.0, -3.0, -5.0),
-                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO,
-                          Point3D.of(-2.0, -3.0, 5.0), Point3D.of(3.0, 2.0, 5.0),
-                          Point3D.of(-3.0, 2.0, 5.0));
+                          Point3D.of(-2.0, -3.0, -5.0), Point3D.ZERO, Point3D.of(-2.0, -3.0, 5.0),
+                          Point3D.of(3.0, 2.0, 5.0), Point3D.of(-3.0, 2.0, 5.0));
     }
 
     @Test

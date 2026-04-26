@@ -18,10 +18,11 @@ public class Geometry2DTest
                         Point2D.of(3.0, 2.0), Point2D.of(2.0, -3.0), Point2D.of(-3.0, -2.0));
 
         // when
-        Geometry2D.sortByX(sequence);
+        List<Point2D> result = Geometry2D.sortByX(sequence);
 
         // then
-        Assertions.assertThat(sequence)
+        Assertions.assertThat(result)
+                  .isNotSameAs(sequence)
                   .containsExactly(Point2D.of(-3.0, 2.0), Point2D.of(-3.0, -2.0),
                           Point2D.of(-2.0, -3.0), Point2D.of(-2.0, 3.0), Point2D.ZERO,
                           Point2D.of(2.0, 3.0), Point2D.of(2.0, -3.0), Point2D.of(3.0, -2.0),
@@ -38,10 +39,11 @@ public class Geometry2DTest
                         Point2D.of(3.0, 2.0), Point2D.of(2.0, -3.0), Point2D.of(-3.0, -2.0));
 
         // when
-        Geometry2D.sortByY(sequence);
+        List<Point2D> result = Geometry2D.sortByY(sequence);
 
         // then
-        Assertions.assertThat(sequence)
+        Assertions.assertThat(result)
+                  .isNotSameAs(sequence)
                   .containsExactly(Point2D.of(-2.0, -3.0), Point2D.of(2.0, -3.0),
                           Point2D.of(3.0, -2.0), Point2D.of(-3.0, -2.0), Point2D.ZERO,
                           Point2D.of(-3.0, 2.0), Point2D.of(3.0, 2.0), Point2D.of(2.0, 3.0),
@@ -58,10 +60,11 @@ public class Geometry2DTest
                         Point2D.of(3.0, 2.0), Point2D.of(2.0, -3.0), Point2D.of(-3.0, -2.0));
 
         // when
-        Geometry2D.sortByAngle(sequence);
+        List<Point2D> result = Geometry2D.sortByAngle(sequence);
 
         // then
-        Assertions.assertThat(sequence)
+        Assertions.assertThat(result)
+                  .isNotSameAs(sequence)
                   .containsExactly(Point2D.ZERO, Point2D.of(3.0, 2.0), Point2D.of(2.0, 3.0),
                           Point2D.of(-2.0, 3.0), Point2D.of(-3.0, 2.0), Point2D.of(-3.0, -2.0),
                           Point2D.of(-2.0, -3.0), Point2D.of(2.0, -3.0), Point2D.of(3.0, -2.0));
@@ -76,10 +79,11 @@ public class Geometry2DTest
                         Point2D.of(-3.0, -3.0), Point2D.of(4.0, 4.0));
 
         // when
-        Geometry2D.sortByAngle(sequence);
+        List<Point2D> result = Geometry2D.sortByAngle(sequence);
 
         // then
-        Assertions.assertThat(sequence)
+        Assertions.assertThat(result)
+                  .isNotSameAs(sequence)
                   .containsExactly(Point2D.ZERO, Point2D.of(1.0, 1.0), Point2D.of(4.0, 4.0),
                           Point2D.of(-2.0, -2.0), Point2D.of(-3.0, -3.0));
     }
